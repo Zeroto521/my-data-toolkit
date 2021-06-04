@@ -2,7 +2,7 @@
 
 ...
 
-[![Build Status](https://travis-ci.com/Zeroto521/my-data-toolkit.svg?token=QsyzHs7fsxMnxCs5Thps&branch=master)](https://travis-ci.com/Zeroto521/my-data-toolkit) [![codecov](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/main/graph/badge.svg?token=ukBguscD8E)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
+[![Build Status](https://travis-ci.com/Zeroto521/my-data-toolkit.svg?token=QsyzHs7fsxMnxCs5Thps&branch=master)](https://travis-ci.com/Zeroto521/my-data-toolkit) [![codecov](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/master/graph/badge.svg?token=ukBguscD8E)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
 
 ## Dependencies
 
