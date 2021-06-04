@@ -1,11 +1,11 @@
 import pandas as pd
 
-from dtoolkit._typing import Pd
+from ._typing import Pd
 
 
 @pd.api.extensions.register_dataframe_accessor("col")
 @pd.api.extensions.register_series_accessor("col")
-class ColumnAccessor:
+class PandasColumnAccessor:
 
     def __init__(self, obj: Pd):
         self._obj = obj
