@@ -1,15 +1,15 @@
 from typing import Any, List
 
 import pandas as pd
+from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from ._typing import Pd
-from .decorator import doc
+from .accessor import PandasColumnAccessor
 
 
 @doc(TransformerMixin)
 class DummifierTF(TransformerMixin):
-
     def __init__(self, cols: List[str] = None):
         self.cols = cols
 
@@ -28,8 +28,7 @@ class DummifierTF(TransformerMixin):
 
 
 @doc(TransformerMixin)
-class SelectedTF(TransformerMixin):
-
+class SelectorTF(TransformerMixin):
     def __init__(self, cols: List[str] = None):
         self.cols = cols
 
