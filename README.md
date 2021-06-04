@@ -13,7 +13,5 @@
 Only support to build from source, at present.
 
 ```bash
-git clone https://github.com/Zeroto521/my-data-toolkit.git
-cd my-data-toolkit
-python setup.py install
+pip install git+https://github.com/Zeroto521/my-data-toolkit
 ```
