@@ -13,6 +13,7 @@ def doc(*docstrings: str | Callable, **params) -> Callable:
     If it should be consider as a template, it will be saved as a string.
     Otherwise, it will be saved as callable, and later user __doc__ and dedent
     to get docstring.
+
     Parameters
     ----------
     *docstrings : str or callable
