@@ -1,0 +1,20 @@
+sudo: false
+language: python
+python:
+    - 3.7
+    - 3.8
+    - 3.9
+
+before_install:
+    - sudo apt-get update
+
+install:
+    - pip install -r requirements.txt
+    - pip install -r requirements-dev.txt
+    - pip install git+https://github.com/Zeroto521/my-data-toolkit
+
+script:
+    - coverage run -m pytest
+
+after_success:
+    - codecov
