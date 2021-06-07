@@ -1,5 +1,5 @@
 import pandas as pd
-from dtoolkit.accessor import PandasColumnAccessor
+from dtoolkit.accessor import PandasColumnAccessor  # noqa
 
 
 def test_series_column():

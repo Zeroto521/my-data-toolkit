@@ -13,7 +13,11 @@ from shapely.ops import transform
 
 from ._typing import Num
 
-AZMED_STRING = "+proj=aeqd +lat_0={lat} +lon_0={lon} +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
+
+AZMED_STRING = (
+    "+proj=aeqd +lat_0={lat} +lon_0={lon} "
+    "+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
+)
 
 
 def geographic_buffer(
@@ -26,15 +30,15 @@ def geographic_buffer(
 ) -> gpd.GeoSeries:
     """
     Creates a buffer zone of specified size around or inside geometry.
-    Works similarly to the Bufferer,
-    but is designed for use with features in Geographic coordinates.
-    Reprojects input features into the DynamicEqual Distance projection,
-    buffers them, then reprojects back into the original Geographic coordinates.
+    Works similarly to the Bufferer, but is designed for use with
+    features in Geographic coordinates. Reprojects input features into
+    the DynamicEqual Distance projection, buffers them,
+    then reprojects back into the original Geographic coordinates.
 
     Returns a ``GeoSeries`` of geometries representing all points within
     a given ``distance`` of each geometric object.
 
-    See [shapely's buffer doc](http://shapely.readthedocs.io/en/latest/manual.html#object.buffer)
+    See http://shapely.readthedocs.io/en/latest/manual.html#object.buffer
     for details.
 
     Parameters
@@ -53,8 +57,9 @@ def geographic_buffer(
         :meth:`pyproj.CRS.from_user_input() <pyproj.crs.CRS.from_user_input>`,
         such as an authority string (eg "EPSG:4326") or a WKT string.
     epsg : int, optional
-        If `data.crs` is not None, the result would use the `data` crs.
-        If `data.crs` is None, the result would use the crs from `crs` or `epsg`.
+        If `data.crs` is not None, the result would use the `GeoSeries` crs.
+        If `data.crs` is None, the result would use
+        the crs from `crs` or `epsg`.
         If `crs` is specified EPSG code specifying output projection.
         If `data` crs is `None`, the result would use `EPSG:4326`
 
@@ -79,13 +84,17 @@ def geographic_buffer(
             gscrs = CRS.from_epsg(epsg)
         else:
             gscrs = CRS.from_epsg(4326)
-            warn("The GeoSeries crs is missing, the result crs would set 'EPSG:4326'.")
+            warn(
+                "The GeoSeries crs is missing, "
+                + "the result crs would set 'EPSG:4326'."
+            )
 
     out = np.empty(len(data), dtype=object)
     if isinstance(distance, np.ndarray):
         if len(distance) != len(data):
             raise IndexError(
-                "Length of distance sequence does not match length of the GeoSeries."
+                "Length of distance sequence does not"
+                + "match length of the GeoSeries."
             )
 
         out[:] = [
@@ -102,8 +111,12 @@ def geographic_buffer(
 
 
 def _geographic_buffer(
-    geom: BaseGeometry, crs: CRS, distance: Num, resolution: int = 16, **kwargs
-):
+    geom: BaseGeometry,
+    crs: CRS,
+    distance: Num,
+    resolution: int = 16,
+    **kwargs
+) -> Optional[BaseGeometry]:
     if not isinstance(distance, (int, float)):
         TypeError("The type of distance must be int or float")
 
