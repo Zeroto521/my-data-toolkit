@@ -5,7 +5,7 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from ._typing import Pd
-from .accessor import PandasColumnAccessor
+from .accessor import PandasColumnAccessor  # noqa
 
 
 @doc(TransformerMixin)
