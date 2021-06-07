@@ -111,11 +111,7 @@ def geographic_buffer(
 
 
 def _geographic_buffer(
-    geom: BaseGeometry,
-    crs: CRS,
-    distance: Num,
-    resolution: int = 16,
-    **kwargs
+    geom: BaseGeometry, crs: CRS, distance: Num, resolution: int = 16, **kwargs
 ) -> Optional[BaseGeometry]:
     if not isinstance(distance, (int, float)):
         TypeError("The type of distance must be int or float")
