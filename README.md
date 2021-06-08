@@ -8,6 +8,7 @@
 
 - Python (>= 3.7)
 - Pandas (>= 1.1.0)
+- GeoPandas
 - Scikit-learn
 
 ## User installation
