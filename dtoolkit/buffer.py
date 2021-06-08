@@ -64,12 +64,13 @@ def geographic_buffer(
         If `data` crs is `None`, the result would use `EPSG:4326`
     """
 
+    if isinstance(distance, pd.Series) and not data.index.equals(distance.index):
+        raise IndexError(
+            "Index values of distance sequence does "
+            "not match index values of the GeoSeries"
+        )
+
     if not isinstance(distance, (int, float)):
-        if isinstance(distance, pd.Series) and not data.index.equals(distance.index):
-            raise IndexError(
-                "Index values of distance sequence does "
-                "not match index values of the GeoSeries"
-            )
         distance = np.asarray(distance)
 
     gscrs: Optional[CRS] = data.crs
@@ -126,5 +127,6 @@ def _geographic_buffer(
     project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
     # TODO: extend to other geometry
-    buffer: BaseGeometry = Point(0, 0).buffer(distance, resolution=resolution, **kwargs)
+    p: BaseGeometry = Point(0, 0)
+    buffer: BaseGeometry = p.buffer(distance, resolution=resolution, **kwargs)
     return transform(project.transform, buffer)
