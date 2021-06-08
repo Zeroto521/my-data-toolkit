@@ -64,7 +64,9 @@ def geographic_buffer(
         If `data` crs is `None`, the result would use `EPSG:4326`
     """
 
-    if isinstance(distance, pd.Series) and not data.index.equals(distance.index):
+    if isinstance(distance, pd.Series) and not data.index.equals(
+        distance.index
+    ):
         raise IndexError(
             "Index values of distance sequence does "
             "not match index values of the GeoSeries"
