@@ -40,7 +40,7 @@ jobs:
           python setup.py check
           python setup.py install
 
-      - name: Test with pytest
+      - name: Test with Pytest
         run: |
           coverage run -m pytest
 
