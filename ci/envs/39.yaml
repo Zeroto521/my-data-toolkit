@@ -6,7 +6,7 @@ dependencies:
   - python=3.9
   # required
   - pandas
-  - geopandas
+  - geopandas=0.9.*
   - scikit-learn
   # testing
   - pytest
