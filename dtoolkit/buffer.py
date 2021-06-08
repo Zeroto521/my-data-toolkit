@@ -14,7 +14,7 @@ from shapely.ops import transform
 from ._typing import Num
 
 
-AZMED_STRING = (
+AZMED_STRING: str = (
     "+proj=aeqd +lat_0={lat} +lon_0={lon} "
     "+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
 )
@@ -22,7 +22,7 @@ AZMED_STRING = (
 
 def geographic_buffer(
     data: gpd.GeoSeries,
-    distance: Num | np.ndarray | pd.Series,
+    distance: Num | list[Num] | np.ndarray | pd.Series,
     resolution: int = 16,
     crs: Optional[CRS] = None,
     epsg: Optional[int] = None,
@@ -62,21 +62,17 @@ def geographic_buffer(
         the crs from `crs` or `epsg`.
         If `crs` is specified EPSG code specifying output projection.
         If `data` crs is `None`, the result would use `EPSG:4326`
-
-    Returns
-    -------
-    GeometryArray
     """
 
-    if isinstance(distance, pd.Series):
-        if not data.index.equals(distance.index):
+    if not isinstance(distance, (int, float)):
+        if isinstance(distance, pd.Series) and not data.index.equals(distance.index):
             raise IndexError(
                 "Index values of distance sequence does "
                 "not match index values of the GeoSeries"
             )
         distance = np.asarray(distance)
 
-    gscrs = data.crs
+    gscrs: Optional[CRS] = data.crs
     if gscrs is None:
         if crs is not None:
             gscrs = CRS.from_user_input(crs)
@@ -89,7 +85,7 @@ def geographic_buffer(
                 + "the result crs would set 'EPSG:4326'."
             )
 
-    out = np.empty(len(data), dtype=object)
+    out: np.ndarray = np.empty(len(data), dtype=object)
     if isinstance(distance, np.ndarray):
         if len(distance) != len(data):
             raise IndexError(
@@ -111,7 +107,11 @@ def geographic_buffer(
 
 
 def _geographic_buffer(
-    geom: BaseGeometry, crs: CRS, distance: Num, resolution: int = 16, **kwargs
+    geom: Optional[BaseGeometry],
+    crs: CRS,
+    distance: Num,
+    resolution: int = 16,
+    **kwargs,
 ) -> Optional[BaseGeometry]:
     if not isinstance(distance, (int, float)):
         TypeError("The type of distance must be int or float")
@@ -122,9 +122,9 @@ def _geographic_buffer(
     if geom is None:
         return None
 
-    azmed = Proj(AZMED_STRING.format(lon=geom.x, lat=geom.y))
-    project = Transformer.from_proj(azmed, crs, always_xy=True)
+    azmed: Proj = Proj(AZMED_STRING.format(lon=geom.x, lat=geom.y))
+    project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
     # TODO: extend to other geometry
-    buffer = Point(0, 0).buffer(distance, resolution=resolution, **kwargs)
+    buffer: BaseGeometry = Point(0, 0).buffer(distance, resolution=resolution, **kwargs)
     return transform(project.transform, buffer)
