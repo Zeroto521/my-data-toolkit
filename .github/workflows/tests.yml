@@ -37,7 +37,7 @@ jobs:
 
       - name: Install dtoolkit
         run: |
-          python setup.py checkout
+          python setup.py check
           python setup.py install
 
       - name: Test with pytest
