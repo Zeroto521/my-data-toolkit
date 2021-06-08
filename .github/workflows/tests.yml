@@ -31,10 +31,13 @@ jobs:
         include:
           - env: ci/envs/37.yaml
             os: windows-latest
+            dev: false
           - env: ci/envs/38.yaml
             os: windows-latest
+            dev: false
           - env: ci/envs/39.yaml
             os: windows-latest
+            dev: false
     steps:
       - uses: actions/checkout@v2
 
@@ -47,11 +50,12 @@ jobs:
         shell: bash
         run: conda env create -f ${{ matrix.env }}
 
-      - name: Install dtoolkit
+      - name: Check and Log Environment
         shell: bash
         run: |
-          python setup.py check
-          python setup.py install
+          source activate test
+          python -V
+          conda info
 
       - name: Test with Pytest
         shell: bash
