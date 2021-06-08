@@ -27,7 +27,7 @@ def geographic_buffer(
     crs: Optional[CRS] = None,
     epsg: Optional[int] = None,
     **kwargs,
-) -> gpd.GeoSeries:
+) -> gpd.GeoSeries:  # sourcery skip: merge-nested-ifs
     """
     Creates a buffer zone of specified size around or inside geometry.
     Works similarly to the Bufferer, but is designed for use with
@@ -64,13 +64,12 @@ def geographic_buffer(
         If `data` crs is `None`, the result would use `EPSG:4326`
     """
 
-    if isinstance(distance, pd.Series) and not data.index.equals(
-        distance.index
-    ):
-        raise IndexError(
-            "Index values of distance sequence does "
-            "not match index values of the GeoSeries"
-        )
+    if isinstance(distance, pd.Series):
+        if not data.index.equals(distance.index):
+            raise IndexError(
+                "Index values of distance sequence does "
+                "not match index values of the GeoSeries"
+            )
 
     if not isinstance(distance, (int, float)):
         distance = np.asarray(distance)
