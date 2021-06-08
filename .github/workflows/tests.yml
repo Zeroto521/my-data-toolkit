@@ -1,4 +1,4 @@
-name: Tests
+name: Tests Pipeline
 
 on:
   push:
@@ -19,8 +19,30 @@ jobs:
   Test:
     needs: Linting
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
     steps:
       - uses: actions/checkout@v2
-      - name: run .travis.yml
-        uses: ktomk/run-travis-yml@v1.7.0
-      - uses: codecov/codecov-action@v1
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Install dtoolkit
+        run: |
+          python setup.py check
+          python setup.py install
+
+      - name: Test with Pytest
+        run: |
+          coverage run -m pytest
+
+      - name: Code Coverage
+        uses: codecov/codecov-action@v1
