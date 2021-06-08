@@ -18,7 +18,7 @@ jobs:
 
   Test:
     needs: Linting
-    name: Test at ${{ matrix.os }} with Py${{ matrix.env }}
+    name: ${{ matrix.os }}, ${{ matrix.env }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
