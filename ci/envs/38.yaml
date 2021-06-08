@@ -1,0 +1,16 @@
+name: test
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  # required
+  - pandas
+  - geopandas=0.9.*
+  - scikit-learn
+  # testing
+  - pytest
+  - codecov
+  - pip:
+      # testing
+      - coverage
