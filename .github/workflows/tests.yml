@@ -50,7 +50,9 @@ jobs:
 
       - name: Test with Pytest
         shell: bash
-        run: coverage run -m pytest
+        run: |
+          source activate test
+          coverage run -m pytest
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
