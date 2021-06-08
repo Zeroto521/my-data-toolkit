@@ -18,17 +18,28 @@ jobs:
 
   Test:
     needs: Linting
+    name: Test at ${{ matrix.os }} with Py${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest]
+        dev: [false]
         python-version: [3.7, 3.8, 3.9]
+        include:
+          - os: macos-latest
+            dev: false
+          - os: windows-latest
+            dev: false
+          - os: ubuntu-latest
+            dev: true
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python: ${{ matrix.python-version }}
+          os: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
 
       - name: Install Dependencies
         run: |
