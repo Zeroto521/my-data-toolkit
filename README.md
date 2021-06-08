@@ -1,8 +1,8 @@
-# My Data Toolkit
+# My Data Toolkit: DToolKit
 
 ...
 
-[![Build Status](https://travis-ci.com/Zeroto521/my-data-toolkit.svg?token=QsyzHs7fsxMnxCs5Thps&branch=master)](https://travis-ci.com/Zeroto521/my-data-toolkit) [![codecov](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/master/graph/badge.svg?token=ukBguscD8E)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
+[![Actions Status](https://github.com/Zeroto521/my-data-toolkit/workflows/Tests/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions?query=workflow%3ATests) [![Coverage Status](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/master/graph/badge.svg)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
 
 ## Dependencies
 
