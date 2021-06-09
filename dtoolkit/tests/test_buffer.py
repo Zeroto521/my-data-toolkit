@@ -47,9 +47,10 @@ class TestDealingOneGeometry:
             distances = np.asarray([self.distance])
             buffer._geographic_buffer(self.p, distances, self.crs)
 
-    def test_distance_less_then_zero(self):
+    @pytest.mark.parametrize("distance", [0, -1000])
+    def test_distance_less_then_zero(self, distance):
         with pytest.raises(ValueError):
-            buffer._geographic_buffer(self.p, -1000, crs=self.crs)
+            buffer._geographic_buffer(self.p, distance, crs=self.crs)
 
 
 class TestDealingMultipleGeometry:
@@ -58,7 +59,8 @@ class TestDealingMultipleGeometry:
         self.crs = CRS.from_user_input("epsg:4326")
 
     @pytest.mark.parametrize(
-        "distance", [1000, distances, np.asarray(distances), pd.Series(distances)]
+        "distance",
+        [1000, distances, np.asarray(distances), pd.Series(distances)]
     )
     def test_distance_work(self, distance):
         buffer.geographic_buffer(self.s, distance)
