@@ -9,7 +9,7 @@ from shapely import wkt
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
 my_points = [wkt.loads(i) for i in my_wkts]
-distances = list(range(1, 1000, 499))
+distances = np.asarray(range(1, 1000, 499))
 
 
 @pytest.mark.parametrize("crs", [None, "epsg:4326"])
@@ -44,8 +44,7 @@ class TestDealingOneGeometry:
 
     def test_distance_type_is_not_num_type(self):
         with pytest.raises(TypeError):
-            distances = np.asarray([self.distance])
-            buffer._geographic_buffer(self.p, distances, self.crs)
+            buffer._geographic_buffer(self.p, str(self.distance), self.crs)
 
     @pytest.mark.parametrize("distance", [0, -1000])
     def test_distance_less_then_zero(self, distance):
@@ -59,8 +58,7 @@ class TestDealingMultipleGeometry:
         self.crs = CRS.from_user_input("epsg:4326")
 
     @pytest.mark.parametrize(
-        "distance",
-        [1000, distances, np.asarray(distances), pd.Series(distances)]
+        "distance", [1000, list(distances), distances, pd.Series(distances)]
     )
     def test_distance_work(self, distance):
         buffer.geographic_buffer(self.s, distance)
