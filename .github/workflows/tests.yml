@@ -53,5 +53,12 @@ jobs:
           source activate test
           coverage run -m pytest
 
+      - name: Build Test
+        shell: bash
+        run: |
+          source activate test
+          python setup.py check
+          python setup.py install
+
       - name: Code Coverage
         uses: codecov/codecov-action@v1
