@@ -1,9 +1,9 @@
+import dtoolkit.buffer as buffer
 import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pandas._testing as tm
 import pytest
-from dtoolkit.buffer import _geographic_buffer, geographic_buffer, string_or_int_to_crs
 from pyproj import CRS
 from shapely import wkt
 
@@ -15,12 +15,12 @@ distances = list(range(1, 1000, 499))
 @pytest.mark.parametrize("crs", [None, "epsg:4326"])
 @pytest.mark.parametrize("epsg", [None, 4326])
 def test_to_crs_work(crs, epsg):
-    string_or_int_to_crs(crs, epsg)
+    buffer.string_or_int_to_crs(crs, epsg)
 
 
 def test_to_crs_missing():
     with tm.assert_produces_warning(UserWarning) as w:
-        string_or_int_to_crs()
+        buffer.string_or_int_to_crs()
 
     msg = str(w[0].message)
     assert "missing" in msg
@@ -36,18 +36,20 @@ class TestDealingOneGeometry:
     @pytest.mark.parametrize("geom", my_points)
     @pytest.mark.parametrize("distance", distances)
     def test_work(self, geom, distance):
-        _geographic_buffer(geom, distance, self.crs)
+        buffer._geographic_buffer(geom, distance, self.crs)
 
     def test_geometry_is_none(self):
-        assert _geographic_buffer(None, self.distance, self.crs) is None
+        res = buffer._geographic_buffer(None, self.distance, self.crs)
+        assert res is None
 
     def test_distance_type_is_not_num_type(self):
         with pytest.raises(TypeError):
-            _geographic_buffer(self.p, np.asarray([self.distance]), self.crs)
+            distances = np.asarray([self.distance])
+            buffer._geographic_buffer(self.p, distances, self.crs)
 
     def test_distance_less_then_zero(self):
         with pytest.raises(ValueError):
-            _geographic_buffer(self.p, -1000, crs=self.crs)
+            buffer._geographic_buffer(self.p, -1000, crs=self.crs)
 
 
 class TestDealingMultipleGeometry:
@@ -59,17 +61,17 @@ class TestDealingMultipleGeometry:
         "distance", [1000, distances, np.asarray(distances), pd.Series(distances)]
     )
     def test_distance_work(self, distance):
-        geographic_buffer(self.s, distance)
+        buffer.geographic_buffer(self.s, distance)
 
     def test_distance_is_pd_series(self):
         df_distance = pd.Series(range(1, 1000, 499))
-        geographic_buffer(self.s, df_distance)
+        buffer.geographic_buffer(self.s, df_distance)
 
     def test_distance_index_is_different_to_data(self):
         df_distance = pd.Series(range(1, 1000, 499), index=["a", "b", "c"])
         with pytest.raises(IndexError):
-            geographic_buffer(self.s, df_distance)
+            buffer.geographic_buffer(self.s, df_distance)
 
     def test_distance_length_is_different_to_data(self):
         with pytest.raises(IndexError):
-            geographic_buffer(self.s, [1, 1000])
+            buffer.geographic_buffer(self.s, [1, 1000])
