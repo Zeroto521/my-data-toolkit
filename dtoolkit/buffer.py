@@ -11,8 +11,7 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from ._typing import Num
-
+from ._typing import Num, NumericTypeList
 
 AZMED_STRING: str = (
     "+proj=aeqd +lat_0={lat} +lon_0={lon} "
@@ -24,10 +23,10 @@ def geographic_buffer(
     data: gpd.GeoSeries,
     distance: Num | list[Num] | np.ndarray | pd.Series,
     resolution: int = 16,
-    crs: Optional[CRS] = None,
+    crs: Optional[str] = None,
     epsg: Optional[int] = None,
     **kwargs,
-) -> gpd.GeoSeries:  # sourcery skip: merge-nested-ifs
+) -> gpd.GeoSeries:
     """
     Creates a buffer zone of specified size around or inside geometry.
     Works similarly to the Bufferer, but is designed for use with
@@ -52,7 +51,7 @@ def geographic_buffer(
         then it must have same length as the GeoSeries.
     resolution : int, optional, default 16
         The resolution of the buffer around each vertex.
-    crs : pyproj.CRS, optional
+    crs : str, optional
         if `epsg` is specified The value can be anything accepted by
         :meth:`pyproj.CRS.from_user_input() <pyproj.crs.CRS.from_user_input>`,
         such as an authority string (eg "EPSG:4326") or a WKT string.
@@ -64,28 +63,17 @@ def geographic_buffer(
         If `data` crs is `None`, the result would use `EPSG:4326`
     """
 
-    if isinstance(distance, pd.Series):
+    if isinstance(distance, pd.Series):  # sourcery skip
         if not data.index.equals(distance.index):
             raise IndexError(
                 "Index values of distance sequence does "
                 "not match index values of the GeoSeries"
             )
 
-    if not isinstance(distance, (int, float)):
+    if not isinstance(distance, tuple(NumericTypeList)):
         distance = np.asarray(distance)
 
-    gscrs: Optional[CRS] = data.crs
-    if gscrs is None:
-        if crs is not None:
-            gscrs = CRS.from_user_input(crs)
-        elif epsg is not None:
-            gscrs = CRS.from_epsg(epsg)
-        else:
-            gscrs = CRS.from_epsg(4326)
-            warn(
-                "The GeoSeries crs is missing, "
-                + "the result crs would set 'EPSG:4326'."
-            )
+    gscrs: CRS = data.crs or string_or_int_to_crs(crs, epsg)
 
     out: np.ndarray = np.empty(len(data), dtype=object)
     if isinstance(distance, np.ndarray):
@@ -96,33 +84,56 @@ def geographic_buffer(
             )
 
         out[:] = [
-            _geographic_buffer(geom, gscrs, dist, resolution, **kwargs)
+            _geographic_buffer(
+                geom, distance=dist, crs=gscrs, resolution=resolution, **kwargs
+            )
             for geom, dist in zip(data, distance)
         ]
     else:
         out[:] = [
-            _geographic_buffer(geom, gscrs, distance, resolution, **kwargs)
+            _geographic_buffer(
+                geom, distance, crs=gscrs, resolution=resolution, **kwargs
+            )
             for geom in data
         ]
 
     return gpd.GeoSeries(out, crs=gscrs)
 
 
+def string_or_int_to_crs(
+    crs: Optional[str] = None,
+    epsg: Optional[int] = None,
+) -> CRS:
+    if crs is not None:
+        return CRS.from_user_input(crs)
+    elif epsg is not None:
+        return CRS.from_epsg(epsg)
+    else:
+        warn(
+            "The crs is missing, and the crs would be set 'EPSG:4326'.",
+            UserWarning,
+        )
+        return CRS.from_epsg(4326)
+
+
 def _geographic_buffer(
     geom: Optional[BaseGeometry],
-    crs: CRS,
     distance: Num,
+    crs: Optional[CRS] = None,
     resolution: int = 16,
     **kwargs,
 ) -> Optional[BaseGeometry]:
-    if not isinstance(distance, (int, float)):
-        TypeError("The type of distance must be int or float")
-
-    if distance <= 0:
-        ValueError("The distance must be greater than 0")
 
     if geom is None:
         return None
+
+    if not isinstance(distance, tuple(NumericTypeList)):
+        raise TypeError("The type of distance must be int or float.")
+
+    if distance <= 0:
+        raise ValueError("The distance must be greater than 0.")
+
+    crs = crs or string_or_int_to_crs()
 
     azmed: Proj = Proj(AZMED_STRING.format(lon=geom.x, lat=geom.y))
     project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
