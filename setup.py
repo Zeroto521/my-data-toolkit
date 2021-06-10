@@ -78,7 +78,7 @@ setup(
     long_description_content_type="text/markdown",
     platforms=PLATFORMS,
     classifiers=CLASSIFIERS,
-    packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
+    packages=find_packages(),
     py_modules=[NAME],
     download_url=DOWNLOAD_URL,
     install_requires=REQUIRES,
