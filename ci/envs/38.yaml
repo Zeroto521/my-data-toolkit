@@ -10,7 +10,6 @@ dependencies:
   - scikit-learn
   # testing
   - pytest
+  - pytest-cov
+  - pytest-xdist
   - codecov
-  - pip:
-      # testing
-      - coverage
