@@ -21,6 +21,9 @@ jobs:
     needs: Linting
     name: ${{ matrix.os }}, ${{ matrix.env }}
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -28,6 +31,7 @@ jobs:
         env:
           - ci/envs/37.yaml
           - ci/envs/38.yaml
+
     steps:
       - uses: actions/checkout@v2
 
@@ -37,11 +41,9 @@ jobs:
           activate-conda: false
 
       - name: Install Env
-        shell: bash
         run: conda env create -f ${{ matrix.env }}
 
       - name: Check and Log Environment
-        shell: bash
         run: |
           source activate test
           python -V
@@ -49,10 +51,11 @@ jobs:
           conda list
 
       - name: Test with Pytest
-        shell: bash
         run: |
+          ls -la
           source activate test
           coverage run -m pytest
+          ls -la
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
