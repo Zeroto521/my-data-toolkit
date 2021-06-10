@@ -23,5 +23,6 @@ test:
 	pytest -v -r s -n auto --color=yes --cov --cov-append --cov-report term-missing --cov-report xml
 
 dist: clean
-	python setup.py sdist bdist_wheel
+	python setup.py sdist
+	python setup.py bdist_wheel
 	ls -l dist
