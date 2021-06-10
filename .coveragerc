@@ -1,4 +1,5 @@
 [run]
+source = dtoolkit
 branch = True
 
 [report]

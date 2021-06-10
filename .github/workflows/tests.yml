@@ -52,10 +52,8 @@ jobs:
 
       - name: Test with Pytest
         run: |
-          ls -la
           source activate test
-          coverage run -m pytest
-          ls -la
+          pytest -v -r s -n auto --color=yes --cov --cov-append --cov-report term-missing --cov-report xml
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
