@@ -31,6 +31,10 @@ jobs:
         env:
           - ci/envs/37.yaml
           - ci/envs/38.yaml
+        include:
+          - env: ci/envs/38-dev.yaml
+            os: ubuntu-latest
+            dev: true
 
     steps:
       - uses: actions/checkout@v2
