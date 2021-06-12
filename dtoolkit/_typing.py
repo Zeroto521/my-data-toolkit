@@ -11,6 +11,7 @@ from numpy import (
     int16,
     int32,
     int64,
+    ndarray,
     uint8,
     uint16,
     uint32,
@@ -41,6 +42,9 @@ Num = TypeVar("Num", bound=NumericType)
 
 PandasType = Union[Series, DataFrame]
 Pd = TypeVar("Pd", bound=PandasType)
+
+ListType = Union[PandasType, list, ndarray]
+L = TypeVar("L", bound=ListType)
 
 GeoPandasType = Union[GeoSeries, GeoDataFrame]
 GPd = TypeVar("GPd", bound=GeoPandasType)
