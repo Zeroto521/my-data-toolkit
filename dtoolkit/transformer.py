@@ -10,12 +10,14 @@ from ._typing import L, Pd
 from .accessor import PandasColumnAccessor  # noqa
 
 
-class DummifierTF(TransformerMixin):
+class TransformerBase(TransformerMixin):
+    def fit(self):
+        return self
+
+
+class DummifierTF(TransformerBase):
     def __init__(self, cols: List[str] = None):
         self.cols = cols
-
-    def fit(self, *_):
-        return self
 
     @doc(pd.get_dummies)
     def transform(self, X: Pd, **params) -> pd.DataFrame:
@@ -31,12 +33,9 @@ class DummifierTF(TransformerMixin):
         return self.transform(X)
 
 
-class SelectorTF(TransformerMixin):
+class SelectorTF(TransformerBase):
     def __init__(self, cols: List[str] = None):
         self.cols = cols
-
-    def fit(self, *_):
-        return self
 
     def transform(self, X: Pd) -> Pd:
         return X[self.cols] if self.cols else X
