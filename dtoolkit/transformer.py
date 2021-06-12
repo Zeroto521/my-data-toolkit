@@ -18,11 +18,14 @@ class DummifierTF(TransformerMixin):
         return self
 
     @doc(pd.get_dummies)
-    def transform(self, X: Pd, **params):
+    def transform(self, X: Pd, **params) -> pd.DataFrame:
+        columns = X.col.columns
+
         if self.cols:
-            return pd.get_dummies(X[self.cols], columns=self.cols, **params)
-        else:
-            return pd.get_dummies(X, columns=X.col.columns, **params)
+            X = X[self.cols]
+            columns = self.cols
+
+        return pd.get_dummies(X, columns=columns, **params)
 
     def fit_transform(self, X: Pd, *_) -> pd.DataFrame:
         return self.transform(X)
