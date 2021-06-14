@@ -29,3 +29,8 @@ def test_inverse_transform(X, cols):
         assert all(X == tf.inverse_transform(X))
     else:
         assert X == tf.inverse_transform(X)
+
+
+def test_data_is_not_dataframe():
+    with pytest.raises(TypeError):
+        SelectorTF().transform(iris.data)
