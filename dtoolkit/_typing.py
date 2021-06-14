@@ -40,7 +40,8 @@ NumericTypeList = NumericBaseList + NumericNumpyList
 NumericType = Union[tuple(NumericTypeList)]
 Num = TypeVar("Num", bound=NumericType)
 
-PandasType = Union[Series, DataFrame]
+PandasTypeList = [Series, DataFrame]
+PandasType = Union[tuple(PandasTypeList)]
 Pd = TypeVar("Pd", bound=PandasType)
 
 ListType = Union[PandasType, list, ndarray]
