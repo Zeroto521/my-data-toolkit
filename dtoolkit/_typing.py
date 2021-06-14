@@ -11,7 +11,6 @@ from numpy import (
     int16,
     int32,
     int64,
-    ndarray,
     uint8,
     uint16,
     uint32,
