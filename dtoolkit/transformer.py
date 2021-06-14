@@ -6,7 +6,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from ._typing import L, Pd
+from ._typing import Pd
 from .accessor import PandasColumnAccessor  # noqa
 
 
@@ -36,11 +36,14 @@ class SelectorTF(TransformerBase):
     def __init__(self, cols: List[str] = None):
         self.cols = cols
 
-    def transform(self, X: Pd) -> Pd:
+    def transform(self, X: pd.DataFrame) -> Pd:
+        if not isinstance(X, pd.DataFrame):
+            raise TypeError("The input variable is not a 'DataFrame' type.")
+
         return X[self.cols] if self.cols else X
 
-    def fit_transform(self, X: Pd, *_) -> Pd:
+    def fit_transform(self, X: pd.DataFrame, *_) -> Pd:
         return self.transform(X)
 
-    def inverse_transform(self, X: L, *_) -> L:
+    def inverse_transform(self, X: pd.DataFrame, *_) -> Pd:
         return X
