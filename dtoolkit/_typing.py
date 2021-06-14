@@ -44,8 +44,5 @@ PandasTypeList = [Series, DataFrame]
 PandasType = Union[tuple(PandasTypeList)]
 Pd = TypeVar("Pd", bound=PandasType)
 
-ListType = Union[PandasType, list, ndarray]
-L = TypeVar("L", bound=ListType)
-
 GeoPandasType = Union[GeoSeries, GeoDataFrame]
 GPd = TypeVar("GPd", bound=GeoPandasType)
