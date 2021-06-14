@@ -21,11 +21,10 @@ class DummifierTF(TransformerBase):
 
     @doc(pd.get_dummies)
     def transform(self, X: Pd, **params) -> pd.DataFrame:
-        columns = X.cols()
+        columns = self.cols or X.cols()
 
         if self.cols:
             X = X[self.cols]
-            columns = self.cols
 
         return pd.get_dummies(X, columns=columns, **params)
 
