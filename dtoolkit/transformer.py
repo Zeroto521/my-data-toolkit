@@ -5,7 +5,7 @@ from typing import List
 import pandas as pd
 from sklearn.base import TransformerMixin
 
-from ._typing import Pd
+from ._typing import Pd, var_bad_type_raise_error
 
 
 class TransformerBase(TransformerMixin):
@@ -18,8 +18,9 @@ class SelectorTF(TransformerBase):
         self.cols = cols
 
     def transform(self, X: pd.DataFrame) -> Pd:
-        if not isinstance(X, pd.DataFrame):
-            raise TypeError("The input variable is not a 'DataFrame' type.")
+        var_bad_type_raise_error(
+            X, pd.DataFrame, TypeError, "The input variable is not a 'DataFrame' type."
+        )
 
         return X[self.cols] if self.cols else X
 

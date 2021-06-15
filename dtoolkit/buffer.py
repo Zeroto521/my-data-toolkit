@@ -13,7 +13,7 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from ._typing import Num, NumericTypeList
+from ._typing import Num, NumericTypeList, var_bad_type_raise_error
 
 
 def geographic_buffer(
@@ -124,8 +124,12 @@ def _geographic_buffer(
     if geom is None:
         return None
 
-    if not isinstance(distance, tuple(NumericTypeList)):
-        raise TypeError("The type of distance must be int or float.")
+    var_bad_type_raise_error(
+        distance,
+        NumericTypeList,
+        TypeError,
+        "The type of distance must be int or float.",
+    )
 
     if distance <= 0:
         raise ValueError("The distance must be greater than 0.")
