@@ -19,7 +19,7 @@ class SelectorTF(TransformerBase):
 
     def transform(self, X: pd.DataFrame) -> Pd:
         bad_condition_raise_error(
-            isinstance(X, pd.DataFrame),
+            not isinstance(X, pd.DataFrame),
             TypeError,
             "The input is not a 'DataFrame' type.",
         )
