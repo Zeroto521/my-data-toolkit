@@ -13,7 +13,7 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from ._typing import Num, NumericTypeList, var_bad_type_raise_error
+from ._typing import Num, NumericTypeList, bad_condition_raise_error, istype
 
 
 def geographic_buffer(
@@ -60,25 +60,26 @@ def geographic_buffer(
         If `data` crs is `None`, the result would use `EPSG:4326`
     """
 
-    if isinstance(distance, pd.Series):  # sourcery skip
-        if not data.index.equals(distance.index):
-            raise IndexError(
-                "Index values of distance sequence does "
-                "not match index values of the GeoSeries"
-            )
+    if istype(distance, pd.Series):
+        bad_condition_raise_error(
+            not data.index.equals(distance.index),
+            IndexError,
+            "Index values of distance sequence does "
+            "not match index values of the GeoSeries",
+        )
 
-    if not isinstance(distance, tuple(NumericTypeList)):
+    if not istype(distance, NumericTypeList):
         distance = np.asarray(distance)
 
     gscrs: CRS = data.crs or string_or_int_to_crs(crs, epsg)
 
     out: np.ndarray = np.empty(len(data), dtype=object)
-    if isinstance(distance, np.ndarray):
-        if len(distance) != len(data):
-            raise IndexError(
-                "Length of distance sequence does not"
-                + "match length of the GeoSeries."
-            )
+    if istype(distance, np.ndarray):
+        bad_condition_raise_error(
+            len(distance) != len(data),
+            IndexError,
+            "Length of distance doesn't match length of the GeoSeries.",
+        )
 
         out[:] = [
             _geographic_buffer(
@@ -124,15 +125,15 @@ def _geographic_buffer(
     if geom is None:
         return None
 
-    var_bad_type_raise_error(
-        distance,
-        NumericTypeList,
+    bad_condition_raise_error(
+        not istype(distance, NumericTypeList),
         TypeError,
         "The type of distance must be int or float.",
     )
 
-    if distance <= 0:
-        raise ValueError("The distance must be greater than 0.")
+    bad_condition_raise_error(
+        distance <= 0, ValueError, "The distance must be greater than 0."
+    )
 
     crs = crs or string_or_int_to_crs()
 
