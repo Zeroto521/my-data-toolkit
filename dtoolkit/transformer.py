@@ -19,7 +19,7 @@ class SelectorTF(TransformerBase):
 
     def transform(self, X: pd.DataFrame) -> Pd:
         var_bad_type_raise_error(
-            X, pd.DataFrame, TypeError, "The input variable is not a 'DataFrame' type."
+            X, pd.DataFrame, TypeError, "The input is not a 'DataFrame' type."
         )
 
         return X[self.cols] if self.cols else X
