@@ -6,17 +6,14 @@ from warnings import warn
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pyproj import CRS, Proj, Transformer
+from pyproj import CRS, Transformer
+from pyproj.crs import ProjectedCRS
+from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
 from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
 from ._typing import Num, NumericTypeList
-
-AZMED_STRING: str = (
-    "+proj=aeqd +lat_0={lat} +lon_0={lon} "
-    "+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs"
-)
 
 
 def geographic_buffer(
@@ -135,7 +132,7 @@ def _geographic_buffer(
 
     crs = crs or string_or_int_to_crs()
 
-    azmed: Proj = Proj(AZMED_STRING.format(lon=geom.x, lat=geom.y))
+    azmed = ProjectedCRS(AzumuthalEquidistantConversion(geom.y, geom.x))
     project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
     # TODO: extend to other geometry
