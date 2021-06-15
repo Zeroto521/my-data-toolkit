@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, TypeVar, Union
+from typing import TypeVar, Union
 
 from geopandas import GeoDataFrame, GeoSeries
 from numpy import (
