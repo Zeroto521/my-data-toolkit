@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TypeVar, Union
+from typing import Any, TypeVar, Union
 
 from geopandas import GeoDataFrame, GeoSeries
 from numpy import (
@@ -45,3 +45,13 @@ Pd = TypeVar("Pd", bound=PandasType)
 
 GeoPandasType = Union[GeoSeries, GeoDataFrame]
 GPd = TypeVar("GPd", bound=GeoPandasType)
+
+
+def var_bad_type_raise_error(
+    var: Any,
+    types: list[object] | tuple[object],
+    error: BaseException,
+    message: str,
+):
+    if not isinstance(var, tuple(types)):
+        raise error(message)
