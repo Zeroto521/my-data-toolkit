@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 from sklearn.base import TransformerMixin
 
-from ._typing import Pd
+from ._typing import Pd, bad_condition_raise_error
 
 
 class TransformerBase(TransformerMixin):
@@ -16,8 +16,11 @@ class SelectorTF(TransformerBase):
         self.cols = cols
 
     def transform(self, X: pd.DataFrame) -> Pd:
-        if not isinstance(X, pd.DataFrame):
-            raise TypeError("The input variable is not a 'DataFrame' type.")
+        bad_condition_raise_error(
+            not isinstance(X, pd.DataFrame),
+            TypeError,
+            "The input is not a 'DataFrame' type.",
+        )
 
         return X[self.cols] if self.cols else X
 
