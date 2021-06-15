@@ -45,3 +45,15 @@ Pd = TypeVar("Pd", bound=PandasType)
 
 GeoPandasType = Union[GeoSeries, GeoDataFrame]
 GPd = TypeVar("GPd", bound=GeoPandasType)
+
+
+def istype(var: object, types: type | list[type] | tuple[type]) -> bool:
+    if isinstance(types, list):
+        types = tuple(types)
+
+    return isinstance(var, types)
+
+
+def bad_condition_raise_error(condition: bool, error: BaseException, msg: str):
+    if condition:
+        raise error(msg)
