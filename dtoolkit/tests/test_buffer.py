@@ -6,6 +6,7 @@ import pandas._testing as tm
 import pytest
 from pyproj import CRS
 from shapely import wkt
+from shapely.geometry.base import BaseGeometry
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
 my_points = [wkt.loads(i) for i in my_wkts]
@@ -15,7 +16,8 @@ distances = np.asarray(range(1, 1000, 499))
 @pytest.mark.parametrize("crs", [None, "epsg:4326"])
 @pytest.mark.parametrize("epsg", [None, 4326])
 def test_to_crs_work(crs, epsg):
-    buffer.string_or_int_to_crs(crs, epsg)
+    c = buffer.string_or_int_to_crs(crs, epsg)
+    assert isinstance(c, CRS)
 
 
 def test_to_crs_missing():
@@ -36,7 +38,8 @@ class TestDealingOneGeometry:
     @pytest.mark.parametrize("geom", my_points)
     @pytest.mark.parametrize("distance", distances)
     def test_work(self, geom, distance):
-        buffer._geographic_buffer(geom, distance, self.crs)
+        b = buffer._geographic_buffer(geom, distance, self.crs)
+        assert isinstance(b, BaseGeometry)
 
     def test_geometry_is_none(self):
         res = buffer._geographic_buffer(None, self.distance, self.crs)
@@ -61,7 +64,8 @@ class TestDealingMultipleGeometry:
         "distance", [1000, list(distances), distances, pd.Series(distances)]
     )
     def test_distance_work(self, distance):
-        buffer.geographic_buffer(self.s, distance)
+        b = buffer.geographic_buffer(self.s, distance)
+        assert isinstance(b, gpd.GeoSeries)
 
     def test_distance_is_pd_series(self):
         df_distance = pd.Series(range(1, 1000, 499))
