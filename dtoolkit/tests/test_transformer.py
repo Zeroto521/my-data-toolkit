@@ -1,8 +1,17 @@
 import pandas as pd
 import pytest
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import SelectorTF
+from dtoolkit.transformer import SelectorTF, TransformerBase
 from sklearn.datasets import load_iris
+
+# test TransformerBase
+
+def test_fit_work():
+    tf = TransformerBase()
+    assert tf is tf.fit()
+
+
+# test SelectorTF
 
 iris = load_iris()
 feature_names = iris.feature_names
