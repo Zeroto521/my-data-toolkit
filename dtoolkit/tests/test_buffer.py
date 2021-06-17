@@ -29,6 +29,11 @@ def test_to_crs_missing():
     assert "EPSG:4326" in msg
 
 
+# -----------------------------------------------------------------------------
+# _geographic_buffer tests
+# -----------------------------------------------------------------------------
+
+
 class TestDealingOneGeometry:
     def setup_method(self):
         self.p = my_points[0]
@@ -53,6 +58,11 @@ class TestDealingOneGeometry:
     def test_distance_less_then_zero(self, distance):
         with pytest.raises(ValueError):
             buffer._geographic_buffer(self.p, distance, crs=self.crs)
+
+
+# -----------------------------------------------------------------------------
+# geographic_buffer tests
+# -----------------------------------------------------------------------------
 
 
 class TestDealingMultipleGeometry:
