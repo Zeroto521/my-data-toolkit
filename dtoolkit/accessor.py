@@ -9,7 +9,7 @@ from ._typing import Pd
 
 @pd.api.extensions.register_dataframe_accessor("cols")
 @pd.api.extensions.register_series_accessor("cols")
-class PandasColumnAccessor:
+class ColumnAccessor:
     def __new__(cls, pd_obj: Pd) -> Callable:
         def columns() -> str | pd.core.indexes.base.Index:
             if isinstance(pd_obj, pd.Series):
