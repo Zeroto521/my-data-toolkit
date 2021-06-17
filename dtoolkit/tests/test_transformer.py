@@ -6,6 +6,7 @@ from sklearn.datasets import load_iris
 
 # test TransformerBase
 
+
 def test_fit_work():
     tf = TransformerBase()
     assert tf is tf.fit()
