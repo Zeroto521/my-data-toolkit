@@ -1,6 +1,6 @@
 import pandas as pd
 import pytest
-from dtoolkit.accessor import PandasColumnAccessor  # noqa
+from dtoolkit.accessor import ColumnAccessor  # noqa
 
 s = pd.Series(range(10), name="item")
 d = pd.DataFrame({"a": range(10), "b": range(10)})
