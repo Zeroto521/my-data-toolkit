@@ -139,7 +139,7 @@ def _geographic_buffer(
     crs = crs or string_or_int_to_crs()
 
     azmed = ProjectedCRS(AzumuthalEquidistantConversion(geom.y, geom.x))
-    transformer: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
+    transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
     # TODO: extend to other geometry
     p: BaseGeometry = Point(0, 0)
