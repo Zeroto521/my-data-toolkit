@@ -4,14 +4,15 @@ from typing import Optional
 from warnings import warn
 
 import geopandas as gpd
+import geopandas._vectorized as vectorized
 import numpy as np
 import pandas as pd
+from geopandas.array import GeometryArray
 from pyproj import CRS, Transformer
 from pyproj.crs import ProjectedCRS
 from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
 from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
-from shapely.ops import transform
 
 from ._typing import Num, NumericTypeList, bad_condition_raise_error, istype
 
@@ -138,9 +139,12 @@ def _geographic_buffer(
     crs = crs or string_or_int_to_crs()
 
     azmed = ProjectedCRS(AzumuthalEquidistantConversion(geom.y, geom.x))
-    project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
+    transformer: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
     # TODO: extend to other geometry
     p: BaseGeometry = Point(0, 0)
     buffer: BaseGeometry = p.buffer(distance, resolution=resolution, **kwargs)
-    return transform(project.transform, buffer)
+    buffer: GeometryArray = vectorized.from_shapely([buffer])
+    buffer: np.ndarray = vectorized.transform(buffer, transformer.transform)
+
+    return buffer[0]
