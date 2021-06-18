@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 import pandas._testing as tm
 import pytest
+from pygeos import Geometry
 from pyproj import CRS
 from shapely import wkt
-from shapely.geometry.base import BaseGeometry
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
 my_points = [wkt.loads(i) for i in my_wkts]
@@ -44,7 +44,7 @@ class TestDealingOneGeometry:
     @pytest.mark.parametrize("distance", distances)
     def test_work(self, geom, distance):
         b = buffer._geographic_buffer(geom, distance, self.crs)
-        assert isinstance(b, BaseGeometry)
+        assert isinstance(b, Geometry)
 
     def test_geometry_is_none(self):
         res = buffer._geographic_buffer(None, self.distance, self.crs)

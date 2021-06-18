@@ -8,6 +8,7 @@ import geopandas._vectorized as vectorized
 import numpy as np
 import pandas as pd
 from geopandas.array import GeometryArray
+from pygeos import Geometry
 from pyproj import CRS, Transformer
 from pyproj.crs import ProjectedCRS
 from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
@@ -121,7 +122,7 @@ def _geographic_buffer(
     crs: Optional[CRS] = None,
     resolution: int = 16,
     **kwargs,
-) -> Optional[BaseGeometry]:
+) -> Optional[Geometry]:
 
     if geom is None:
         return None
