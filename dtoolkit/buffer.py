@@ -103,14 +103,19 @@ def geographic_buffer(
     return gpd.GeoSeries(out, crs=gscrs)
 
 
-def string_or_int_to_crs(crs: Optional[str] = None, epsg: Optional[int] = None,) -> CRS:
+def string_or_int_to_crs(
+    crs: Optional[str] = None,
+    epsg: Optional[int] = None,
+) -> CRS:
     if crs is not None:
         return CRS.from_user_input(crs)
     elif epsg is not None:
         return CRS.from_epsg(epsg)
     else:
         warn(
-            "The crs is missing, and the crs would be set 'EPSG:4326'.", UserWarning,
+            "The crs is missing, "
+            "and the crs would be set 'EPSG:4326'.",
+            UserWarning,
         )
         return CRS.from_epsg(4326)
 
