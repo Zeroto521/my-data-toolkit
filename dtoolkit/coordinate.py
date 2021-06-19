@@ -53,7 +53,7 @@ def _get_coords_num(geom_dic: dict) -> CoordLenType:
 
     if typ == "Point":
         return 1
-    elif typ in ("LineString", "LinearRing"):
+    elif typ in ("LineString", "LinearRing", "MultiPoint"):
         return len(coordinates)
     elif typ in ("Polygon", "MultiLineString"):
         return (len(c) for c in coordinates)
