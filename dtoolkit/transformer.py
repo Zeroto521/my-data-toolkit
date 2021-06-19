@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import List
+
 import pandas as pd
 from sklearn.base import TransformerMixin
 
@@ -12,7 +14,7 @@ class TransformerBase(TransformerMixin):
 
 
 class SelectorTF(TransformerBase):
-    def __init__(self, cols: list[str] = None):
+    def __init__(self, cols: List[str] = None):
         self.cols = cols
 
     def transform(self, X: pd.DataFrame) -> Pd:
