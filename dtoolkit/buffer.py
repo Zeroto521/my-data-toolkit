@@ -13,7 +13,14 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from ._typing import Num, NumericTypeList, bad_condition_raise_error, istype
+from ._checking import (
+    bad_condition_raise_error,
+    check_geometry_type,
+    check_greater_than_zero,
+    check_number_tyep,
+    istype,
+)
+from ._typing import Num, NumericTypeList
 
 
 def geographic_buffer(
@@ -60,12 +67,10 @@ def geographic_buffer(
         If `data` crs is `None`, the result would use `EPSG:4326`
     """
 
-    if istype(distance, pd.Series):
-        bad_condition_raise_error(
-            not data.index.equals(distance.index),
-            IndexError,
+    if istype(distance, pd.Series) and not data.index.equals(distance.index):
+        raise IndexError(
             "Index values of distance sequence does "
-            "not match index values of the GeoSeries",
+            "not match index values of the GeoSeries"
         )
 
     if not istype(distance, NumericTypeList):
@@ -125,15 +130,10 @@ def _geographic_buffer(
     if geom is None:
         return None
 
-    bad_condition_raise_error(
-        not istype(distance, NumericTypeList),
-        TypeError,
-        "The type of distance must be int or float.",
-    )
+    check_geometry_type(geom)
 
-    bad_condition_raise_error(
-        distance <= 0, ValueError, "The distance must be greater than 0."
-    )
+    check_number_tyep(distance)
+    check_greater_than_zero(distance)
 
     crs = crs or string_or_int_to_crs()
 

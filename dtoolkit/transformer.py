@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from typing import List
+
 import pandas as pd
 from sklearn.base import TransformerMixin
 
-from ._typing import Pd, bad_condition_raise_error
+from ._typing import Pd
+from ._checking import bad_condition_raise_error
 
 
 class TransformerBase(TransformerMixin):
@@ -12,7 +15,7 @@ class TransformerBase(TransformerMixin):
 
 
 class SelectorTF(TransformerBase):
-    def __init__(self, cols: list[str] = None):
+    def __init__(self, cols: List[str] = None):
         self.cols = cols
 
     def transform(self, X: pd.DataFrame) -> Pd:
