@@ -113,8 +113,7 @@ def string_or_int_to_crs(
         return CRS.from_epsg(epsg)
     else:
         warn(
-            "The crs is missing, "
-            "and the crs would be set 'EPSG:4326'.",
+            "The crs is missing, and the crs would be set 'EPSG:4326'.",
             UserWarning,
         )
         return CRS.from_epsg(4326)
