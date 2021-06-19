@@ -5,7 +5,8 @@ from typing import List
 import pandas as pd
 from sklearn.base import TransformerMixin
 
-from ._typing import Pd, bad_condition_raise_error
+from ._typing import Pd
+from ._checking import bad_condition_raise_error
 
 
 class TransformerBase(TransformerMixin):
