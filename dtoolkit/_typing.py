@@ -1,4 +1,4 @@
-from typing import TypeVar, Union
+from typing import Tuple, TypeVar, Union
 
 from geopandas import GeoDataFrame, GeoSeries
 from numpy import (
@@ -16,7 +16,13 @@ from numpy import (
 )
 from pandas import DataFrame, Series
 
+
+#
+# numeric type
+#
 NumericBaseList = [int, float]
+NumericBaseType = Union[tuple(NumericBaseList)]
+
 NumericNumpyList = [
     # int
     int8,
@@ -37,9 +43,29 @@ NumericTypeList = NumericBaseList + NumericNumpyList
 NumericType = Union[tuple(NumericTypeList)]
 Num = TypeVar("Num", bound=NumericType)
 
+
 PandasTypeList = [Series, DataFrame]
 PandasType = Union[tuple(PandasTypeList)]
 Pd = TypeVar("Pd", bound=PandasType)
 
 GeoPandasType = Union[GeoSeries, GeoDataFrame]
 GPd = TypeVar("GPd", bound=GeoPandasType)
+
+
+#
+# shapely geometry coordinate type
+#
+PointType = Tuple[NumericBaseType]
+
+# this type could represent `LineString`, `LinearRing`
+LineType = Tuple[PointType]
+
+# this type also could represent `MultiLineString``
+PolygonType = Tuple[LineType]
+
+MultiPolygonType = Tuple[PolygonType]
+
+CoordType = Union[PointType, LineType, PolygonType, MultiPolygonType]
+
+
+CoordLenType = Union[int, Tuple[int], Tuple[Tuple[int]]]
