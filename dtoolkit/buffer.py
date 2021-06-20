@@ -16,6 +16,7 @@ from shapely.ops import transform
 from ._checking import (
     bad_condition_raise_error,
     check_geometry_type,
+    check_geopandas_type,
     check_greater_than_zero,
     check_number_tyep,
     istype,
@@ -66,6 +67,9 @@ def geographic_buffer(
         If `crs` is specified EPSG code specifying output projection.
         If `df` crs is `None`, the result would use `EPSG:4326`
     """
+
+    check_geopandas_type(df)
+
     if istype(distance, pd.Series) and not df.index.equals(distance.index):
         raise IndexError(
             "Index values of distance sequence does "
