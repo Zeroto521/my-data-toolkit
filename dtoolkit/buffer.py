@@ -20,11 +20,11 @@ from ._checking import (
     check_number_tyep,
     istype,
 )
-from ._typing import Num, NumericTypeList
+from ._typing import GPd, Num, NumericTypeList
 
 
 def geographic_buffer(
-    data: gpd.GeoSeries,
+    df: GPd,
     distance: Num | list[Num] | np.ndarray | pd.Series,
     resolution: int = 16,
     crs: Optional[str] = None,
@@ -46,7 +46,7 @@ def geographic_buffer(
 
     Parameters
     ----------
-    data : gpd.GeoSeries
+    df : gpd.GeoSeries
         Only support `Point` geometry, at present.
         if [geopandas#1952](https://github.com/geopandas/geopandas/pull/1952)
         done, this method would be a `accessor` and be easier to use.
@@ -60,14 +60,13 @@ def geographic_buffer(
         :meth:`pyproj.CRS.from_user_input() <pyproj.crs.CRS.from_user_input>`,
         such as an authority string (eg "EPSG:4326") or a WKT string.
     epsg : int, optional
-        If `data.crs` is not None, the result would use the `GeoSeries` crs.
-        If `data.crs` is None, the result would use
+        If `df.crs` is not None, the result would use the `GeoSeries` crs.
+        If `df.crs` is None, the result would use
         the crs from `crs` or `epsg`.
         If `crs` is specified EPSG code specifying output projection.
-        If `data` crs is `None`, the result would use `EPSG:4326`
+        If `df` crs is `None`, the result would use `EPSG:4326`
     """
-
-    if istype(distance, pd.Series) and not data.index.equals(distance.index):
+    if istype(distance, pd.Series) and not df.index.equals(distance.index):
         raise IndexError(
             "Index values of distance sequence does "
             "not match index values of the GeoSeries"
@@ -76,12 +75,12 @@ def geographic_buffer(
     if not istype(distance, NumericTypeList):
         distance = np.asarray(distance)
 
-    gscrs: CRS = data.crs or string_or_int_to_crs(crs, epsg)
+    gscrs: CRS = df.crs or string_or_int_to_crs(crs, epsg)
 
-    out: np.ndarray = np.empty(len(data), dtype=object)
+    out: np.ndarray = np.empty(len(df), dtype=object)
     if istype(distance, np.ndarray):
         bad_condition_raise_error(
-            len(distance) != len(data),
+            len(distance) != len(df),
             IndexError,
             "Length of distance doesn't match length of the GeoSeries.",
         )
@@ -90,14 +89,14 @@ def geographic_buffer(
             _geographic_buffer(
                 geom, distance=dist, crs=gscrs, resolution=resolution, **kwargs
             )
-            for geom, dist in zip(data, distance)
+            for geom, dist in zip(df.geometry, distance)
         ]
     else:
         out[:] = [
             _geographic_buffer(
                 geom, distance, crs=gscrs, resolution=resolution, **kwargs
             )
-            for geom in data
+            for geom in df.geometry
         ]
 
     return gpd.GeoSeries(out, crs=gscrs)
