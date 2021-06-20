@@ -48,7 +48,8 @@ PandasTypeList = [Series, DataFrame]
 PandasType = Union[tuple(PandasTypeList)]
 Pd = TypeVar("Pd", bound=PandasType)
 
-GeoPandasType = Union[GeoSeries, GeoDataFrame]
+GeoPandasList = [GeoSeries, GeoDataFrame]
+GeoPandasType = Union[tuple(GeoPandasList)]
 GPd = TypeVar("GPd", bound=GeoPandasType)
 
 
@@ -68,4 +69,4 @@ MultiPolygonType = Tuple[PolygonType]
 CoordType = Union[PointType, LineType, PolygonType, MultiPolygonType]
 
 
-CoordLenType = Union[int, Tuple[int], Tuple[Tuple[int]]]
+CoordNumType = Union[int, Tuple[int], Tuple[Tuple[int]]]
