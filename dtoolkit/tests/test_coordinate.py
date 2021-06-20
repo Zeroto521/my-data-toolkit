@@ -121,4 +121,3 @@ def test_not_geopandas_coords_num():
 def test_geoseries_coords_numlist():
     s = gpd.GeoSeries(geometrys)
     coords_numlist(s)
-
