@@ -1,6 +1,12 @@
 import geopandas as gpd
 import pytest
-from dtoolkit.coordinate import _coords, _coords_num, coords, coords_num, coords_numlist
+from dtoolkit.coordinate import (
+    _coords,
+    _coords_num,
+    coords,
+    coords_num,
+    coords_numlist,
+)
 from more_itertools import collapse
 from shapely.geometry import (
     LinearRing,
@@ -106,9 +112,11 @@ def test_geoseries_coords_num():
     s = gpd.GeoSeries(geometrys)
     coords_num(s)
 
+
 def test_not_geopandas_coords_num():
     with pytest.raises(TypeError):
         coords_num(None)
+
 
 def test_geoseries_coords_numlist():
     s = gpd.GeoSeries(geometrys)
