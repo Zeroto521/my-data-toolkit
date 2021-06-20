@@ -9,7 +9,13 @@ from shapely.geometry import mapping
 from shapely.geometry.base import BaseGeometry
 
 from ._checking import check_geometry_type, check_geopandas_type, istype
-from ._typing import CoordNumType, CoordType, GPd, NumericBaseList, NumericBaseType
+from ._typing import (
+    CoordNumType,
+    CoordType,
+    GPd,
+    NumericBaseList,
+    NumericBaseType,
+)
 
 
 def coords(df: GPd) -> pd.Series:
