@@ -4,7 +4,7 @@ from typing import List, Tuple
 
 from shapely.geometry.base import BaseGeometry
 
-from ._typing import NumericType, NumericTypeList
+from ._typing import NumericType, NumericTypeList, GeoPandasList, GPd
 
 
 def istype(var: object, types: type | List[type] | Tuple[type]) -> bool:
@@ -17,6 +17,14 @@ def istype(var: object, types: type | List[type] | Tuple[type]) -> bool:
 def bad_condition_raise_error(condition: bool, error: BaseException, msg: str):
     if condition:
         raise error(msg)
+
+
+def check_geopandas_type(df: GPd):
+    bad_condition_raise_error(
+        not istype(df, GeoPandasList),
+        TypeError,
+        f"{df} must be GeoSeries or GeoDataFrame.",
+    )
 
 
 def check_geometry_type(geom: BaseGeometry):
