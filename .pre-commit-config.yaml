@@ -1,12 +1,16 @@
-files: 'dtoolkit\/'
+files: "dtoolkit"
 repos:
   - repo: https://github.com/python/black
     rev: 20.8b1
     hooks:
-    - id: black
-      language_version: python3
+      - id: black
+        language_version: python3
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.3
+    rev: 3.9.0
     hooks:
-    - id: flake8
-      language: python_venv
+      - id: flake8
+        language: python_venv
+  - repo: https://github.com/pycqa/isort
+    rev: 5.8.0
+    hooks:
+      - id: isort

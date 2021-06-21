@@ -15,7 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v2.0.0
+        with:
+          python-version: "3.x"
+
+      - name: Run black, flake8 and isort
+        uses: pre-commit/action@v2.0.0
 
   Test:
     needs: Linting
