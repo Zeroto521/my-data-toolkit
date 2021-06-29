@@ -9,7 +9,11 @@ include geographic calculation, data engineering, and so on.
 
 - **Data Engineering**
   - Data Transform Pipeline
+    - `DataFrame` Selector Transformer
+    - Multidimensional to One Dimension Transformer
   - Pandas Object Accessor
+    - Pandas Object Columns accessor
+    - `Series` Drop `inf` Function
 - **Geographic Calculation**
   - Geographic Buffer Generation
   - Geometry Coordinates
