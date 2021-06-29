@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Callable
 
+import numpy as np
 import pandas as pd
 
 from ._typing import Pd
@@ -18,3 +19,12 @@ class ColumnAccessor:
                 return pd_obj.columns
 
         return cols
+
+
+@pd.api.extensions.register_series_accessor("dropinf")
+class DropInfAccessor:
+    def __new__(cls, pd_obj: pd.Series) -> Callable:
+        def dropinf() -> pd.Series:
+            return pd_obj[~np.isinf(pd_obj)]
+
+        return dropinf
