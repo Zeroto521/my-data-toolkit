@@ -4,7 +4,7 @@ from typing import List, Tuple
 
 from shapely.geometry.base import BaseGeometry
 
-from ._typing import NumericType, NumericTypeList, GeoPandasList, GPd
+from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
 
 
 def istype(var: object, types: type | List[type] | Tuple[type]) -> bool:
