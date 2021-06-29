@@ -8,14 +8,14 @@ include geographic calculation, data engineering, and so on.
 ## Toolkits
 
 - **Data Engineering**
-  - Data transform pipeline
-  - Data accessor
+  - Data Transform Pipeline
+  - Pandas Object Accessor
 - **Geographic Calculation**
-  - Geographic buffer generation
-  - Geometry coordinates
-    - Coordinates container
-    - Coordinates number container
-    - Coordinates number counter
+  - Geographic Buffer Generation
+  - Geometry Coordinates
+    - Coordinates Container
+    - Coordinates Number Container
+    - Coordinates Number Counter
 
 ## Dependencies
 
@@ -24,7 +24,7 @@ include geographic calculation, data engineering, and so on.
 - GeoPandas (>= 0.9.0)
 - Scikit-learn
 
-## User installation
+## User Installation
 
 Only support to build from source, at present.
 
