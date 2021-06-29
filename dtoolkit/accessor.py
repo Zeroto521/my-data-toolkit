@@ -11,10 +11,10 @@ from ._typing import Pd
 @pd.api.extensions.register_series_accessor("cols")
 class ColumnAccessor:
     def __new__(cls, pd_obj: Pd) -> Callable:
-        def columns() -> str | pd.core.indexes.base.Index:
+        def cols() -> str | pd.core.indexes.base.Index:
             if isinstance(pd_obj, pd.Series):
                 return pd_obj.name
             else:
                 return pd_obj.columns
 
-        return columns
+        return cols
