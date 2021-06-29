@@ -9,7 +9,7 @@ from sklearn.datasets import load_iris
 # -----------------------------------------------------------------------------
 
 
-def test_fit_work():
+def test_transformbase():
     tf = TransformerBase()
     assert tf is tf.fit()
 
