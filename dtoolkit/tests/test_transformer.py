@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import SelectorTF, TransformerBase
+from dtoolkit.transformer import RavelTF, SelectorTF, TransformerBase
 from sklearn.datasets import load_iris
 
 
@@ -13,6 +13,7 @@ def test_transformbase():
 iris = load_iris()
 feature_names = iris.feature_names
 df = pd.DataFrame(iris.data, columns=feature_names)
+s = df[feature_names[0]]
 
 
 class TestSelectorTF:
@@ -38,3 +39,9 @@ class TestSelectorTF:
     def test_data_is_not_dataframe(self):
         with pytest.raises(TypeError):
             SelectorTF().transform(iris.data)
+
+
+@pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
+def test_raveltf(data):
+    transformed_data = RavelTF.transform(data)
+    assert transformed_data.ndim == 1
