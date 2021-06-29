@@ -17,6 +17,11 @@ s = df[feature_names[0]]
 
 
 class TestSelectorTF:
+    @pytest.mark.parametrize("cols", [feature_names, feature_names[0]])
+    def test_init(self, cols):
+        tf = SelectorTF(cols)
+        assert isinstance(tf.cols, list)
+
     @pytest.mark.parametrize("cols", [[feature_names[0]], feature_names[1:]])
     def test_fit_transform(self, cols):
         tf = SelectorTF(cols)
