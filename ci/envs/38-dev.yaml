@@ -15,3 +15,4 @@ dependencies:
     - git+https://github.com/pydata/pandas.git@master
     - git+https://github.com/geopandas/geopandas@master
     - git+https://github.com/scikit-learn/scikit-learn@main
+    - git+https://github.com/more-itertools/more-itertools@master

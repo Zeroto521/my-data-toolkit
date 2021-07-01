@@ -8,6 +8,7 @@ dependencies:
   - pandas
   - geopandas=0.9.*
   - scikit-learn
+  - more-itertools
   # testing
   - pytest
   - pytest-cov
