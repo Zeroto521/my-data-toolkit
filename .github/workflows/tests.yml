@@ -43,16 +43,18 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: ${{ matrix.env }}
-          activate-environment: "test"
 
       - name: Check and Log Environment
         run: |
+          source activate test
           python -V
           conda info
           conda list
 
       - name: Test with Pytest
-        run: make test
+        run: |
+          source activate test
+          make test
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
