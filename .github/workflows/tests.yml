@@ -39,25 +39,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup Conda
-        uses: s-weigand/setup-conda@v1
+      - name: Setup Conda and Install Env
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-conda: false
-
-      - name: Install Env
-        run: conda env create -f ${{ matrix.env }}
+          auto-update-conda: true
+          environment-file: ${{ matrix.env }}
 
       - name: Check and Log Environment
         run: |
-          source activate test
           python -V
           conda info
           conda list
 
       - name: Test with Pytest
-        run: |
-          source activate test
-          make test
+        run: make test
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
