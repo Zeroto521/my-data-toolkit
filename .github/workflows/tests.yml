@@ -46,14 +46,14 @@ jobs:
 
       - name: Check and Log Environment
         run: |
-          source activate test
+          conda activate test
           python -V
           conda info
           conda list
 
       - name: Test with Pytest
         run: |
-          source activate test
+          conda activate test
           make test
 
       - name: Code Coverage
