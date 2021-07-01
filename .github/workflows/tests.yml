@@ -39,10 +39,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Cache Conda
+        uses: actions/cache@v2
+        env:
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ matrix.env }}
+
       - name: Setup Conda and Install Environment
         uses: conda-incubator/setup-miniconda@v2
         with:
-          use-only-tar-bz2: true
           channel-priority: "strict"
           environment-file: ${{ matrix.env }}
 
