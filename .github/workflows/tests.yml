@@ -39,21 +39,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup Conda and Install Environment
+      - name: Setup Conda
         uses: conda-incubator/setup-miniconda@v2
-        with:
-          environment-file: ${{ matrix.env }}
+
+      - name: Install Environment
+        run: conda env create -f ${{ matrix.env }}
 
       - name: Check and Log Environment
         run: |
-          conda activate test
+          source activate test
           python -V
           conda info
           conda list
 
       - name: Test with Pytest
         run: |
-          conda activate test
+          source activate test
           make test
 
       - name: Code Coverage
