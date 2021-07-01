@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache conda
+      - name: Cache Conda
         uses: actions/cache@v2
         env:
           CACHE_NUMBER: 0
