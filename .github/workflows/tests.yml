@@ -23,7 +23,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     defaults:
       run:
-        shell: bash
+        shell: bash -l {0}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -39,25 +39,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup Conda
-        uses: s-weigand/setup-conda@v1
+      - name: Setup Conda and Install Environment
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-conda: false
-
-      - name: Install Env
-        run: conda env create -f ${{ matrix.env }}
+          environment-file: ${{ matrix.env }}
 
       - name: Check and Log Environment
         run: |
-          source activate test
           python -V
           conda info
           conda list
 
       - name: Test with Pytest
-        run: |
-          source activate test
-          make test
+        run: make test
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
