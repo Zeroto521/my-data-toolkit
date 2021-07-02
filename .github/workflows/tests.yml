@@ -50,9 +50,7 @@ jobs:
       - name: Check and Log Environment
         run: |
           source activate test
-          python -V
-          conda info
-          conda list
+          make info
 
       - name: Test with Pytest
         run: |

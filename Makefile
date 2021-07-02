@@ -2,8 +2,9 @@ help:
 	@echo "'clean' - remove all cached files"
 	@echo "'clean-build' - remove build artifacts"
 	@echo "'clean-pyc' - remove Python file artifacts"
+	@echo "'dist' - build package"
 	@echo "'test' - run tests and check coverage"
-	@echo "'dist' - package"
+	@echo "'info' - show environment and package information"
 
 clean-build:
 	rm -fr build/
@@ -25,3 +26,9 @@ test:
 dist: clean
 	python setup.py sdist bdist_wheel
 	ls -l dist
+
+info:
+	python -V
+	python -c "import dtoolkit; print(dtoolkit.__version__)"
+	conda info
+	conda list
