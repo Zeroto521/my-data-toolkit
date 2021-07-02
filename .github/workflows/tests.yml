@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/conda_pkgs_dir
-          key: ${{ runner.os }}-conda-${{ hashFiles('${{ matrix.env }}') }}
+          key: ${{ runner.os }}-conda-${{ hashFiles(matrix.env) }}
 
       - name: Setup Conda and Install Environment
         uses: conda-incubator/setup-miniconda@v2
