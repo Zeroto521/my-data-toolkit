@@ -48,10 +48,7 @@ jobs:
           environment-file: ${{ matrix.env }}
 
       - name: Check and Log Environment
-        run: |
-          python -V
-          conda info
-          conda list
+        run: make info
 
       - name: Test with Pytest
         run: make test
