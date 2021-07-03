@@ -80,5 +80,5 @@ def _get_coords_num(geom_dic: dict) -> CoordNumType:
         geoms = geom_dic.get("geometries")
         return tuple(_get_coords_num(geom) for geom in geoms)
     else:
-        warn("Unknown type %s" % typ, UserWarning)
-        return 0
+        warn("Unknown type %s" % typ, UserWarning)  # no cover
+        return 0  # no cover
