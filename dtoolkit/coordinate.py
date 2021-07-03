@@ -36,8 +36,8 @@ def coords_num(df: GPd) -> pd.Series:
     def sum_nums(nums: CoordNumType) -> NumericBaseType:
         if istype(nums, NumericBaseList):
             return nums
-        else:
-            return sum(collapse(nums, levels=1))
+
+        return sum(collapse(nums, levels=1))
 
     return res.apply(sum_nums)
 
