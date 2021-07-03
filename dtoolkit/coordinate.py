@@ -36,8 +36,8 @@ def coords_num(df: GPd) -> pd.Series:
     def sum_nums(nums: CoordNumType) -> NumericBaseType:
         if istype(nums, NumericBaseList):
             return nums
-        else:
-            return sum(collapse(nums, levels=1))
+
+        return sum(collapse(nums, levels=1))
 
     return res.apply(sum_nums)
 
@@ -79,6 +79,6 @@ def _get_coords_num(geom_dic: dict) -> CoordNumType:
     elif typ == "GeometryCollection":
         geoms = geom_dic.get("geometries")
         return tuple(_get_coords_num(geom) for geom in geoms)
-    else:
-        warn("Unknown type %s" % typ, UserWarning)
-        return 0
+
+    warn("Unknown type %s" % typ, UserWarning)  # pragma: no cover
+    return 0  # pragma: no cover
