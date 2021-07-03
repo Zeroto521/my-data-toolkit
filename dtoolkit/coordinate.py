@@ -79,6 +79,6 @@ def _get_coords_num(geom_dic: dict) -> CoordNumType:
     elif typ == "GeometryCollection":
         geoms = geom_dic.get("geometries")
         return tuple(_get_coords_num(geom) for geom in geoms)
-    else:
-        warn("Unknown type %s" % typ, UserWarning)  # pragma: no cover
-        return 0  # pragma: no cover
+
+    warn("Unknown type %s" % typ, UserWarning)  # pragma: no cover
+    return 0  # pragma: no cover
