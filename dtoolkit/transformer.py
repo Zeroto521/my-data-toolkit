@@ -14,6 +14,9 @@ class TransformerBase(TransformerMixin):
     def fit(self, *_):
         return self
 
+    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
+        return self.transform(X)
+
 
 class SelectorTF(TransformerBase):
     def __init__(self, cols: str | List[str] | Tuple[str] = None):
@@ -26,9 +29,6 @@ class SelectorTF(TransformerBase):
         check_dataframe_type(X)
 
         return X[self.cols] if self.cols else X
-
-    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
-        return self.transform(X)
 
     def inverse_transform(self, X: DataFrame, *_) -> DataFrame:
         return X
@@ -43,9 +43,6 @@ class QueryTF(TransformerBase):
 
         return X.query(self.expr)
 
-    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
-        return self.transform(X)
-
 
 class EvalTF(TransformerBase):
     def __init__(self, expr: str):
@@ -55,9 +52,6 @@ class EvalTF(TransformerBase):
         check_dataframe_type(X)
 
         return X.eval(self.expr)
-
-    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
-        return self.transform(X)
 
 
 class RavelTF(TransformerBase):
