@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import List, Tuple
 
-from numpy import ravel
+from numpy import ndarray, ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
-from sklearn.preprocessing import FunctionTransformer
 
 from ._checking import check_dataframe_type
+from ._typing import Pd
 
 
 class TransformerBase(TransformerMixin):
@@ -54,4 +54,9 @@ class EvalTF(TransformerBase):
         return X.eval(self.expr)
 
 
-RavelTF = FunctionTransformer(ravel)
+class RavelTF(TransformerBase):
+    def transform(self, X: Pd | ndarray | List) -> ndarray:
+        return ravel(X)
+
+    def fit_transform(self, X: Pd | ndarray | List, *_) -> ndarray:
+        return self.transform(X)
