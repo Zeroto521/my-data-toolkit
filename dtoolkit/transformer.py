@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from typing import List, Tuple
 
-import numpy as np
-import pandas as pd
+from numpy import ravel
+from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import FunctionTransformer
 
-from ._checking import bad_condition_raise_error
+from ._checking import bad_condition_raise_error, check_dataframe_type
 
 
 class TransformerBase(TransformerMixin):
@@ -22,20 +22,26 @@ class SelectorTF(TransformerBase):
 
         self.cols = cols
 
-    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
-        bad_condition_raise_error(
-            not isinstance(X, pd.DataFrame),
-            TypeError,
-            "The input is not a 'DataFrame' type.",
-        )
+    def transform(self, X: DataFrame) -> DataFrame:
+        check_dataframe_type(X)
 
         return X[self.cols] if self.cols else X
 
-    def fit_transform(self, X: pd.DataFrame, *_) -> pd.DataFrame:
+    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
         return self.transform(X)
 
-    def inverse_transform(self, X: pd.DataFrame, *_) -> pd.DataFrame:
+    def inverse_transform(self, X: DataFrame, *_) -> DataFrame:
         return X
 
 
-RavelTF = FunctionTransformer(np.ravel)
+class QueryTF(TransformerBase):
+    def __init__(self, expr: str):
+        self.expr = expr
+
+    def transform(self, X: DataFrame) -> DataFrame:
+        check_dataframe_type(X)
+
+        return X.query(self.expr)
+
+
+RavelTF = FunctionTransformer(ravel)
