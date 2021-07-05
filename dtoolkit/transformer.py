@@ -44,4 +44,14 @@ class QueryTF(TransformerBase):
         return X.query(self.expr)
 
 
+class EvalTF(TransformerBase):
+    def __init__(self, expr: str):
+        self.expr = expr
+
+    def transform(self, X: DataFrame) -> DataFrame:
+        check_dataframe_type(X)
+
+        return X.eval(self.expr)
+
+
 RavelTF = FunctionTransformer(ravel)
