@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import QueryTF, RavelTF, SelectorTF, TransformerBase
+from dtoolkit.transformer import EvalTF, QueryTF, RavelTF, SelectorTF, TransformerBase
 from sklearn.datasets import load_iris
 
 
@@ -66,3 +66,12 @@ class TestQueryTF:
         res = tf.transform(df)
 
         assert len(res) == 0
+
+
+class TestEvalTF:
+    def test_double_value(self):
+        new_column = "double_value"
+        tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
+        res = tf.transform(df)
+
+        assert res[new_column].equals(df[feature_names[0]] * 2)
