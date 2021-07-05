@@ -7,7 +7,7 @@ from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import FunctionTransformer
 
-from ._checking import bad_condition_raise_error, check_dataframe_type
+from ._checking import check_dataframe_type
 
 
 class TransformerBase(TransformerMixin):
