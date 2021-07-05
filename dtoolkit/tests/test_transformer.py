@@ -41,8 +41,9 @@ class TestSelectorTF:
 
 @pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
 def test_raveltf(data):
-    transformed_data = RavelTF.transform(data)
-    assert transformed_data.ndim == 1
+    res = RavelTF().fit_transform(data)
+
+    assert res.ndim == 1
 
 
 class TestQueryTF:
