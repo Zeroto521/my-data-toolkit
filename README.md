@@ -11,6 +11,8 @@ include geographic calculation, data engineering, and so on.
   - Data Transform Pipeline
     - `DataFrame` Selector Transformer
     - Multidimensional to One Dimension Transformer
+    - `DataFrame`'s `query` Function Transformer
+    - `DataFrame`'s `eval` Function Transformer
   - Pandas Object Accessor
     - Pandas Object Columns accessor
     - `Series` Drop `inf` Function
