@@ -11,7 +11,7 @@ from ._checking import check_dataframe_type
 
 
 class TransformerBase(TransformerMixin):
-    def fit(self):
+    def fit(self, *_):
         return self
 
 
@@ -43,6 +43,9 @@ class QueryTF(TransformerBase):
 
         return X.query(self.expr)
 
+    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
+        return self.transform(X)
+
 
 class EvalTF(TransformerBase):
     def __init__(self, expr: str):
@@ -52,6 +55,9 @@ class EvalTF(TransformerBase):
         check_dataframe_type(X)
 
         return X.eval(self.expr)
+
+    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
+        return self.transform(X)
 
 
 RavelTF = FunctionTransformer(ravel)
