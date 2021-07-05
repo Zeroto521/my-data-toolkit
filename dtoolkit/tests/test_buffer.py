@@ -1,12 +1,14 @@
-import dtoolkit.buffer as buffer
 import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pandas._testing as tm
 import pytest
+
 from pyproj import CRS
 from shapely import wkt
 from shapely.geometry.base import BaseGeometry
+
+import dtoolkit.buffer as buffer
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
 my_points = [wkt.loads(i) for i in my_wkts]

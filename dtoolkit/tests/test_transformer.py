@@ -1,20 +1,11 @@
 import pandas as pd
 import pytest
-from dtoolkit._checking import istype
-from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import (
-    EvalTF,
-    QueryTF,
-    RavelTF,
-    SelectorTF,
-    TransformerBase
-)
+
 from sklearn.datasets import load_iris
 
-
-def test_transformbase():
-    tf = TransformerBase()
-    assert tf is tf.fit()
+from dtoolkit._checking import istype
+from dtoolkit._typing import PandasTypeList
+from dtoolkit.transformer import EvalTF, QueryTF, RavelTF, SelectorTF
 
 
 iris = load_iris()

@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pytest
+
 from dtoolkit.accessor import ColumnAccessor  # noqa
 from dtoolkit.accessor import DropInfAccessor  # noqa
 
