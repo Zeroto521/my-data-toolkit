@@ -11,7 +11,7 @@ from ._checking import check_dataframe_type
 
 
 class TransformerBase(TransformerMixin):
-    def fit(self):
+    def fit(self, *_):
         return self
 
 
