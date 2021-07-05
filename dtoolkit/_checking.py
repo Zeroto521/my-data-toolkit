@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import List, Tuple
 
+from pandas import DataFrame
 from shapely.geometry.base import BaseGeometry
 
 from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
@@ -44,4 +45,12 @@ def check_number_tyep(num: NumericType):
 def check_greater_than_zero(num: NumericType):
     bad_condition_raise_error(
         num <= 0, ValueError, f"The {num} must be greater than 0."
+    )
+
+
+def check_dataframe_type(df: DataFrame):
+    bad_condition_raise_error(
+        not isinstance(df, DataFrame),
+        TypeError,
+        "The input is not a 'DataFrame' type.",
     )
