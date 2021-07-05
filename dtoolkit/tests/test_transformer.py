@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import RavelTF, SelectorTF, TransformerBase
+from dtoolkit.transformer import QueryTF, RavelTF, SelectorTF, TransformerBase
 from sklearn.datasets import load_iris
 
 
@@ -46,3 +46,23 @@ class TestSelectorTF:
 def test_raveltf(data):
     transformed_data = RavelTF.transform(data)
     assert transformed_data.ndim == 1
+
+
+class TestQueryTF:
+    def test_greater_symbol(self):
+        tf = QueryTF(f"`{feature_names[0]}` > 0")
+        res = tf.transform(df)
+
+        assert res.equals(df)
+
+    def test_plus_symbol(self):
+        tf = QueryTF(f"`{'`+`'.join(feature_names)}` < 100")
+        res = tf.transform(df)
+
+        assert res.equals(df)
+
+    def test_divide_symbol(self):
+        tf = QueryTF(f"`{feature_names[0]}` / 100 > 1")
+        res = tf.transform(df)
+
+        assert len(res) == 0
