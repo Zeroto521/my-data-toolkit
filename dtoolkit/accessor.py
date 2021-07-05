@@ -15,8 +15,8 @@ class ColumnAccessor:
         def cols() -> str | pd.core.indexes.base.Index:
             if isinstance(pd_obj, pd.Series):
                 return pd_obj.name
-            else:
-                return pd_obj.columns
+
+            return pd_obj.columns
 
         return cols
 
