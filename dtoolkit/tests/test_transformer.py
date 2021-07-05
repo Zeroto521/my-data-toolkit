@@ -48,19 +48,19 @@ def test_raveltf(data):
 class TestQueryTF:
     def test_greater_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` > 0")
-        res = tf.transform(df)
+        res = tf.fit_transform(df)
 
         assert res.equals(df)
 
     def test_plus_symbol(self):
         tf = QueryTF(f"`{'`+`'.join(feature_names)}` < 100")
-        res = tf.transform(df)
+        res = tf.fit_transform(df)
 
         assert res.equals(df)
 
     def test_divide_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` / 100 > 1")
-        res = tf.transform(df)
+        res = tf.fit_transform(df)
 
         assert len(res) == 0
 
@@ -69,6 +69,6 @@ class TestEvalTF:
     def test_double_value(self):
         new_column = "double_value"
         tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-        res = tf.transform(df)
+        res = tf.fit_transform(df)
 
         assert res[new_column].equals(df[feature_names[0]] * 2)
