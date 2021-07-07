@@ -14,6 +14,11 @@ df = pd.DataFrame(iris.data, columns=feature_names)
 s = df[feature_names[0]]
 
 
+#
+# Pandas's operation
+#
+
+
 class TestSelectorTF:
     @pytest.mark.parametrize("cols", [feature_names, feature_names[0]])
     def test_init(self, cols):
@@ -37,13 +42,6 @@ class TestSelectorTF:
     def test_data_is_not_dataframe(self):
         with pytest.raises(TypeError):
             SelectorTF().transform(iris.data)
-
-
-@pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
-def test_raveltf(data):
-    res = RavelTF().fit_transform(data)
-
-    assert res.ndim == 1
 
 
 class TestQueryTF:
@@ -84,3 +82,15 @@ class TestFillnaTF:
         res = tf.fit_transform(self.df)
 
         assert None not in res
+
+
+#
+# numpy's operation
+#
+
+
+@pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
+def test_raveltf(data):
+    res = RavelTF().fit_transform(data)
+
+    assert res.ndim == 1
