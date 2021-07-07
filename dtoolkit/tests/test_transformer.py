@@ -5,8 +5,15 @@ from sklearn.datasets import load_iris
 
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.accessor import ColumnAccessor
-from dtoolkit.transformer import DropTF, EvalTF, FillnaTF, QueryTF, RavelTF, SelectorTF
+from dtoolkit.accessor import ColumnAccessor  # noqa
+from dtoolkit.transformer import (
+    DropTF,
+    EvalTF,
+    FillnaTF,
+    QueryTF,
+    RavelTF,
+    SelectorTF
+)
 
 
 iris = load_iris()
