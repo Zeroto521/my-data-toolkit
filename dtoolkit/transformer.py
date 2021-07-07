@@ -47,17 +47,19 @@ def change_data_to_df(df: DataFrame, data: Any) -> Optional[DataFrame]:
     if isinstance(df, DataFrame):
         return DataFrame(data, columns=df.columns, index=df.index)
 
+    return data
+
 
 class MinMaxScaler(SKMinMaxScaler):
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
 
-        return change_data_to_df(X, X_new) or X_new
+        return change_data_to_df(X, X_new)
 
     def inverse_transform(self, X, *_):
         X_new = super().inverse_transform(X, *_)
 
-        return change_data_to_df(X, X_new) or X_new
+        return change_data_to_df(X, X_new)
 
 
 #
