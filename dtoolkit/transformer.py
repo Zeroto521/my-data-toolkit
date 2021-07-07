@@ -13,7 +13,7 @@ class TransformerBase(TransformerMixin):
     def fit(self, *_):
         return self
 
-    def fit_transform(self, X: DataFrame, *_) -> DataFrame:
+    def fit_transform(self, X, *_):
         return self.transform(X)
 
 
@@ -25,11 +25,14 @@ def transformer_factory(
             self.args = args
             self.kwargs = kwargs
 
-        def transform(self, X):
+        def transform(self, X, *_):
             if check:
                 check_dataframe_type(X)
 
             return func(X, *self.args, **self.kwargs)
+
+        def inverse_transform(self, X, *_):
+            return X
 
     return TF
 
