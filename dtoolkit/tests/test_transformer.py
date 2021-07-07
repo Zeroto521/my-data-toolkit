@@ -64,14 +64,6 @@ class TestQueryTF:
         assert len(res) == 0
 
 
-def test_evaltf(self):
-    new_column = "double_value"
-    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-    res = tf.fit_transform(df)
-
-    assert res[new_column].equals(df[feature_names[0]] * 2)
-
-
 class TestFillnaTF:
     def setup_method(self):
         self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
@@ -81,6 +73,14 @@ class TestFillnaTF:
         res = tf.fit_transform(self.df)
 
         assert None not in res
+
+
+def test_evaltf(self):
+    new_column = "double_value"
+    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
+    res = tf.fit_transform(df)
+
+    assert res[new_column].equals(df[feature_names[0]] * 2)
 
 
 #
