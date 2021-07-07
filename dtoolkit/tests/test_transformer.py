@@ -64,13 +64,12 @@ class TestQueryTF:
         assert len(res) == 0
 
 
-class TestEvalTF:
-    def test_evaltf(self):
-        new_column = "double_value"
-        tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-        res = tf.fit_transform(df)
+def test_evaltf(self):
+    new_column = "double_value"
+    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
+    res = tf.fit_transform(df)
 
-        assert res[new_column].equals(df[feature_names[0]] * 2)
+    assert res[new_column].equals(df[feature_names[0]] * 2)
 
 
 class TestFillnaTF:
