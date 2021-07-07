@@ -18,6 +18,11 @@ class TransformerBase(TransformerMixin):
         return self.transform(X)
 
 
+#
+# Pandas's operation
+#
+
+
 class SelectorTF(TransformerBase):
     def __init__(self, cols: str | List[str] | Tuple[str] = None):
         if isinstance(cols, str):
@@ -52,6 +57,22 @@ class EvalTF(TransformerBase):
         check_dataframe_type(X)
 
         return X.eval(self.expr)
+
+
+class FillnaTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+    def transform(self, X: DataFrame) -> DataFrame:
+        check_dataframe_type(X)
+
+        return X.fillna(*self.args, **self.kwargs)
+
+
+#
+# numpy's operation
+#
 
 
 class RavelTF(TransformerBase):
