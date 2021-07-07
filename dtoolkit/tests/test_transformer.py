@@ -1,5 +1,8 @@
 import pandas as pd
 import pytest
+
+from sklearn.datasets import load_iris
+
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
 from dtoolkit.accessor import ColumnAccessor  # noqa
@@ -12,7 +15,7 @@ from dtoolkit.transformer import (
     RavelTF,
     SelectorTF,
 )
-from sklearn.datasets import load_iris
+
 
 iris = load_iris()
 feature_names = iris.feature_names
