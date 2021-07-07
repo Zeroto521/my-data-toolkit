@@ -5,7 +5,8 @@ from sklearn.datasets import load_iris
 
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import EvalTF, FillnaTF, QueryTF, RavelTF, SelectorTF
+from dtoolkit.accessor import ColumnAccessor
+from dtoolkit.transformer import DropTF, EvalTF, FillnaTF, QueryTF, RavelTF, SelectorTF
 
 
 iris = load_iris()
@@ -81,6 +82,13 @@ def test_evaltf():
     res = tf.fit_transform(df)
 
     assert res[new_column].equals(df[feature_names[0]] * 2)
+
+
+def test_droptf():
+    tf = DropTF(columns=[feature_names[0]])
+    res = tf.fit_transform(df)
+
+    assert feature_names[0] not in res.cols()
 
 
 #
