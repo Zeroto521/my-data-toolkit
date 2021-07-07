@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from typing import List, Tuple
+from typing import Callable, List, Optional, Tuple
 
-from numpy import ndarray, ravel
+from numpy import ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
 
 from ._checking import check_dataframe_type
-from ._typing import Pd
 
 
 class TransformerBase(TransformerMixin):
@@ -16,6 +15,23 @@ class TransformerBase(TransformerMixin):
 
     def fit_transform(self, X: DataFrame, *_) -> DataFrame:
         return self.transform(X)
+
+
+def transformer_factory(
+    func, check: Optional[Callable] = check_dataframe_type
+) -> TransformerBase:
+    class TF(TransformerBase):
+        def __init__(self, *args, **kwargs):
+            self.args = args
+            self.kwargs = kwargs
+
+        def transform(self, X):
+            if check:
+                check_dataframe_type(X)
+
+            return func(X, *self.args, **self.kwargs)
+
+    return TF
 
 
 #
@@ -39,45 +55,13 @@ class SelectorTF(TransformerBase):
         return X
 
 
-class QueryTF(TransformerBase):
-    def __init__(self, expr: str):
-        self.expr = expr
-
-    def transform(self, X: DataFrame) -> DataFrame:
-        check_dataframe_type(X)
-
-        return X.query(self.expr)
-
-
-class EvalTF(TransformerBase):
-    def __init__(self, expr: str):
-        self.expr = expr
-
-    def transform(self, X: DataFrame) -> DataFrame:
-        check_dataframe_type(X)
-
-        return X.eval(self.expr)
-
-
-class FillnaTF(TransformerBase):
-    def __init__(self, *args, **kwargs):
-        self.args = args
-        self.kwargs = kwargs
-
-    def transform(self, X: DataFrame) -> DataFrame:
-        check_dataframe_type(X)
-
-        return X.fillna(*self.args, **self.kwargs)
+FillnaTF = transformer_factory(DataFrame.fillna)
+EvalTF = transformer_factory(DataFrame.eval)
+QueryTF = transformer_factory(DataFrame.query)
 
 
 #
 # numpy's operation
 #
 
-
-class RavelTF(TransformerBase):
-    def transform(self, X: Pd | ndarray | List) -> ndarray:
-        return ravel(X)
-
-    def fit_transform(self, X: Pd | ndarray | List, *_) -> ndarray:
-        return self.transform(X)
+RavelTF = transformer_factory(ravel, check=None)
