@@ -5,7 +5,7 @@ from sklearn.datasets import load_iris
 
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import EvalTF, QueryTF, RavelTF, SelectorTF
+from dtoolkit.transformer import EvalTF, FillnaTF, QueryTF, RavelTF, SelectorTF
 
 
 iris = load_iris()
@@ -67,9 +67,20 @@ class TestQueryTF:
 
 
 class TestEvalTF:
-    def test_double_value(self):
+    def test_evaltf(self):
         new_column = "double_value"
         tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
         res = tf.fit_transform(df)
 
         assert res[new_column].equals(df[feature_names[0]] * 2)
+
+
+class TestFillnaTF:
+    def setup_method(self):
+        self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
+
+    def test_fill0(self):
+        tf = FillnaTF(0)
+        res = tf.fit_transform(self.df)
+
+        assert None not in res
