@@ -59,6 +59,17 @@ class EvalTF(TransformerBase):
         return X.eval(self.expr)
 
 
+class FillnaTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+    def transform(self, X: DataFrame) -> DataFrame:
+        check_dataframe_type(X)
+
+        return X.fillna(*self.args, **self.kwargs)
+
+
 #
 # numpy's operation
 #
