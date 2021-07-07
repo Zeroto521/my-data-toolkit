@@ -5,13 +5,26 @@ from sklearn.datasets import load_iris
 
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
-from dtoolkit.transformer import EvalTF, FillnaTF, QueryTF, RavelTF, SelectorTF
+from dtoolkit.accessor import ColumnAccessor  # noqa
+from dtoolkit.transformer import (
+    DropTF,
+    EvalTF,
+    FillnaTF,
+    QueryTF,
+    RavelTF,
+    SelectorTF,
+)
 
 
 iris = load_iris()
 feature_names = iris.feature_names
 df = pd.DataFrame(iris.data, columns=feature_names)
 s = df[feature_names[0]]
+
+
+#
+# Pandas's operation
+#
 
 
 class TestSelectorTF:
@@ -39,13 +52,6 @@ class TestSelectorTF:
             SelectorTF().transform(iris.data)
 
 
-@pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
-def test_raveltf(data):
-    res = RavelTF().fit_transform(data)
-
-    assert res.ndim == 1
-
-
 class TestQueryTF:
     def test_greater_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` > 0")
@@ -66,15 +72,6 @@ class TestQueryTF:
         assert len(res) == 0
 
 
-class TestEvalTF:
-    def test_evaltf(self):
-        new_column = "double_value"
-        tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-        res = tf.fit_transform(df)
-
-        assert res[new_column].equals(df[feature_names[0]] * 2)
-
-
 class TestFillnaTF:
     def setup_method(self):
         self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
@@ -84,3 +81,30 @@ class TestFillnaTF:
         res = tf.fit_transform(self.df)
 
         assert None not in res
+
+
+def test_evaltf():
+    new_column = "double_value"
+    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
+    res = tf.fit_transform(df)
+
+    assert res[new_column].equals(df[feature_names[0]] * 2)
+
+
+def test_droptf():
+    tf = DropTF(columns=[feature_names[0]])
+    res = tf.fit_transform(df)
+
+    assert feature_names[0] not in res.cols()
+
+
+#
+# numpy's operation
+#
+
+
+@pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
+def test_raveltf(data):
+    res = RavelTF().fit_transform(data)
+
+    assert res.ndim == 1
