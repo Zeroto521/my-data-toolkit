@@ -61,6 +61,7 @@ class SelectorTF(TransformerBase):
 FillnaTF = transformer_factory(DataFrame.fillna)
 EvalTF = transformer_factory(DataFrame.eval)
 QueryTF = transformer_factory(DataFrame.query)
+DropTF = transformer_factory(DataFrame.drop)
 
 
 #
