@@ -12,7 +12,7 @@ from dtoolkit.transformer import (
     FillnaTF,
     QueryTF,
     RavelTF,
-    SelectorTF
+    SelectorTF,
 )
 
 
