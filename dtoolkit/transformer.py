@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Callable, List, Optional, Tuple
 
-from numpy import ravel
+from numpy import ndarray, ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
@@ -43,7 +43,7 @@ def transformer_factory(
 #
 
 
-def change_data_to_df(df: DataFrame, data: Any) -> Optional[DataFrame]:
+def change_data_to_df(df: DataFrame, data: ndarray) -> DataFrame | ndarray:
     if isinstance(df, DataFrame):
         return DataFrame(data, columns=df.columns, index=df.index)
 
