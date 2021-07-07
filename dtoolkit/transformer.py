@@ -5,6 +5,7 @@ from typing import Callable, List, Optional, Tuple
 from numpy import ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
+from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 
 from ._checking import check_dataframe_type
 
@@ -35,6 +36,21 @@ def transformer_factory(
             return X
 
     return TF
+
+
+#
+# Sklearn's operation
+#
+
+
+class MinMaxScaler(SKMinMaxScaler):
+    def transform(self, X, *_):
+        X_new = super().transform(X, *_)
+
+        if isinstance(X, DataFrame):
+            X_new = DataFrame(X_new, columns=X.columns, index=X.index)
+
+        return X_new
 
 
 #
