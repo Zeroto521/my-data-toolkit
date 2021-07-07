@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, List, Optional, Tuple
+from typing import Any, Callable, List, Optional, Tuple
 
 from numpy import ravel
 from pandas import DataFrame
@@ -43,14 +43,21 @@ def transformer_factory(
 #
 
 
+def change_data_to_df(df: DataFrame, data: Any) -> Optional[DataFrame]:
+    if isinstance(df, DataFrame):
+        return DataFrame(data, columns=df.columns, index=df.index)
+
+
 class MinMaxScaler(SKMinMaxScaler):
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
 
-        if isinstance(X, DataFrame):
-            X_new = DataFrame(X_new, columns=X.columns, index=X.index)
+        return change_data_to_df(X, X_new) or X_new
 
-        return X_new
+    def inverse_transform(self, X, *_):
+        X_new = super().inverse_transform(X, *_)
+
+        return change_data_to_df(X, X_new) or X_new
 
 
 #
