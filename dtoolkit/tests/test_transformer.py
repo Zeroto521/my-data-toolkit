@@ -1,8 +1,5 @@
 import pandas as pd
 import pytest
-
-from sklearn.datasets import load_iris
-
 from dtoolkit._checking import istype
 from dtoolkit._typing import PandasTypeList
 from dtoolkit.accessor import ColumnAccessor  # noqa
@@ -10,16 +7,35 @@ from dtoolkit.transformer import (
     DropTF,
     EvalTF,
     FillnaTF,
+    MinMaxScaler,
     QueryTF,
     RavelTF,
     SelectorTF,
 )
-
+from sklearn.datasets import load_iris
 
 iris = load_iris()
 feature_names = iris.feature_names
 df = pd.DataFrame(iris.data, columns=feature_names)
 s = df[feature_names[0]]
+
+
+#
+# Sklearn's operation
+#
+
+
+class TestMinMaxScaler:
+    def setup_method(self):
+        self.tf = MinMaxScaler().fit(df)
+
+    def test_transform(self):
+        res = self.tf.transform(df)
+        assert isinstance(res, pd.DataFrame)
+
+    def test_inverse_transform(self):
+        res = self.tf.inverse_transform(df)
+        assert isinstance(res, pd.DataFrame)
 
 
 #
