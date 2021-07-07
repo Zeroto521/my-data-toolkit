@@ -31,6 +31,9 @@ def transformer_factory(
 
             return func(X, *self.args, **self.kwargs)
 
+        def inverse_transform(self, X, *_):
+            return X
+
     return TF
 
 
