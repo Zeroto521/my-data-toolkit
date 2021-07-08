@@ -14,6 +14,7 @@ from dtoolkit.transformer import (
     QueryTF,
     RavelTF,
     SelectorTF,
+    TransformerBase,
     _change_data_to_df,
 )
 
@@ -23,6 +24,14 @@ feature_names = iris.feature_names
 df = iris.data
 s = iris.target
 array = df.values
+
+
+class TestTransformerBase:
+    def test_no_operation_raise_error(self):
+        tf = TransformerBase()
+
+        with pytest.raises(ValueError):
+            tf.fit_transform(df)
 
 
 #
