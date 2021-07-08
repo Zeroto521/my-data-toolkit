@@ -10,9 +10,11 @@ from dtoolkit.transformer import (
     DropTF,
     EvalTF,
     FillnaTF,
+    MinMaxScaler,
     QueryTF,
     RavelTF,
     SelectorTF,
+    change_data_to_df,
 )
 
 
@@ -20,6 +22,30 @@ iris = load_iris()
 feature_names = iris.feature_names
 df = pd.DataFrame(iris.data, columns=feature_names)
 s = df[feature_names[0]]
+
+
+#
+# Sklearn's operation
+#
+
+
+@pytest.mark.parametrize("data, df", [(iris.data, df), (iris.data, iris.data)])
+def test_change_data_to_df(data, df):
+    data_new = change_data_to_df(data, df)
+
+    assert type(df) is type(data_new)  # pylint: disable=unidiomatic-typecheck
+
+
+class TestMinMaxScaler:
+    def setup_method(self):
+        self.tf = MinMaxScaler().fit(df)
+
+    def test_work(self):
+        data_transformed = self.tf.transform(df)
+        data = self.tf.inverse_transform(data_transformed)
+        data = data.round(2)
+
+        assert df.equals(data)
 
 
 #
