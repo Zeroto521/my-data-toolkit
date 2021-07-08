@@ -15,6 +15,7 @@ from dtoolkit.transformer import (
     RavelTF,
     SelectorTF,
     TransformerBase,
+    _df_select_cols,
     _change_data_to_df,
 )
 
@@ -59,6 +60,11 @@ def test_minmaxscaler():
 #
 # Pandas's operation test
 #
+
+
+def test_df_select_cols_raise_error():
+    with pytest.raises(TypeError):
+        _df_select_cols(df, 0)
 
 
 class TestSelectorTF:
