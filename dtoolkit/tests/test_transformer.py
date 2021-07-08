@@ -33,7 +33,7 @@ s = df[feature_names[0]]
 def test_change_data_to_df(data, df):
     data_new = change_data_to_df(data, df)
 
-    assert type(df) == type(data_new)
+    assert type(df) is type(data_new)  # pylint: disable=unidiomatic-typecheck
 
 
 class TestMinMaxScaler:
