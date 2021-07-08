@@ -4,6 +4,8 @@ help:
 	@echo "'clean' - remove all cached files"
 	@echo "'clean-build' - remove build artifacts"
 	@echo "'clean-pyc' - remove Python file artifacts"
+	@echo "'clean-cov' - remove coverage files"
+	@echo "'clean-model' - remove model or pipeline files"
 	@echo "'dist' - build package"
 	@echo "'test' - run tests and check coverage"
 	@echo "'info' - show conda environment and $(pkg) information"
@@ -18,9 +20,16 @@ clean-pyc:
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 
-clean: clean-build clean-pyc
+clean-model:
+	find . -name '*.model' -exec rm -f {} +
+	find . -name '*.joblib' -exec rm -f {} +
+	find . -name '*.pipeline' -exec rm -f {} +
+
+clean-cov:
 	rm -rf coverage.xml
 	rm -rf .coverage
+
+clean: clean-build clean-pyc clean-cov clean-model
 
 test:
 	pytest -v -r s -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
