@@ -11,31 +11,30 @@ from ._checking import check_dataframe_type
 
 
 class TransformerBase(TransformerMixin):
+    def __init__(self, *args, **kwargs):
+        self.args = args
+        self.kwargs = kwargs
+
+        self.validate: Optional[Callable] = None
+        self.operate: Optional[Callable] = None
+
     def fit(self, *_):
         return self
 
+    def transform(self, X, *_):
+        if self.validate:
+            self.validate(X)
+
+        if not self.operate:
+            raise ValueError("operate is missing.")
+
+        return self.operate(X, *self.args, **self.kwargs)
+
     def fit_transform(self, X, *_):
-        return self.transform(X)
+        return self.fit().transform(X)
 
-
-def transformer_factory(
-    func, check: Optional[Callable] = check_dataframe_type
-) -> TransformerBase:
-    class TF(TransformerBase):
-        def __init__(self, *args, **kwargs):
-            self.args = args
-            self.kwargs = kwargs
-
-        def transform(self, X, *_):
-            if check:
-                check_dataframe_type(X)
-
-            return func(X, *self.args, **self.kwargs)
-
-        def inverse_transform(self, X, *_):
-            return X
-
-    return TF
+    def inverse_transform(self, X, *_):
+        return X
 
 
 #
@@ -70,30 +69,68 @@ class MinMaxScaler(SKMinMaxScaler):
 #
 
 
+def _df_select_cols(
+    df: DataFrame,
+    cols: str | List[str] | Tuple[str],
+) -> DataFrame:
+    if not isinstance(cols, (str, list, tuple)):
+        raise TypeError("cols must be 'str', 'list', or 'tuple'.")
+
+    if isinstance(cols, str):
+        cols = [cols]
+    elif isinstance(cols, tuple):
+        cols = list(cols)
+
+    return df[cols] if cols else df
+
+
 class SelectorTF(TransformerBase):
-    def __init__(self, cols: str | List[str] | Tuple[str] = None):
-        if isinstance(cols, str):
-            cols = [cols]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        self.cols = cols
-
-    def transform(self, X: DataFrame) -> DataFrame:
-        check_dataframe_type(X)
-
-        return X[self.cols] if self.cols else X
-
-    def inverse_transform(self, X: DataFrame, *_) -> DataFrame:
-        return X
+        self.operate = _df_select_cols
+        self.validate = check_dataframe_type
 
 
-FillnaTF = transformer_factory(DataFrame.fillna)
-EvalTF = transformer_factory(DataFrame.eval)
-QueryTF = transformer_factory(DataFrame.query)
-DropTF = transformer_factory(DataFrame.drop)
+class FillnaTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = DataFrame.fillna
+        self.validate = check_dataframe_type
+
+
+class EvalTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = DataFrame.eval
+        self.validate = check_dataframe_type
+
+
+class QueryTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = DataFrame.query
+        self.validate = check_dataframe_type
+
+
+class DropTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = DataFrame.drop
+        self.validate = check_dataframe_type
 
 
 #
 # numpy's operation
 #
 
-RavelTF = transformer_factory(ravel, check=None)
+
+class RavelTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = ravel
