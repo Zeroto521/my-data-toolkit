@@ -1,10 +1,10 @@
+import joblib
 import pandas as pd
 import pytest
 
 from sklearn.datasets import load_iris
+from sklearn.pipeline import make_pipeline
 
-from dtoolkit._checking import istype
-from dtoolkit._typing import PandasTypeList
 from dtoolkit.accessor import ColumnAccessor  # noqa
 from dtoolkit.transformer import (
     DropTF,
@@ -14,68 +14,76 @@ from dtoolkit.transformer import (
     QueryTF,
     RavelTF,
     SelectorTF,
-    change_data_to_df,
+    TransformerBase,
+    _df_select_cols,
+    _change_data_to_df,
 )
 
 
-iris = load_iris()
+iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
-df = pd.DataFrame(iris.data, columns=feature_names)
-s = df[feature_names[0]]
+df = iris.data
+s = iris.target
+array = df.values
+
+
+class TestTransformerBase:
+    def test_no_operation_raise_error(self):
+        tf = TransformerBase()
+
+        with pytest.raises(ValueError):
+            tf.fit_transform(df)
 
 
 #
-# Sklearn's operation
+# Sklearn's operation test
 #
 
 
-@pytest.mark.parametrize("data, df", [(iris.data, df), (iris.data, iris.data)])
+@pytest.mark.parametrize("data, df", [(array, df), (array, array)])
 def test_change_data_to_df(data, df):
-    data_new = change_data_to_df(data, df)
+    data_new = _change_data_to_df(data, df)
 
     assert type(df) is type(data_new)  # pylint: disable=unidiomatic-typecheck
 
 
-class TestMinMaxScaler:
-    def setup_method(self):
-        self.tf = MinMaxScaler().fit(df)
+def test_minmaxscaler():
+    tf = MinMaxScaler().fit(df)
 
-    def test_work(self):
-        data_transformed = self.tf.transform(df)
-        data = self.tf.inverse_transform(data_transformed)
-        data = data.round(2)
+    data_transformed = tf.transform(df)
+    data = tf.inverse_transform(data_transformed)
+    data = data.round(2)
 
-        assert df.equals(data)
+    assert df.equals(data)
 
 
 #
-# Pandas's operation
+# Pandas's operation test
 #
+
+
+def test_df_select_cols_raise_error():
+    with pytest.raises(TypeError):
+        _df_select_cols(df, 0)
 
 
 class TestSelectorTF:
-    @pytest.mark.parametrize("cols", [feature_names, feature_names[0]])
-    def test_init(self, cols):
-        tf = SelectorTF(cols)
-        assert isinstance(tf.cols, list)
-
-    @pytest.mark.parametrize("cols", [[feature_names[0]], feature_names[1:]])
+    @pytest.mark.parametrize(
+        "cols", [feature_names[0], feature_names, tuple(feature_names)]
+    )
     def test_fit_transform(self, cols):
         tf = SelectorTF(cols)
+
+        if isinstance(cols, str):
+            cols = [cols]
+        elif isinstance(cols, tuple):
+            cols = list(cols)
+
         assert df[cols].equals(tf.fit_transform(df))
 
-    @pytest.mark.parametrize("X", [iris, df])
-    @pytest.mark.parametrize("cols", [None, feature_names])
-    def test_inverse_transform(self, X, cols):
-        tf = SelectorTF(cols)
-        if istype(X, PandasTypeList):
-            assert X.equals(tf.inverse_transform(X))
-        else:
-            assert X == tf.inverse_transform(X)
-
-    def test_data_is_not_dataframe(self):
+    def test_cols_type_error(self):
         with pytest.raises(TypeError):
-            SelectorTF().transform(iris.data)
+            SelectorTF().transform(df)
 
 
 class TestQueryTF:
@@ -125,12 +133,58 @@ def test_droptf():
 
 
 #
-# numpy's operation
+# numpy's operation test
 #
 
 
-@pytest.mark.parametrize("data", [iris.data, df, s, s.tolist()])
+@pytest.mark.parametrize("data", [array, df, s, s.tolist()])
 def test_raveltf(data):
     res = RavelTF().fit_transform(data)
 
     assert res.ndim == 1
+
+
+#
+# pipeline test
+#
+
+
+def gen_x_pipeline():
+    return make_pipeline(
+        EvalTF(f"sum = `{'` + `'.join(feature_names)}`"),
+        QueryTF("sum > 10"),
+        SelectorTF(feature_names),
+        DropTF(columns=feature_names[:2]),
+        MinMaxScaler(),
+    )
+
+
+def gen_y_pipeline():
+    return make_pipeline(RavelTF())
+
+
+class TestPipeline:
+    def test_x_pipeline_work(self):
+        pipe = gen_x_pipeline()
+        transformed_data = pipe.fit_transform(df)
+        data = pipe.inverse_transform(transformed_data)
+        data = data.round(2)
+
+    def test_y_pipeline_work(self):
+        pipe = gen_y_pipeline()
+        transformed_data = pipe.fit_transform(s)
+        pipe.inverse_transform(transformed_data)
+
+
+#
+# pickle pipeline test
+#
+
+
+@pytest.mark.parametrize(
+    "name,pipe", [("x", gen_x_pipeline()), ("y", gen_y_pipeline())]
+)
+def test_save_to_file(name, pipe):
+    pipe.fit(df)
+
+    joblib.dump(pipe, f"{name}.pipeline.joblib")
