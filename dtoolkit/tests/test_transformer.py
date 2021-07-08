@@ -14,9 +14,8 @@ from dtoolkit.transformer import (
     QueryTF,
     RavelTF,
     SelectorTF,
-    change_data_to_df,
+    _change_data_to_df,
 )
-
 
 iris = load_iris()
 feature_names = iris.feature_names
@@ -31,7 +30,7 @@ s = df[feature_names[0]]
 
 @pytest.mark.parametrize("data, df", [(iris.data, df), (iris.data, iris.data)])
 def test_change_data_to_df(data, df):
-    data_new = change_data_to_df(data, df)
+    data_new = _change_data_to_df(data, df)
 
     assert type(df) is type(data_new)  # pylint: disable=unidiomatic-typecheck
 
