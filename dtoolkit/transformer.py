@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from typing import Callable, List, Optional, Tuple
 
-from numpy import ravel
+from numpy import ndarray, ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
+from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 
 from ._checking import check_dataframe_type
 
@@ -35,6 +36,33 @@ def transformer_factory(
             return X
 
     return TF
+
+
+#
+# Sklearn's operation
+#
+
+
+def change_data_to_df(
+    data: ndarray,
+    df: DataFrame | ndarray,
+) -> DataFrame | ndarray:
+    if isinstance(df, DataFrame):
+        return DataFrame(data, columns=df.columns, index=df.index)
+
+    return data
+
+
+class MinMaxScaler(SKMinMaxScaler):
+    def transform(self, X, *_):
+        X_new = super().transform(X, *_)
+
+        return change_data_to_df(X_new, X)
+
+    def inverse_transform(self, X, *_):
+        X_new = super().inverse_transform(X, *_)
+
+        return change_data_to_df(X_new, X)
 
 
 #
