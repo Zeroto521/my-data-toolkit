@@ -14,6 +14,7 @@ from dtoolkit.transformer import (
     QueryTF,
     RavelTF,
     SelectorTF,
+    change_data_to_df,
 )
 
 
@@ -28,17 +29,23 @@ s = df[feature_names[0]]
 #
 
 
+@pytest.mark.parametrize("data, df", [(iris.data, df), (iris.data, iris.data)])
+def test_change_data_to_df(data, df):
+    data_new = change_data_to_df(data, df)
+
+    assert type(df) == type(data_new)
+
+
 class TestMinMaxScaler:
     def setup_method(self):
         self.tf = MinMaxScaler().fit(df)
 
-    def test_transform(self):
-        res = self.tf.transform(df)
-        assert isinstance(res, pd.DataFrame)
+    def test_work(self):
+        data_transformed = self.tf.transform(df)
+        data = self.tf.inverse_transform(data_transformed)
+        data = data.round(2)
 
-    def test_inverse_transform(self):
-        res = self.tf.inverse_transform(df)
-        assert isinstance(res, pd.DataFrame)
+        assert df.equals(data)
 
 
 #

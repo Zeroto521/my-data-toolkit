@@ -43,7 +43,10 @@ def transformer_factory(
 #
 
 
-def change_data_to_df(df: DataFrame, data: ndarray) -> DataFrame | ndarray:
+def change_data_to_df(
+    data: ndarray,
+    df: DataFrame | ndarray,
+) -> DataFrame | ndarray:
     if isinstance(df, DataFrame):
         return DataFrame(data, columns=df.columns, index=df.index)
 
@@ -54,12 +57,12 @@ class MinMaxScaler(SKMinMaxScaler):
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
 
-        return change_data_to_df(X, X_new)
+        return change_data_to_df(X_new, X)
 
     def inverse_transform(self, X, *_):
         X_new = super().inverse_transform(X, *_)
 
-        return change_data_to_df(X, X_new)
+        return change_data_to_df(X_new, X)
 
 
 #
