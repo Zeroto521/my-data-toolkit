@@ -7,6 +7,7 @@ from sklearn.pipeline import make_pipeline
 
 from dtoolkit.accessor import ColumnAccessor  # noqa
 from dtoolkit.transformer import (
+    AppendTF,
     DropTF,
     EvalTF,
     FillnaTF,
@@ -130,6 +131,15 @@ def test_droptf():
     res = tf.fit_transform(df)
 
     assert feature_names[0] not in res.cols()
+
+
+def test_appendtf():
+    tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
+
+    res = tf.fit_transform(pd.DataFrame(dict(a=[0])))
+    expt = pd.DataFrame(dict(a=range(9)))
+
+    assert res.equals(expt)
 
 
 #

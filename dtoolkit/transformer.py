@@ -124,6 +124,14 @@ class DropTF(TransformerBase):
         self.validate = check_dataframe_type
 
 
+class AppendTF(TransformerBase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = DataFrame.append
+        self.validate = check_dataframe_type
+
+
 #
 # numpy's operation
 #
