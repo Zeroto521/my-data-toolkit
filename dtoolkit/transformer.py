@@ -10,7 +10,7 @@ from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from ._checking import check_dataframe_type
 
 
-class TransformerBase(TransformerMixin):
+class Transformer(TransformerMixin):
     def __init__(self, *args, **kwargs):
         self.args = args
         self.kwargs = kwargs
@@ -84,7 +84,7 @@ def _df_select_cols(
     return df[cols] if cols else df
 
 
-class SelectorTF(TransformerBase):
+class SelectorTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -92,7 +92,7 @@ class SelectorTF(TransformerBase):
         self.validate = check_dataframe_type
 
 
-class FillnaTF(TransformerBase):
+class FillnaTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -100,7 +100,7 @@ class FillnaTF(TransformerBase):
         self.validate = check_dataframe_type
 
 
-class EvalTF(TransformerBase):
+class EvalTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -108,7 +108,7 @@ class EvalTF(TransformerBase):
         self.validate = check_dataframe_type
 
 
-class QueryTF(TransformerBase):
+class QueryTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -116,7 +116,7 @@ class QueryTF(TransformerBase):
         self.validate = check_dataframe_type
 
 
-class DropTF(TransformerBase):
+class DropTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -124,7 +124,7 @@ class DropTF(TransformerBase):
         self.validate = check_dataframe_type
 
 
-class AppendTF(TransformerBase):
+class AppendTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -137,7 +137,7 @@ class AppendTF(TransformerBase):
 #
 
 
-class RavelTF(TransformerBase):
+class RavelTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
