@@ -69,6 +69,13 @@ class MinMaxScaler(SKMinMaxScaler):
 #
 
 
+class DataFrameTF(Transformer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.validate = check_dataframe_type
+
+
 def _df_select_cols(
     df: DataFrame,
     cols: str | List[str] | Tuple[str],
@@ -84,52 +91,46 @@ def _df_select_cols(
     return df[cols] if cols else df
 
 
-class SelectorTF(Transformer):
+class SelectorTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = _df_select_cols
-        self.validate = check_dataframe_type
 
 
-class FillnaTF(Transformer):
+class FillnaTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.fillna
-        self.validate = check_dataframe_type
 
 
-class EvalTF(Transformer):
+class EvalTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.eval
-        self.validate = check_dataframe_type
 
 
-class QueryTF(Transformer):
+class QueryTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.query
-        self.validate = check_dataframe_type
 
 
-class DropTF(Transformer):
+class DropTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.drop
-        self.validate = check_dataframe_type
 
 
-class AppendTF(Transformer):
+class AppendTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.append
-        self.validate = check_dataframe_type
 
 
 #
