@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Optional
 
 from numpy import ndarray, ravel
 from pandas import DataFrame
