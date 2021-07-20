@@ -38,7 +38,9 @@ def check_geopandas_type(df: GPd):
 
 def check_geometry_type(geom: BaseGeometry):
     bad_condition_raise_error(
-        not istype(geom, BaseGeometry), TypeError, f"{geom} must be Geometry."
+        not istype(geom, BaseGeometry),
+        TypeError,
+        f"{geom} must be Geometry.",
     )
 
 
@@ -52,7 +54,9 @@ def check_number_tyep(num: NumericType):
 
 def check_greater_than_zero(num: NumericType):
     bad_condition_raise_error(
-        num <= 0, ValueError, f"The {num} must be greater than 0."
+        num <= 0,
+        ValueError,
+        f"The {num} must be greater than 0.",
     )
 
 
