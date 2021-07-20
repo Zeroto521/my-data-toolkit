@@ -7,7 +7,7 @@ from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 
-from ._checking import check_dataframe_type
+from ._checking import check_dataframe_type, var2list
 
 
 class Transformer(TransformerMixin):
@@ -76,10 +76,7 @@ def _df_select_cols(
     if not isinstance(cols, (str, list, tuple)):
         raise TypeError("cols must be 'str', 'list', or 'tuple'.")
 
-    if isinstance(cols, str):
-        cols = [cols]
-    elif isinstance(cols, tuple):
-        cols = list(cols)
+    cols = var2list(cols)
 
     return df[cols] if cols else df
 

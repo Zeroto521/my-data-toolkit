@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List, Tuple
+from typing import Any, List, Tuple
 
 from pandas import DataFrame
 from shapely.geometry.base import BaseGeometry
@@ -8,11 +8,19 @@ from shapely.geometry.base import BaseGeometry
 from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
 
 
-def istype(var: object, types: type | List[type] | Tuple[type]) -> bool:
-    if isinstance(types, list):
-        types: Tuple[type] = tuple(types)
+def istype(var: Any, types: type | List[type] | Tuple[type]) -> bool:
+    types: Tuple[type] = var2list(types)
 
     return isinstance(var, types)
+
+
+def var2list(var: Any) -> List[Any]:
+    if isinstance(var, list):
+        return var
+    elif isinstance(var, tuple):
+        return list(var)
+
+    return [var]
 
 
 def bad_condition_raise_error(condition: bool, error: BaseException, msg: str):
