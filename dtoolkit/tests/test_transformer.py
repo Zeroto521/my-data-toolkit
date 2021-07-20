@@ -27,14 +27,6 @@ s = iris.target
 array = df.values
 
 
-class TestTransformer:
-    def test_no_operation_raise_error(self):
-        tf = Transformer()
-
-        with pytest.raises(ValueError):
-            tf.fit_transform(df)
-
-
 #
 # Sklearn's operation test
 #
