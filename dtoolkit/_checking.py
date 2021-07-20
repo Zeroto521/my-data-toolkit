@@ -9,18 +9,16 @@ from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
 
 
 def istype(var: Any, types: type | List[type] | Tuple[type]) -> bool:
-    types: Tuple[type] = var2list(types)
+    types: Tuple[type] = containerize(types, tuple)
 
     return isinstance(var, types)
 
 
-def var2list(var: Any) -> List[Any]:
-    if isinstance(var, list):
-        return var
-    elif isinstance(var, tuple):
-        return list(var)
+def containerize(var: Any, finaltype=list) -> List[Any] | Tuple[Any]:
+    if not isinstance(var, (list, tuple)):
+        var = [var]
 
-    return [var]
+    return finaltype(var)
 
 
 def bad_condition_raise_error(condition: bool, error: BaseException, msg: str):
