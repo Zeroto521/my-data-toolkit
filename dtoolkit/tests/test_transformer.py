@@ -27,7 +27,7 @@ s = iris.target
 array = df.values
 
 
-class TestTransformerBase:
+class TestTransformer:
     def test_no_operation_raise_error(self):
         tf = Transformer()
 
