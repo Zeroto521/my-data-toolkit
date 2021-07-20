@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Optional
 
 from numpy import ndarray, ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 
-from ._checking import check_dataframe_type, var2list
+from ._checking import check_dataframe_type
 
 
 class Transformer(TransformerMixin):
@@ -69,64 +69,53 @@ class MinMaxScaler(SKMinMaxScaler):
 #
 
 
-def _df_select_cols(
-    df: DataFrame,
-    cols: str | List[str] | Tuple[str],
-) -> DataFrame:
-    if not isinstance(cols, (str, list, tuple)):
-        raise TypeError("cols must be 'str', 'list', or 'tuple'.")
-
-    cols = var2list(cols)
-
-    return df[cols] if cols else df
-
-
-class SelectorTF(Transformer):
+class DataFrameTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.operate = _df_select_cols
         self.validate = check_dataframe_type
 
 
-class FillnaTF(Transformer):
+class GetTF(Transformer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.operate = DataFrame.get
+
+
+class FillnaTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.fillna
-        self.validate = check_dataframe_type
 
 
-class EvalTF(Transformer):
+class EvalTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.eval
-        self.validate = check_dataframe_type
 
 
-class QueryTF(Transformer):
+class QueryTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.query
-        self.validate = check_dataframe_type
 
 
-class DropTF(Transformer):
+class DropTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.drop
-        self.validate = check_dataframe_type
 
 
-class AppendTF(Transformer):
+class AppendTF(DataFrameTF):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.operate = DataFrame.append
-        self.validate = check_dataframe_type
 
 
 #
