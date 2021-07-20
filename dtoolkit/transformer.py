@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, Optional
 
 from numpy import ndarray, ravel
 from pandas import DataFrame
@@ -76,26 +76,11 @@ class DataFrameTF(Transformer):
         self.validate = check_dataframe_type
 
 
-def _df_select_cols(
-    df: DataFrame,
-    cols: str | List[str] | Tuple[str],
-) -> DataFrame:
-    if not isinstance(cols, (str, list, tuple)):
-        raise TypeError("cols must be 'str', 'list', or 'tuple'.")
-
-    if isinstance(cols, str):
-        cols = [cols]
-    elif isinstance(cols, tuple):
-        cols = list(cols)
-
-    return df[cols] if cols else df
-
-
-class SelectorTF(DataFrameTF):
+class GetTF(Transformer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.operate = _df_select_cols
+        self.operate = DataFrame.get
 
 
 class FillnaTF(DataFrameTF):
