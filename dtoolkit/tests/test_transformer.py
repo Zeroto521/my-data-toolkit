@@ -11,12 +11,11 @@ from dtoolkit.transformer import (
     DropTF,
     EvalTF,
     FillnaTF,
+    GetTF,
     MinMaxScaler,
     QueryTF,
     RavelTF,
-    SelectorTF,
     Transformer,
-    _df_select_cols,
     _change_data_to_df,
 )
 
@@ -63,28 +62,14 @@ def test_minmaxscaler():
 #
 
 
-def test_df_select_cols_raise_error():
-    with pytest.raises(TypeError):
-        _df_select_cols(df, 0)
+@pytest.mark.parametrize("cols", [[feature_names[0]], feature_names])
+def test_gettf(cols):
+    tf = GetTF(cols)
 
+    res = tf.fit_transform(df)
+    expt = df[cols]
 
-class TestSelectorTF:
-    @pytest.mark.parametrize(
-        "cols", [feature_names[0], feature_names, tuple(feature_names)]
-    )
-    def test_fit_transform(self, cols):
-        tf = SelectorTF(cols)
-
-        if isinstance(cols, str):
-            cols = [cols]
-        elif isinstance(cols, tuple):
-            cols = list(cols)
-
-        assert df[cols].equals(tf.fit_transform(df))
-
-    def test_cols_type_error(self):
-        with pytest.raises(TypeError):
-            SelectorTF().transform(df)
+    assert res.equals(expt)
 
 
 class TestQueryTF:
@@ -163,7 +148,7 @@ def gen_x_pipeline():
     return make_pipeline(
         EvalTF(f"sum = `{'` + `'.join(feature_names)}`"),
         QueryTF("sum > 10"),
-        SelectorTF(feature_names),
+        GetTF(feature_names),
         DropTF(columns=feature_names[:2]),
         MinMaxScaler(),
     )
