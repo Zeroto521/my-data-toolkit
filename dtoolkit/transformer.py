@@ -71,24 +71,9 @@ class DataFrameTF(Transformer):
         return check_dataframe_type(*args, **kwargs)
 
 
-class GetTF(Transformer):
+class AppendTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.get(*args, **kwargs)
-
-
-class FillnaTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
-        return DataFrame.fillna(*args, **kwargs)
-
-
-class EvalTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
-        return DataFrame.eval(*args, **kwargs)
-
-
-class QueryTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
-        return DataFrame.query(*args, **kwargs)
+        return DataFrame.append(*args, **kwargs)
 
 
 class DropTF(DataFrameTF):
@@ -96,9 +81,24 @@ class DropTF(DataFrameTF):
         return DataFrame.drop(*args, **kwargs)
 
 
-class AppendTF(DataFrameTF):
+class EvalTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.append(*args, **kwargs)
+        return DataFrame.eval(*args, **kwargs)
+
+
+class FillnaTF(DataFrameTF):
+    def operate(self, *args, **kwargs):
+        return DataFrame.fillna(*args, **kwargs)
+
+
+class GetTF(Transformer):
+    def operate(self, *args, **kwargs):
+        return DataFrame.get(*args, **kwargs)
+
+
+class QueryTF(DataFrameTF):
+    def operate(self, *args, **kwargs):
+        return DataFrame.query(*args, **kwargs)
 
 
 #
