@@ -70,7 +70,7 @@ def geographic_buffer(
     if istype(distance, pd.Series) and not df.index.equals(distance.index):
         raise IndexError(
             "Index values of distance sequence does "
-            "not match index values of the GeoSeries"
+            "not match index values of the GeoSeries",
         )
 
     if not istype(distance, NumericTypeList):
