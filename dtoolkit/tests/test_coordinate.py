@@ -1,24 +1,20 @@
 import geopandas as gpd
 import pytest
-
 from more_itertools import collapse
-from shapely.geometry import (
-    LinearRing,
-    LineString,
-    MultiLineString,
-    MultiPoint,
-    MultiPolygon,
-    Point,
-    Polygon,
-)
+from shapely.geometry import LinearRing
+from shapely.geometry import LineString
+from shapely.geometry import MultiLineString
+from shapely.geometry import MultiPoint
+from shapely.geometry import MultiPolygon
+from shapely.geometry import Point
+from shapely.geometry import Polygon
 
-from dtoolkit.coordinate import (
-    _coords,
-    _coords_num,
-    coords,
-    coords_num,
-    coords_numlist,
-)
+from dtoolkit.coordinate import _coords
+from dtoolkit.coordinate import _coords_num
+from dtoolkit.coordinate import coords
+from dtoolkit.coordinate import coords_num
+from dtoolkit.coordinate import coords_numlist
+
 
 cpoint = [(100, 1)]
 point = Point(cpoint)
