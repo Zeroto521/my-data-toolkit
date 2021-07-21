@@ -15,7 +15,6 @@ from dtoolkit.transformer import (
     MinMaxScaler,
     QueryTF,
     RavelTF,
-    Transformer,
     _change_data_to_df,
 )
 
