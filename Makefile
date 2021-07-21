@@ -6,6 +6,7 @@ help:
 	@echo "'clean-pyc' - remove Python file artifacts"
 	@echo "'clean-cov' - remove coverage files"
 	@echo "'clean-model' - remove model or pipeline files"
+	@echo "'lint' - lint source codes"
 	@echo "'dist' - build package"
 	@echo "'test' - run tests and check coverage"
 	@echo "'info' - show conda environment and $(pkg) information"
@@ -30,6 +31,9 @@ clean-cov:
 	rm -rf .coverage
 
 clean: clean-build clean-pyc clean-cov clean-model
+
+lint:
+	pre-commit run --all-files
 
 test:
 	pytest -v -r s -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
