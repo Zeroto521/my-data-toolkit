@@ -1,20 +1,22 @@
-from typing import Tuple, TypeVar, Union
+from typing import Tuple
+from typing import TypeVar
+from typing import Union
 
-from geopandas import GeoDataFrame, GeoSeries
-from numpy import (
-    float32,
-    float64,
-    float_,
-    int8,
-    int16,
-    int32,
-    int64,
-    uint8,
-    uint16,
-    uint32,
-    uint64,
-)
-from pandas import DataFrame, Series
+from geopandas import GeoDataFrame
+from geopandas import GeoSeries
+from numpy import float32
+from numpy import float64
+from numpy import float_
+from numpy import int16
+from numpy import int32
+from numpy import int64
+from numpy import int8
+from numpy import uint16
+from numpy import uint32
+from numpy import uint64
+from numpy import uint8
+from pandas import DataFrame
+from pandas import Series
 
 
 #

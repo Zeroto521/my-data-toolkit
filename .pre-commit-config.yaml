@@ -1,12 +1,22 @@
-files: 'dtoolkit\/'
+files: "dtoolkit\/"
 repos:
   - repo: https://github.com/python/black
-    rev: 20.8b1
+    rev: 21.7b0
     hooks:
-    - id: black
-      language_version: python3
+      - id: black
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.3
+    rev: 3.9.2
     hooks:
-    - id: flake8
-      language: python_venv
+      - id: flake8
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.21.2
+    hooks:
+      - id: pyupgrade
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.5.0
+    hooks:
+      - id: reorder-python-imports
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.1.0
+    hooks:
+      - id: add-trailing-comma

@@ -5,6 +5,7 @@ import pytest
 from dtoolkit.accessor import ColumnAccessor  # noqa
 from dtoolkit.accessor import DropInfAccessor  # noqa
 
+
 s = pd.Series(range(10), name="item")
 s = s.astype(float)
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from numpy import ndarray, ravel
+from numpy import ndarray
+from numpy import ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
