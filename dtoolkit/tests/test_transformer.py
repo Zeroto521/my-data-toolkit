@@ -104,7 +104,7 @@ class TestFillnaTF:
 
 
 def test_filtertf():
-    tf = FilterTF(regex="^\w+?_(1[8-9]|2[0-2])$", axis=1)
+    tf = FilterTF(regex=r"^\w+?_(1[8-9]|2[0-2])$", axis=1)
 
     res = tf.fit_transform(df_period)
 
