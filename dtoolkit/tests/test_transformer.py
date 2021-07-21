@@ -137,8 +137,8 @@ def test_raveltf(data):
 
 def gen_x_pipeline():
     return make_pipeline(
-        EvalTF(f"sum = `{'` + `'.join(feature_names)}`"),
-        QueryTF("sum > 10"),
+        EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
+        QueryTF("`sum_feature` > 10"),
         GetTF(feature_names),
         DropTF(columns=feature_names[:2]),
         MinMaxScaler(),
@@ -168,7 +168,11 @@ class TestPipeline:
 
 
 @pytest.mark.parametrize(
-    "name,pipe", [("x", gen_x_pipeline()), ("y", gen_y_pipeline())]
+    "name,pipe",
+    [
+        ("x", gen_x_pipeline()),
+        ("y", gen_y_pipeline()),
+    ],
 )
 def test_save_to_file(name, pipe):
     pipe.fit(df)
