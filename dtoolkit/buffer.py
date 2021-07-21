@@ -107,12 +107,12 @@ def string_or_int_to_crs(
         return CRS.from_user_input(crs)
     elif epsg is not None:
         return CRS.from_epsg(epsg)
-    else:
-        warn(
-            "The crs is missing, and the crs would be set 'EPSG:4326'.",
-            UserWarning,
-        )
-        return CRS.from_epsg(4326)
+
+    warn(
+        "The crs is missing, and the crs would be set 'EPSG:4326'.",
+        UserWarning,
+    )
+    return CRS.from_epsg(4326)
 
 
 def _geographic_buffer(
@@ -135,7 +135,6 @@ def _geographic_buffer(
     azmed = ProjectedCRS(AzumuthalEquidistantConversion(geom.y, geom.x))
     project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
-    # TODO: extend to other geometry
-    p: BaseGeometry = Point(0, 0)
+    p: BaseGeometry = Point(0, 0)  # TODO: extend to other geometry
     buffer: BaseGeometry = p.buffer(distance, **kwargs)
     return transform(project.transform, buffer)
