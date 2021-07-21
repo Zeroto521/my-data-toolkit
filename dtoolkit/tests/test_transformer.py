@@ -178,7 +178,10 @@ class TestPipeline:
 
 @pytest.mark.parametrize(
     "name,pipe",
-    [("x", gen_x_pipeline()), ("y", gen_y_pipeline())],
+    [
+        ("x", gen_x_pipeline()),
+        ("y", gen_y_pipeline()),
+    ],
 )
 def test_save_to_file(name, pipe):
     pipe.fit(df)
