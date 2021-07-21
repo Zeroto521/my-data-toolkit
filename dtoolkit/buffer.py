@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
 from warnings import warn
 
 import geopandas as gpd
@@ -27,8 +26,8 @@ from ._typing import GPd, Num, NumericTypeList
 def geographic_buffer(
     df: GPd,
     distance: Num | list[Num] | np.ndarray | pd.Series,
-    crs: Optional[str] = None,
-    epsg: Optional[int] = None,
+    crs: str | None = None,
+    epsg: int | None = None,
     **kwargs,
 ) -> gpd.GeoSeries:
     """
@@ -100,8 +99,8 @@ def geographic_buffer(
 
 
 def string_or_int_to_crs(
-    crs: Optional[str] = None,
-    epsg: Optional[int] = None,
+    crs: str | None = None,
+    epsg: int | None = None,
 ) -> CRS:
     if crs is not None:
         return CRS.from_user_input(crs)
@@ -116,11 +115,11 @@ def string_or_int_to_crs(
 
 
 def _geographic_buffer(
-    geom: Optional[BaseGeometry],
+    geom: BaseGeometry | None,
     distance: Num,
-    crs: Optional[CRS] = None,
+    crs: CRS | None = None,
     **kwargs,
-) -> Optional[BaseGeometry]:
+) -> BaseGeometry | None:
 
     if geom is None:
         return None

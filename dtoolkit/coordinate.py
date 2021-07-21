@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import Tuple
 from warnings import warn
 
 import pandas as pd
@@ -42,14 +41,14 @@ def coords_num(df: GPd) -> pd.Series:
     return res.apply(sum_nums)
 
 
-def _coords(geom: BaseGeometry) -> CoordType | Tuple[CoordType]:
+def _coords(geom: BaseGeometry) -> CoordType | tuple[CoordType]:
     check_geometry_type(geom)
 
     geom_dic = mapping(geom)
     return _get_coords(geom_dic)
 
 
-def _get_coords(geom_dic: dict) -> CoordType | Tuple[CoordType]:
+def _get_coords(geom_dic: dict) -> CoordType | tuple[CoordType]:
     if geom_dic.get("type") != "GeometryCollection":
         return tuple(geom_dic.get("coordinates"))
 
