@@ -76,6 +76,11 @@ class AppendTF(DataFrameTF):
         return DataFrame.append(*args, **kwargs)
 
 
+class AssignTF(Transformer):
+    def open(self, *args, **kwargs):
+        return DataFrame.assign(*args, **kwargs)
+
+
 class DropTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.drop(*args, **kwargs)
