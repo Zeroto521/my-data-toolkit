@@ -27,7 +27,6 @@ from ._typing import GPd, Num, NumericTypeList
 def geographic_buffer(
     df: GPd,
     distance: Num | list[Num] | np.ndarray | pd.Series,
-    resolution: int = 16,
     crs: Optional[str] = None,
     epsg: Optional[int] = None,
     **kwargs,
@@ -54,8 +53,6 @@ def geographic_buffer(
     distance : int, float, np.ndarray, pd.Series, the unit is meter.
         The radius of the buffer. If `np.ndarray` or `pd.Series` are used
         then it must have same length as the GeoSeries.
-    resolution : int, optional, default 16
-        The resolution of the buffer around each vertex.
     crs : str, optional
         if `epsg` is specified The value can be anything accepted by
         :meth:`pyproj.CRS.from_user_input() <pyproj.crs.CRS.from_user_input>`,
@@ -90,16 +87,12 @@ def geographic_buffer(
         )
 
         out[:] = [
-            _geographic_buffer(
-                geom, distance=dist, crs=gscrs, resolution=resolution, **kwargs
-            )
+            _geographic_buffer(geom, distance=dist, crs=gscrs, **kwargs)
             for geom, dist in zip(df.geometry, distance)
         ]
     else:
         out[:] = [
-            _geographic_buffer(
-                geom, distance, crs=gscrs, resolution=resolution, **kwargs
-            )
+            _geographic_buffer(geom, distance, crs=gscrs, **kwargs)
             for geom in df.geometry
         ]
 
@@ -114,19 +107,18 @@ def string_or_int_to_crs(
         return CRS.from_user_input(crs)
     elif epsg is not None:
         return CRS.from_epsg(epsg)
-    else:
-        warn(
-            "The crs is missing, and the crs would be set 'EPSG:4326'.",
-            UserWarning,
-        )
-        return CRS.from_epsg(4326)
+
+    warn(
+        "The crs is missing, and the crs would be set 'EPSG:4326'.",
+        UserWarning,
+    )
+    return CRS.from_epsg(4326)
 
 
 def _geographic_buffer(
     geom: Optional[BaseGeometry],
     distance: Num,
     crs: Optional[CRS] = None,
-    resolution: int = 16,
     **kwargs,
 ) -> Optional[BaseGeometry]:
 
@@ -143,7 +135,6 @@ def _geographic_buffer(
     azmed = ProjectedCRS(AzumuthalEquidistantConversion(geom.y, geom.x))
     project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
 
-    # TODO: extend to other geometry
-    p: BaseGeometry = Point(0, 0)
-    buffer: BaseGeometry = p.buffer(distance, resolution=resolution, **kwargs)
+    p: BaseGeometry = Point(0, 0)  # TODO: extend to other geometry
+    buffer: BaseGeometry = p.buffer(distance, **kwargs)
     return transform(project.transform, buffer)
