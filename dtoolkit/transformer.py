@@ -72,14 +72,14 @@ class DataFrameTF(Transformer):
         return check_dataframe_type(*args, **kwargs)
 
 
-class AppendTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
-        return DataFrame.append(*args, **kwargs)
-
-
 class AssignTF(Transformer):
     def open(self, *args, **kwargs):
         return DataFrame.assign(*args, **kwargs)
+
+
+class AppendTF(DataFrameTF):
+    def operate(self, *args, **kwargs):
+        return DataFrame.append(*args, **kwargs)
 
 
 class DropTF(DataFrameTF):
