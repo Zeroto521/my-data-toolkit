@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Callable, Optional
-
 from numpy import ndarray, ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
@@ -15,18 +13,17 @@ class Transformer(TransformerMixin):
         self.args = args
         self.kwargs = kwargs
 
-        self.validate: Optional[Callable] = None
-        self.operate: Optional[Callable] = None
+    def operate(self, X, *_, **__):
+        return X
+
+    def validate(self, *_, **__):
+        ...
 
     def fit(self, *_):
         return self
 
     def transform(self, X, *_):
-        if self.validate:
-            self.validate(X)
-
-        if not self.operate:
-            raise ValueError("operate is missing.")
+        self.validate(X)
 
         return self.operate(X, *self.args, **self.kwargs)
 
@@ -70,52 +67,38 @@ class MinMaxScaler(SKMinMaxScaler):
 
 
 class DataFrameTF(Transformer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.validate = check_dataframe_type
+    def validate(self, *args, **kwargs):
+        return check_dataframe_type(*args, **kwargs)
 
 
 class GetTF(Transformer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = DataFrame.get
+    def operate(self, *args, **kwargs):
+        return DataFrame.get(*args, **kwargs)
 
 
 class FillnaTF(DataFrameTF):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = DataFrame.fillna
+    def operate(self, *args, **kwargs):
+        return DataFrame.fillna(*args, **kwargs)
 
 
 class EvalTF(DataFrameTF):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = DataFrame.eval
+    def operate(self, *args, **kwargs):
+        return DataFrame.eval(*args, **kwargs)
 
 
 class QueryTF(DataFrameTF):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = DataFrame.query
+    def operate(self, *args, **kwargs):
+        return DataFrame.query(*args, **kwargs)
 
 
 class DropTF(DataFrameTF):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = DataFrame.drop
+    def operate(self, *args, **kwargs):
+        return DataFrame.drop(*args, **kwargs)
 
 
 class AppendTF(DataFrameTF):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = DataFrame.append
+    def operate(self, *args, **kwargs):
+        return DataFrame.append(*args, **kwargs)
 
 
 #
@@ -124,7 +107,5 @@ class AppendTF(DataFrameTF):
 
 
 class RavelTF(Transformer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.operate = ravel
+    def operate(self, *args, **kwargs):
+        return ravel(*args, **kwargs)
