@@ -1,4 +1,5 @@
 import joblib
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -11,6 +12,7 @@ from dtoolkit.transformer import (
     DropTF,
     EvalTF,
     FillnaTF,
+    FilterTF,
     GetTF,
     MinMaxScaler,
     QueryTF,
@@ -19,12 +21,25 @@ from dtoolkit.transformer import (
 )
 
 
+#
+# Create dataset
+#
+
 iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
 df = iris.data
 s = iris.target
 array = df.values
 
+period_names = [f"day_{t}" for t in range(24 + 1)]
+df_period = pd.DataFrame(
+    np.random.randint(
+        0,
+        len(period_names),
+        size=(100, len(period_names)),
+    ),
+    columns=period_names,
+)
 
 #
 # Sklearn's operation test
@@ -51,6 +66,49 @@ def test_minmaxscaler():
 #
 # Pandas's operation test
 #
+
+
+def test_appendtf():
+    tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
+
+    res = tf.fit_transform(pd.DataFrame(dict(a=[0])))
+    expt = pd.DataFrame(dict(a=range(9)))
+
+    assert res.equals(expt)
+
+
+def test_droptf():
+    tf = DropTF(columns=[feature_names[0]])
+    res = tf.fit_transform(df)
+
+    assert feature_names[0] not in res.cols()
+
+
+def test_evaltf():
+    new_column = "double_value"
+    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
+    res = tf.fit_transform(df)
+
+    assert res[new_column].equals(df[feature_names[0]] * 2)
+
+
+class TestFillnaTF:
+    def setup_method(self):
+        self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
+
+    def test_fill0(self):
+        tf = FillnaTF(0)
+        res = tf.fit_transform(self.df)
+
+        assert None not in res
+
+
+def test_filtertf():
+    tf = FilterTF(regex=r"^\w+?_(1[8-9]|2[0-2])$", axis=1)
+
+    res = tf.fit_transform(df_period)
+
+    assert len(res.cols()) == 5
 
 
 @pytest.mark.parametrize("cols", [[feature_names[0]], feature_names])
@@ -81,41 +139,6 @@ class TestQueryTF:
         res = tf.fit_transform(df)
 
         assert len(res) == 0
-
-
-class TestFillnaTF:
-    def setup_method(self):
-        self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
-
-    def test_fill0(self):
-        tf = FillnaTF(0)
-        res = tf.fit_transform(self.df)
-
-        assert None not in res
-
-
-def test_evaltf():
-    new_column = "double_value"
-    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-    res = tf.fit_transform(df)
-
-    assert res[new_column].equals(df[feature_names[0]] * 2)
-
-
-def test_droptf():
-    tf = DropTF(columns=[feature_names[0]])
-    res = tf.fit_transform(df)
-
-    assert feature_names[0] not in res.cols()
-
-
-def test_appendtf():
-    tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
-
-    res = tf.fit_transform(pd.DataFrame(dict(a=[0])))
-    expt = pd.DataFrame(dict(a=range(9)))
-
-    assert res.equals(expt)
 
 
 #
