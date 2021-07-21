@@ -53,6 +53,41 @@ def test_minmaxscaler():
 #
 
 
+def test_appendtf():
+    tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
+
+    res = tf.fit_transform(pd.DataFrame(dict(a=[0])))
+    expt = pd.DataFrame(dict(a=range(9)))
+
+    assert res.equals(expt)
+
+
+def test_droptf():
+    tf = DropTF(columns=[feature_names[0]])
+    res = tf.fit_transform(df)
+
+    assert feature_names[0] not in res.cols()
+
+
+def test_evaltf():
+    new_column = "double_value"
+    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
+    res = tf.fit_transform(df)
+
+    assert res[new_column].equals(df[feature_names[0]] * 2)
+
+
+class TestFillnaTF:
+    def setup_method(self):
+        self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
+
+    def test_fill0(self):
+        tf = FillnaTF(0)
+        res = tf.fit_transform(self.df)
+
+        assert None not in res
+
+
 @pytest.mark.parametrize("cols", [[feature_names[0]], feature_names])
 def test_gettf(cols):
     tf = GetTF(cols)
@@ -81,41 +116,6 @@ class TestQueryTF:
         res = tf.fit_transform(df)
 
         assert len(res) == 0
-
-
-class TestFillnaTF:
-    def setup_method(self):
-        self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
-
-    def test_fill0(self):
-        tf = FillnaTF(0)
-        res = tf.fit_transform(self.df)
-
-        assert None not in res
-
-
-def test_evaltf():
-    new_column = "double_value"
-    tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-    res = tf.fit_transform(df)
-
-    assert res[new_column].equals(df[feature_names[0]] * 2)
-
-
-def test_droptf():
-    tf = DropTF(columns=[feature_names[0]])
-    res = tf.fit_transform(df)
-
-    assert feature_names[0] not in res.cols()
-
-
-def test_appendtf():
-    tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
-
-    res = tf.fit_transform(pd.DataFrame(dict(a=[0])))
-    expt = pd.DataFrame(dict(a=range(9)))
-
-    assert res.equals(expt)
 
 
 #
