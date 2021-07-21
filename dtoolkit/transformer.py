@@ -91,6 +91,11 @@ class FillnaTF(DataFrameTF):
         return DataFrame.fillna(*args, **kwargs)
 
 
+class FilterTF(DataFrameTF):
+    def operate(self, *args, **kwargs):
+        return DataFrame.filter(*args, **kwargs)
+
+
 class GetTF(Transformer):
     def operate(self, *args, **kwargs):
         return DataFrame.get(*args, **kwargs)
