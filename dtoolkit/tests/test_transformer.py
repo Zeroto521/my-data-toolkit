@@ -2,23 +2,20 @@ import joblib
 import numpy as np
 import pandas as pd
 import pytest
-
 from sklearn.datasets import load_iris
 from sklearn.pipeline import make_pipeline
 
 from dtoolkit.accessor import ColumnAccessor  # noqa
-from dtoolkit.transformer import (
-    AppendTF,
-    DropTF,
-    EvalTF,
-    FillnaTF,
-    FilterTF,
-    GetTF,
-    MinMaxScaler,
-    QueryTF,
-    RavelTF,
-    _change_data_to_df,
-)
+from dtoolkit.transformer import _change_data_to_df
+from dtoolkit.transformer import AppendTF
+from dtoolkit.transformer import DropTF
+from dtoolkit.transformer import EvalTF
+from dtoolkit.transformer import FillnaTF
+from dtoolkit.transformer import FilterTF
+from dtoolkit.transformer import GetTF
+from dtoolkit.transformer import MinMaxScaler
+from dtoolkit.transformer import QueryTF
+from dtoolkit.transformer import RavelTF
 
 
 #
