@@ -1,3 +1,5 @@
+from functools import partial
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -8,6 +10,7 @@ from sklearn.pipeline import make_pipeline
 from dtoolkit.accessor import ColumnAccessor  # noqa
 from dtoolkit.transformer import _change_data_to_df
 from dtoolkit.transformer import AppendTF
+from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
 from dtoolkit.transformer import FillnaTF
@@ -28,12 +31,12 @@ df = iris.data
 s = iris.target
 array = df.values
 
-period_names = [f"day_{t}" for t in range(24 + 1)]
+period_names = [f"h_{t}" for t in range(24 + 1)]
 df_period = pd.DataFrame(
     np.random.randint(
         0,
         len(period_names),
-        size=(100, len(period_names)),
+        size=(len(df), len(period_names)),
     ),
     columns=period_names,
 )
@@ -63,6 +66,27 @@ def test_minmaxscaler():
 #
 # Pandas's operation test
 #
+
+
+def test_assigntf():
+    def period(df, regex):
+        df_filter = df.filter(regex=regex, axis=1)
+        return df_filter.sum(axis=1)
+
+    tf = AssignTF(
+        breakfast=partial(period, regex=r"^\w+?([6-9]|10)$"),
+        lunch=partial(period, regex=r"^\w+?1[1-4]$"),
+        tea=partial(period, regex=r"^\w+?1[5-7]$"),
+    )
+
+    res = tf.fit_transform(df_period)
+
+    assert "breakfast" in res.cols()
+    assert "lunch" in res.cols()
+    assert "tea" in res.cols()
+    assert (res["breakfast"] > 0).any()
+    assert (res["lunch"] > 0).any()
+    assert (res["tea"] > 0).any()
 
 
 def test_appendtf():
