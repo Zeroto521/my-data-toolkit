@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, List, Tuple
+from typing import Any
 
 from pandas import DataFrame
 from shapely.geometry.base import BaseGeometry
@@ -8,13 +8,13 @@ from shapely.geometry.base import BaseGeometry
 from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
 
 
-def istype(var: Any, types: type | List[type] | Tuple[type]) -> bool:
-    types: Tuple[type] = containerize(types, tuple)
+def istype(var: Any, types: type | list[type] | tuple[type]) -> bool:
+    types: tuple[type] = containerize(types, tuple)
 
     return isinstance(var, types)
 
 
-def containerize(var: Any, finaltype=list) -> List[Any] | Tuple[Any]:
+def containerize(var: Any, finaltype=list) -> list[Any] | tuple[Any]:
     if not isinstance(var, (list, tuple)):
         var = [var]
 
