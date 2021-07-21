@@ -5,22 +5,23 @@ from warnings import warn
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pyproj import CRS, Transformer
+from pyproj import CRS
+from pyproj import Transformer
 from pyproj.crs import ProjectedCRS
 from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
 from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from ._checking import (
-    bad_condition_raise_error,
-    check_geometry_type,
-    check_geopandas_type,
-    check_greater_than_zero,
-    check_number_tyep,
-    istype,
-)
-from ._typing import GPd, Num, NumericTypeList
+from ._checking import bad_condition_raise_error
+from ._checking import check_geometry_type
+from ._checking import check_geopandas_type
+from ._checking import check_greater_than_zero
+from ._checking import check_number_tyep
+from ._checking import istype
+from ._typing import GPd
+from ._typing import Num
+from ._typing import NumericTypeList
 
 
 def geographic_buffer(

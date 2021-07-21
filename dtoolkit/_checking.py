@@ -5,7 +5,10 @@ from typing import Any
 from pandas import DataFrame
 from shapely.geometry.base import BaseGeometry
 
-from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
+from ._typing import GeoPandasList
+from ._typing import GPd
+from ._typing import NumericType
+from ._typing import NumericTypeList
 
 
 def istype(var: Any, types: type | list[type] | tuple[type]) -> bool:
