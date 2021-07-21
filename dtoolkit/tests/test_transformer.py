@@ -73,20 +73,17 @@ def test_assigntf():
         df_filter = df.filter(regex=regex, axis=1)
         return df_filter.sum(axis=1)
 
-    tf = AssignTF(
-        breakfast=partial(period, regex=r"^\w+?([6-9]|10)$"),
-        lunch=partial(period, regex=r"^\w+?1[1-4]$"),
-        tea=partial(period, regex=r"^\w+?1[5-7]$"),
-    )
+    names = ["breakfast", "lunch", "tea"]
+    regexs = [r"^\w+?([6-9]|10)$", r"^\w+?1[1-4]$", r"^\w+?1[5-7]$"]
+    names_regexs_dict = {
+        key: partial(period, regex=regex) for key, regex in zip(names, regexs)
+    }
 
+    tf = AssignTF(**names_regexs_dict)
     res = tf.fit_transform(df_period)
 
-    assert "breakfast" in res.cols()
-    assert "lunch" in res.cols()
-    assert "tea" in res.cols()
-    assert (res["breakfast"] > 0).any()
-    assert (res["lunch"] > 0).any()
-    assert (res["tea"] > 0).any()
+    for key in names:
+        assert (res[key] > 0).any()
 
 
 def test_appendtf():
