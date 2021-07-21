@@ -1,4 +1,5 @@
 import joblib
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -11,6 +12,7 @@ from dtoolkit.transformer import (
     DropTF,
     EvalTF,
     FillnaTF,
+    FilterTF,
     GetTF,
     MinMaxScaler,
     QueryTF,
@@ -19,12 +21,25 @@ from dtoolkit.transformer import (
 )
 
 
+#
+# Create dataset
+#
+
 iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
 df = iris.data
 s = iris.target
 array = df.values
 
+period_names = [f"day_{t}" for t in range(24 + 1)]
+df_period = pd.DataFrame(
+    np.random.randint(
+        0,
+        len(period_names),
+        size=(100, len(period_names)),
+    ),
+    columns=period_names,
+)
 
 #
 # Sklearn's operation test
@@ -86,6 +101,14 @@ class TestFillnaTF:
         res = tf.fit_transform(self.df)
 
         assert None not in res
+
+
+def test_filtertf():
+    tf = FilterTF(regex="^\w+?_(1[8-9]|2[0-2])$", axis=1)
+
+    res = tf.fit_transform(df_period)
+
+    assert len(res.cols()) == 5
 
 
 @pytest.mark.parametrize("cols", [[feature_names[0]], feature_names])
