@@ -73,7 +73,7 @@ class DataFrameTF(Transformer):
 
 
 class AssignTF(Transformer):
-    def open(self, *args, **kwargs):
+    def operate(self, *args, **kwargs):
         return DataFrame.assign(*args, **kwargs)
 
 
