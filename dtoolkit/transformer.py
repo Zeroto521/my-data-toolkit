@@ -120,6 +120,11 @@ class QueryTF(DataFrameTF):
         return DataFrame.query(*args, **kwargs)
 
 
+class ReplaceTF(DataFrameTF):
+    def operate(self, *args, **kwargs):
+        return DataFrame.replace(*args, **kwargs)
+
+
 #
 # numpy's operation
 #
