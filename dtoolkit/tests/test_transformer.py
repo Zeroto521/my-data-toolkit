@@ -14,6 +14,7 @@ from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
 from dtoolkit.transformer import FillnaTF
+from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import FilterTF
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import MinMaxScaler
@@ -40,6 +41,7 @@ df_period = pd.DataFrame(
     ),
     columns=period_names,
 )
+
 
 #
 # Sklearn's operation test
@@ -119,6 +121,22 @@ class TestFillnaTF:
         res = tf.fit_transform(self.df)
 
         assert None not in res
+
+
+def test_filterintf():
+    label_size = 3
+    data_size = 10
+    df_label = pd.DataFrame(
+        {
+            "a": np.random.randint(label_size, size=data_size),
+            "b": np.random.randint(label_size, size=data_size),
+        },
+    )
+    tf = FilterInTF({"a": [0]})
+
+    res = tf.fit_transform(df_label)
+
+    assert (~res["a"].isin([1, 2])).all()  # 1 and 2 not in a
 
 
 def test_filtertf():

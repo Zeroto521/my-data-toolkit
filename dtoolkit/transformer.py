@@ -7,6 +7,7 @@ from sklearn.base import TransformerMixin
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 
 from ._checking import check_dataframe_type
+from .accessor import FilterInAccessor  # noqa
 
 
 class Transformer(TransformerMixin):
@@ -95,6 +96,13 @@ class EvalTF(DataFrameTF):
 class FillnaTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.fillna(*args, **kwargs)
+
+
+class FilterInTF(DataFrameTF):
+    def transform(self, X, *_):
+        self.validate(X)
+
+        return X.filterin(*self.args, **self.kwargs)
 
 
 class FilterTF(DataFrameTF):
