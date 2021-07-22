@@ -26,3 +26,24 @@ def DropInfAccessor(s: pd.Series) -> Callable[..., pd.Series]:
         return s[~np.isinf(s)]
 
     return dropinf
+
+
+@pd.api.extensions.register_dataframe_accessor("filterin")
+def FilterInAccessor(
+    df: pd.DataFrame,
+) -> Callable[[dict[str, list[str]], bool], pd.DataFrame | None]:
+    def filterin(
+        cond: dict[str, list[str]],
+        inplace: bool = False,
+    ) -> pd.DataFrame | None:
+        mask_all = df.isin(cond)
+        mask_selected = mask_all[cond.keys()]
+        result = df[mask_selected.all(axis=1)]
+
+        if inplace:
+            df._update_inplace(result)
+            return None
+
+        return result
+
+    return filterin
