@@ -21,9 +21,15 @@ def ColumnAccessor(pd_obj: Pd) -> Callable[..., Pd]:
 
 
 @pd.api.extensions.register_series_accessor("dropinf")
-def DropInfAccessor(s: pd.Series) -> Callable[..., pd.Series]:
-    def dropinf() -> pd.Series:
-        return s[~np.isinf(s)]
+def DropInfAccessor(s: pd.Series) -> Callable[[bool], pd.Series | None]:
+    def dropinf(inplace: bool = False) -> pd.Series | None:
+        result = s[~np.isinf(s)]
+
+        if inplace:
+            s._update_inplace(result)
+            return None
+
+        return result
 
     return dropinf
 
