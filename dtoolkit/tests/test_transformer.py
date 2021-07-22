@@ -20,6 +20,7 @@ from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
+from dtoolkit.transformer import ReplaceTF
 
 
 #
@@ -40,6 +41,15 @@ df_period = pd.DataFrame(
         size=(len(df), len(period_names)),
     ),
     columns=period_names,
+)
+
+label_size = 3
+data_size = 10
+df_label = pd.DataFrame(
+    {
+        "a": np.random.randint(label_size, size=data_size),
+        "b": np.random.randint(label_size, size=data_size),
+    },
 )
 
 
@@ -124,14 +134,6 @@ class TestFillnaTF:
 
 
 def test_filterintf():
-    label_size = 3
-    data_size = 10
-    df_label = pd.DataFrame(
-        {
-            "a": np.random.randint(label_size, size=data_size),
-            "b": np.random.randint(label_size, size=data_size),
-        },
-    )
     tf = FilterInTF({"a": [0]})
 
     res = tf.fit_transform(df_label)
@@ -175,6 +177,14 @@ class TestQueryTF:
         res = tf.fit_transform(df)
 
         assert len(res) == 0
+
+
+def test_replacetf():
+    tf = ReplaceTF({1: "a"})
+
+    res = tf.fit_transform(df_label)
+
+    assert res.isin(["a"]).any(axis=None)
 
 
 #
