@@ -8,8 +8,7 @@ from dtoolkit.accessor import FilterInAccessor  # noqa
 
 
 data_size = 10
-s = pd.Series(range(data_size), name="item")
-s = s.astype(float)
+s = pd.Series(range(data_size), name="item", dtype=float)
 
 label_size = 3
 d = pd.DataFrame(
@@ -17,6 +16,7 @@ d = pd.DataFrame(
         "a": np.random.randint(label_size, size=data_size),
         "b": np.random.randint(label_size, size=data_size),
     },
+    dtype=float,
 )
 s_inf = pd.Series([np.inf, -np.inf])
 
@@ -34,9 +34,20 @@ class TestDropinfaccessor:
         self.s = s.copy(True)
         self.s = self.s.append(s_inf)
 
-    @pytest.mark.parametrize("df", [s, s.append(s_inf)])
-    def test_work(self, df):
-        assert s.equals(df.dropinf())
+    @pytest.mark.parametrize(
+        "df,expt",
+        [
+            (s, s),
+            (s.append(s_inf), s),
+            (d, d),
+            (d.append({"a": np.inf}, ignore_index=True), d),
+            (d.append({"b": -np.inf}, ignore_index=True), d),
+        ],
+    )
+    def test_work(self, df, expt):
+        res = df.dropinf()
+
+        assert res.equals(expt)
 
     def test_inplace_is_true(self):
         res = self.s.dropinf(inplace=True)
