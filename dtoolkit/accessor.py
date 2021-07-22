@@ -21,8 +21,8 @@ def ColumnAccessor(pd_obj: Pd) -> Callable[..., Pd]:
 
 
 @pd.api.extensions.register_series_accessor("dropinf")
-def DropInfAccessor(pd_obj: pd.Series) -> Callable[..., pd.Series]:
+def DropInfAccessor(s: pd.Series) -> Callable[..., pd.Series]:
     def dropinf() -> pd.Series:
-        return pd_obj[~np.isinf(pd_obj)]
+        return s[~np.isinf(s)]
 
     return dropinf
