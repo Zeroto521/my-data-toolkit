@@ -29,9 +29,20 @@ def test_columnaccessor(df):
         assert df.cols().equals(df.columns)
 
 
-@pytest.mark.parametrize("df", [s, s.append(s_inf)])
-def test_dropinfaccessor(df):
-    assert s.equals(df.dropinf())
+class TestDropinfaccessor:
+    def setup_method(self):
+        self.s = s.copy(True)
+        self.s = self.s.append(s_inf)
+
+    @pytest.mark.parametrize("df", [s, s.append(s_inf)])
+    def test_work(self, df):
+        assert s.equals(df.dropinf())
+
+    def test_inplace_is_true(self):
+        res = self.s.dropinf(inplace=True)
+
+        assert res is None
+        assert self.s.equals(s)
 
 
 class TestFilterInAccessor:
