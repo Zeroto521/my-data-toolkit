@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Callable
 
-import numpy as np
 import pandas as pd
+from numpy import inf
 
 from ._typing import Pd
 
@@ -20,13 +20,18 @@ def ColumnAccessor(pd_obj: Pd) -> Callable[..., Pd]:
     return cols
 
 
+@pd.api.extensions.register_dataframe_accessor("dropinf")
 @pd.api.extensions.register_series_accessor("dropinf")
-def DropInfAccessor(s: pd.Series) -> Callable[[bool], pd.Series | None]:
-    def dropinf(inplace: bool = False) -> pd.Series | None:
-        result = s[~np.isinf(s)]
+def DropInfAccessor(pd_obj: Pd) -> Callable[[bool], Pd | None]:
+    def dropinf(inplace: bool = False) -> Pd | None:
+        mask = ~pd_obj.isin([inf, -inf])
+        if isinstance(pd_obj, pd.DataFrame):
+            mask = mask.all(axis=1)
+
+        result = pd_obj[mask]
 
         if inplace:
-            s._update_inplace(result)
+            pd_obj._update_inplace(result)
             return None
 
         return result
