@@ -5,6 +5,7 @@ import pandas as pd
 from more_itertools import flatten
 from scipy import sparse
 from sklearn.base import TransformerMixin
+from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
@@ -55,6 +56,18 @@ class FeatureUnion(SKFeatureUnion):
             return pd.concat(Xs, axis=1)
 
         return np.hstack(Xs)
+
+
+# make_union function ported with modifications from scikit-learn
+# https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/pipeline.py
+
+
+def make_union(*transformers, n_jobs=None, verbose=False):
+    return FeatureUnion(
+        _name_estimators(transformers),
+        n_jobs=n_jobs,
+        verbose=verbose,
+    )
 
 
 def _change_data_to_df(
