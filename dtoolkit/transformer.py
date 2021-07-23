@@ -13,6 +13,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from ._checking import check_dataframe_type
 from ._checking import istype
 from ._typing import PandasTypeList
+from .accessor import ColumnAccessor  # noqa
 from .accessor import FilterInAccessor  # noqa
 
 
@@ -53,6 +54,7 @@ class FeatureUnion(SKFeatureUnion):
             return sparse.hstack(Xs).tocsr()
 
         if all(istype(i, PandasTypeList) for i in Xs):
+            Xs = (i.reset_index(drop=True) for i in Xs)
             return pd.concat(Xs, axis=1)
 
         return np.hstack(Xs)
