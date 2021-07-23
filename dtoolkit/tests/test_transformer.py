@@ -281,3 +281,27 @@ def test_union_pipeline(pipeline):
     res = pipeline.fit_transform(df_mixed)
 
     assert isinstance(res, pd.DataFrame)
+
+
+def test_issue_87():
+    tf = make_union(
+        make_pipeline(
+            GetTF(["a"]),
+            FilterInTF({"a": [0]}),
+        ),
+        make_pipeline(
+            GetTF(["b"]),
+            FilterInTF({"b": [1]}),
+        ),
+    )
+
+    res = tf.fit_transform(
+        pd.DataFrame(
+            {
+                "a": [0, 1, 0],
+                "b": [1, 1, 0],
+            },
+        ),
+    )
+
+    assert res.notnull().all(axis=None)
