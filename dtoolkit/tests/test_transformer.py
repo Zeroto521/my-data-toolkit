@@ -18,6 +18,7 @@ from dtoolkit.transformer import FillnaTF
 from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import FilterTF
 from dtoolkit.transformer import GetTF
+from dtoolkit.transformer import make_union
 from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer import QueryTF
@@ -215,60 +216,68 @@ def test_raveltf(data):
 #
 
 
-@pytest.fixture
-def pipeline_xiris():
-    return make_pipeline(
-        EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
-        QueryTF("`sum_feature` > 10"),
-        GetTF(feature_names),
-        DropTF(columns=feature_names[:2]),
-        MinMaxScaler(),
-    )
-
-
-@pytest.fixture
-def pipeline_yiris():
-    return make_pipeline(RavelTF())
-
-
-@pytest.fixture
-def pipeline_mixed():
-    return FeatureUnion(
-        [
-            (
-                "number feature",
-                make_pipeline(
-                    GetTF(df_iris.cols()),
-                    MinMaxScaler(),
-                ),
+@pytest.mark.parametrize(
+    "name, data, pipeline",
+    [
+        (
+            "xiris",
+            df_iris,
+            make_pipeline(
+                EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
+                QueryTF("`sum_feature` > 10"),
+                GetTF(feature_names),
+                DropTF(columns=feature_names[:2]),
+                MinMaxScaler(),
             ),
-            (
-                "label feature",
-                make_pipeline(
-                    GetTF(df_label.cols()),
-                    OneHotEncoder(),
-                ),
+        ),
+        (
+            "yiris",
+            pd.DataFrame(s),
+            make_pipeline(GetTF("target"), RavelTF()),
+        ),
+    ],
+)
+def test_pipeline_work(name, data, pipeline):
+    transformed_data = pipeline.fit_transform(data)
+    pipeline.inverse_transform(transformed_data)
+
+    joblib.dump(pipeline, f"{name}.pipeline.joblib")
+
+
+@pytest.mark.parametrize(
+    "pipeline",
+    [
+        make_union(
+            make_pipeline(
+                GetTF(df_iris.cols()),
+                MinMaxScaler(),
             ),
-        ],
-    )
-
-
-def test_pipeline_xiris(pipeline_xiris):
-    transformed_data = pipeline_xiris.fit_transform(df_iris)
-    data = pipeline_xiris.inverse_transform(transformed_data)
-    data = data.round(2)
-
-    joblib.dump(pipeline_xiris, "xiris.pipeline.joblib")
-
-
-def test_pipeline_yiris(pipeline_yiris):
-    transformed_data = pipeline_yiris.fit_transform(s)
-    pipeline_yiris.inverse_transform(transformed_data)
-
-    joblib.dump(pipeline_yiris, "yiris.pipeline.joblib")
-
-
-def test_featureunion(pipeline_mixed):
-    res = pipeline_mixed.fit_transform(df_mixed)
+            make_pipeline(
+                GetTF(df_label.cols()),
+                OneHotEncoder(),
+            ),
+        ),
+        FeatureUnion(
+            [
+                (
+                    "number feature",
+                    make_pipeline(
+                        GetTF(df_iris.cols()),
+                        MinMaxScaler(),
+                    ),
+                ),
+                (
+                    "label feature",
+                    make_pipeline(
+                        GetTF(df_label.cols()),
+                        OneHotEncoder(),
+                    ),
+                ),
+            ],
+        ),
+    ],
+)
+def test_union_pipeline(pipeline):
+    res = pipeline.fit_transform(df_mixed)
 
     assert isinstance(res, pd.DataFrame)
