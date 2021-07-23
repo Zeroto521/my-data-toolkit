@@ -215,7 +215,8 @@ def test_raveltf(data):
 #
 
 
-def gen_x_pipeline():
+@pytest.fixture
+def pipeline_xiris():
     return make_pipeline(
         EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
         QueryTF("`sum_feature` > 10"),
@@ -225,7 +226,8 @@ def gen_x_pipeline():
     )
 
 
-def gen_y_pipeline():
+@pytest.fixture
+def pipeline_yiris():
     return make_pipeline(RavelTF())
 
 
@@ -251,38 +253,22 @@ def pipeline_mixed():
     )
 
 
-class TestPipeline:
-    def test_x_pipeline_work(self):
-        pipe = gen_x_pipeline()
-        transformed_data = pipe.fit_transform(df_iris)
-        data = pipe.inverse_transform(transformed_data)
-        data = data.round(2)
+def test_pipeline_xiris(pipeline_xiris):
+    transformed_data = pipeline_xiris.fit_transform(df_iris)
+    data = pipeline_xiris.inverse_transform(transformed_data)
+    data = data.round(2)
 
-    def test_y_pipeline_work(self):
-        pipe = gen_y_pipeline()
-        transformed_data = pipe.fit_transform(s)
-        pipe.inverse_transform(transformed_data)
+    joblib.dump(pipeline_xiris, "xiris.pipeline.joblib")
+
+
+def test_pipeline_yiris(pipeline_yiris):
+    transformed_data = pipeline_yiris.fit_transform(s)
+    pipeline_yiris.inverse_transform(transformed_data)
+
+    joblib.dump(pipeline_yiris, "yiris.pipeline.joblib")
 
 
 def test_featureunion(pipeline_mixed):
     res = pipeline_mixed.fit_transform(df_mixed)
 
     assert isinstance(res, pd.DataFrame)
-
-
-#
-# pickle pipeline test
-#
-
-
-@pytest.mark.parametrize(
-    "name,pipe",
-    [
-        ("x", gen_x_pipeline()),
-        ("y", gen_y_pipeline()),
-    ],
-)
-def test_save_to_file(name, pipe):
-    pipe.fit(df_iris)
-
-    joblib.dump(pipe, f"{name}.pipeline.joblib")
