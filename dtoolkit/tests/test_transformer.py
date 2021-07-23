@@ -36,7 +36,6 @@ array = df.values
 period_names = [f"h_{t}" for t in range(24 + 1)]
 df_period = pd.DataFrame(
     np.random.randint(
-        0,
         len(period_names),
         size=(len(df), len(period_names)),
     ),
@@ -44,7 +43,7 @@ df_period = pd.DataFrame(
 )
 
 label_size = 3
-data_size = 10
+data_size = len(df)
 df_label = pd.DataFrame(
     {
         "a": np.random.randint(label_size, size=data_size),
