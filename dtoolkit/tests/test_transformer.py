@@ -18,6 +18,7 @@ from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import FilterTF
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import MinMaxScaler
+from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
 from dtoolkit.transformer import ReplaceTF
@@ -72,6 +73,13 @@ def test_minmaxscaler():
     data = data.round(2)
 
     assert df.equals(data)
+
+
+def test_onehotencoder():
+    tf = OneHotEncoder()
+    res = tf.fit_transform(df_label)
+
+    assert isinstance(res, pd.DataFrame)
 
 
 #
