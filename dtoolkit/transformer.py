@@ -53,7 +53,7 @@ class FeatureUnion(SKFeatureUnion):
             return sparse.hstack(Xs).tocsr()
 
         if all(istype(i, PandasTypeList) for i in Xs):
-            return pd.concat(Xs, axis=1)
+            return pd.concat(Xs, axis=1, ignore_index=True)
 
         return np.hstack(Xs)
 
