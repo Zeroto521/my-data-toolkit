@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+from more_itertools import flatten
 from numpy import ndarray
 from numpy import ravel
 from pandas import DataFrame
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
+from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from ._checking import check_dataframe_type
 from .accessor import FilterInAccessor  # noqa
@@ -61,6 +63,17 @@ class MinMaxScaler(SKMinMaxScaler):
         X_new = super().inverse_transform(X, *_)
 
         return _change_data_to_df(X_new, X)
+
+
+class OneHotEncoder(SKOneHotEncoder):
+    def __init__(self, sparse=False, *args, **kwargs):
+        super().__init__(sparse=sparse, *args, **kwargs)
+
+    def transform(self, X, *_):
+        X_new = super().transform(X, *_)
+        categories = flatten(self.categories_)
+
+        return DataFrame(X_new, columns=categories)
 
 
 #
