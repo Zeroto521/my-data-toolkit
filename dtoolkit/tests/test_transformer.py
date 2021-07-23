@@ -13,6 +13,7 @@ from dtoolkit.transformer import AppendTF
 from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
+from dtoolkit.transformer import FeatureUnion
 from dtoolkit.transformer import FillnaTF
 from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import FilterTF
@@ -51,6 +52,9 @@ df_label = pd.DataFrame(
         "b": np.random.randint(label_size, size=data_size),
     },
 )
+
+
+df_mixed = pd.concat([df_iris, df_label], axis=1)
 
 
 #
@@ -225,6 +229,28 @@ def gen_y_pipeline():
     return make_pipeline(RavelTF())
 
 
+@pytest.fixture
+def pipeline_mixed():
+    return FeatureUnion(
+        [
+            (
+                "number feature",
+                make_pipeline(
+                    GetTF(df_iris.cols()),
+                    MinMaxScaler(),
+                ),
+            ),
+            (
+                "label feature",
+                make_pipeline(
+                    GetTF(df_label.cols()),
+                    OneHotEncoder(),
+                ),
+            ),
+        ],
+    )
+
+
 class TestPipeline:
     def test_x_pipeline_work(self):
         pipe = gen_x_pipeline()
@@ -236,6 +262,12 @@ class TestPipeline:
         pipe = gen_y_pipeline()
         transformed_data = pipe.fit_transform(s)
         pipe.inverse_transform(transformed_data)
+
+
+def test_featureunion(pipeline_mixed):
+    res = pipeline_mixed.fit_transform(df_mixed)
+
+    assert isinstance(res, pd.DataFrame)
 
 
 #
