@@ -66,7 +66,7 @@ geometrys = [
 ]
 
 
-@pytest.mark.parametrize("rcoord,geom", zip(cgeometrys, geometrys))
+@pytest.mark.parametrize("rcoord, geom", zip(cgeometrys, geometrys))
 def test_single_geometry_coords(rcoord, geom):
     tcoord = _coords(geom)
 
