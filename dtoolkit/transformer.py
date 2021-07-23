@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import numpy as np
+import pandas as pd
 from more_itertools import flatten
-from pandas import DataFrame
+from scipy import sparse
 from sklearn.base import TransformerMixin
+from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from ._checking import check_dataframe_type
+from ._checking import istype
+from ._typing import PandasTypeList
 from .accessor import FilterInAccessor  # noqa
 
 
@@ -42,12 +46,23 @@ class Transformer(TransformerMixin):
 #
 
 
+class FeatureUnion(SKFeatureUnion):
+    def _hstack(self, Xs):
+        if any(sparse.issparse(f) for f in Xs):
+            return sparse.hstack(Xs).tocsr()
+
+        if all(istype(i, PandasTypeList) for i in Xs):
+            return pd.concat(Xs, axis=1)
+
+        return np.hstack(Xs)
+
+
 def _change_data_to_df(
     data: np.ndarray,
-    df: DataFrame | np.ndarray,
-) -> DataFrame | np.ndarray:
-    if isinstance(df, DataFrame):
-        return DataFrame(data, columns=df.columns, index=df.index)
+    df: pd.DataFrame | np.ndarray,
+) -> pd.DataFrame | np.ndarray:
+    if isinstance(df, pd.DataFrame):
+        return pd.DataFrame(data, columns=df.columns, index=df.index)
 
     return data
 
@@ -86,7 +101,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
         if self.sparse is False:
             categories = flatten(self.categories_)
-            return DataFrame(X_new, columns=categories)
+            return pd.DataFrame(X_new, columns=categories)
 
         return X_new
 
@@ -103,27 +118,27 @@ class DataFrameTF(Transformer):
 
 class AssignTF(Transformer):
     def operate(self, *args, **kwargs):
-        return DataFrame.assign(*args, **kwargs)
+        return pd.DataFrame.assign(*args, **kwargs)
 
 
 class AppendTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.append(*args, **kwargs)
+        return pd.DataFrame.append(*args, **kwargs)
 
 
 class DropTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.drop(*args, **kwargs)
+        return pd.DataFrame.drop(*args, **kwargs)
 
 
 class EvalTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.eval(*args, **kwargs)
+        return pd.DataFrame.eval(*args, **kwargs)
 
 
 class FillnaTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.fillna(*args, **kwargs)
+        return pd.DataFrame.fillna(*args, **kwargs)
 
 
 class FilterInTF(DataFrameTF):
@@ -135,22 +150,22 @@ class FilterInTF(DataFrameTF):
 
 class FilterTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.filter(*args, **kwargs)
+        return pd.DataFrame.filter(*args, **kwargs)
 
 
 class GetTF(Transformer):
     def operate(self, *args, **kwargs):
-        return DataFrame.get(*args, **kwargs)
+        return pd.DataFrame.get(*args, **kwargs)
 
 
 class QueryTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.query(*args, **kwargs)
+        return pd.DataFrame.query(*args, **kwargs)
 
 
 class ReplaceTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return DataFrame.replace(*args, **kwargs)
+        return pd.DataFrame.replace(*args, **kwargs)
 
 
 #

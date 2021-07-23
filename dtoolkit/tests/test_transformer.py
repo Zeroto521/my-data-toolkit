@@ -13,6 +13,7 @@ from dtoolkit.transformer import AppendTF
 from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
+from dtoolkit.transformer import FeatureUnion
 from dtoolkit.transformer import FillnaTF
 from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import FilterTF
@@ -30,21 +31,21 @@ from dtoolkit.transformer import ReplaceTF
 
 iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
-df = iris.data
+df_iris = iris.data
 s = iris.target
-array = df.values
+array = df_iris.values
 
 period_names = [f"h_{t}" for t in range(24 + 1)]
 df_period = pd.DataFrame(
     np.random.randint(
         len(period_names),
-        size=(len(df), len(period_names)),
+        size=(len(df_iris), len(period_names)),
     ),
     columns=period_names,
 )
 
 label_size = 3
-data_size = len(df)
+data_size = len(df_iris)
 df_label = pd.DataFrame(
     {
         "a": np.random.randint(label_size, size=data_size),
@@ -53,12 +54,15 @@ df_label = pd.DataFrame(
 )
 
 
+df_mixed = pd.concat([df_iris, df_label], axis=1)
+
+
 #
 # Sklearn's operation test
 #
 
 
-@pytest.mark.parametrize("data, df", [(array, df), (array, array)])
+@pytest.mark.parametrize("data, df", [(array, df_iris), (array, array)])
 def test_change_data_to_df(data, df):
     data_new = _change_data_to_df(data, df)
 
@@ -66,13 +70,13 @@ def test_change_data_to_df(data, df):
 
 
 def test_minmaxscaler():
-    tf = MinMaxScaler().fit(df)
+    tf = MinMaxScaler().fit(df_iris)
 
-    data_transformed = tf.transform(df)
+    data_transformed = tf.transform(df_iris)
     data = tf.inverse_transform(data_transformed)
     data = data.round(2)
 
-    assert df.equals(data)
+    assert df_iris.equals(data)
 
 
 def test_onehotencoder():
@@ -116,7 +120,7 @@ def test_appendtf():
 
 def test_droptf():
     tf = DropTF(columns=[feature_names[0]])
-    res = tf.fit_transform(df)
+    res = tf.fit_transform(df_iris)
 
     assert feature_names[0] not in res.cols()
 
@@ -124,9 +128,9 @@ def test_droptf():
 def test_evaltf():
     new_column = "double_value"
     tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-    res = tf.fit_transform(df)
+    res = tf.fit_transform(df_iris)
 
-    assert res[new_column].equals(df[feature_names[0]] * 2)
+    assert res[new_column].equals(df_iris[feature_names[0]] * 2)
 
 
 class TestFillnaTF:
@@ -160,8 +164,8 @@ def test_filtertf():
 def test_gettf(cols):
     tf = GetTF(cols)
 
-    res = tf.fit_transform(df)
-    expt = df[cols]
+    res = tf.fit_transform(df_iris)
+    expt = df_iris[cols]
 
     assert res.equals(expt)
 
@@ -169,19 +173,19 @@ def test_gettf(cols):
 class TestQueryTF:
     def test_greater_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` > 0")
-        res = tf.fit_transform(df)
+        res = tf.fit_transform(df_iris)
 
-        assert res.equals(df)
+        assert res.equals(df_iris)
 
     def test_plus_symbol(self):
         tf = QueryTF(f"`{'`+`'.join(feature_names)}` < 100")
-        res = tf.fit_transform(df)
+        res = tf.fit_transform(df_iris)
 
-        assert res.equals(df)
+        assert res.equals(df_iris)
 
     def test_divide_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` / 100 > 1")
-        res = tf.fit_transform(df)
+        res = tf.fit_transform(df_iris)
 
         assert len(res) == 0
 
@@ -199,7 +203,7 @@ def test_replacetf():
 #
 
 
-@pytest.mark.parametrize("data", [array, df, s, s.tolist()])
+@pytest.mark.parametrize("data", [array, df_iris, s, s.tolist()])
 def test_raveltf(data):
     res = RavelTF().fit_transform(data)
 
@@ -211,7 +215,8 @@ def test_raveltf(data):
 #
 
 
-def gen_x_pipeline():
+@pytest.fixture
+def pipeline_xiris():
     return make_pipeline(
         EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
         QueryTF("`sum_feature` > 10"),
@@ -221,36 +226,49 @@ def gen_x_pipeline():
     )
 
 
-def gen_y_pipeline():
+@pytest.fixture
+def pipeline_yiris():
     return make_pipeline(RavelTF())
 
 
-class TestPipeline:
-    def test_x_pipeline_work(self):
-        pipe = gen_x_pipeline()
-        transformed_data = pipe.fit_transform(df)
-        data = pipe.inverse_transform(transformed_data)
-        data = data.round(2)
+@pytest.fixture
+def pipeline_mixed():
+    return FeatureUnion(
+        [
+            (
+                "number feature",
+                make_pipeline(
+                    GetTF(df_iris.cols()),
+                    MinMaxScaler(),
+                ),
+            ),
+            (
+                "label feature",
+                make_pipeline(
+                    GetTF(df_label.cols()),
+                    OneHotEncoder(),
+                ),
+            ),
+        ],
+    )
 
-    def test_y_pipeline_work(self):
-        pipe = gen_y_pipeline()
-        transformed_data = pipe.fit_transform(s)
-        pipe.inverse_transform(transformed_data)
+
+def test_pipeline_xiris(pipeline_xiris):
+    transformed_data = pipeline_xiris.fit_transform(df_iris)
+    data = pipeline_xiris.inverse_transform(transformed_data)
+    data = data.round(2)
+
+    joblib.dump(pipeline_xiris, "xiris.pipeline.joblib")
 
 
-#
-# pickle pipeline test
-#
+def test_pipeline_yiris(pipeline_yiris):
+    transformed_data = pipeline_yiris.fit_transform(s)
+    pipeline_yiris.inverse_transform(transformed_data)
+
+    joblib.dump(pipeline_yiris, "yiris.pipeline.joblib")
 
 
-@pytest.mark.parametrize(
-    "name,pipe",
-    [
-        ("x", gen_x_pipeline()),
-        ("y", gen_y_pipeline()),
-    ],
-)
-def test_save_to_file(name, pipe):
-    pipe.fit(df)
+def test_featureunion(pipeline_mixed):
+    res = pipeline_mixed.fit_transform(df_mixed)
 
-    joblib.dump(pipe, f"{name}.pipeline.joblib")
+    assert isinstance(res, pd.DataFrame)
