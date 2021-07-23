@@ -7,7 +7,7 @@ from dtoolkit.accessor import DropInfAccessor  # noqa
 from dtoolkit.accessor import FilterInAccessor  # noqa
 
 
-data_size = 10
+data_size = 42
 s = pd.Series(range(data_size), name="item", dtype=float)
 
 label_size = 3
