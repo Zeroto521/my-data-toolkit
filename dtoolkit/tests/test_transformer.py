@@ -30,21 +30,21 @@ from dtoolkit.transformer import ReplaceTF
 
 iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
-df = iris.data
+df_iris = iris.data
 s = iris.target
-array = df.values
+array = df_iris.values
 
 period_names = [f"h_{t}" for t in range(24 + 1)]
 df_period = pd.DataFrame(
     np.random.randint(
         len(period_names),
-        size=(len(df), len(period_names)),
+        size=(len(df_iris), len(period_names)),
     ),
     columns=period_names,
 )
 
 label_size = 3
-data_size = len(df)
+data_size = len(df_iris)
 df_label = pd.DataFrame(
     {
         "a": np.random.randint(label_size, size=data_size),
@@ -58,7 +58,7 @@ df_label = pd.DataFrame(
 #
 
 
-@pytest.mark.parametrize("data, df", [(array, df), (array, array)])
+@pytest.mark.parametrize("data, df", [(array, df_iris), (array, array)])
 def test_change_data_to_df(data, df):
     data_new = _change_data_to_df(data, df)
 
@@ -66,13 +66,13 @@ def test_change_data_to_df(data, df):
 
 
 def test_minmaxscaler():
-    tf = MinMaxScaler().fit(df)
+    tf = MinMaxScaler().fit(df_iris)
 
-    data_transformed = tf.transform(df)
+    data_transformed = tf.transform(df_iris)
     data = tf.inverse_transform(data_transformed)
     data = data.round(2)
 
-    assert df.equals(data)
+    assert df_iris.equals(data)
 
 
 def test_onehotencoder():
@@ -116,7 +116,7 @@ def test_appendtf():
 
 def test_droptf():
     tf = DropTF(columns=[feature_names[0]])
-    res = tf.fit_transform(df)
+    res = tf.fit_transform(df_iris)
 
     assert feature_names[0] not in res.cols()
 
@@ -124,9 +124,9 @@ def test_droptf():
 def test_evaltf():
     new_column = "double_value"
     tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-    res = tf.fit_transform(df)
+    res = tf.fit_transform(df_iris)
 
-    assert res[new_column].equals(df[feature_names[0]] * 2)
+    assert res[new_column].equals(df_iris[feature_names[0]] * 2)
 
 
 class TestFillnaTF:
@@ -160,8 +160,8 @@ def test_filtertf():
 def test_gettf(cols):
     tf = GetTF(cols)
 
-    res = tf.fit_transform(df)
-    expt = df[cols]
+    res = tf.fit_transform(df_iris)
+    expt = df_iris[cols]
 
     assert res.equals(expt)
 
@@ -169,19 +169,19 @@ def test_gettf(cols):
 class TestQueryTF:
     def test_greater_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` > 0")
-        res = tf.fit_transform(df)
+        res = tf.fit_transform(df_iris)
 
-        assert res.equals(df)
+        assert res.equals(df_iris)
 
     def test_plus_symbol(self):
         tf = QueryTF(f"`{'`+`'.join(feature_names)}` < 100")
-        res = tf.fit_transform(df)
+        res = tf.fit_transform(df_iris)
 
-        assert res.equals(df)
+        assert res.equals(df_iris)
 
     def test_divide_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` / 100 > 1")
-        res = tf.fit_transform(df)
+        res = tf.fit_transform(df_iris)
 
         assert len(res) == 0
 
@@ -199,7 +199,7 @@ def test_replacetf():
 #
 
 
-@pytest.mark.parametrize("data", [array, df, s, s.tolist()])
+@pytest.mark.parametrize("data", [array, df_iris, s, s.tolist()])
 def test_raveltf(data):
     res = RavelTF().fit_transform(data)
 
@@ -228,7 +228,7 @@ def gen_y_pipeline():
 class TestPipeline:
     def test_x_pipeline_work(self):
         pipe = gen_x_pipeline()
-        transformed_data = pipe.fit_transform(df)
+        transformed_data = pipe.fit_transform(df_iris)
         data = pipe.inverse_transform(transformed_data)
         data = data.round(2)
 
@@ -251,6 +251,6 @@ class TestPipeline:
     ],
 )
 def test_save_to_file(name, pipe):
-    pipe.fit(df)
+    pipe.fit(df_iris)
 
     joblib.dump(pipe, f"{name}.pipeline.joblib")
