@@ -35,7 +35,7 @@ class TestDropinfaccessor:
         self.s = self.s.append(s_inf)
 
     @pytest.mark.parametrize(
-        "df,expt",
+        "df, expt",
         [
             (s, s),
             (s.append(s_inf), s),
