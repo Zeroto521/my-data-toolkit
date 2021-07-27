@@ -4,6 +4,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import pytest
+from scipy import sparse
 from sklearn.datasets import load_iris
 from sklearn.pipeline import make_pipeline
 
@@ -80,11 +81,18 @@ def test_minmaxscaler():
     assert df_iris.equals(data)
 
 
-def test_onehotencoder():
-    tf = OneHotEncoder()
-    res = tf.fit_transform(df_label)
+class TestOneHotEncoder:
+    def test_dataframe_in_dataframe_out(self):
+        tf = OneHotEncoder()
+        res = tf.fit_transform(df_label)
 
-    assert isinstance(res, pd.DataFrame)
+        assert isinstance(res, pd.DataFrame)
+
+    def test_sparse_is_ture(self):
+        tf = OneHotEncoder(sparse=True)
+        res = tf.fit_transform(df_label)
+
+        assert sparse.isspmatrix(res)
 
 
 #
@@ -244,43 +252,60 @@ def test_pipeline_work(name, data, pipeline):
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
 
 
-@pytest.mark.parametrize(
-    "pipeline",
-    [
-        make_union(
+class TestFeatureUnion:
+    @pytest.mark.parametrize(
+        "pipeline",
+        [
+            make_union(
+                make_pipeline(
+                    GetTF(df_iris.cols()),
+                    MinMaxScaler(),
+                ),
+                make_pipeline(
+                    GetTF(df_label.cols()),
+                    OneHotEncoder(),
+                ),
+            ),
+            FeatureUnion(
+                [
+                    (
+                        "number feature",
+                        make_pipeline(
+                            GetTF(df_iris.cols()),
+                            MinMaxScaler(),
+                        ),
+                    ),
+                    (
+                        "label feature",
+                        make_pipeline(
+                            GetTF(df_label.cols()),
+                            OneHotEncoder(),
+                        ),
+                    ),
+                ],
+            ),
+        ],
+    )
+    def test_work(self, pipeline):
+        res = pipeline.fit_transform(df_mixed)
+
+        assert isinstance(res, pd.DataFrame)
+
+    def test_ndarray_hstack(self):
+        pipeline = make_union(
             make_pipeline(
                 GetTF(df_iris.cols()),
                 MinMaxScaler(),
             ),
             make_pipeline(
                 GetTF(df_label.cols()),
-                OneHotEncoder(),
+                OneHotEncoder(sparse=True),
             ),
-        ),
-        FeatureUnion(
-            [
-                (
-                    "number feature",
-                    make_pipeline(
-                        GetTF(df_iris.cols()),
-                        MinMaxScaler(),
-                    ),
-                ),
-                (
-                    "label feature",
-                    make_pipeline(
-                        GetTF(df_label.cols()),
-                        OneHotEncoder(),
-                    ),
-                ),
-            ],
-        ),
-    ],
-)
-def test_union_pipeline(pipeline):
-    res = pipeline.fit_transform(df_mixed)
+        )
 
-    assert isinstance(res, pd.DataFrame)
+        res = pipeline.fit_transform(df_mixed)
+
+        assert sparse.isspmatrix(res)
 
 
 def test_issue_87():
