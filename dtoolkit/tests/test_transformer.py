@@ -25,6 +25,7 @@ from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
 from dtoolkit.transformer import ReplaceTF
+from dtoolkit.transformer import SelectDtypesTF
 
 
 #
@@ -205,6 +206,22 @@ def test_replacetf():
     res = tf.fit_transform(df_label)
 
     assert res.isin(["a"]).any(axis=None)
+
+
+class TestSelectDtypesTF:
+    def test_select_float(self):
+        tf = SelectDtypesTF(include=np.float)
+
+        res = tf.fit_transform(df_mixed)
+
+        assert res.equals(df_iris)
+
+    def test_select_numbers(self):
+        tf = SelectDtypesTF(include=np.int)
+
+        res = tf.fit_transform(df_mixed)
+
+        assert res.equals(df_label)
 
 
 #
