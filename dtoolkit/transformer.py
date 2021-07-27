@@ -3,7 +3,6 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from more_itertools import flatten
-from scipy import sparse
 from sklearn.base import TransformerMixin
 from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
@@ -50,14 +49,11 @@ class Transformer(TransformerMixin):
 
 class FeatureUnion(SKFeatureUnion):
     def _hstack(self, Xs):
-        if any(sparse.issparse(f) for f in Xs):
-            return sparse.hstack(Xs).tocsr()
-
         if all(istype(i, PandasTypeList) for i in Xs):
             Xs = (i.reset_index(drop=True) for i in Xs)
             return pd.concat(Xs, axis=1)
 
-        return np.hstack(Xs)
+        return super()._hstack(Xs)
 
 
 # make_union function ported with modifications from scikit-learn
