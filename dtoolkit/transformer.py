@@ -31,6 +31,7 @@ __all__ = [
     "GetTF",
     "QueryTF",
     "ReplaceTF",
+    "SelectDtypesTF",
     "RavelTF",
 ]
 
@@ -196,6 +197,11 @@ class QueryTF(DataFrameTF):
 class ReplaceTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return pd.DataFrame.replace(*args, **kwargs)
+
+
+class SelectDtypesTF(DataFrameTF):
+    def operate(self, *args, **kwargs):
+        return pd.DataFrame.select_dtypes(*args, **kwargs)
 
 
 #
