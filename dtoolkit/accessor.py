@@ -10,16 +10,15 @@ from ._typing import Pd
 
 @pd.api.extensions.register_dataframe_accessor("cols")
 @pd.api.extensions.register_series_accessor("cols")
-def ColumnAccessor(
-    pd_obj: Pd,
-) -> Callable[..., str | pd.core.indexes.base.Index]:
-    def cols() -> str | pd.core.indexes.base.Index:
-        if isinstance(pd_obj, pd.Series):
-            return pd_obj.name
+class ColumnAccessor:
+    def __init__(self, pd_obj: Pd):
+        self.pd_obj = pd_obj
 
-        return pd_obj.columns
+    def __call__(self) -> str | pd.core.indexes.base.Index:
+        if isinstance(self.pd_obj, pd.Series):
+            return self.pd_obj.name
 
-    return cols
+        return self.pd_obj.columns
 
 
 @pd.api.extensions.register_dataframe_accessor("dropinf")
