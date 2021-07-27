@@ -252,43 +252,60 @@ def test_pipeline_work(name, data, pipeline):
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
 
 
-@pytest.mark.parametrize(
-    "pipeline",
-    [
-        make_union(
+class TestFeatureUnion:
+    @pytest.mark.parametrize(
+        "pipeline",
+        [
+            make_union(
+                make_pipeline(
+                    GetTF(df_iris.cols()),
+                    MinMaxScaler(),
+                ),
+                make_pipeline(
+                    GetTF(df_label.cols()),
+                    OneHotEncoder(),
+                ),
+            ),
+            FeatureUnion(
+                [
+                    (
+                        "number feature",
+                        make_pipeline(
+                            GetTF(df_iris.cols()),
+                            MinMaxScaler(),
+                        ),
+                    ),
+                    (
+                        "label feature",
+                        make_pipeline(
+                            GetTF(df_label.cols()),
+                            OneHotEncoder(),
+                        ),
+                    ),
+                ],
+            ),
+        ],
+    )
+    def test_work(self, pipeline):
+        res = pipeline.fit_transform(df_mixed)
+
+        assert isinstance(res, pd.DataFrame)
+
+    def test_ndarray_hstack(self):
+        pipeline = make_union(
             make_pipeline(
                 GetTF(df_iris.cols()),
                 MinMaxScaler(),
             ),
             make_pipeline(
                 GetTF(df_label.cols()),
-                OneHotEncoder(),
+                OneHotEncoder(sparse=True),
             ),
-        ),
-        FeatureUnion(
-            [
-                (
-                    "number feature",
-                    make_pipeline(
-                        GetTF(df_iris.cols()),
-                        MinMaxScaler(),
-                    ),
-                ),
-                (
-                    "label feature",
-                    make_pipeline(
-                        GetTF(df_label.cols()),
-                        OneHotEncoder(),
-                    ),
-                ),
-            ],
-        ),
-    ],
-)
-def test_union_pipeline(pipeline):
-    res = pipeline.fit_transform(df_mixed)
+        )
 
-    assert isinstance(res, pd.DataFrame)
+        res = pipeline.fit_transform(df_mixed)
+
+        assert sparse.isspmatrix(res)
 
 
 def test_issue_87():
