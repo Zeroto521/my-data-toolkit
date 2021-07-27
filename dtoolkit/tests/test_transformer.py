@@ -4,6 +4,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import pytest
+from scipy import sparse
 from sklearn.datasets import load_iris
 from sklearn.pipeline import make_pipeline
 
@@ -80,11 +81,18 @@ def test_minmaxscaler():
     assert df_iris.equals(data)
 
 
-def test_onehotencoder():
-    tf = OneHotEncoder()
-    res = tf.fit_transform(df_label)
+class TestOneHotEncoder:
+    def test_dataframe_in_dataframe_out(self):
+        tf = OneHotEncoder()
+        res = tf.fit_transform(df_label)
 
-    assert isinstance(res, pd.DataFrame)
+        assert isinstance(res, pd.DataFrame)
+
+    def test_sparse_is_ture(self):
+        tf = OneHotEncoder(sparse=True)
+        res = tf.fit_transform(df_label)
+
+        assert sparse.isspmatrix(res)
 
 
 #
