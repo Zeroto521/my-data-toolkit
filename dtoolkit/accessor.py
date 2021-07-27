@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Callable
-
 import pandas as pd
 from numpy import inf
 
@@ -10,53 +8,53 @@ from ._typing import Pd
 
 @pd.api.extensions.register_dataframe_accessor("cols")
 @pd.api.extensions.register_series_accessor("cols")
-def ColumnAccessor(
-    pd_obj: Pd,
-) -> Callable[..., str | pd.core.indexes.base.Index]:
-    def cols() -> str | pd.core.indexes.base.Index:
-        if isinstance(pd_obj, pd.Series):
-            return pd_obj.name
+class ColumnAccessor:
+    def __init__(self, pd_obj: Pd):
+        self.pd_obj = pd_obj
 
-        return pd_obj.columns
+    def __call__(self) -> str | pd.core.indexes.base.Index:
+        if isinstance(self.pd_obj, pd.Series):
+            return self.pd_obj.name
 
-    return cols
+        return self.pd_obj.columns
 
 
 @pd.api.extensions.register_dataframe_accessor("dropinf")
 @pd.api.extensions.register_series_accessor("dropinf")
-def DropInfAccessor(pd_obj: Pd) -> Callable[[bool], Pd | None]:
-    def dropinf(inplace: bool = False) -> Pd | None:
-        mask = ~pd_obj.isin([inf, -inf])
-        if isinstance(pd_obj, pd.DataFrame):
+class DropInfAccessor:
+    def __init__(self, pd_obj: Pd):
+        self.pd_obj = pd_obj
+
+    def __call__(self, inplace: bool = False) -> Pd | None:
+        mask = ~self.pd_obj.isin([inf, -inf])
+        if isinstance(self.pd_obj, pd.DataFrame):
             mask = mask.all(axis=1)
 
-        result = pd_obj[mask]
+        result = self.pd_obj[mask]
 
         if inplace:
-            pd_obj._update_inplace(result)
+            self.pd_obj._update_inplace(result)
             return None
 
         return result
-
-    return dropinf
 
 
 @pd.api.extensions.register_dataframe_accessor("filterin")
-def FilterInAccessor(
-    df: pd.DataFrame,
-) -> Callable[[dict[str, list[str]], bool], pd.DataFrame | None]:
-    def filterin(
+class FilterInAccessor:
+    def __init__(self, df: pd.DataFrame):
+        self.df = df
+
+    def __call__(
+        self,
         cond: dict[str, list[str]],
         inplace: bool = False,
     ) -> pd.DataFrame | None:
-        mask_all = df.isin(cond)
+        mask_all = self.df.isin(cond)
         mask_selected = mask_all[cond.keys()]
-        result = df[mask_selected.all(axis=1)]
+        result = self.df[mask_selected.all(axis=1)]
 
         if inplace:
-            df._update_inplace(result)
+            self.df._update_inplace(result)
             return None
 
         return result
-
-    return filterin
