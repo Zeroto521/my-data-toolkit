@@ -23,21 +23,22 @@ class ColumnAccessor:
 
 @pd.api.extensions.register_dataframe_accessor("dropinf")
 @pd.api.extensions.register_series_accessor("dropinf")
-def DropInfAccessor(pd_obj: Pd) -> Callable[[bool], Pd | None]:
-    def dropinf(inplace: bool = False) -> Pd | None:
-        mask = ~pd_obj.isin([inf, -inf])
-        if isinstance(pd_obj, pd.DataFrame):
+class DropInfAccessor:
+    def __init__(self, pd_obj: Pd):
+        self.pd_obj = pd_obj
+
+    def __call__(self, inplace: bool = False) -> Pd | None:
+        mask = ~self.pd_obj.isin([inf, -inf])
+        if isinstance(self.pd_obj, pd.DataFrame):
             mask = mask.all(axis=1)
 
-        result = pd_obj[mask]
+        result = self.pd_obj[mask]
 
         if inplace:
-            pd_obj._update_inplace(result)
+            self.pd_obj._update_inplace(result)
             return None
 
         return result
-
-    return dropinf
 
 
 @pd.api.extensions.register_dataframe_accessor("filterin")
