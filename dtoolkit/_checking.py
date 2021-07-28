@@ -1,18 +1,27 @@
 from __future__ import annotations
 
-from typing import List, Tuple
+from typing import Any
 
 from pandas import DataFrame
 from shapely.geometry.base import BaseGeometry
 
-from ._typing import GeoPandasList, GPd, NumericType, NumericTypeList
+from ._typing import GeoPandasList
+from ._typing import GPd
+from ._typing import NumericType
+from ._typing import NumericTypeList
 
 
-def istype(var: object, types: type | List[type] | Tuple[type]) -> bool:
-    if isinstance(types, list):
-        types: Tuple[type] = tuple(types)
+def istype(var: Any, types: type | list[type] | tuple[type]) -> bool:
+    types: tuple[type] = containerize(types, tuple)
 
     return isinstance(var, types)
+
+
+def containerize(var: Any, finaltype=list) -> list[Any] | tuple[Any]:
+    if not isinstance(var, (list, tuple)):
+        var = [var]
+
+    return finaltype(var)
 
 
 def bad_condition_raise_error(condition: bool, error: BaseException, msg: str):
@@ -30,7 +39,9 @@ def check_geopandas_type(df: GPd):
 
 def check_geometry_type(geom: BaseGeometry):
     bad_condition_raise_error(
-        not istype(geom, BaseGeometry), TypeError, f"{geom} must be Geometry."
+        not istype(geom, BaseGeometry),
+        TypeError,
+        f"{geom} must be Geometry.",
     )
 
 
@@ -44,7 +55,9 @@ def check_number_tyep(num: NumericType):
 
 def check_greater_than_zero(num: NumericType):
     bad_condition_raise_error(
-        num <= 0, ValueError, f"The {num} must be greater than 0."
+        num <= 0,
+        ValueError,
+        f"The {num} must be greater than 0.",
     )
 
 

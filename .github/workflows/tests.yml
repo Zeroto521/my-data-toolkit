@@ -26,7 +26,7 @@ jobs:
         shell: bash -l {0}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         dev: [false]
         env:
           - ci/envs/37.yaml
@@ -35,9 +35,6 @@ jobs:
           - env: ci/envs/38-dev.yaml
             os: ubuntu-latest
             dev: true
-          - env: ci/envs/37.yaml
-            os: macos-latest
-            dev: false
 
     steps:
       - uses: actions/checkout@v2
@@ -55,19 +52,3 @@ jobs:
 
       - name: Code Coverage
         uses: codecov/codecov-action@v1
-
-  Build:
-    needs: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "3.x"
-
-      - name: Build a binary wheel and a source tarball
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools wheel
-          python setup.py check
-          make dist
