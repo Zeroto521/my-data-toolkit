@@ -2,4 +2,4 @@ coverage:
   status:
     project:
       default:
-        target: 85%% # the required coverage value
+        target: 95%% # the required coverage value
