@@ -68,8 +68,63 @@ class Transformer(TransformerMixin):
 #
 
 
-@doc(SKFeatureUnion)
 class FeatureUnion(SKFeatureUnion):
+    """
+    Concatenates results of multiple transformer objects.
+
+    This estimator applies a list of transformer objects in parallel to the
+    input data, then concatenates the results. This is useful to combine
+    several feature extraction mechanisms into a single transformer.
+
+    Parameters of the transformers may be set using its name and the parameter
+    name separated by a '__'. A transformer may be replaced entirely by
+    setting the parameter with its name to another transformer,
+    or removed by setting to 'drop'.
+
+    Parameters
+    ----------
+    transformer_list : list of (string, transformer) tuples
+        List of transformer objects to be applied to the data. The first
+        half of each tuple is the name of the transformer. The tranformer can
+        be 'drop' for it to be ignored.
+
+    n_jobs : int, default=None
+        Number of jobs to run in parallel.
+        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
+        ``-1`` means using all processors. See :term:`Glossary <n_jobs>`
+        for more details.
+
+    transformer_weights : dict, default=None
+        Multiplicative weights for features per transformer.
+        Keys are transformer names, values the weights.
+        Raises ValueError if key not present in ``transformer_list``.
+
+    verbose : bool, default=False
+        If True, the time elapsed while fitting each transformer will be
+        printed as it is completed.
+
+    See Also
+    --------
+    make_union : Convenience function for simplified feature union
+        construction.
+
+    Notes
+    -----
+    Different to :obj:`sklearn.pipeline.FeatureUnion`.
+    This would let pandas in and pandas out.
+
+    Examples
+    --------
+    >>> from dtoolkit.transformer import FeatureUnion
+    >>> from sklearn.decomposition import PCA, TruncatedSVD
+    >>> union = FeatureUnion([("pca", PCA(n_components=1)),
+    ...                       ("svd", TruncatedSVD(n_components=2))])
+    >>> X = [[0., 1., 3], [2., 2., 5]]
+    >>> union.fit_transform(X)
+    array([[ 1.5       ,  3.0...,  0.8...],
+           [-1.5       ,  5.7..., -0.4...]])
+    """
+
     def _hstack(self, Xs):
         if all(istype(i, PandasTypeList) for i in Xs):
             Xs = (i.reset_index(drop=True) for i in Xs)
