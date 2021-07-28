@@ -15,7 +15,7 @@ include geographic calculation, data engineering, and so on.
     - `DataFrame`'s `eval` Function Transformer
   - Pandas Object Accessor
     - Pandas Object Columns accessor
-    - `Series` Drop `inf` Function
+    - Pandas Object Drop `inf` accessor
 - **Geographic Calculation**
   - Geographic Buffer Generation
   - Geometry Coordinates
