@@ -3,9 +3,11 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from more_itertools import flatten
+from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
+from sklearn.pipeline import make_union as skmake_union
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
@@ -67,6 +69,7 @@ class Transformer(TransformerMixin):
 #
 
 
+@doc(SKFeatureUnion)
 class FeatureUnion(SKFeatureUnion):
     def _hstack(self, Xs):
         if all(istype(i, PandasTypeList) for i in Xs):
@@ -80,6 +83,7 @@ class FeatureUnion(SKFeatureUnion):
 # https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/pipeline.py
 
 
+@doc(skmake_union)
 def make_union(*transformers, n_jobs=None, verbose=False):
     return FeatureUnion(
         _name_estimators(transformers),
@@ -98,6 +102,7 @@ def _change_data_to_df(
     return data
 
 
+@doc(SKMinMaxScaler)
 class MinMaxScaler(SKMinMaxScaler):
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
@@ -110,6 +115,7 @@ class MinMaxScaler(SKMinMaxScaler):
         return _change_data_to_df(X_new, X)
 
 
+@doc(SKOneHotEncoder)
 class OneHotEncoder(SKOneHotEncoder):
     def __init__(
         self,
