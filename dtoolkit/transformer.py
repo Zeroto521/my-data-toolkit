@@ -7,7 +7,6 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
-from sklearn.pipeline import make_union as skmake_union
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
@@ -83,8 +82,54 @@ class FeatureUnion(SKFeatureUnion):
 # https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/pipeline.py
 
 
-@doc(skmake_union)
-def make_union(*transformers, n_jobs=None, verbose=False):
+def make_union(
+    *transformers: list,
+    n_jobs: int | None = None,
+    verbose: bool = False,
+) -> FeatureUnion:
+    """
+    Construct a FeatureUnion from the given transformers.
+
+    This is a shorthand for the FeatureUnion constructor; it does not require,
+    and does not permit, naming the transformers. Instead, they will be given
+    names automatically based on their types. It also does not allow weighting.
+
+    Parameters
+    ----------
+    *transformers : list of estimators
+
+    n_jobs : int, default=None
+        Number of jobs to run in parallel.
+        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
+        ``-1`` means using all processors. See :term:`Glossary <n_jobs>`
+        for more details.
+
+    verbose : bool, default=False
+        If True, the time elapsed while fitting each transformer will be
+        printed as it is completed.
+
+    Returns
+    -------
+    f : FeatureUnion
+
+    See Also
+    --------
+    FeatureUnion : Class for concatenating the results of multiple transformer
+        objects.
+
+    Notes
+    -----
+    Different to :obj:`sklearn.pipeline.make_union`.
+    This would let pandas in and pandas out.
+
+    Examples
+    --------
+    >>> from sklearn.decomposition import PCA, TruncatedSVD
+    >>> from dtoolkit.transformer import make_union
+    >>> make_union(PCA(), TruncatedSVD())
+     FeatureUnion(transformer_list=[('pca', PCA()),
+                                   ('truncatedsvd', TruncatedSVD())])
+    """
     return FeatureUnion(
         _name_estimators(transformers),
         n_jobs=n_jobs,
