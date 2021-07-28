@@ -9,13 +9,13 @@ include geographic calculation, data engineering, and so on.
 
 - **Data Engineering**
   - Data Transform Pipeline
-    - `DataFrame` Selector Transformer
-    - Multidimensional to One Dimension Transformer
-    - `DataFrame`'s `query` Function Transformer
-    - `DataFrame`'s `eval` Function Transformer
+    - `GetTF`: `DataFrame` Selector Transformer
+    - `RavelTF`: Multidimensional to One Dimension Transformer
+    - `QueryTF`: `DataFrame`'s `query` Function Transformer
+    - `EvalTF`: `DataFrame`'s `eval` Function Transformer
   - Pandas Object Accessor
-    - Pandas Object Columns accessor
-    - Pandas Object Drop `inf` accessor
+    - `pd_obj.cols()`: Pandas Object Columns accessor
+    - `pd_obj.dropinf()`: Pandas Object Drop `inf` accessor
 - **Geographic Calculation**
   - Geographic Buffer Generation
   - Geometry Coordinates
