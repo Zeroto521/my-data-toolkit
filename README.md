@@ -9,10 +9,12 @@ include geographic calculation, data engineering, and so on.
 
 - **Data Engineering**
   - Data Transform Pipeline
-    - `GetTF`: `DataFrame` Selector Transformer
-    - `RavelTF`: Multidimensional to One Dimension Transformer
-    - `QueryTF`: `DataFrame`'s `query` Function Transformer
-    - `EvalTF`: `DataFrame`'s `eval` Function Transformer
+    - Pandas Methods
+      - `GetTF`: `DataFrame` Selector Transformer
+      - `QueryTF`: `DataFrame`'s `query` Function Transformer
+      - `EvalTF`: `DataFrame`'s `eval` Function Transformer
+    - Numpy Methods
+      - `RavelTF`: Multidimensional to One Dimension Transformer
   - Pandas Object Accessor
     - `pd_obj.cols()`: Pandas Object Columns accessor
     - `pd_obj.dropinf()`: Pandas Object Drop `inf` accessor
