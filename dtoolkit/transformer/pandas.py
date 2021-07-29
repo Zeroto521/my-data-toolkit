@@ -1,5 +1,4 @@
 from pandas import DataFrame
-from pandas.util._decorators import doc
 
 from .._checking import check_dataframe_type
 from ..accessor import FilterInAccessor  # noqa
@@ -21,22 +20,6 @@ class AssignTF(Transformer):
 
     Returns a new object with all original columns in addition to new ones.
     Existing columns that are re-assigned will be overwritten.
-
-    Parameters
-    ----------
-    **kwargs : dict of {str: callable or Series}
-        The column names are keywords. If the values are
-        callable, they are computed on the DataFrame and
-        assigned to the new columns. The callable must not
-        change input DataFrame (though pandas doesn't check it).
-        If the values are not callable, (e.g. a Series, scalar, or array),
-        they are simply assigned.
-
-    Returns
-    -------
-    DataFrame
-        A new DataFrame with the new columns in addition to
-        all the existing columns.
 
     Notes
     -----
@@ -64,7 +47,24 @@ class AssignTF(Transformer):
     Berkeley    25.0    77.0
     """
 
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> DataFrame:
+        """
+        Parameters
+        ----------
+        **kwargs : dict of {str: callable or Series}
+            The column names are keywords. If the values are
+            callable, they are computed on the DataFrame and
+            assigned to the new columns. The callable must not
+            change input DataFrame (though pandas doesn't check it).
+            If the values are not callable, (e.g. a Series, scalar, or array),
+            they are simply assigned.
+
+        Returns
+        -------
+        DataFrame
+            A new DataFrame with the new columns in addition to
+            all the existing columns.
+        """
         return DataFrame.assign(*args, **kwargs)
 
 
