@@ -57,7 +57,7 @@ class AssignTF(Transformer):
 
     Where the value is a callable, evaluated on `df`:
 
-    >>> pipeline = AssignTF(temp_f=lambda x: x.temp_c * 9 / 5 + )
+    >>> pipeline = AssignTF(temp_f=lambda x: x.temp_c * 9 / 5 + 32)
     >>> pipeline.transform(df)
                 temp_c  temp_f
     Portland    17.0    62.6
@@ -68,25 +68,21 @@ class AssignTF(Transformer):
         return DataFrame.assign(*args, **kwargs)
 
 
-@doc(DataFrame.append)
 class AppendTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.append(*args, **kwargs)
 
 
-@doc(DataFrame.drop)
 class DropTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.drop(*args, **kwargs)
 
 
-@doc(DataFrame.eval)
 class EvalTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.eval(*args, **kwargs)
 
 
-@doc(DataFrame.fillna)
 class FillnaTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.fillna(*args, **kwargs)
@@ -99,31 +95,26 @@ class FilterInTF(DataFrameTF):
         return X.filterin(*self.args, **self.kwargs)
 
 
-@doc(DataFrame.filter)
 class FilterTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.filter(*args, **kwargs)
 
 
-@doc(DataFrame.get)
 class GetTF(Transformer):
     def operate(self, *args, **kwargs):
         return DataFrame.get(*args, **kwargs)
 
 
-@doc(DataFrame.query)
 class QueryTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.query(*args, **kwargs)
 
 
-@doc(DataFrame.replace)
 class ReplaceTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.replace(*args, **kwargs)
 
 
-@doc(DataFrame.select_dtypes)
 class SelectDtypesTF(DataFrameTF):
     def operate(self, *args, **kwargs):
         return DataFrame.select_dtypes(*args, **kwargs)
