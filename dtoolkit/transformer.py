@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from textwrap import dedent
+
 import numpy as np
 import pandas as pd
 from more_itertools import flatten
@@ -202,13 +204,107 @@ def _change_data_to_df(
     return data
 
 
-@doc(SKMinMaxScaler)
 class MinMaxScaler(SKMinMaxScaler):
+    """
+    Transform features by scaling each feature to a given range.
+
+    This estimator scales and translates each feature individually such
+    that it is in the given range on the training set, e.g. between
+    zero and one.
+
+    The transformation is given by::
+
+        X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
+        X_scaled = X_std * (max - min) + min
+
+    where min, max = feature_range.
+
+    This transformation is often used as an alternative to zero mean,
+    unit variance scaling.
+
+    Parameters
+    ----------
+    feature_range : tuple (min, max), default=(0, 1)
+        Desired range of transformed data.
+
+    copy : bool, default=True
+        Set to False to perform inplace row normalization and avoid a
+        copy (if the input is already a numpy array).
+
+    clip : bool, default=False
+        Set to True to clip transformed values of held-out data to
+        provided `feature range`.
+
+    Attributes
+    ----------
+    min_ : ndarray of shape (n_features,)
+        Per feature adjustment for minimum. Equivalent to
+        ``min - X.min(axis=0) * self.scale_``
+
+    scale_ : ndarray of shape (n_features,)
+        Per feature relative scaling of the data. Equivalent to
+        ``(max - min) / (X.max(axis=0) - X.min(axis=0))``
+
+    data_min_ : ndarray of shape (n_features,)
+        Per feature minimum seen in the data
+
+    data_max_ : ndarray of shape (n_features,)
+        Per feature maximum seen in the data
+
+    data_range_ : ndarray of shape (n_features,)
+        Per feature range ``(data_max_ - data_min_)`` seen in the data
+
+    n_samples_seen_ : int
+        The number of samples processed by the estimator.
+        It will be reset on new calls to fit, but increments across
+        ``partial_fit`` calls.
+
+    Examples
+    --------
+    >>> from dtoolkit.transformer import MinMaxScaler
+    >>> data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
+    >>> scaler = MinMaxScaler()
+    >>> print(scaler.fit(data))
+    MinMaxScaler()
+    >>> print(scaler.data_max_)
+    [ 1. 18.]
+    >>> print(scaler.transform(data))
+    [[0.   0.  ]
+     [0.25 0.25]
+     [0.5  0.5 ]
+     [1.   1.  ]]
+    >>> print(scaler.transform([[2, 2]]))
+    [[1.5 0. ]]
+
+    Notes
+    -----
+    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
+    This would let pandas in and pandas out.
+    """
+
+    @doc(
+        SKMinMaxScaler.transform,
+        dedent(
+            """
+        Notes
+        -----
+        This would let pandas in and pandas out.""",
+        ),
+    )
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
 
         return _change_data_to_df(X_new, X)
 
+    @doc(
+        SKMinMaxScaler.inverse_transform,
+        dedent(
+            """
+        Notes
+        -----
+        This would let pandas in and pandas out.""",
+        ),
+    )
     def inverse_transform(self, X, *_):
         X_new = super().inverse_transform(X, *_)
 
