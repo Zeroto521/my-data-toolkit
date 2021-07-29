@@ -33,7 +33,7 @@ clean-cov:
 clean: clean-build clean-pyc clean-cov clean-model
 
 lint:
-	pre-commit run --all-files
+	pre-commit run -a -v
 
 test:
 	pytest -v -r s -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
