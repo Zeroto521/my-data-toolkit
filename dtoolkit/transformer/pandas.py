@@ -1,7 +1,7 @@
-import pandas as pd
+from pandas import DataFrame
+from pandas.util._decorators import doc
 
 from .._checking import check_dataframe_type
-from ..accessor import ColumnAccessor  # noqa
 from ..accessor import FilterInAccessor  # noqa
 from .base import Transformer
 
@@ -11,29 +11,34 @@ class DataFrameTF(Transformer):
         return check_dataframe_type(*args, **kwargs)
 
 
+@doc(DataFrame.assign)
 class AssignTF(Transformer):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.assign(*args, **kwargs)
+        return DataFrame.assign(*args, **kwargs)
 
 
+@doc(DataFrame.append)
 class AppendTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.append(*args, **kwargs)
+        return DataFrame.append(*args, **kwargs)
 
 
+@doc(DataFrame.drop)
 class DropTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.drop(*args, **kwargs)
+        return DataFrame.drop(*args, **kwargs)
 
 
+@doc(DataFrame.eval)
 class EvalTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.eval(*args, **kwargs)
+        return DataFrame.eval(*args, **kwargs)
 
 
+@doc(DataFrame.fillna)
 class FillnaTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.fillna(*args, **kwargs)
+        return DataFrame.fillna(*args, **kwargs)
 
 
 class FilterInTF(DataFrameTF):
@@ -43,26 +48,31 @@ class FilterInTF(DataFrameTF):
         return X.filterin(*self.args, **self.kwargs)
 
 
+@doc(DataFrame.filter)
 class FilterTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.filter(*args, **kwargs)
+        return DataFrame.filter(*args, **kwargs)
 
 
+@doc(DataFrame.get)
 class GetTF(Transformer):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.get(*args, **kwargs)
+        return DataFrame.get(*args, **kwargs)
 
 
+@doc(DataFrame.query)
 class QueryTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.query(*args, **kwargs)
+        return DataFrame.query(*args, **kwargs)
 
 
+@doc(DataFrame.replace)
 class ReplaceTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.replace(*args, **kwargs)
+        return DataFrame.replace(*args, **kwargs)
 
 
+@doc(DataFrame.select_dtypes)
 class SelectDtypesTF(DataFrameTF):
     def operate(self, *args, **kwargs):
-        return pd.DataFrame.select_dtypes(*args, **kwargs)
+        return DataFrame.select_dtypes(*args, **kwargs)
