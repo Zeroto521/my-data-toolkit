@@ -70,6 +70,10 @@ class Transformer(TransformerMixin):
 #
 
 
+# FeatureUnion doc ported with modifications from scikit-learn
+# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/pipeline.py
+
+
 class FeatureUnion(SKFeatureUnion):
     """
     Concatenates results of multiple transformer objects.
@@ -135,8 +139,8 @@ class FeatureUnion(SKFeatureUnion):
         return super()._hstack(Xs)
 
 
-# make_union function ported with modifications from scikit-learn
-# https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/pipeline.py
+# make_union function and its doc ported with modifications from scikit-learn
+# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/pipeline.py
 
 
 def make_union(
@@ -202,6 +206,10 @@ def _change_data_to_df(
         return pd.DataFrame(data, columns=df.columns, index=df.index)
 
     return data
+
+
+# MinMaxScaler doc ported with modifications from scikit-learn
+# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/preprocessing/_data.py
 
 
 class MinMaxScaler(SKMinMaxScaler):
