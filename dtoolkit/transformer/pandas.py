@@ -11,8 +11,59 @@ class DataFrameTF(Transformer):
         return check_dataframe_type(*args, **kwargs)
 
 
-@doc(DataFrame.assign)
+# AssignTF doc ported with modifications from scikit-learn
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
+
+
 class AssignTF(Transformer):
+    r"""
+    Assign new columns to a DataFrame.
+
+    Returns a new object with all original columns in addition to new ones.
+    Existing columns that are re-assigned will be overwritten.
+
+    Parameters
+    ----------
+    **kwargs : dict of {str: callable or Series}
+        The column names are keywords. If the values are
+        callable, they are computed on the DataFrame and
+        assigned to the new columns. The callable must not
+        change input DataFrame (though pandas doesn't check it).
+        If the values are not callable, (e.g. a Series, scalar, or array),
+        they are simply assigned.
+
+    Returns
+    -------
+    DataFrame
+        A new DataFrame with the new columns in addition to
+        all the existing columns.
+
+    Notes
+    -----
+    Assigning multiple columns within the same ``assign`` is possible.
+    Later items in '\*\*kwargs' may refer to newly created or modified
+    columns in 'df'; items are computed and assigned into 'df' in order.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from dtoolkit.transformer import AssignTF
+    >>> df = pd.DataFrame({'temp_c': [17.0, 25.0]},
+    ...                   index=['Portland', 'Berkeley'])
+    >>> df
+                temp_c
+    Portland    17.0
+    Berkeley    25.0
+
+    Where the value is a callable, evaluated on `df`:
+
+    >>> pipeline = AssignTF(temp_f=lambda x: x.temp_c * 9 / 5 + )
+    >>> pipeline.transform(df)
+                temp_c  temp_f
+    Portland    17.0    62.6
+    Berkeley    25.0    77.0
+    """
+
     def operate(self, *args, **kwargs):
         return DataFrame.assign(*args, **kwargs)
 
