@@ -7,6 +7,8 @@ from .base import Transformer
 
 
 class DataFrameTF(Transformer):
+    pd_method: str
+
     def __init__(self, *args, **kwargs):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
@@ -14,12 +16,15 @@ class DataFrameTF(Transformer):
     def validate(self, *args, **kwargs):
         return check_dataframe_type(*args, **kwargs)
 
+    def operate(self, X: DataFrame, *args, **kwargs) -> Pd:
+        return getattr(X, self.pd_method)(*args, **kwargs)
+
 
 # AssignTF doc ported with modifications from pandas
 # https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
 
 
-class AssignTF(Transformer):
+class AssignTF(DataFrameTF):
     r"""
     Assign new columns to a DataFrame.
 
@@ -68,8 +73,7 @@ class AssignTF(Transformer):
     Berkeley    25.0    77.0
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.assign(*args, **kwargs)
+    pd_method = "assign"
 
 
 # AppendTF doc ported with modifications from pandas
@@ -147,8 +151,7 @@ class AppendTF(DataFrameTF):
     3  7  8
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.append(*args, **kwargs)
+    pd_method = "append"
 
 
 # DropTF doc ported with modifications from pandas
@@ -277,8 +280,7 @@ class DropTF(DataFrameTF):
             weight  1.0     0.8
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.drop(*args, **kwargs)
+    pd_method = "drop"
 
 
 # EvalTF doc ported with modifications from pandas
@@ -369,8 +371,7 @@ class EvalTF(DataFrameTF):
     4  5   2   7  3
     """
 
-    def operate(self, *args, **kwargs) -> Pd:
-        return DataFrame.eval(*args, **kwargs)
+    pd_method = "eval"
 
 
 # FillnaTF doc ported with modifications from pandas
@@ -477,15 +478,11 @@ class FillnaTF(DataFrameTF):
     3   NaN 3.0 NaN 4
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.fillna(*args, **kwargs)
+    pd_method = "fillna"
 
 
 class FilterInTF(DataFrameTF):
-    def transform(self, X, *_) -> DataFrame:
-        self.validate(X)
-
-        return X.filterin(*self.args, **self.kwargs)
+    pd_method = "filterin"
 
 
 # FilterTF doc ported with modifications from pandas
@@ -561,15 +558,14 @@ class FilterTF(DataFrameTF):
     rabbit    4    5      6
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.filter(*args, **kwargs)
+    pd_method = "filter"
 
 
 # GetTF doc ported with modifications from pandas
 # https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
 
 
-class GetTF(Transformer):
+class GetTF(DataFrameTF):
     """
     Get item from object for given key (ex: DataFrame column).
 
@@ -584,8 +580,7 @@ class GetTF(Transformer):
     value : same type as items contained in object
     """
 
-    def operate(self, *args, **kwargs) -> Pd:
-        return DataFrame.get(*args, **kwargs)
+    pd_method = "get"
 
 
 # QueryTF doc ported with modifications from pandas
@@ -727,8 +722,7 @@ class QueryTF(DataFrameTF):
     0  1  10   10
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.query(*args, **kwargs)
+    pd_method = "query"
 
 
 # ReplaceTF doc ported with modifications from pandas
@@ -969,8 +963,7 @@ class ReplaceTF(DataFrameTF):
     2  bait  xyz
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.replace(*args, **kwargs)
+    pd_method = "replace"
 
 
 # SelectDtypesTF doc ported with modifications from pandas
@@ -1062,5 +1055,4 @@ class SelectDtypesTF(DataFrameTF):
     5  False  2.0
     """
 
-    def operate(self, *args, **kwargs) -> DataFrame:
-        return DataFrame.select_dtypes(*args, **kwargs)
+    pd_method = "select_dtypes"
