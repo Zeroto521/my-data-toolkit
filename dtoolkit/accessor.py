@@ -21,11 +21,11 @@ class Accessor:
 @pd.api.extensions.register_dataframe_accessor("cols")
 @pd.api.extensions.register_series_accessor("cols")
 class ColumnAccessor(Accessor):
-    def __call__(self) -> str | pd.core.indexes.base.Index:
+    def __call__(self) -> str | list[str]:
         if isinstance(self.pd_obj, pd.Series):
             return self.pd_obj.name
 
-        return self.pd_obj.columns
+        return self.pd_obj.columns.tolist()
 
 
 @pd.api.extensions.register_dataframe_accessor("dropinf")
