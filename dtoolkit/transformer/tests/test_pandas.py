@@ -134,17 +134,16 @@ def test_replacetf():
     assert res.isin(["a"]).any(axis=None)
 
 
-class TestSelectDtypesTF:
-    def test_select_float(self):
-        tf = SelectDtypesTF(include=np.float)
+@pytest.mark.parametrize(
+    "types, expt",
+    [
+        [float, df_iris],
+        [int, df_label],
+    ],
+)
+def test_select_dtypes(types, expt):
+    tf = SelectDtypesTF(include=types)
 
-        res = tf.fit_transform(df_mixed)
+    res = tf.fit_transform(df_mixed)
 
-        assert res.equals(df_iris)
-
-    def test_select_numbers(self):
-        tf = SelectDtypesTF(include=np.int)
-
-        res = tf.fit_transform(df_mixed)
-
-        assert res.equals(df_label)
+    assert res.equals(expt)
