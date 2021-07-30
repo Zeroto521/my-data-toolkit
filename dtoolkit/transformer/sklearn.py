@@ -13,7 +13,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from .._checking import istype
 from .._typing import PandasTypeList
-
+from ..accessor import ColumnAccessor  # noqa
 
 # FeatureUnion doc ported with modifications from scikit-learn
 # https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/pipeline.py
@@ -269,6 +269,7 @@ class OneHotEncoder(SKOneHotEncoder):
     def __init__(
         self,
         categories="auto",
+        categories_with_parent=False,
         drop=None,
         sparse=False,
         dtype=np.float64,
@@ -281,6 +282,7 @@ class OneHotEncoder(SKOneHotEncoder):
             dtype=dtype,
             handle_unknown=handle_unknown,
         )
+        self.categories_with_parent = categories_with_parent
 
     @doc(
         SKOneHotEncoder.transform,
@@ -295,7 +297,12 @@ class OneHotEncoder(SKOneHotEncoder):
         X_new = super().transform(X, *_)
 
         if self.sparse is False:
-            categories = flatten(self.categories_)
+            categories = (
+                self.get_feature_names(X.cols())
+                if self.categories_with_parent
+                else flatten(self.categories_)
+            )
+
             return pd.DataFrame(X_new, columns=categories)
 
         return X_new
