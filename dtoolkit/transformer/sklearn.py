@@ -217,17 +217,17 @@ class MinMaxScaler(SKMinMaxScaler):
     >>> from dtoolkit.transformer import MinMaxScaler
     >>> data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
     >>> scaler = MinMaxScaler()
-    >>> print(scaler.fit(data))
+    >>> scaler.fit(data)
     MinMaxScaler()
-    >>> print(scaler.data_max_)
-    [ 1. 18.]
-    >>> print(scaler.transform(data))
-    [[0.   0.  ]
-     [0.25 0.25]
-     [0.5  0.5 ]
-     [1.   1.  ]]
-    >>> print(scaler.transform([[2, 2]]))
-    [[1.5 0. ]]
+    >>> scaler.data_max_
+    array([ 1., 18.])
+    >>> scaler.transform(data)
+    array([[0.  , 0.  ],
+           [0.25, 0.25],
+           [0.5 , 0.5 ],
+           [1.  , 1.  ]])
+    >>> scaler.transform([[2, 2]])
+    array([[1.5, 0. ]])
 
     Notes
     -----
@@ -264,8 +264,158 @@ class MinMaxScaler(SKMinMaxScaler):
         return _change_data_to_df(X_new, X)
 
 
-@doc(SKOneHotEncoder)
 class OneHotEncoder(SKOneHotEncoder):
+    """
+    Encode categorical features as a one-hot numeric array.
+
+    The input to this transformer should be an array-like of integers or
+    strings, denoting the values taken on by categorical (discrete) features.
+    The features are encoded using a one-hot (aka 'one-of-K' or 'dummy')
+    encoding scheme. This creates a binary column for each category and
+    returns a sparse matrix or dense array (depending on the ``sparse``
+    parameter)
+
+    By default, the encoder derives the categories based on the unique values
+    in each feature. Alternatively, you can also specify the `categories`
+    manually.
+
+    This encoding is needed for feeding categorical data to many scikit-learn
+    estimators, notably linear models and SVMs with the standard kernels.
+
+    Note: a one-hot encoding of y labels should use a `LabelBinarizer`
+    instead.
+
+    Parameters
+    ----------
+    categories : 'auto' or a list of array-like, default='auto'
+        Categories (unique values) per feature:
+
+        - 'auto' : Determine categories automatically from the training data.
+        - list : ``categories[i]`` holds the categories expected in the ith
+          column. The passed categories should not mix strings and numeric
+          values within a single feature, and should be sorted in case of
+          numeric values.
+
+        The used categories can be found in the ``categories_`` attribute.
+
+    categories_with_parent: bool, default=False
+        The return DataFrame columns will hook DataFrame.columns if set True
+        else will the return DataFrame columns only with categories.
+
+    drop : {'first', 'if_binary'} or a array-like of shape (n_features,), \
+            default=None
+        Specifies a methodology to use to drop one of the categories per
+        feature. This is useful in situations where perfectly collinear
+        features cause problems, such as when feeding the resulting data
+        into a neural network or an unregularized regression.
+
+        However, dropping one category breaks the symmetry of the original
+        representation and can therefore induce a bias in downstream models,
+        for instance for penalized linear classification or regression models.
+
+        - None : retain all features (the default).
+        - 'first' : drop the first category in each feature. If only one
+          category is present, the feature will be dropped entirely.
+        - 'if_binary' : drop the first category in each feature with two
+          categories. Features with 1 or more than 2 categories are
+          left intact.
+        - array : ``drop[i]`` is the category in feature ``X[:, i]`` that
+          should be dropped.
+
+    sparse : bool, default=False
+        Will return sparse matrix if set True else will return an array.
+
+    dtype : number type, default=float
+        Desired dtype of output.
+
+    handle_unknown : {'error', 'ignore'}, default='error'
+        Whether to raise an error or ignore if an unknown categorical feature
+        is present during transform (default is to raise). When this parameter
+        is set to 'ignore' and an unknown category is encountered during
+        transform, the resulting one-hot encoded columns for this feature
+        will be all zeros. In the inverse transform, an unknown category
+        will be denoted as None.
+
+    Attributes
+    ----------
+    categories_ : list of arrays
+        The categories of each feature determined during fitting
+        (in order of the features in X and corresponding with the output
+        of ``transform``). This includes the category specified in ``drop``
+        (if any).
+
+    drop_idx_ : array of shape (n_features,)
+        - ``drop_idx_[i]`` is the index in ``categories_[i]`` of the category
+          to be dropped for each feature.
+        - ``drop_idx_[i] = None`` if no category is to be dropped from the
+          feature with index ``i``, e.g. when `drop='if_binary'` and the
+          feature isn't binary.
+        - ``drop_idx_ = None`` if all the transformed features will be
+          retained.
+
+    Notes
+    -----
+    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
+    The result would return a DataFrame which uses categories as columns.
+
+    Examples
+    --------
+    Given a dataset with two features, we let the encoder find the unique
+    values per feature and transform the data to a binary one-hot encoding.
+
+    >>> from dtoolkit.transformer import OneHotEncoder
+
+    One can discard categories not seen during `fit`:
+
+    >>> enc = OneHotEncoder(sparse=True, handle_unknown='ignore')
+    >>> X = [['Male', 1], ['Female', 3], ['Female', 2]]
+    >>> enc.fit(X)
+    OneHotEncoder(handle_unknown='ignore', sparse=True)
+    >>> enc.categories_
+    [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
+    >>> enc.transform([['Female', 1], ['Male', 4]]).toarray()
+    array([[1., 0., 1., 0., 0.],
+           [0., 1., 0., 0., 0.]])
+    >>> enc.inverse_transform([[0, 1, 1, 0, 0], [0, 0, 0, 1, 0]])
+    array([['Male', 1],
+           [None, 2]], dtype=object)
+    >>> enc.get_feature_names(['gender', 'group'])
+    array(['gender_Female', 'gender_Male', 'group_1', 'group_2', 'group_3'],
+      dtype=object)
+
+    One can always drop the first column for each feature:
+
+    >>> drop_enc = OneHotEncoder(sparse=True, drop='first').fit(X)
+    >>> drop_enc.categories_
+    [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
+    >>> drop_enc.transform([['Female', 1], ['Male', 2]]).toarray()
+    array([[0., 0., 0.],
+           [1., 1., 0.]])
+
+    Or drop a column for feature only having 2 categories:
+
+    >>> drop_binary_enc = OneHotEncoder(sparse=True, drop='if_binary').fit(X)
+    >>> drop_binary_enc.transform([['Female', 1], ['Male', 2]]).toarray()
+    array([[0., 1., 0., 0.],
+           [1., 0., 1., 0.]])
+
+    Pandas DataFrame in, Pandas DataFrame out with categories as columns.
+
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(X, columns=['gender', 'number'])
+    >>> df
+        gender  number
+    0    Male       1
+    1  Female       3
+    2  Female       2
+    >>> enc = OneHotEncoder(categories_with_parent=True)
+    >>> enc.fit_transform(df)
+    gender_Female  gender_Male  number_1  number_2  number_3
+    0            0.0          1.0       1.0       0.0       0.0
+    1            1.0          0.0       0.0       0.0       1.0
+    2            1.0          0.0       0.0       1.0       0.0
+    """
+
     def __init__(
         self,
         categories="auto",
@@ -284,6 +434,15 @@ class OneHotEncoder(SKOneHotEncoder):
         )
         self.categories_with_parent = categories_with_parent
 
+    @doc(
+        SKOneHotEncoder.transform,
+        dedent(
+            """
+        Notes
+        -----
+        This would let pandas in and pandas out.""",
+        ),
+    )
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
 
