@@ -10,7 +10,7 @@ class DataFrameTF(Transformer):
         return check_dataframe_type(*args, **kwargs)
 
 
-# AssignTF doc ported with modifications from scikit-learn
+# AssignTF doc ported with modifications from pandas
 # https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
 
 
@@ -68,8 +68,74 @@ class AssignTF(Transformer):
         return DataFrame.assign(*args, **kwargs)
 
 
+# AppendTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
+
+
 class AppendTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    """
+    Append rows of `other` to the end of caller, returning a new object.
+
+    Columns in `other` that are not in the caller are added as new columns.
+
+    Notes
+    -----
+    If a list of dict/series is passed and the keys are all contained in
+    the DataFrame's index, the order of the columns in the resulting
+    DataFrame will be unchanged.
+
+    Iteratively appending rows to a DataFrame can be more computationally
+    intensive than a single concatenate. A better solution is to append
+    those rows to a list and then concatenate the list with the original
+    DataFrame all at once.
+
+    Examples
+    --------
+    >>> from dtoolkit.transformer import AppendTF
+    >>> import pandas as pd
+    >>> df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'), index=['x', 'y'])
+    >>> df
+        A  B
+    x  1  2
+    y  3  4
+    >>> df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'), index=['x', 'y'])
+    >>> tf = AppendTF(df2)
+    >>> tf.transform(df)
+        A  B
+    x  1  2
+    y  3  4
+    x  5  6
+    y  7  8
+
+    With `ignore_index` set to `True`:
+
+    >>> tf = AppendTF(df2, ignore_index=True)
+    >>> tf.transform(df)
+        A  B
+    0  1  2
+    1  3  4
+    2  5  6
+    3  7  8
+    """
+
+    def operate(self, *args, **kwargs) -> DataFrame:
+        """
+        Parameters
+        ----------
+        other : DataFrame or Series/dict-like object, or list of these
+            The data to append.
+        ignore_index : bool, default False
+            If True, the resulting axis will be labeled 0, 1, …, n - 1.
+        verify_integrity : bool, default False
+            If True, raise ValueError on creating index with duplicates.
+        sort : bool, default False
+            Sort columns if the columns of `self` and `other` are not aligned.
+
+        Returns
+        -------
+        DataFrame
+            A new DataFrame consisting of the rows of caller and the rows of `other`.
+        """
         return DataFrame.append(*args, **kwargs)
 
 
