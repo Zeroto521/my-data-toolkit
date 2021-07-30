@@ -142,6 +142,10 @@ class AppendTF(DataFrameTF):
         return DataFrame.append(*args, **kwargs)
 
 
+# DropTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
+
+
 class DropTF(DataFrameTF):
     """
     Drop specified labels from rows or columns.
@@ -268,6 +272,10 @@ class DropTF(DataFrameTF):
         return DataFrame.drop(*args, **kwargs)
 
 
+# EvalTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
+
+
 class EvalTF(DataFrameTF):
     """
     Evaluate a string describing operations on DataFrame columns.
@@ -354,6 +362,10 @@ class EvalTF(DataFrameTF):
 
     def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.eval(*args, **kwargs)
+
+
+# FillnaTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
 
 
 class FillnaTF(DataFrameTF):
@@ -467,6 +479,10 @@ class FilterInTF(DataFrameTF):
         return X.filterin(*self.args, **self.kwargs)
 
 
+# FilterTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
+
+
 class FilterTF(DataFrameTF):
     """
     Subset the dataframe rows or columns according to the specified index labels.
@@ -539,6 +555,10 @@ class FilterTF(DataFrameTF):
         return DataFrame.filter(*args, **kwargs)
 
 
+# GetTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
+
+
 class GetTF(Transformer):
     """
     Get item from object for given key (ex: DataFrame column).
@@ -556,6 +576,10 @@ class GetTF(Transformer):
 
     def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.get(*args, **kwargs)
+
+
+# QueryTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
 
 
 class QueryTF(DataFrameTF):
@@ -693,6 +717,10 @@ class QueryTF(DataFrameTF):
 
     def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.query(*args, **kwargs)
+
+
+# ReplaceTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
 
 
 class ReplaceTF(DataFrameTF):
@@ -931,6 +959,10 @@ class ReplaceTF(DataFrameTF):
 
     def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.replace(*args, **kwargs)
+
+
+# SelectDtypesTF doc ported with modifications from pandas
+# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
 
 
 class SelectDtypesTF(DataFrameTF):
