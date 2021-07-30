@@ -21,12 +21,15 @@ d = pd.DataFrame(
 s_inf = pd.Series([np.inf, -np.inf])
 
 
-@pytest.mark.parametrize("df", [s, d])
-def test_columnaccessor(df):
-    if isinstance(df, pd.Series):
-        assert df.cols() == df.name
-    else:
-        assert df.cols().equals(df.columns)
+@pytest.mark.parametrize(
+    "df, expt",
+    [
+        (s, s.name),
+        (d, d.columns.tolist()),
+    ],
+)
+def test_columnaccessor(df, expt):
+    assert df.cols() == expt
 
 
 class TestDropinfaccessor:
