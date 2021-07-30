@@ -278,10 +278,6 @@ class EvalTF(DataFrameTF):
     ----------
     expr : str
         The expression string to evaluate.
-    inplace : bool, default False
-        If the expression contains an assignment, whether to perform the
-        operation inplace and mutate the existing DataFrame. Otherwise,
-        a new DataFrame is returned.
     **kwargs
         See the documentation for :func:`eval` for complete details
         on the keyword arguments accepted by :meth:`~pandas.DataFrame.query`.
@@ -353,6 +349,7 @@ class EvalTF(DataFrameTF):
     3  4   4   8  0
     4  5   2   7  3
     """
+
     def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.eval(*args, **kwargs)
 
