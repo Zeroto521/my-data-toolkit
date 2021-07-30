@@ -21,6 +21,22 @@ class AssignTF(Transformer):
     Returns a new object with all original columns in addition to new ones.
     Existing columns that are re-assigned will be overwritten.
 
+    Parameters
+    ----------
+    **kwargs : dict of {str: callable or Series}
+        The column names are keywords. If the values are
+        callable, they are computed on the DataFrame and
+        assigned to the new columns. The callable must not
+        change input DataFrame (though pandas doesn't check it).
+        If the values are not callable, (e.g. a Series, scalar, or array),
+        they are simply assigned.
+
+    Returns
+    -------
+    DataFrame
+        A new DataFrame with the new columns in addition to
+        all the existing columns.
+
     Notes
     -----
     Assigning multiple columns within the same ``assign`` is possible.
@@ -48,23 +64,6 @@ class AssignTF(Transformer):
     """
 
     def operate(self, *args, **kwargs) -> DataFrame:
-        """
-        Parameters
-        ----------
-        **kwargs : dict of {str: callable or Series}
-            The column names are keywords. If the values are
-            callable, they are computed on the DataFrame and
-            assigned to the new columns. The callable must not
-            change input DataFrame (though pandas doesn't check it).
-            If the values are not callable, (e.g. a Series, scalar, or array),
-            they are simply assigned.
-
-        Returns
-        -------
-        DataFrame
-            A new DataFrame with the new columns in addition to
-            all the existing columns.
-        """
         return DataFrame.assign(*args, **kwargs)
 
 
@@ -77,6 +76,22 @@ class AppendTF(DataFrameTF):
     Append rows of `other` to the end of caller, returning a new object.
 
     Columns in `other` that are not in the caller are added as new columns.
+
+    Parameters
+    ----------
+    other : DataFrame or Series/dict-like object, or list of these
+        The data to append.
+    ignore_index : bool, default False
+        If True, the resulting axis will be labeled 0, 1, …, n - 1.
+    verify_integrity : bool, default False
+        If True, raise ValueError on creating index with duplicates.
+    sort : bool, default False
+        Sort columns if the columns of `self` and `other` are not aligned.
+
+    Returns
+    -------
+    DataFrame
+        A new DataFrame consisting of the rows of caller and the rows of `other`.
 
     Notes
     -----
@@ -91,8 +106,8 @@ class AppendTF(DataFrameTF):
 
     Examples
     --------
-    >>> from dtoolkit.transformer import AppendTF
     >>> import pandas as pd
+    >>> from dtoolkit.transformer import AppendTF
     >>> df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'), index=['x', 'y'])
     >>> df
         A  B
@@ -119,23 +134,6 @@ class AppendTF(DataFrameTF):
     """
 
     def operate(self, *args, **kwargs) -> DataFrame:
-        """
-        Parameters
-        ----------
-        other : DataFrame or Series/dict-like object, or list of these
-            The data to append.
-        ignore_index : bool, default False
-            If True, the resulting axis will be labeled 0, 1, …, n - 1.
-        verify_integrity : bool, default False
-            If True, raise ValueError on creating index with duplicates.
-        sort : bool, default False
-            Sort columns if the columns of `self` and `other` are not aligned.
-
-        Returns
-        -------
-        DataFrame
-            A new DataFrame consisting of the rows of caller and the rows of `other`.
-        """
         return DataFrame.append(*args, **kwargs)
 
 
