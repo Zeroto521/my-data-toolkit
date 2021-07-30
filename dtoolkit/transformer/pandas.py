@@ -204,6 +204,7 @@ class DropTF(DataFrameTF):
 
     Examples
     --------
+    >>> import numpy as np
     >>> import pandas as pd
     >>> from dtoolkit.transformer import DropTF
     >>> df = pd.DataFrame(np.arange(12).reshape(3, 4),
@@ -217,13 +218,6 @@ class DropTF(DataFrameTF):
     Drop columns
 
     >>> tf = DropTF(['B', 'C'], axis=1)
-    >>> tf.transform(df)
-        A   D
-    0  0   3
-    1  4   7
-    2  8  11
-
-    >>> tf = DropTF(['B', 'C'])
     >>> tf.transform(df)
         A   D
     0  0   3
@@ -317,7 +311,7 @@ class EvalTF(DataFrameTF):
     Examples
     --------
     >>> import pandas as pd
-    >>> from dtoolkit.transformer EvalTF
+    >>> from dtoolkit.transformer import EvalTF
     >>> df = pd.DataFrame({'A': range(1, 6), 'B': range(10, 0, -2)})
     >>> df
         A   B
@@ -421,6 +415,7 @@ class FillnaTF(DataFrameTF):
 
     Examples
     --------
+    >>> import numpy as np
     >>> import pandas as pd
     >>> from dtoolkit.transformer import FillnaTF
     >>> df = pd.DataFrame([[np.nan, 2, np.nan, 0],
@@ -524,6 +519,7 @@ class FilterTF(DataFrameTF):
 
     Examples
     --------
+    >>> import numpy as np
     >>> import pandas as pd
     >>> from dtoolkit.transformer import FilterTF
     >>> df = pd.DataFrame(np.array(([1, 2, 3], [4, 5, 6])),
@@ -536,7 +532,7 @@ class FilterTF(DataFrameTF):
 
     Select columns by name
 
-    >>> tf = FilterTf(items=['one', 'three'])
+    >>> tf = FilterTF(items=['one', 'three'])
     >>> tf.transform(df)
                 one  three
     mouse     1      3
@@ -544,7 +540,7 @@ class FilterTF(DataFrameTF):
 
     Select columns by regular expression
 
-    >>> tf = FilterTf(regex='e$', axis=1)
+    >>> tf = FilterTF(regex='e$', axis=1)
     >>> tf.transform(df)
                 one  three
     mouse     1      3
@@ -552,7 +548,7 @@ class FilterTF(DataFrameTF):
 
     Select rows containing 'bbi'
 
-    >>> tf = FilterTf(like='bbi', axis=0)
+    >>> tf = FilterTF(like='bbi', axis=0)
     >>> tf.transform(df)
                 one  two  three
     rabbit    4    5      6
@@ -935,7 +931,7 @@ class ReplaceTF(DataFrameTF):
     2  bait  xyz
 
     >>> tf = ReplaceTF({'A': r'^ba.$'}, {'A': 'new'}, regex=True)
-    >>> df.transform(df)
+    >>> tf.transform(df)
         A    B
     0   new  abc
     1   foo  bar
