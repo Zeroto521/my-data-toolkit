@@ -468,6 +468,73 @@ class FilterInTF(DataFrameTF):
 
 
 class FilterTF(DataFrameTF):
+    """
+    Subset the dataframe rows or columns according to the specified index labels.
+
+    Note that this routine does not filter a dataframe on its
+    contents. The filter is applied to the labels of the index.
+
+    Parameters
+    ----------
+    items : list-like
+        Keep labels from axis which are in items.
+    like : str
+        Keep labels from axis for which "like in label == True".
+    regex : str (regular expression)
+        Keep labels from axis for which re.search(regex, label) == True.
+    axis : {0 or ‘index’, 1 or ‘columns’, None}, default None
+        The axis to filter on, expressed either as an index (int)
+        or axis name (str). By default this is the info axis,
+        'index' for Series, 'columns' for DataFrame.
+
+    Returns
+    -------
+    same type as input object
+
+    Notes
+    -----
+    The ``items``, ``like``, and ``regex`` parameters are
+    enforced to be mutually exclusive.
+
+    ``axis`` defaults to the info axis that is used when indexing
+    with ``[]``.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from dtoolkit.transformer import FilterTF
+    >>> df = pd.DataFrame(np.array(([1, 2, 3], [4, 5, 6])),
+    ...                   index=['mouse', 'rabbit'],
+    ...                   columns=['one', 'two', 'three'])
+    >>> df
+            one  two  three
+    mouse     1    2      3
+    rabbit    4    5      6
+
+    Select columns by name
+
+    >>> tf = FilterTf(items=['one', 'three'])
+    >>> tf.transform(df)
+                one  three
+    mouse     1      3
+    rabbit    4      6
+
+    Select columns by regular expression
+
+    >>> tf = FilterTf(regex='e$', axis=1)
+    >>> tf.transform(df)
+                one  three
+    mouse     1      3
+    rabbit    4      6
+
+    Select rows containing 'bbi'
+
+    >>> tf = FilterTf(like='bbi', axis=0)
+    >>> tf.transform(df)
+                one  two  three
+    rabbit    4    5      6
+    """
+
     def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.filter(*args, **kwargs)
 
