@@ -183,6 +183,8 @@ class DropTF(DataFrameTF):
     Notes
     -----
         `DataFrame.drop`'s `inplace` parameter is not work for transformer.
+        Actually this break pipeline stream. If a transformer's `inplace` is
+        `True`, the next tf input would get `None`.
 
     Examples
     --------
