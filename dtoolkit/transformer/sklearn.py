@@ -282,6 +282,15 @@ class OneHotEncoder(SKOneHotEncoder):
             handle_unknown=handle_unknown,
         )
 
+    @doc(
+        SKOneHotEncoder.transform,
+        dedent(
+            """
+        Notes
+        -----
+        This would let pandas in and pandas out.""",
+        ),
+    )
     def transform(self, X, *_):
         X_new = super().transform(X, *_)
 
