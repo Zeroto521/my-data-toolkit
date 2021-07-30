@@ -6,6 +6,10 @@ from .base import Transformer
 
 
 class DataFrameTF(Transformer):
+    def __init__(self, *args, **kwargs):
+        kwargs.pop("inplace", None)
+        super().__init__(*args, **kwargs)
+
     def validate(self, *args, **kwargs):
         return check_dataframe_type(*args, **kwargs)
 
@@ -258,7 +262,6 @@ class DropTF(DataFrameTF):
     """
 
     def operate(self, *args, **kwargs) -> DataFrame:
-        kwargs.pop("inplace", None)
         return DataFrame.drop(*args, **kwargs)
 
 
