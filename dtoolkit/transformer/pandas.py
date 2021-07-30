@@ -934,5 +934,89 @@ class ReplaceTF(DataFrameTF):
 
 
 class SelectDtypesTF(DataFrameTF):
+    """
+    Return a subset of the DataFrame's columns based on the column dtypes.
+
+    Parameters
+    ----------
+    include, exclude : scalar or list-like
+        A selection of dtypes or strings to be included/excluded. At least
+        one of these parameters must be supplied.
+
+    Returns
+    -------
+    DataFrame
+        The subset of the frame including the dtypes in ``include`` and
+        excluding the dtypes in ``exclude``.
+
+    Raises
+    ------
+    ValueError
+        * If both of ``include`` and ``exclude`` are empty
+        * If ``include`` and ``exclude`` have overlapping elements
+        * If any kind of string dtype is passed in.
+
+    Notes
+    -----
+    * To select all *numeric* types, use ``np.number`` or ``'number'``
+    * To select strings you must use the ``object`` dtype, but note that
+        this will return *all* object dtype columns
+    * See the `numpy dtype hierarchy
+        <https://numpy.org/doc/stable/reference/arrays.scalars.html>`__
+    * To select datetimes, use ``np.datetime64``, ``'datetime'`` or
+        ``'datetime64'``
+    * To select timedeltas, use ``np.timedelta64``, ``'timedelta'`` or
+        ``'timedelta64'``
+    * To select Pandas categorical dtypes, use ``'category'``
+    * To select Pandas datetimetz dtypes, use ``'datetimetz'`` (new in
+        0.20.0) or ``'datetime64[ns, tz]'``
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from dtoolkit.transformer import SelectDtypesTF
+    >>> df = pd.DataFrame({'a': [1, 2] * 3,
+    ...                    'b': [True, False] * 3,
+    ...                    'c': [1.0, 2.0] * 3})
+    >>> df
+            a      b  c
+    0       1   True  1.0
+    1       2  False  2.0
+    2       1   True  1.0
+    3       2  False  2.0
+    4       1   True  1.0
+    5       2  False  2.0
+
+    >>> tf = SelectDtypesTF(include='bool')
+    >>> tf.transform(df)
+        b
+    0  True
+    1  False
+    2  True
+    3  False
+    4  True
+    5  False
+
+    >>> tf = SelectDtypesTF(include=['float64'])
+    >>> tf.transform(df)
+        c
+    0  1.0
+    1  2.0
+    2  1.0
+    3  2.0
+    4  1.0
+    5  2.0
+
+    >>> tf = SelectDtypesTF(exclude=['int64'])
+    >>> tf.transform(df)
+            b    c
+    0   True  1.0
+    1  False  2.0
+    2   True  1.0
+    3  False  2.0
+    4   True  1.0
+    5  False  2.0
+    """
+
     def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.select_dtypes(*args, **kwargs)
