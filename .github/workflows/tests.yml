@@ -51,7 +51,7 @@ jobs:
         run: make test
 
       - name: Test Docstrings
-        if: contains(matrix.env, "38.yaml") && contains(matrix.os, "ubuntu")
+        if: contains(matrix.env, '38.yaml') && contains(matrix.os, 'ubuntu')
         run: make doctest
 
       - name: Code Coverage
