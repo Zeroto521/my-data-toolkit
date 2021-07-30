@@ -540,6 +540,19 @@ class FilterTF(DataFrameTF):
 
 
 class GetTF(Transformer):
+    """
+    Get item from object for given key (ex: DataFrame column).
+
+    Returns default value if not found.
+
+    Parameters
+    ----------
+    key : object
+
+    Returns
+    -------
+    value : same type as items contained in object
+    """
     def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.get(*args, **kwargs)
 
