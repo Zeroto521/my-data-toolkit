@@ -440,7 +440,7 @@ class OneHotEncoder(SKOneHotEncoder):
             """
         Notes
         -----
-        This would let pandas in and pandas out."""
+        This would let pandas in and pandas out.""",
         ),
     )
     def transform(self, X, *_):
