@@ -182,9 +182,9 @@ class DropTF(DataFrameTF):
 
     Notes
     -----
-        `DataFrame.drop`'s `inplace` parameter is not work for transformer.
-        Actually this break pipeline stream. If a transformer's `inplace` is
-        `True`, the next tf input would get `None`.
+    `DataFrame.drop`'s `inplace` parameter is not work for transformer.
+    Actually this break pipeline stream. If a transformer's `inplace` is
+    `True`, the next tf input would get `None`.
 
     Examples
     --------
@@ -291,9 +291,9 @@ class EvalTF(DataFrameTF):
 
     Notes
     -----
-        `DataFrame.drop`'s `inplace` parameter is not work for transformer.
-        Actually this break pipeline stream. If a transformer's `inplace` is
-        `True`, the next tf input would get `None`.
+    `DataFrame.eval`'s `inplace` parameter is not work for transformer.
+    Actually this break pipeline stream. If a transformer's `inplace` is
+    `True`, the next tf input would get `None`.
 
     Examples
     --------
@@ -393,9 +393,9 @@ class FillnaTF(DataFrameTF):
 
     Notes
     -----
-        `DataFrame.drop`'s `inplace` parameter is not work for transformer.
-        Actually this break pipeline stream. If a transformer's `inplace` is
-        `True`, the next tf input would get `None`.
+    `DataFrame.fillna`'s `inplace` parameter is not work for transformer.
+    Actually this break pipeline stream. If a transformer's `inplace` is
+    `True`, the next tf input would get `None`.
 
     Examples
     --------
@@ -553,6 +553,7 @@ class GetTF(Transformer):
     -------
     value : same type as items contained in object
     """
+
     def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.get(*args, **kwargs)
 
