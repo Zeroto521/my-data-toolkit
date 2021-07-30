@@ -96,7 +96,8 @@ class AppendTF(DataFrameTF):
     Returns
     -------
     DataFrame
-        A new DataFrame consisting of the rows of caller and the rows of `other`.
+        A new DataFrame consisting of the rows of caller and the rows of
+        `other`.
 
     Notes
     -----
@@ -113,12 +114,20 @@ class AppendTF(DataFrameTF):
     --------
     >>> import pandas as pd
     >>> from dtoolkit.transformer import AppendTF
-    >>> df = pd.DataFrame([[1, 2], [3, 4]], columns=list('AB'), index=['x', 'y'])
+    >>> df = pd.DataFrame(
+    ...     [[1, 2], [3, 4]],
+    ...     columns=list("AB"),
+    ...     index=["x", "y"],
+    ... )
     >>> df
         A  B
     x  1  2
     y  3  4
-    >>> df2 = pd.DataFrame([[5, 6], [7, 8]], columns=list('AB'), index=['x', 'y'])
+    >>> df2 = pd.DataFrame(
+    ...     [[5, 6], [7, 8]],
+    ...     columns=list("AB"),
+    ...     index=["x", "y"],
+    ... )
     >>> tf = AppendTF(df2)
     >>> tf.transform(df)
         A  B
@@ -485,7 +494,8 @@ class FilterInTF(DataFrameTF):
 
 class FilterTF(DataFrameTF):
     """
-    Subset the dataframe rows or columns according to the specified index labels.
+    Subset the dataframe rows or columns according to the specified index
+    labels.
 
     Note that this routine does not filter a dataframe on its
     contents. The filter is applied to the labels of the index.
@@ -598,9 +608,9 @@ class QueryTF(DataFrameTF):
         You can refer to column names that are not valid Python variable names
         by surrounding them in backticks. Thus, column names containing spaces
         or punctuations (besides underscores) or starting with digits must be
-        surrounded by backticks. (For example, a column named "Area (cm^2)" would
-        be referenced as ```Area (cm^2)```). Column names which are Python keywords
-        (like "list", "for", "import", etc) cannot be used.
+        surrounded by backticks. (For example, a column named "Area (cm^2)"
+        would be referenced as ```Area (cm^2)```). Column names which are
+        Python keywords (like "list", "for", "import", etc) cannot be used.
 
         For example, if one of your columns is called ``a a`` and you want
         to sum it with ``b``, your query should be ```a a` + b``.
@@ -657,7 +667,8 @@ class QueryTF(DataFrameTF):
     This can lead to the following problems.
 
     During parsing a number of disallowed characters inside the backtick
-    quoted string are replaced by strings that are allowed as a Python identifier.
+    quoted string are replaced by strings that are allowed as a Python
+    identifier.
     These characters include all operators in Python, the space character, the
     question mark, the exclamation mark, the dollar sign, and the euro sign.
     For other characters that fall outside the ASCII range (U+0001..U+007F)
@@ -674,7 +685,8 @@ class QueryTF(DataFrameTF):
 
     See also the Python documentation about lexical analysis
     (https://docs.python.org/3/reference/lexical_analysis.html)
-    in combination with the source code in :mod:`pandas.core.computation.parsing`.
+    in combination with the source code in
+    :mod:`pandas.core.computation.parsing`.
 
     Examples
     --------
