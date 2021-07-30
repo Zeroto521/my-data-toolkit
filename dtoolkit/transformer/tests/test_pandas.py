@@ -95,7 +95,7 @@ def test_filtertf():
     assert len(res.cols()) == 5
 
 
-@pytest.mark.parametrize("cols", [[feature_names[0]], feature_names])
+@pytest.mark.parametrize("cols", [feature_names[0], feature_names])
 def test_gettf(cols):
     tf = GetTF(cols)
 
