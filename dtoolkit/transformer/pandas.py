@@ -1,6 +1,7 @@
 from pandas import DataFrame
 
 from .._checking import check_dataframe_type
+from .._typing import Pd
 from ..accessor import FilterInAccessor  # noqa
 from .base import Transformer
 
@@ -266,42 +267,42 @@ class DropTF(DataFrameTF):
 
 
 class EvalTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.eval(*args, **kwargs)
 
 
 class FillnaTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.fillna(*args, **kwargs)
 
 
 class FilterInTF(DataFrameTF):
-    def transform(self, X, *_):
+    def transform(self, X, *_) -> DataFrame:
         self.validate(X)
 
         return X.filterin(*self.args, **self.kwargs)
 
 
 class FilterTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.filter(*args, **kwargs)
 
 
 class GetTF(Transformer):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> Pd:
         return DataFrame.get(*args, **kwargs)
 
 
 class QueryTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.query(*args, **kwargs)
 
 
 class ReplaceTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.replace(*args, **kwargs)
 
 
 class SelectDtypesTF(DataFrameTF):
-    def operate(self, *args, **kwargs):
+    def operate(self, *args, **kwargs) -> DataFrame:
         return DataFrame.select_dtypes(*args, **kwargs)
