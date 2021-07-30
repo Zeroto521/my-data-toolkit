@@ -353,6 +353,11 @@ class OneHotEncoder(SKOneHotEncoder):
         - ``drop_idx_ = None`` if all the transformed features will be
           retained.
 
+    Notes
+    -----
+    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
+    The result would return a DataFrame which uses categories as columns.
+
     Examples
     --------
     Given a dataset with two features, we let the encoder find the unique
@@ -409,11 +414,6 @@ class OneHotEncoder(SKOneHotEncoder):
     0            0.0          1.0       1.0       0.0       0.0
     1            1.0          0.0       0.0       0.0       1.0
     2            1.0          0.0       0.0       1.0       0.0
-
-    Notes
-    -----
-    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
-    This would let pandas in and pandas out.
     """
 
     def __init__(
