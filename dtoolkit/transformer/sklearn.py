@@ -220,14 +220,14 @@ class MinMaxScaler(SKMinMaxScaler):
     >>> scaler.fit(data)
     MinMaxScaler()
     >>> scaler.data_max_
-    [ 1. 18.]
+    array([ 1., 18.])
     >>> scaler.transform(data)
-    [[0.   0.  ]
-     [0.25 0.25]
-     [0.5  0.5 ]
-     [1.   1.  ]]
+    array([[0.  , 0.  ],
+           [0.25, 0.25],
+           [0.5 , 0.5 ],
+           [1.  , 1.  ]])
     >>> scaler.transform([[2, 2]])
-    [[1.5 0. ]]
+    array([[1.5, 0. ]])
 
     Notes
     -----
@@ -362,10 +362,10 @@ class OneHotEncoder(SKOneHotEncoder):
 
     One can discard categories not seen during `fit`:
 
-    >>> enc = OneHotEncoder(handle_unknown='ignore')
+    >>> enc = OneHotEncoder(sparse=True, handle_unknown='ignore')
     >>> X = [['Male', 1], ['Female', 3], ['Female', 2]]
     >>> enc.fit(X)
-    OneHotEncoder(handle_unknown='ignore')
+    OneHotEncoder(handle_unknown='ignore', sparse=True)
     >>> enc.categories_
     [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
     >>> enc.transform([['Female', 1], ['Male', 4]]).toarray()
@@ -380,7 +380,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
     One can always drop the first column for each feature:
 
-    >>> drop_enc = OneHotEncoder(drop='first').fit(X)
+    >>> drop_enc = OneHotEncoder(sparse=True, drop='first').fit(X)
     >>> drop_enc.categories_
     [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
     >>> drop_enc.transform([['Female', 1], ['Male', 2]]).toarray()
@@ -389,7 +389,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
     Or drop a column for feature only having 2 categories:
 
-    >>> drop_binary_enc = OneHotEncoder(drop='if_binary').fit(X)
+    >>> drop_binary_enc = OneHotEncoder(sparse=True, drop='if_binary').fit(X)
     >>> drop_binary_enc.transform([['Female', 1], ['Male', 2]]).toarray()
     array([[0., 1., 0., 0.],
            [1., 0., 1., 0.]])
