@@ -38,6 +38,12 @@ class TestOneHotEncoder:
 
         assert isinstance(res, pd.DataFrame)
 
+    def test_return_dataframe_columns(self):
+        tf = OneHotEncoder(categories_with_parent=True)
+        res = tf.fit_transform(df_label)
+
+        assert all("_" in column for column in res.columns)
+
     def test_sparse_is_ture(self):
         tf = OneHotEncoder(sparse=True)
         res = tf.fit_transform(df_label)
