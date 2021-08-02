@@ -62,3 +62,28 @@ class FilterInAccessor(Accessor):
             return None
 
         return result
+
+
+@register_dataframe_accessor("repeat")
+class RepeatAccessor(Accessor):
+    def __call__(
+        self,
+        repeats: int | list[int],
+        axis: int = 0,
+    ) -> pd.DataFrame | None:
+        if axis == 0:
+            new_index = self.pd_obj.index.repeat(repeats)
+            new_column = self.pd_obj.columns.copy()
+        elif axis == 1:
+            new_index = self.pd_obj.index.copy()
+            new_column = self.pd_obj.columns.repeat(repeats)
+        else:
+            msg = "axis must be 0 (row) or 1 (column), default is 0."
+            raise ValueError(msg)
+
+        new_values = self.pd_obj._values.repeat(repeats, axis)
+        return pd.DataFrame(
+            new_values,
+            index=new_index,
+            columns=new_column,
+        )
