@@ -142,11 +142,12 @@ class RepeatAccessor(Accessor):
         repeats: int | list[int],
         axis: int = 0,
     ) -> pd.DataFrame | None:
+        new_index = self.pd_obj.index.copy()
+        new_column = self.pd_obj.columns.copy()
+
         if axis == 0:
             new_index = self.pd_obj.index.repeat(repeats)
-            new_column = self.pd_obj.columns.copy()
         elif axis == 1:
-            new_index = self.pd_obj.index.copy()
             new_column = self.pd_obj.columns.repeat(repeats)
         else:
             msg = "axis must be 0 (row) or 1 (column), default is 0."
