@@ -264,6 +264,10 @@ class MinMaxScaler(SKMinMaxScaler):
         return _change_data_to_df(X_new, X)
 
 
+# OneHotEncoder doc ported with modifications from scikit-learn
+# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/preprocessing/_encoders.py
+
+
 class OneHotEncoder(SKOneHotEncoder):
     """
     Encode categorical features as a one-hot numeric array.
