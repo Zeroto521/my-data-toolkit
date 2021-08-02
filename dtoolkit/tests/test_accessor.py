@@ -5,6 +5,7 @@ import pytest
 from dtoolkit.accessor import ColumnAccessor  # noqa
 from dtoolkit.accessor import DropInfAccessor  # noqa
 from dtoolkit.accessor import FilterInAccessor  # noqa
+from dtoolkit.accessor import RepeatAccessor  # noqa
 
 
 data_size = 42
@@ -77,3 +78,51 @@ class TestFilterInAccessor:
 
         assert res is None
         assert self.d.equals(d) is False
+
+
+class TestRepeatAccessor:
+    def setup_method(self):
+        self.d = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+
+    @pytest.mark.parametrize(
+        "repeats, axis, expected",
+        [
+            (
+                2,
+                0,
+                pd.DataFrame(
+                    {
+                        "a": [1, 1, 2, 2],
+                        "b": [3, 3, 4, 4],
+                    },
+                    index=[0, 0, 1, 1],
+                ),
+            ),
+            (
+                2,
+                1,
+                pd.DataFrame(
+                    [
+                        [1, 1, 3, 3],
+                        [2, 2, 4, 4],
+                    ],
+                    columns=["a", "a", "b", "b"],
+                ),
+            ),
+            (
+                [1, 2],
+                1,
+                pd.DataFrame(
+                    [
+                        [1, 3, 3],
+                        [2, 4, 4],
+                    ],
+                    columns=["a", "b", "b"],
+                ),
+            ),
+        ],
+    )
+    def test_work(self, repeats, axis, expected):
+        result = self.d.repeat(repeats, axis)
+
+        assert result.equals(expected)
