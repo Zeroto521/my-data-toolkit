@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import pandas as pd
 from numpy import inf
+from pandas.api.extensions import register_dataframe_accessor
+from pandas.api.extensions import register_series_accessor
 
 from ._typing import Pd
-
 
 __all__ = [
     "ColumnAccessor",
@@ -18,8 +19,8 @@ class Accessor:
         self.pd_obj = pd_obj
 
 
-@pd.api.extensions.register_dataframe_accessor("cols")
-@pd.api.extensions.register_series_accessor("cols")
+@register_dataframe_accessor("cols")
+@register_series_accessor("cols")
 class ColumnAccessor(Accessor):
     def __call__(self) -> str | list[str]:
         if isinstance(self.pd_obj, pd.Series):
@@ -28,8 +29,8 @@ class ColumnAccessor(Accessor):
         return self.pd_obj.columns.tolist()
 
 
-@pd.api.extensions.register_dataframe_accessor("dropinf")
-@pd.api.extensions.register_series_accessor("dropinf")
+@register_dataframe_accessor("dropinf")
+@register_series_accessor("dropinf")
 class DropInfAccessor(Accessor):
     def __call__(self, inplace: bool = False) -> Pd | None:
         mask = ~self.pd_obj.isin([inf, -inf])
@@ -45,7 +46,7 @@ class DropInfAccessor(Accessor):
         return result
 
 
-@pd.api.extensions.register_dataframe_accessor("filterin")
+@register_dataframe_accessor("filterin")
 class FilterInAccessor(Accessor):
     def __call__(
         self,
