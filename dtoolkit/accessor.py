@@ -91,7 +91,7 @@ class RepeatAccessor(Accessor):
         The number of repetitions for each element. This should be a
         non-negative integer. Repeating 0 times will return an empty
         DataFrame.
-    axis : int
+    axis :  {0, 1}, int
         The axis along which to repeat. By default, along **row** to repeat.
 
     Returns
