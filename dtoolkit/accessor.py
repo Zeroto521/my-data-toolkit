@@ -11,6 +11,7 @@ __all__ = [
     "ColumnAccessor",
     "DropInfAccessor",
     "FilterInAccessor",
+    "RepeatAccessor",
 ]
 
 
