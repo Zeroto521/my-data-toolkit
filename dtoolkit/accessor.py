@@ -23,6 +23,19 @@ class Accessor:
 @register_dataframe_accessor("cols")
 @register_series_accessor("cols")
 class ColumnAccessor(Accessor):
+    """
+    A API to gather `pandas.Series.name` and `pandas.DataFrame.columns`
+    to one.
+
+    Return the column labels of the DataFrame if it is `DataFrame`.
+    Return the name of the Series if it is `Series`.
+
+    See Also
+    --------
+    pandas.Series.name
+    pandas.DataFrame.columns
+    """
+
     def __call__(self) -> str | list[str]:
         if isinstance(self.pd_obj, pd.Series):
             return self.pd_obj.name
