@@ -66,6 +66,64 @@ class FilterInAccessor(Accessor):
 
 @register_dataframe_accessor("repeat")
 class RepeatAccessor(Accessor):
+    """
+    Repeat row or column of a DataFrame.
+
+    Returns a new DataFrame where each row/column
+    is repeated consecutively a given number of times.
+
+    Parameters
+    ----------
+    repeats : int or array of ints
+        The number of repetitions for each element. This should be a
+        non-negative integer. Repeating 0 times will return an empty
+        DataFrame.
+    axis : int
+        The axis along which to repeat. By default, along **row** to repeat.
+
+    Returns
+    -------
+    DataFrame
+        Newly created DataFrame with repeated elements.
+
+    See Also
+    --------
+    numpy.repeat : Similar method for :class:`numpy.ndarray`.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from dtoolkit.accessor import RepeatAccessor
+    >>> df = pd.DataFrame({'a': [1, 2], 'b':[3, 4]})
+    >>> df
+       a  b
+    0  1  3
+    1  2  4
+
+    Each row repeat two times
+
+    >>> df.repeat(2)
+       a  b
+    0  1  3
+    0  1  3
+    1  2  4
+    1  2  4
+
+    Each column repeat two times
+
+    >>> df.repeat(2, 1)
+       a  a  b  b
+    0  1  1  3  3
+    1  2  2  4  4
+
+    'a' column repeat 1 times, 'b' column repeat 2 times
+
+    >>> df.repeat([1, 2], 1)
+       a  b  b
+    0  1  3  3
+    1  2  4  4
+    """
+
     def __call__(
         self,
         repeats: int | list[int],
