@@ -126,3 +126,8 @@ class TestRepeatAccessor:
         result = self.d.repeat(repeats, axis)
 
         assert result.equals(expected)
+
+    @pytest.mark.parametrize("axis", [-1, 3, None])
+    def test_error(self, axis):
+        with pytest.raises(ValueError):
+            self.d.repeat(2, axis)
