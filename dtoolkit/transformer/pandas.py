@@ -109,8 +109,8 @@ class DropTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.drop`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.drop`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -190,8 +190,8 @@ class DropTF(DataFrameTF):
 
 class EvalTF(DataFrameTF):
     """
-    Evaluate a string describing operations on :obj:`~pandas.DataFrame`
-    columns.
+    A transformer could evaluate a string describing operations on
+    :obj:`~pandas.DataFrame` columns.
 
     See Also
     --------
@@ -199,8 +199,8 @@ class EvalTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.eval`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.eval`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -265,7 +265,7 @@ class EvalTF(DataFrameTF):
 
 class FillnaTF(DataFrameTF):
     """
-    Fill ``NA``/``NaN`` values using the specified method.
+    A transformer could fill ``NA``/``NaN`` values using the specified method.
 
     See Also
     --------
@@ -273,8 +273,8 @@ class FillnaTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.fillna`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.fillna`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -344,42 +344,14 @@ class FilterInTF(DataFrameTF):
     pd_method = "filterin"
 
 
-# FilterTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
-
-
 class FilterTF(DataFrameTF):
     """
-    Subset the dataframe rows or columns according to the specified index
-    labels.
+    A transformer could get subset the dataframe rows or columns according to
+    the specified index labels.
 
-    Note that this routine does not filter a dataframe on its
-    contents. The filter is applied to the labels of the index.
-
-    Parameters
-    ----------
-    items : list-like
-        Keep labels from axis which are in items.
-    like : str
-        Keep labels from axis for which "like in label == True".
-    regex : str (regular expression)
-        Keep labels from axis for which re.search(regex, label) == True.
-    axis : {0 or ‘index’, 1 or ‘columns’, None}, default None
-        The axis to filter on, expressed either as an index (int)
-        or axis name (str). By default this is the info axis,
-        'index' for Series, 'columns' for DataFrame.
-
-    Returns
-    -------
-    same type as input object
-
-    Notes
-    -----
-    The ``items``, ``like``, and ``regex`` parameters are
-    enforced to be mutually exclusive.
-
-    ``axis`` defaults to the info axis that is used when indexing
-    with ``[]``.
+    See Also
+    --------
+    pandas.DataFrame.filter : this transformer's prototype method.
 
     Examples
     --------
@@ -421,127 +393,33 @@ class FilterTF(DataFrameTF):
     pd_method = "filter"
 
 
-# GetTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
-
-
 class GetTF(DataFrameTF):
     """
-    Get item from object for given key (ex: DataFrame column).
+    A transformer could get item from object for given key
+    (ex: :obj:`~pandas.DataFrame` column).
 
-    Returns default value if not found.
-
-    Parameters
-    ----------
-    key : object
-
-    Returns
-    -------
-    value : same type as items contained in object
+    See Also
+    --------
+    pandas.DataFrame.get : this transformer's prototype method.
     """
 
     pd_method = "get"
 
 
-# QueryTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class QueryTF(DataFrameTF):
     """
-    Query the columns of a DataFrame with a boolean expression.
+    A transformer coud query the columns of a :obj:`pandas.DataFrame` with
+    a boolean expression.
 
-    Parameters
-    ----------
-    expr : str
-        The query string to evaluate.
-
-        You can refer to variables
-        in the environment by prefixing them with an '@' character like
-        ``@a + b``.
-
-        You can refer to column names that are not valid Python variable names
-        by surrounding them in backticks. Thus, column names containing spaces
-        or punctuations (besides underscores) or starting with digits must be
-        surrounded by backticks. (For example, a column named "Area (cm^2)"
-        would be referenced as ```Area (cm^2)```). Column names which are
-        Python keywords (like "list", "for", "import", etc) cannot be used.
-
-        For example, if one of your columns is called ``a a`` and you want
-        to sum it with ``b``, your query should be ```a a` + b``.
-
-    **kwargs
-        See the documentation for :func:`eval` for complete details
-        on the keyword arguments accepted by :meth:`DataFrame.query`.
-
-    Returns
-    -------
-    DataFrame
-        DataFrame resulting from the provided query expression.
+    See Also
+    --------
+    pandas.DataFrame.query : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.query`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
-
-    The result of the evaluation of this expression is first passed to
-    :attr:`DataFrame.loc` and if that fails because of a
-    multidimensional key (e.g., a DataFrame) then the result will be passed
-    to :meth:`DataFrame.__getitem__`.
-
-    This method uses the top-level :func:`eval` function to
-    evaluate the passed query.
-
-    The :meth:`~pandas.DataFrame.query` method uses a slightly
-    modified Python syntax by default. For example, the ``&`` and ``|``
-    (bitwise) operators have the precedence of their boolean cousins,
-    :keyword:`and` and :keyword:`or`. This *is* syntactically valid Python,
-    however the semantics are different.
-
-    You can change the semantics of the expression by passing the keyword
-    argument ``parser='python'``. This enforces the same semantics as
-    evaluation in Python space. Likewise, you can pass ``engine='python'``
-    to evaluate an expression using Python itself as a backend. This is not
-    recommended as it is inefficient compared to using ``numexpr`` as the
-    engine.
-
-    The :attr:`DataFrame.index` and
-    :attr:`DataFrame.columns` attributes of the
-    :class:`~pandas.DataFrame` instance are placed in the query namespace
-    by default, which allows you to treat both the index and columns of the
-    frame as a column in the frame.
-    The identifier ``index`` is used for the frame index; you can also
-    use the name of the index to identify it in a query. Please note that
-    Python keywords may not be used as identifiers.
-
-    *Backtick quoted variables*
-
-    Backtick quoted variables are parsed as literal Python code and
-    are converted internally to a Python valid identifier.
-    This can lead to the following problems.
-
-    During parsing a number of disallowed characters inside the backtick
-    quoted string are replaced by strings that are allowed as a Python
-    identifier.
-    These characters include all operators in Python, the space character, the
-    question mark, the exclamation mark, the dollar sign, and the euro sign.
-    For other characters that fall outside the ASCII range (U+0001..U+007F)
-    and those that are not further specified in PEP 3131,
-    the query parser will raise an error.
-    This excludes whitespace different than the space character,
-    but also the hashtag (as it is used for comments) and the backtick
-    itself (backtick can also not be escaped).
-
-    In a special case, quotes that make a pair around a backtick can
-    confuse the parser.
-    For example, ```it's` > `that's``` will raise an error,
-    as it forms a quoted string (``'s > `that'``) with a backtick inside.
-
-    See also the Python documentation about lexical analysis
-    (https://docs.python.org/3/reference/lexical_analysis.html)
-    in combination with the source code in
-    :mod:`pandas.core.computation.parsing`.
+    :meth:`~pandas.DataFrame.query`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
@@ -585,135 +463,19 @@ class QueryTF(DataFrameTF):
     pd_method = "query"
 
 
-# ReplaceTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class ReplaceTF(DataFrameTF):
     """
-    Replace values given in `to_replace` with `value`.
+    A transformer could replace values given input parameters.
 
-    Values of the DataFrame are replaced with other values dynamically.
-    This differs from updating with ``.loc`` or ``.iloc``, which require
-    you to specify a location to update with some value.
-
-    Parameters
-    ----------
-    to_replace : str, regex, list, dict, Series, int, float, or None
-        How to find the values that will be replaced.
-
-        * numeric, str or regex:
-
-            - numeric: numeric values equal to `to_replace` will be
-                replaced with `value`
-            - str: string exactly matching `to_replace` will be replaced
-                with `value`
-            - regex: regexs matching `to_replace` will be replaced with
-                `value`
-
-        * list of str, regex, or numeric:
-
-            - First, if `to_replace` and `value` are both lists, they
-                **must** be the same length.
-            - Second, if ``regex=True`` then all of the strings in **both**
-                lists will be interpreted as regexs otherwise they will match
-                directly. This doesn't matter much for `value` since there
-                are only a few possible substitution regexes you can use.
-            - str, regex and numeric rules apply as above.
-
-        * dict:
-
-            - Dicts can be used to specify different replacement values
-                for different existing values. For example,
-                ``{{'a': 'b', 'y': 'z'}}`` replaces the value 'a' with 'b' and
-                'y' with 'z'. To use a dict in this way the `value`
-                parameter should be `None`.
-            - For a DataFrame a dict can specify that different values
-                should be replaced in different columns. For example,
-                ``{{'a': 1, 'b': 'z'}}`` looks for the value 1 in column 'a'
-                and the value 'z' in column 'b' and replaces these values
-                with whatever is specified in `value`. The `value` parameter
-                should not be ``None`` in this case. You can treat this as a
-                special case of passing two lists except that you are
-                specifying the column to search in.
-            - For a DataFrame nested dictionaries, e.g.,
-                ``{{'a': {{'b': np.nan}}}}``, are read as follows: look in column
-                'a' for the value 'b' and replace it with NaN. The `value`
-                parameter should be ``None`` to use a nested dict in this
-                way. You can nest regular expressions as well. Note that
-                column names (the top-level dictionary keys in a nested
-                dictionary) **cannot** be regular expressions.
-
-        * None:
-
-            This means that the `regex` argument must be a string,
-            compiled regular expression, or list, dict, ndarray or
-            Series of such elements. If `value` is also ``None`` then
-            this **must** be a nested dictionary or Series.
-
-        See the examples section for examples of each of these.
-
-    value : scalar, dict, list, str, regex, default None
-        Value to replace any values matching `to_replace` with.
-        For a DataFrame a dict of values can be used to specify which
-        value to use for each column (columns not in the dict will not be
-        filled). Regular expressions, strings and lists or dicts of such
-        objects are also allowed.
-    limit : int or None, default None
-        Maximum size gap to forward or backward fill.
-    regex : bool or same types as `to_replace`, default False
-        Whether to interpret `to_replace` and/or `value` as regular
-        expressions. If this is ``True`` then `to_replace` *must* be a
-        string. Alternatively, this could be a regular expression or a
-        list, dict, or array of regular expressions in which case
-        `to_replace` must be ``None``.
-    method : {'pad', 'ffill', 'bfill', `None`}
-        The method to use when for replacement, when `to_replace` is a
-        scalar, list or tuple and `value` is ``None``.
-
-    Returns
-    -------
-    DataFrame
-        Object after replacement.
-
-    Raises
-    ------
-    AssertionError
-        If `regex` is not a ``bool`` and `to_replace` is not ``None``.
-
-    TypeError
-        * If `to_replace` is not a scalar, array-like, ``dict``, or ``None``
-        * If `to_replace` is a ``dict`` and `value` is not a ``list``,
-            ``dict``, ``ndarray``, or ``Series``
-        * If `to_replace` is ``None`` and `regex` is not compilable
-            into a regular expression or is a list, dict, ndarray, or
-            Series.
-        * When replacing multiple ``bool`` or ``datetime64`` objects and
-            the arguments to `to_replace` does not match the type of the
-            value being replaced
-
-    ValueError
-        If a ``list`` or an ``ndarray`` is passed to `to_replace` and
-        `value` but they are not the same length.
+    See Also
+    --------
+    pandas.DataFrame.replace : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.replace`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
-
-    * Regex substitution is performed under the hood with ``re.sub``. The
-        rules for substitution for ``re.sub`` are the same.
-    * Regular expressions will only substitute on strings, meaning you
-        cannot provide, for example, a regular expression matching floating
-        point numbers and expect the columns in your frame that have a
-        numeric dtype to be matched. However, if those floating point
-        numbers *are* strings, then you can do this.
-    * This method has *a lot* of options. You are encouraged to experiment
-        and play with this method to gain intuition about how it works.
-    * When dict is used as the `to_replace` value, it is like
-        key(s) in the dict are the to_replace part and
-        value(s) in the dict are the value parameter.
+    :meth:`~pandas.DataFrame.replace`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
@@ -826,47 +588,14 @@ class ReplaceTF(DataFrameTF):
     pd_method = "replace"
 
 
-# SelectDtypesTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class SelectDtypesTF(DataFrameTF):
     """
-    Return a subset of the DataFrame's columns based on the column dtypes.
+    A transformer could return a subset of the :obj:`~pandas.DataFrame`'s
+    columns based on the column dtypes.
 
-    Parameters
-    ----------
-    include, exclude : scalar or list-like
-        A selection of dtypes or strings to be included/excluded. At least
-        one of these parameters must be supplied.
-
-    Returns
-    -------
-    DataFrame
-        The subset of the frame including the dtypes in ``include`` and
-        excluding the dtypes in ``exclude``.
-
-    Raises
-    ------
-    ValueError
-        * If both of ``include`` and ``exclude`` are empty
-        * If ``include`` and ``exclude`` have overlapping elements
-        * If any kind of string dtype is passed in.
-
-    Notes
-    -----
-    * To select all *numeric* types, use ``np.number`` or ``'number'``
-    * To select strings you must use the ``object`` dtype, but note that
-        this will return *all* object dtype columns
-    * See the `numpy dtype hierarchy
-        <https://numpy.org/doc/stable/reference/arrays.scalars.html>`__
-    * To select datetimes, use ``np.datetime64``, ``'datetime'`` or
-        ``'datetime64'``
-    * To select timedeltas, use ``np.timedelta64``, ``'timedelta'`` or
-        ``'timedelta64'``
-    * To select Pandas categorical dtypes, use ``'category'``
-    * To select Pandas datetimetz dtypes, use ``'datetimetz'`` or
-        ``'datetime64[ns, tz]'``
+    See Also
+    --------
+    pandas.DataFrame.select_dtypes : this transformer's prototype method.
 
     Examples
     --------
