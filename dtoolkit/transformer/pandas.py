@@ -109,8 +109,8 @@ class DropTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.drop`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.drop`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -199,8 +199,8 @@ class EvalTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.eval`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.eval`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -273,8 +273,8 @@ class FillnaTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.fillna`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.fillna`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -454,8 +454,8 @@ class QueryTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`DataFrame.query`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.query`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
@@ -510,8 +510,8 @@ class ReplaceTF(DataFrameTF):
 
     Notes
     -----
-    :meth:`pandas.DataFrame.replace`'s ``inplace`` parameter is not work for this
-    transformer. Actually this break pipeline stream. If a transformer's
+    :meth:`~pandas.DataFrame.replace`'s ``inplace`` parameter is not work for
+    this transformer. Actually this break pipeline stream. If a transformer's
     ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
