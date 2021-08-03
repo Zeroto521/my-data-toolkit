@@ -20,38 +20,13 @@ class DataFrameTF(Transformer):
         return getattr(X, self.pd_method)(*args, **kwargs)
 
 
-# AssignTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class AssignTF(DataFrameTF):
-    r"""
-    Assign new columns to a DataFrame.
+    """
+    A transformer could assign new columns to a :obj:`~pandas.DataFrame`.
 
-    Returns a new object with all original columns in addition to new ones.
-    Existing columns that are re-assigned will be overwritten.
-
-    Parameters
-    ----------
-    **kwargs : dict of {str: callable or Series}
-        The column names are keywords. If the values are
-        callable, they are computed on the DataFrame and
-        assigned to the new columns. The callable must not
-        change input DataFrame (though pandas doesn't check it).
-        If the values are not callable, (e.g. a Series, scalar, or array),
-        they are simply assigned.
-
-    Returns
-    -------
-    DataFrame
-        A new DataFrame with the new columns in addition to
-        all the existing columns.
-
-    Notes
-    -----
-    Assigning multiple columns within the same ``assign`` is possible.
-    Later items in '\*\*kwargs' may refer to newly created or modified
-    columns in 'df'; items are computed and assigned into 'df' in order.
+    See Also
+    --------
+    pandas.DataFrame.assign : this transformer's prototype method.
 
     Examples
     --------
