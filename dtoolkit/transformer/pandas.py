@@ -344,42 +344,14 @@ class FilterInTF(DataFrameTF):
     pd_method = "filterin"
 
 
-# FilterTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
-
-
 class FilterTF(DataFrameTF):
     """
-    Subset the dataframe rows or columns according to the specified index
-    labels.
+    A transformer could get subset the dataframe rows or columns according to
+    the specified index labels.
 
-    Note that this routine does not filter a dataframe on its
-    contents. The filter is applied to the labels of the index.
-
-    Parameters
-    ----------
-    items : list-like
-        Keep labels from axis which are in items.
-    like : str
-        Keep labels from axis for which "like in label == True".
-    regex : str (regular expression)
-        Keep labels from axis for which re.search(regex, label) == True.
-    axis : {0 or ‘index’, 1 or ‘columns’, None}, default None
-        The axis to filter on, expressed either as an index (int)
-        or axis name (str). By default this is the info axis,
-        'index' for Series, 'columns' for DataFrame.
-
-    Returns
-    -------
-    same type as input object
-
-    Notes
-    -----
-    The ``items``, ``like``, and ``regex`` parameters are
-    enforced to be mutually exclusive.
-
-    ``axis`` defaults to the info axis that is used when indexing
-    with ``[]``.
+    See Also
+    --------
+    pandas.DataFrame.filter : this transformer's prototype method.
 
     Examples
     --------
