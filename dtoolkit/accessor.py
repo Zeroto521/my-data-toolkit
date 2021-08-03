@@ -81,7 +81,7 @@ class FilterInAccessor(Accessor):
 @register_dataframe_accessor("repeat")
 class RepeatAccessor(Accessor):
     """
-    Repeat row or column of a DataFrame.
+    Repeat row or column of a :obj:`~pandas.DataFrame`.
 
     Returns a new DataFrame where each row/column
     is repeated consecutively a given number of times.
@@ -91,7 +91,7 @@ class RepeatAccessor(Accessor):
     repeats : int or array of ints
         The number of repetitions for each element. This should be a
         non-negative integer. Repeating 0 times will return an empty
-        DataFrame.
+        :obj:`~pandas.DataFrame`.
     axis :  {0, 1}, int
         The axis along which to repeat. By default, along **row** to repeat.
 
