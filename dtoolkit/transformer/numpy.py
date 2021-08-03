@@ -19,7 +19,7 @@ class RavelTF(Transformer):
 
     See Also
     --------
-    numpy.ravel : A similar method to :func:`numpy.ravel`.
+    numpy.ravel : Similar method to :class:`numpy.ndarray`.
 
     Examples
     --------
