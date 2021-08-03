@@ -199,9 +199,9 @@ class EvalTF(DataFrameTF):
 
     Notes
     -----
-    ``inplace`` parameter is not work for this transformer. Actually this
-    break pipeline stream. If a transformer's ``inplace`` is ``True``,
-    the next tf input would get ``None``.
+    :meth:`DataFrame.eval`'s ``inplace`` parameter is not work for this
+    transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
