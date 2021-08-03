@@ -263,50 +263,19 @@ class EvalTF(DataFrameTF):
     pd_method = "eval"
 
 
-# FillnaTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class FillnaTF(DataFrameTF):
     """
-    Fill NA/NaN values using the specified method.
+    Fill ``NA``/``NaN`` values using the specified method.
 
-    Parameters
-    ----------
-    value : scalar, dict, Series, or DataFrame
-        Value to use to fill holes (e.g. 0), alternately a
-        dict/Series/DataFrame of values specifying which value to use for
-        each index (for a Series) or column (for a DataFrame).  Values not
-        in the dict/Series/DataFrame will not be filled. This value cannot
-        be a list.
-    method : {'backfill', 'bfill', 'pad', 'ffill', None}, default None
-        Method to use for filling holes in reindexed Series
-        pad / ffill: propagate last valid observation forward to next valid
-        backfill / bfill: use next valid observation to fill gap.
-    axis : {0 or 'index', 1 or 'columns'}
-        Axis along which to fill missing values.
-    limit : int, default None
-        If method is specified, this is the maximum number of consecutive
-        NaN values to forward/backward fill. In other words, if there is
-        a gap with more than this number of consecutive NaNs, it will only
-        be partially filled. If method is not specified, this is the
-        maximum number of entries along the entire axis where NaNs will be
-        filled. Must be greater than 0 if not None.
-    downcast : dict, default is None
-        A dict of item->dtype of what to downcast if possible,
-        or the string 'infer' which will try to downcast to an appropriate
-        equal type (e.g. float64 to int64 if possible).
-
-    Returns
-    -------
-    DataFrame or None
-        Object with missing values filled.
+    See Also
+    --------
+    pandas.DataFrame.fillna : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.fillna`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
+    :meth:`DataFrame.fillna`'s ``inplace`` parameter is not work for this
+    transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
