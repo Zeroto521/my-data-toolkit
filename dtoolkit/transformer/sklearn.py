@@ -62,28 +62,6 @@ def make_union(
     """
     Construct a FeatureUnion from the given transformers.
 
-    This is a shorthand for the FeatureUnion constructor; it does not require,
-    and does not permit, naming the transformers. Instead, they will be given
-    names automatically based on their types. It also does not allow weighting.
-
-    Parameters
-    ----------
-    *transformers : list of estimators
-
-    n_jobs : int, default=None
-        Number of jobs to run in parallel.
-        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-        ``-1`` means using all processors. See :term:`Glossary <n_jobs>`
-        for more details.
-
-    verbose : bool, default=False
-        If True, the time elapsed while fitting each transformer will be
-        printed as it is completed.
-
-    Returns
-    -------
-    f : FeatureUnion
-
     See Also
     --------
     FeatureUnion : Class for concatenating the results of multiple transformer
@@ -92,7 +70,7 @@ def make_union(
     Notes
     -----
     Different to :obj:`sklearn.pipeline.make_union`.
-    This would let pandas in and pandas out.
+    This would let :obj:`~pandas.DataFrame` in and :obj:`~pandas.DataFrame` out.
 
     Examples
     --------
