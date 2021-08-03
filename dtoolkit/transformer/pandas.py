@@ -421,23 +421,14 @@ class FilterTF(DataFrameTF):
     pd_method = "filter"
 
 
-# GetTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/generic.py
-
-
 class GetTF(DataFrameTF):
     """
-    Get item from object for given key (ex: DataFrame column).
+    A transformer to get item from object for given key
+    (ex: :obj:`~pandas.DataFrame` column).
 
-    Returns default value if not found.
-
-    Parameters
-    ----------
-    key : object
-
-    Returns
-    -------
-    value : same type as items contained in object
+    See Also
+    --------
+    pandas.DataFrame.get : this transformer's prototype method.
     """
 
     pd_method = "get"
