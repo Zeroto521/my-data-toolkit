@@ -57,7 +57,7 @@ class AppendTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.appendtf : this transformer's prototype method.
+    pandas.DataFrame.append : this transformer's prototype method.
 
     Examples
     --------
