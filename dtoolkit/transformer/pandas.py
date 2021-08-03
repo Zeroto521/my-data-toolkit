@@ -190,8 +190,8 @@ class DropTF(DataFrameTF):
 
 class EvalTF(DataFrameTF):
     """
-    Evaluate a string describing operations on :obj:`~pandas.DataFrame`
-    columns.
+    A transformer could evaluate a string describing operations on
+    :obj:`~pandas.DataFrame` columns.
 
     See Also
     --------
@@ -265,7 +265,7 @@ class EvalTF(DataFrameTF):
 
 class FillnaTF(DataFrameTF):
     """
-    Fill ``NA``/``NaN`` values using the specified method.
+    A transformer could fill ``NA``/``NaN`` values using the specified method.
 
     See Also
     --------
@@ -423,7 +423,7 @@ class FilterTF(DataFrameTF):
 
 class GetTF(DataFrameTF):
     """
-    A transformer to get item from object for given key
+    A transformer could get item from object for given key
     (ex: :obj:`~pandas.DataFrame` column).
 
     See Also
