@@ -826,47 +826,14 @@ class ReplaceTF(DataFrameTF):
     pd_method = "replace"
 
 
-# SelectDtypesTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class SelectDtypesTF(DataFrameTF):
     """
-    Return a subset of the DataFrame's columns based on the column dtypes.
+    A transformer could return a subset of the :obj:`~pandas.DataFrame`'s
+    columns based on the column dtypes.
 
-    Parameters
-    ----------
-    include, exclude : scalar or list-like
-        A selection of dtypes or strings to be included/excluded. At least
-        one of these parameters must be supplied.
-
-    Returns
-    -------
-    DataFrame
-        The subset of the frame including the dtypes in ``include`` and
-        excluding the dtypes in ``exclude``.
-
-    Raises
-    ------
-    ValueError
-        * If both of ``include`` and ``exclude`` are empty
-        * If ``include`` and ``exclude`` have overlapping elements
-        * If any kind of string dtype is passed in.
-
-    Notes
-    -----
-    * To select all *numeric* types, use ``np.number`` or ``'number'``
-    * To select strings you must use the ``object`` dtype, but note that
-        this will return *all* object dtype columns
-    * See the `numpy dtype hierarchy
-        <https://numpy.org/doc/stable/reference/arrays.scalars.html>`__
-    * To select datetimes, use ``np.datetime64``, ``'datetime'`` or
-        ``'datetime64'``
-    * To select timedeltas, use ``np.timedelta64``, ``'timedelta'`` or
-        ``'timedelta64'``
-    * To select Pandas categorical dtypes, use ``'category'``
-    * To select Pandas datetimetz dtypes, use ``'datetimetz'`` (new in
-        0.20.0) or ``'datetime64[ns, tz]'``
+    See Also
+    --------
+    pandas.DataFrame.select_dtypes : this transformer's prototype method.
 
     Examples
     --------
