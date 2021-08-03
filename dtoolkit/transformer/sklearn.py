@@ -50,10 +50,6 @@ class FeatureUnion(SKFeatureUnion):
         return super()._hstack(Xs)
 
 
-# make_union function and its doc ported with modifications from scikit-learn
-# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/pipeline.py
-
-
 def make_union(
     *transformers: list,
     n_jobs: int | None = None,
@@ -97,17 +93,9 @@ def _change_data_to_df(
     return data
 
 
-# MinMaxScaler doc ported with modifications from scikit-learn
-# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/preprocessing/_data.py
-
-
 class MinMaxScaler(SKMinMaxScaler):
     """
     Transform features by scaling each feature to a given range.
-
-    This estimator scales and translates each feature individually such
-    that it is in the given range on the training set, e.g. between
-    zero and one.
 
     The transformation is given by::
 
@@ -115,46 +103,6 @@ class MinMaxScaler(SKMinMaxScaler):
         X_scaled = X_std * (max - min) + min
 
     where min, max = feature_range.
-
-    This transformation is often used as an alternative to zero mean,
-    unit variance scaling.
-
-    Parameters
-    ----------
-    feature_range : tuple (min, max), default=(0, 1)
-        Desired range of transformed data.
-
-    copy : bool, default=True
-        Set to False to perform inplace row normalization and avoid a
-        copy (if the input is already a numpy array).
-
-    clip : bool, default=False
-        Set to True to clip transformed values of held-out data to
-        provided `feature range`.
-
-    Attributes
-    ----------
-    min_ : ndarray of shape (n_features,)
-        Per feature adjustment for minimum. Equivalent to
-        ``min - X.min(axis=0) * self.scale_``
-
-    scale_ : ndarray of shape (n_features,)
-        Per feature relative scaling of the data. Equivalent to
-        ``(max - min) / (X.max(axis=0) - X.min(axis=0))``
-
-    data_min_ : ndarray of shape (n_features,)
-        Per feature minimum seen in the data
-
-    data_max_ : ndarray of shape (n_features,)
-        Per feature maximum seen in the data
-
-    data_range_ : ndarray of shape (n_features,)
-        Per feature range ``(data_max_ - data_min_)`` seen in the data
-
-    n_samples_seen_ : int
-        The number of samples processed by the estimator.
-        It will be reset on new calls to fit, but increments across
-        ``partial_fit`` calls.
 
     Examples
     --------
@@ -176,7 +124,7 @@ class MinMaxScaler(SKMinMaxScaler):
     Notes
     -----
     Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
-    This would let pandas in and pandas out.
+    This would let :obj:`~pandas.DataFrame` in and :obj:`~pandas.DataFrame` out.
     """
 
     @doc(
