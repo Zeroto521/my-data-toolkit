@@ -24,11 +24,8 @@ class Accessor:
 @register_series_accessor("cols")
 class ColumnAccessor(Accessor):
     """
-    A API to gather `pandas.Series.name` and `pandas.DataFrame.columns`
-    to one.
-
-    Return the column labels of the DataFrame if it is `DataFrame`.
-    Return the name of the Series if it is `Series`.
+    A API to gather :attr:`~pandas.Series.name` and
+    :attr:`~pandas.DataFrame.columns` to one.
 
     See Also
     --------
