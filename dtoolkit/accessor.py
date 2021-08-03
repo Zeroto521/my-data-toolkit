@@ -99,7 +99,7 @@ class RepeatAccessor(Accessor):
 
     See Also
     --------
-    numpy.repeat : Similar method for :class:`numpy.ndarray`.
+    numpy.repeat : this transformer's prototype method.
 
     Examples
     --------
