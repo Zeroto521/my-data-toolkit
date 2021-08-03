@@ -24,11 +24,8 @@ class Accessor:
 @register_series_accessor("cols")
 class ColumnAccessor(Accessor):
     """
-    A API to gather `pandas.Series.name` and `pandas.DataFrame.columns`
-    to one.
-
-    Return the column labels of the DataFrame if it is `DataFrame`.
-    Return the name of the Series if it is `Series`.
+    A API to gather :attr:`~pandas.Series.name` and
+    :attr:`~pandas.DataFrame.columns` to one.
 
     See Also
     --------
@@ -81,7 +78,7 @@ class FilterInAccessor(Accessor):
 @register_dataframe_accessor("repeat")
 class RepeatAccessor(Accessor):
     """
-    Repeat row or column of a DataFrame.
+    Repeat row or column of a :obj:`~pandas.DataFrame`.
 
     Returns a new DataFrame where each row/column
     is repeated consecutively a given number of times.
@@ -91,7 +88,7 @@ class RepeatAccessor(Accessor):
     repeats : int or array of ints
         The number of repetitions for each element. This should be a
         non-negative integer. Repeating 0 times will return an empty
-        DataFrame.
+        :obj:`~pandas.DataFrame`.
     axis :  {0, 1}, int
         The axis along which to repeat. By default, along **row** to repeat.
 
@@ -102,7 +99,7 @@ class RepeatAccessor(Accessor):
 
     See Also
     --------
-    numpy.repeat : Similar method for :class:`numpy.ndarray`.
+    numpy.repeat : this transformer's prototype method.
 
     Examples
     --------
