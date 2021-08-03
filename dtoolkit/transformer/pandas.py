@@ -195,7 +195,7 @@ class EvalTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.drop : this transformer's prototype method.
+    pandas.DataFrame.eval : this transformer's prototype method.
 
     Notes
     -----
