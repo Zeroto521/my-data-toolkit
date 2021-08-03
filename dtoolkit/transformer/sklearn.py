@@ -127,7 +127,7 @@ class MinMaxScaler(SKMinMaxScaler):
     -----
     Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
     This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.    
+    :obj:`~pandas.DataFrame` out.
     """
 
     @doc(
@@ -136,7 +136,8 @@ class MinMaxScaler(SKMinMaxScaler):
             """
         Notes
         -----
-        This would let pandas in and pandas out.""",
+        This would let :obj:`~pandas.DataFrame` in and
+        :obj:`~pandas.DataFrame` out.""",
         ),
     )
     def transform(self, X, *_):
@@ -150,7 +151,8 @@ class MinMaxScaler(SKMinMaxScaler):
             """
         Notes
         -----
-        This would let pandas in and pandas out.""",
+        This would let :obj:`~pandas.DataFrame` in and
+        :obj:`~pandas.DataFrame` out.""",
         ),
     )
     def inverse_transform(self, X, *_):
