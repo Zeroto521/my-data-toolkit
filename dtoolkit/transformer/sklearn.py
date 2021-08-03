@@ -254,8 +254,7 @@ class OneHotEncoder(SKOneHotEncoder):
             """
         Notes
         -----
-        This would let :obj:`~pandas.DataFrame` in and
-        :obj:`~pandas.DataFrame` out.""",
+        This would let :obj:`~pandas.DataFrame` out.""",
         ),
     )
     def transform(self, X, *_):
