@@ -28,7 +28,8 @@ class FeatureUnion(SKFeatureUnion):
     Notes
     -----
     Different to :obj:`sklearn.pipeline.FeatureUnion`.
-    This would let :obj:`~pandas.DataFrame` in and :obj:`~pandas.DataFrame` out.
+    This would let :obj:`~pandas.DataFrame` in and
+    :obj:`~pandas.DataFrame` out.
 
     Examples
     --------
@@ -66,7 +67,8 @@ def make_union(
     Notes
     -----
     Different to :obj:`sklearn.pipeline.make_union`.
-    This would let :obj:`~pandas.DataFrame` in and :obj:`~pandas.DataFrame` out.
+    This would let :obj:`~pandas.DataFrame` in and
+    :obj:`~pandas.DataFrame` out.
 
     Examples
     --------
@@ -124,7 +126,8 @@ class MinMaxScaler(SKMinMaxScaler):
     Notes
     -----
     Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
-    This would let :obj:`~pandas.DataFrame` in and :obj:`~pandas.DataFrame` out.
+    This would let :obj:`~pandas.DataFrame` in and
+    :obj:`~pandas.DataFrame` out.    
     """
 
     @doc(
