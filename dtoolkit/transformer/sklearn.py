@@ -15,44 +15,10 @@ from .._checking import istype
 from .._typing import PandasTypeList
 from ..accessor import ColumnAccessor  # noqa
 
-# FeatureUnion doc ported with modifications from scikit-learn
-# https://github.com/scikit-learn/scikit-learn/blob/main/sklearn/pipeline.py
-
 
 class FeatureUnion(SKFeatureUnion):
     """
     Concatenates results of multiple transformer objects.
-
-    This estimator applies a list of transformer objects in parallel to the
-    input data, then concatenates the results. This is useful to combine
-    several feature extraction mechanisms into a single transformer.
-
-    Parameters of the transformers may be set using its name and the parameter
-    name separated by a '__'. A transformer may be replaced entirely by
-    setting the parameter with its name to another transformer,
-    or removed by setting to 'drop'.
-
-    Parameters
-    ----------
-    transformer_list : list of (string, transformer) tuples
-        List of transformer objects to be applied to the data. The first
-        half of each tuple is the name of the transformer. The tranformer can
-        be 'drop' for it to be ignored.
-
-    n_jobs : int, default=None
-        Number of jobs to run in parallel.
-        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
-        ``-1`` means using all processors. See :term:`Glossary <n_jobs>`
-        for more details.
-
-    transformer_weights : dict, default=None
-        Multiplicative weights for features per transformer.
-        Keys are transformer names, values the weights.
-        Raises ValueError if key not present in ``transformer_list``.
-
-    verbose : bool, default=False
-        If True, the time elapsed while fitting each transformer will be
-        printed as it is completed.
 
     See Also
     --------
@@ -62,7 +28,7 @@ class FeatureUnion(SKFeatureUnion):
     Notes
     -----
     Different to :obj:`sklearn.pipeline.FeatureUnion`.
-    This would let pandas in and pandas out.
+    This would let :obj:`~pandas.DataFrame` in and :obj:`~pandas.DataFrame` out.
 
     Examples
     --------
