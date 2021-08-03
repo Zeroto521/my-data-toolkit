@@ -212,7 +212,7 @@ class OneHotEncoder(SKOneHotEncoder):
     array([[0., 1., 0., 0.],
            [1., 0., 1., 0.]])
 
-    :obj:`~pandas.DataFrame` in, :obj:`pandas.DataFrame` out with categories
+    :obj:`~pandas.DataFrame` in, :obj:`~pandas.DataFrame` out with categories
     as columns.
 
     >>> import pandas as pd
