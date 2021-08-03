@@ -99,53 +99,19 @@ class AppendTF(DataFrameTF):
     pd_method = "append"
 
 
-# DropTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class DropTF(DataFrameTF):
     """
-    Drop specified labels from rows or columns.
+    A transformer could drop specified labels from rows or columns.
 
-    Remove rows or columns by specifying label names and corresponding
-    axis, or by specifying directly index or column names. When using a
-    multi-index, labels on different levels can be removed by specifying
-    the level.
-
-    Parameters
-    ----------
-    labels : single label or list-like
-        Index or column labels to drop.
-    axis : {0 or 'index', 1 or 'columns'}, default 0
-        Whether to drop labels from the index (0 or 'index') or
-        columns (1 or 'columns').
-    index : single label or list-like
-        Alternative to specifying axis (``labels, axis=0``
-        is equivalent to ``index=labels``).
-    columns : single label or list-like
-        Alternative to specifying axis (``labels, axis=1``
-        is equivalent to ``columns=labels``).
-    level : int or level name, optional
-        For MultiIndex, level from which the labels will be removed.
-    errors : {'ignore', 'raise'}, default 'raise'
-        If 'ignore', suppress error and only existing labels are
-        dropped.
-
-    Returns
-    -------
-    DataFrame
-        DataFrame without the removed index or column labels.
-
-    Raises
-    ------
-    KeyError
-        If any of the labels is not found in the selected axis.
+    See Also
+    --------
+    pandas.DataFrame.drop : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.drop`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
+    :meth:`DataFrame.drop`'s ``inplace`` parameter is not work for this
+    transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
