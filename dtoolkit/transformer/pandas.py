@@ -20,38 +20,13 @@ class DataFrameTF(Transformer):
         return getattr(X, self.pd_method)(*args, **kwargs)
 
 
-# AssignTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class AssignTF(DataFrameTF):
-    r"""
-    Assign new columns to a DataFrame.
+    """
+    A transformer could assign new columns to a :obj:`~pandas.DataFrame`.
 
-    Returns a new object with all original columns in addition to new ones.
-    Existing columns that are re-assigned will be overwritten.
-
-    Parameters
-    ----------
-    **kwargs : dict of {str: callable or Series}
-        The column names are keywords. If the values are
-        callable, they are computed on the DataFrame and
-        assigned to the new columns. The callable must not
-        change input DataFrame (though pandas doesn't check it).
-        If the values are not callable, (e.g. a Series, scalar, or array),
-        they are simply assigned.
-
-    Returns
-    -------
-    DataFrame
-        A new DataFrame with the new columns in addition to
-        all the existing columns.
-
-    Notes
-    -----
-    Assigning multiple columns within the same ``assign`` is possible.
-    Later items in '\*\*kwargs' may refer to newly created or modified
-    columns in 'df'; items are computed and assigned into 'df' in order.
+    See Also
+    --------
+    pandas.DataFrame.assign : this transformer's prototype method.
 
     Examples
     --------
@@ -76,43 +51,13 @@ class AssignTF(DataFrameTF):
     pd_method = "assign"
 
 
-# AppendTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class AppendTF(DataFrameTF):
     """
-    Append rows of `other` to the end of caller, returning a new object.
+    A transformer could append rows data to the end of caller.
 
-    Columns in `other` that are not in the caller are added as new columns.
-
-    Parameters
-    ----------
-    other : DataFrame or Series/dict-like object, or list of these
-        The data to append.
-    ignore_index : bool, default False
-        If True, the resulting axis will be labeled 0, 1, …, n - 1.
-    verify_integrity : bool, default False
-        If True, raise ValueError on creating index with duplicates.
-    sort : bool, default False
-        Sort columns if the columns of `self` and `other` are not aligned.
-
-    Returns
-    -------
-    DataFrame
-        A new DataFrame consisting of the rows of caller and the rows of
-        `other`.
-
-    Notes
-    -----
-    If a list of dict/series is passed and the keys are all contained in
-    the DataFrame's index, the order of the columns in the resulting
-    DataFrame will be unchanged.
-
-    Iteratively appending rows to a DataFrame can be more computationally
-    intensive than a single concatenate. A better solution is to append
-    those rows to a list and then concatenate the list with the original
-    DataFrame all at once.
+    See Also
+    --------
+    pandas.DataFrame.append : this transformer's prototype method.
 
     Examples
     --------
@@ -154,53 +99,19 @@ class AppendTF(DataFrameTF):
     pd_method = "append"
 
 
-# DropTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class DropTF(DataFrameTF):
     """
-    Drop specified labels from rows or columns.
+    A transformer could drop specified labels from rows or columns.
 
-    Remove rows or columns by specifying label names and corresponding
-    axis, or by specifying directly index or column names. When using a
-    multi-index, labels on different levels can be removed by specifying
-    the level.
-
-    Parameters
-    ----------
-    labels : single label or list-like
-        Index or column labels to drop.
-    axis : {0 or 'index', 1 or 'columns'}, default 0
-        Whether to drop labels from the index (0 or 'index') or
-        columns (1 or 'columns').
-    index : single label or list-like
-        Alternative to specifying axis (``labels, axis=0``
-        is equivalent to ``index=labels``).
-    columns : single label or list-like
-        Alternative to specifying axis (``labels, axis=1``
-        is equivalent to ``columns=labels``).
-    level : int or level name, optional
-        For MultiIndex, level from which the labels will be removed.
-    errors : {'ignore', 'raise'}, default 'raise'
-        If 'ignore', suppress error and only existing labels are
-        dropped.
-
-    Returns
-    -------
-    DataFrame
-        DataFrame without the removed index or column labels.
-
-    Raises
-    ------
-    KeyError
-        If any of the labels is not found in the selected axis.
+    See Also
+    --------
+    pandas.DataFrame.drop : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.drop`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
+    :meth:`DataFrame.drop`'s ``inplace`` parameter is not work for this
+    transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
@@ -277,36 +188,20 @@ class DropTF(DataFrameTF):
     pd_method = "drop"
 
 
-# EvalTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class EvalTF(DataFrameTF):
     """
-    Evaluate a string describing operations on DataFrame columns.
+    Evaluate a string describing operations on :obj:`~pandas.DataFrame`
+    columns.
 
-    Operates on columns only, not specific rows or elements.  This allows
-    `eval` to run arbitrary code, which can make you vulnerable to code
-    injection if you pass user input to this function.
-
-    Parameters
-    ----------
-    expr : str
-        The expression string to evaluate.
-    **kwargs
-        See the documentation for :func:`eval` for complete details
-        on the keyword arguments accepted by :meth:`~pandas.DataFrame.query`.
-
-    Returns
-    -------
-    ndarray, scalar, pandas object
-        The result of the evaluation
+    See Also
+    --------
+    pandas.DataFrame.eval : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.eval`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
+    :meth:`DataFrame.eval`'s ``inplace`` parameter is not work for this
+    transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
@@ -368,50 +263,19 @@ class EvalTF(DataFrameTF):
     pd_method = "eval"
 
 
-# FillnaTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class FillnaTF(DataFrameTF):
     """
-    Fill NA/NaN values using the specified method.
+    Fill ``NA``/``NaN`` values using the specified method.
 
-    Parameters
-    ----------
-    value : scalar, dict, Series, or DataFrame
-        Value to use to fill holes (e.g. 0), alternately a
-        dict/Series/DataFrame of values specifying which value to use for
-        each index (for a Series) or column (for a DataFrame).  Values not
-        in the dict/Series/DataFrame will not be filled. This value cannot
-        be a list.
-    method : {'backfill', 'bfill', 'pad', 'ffill', None}, default None
-        Method to use for filling holes in reindexed Series
-        pad / ffill: propagate last valid observation forward to next valid
-        backfill / bfill: use next valid observation to fill gap.
-    axis : {0 or 'index', 1 or 'columns'}
-        Axis along which to fill missing values.
-    limit : int, default None
-        If method is specified, this is the maximum number of consecutive
-        NaN values to forward/backward fill. In other words, if there is
-        a gap with more than this number of consecutive NaNs, it will only
-        be partially filled. If method is not specified, this is the
-        maximum number of entries along the entire axis where NaNs will be
-        filled. Must be greater than 0 if not None.
-    downcast : dict, default is None
-        A dict of item->dtype of what to downcast if possible,
-        or the string 'infer' which will try to downcast to an appropriate
-        equal type (e.g. float64 to int64 if possible).
-
-    Returns
-    -------
-    DataFrame or None
-        Object with missing values filled.
+    See Also
+    --------
+    pandas.DataFrame.fillna : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.fillna`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
+    :meth:`DataFrame.fillna`'s ``inplace`` parameter is not work for this
+    transformer. Actually this break pipeline stream. If a transformer's
+    ``inplace`` is ``True``, the next tf input would get ``None``.
 
     Examples
     --------
