@@ -188,36 +188,20 @@ class DropTF(DataFrameTF):
     pd_method = "drop"
 
 
-# EvalTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class EvalTF(DataFrameTF):
     """
-    Evaluate a string describing operations on DataFrame columns.
+    Evaluate a string describing operations on :obj:`~pandas.DataFrame`
+    columns.
 
-    Operates on columns only, not specific rows or elements.  This allows
-    `eval` to run arbitrary code, which can make you vulnerable to code
-    injection if you pass user input to this function.
-
-    Parameters
-    ----------
-    expr : str
-        The expression string to evaluate.
-    **kwargs
-        See the documentation for :func:`eval` for complete details
-        on the keyword arguments accepted by :meth:`~pandas.DataFrame.query`.
-
-    Returns
-    -------
-    ndarray, scalar, pandas object
-        The result of the evaluation
+    See Also
+    --------
+    pandas.DataFrame.drop : this transformer's prototype method.
 
     Notes
     -----
-    `DataFrame.eval`'s `inplace` parameter is not work for transformer.
-    Actually this break pipeline stream. If a transformer's `inplace` is
-    `True`, the next tf input would get `None`.
+    ``inplace`` parameter is not work for this transformer. Actually this
+    break pipeline stream. If a transformer's ``inplace`` is ``True``,
+    the next tf input would get ``None``.
 
     Examples
     --------
