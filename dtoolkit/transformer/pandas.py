@@ -51,43 +51,13 @@ class AssignTF(DataFrameTF):
     pd_method = "assign"
 
 
-# AppendTF doc ported with modifications from pandas
-# https://github.com/pandas-dev/pandas/blob/master/pandas/core/frame.py
-
-
 class AppendTF(DataFrameTF):
     """
-    Append rows of `other` to the end of caller, returning a new object.
+    A transformer could append rows data to the end of caller.
 
-    Columns in `other` that are not in the caller are added as new columns.
-
-    Parameters
-    ----------
-    other : DataFrame or Series/dict-like object, or list of these
-        The data to append.
-    ignore_index : bool, default False
-        If True, the resulting axis will be labeled 0, 1, …, n - 1.
-    verify_integrity : bool, default False
-        If True, raise ValueError on creating index with duplicates.
-    sort : bool, default False
-        Sort columns if the columns of `self` and `other` are not aligned.
-
-    Returns
-    -------
-    DataFrame
-        A new DataFrame consisting of the rows of caller and the rows of
-        `other`.
-
-    Notes
-    -----
-    If a list of dict/series is passed and the keys are all contained in
-    the DataFrame's index, the order of the columns in the resulting
-    DataFrame will be unchanged.
-
-    Iteratively appending rows to a DataFrame can be more computationally
-    intensive than a single concatenate. A better solution is to append
-    those rows to a list and then concatenate the list with the original
-    DataFrame all at once.
+    See Also
+    --------
+    pandas.DataFrame.appendtf : this transformer's prototype method.
 
     Examples
     --------
