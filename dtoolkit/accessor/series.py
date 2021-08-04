@@ -76,9 +76,9 @@ class DropInfSeriesAccessor(Accessor):
         elif inf == "neg":
             inf_range = [-np.inf]
         elif inf is not None:
-            raise ValueError(f"invalid inf option: {inf}")
+            raise ValueError(f"Invalid inf option: {inf}")
         else:
-            raise TypeError("must specify inf")
+            raise TypeError("Must specify inf")
 
         mask = ~self.pd_obj.isin(inf_range)
         result = self.pd_obj[mask]
