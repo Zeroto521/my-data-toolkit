@@ -5,4 +5,5 @@ Accessor
 .. autosummary::
     :toctree: api/accessor/
 
+    ColumnAccessor
     RepeatAccessor
