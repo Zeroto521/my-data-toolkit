@@ -230,6 +230,7 @@ class OneHotEncoder(SKOneHotEncoder):
     2            1.0          0.0       0.0       1.0       0.0
     """
 
+    @doc(SKOneHotEncoder.__init__)
     def __init__(
         self,
         categories="auto",
