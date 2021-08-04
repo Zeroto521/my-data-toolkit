@@ -27,6 +27,10 @@ class ColumnAccessor(Accessor):
     A API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
 
+    Returns
+    -------
+    str or list of str
+
     See Also
     --------
     pandas.Series.name
