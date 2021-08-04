@@ -16,7 +16,21 @@ __all__ = [
 
 
 class Accessor:
+    """
+    :obj:`~pandas.Series` and :obj:`~pandas.DataFrame` objects base class.
+
+    Parameters
+    ----------
+    pd_obj : {:obj:`~pandas.Series`, :obj:`~pandas.DataFrame`}
+
+    See Also
+    --------
+    pandas.api.extensions.register_series_accessor
+    pandas.api.extensions.register_dataframe_accessor
+    """
+
     def __init__(self, pd_obj: Pd):
+
         self.pd_obj = pd_obj
 
 
