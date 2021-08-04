@@ -9,9 +9,7 @@ class RavelTF(Transformer):
 
     This transformer is used to handle that sklearn model requires ``y``'s
     shape is ``(n, )``. But actually we always forget this. So you would get
-    a ``DataConversionWarning``.
-
-    .. code-block:: python
+    a ``DataConversionWarning`` ::
 
         DataConversionWarning: A column-vector y was passed when a 1d array
         was expected. Please change the shape of y to (n_samples, ), for
