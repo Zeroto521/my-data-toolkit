@@ -25,7 +25,7 @@ import dtoolkit
 version = release = dtoolkit.__version__
 
 project = "DToolKit"
-copyright = "2021, Zero <@Zeroto521>"
+copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
 author = "Zero <@Zeroto521>"
 
 
