@@ -1,63 +1,9 @@
-import numpy as np
 import pandas as pd
 import pytest
-
-from dtoolkit.accessor import ColumnAccessor  # noqa
-from dtoolkit.accessor import DropInfSeriesAccessor  # noqa
 from dtoolkit.accessor import FilterInAccessor  # noqa
 from dtoolkit.accessor import RepeatAccessor  # noqa
 
-
-data_size = 42
-s = pd.Series(range(data_size), name="item", dtype=float)
-
-label_size = 3
-d = pd.DataFrame(
-    {
-        "a": np.random.randint(label_size, size=data_size),
-        "b": np.random.randint(label_size, size=data_size),
-    },
-    dtype=float,
-)
-s_inf = pd.Series([np.inf, -np.inf])
-
-
-@pytest.mark.parametrize(
-    "df, expt",
-    [
-        (s, s.name),
-        (d, d.columns.tolist()),
-    ],
-)
-def test_columnaccessor(df, expt):
-    assert df.cols() == expt
-
-
-class TestDropinfAccessor:
-    def setup_method(self):
-        self.s = s.copy(True)
-        self.s = self.s.append(s_inf)
-
-    @pytest.mark.parametrize(
-        "df, expt",
-        [
-            (s, s),
-            (s.append(s_inf), s),
-            # (d, d),
-            # (d.append({"a": np.inf}, ignore_index=True), d),
-            # (d.append({"b": -np.inf}, ignore_index=True), d),
-        ],
-    )
-    def test_work(self, df, expt):
-        res = df.dropinf()
-
-        assert res.equals(expt)
-
-    def test_inplace_is_true(self):
-        res = self.s.dropinf(inplace=True)
-
-        assert res is None
-        assert self.s.equals(s)
+from . import d
 
 
 class TestFilterInAccessor:
