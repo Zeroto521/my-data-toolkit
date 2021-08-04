@@ -17,7 +17,7 @@ class Accessor:
 
     Examples
     --------
-    >>> from dtoolkit.accessor import Accessor
+    >>> from dtoolkit.accessor.base import Accessor
     >>> from pandas.api.extensions import register_dataframe_accessor
     >>> from pandas.api.extensions import register_series_accessor
 

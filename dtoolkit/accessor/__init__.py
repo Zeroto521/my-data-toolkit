@@ -1,6 +1,6 @@
-from .base import Accessor
 from .both import ColumnAccessor
-from .dataframe import FilterInAccessor, RepeatAccessor
+from .dataframe import FilterInAccessor
+from .dataframe import RepeatAccessor
 from .series import DropInfSeriesAccessor
 
 __all__ = [

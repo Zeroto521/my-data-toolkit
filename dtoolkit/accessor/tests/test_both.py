@@ -1,7 +1,8 @@
 import pytest
-from dtoolkit.accessor import ColumnAccessor  # noqa
 
-from . import d, s
+from . import d
+from . import s
+from dtoolkit.accessor import ColumnAccessor  # noqa
 
 
 @pytest.mark.parametrize(
