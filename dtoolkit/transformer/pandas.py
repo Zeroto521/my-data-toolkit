@@ -480,7 +480,7 @@ class ReplaceTF(DataFrameTF):
     Examples
     --------
 
-    **Scalar `to_replace` and `value`**
+    Scalar ``to_replace`` and ``value``
 
     >>> import pandas as pd
     >>> from dtoolkit.transformer import ReplaceTF
@@ -496,7 +496,7 @@ class ReplaceTF(DataFrameTF):
     3  3  8  d
     4  4  9  e
 
-    **List-like `to_replace`**
+    List-like ``to_replace``
 
     >>> tf = ReplaceTF([0, 1, 2, 3], 4)
     >>> tf.transform(df)
@@ -516,7 +516,7 @@ class ReplaceTF(DataFrameTF):
     3  1  8  d
     4  4  9  e
 
-    **dict-like `to_replace`**
+    dict-like ``to_replace``
 
     >>> tf = ReplaceTF({0: 10, 1: 100})
     >>> tf.transform(df)
@@ -545,7 +545,7 @@ class ReplaceTF(DataFrameTF):
     3    3  8  d
     4  400  9  e
 
-    **Regular expression `to_replace`**
+    Regular expression ``to_replace``
 
     >>> df = pd.DataFrame({'A': ['bat', 'foo', 'bait'],
     ...                    'B': ['abc', 'bar', 'xyz']})
