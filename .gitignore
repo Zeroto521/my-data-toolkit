@@ -65,7 +65,7 @@ instance/
 
 # Sphinx documentation
 doc/build/
-doc/source/reference/api/*.rst
+doc/source/reference/api/
 .buildinfo
 
 # PyBuilder
