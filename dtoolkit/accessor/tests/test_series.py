@@ -1,3 +1,5 @@
+import numpy as np
+import pandas as pd
 import pytest
 
 from . import s
@@ -10,14 +12,16 @@ class TestDropinfSeriesAccessor:
         self.s = self.s.append(s_inf)
 
     @pytest.mark.parametrize(
-        "df, expt",
+        "inf, df, expt",
         [
-            (s, s),
-            (s.append(s_inf), s),
+            ("all", s, s),
+            ("all", s.append(s_inf), s),
+            ("pos", s_inf, pd.Series([-np.inf], index=[1])),
+            ("neg", s_inf, pd.Series([np.inf])),
         ],
     )
-    def test_work(self, df, expt):
-        res = df.dropinf()
+    def test_work(self, inf, df, expt):
+        res = df.dropinf(inf=inf)
 
         assert res.equals(expt)
 
