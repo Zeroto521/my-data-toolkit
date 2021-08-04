@@ -33,7 +33,7 @@ def test_columnaccessor(df, expt):
     assert df.cols() == expt
 
 
-class TestDropinfaccessor:
+class TestDropinfAccessor:
     def setup_method(self):
         self.s = s.copy(True)
         self.s = self.s.append(s_inf)
@@ -60,7 +60,7 @@ class TestDropinfaccessor:
         assert self.s.equals(s)
 
 
-class TestFilterInSeriesAccessor:
+class TestFilterInAccessor:
     def setup_method(self):
         self.d = d.copy(True)
         self.condition = {"a": [0, 1], "b": [2]}
