@@ -11,24 +11,28 @@ from .base import Accessor
 @register_series_accessor("dropinf")
 class DropInfSeriesAccessor(Accessor):
     """
-    Return a new :obj:`~pandas.Series` with :obj:`numpy.inf` and
-    -:obj:`numpy.inf` values removed.
+    Remove ``inf`` values.
 
     Parameters
     ----------
+    inf : {'all', 'pos', 'neg'}, default 'all'
+        * 'all' : Remove :obj:`~numpy.inf` and -:obj:`~numpy.inf`.
+        * 'pos' : Only remove :obj:`~numpy.inf`:.
+        * 'neg' : Only remove -:obj:`~numpy.inf`:.
+
     inplace : bool, default False
         If True, do operation inplace and return None.
 
     Returns
     -------
     Series or None
-        Series with :obj:`~numpy.inf` entries dropped from it or None
-        if ``inplace=True``.
+        Series with ``inf`` entries dropped from it or None if
+        ``inplace=True``.
 
     See Also
     --------
-    DropInfDataFrameAccessor : Drop rows or columns which contain
-        :obj:`~numpy.inf` values.
+    DropInfDataFrameAccessor : :obj:`~pandas.DataFram` drops rows or columns
+        which contain :obj:`~numpy.inf` values.
 
     Examples
     --------
@@ -58,10 +62,25 @@ class DropInfSeriesAccessor(Accessor):
     dtype: float64
     """
 
-    def __call__(self, inplace: bool = False) -> pd.Series | None:
+    def __call__(
+        self,
+        inf: str = "all",
+        inplace: bool = False,
+    ) -> pd.Series | None:
         inplace = validate_bool_kwarg(inplace, "inplace")
 
-        mask = ~self.pd_obj.isin([np.inf, -np.inf])
+        if inf == "all":
+            inf_range = [np.inf, -np.inf]
+        elif inf == "pos":
+            inf_range = [np.inf]
+        elif inf == "neg":
+            inf_range = [-np.inf]
+        elif inf is not None:
+            raise ValueError(f"invalid inf option: {inf}")
+        else:
+            raise TypeError("must specify inf")
+
+        mask = ~self.pd_obj.isin(inf_range)
         result = self.pd_obj[mask]
 
         if not inplace:
