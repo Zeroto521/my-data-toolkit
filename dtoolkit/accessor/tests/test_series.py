@@ -30,3 +30,14 @@ class TestDropinfSeriesAccessor:
 
         assert res is None
         assert self.s.equals(s)
+
+    @pytest.mark.parametrize(
+        "error, inf",
+        [
+            (ValueError, np.inf),
+            (TypeError, None),
+        ],
+    )
+    def test_error(self, error, inf):
+        with pytest.raises(error):
+            s_inf.dropinf(inf=inf)
