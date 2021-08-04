@@ -12,7 +12,7 @@ from .base import Accessor
 class DropInfSeriesAccessor(Accessor):
     """
     Return a new :obj:`~pandas.Series` with :obj:`numpy.inf` and
-    :obj:`-numpy.inf` values removed.
+    -:obj:`numpy.inf` values removed.
 
     Parameters
     ----------
