@@ -1,0 +1,7 @@
+version: 2
+conda:
+  environment: doc/environment.yml
+python:
+  install:
+    - method: pip
+      path: .
