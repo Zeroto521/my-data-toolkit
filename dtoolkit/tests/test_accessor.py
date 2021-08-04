@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 
 from dtoolkit.accessor import ColumnAccessor  # noqa
-from dtoolkit.accessor import DropInfAccessor  # noqa
+from dtoolkit.accessor import DropInfSeriesAccessor  # noqa
 from dtoolkit.accessor import FilterInAccessor  # noqa
 from dtoolkit.accessor import RepeatAccessor  # noqa
 
@@ -43,9 +43,9 @@ class TestDropinfaccessor:
         [
             (s, s),
             (s.append(s_inf), s),
-            (d, d),
-            (d.append({"a": np.inf}, ignore_index=True), d),
-            (d.append({"b": -np.inf}, ignore_index=True), d),
+            # (d, d),
+            # (d.append({"a": np.inf}, ignore_index=True), d),
+            # (d.append({"b": -np.inf}, ignore_index=True), d),
         ],
     )
     def test_work(self, df, expt):
@@ -60,7 +60,7 @@ class TestDropinfaccessor:
         assert self.s.equals(s)
 
 
-class TestFilterInAccessor:
+class TestFilterInSeriesAccessor:
     def setup_method(self):
         self.d = d.copy(True)
         self.condition = {"a": [0, 1], "b": [2]}
