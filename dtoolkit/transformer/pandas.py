@@ -408,7 +408,7 @@ class GetTF(DataFrameTF):
 
 class QueryTF(DataFrameTF):
     """
-    A transformer coud query the columns of a :obj:`pandas.DataFrame` with
+    A transformer coud query the columns of a :obj:`~pandas.DataFrame` with
     a boolean expression.
 
     See Also
