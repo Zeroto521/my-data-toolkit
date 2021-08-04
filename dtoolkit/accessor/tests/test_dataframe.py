@@ -1,9 +1,9 @@
 import pandas as pd
 import pytest
-from dtoolkit.accessor import FilterInAccessor  # noqa
-from dtoolkit.accessor import RepeatAccessor  # noqa
 
 from . import d
+from dtoolkit.accessor import FilterInAccessor  # noqa
+from dtoolkit.accessor import RepeatAccessor  # noqa
 
 
 class TestFilterInAccessor:

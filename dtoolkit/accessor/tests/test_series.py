@@ -1,6 +1,7 @@
 import pytest
 
-from . import s, s_inf
+from . import s
+from . import s_inf
 
 
 class TestDropinfSeriesAccessor:
