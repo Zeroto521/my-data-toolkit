@@ -16,6 +16,7 @@ DataFrame Accessor
 .. autosummary::
     :toctree: api/accessor/
 
+    DropInfDataFrameAccessor
     FilterInAccessor
     RepeatAccessor
 
