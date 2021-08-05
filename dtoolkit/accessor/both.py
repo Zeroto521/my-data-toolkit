@@ -18,6 +18,23 @@ class ColumnAccessor(Accessor):
     --------
     pandas.Series.name
     pandas.DataFrame.columns
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor import ColumnAccessor
+    >>> import pandas as pd
+
+    Get :attr:`~pandas.Series.name`.
+
+    >>> s = pd.Series(range(10), name="item")
+    >>> s.cols()
+    'item'
+
+    Get :attr:`~pandas.DataFrame.columns`.
+
+    >>> d = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+    >>> d.cols()
+    ['a', 'b']
     """
 
     def __call__(self) -> str | list[str]:

@@ -65,11 +65,11 @@ class DropInfDataFrameAccessor(DataFrameAccessor):
 
     See Also
     --------
-    DropInfSeriesAccessor : :obj:`pandas.Series` drops ``inf`` values.
+    DropInfSeriesAccessor : :obj:`~pandas.Series` drops ``inf`` values.
 
     Examples
     --------
-    from dtoolkit.accessor import DropInfDataFrameAccessor
+    >>> from dtoolkit.accessor import DropInfDataFrameAccessor
     >>> import pandas as pd
     >>> import numpy as np
     >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
