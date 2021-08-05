@@ -5,6 +5,7 @@ import pandas as pd
 from pandas.api.extensions import register_series_accessor
 from pandas.util._validators import validate_bool_kwarg
 
+from .._util import multi_if_else
 from .base import Accessor
 
 
@@ -80,15 +81,15 @@ class DropInfSeriesAccessor(Accessor):
 
 
 def _get_inf_range(inf: str = "all") -> list[float]:
-    if inf == "all":
-        inf_range = [np.inf, -np.inf]
-    elif inf == "pos":
-        inf_range = [np.inf]
-    elif inf == "neg":
-        inf_range = [-np.inf]
-    elif inf is not None:
-        raise ValueError(f"Invalid inf option: {inf}")
-    else:
-        raise TypeError("Must specify inf")
 
-    return inf_range
+    return multi_if_else(
+        [
+            (inf == "all", [np.inf, -np.inf]),
+            (inf == "pos", [np.inf]),
+            (inf == "neg", [-np.inf]),
+        ],
+        if_condition_raise=[
+            (inf is not None, ValueError(f"invalid inf option: {inf}")),
+        ],
+        else_raise=TypeError("must specify inf"),
+    )
