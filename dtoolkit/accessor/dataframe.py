@@ -50,7 +50,7 @@ class DropInfDataFrameAccessor(Accessor):
 
     See Also
     --------
-    DropInfSeriesAccessor : :obj:`pandas.Series` drops missing values.
+    DropInfSeriesAccessor : :obj:`pandas.Series` drops ``inf`` values.
 
     Examples
     --------
