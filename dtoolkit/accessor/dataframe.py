@@ -5,6 +5,7 @@ import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.util._validators import validate_bool_kwarg
 
+from .._util import multi_if_else
 from .base import Accessor
 from .series import _get_inf_range
 
@@ -139,15 +140,16 @@ class DropInfDataFrameAccessor(Accessor):
 
         inf_range = _get_inf_range(inf)
         mask = agg_obj.isin(inf_range)
-
-        if how == "any":
-            mask = mask.any(axis=agg_axis)
-        elif how == "all":
-            mask = mask.all(axis=agg_axis)
-        elif how is not None:
-            raise ValueError(f"Invalid how option: {how}")
-        else:
-            raise TypeError("Must specify how")
+        mask = multi_if_else(
+            [
+                (how == "any", mask.any(axis=agg_axis)),
+                (how == "all", mask.all(axis=agg_axis)),
+            ],
+            if_condition_raise=[
+                (how is not None, ValueError(f"invalid inf option: {how}")),
+            ],
+            else_raise=TypeError("must specify how"),
+        )
 
         result = self.pd_obj.loc(axis=axis)[~mask]
 
