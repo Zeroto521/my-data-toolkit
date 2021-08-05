@@ -135,21 +135,21 @@ class DropInfDataFrameAccessor(DataFrameAccessor):
         inplace: bool = False,
     ) -> pd.DataFrame | None:
         inplace = self._validate_inplace(inplace)
-        axis = self._validate_axis(axis)
+        agg_axis = self._validate_axis(axis)
 
         agg_obj = self.pd_obj
         if subset is not None:
-            ax = self.pd_obj._get_axis(axis)
+            ax = self.pd_obj._get_axis(agg_axis)
             indices = ax.get_indexer_for(subset)
             check = indices == -1
             if check.any():
                 raise KeyError(list(np.compress(check, subset)))
 
-            agg_obj = self.pd_obj.take(indices, axis=axis)
+            agg_obj = self.pd_obj.take(indices, axis=agg_axis)
 
         inf_range = _get_inf_range(inf)
         mask = agg_obj.isin(inf_range)
-        mask = _get_mask(how, mask, axis)
+        mask = _get_mask(how, mask, agg_axis)
         result = self.pd_obj.loc(axis=axis)[~mask]
 
         if not inplace:
@@ -261,9 +261,9 @@ class FilterInAccessor(DataFrameAccessor):
         inplace: bool = False,
     ) -> pd.DataFrame | None:
         inplace = self._validate_inplace(inplace)
-        axis = self._validate_axis(axis)
+        agg_axis = self._validate_axis(axis)
         mask = self.pd_obj.isin(condition)
-        mask = _get_mask(how, mask, axis)
+        mask = _get_mask(how, mask, agg_axis)
         result = self.pd_obj.loc(axis=axis)[mask]
 
         if not inplace:
