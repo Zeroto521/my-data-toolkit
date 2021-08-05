@@ -73,6 +73,10 @@ html_static_path = ["_static"]
 
 # connect docs in other projects
 intersphinx_mapping = {
+    "python": (
+        "http://docs.python.org/",
+        "https://docs.python.org/objects.inv",
+    ),
     "sklearn": (
         "https://scikit-learn.org/stable/",
         "https://scikit-learn.org/stable/objects.inv",
