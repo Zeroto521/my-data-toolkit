@@ -26,7 +26,7 @@ class DataFrameAccessor(Accessor):
 
 
 @register_dataframe_accessor("dropinf")
-class DropInfDataFrameAccessor(Accessor):
+class DropInfDataFrameAccessor(DataFrameAccessor):
     """
     Remove ``inf`` values.
 
@@ -134,28 +134,22 @@ class DropInfDataFrameAccessor(Accessor):
         subset: list[str] | None = None,
         inplace: bool = False,
     ) -> pd.DataFrame | None:
-
-        inplace = validate_bool_kwarg(inplace, "inplace")
-        if isinstance(axis, (tuple, list)):
-            msg = "supplying multiple axes to axis is no longer supported."
-            raise TypeError(msg)
-
-        axis = self.pd_obj._get_axis_number(axis)
-        agg_axis = 1 - axis
+        inplace = self._validate_inplace(inplace)
+        axis = self._validate_axis(axis)
 
         agg_obj = self.pd_obj
         if subset is not None:
-            ax = self.pd_obj._get_axis(agg_axis)
+            ax = self.pd_obj._get_axis(axis)
             indices = ax.get_indexer_for(subset)
             check = indices == -1
             if check.any():
                 raise KeyError(list(np.compress(check, subset)))
 
-            agg_obj = self.pd_obj.take(indices, axis=agg_axis)
+            agg_obj = self.pd_obj.take(indices, axis=axis)
 
         inf_range = _get_inf_range(inf)
         mask = agg_obj.isin(inf_range)
-        mask = _get_mask(how, mask, agg_axis)
+        mask = _get_mask(how, mask, axis)
         result = self.pd_obj.loc(axis=axis)[~mask]
 
         if not inplace:
