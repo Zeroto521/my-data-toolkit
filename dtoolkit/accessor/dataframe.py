@@ -12,6 +12,19 @@ from .base import Accessor
 from .series import _get_inf_range
 
 
+class DataFrameAccessor(Accessor):
+    def _validate_inplace(self, inplace: bool) -> bool:
+        return validate_bool_kwarg(inplace, "inplace")
+
+    def _validate_axis(self, axis: int | str) -> int:
+        if isinstance(axis, (tuple, list)):
+            msg = "supplying multiple axes to axis is no longer supported."
+            raise TypeError(msg)
+
+        axis = self.pd_obj._get_axis_number(axis)
+        return 1 - axis
+
+
 @register_dataframe_accessor("dropinf")
 class DropInfDataFrameAccessor(Accessor):
     """
@@ -152,7 +165,7 @@ class DropInfDataFrameAccessor(Accessor):
 
 
 @register_dataframe_accessor("filterin")
-class FilterInAccessor(Accessor):
+class FilterInAccessor(DataFrameAccessor):
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
@@ -253,15 +266,10 @@ class FilterInAccessor(Accessor):
         how: str = "all",
         inplace: bool = False,
     ) -> pd.DataFrame | None:
-        inplace = validate_bool_kwarg(inplace, "inplace")
-        if isinstance(axis, (tuple, list)):
-            msg = "supplying multiple axes to axis is no longer supported."
-            raise TypeError(msg)
-
-        axis = self.pd_obj._get_axis_number(axis)
-        agg_axis = 1 - axis
+        inplace = self._validate_inplace(inplace)
+        axis = self._validate_axis(axis)
         mask = self.pd_obj.isin(condition)
-        mask = _get_mask(how, mask, agg_axis)
+        mask = _get_mask(how, mask, axis)
         result = self.pd_obj.loc(axis=axis)[mask]
 
         if not inplace:
