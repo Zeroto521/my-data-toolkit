@@ -31,7 +31,7 @@ class DropInfSeriesAccessor(Accessor):
 
     See Also
     --------
-    DropInfDataFrameAccessor : :obj:`~pandas.DataFram` drops rows or columns
+    DropInfDataFrameAccessor : :obj:`~pandas.DataFrame` drops rows or columns
         which contain :obj:`~numpy.inf` values.
 
     Examples
