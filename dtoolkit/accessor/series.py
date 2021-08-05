@@ -69,21 +69,26 @@ class DropInfSeriesAccessor(Accessor):
     ) -> pd.Series | None:
         inplace = validate_bool_kwarg(inplace, "inplace")
 
-        if inf == "all":
-            inf_range = [np.inf, -np.inf]
-        elif inf == "pos":
-            inf_range = [np.inf]
-        elif inf == "neg":
-            inf_range = [-np.inf]
-        elif inf is not None:
-            raise ValueError(f"Invalid inf option: {inf}")
-        else:
-            raise TypeError("Must specify inf")
-
-        mask = ~self.pd_obj.isin(inf_range)
-        result = self.pd_obj[mask]
+        inf_range = _get_inf_range(inf)
+        mask = self.pd_obj.isin(inf_range)
+        result = self.pd_obj[~mask]
 
         if not inplace:
             return result
 
         self.pd_obj._update_inplace(result)
+
+
+def _get_inf_range(inf: str = "all") -> list[float]:
+    if inf == "all":
+        inf_range = [np.inf, -np.inf]
+    elif inf == "pos":
+        inf_range = [np.inf]
+    elif inf == "neg":
+        inf_range = [-np.inf]
+    elif inf is not None:
+        raise ValueError(f"Invalid inf option: {inf}")
+    else:
+        raise TypeError("Must specify inf")
+
+    return inf_range
