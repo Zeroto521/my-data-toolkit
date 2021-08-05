@@ -1,9 +1,130 @@
+import numpy as np
 import pandas as pd
 import pytest
 
 from . import d
+from dtoolkit.accessor import DropInfDataFrameAccessor  # noqa
 from dtoolkit.accessor import FilterInAccessor  # noqa
 from dtoolkit.accessor import RepeatAccessor  # noqa
+
+
+class TestDropinfDataFrameAccessor:
+    @pytest.mark.parametrize(
+        "df, axis, how, inf, subset, expt",
+        [
+            (
+                d,
+                0,
+                "any",
+                "all",
+                None,
+                d,
+            ),
+            (
+                d.append({"a": np.inf}, ignore_index=True),
+                0,
+                "any",
+                "all",
+                None,
+                d,
+            ),
+            (
+                d.append({"a": np.inf}, ignore_index=True),
+                1,
+                "any",
+                "all",
+                None,
+                d.append({"a": np.inf}, ignore_index=True).drop(columns=["a"]),
+            ),
+            (
+                d.append({"a": np.inf}, ignore_index=True),
+                0,
+                "all",
+                "all",
+                None,
+                d.append({"a": np.inf}, ignore_index=True),
+            ),
+            (
+                d.append({"a": np.inf, "b": -np.inf}, ignore_index=True),
+                0,
+                "all",
+                "all",
+                None,
+                d,
+            ),
+            (
+                d.append({"b": -np.inf}, ignore_index=True),
+                0,
+                "any",
+                "neg",
+                None,
+                d,
+            ),
+            (
+                d.append({"b": -np.inf}, ignore_index=True),
+                0,
+                "any",
+                "pos",
+                None,
+                d.append({"b": -np.inf}, ignore_index=True),
+            ),
+            (
+                d.append({"b": -np.inf}, ignore_index=True),
+                0,
+                "any",
+                "all",
+                ["b"],
+                d,
+            ),
+            (
+                d.append({"b": -np.inf}, ignore_index=True),
+                0,
+                "any",
+                "all",
+                ["a", "b"],
+                d,
+            ),
+            (
+                d.append({"b": -np.inf}, ignore_index=True),
+                0,
+                "any",
+                "all",
+                ["a", "b"],
+                d,
+            ),
+        ],
+    )
+    def test_work(self, df, axis, how, inf, subset, expt):
+        res = df.dropinf(axis=axis, how=how, inf=inf, subset=subset)
+
+        assert res.equals(expt)
+
+    @pytest.mark.parametrize(
+        "error, axis, how, subset",
+        [
+            (TypeError, (0, 1), "any", None),
+            (ValueError, 0, "whatever", None),
+            (TypeError, 0, None, None),
+            (KeyError, 0, "any", "c"),
+        ],
+    )
+    def test_error(self, error, axis, how, subset):
+        with pytest.raises(error):
+            d.dropinf(axis=axis, how=how, subset=subset)
+
+    def test_inplace_is_true(self):
+        self_d = d.copy(True)
+        self_d = self_d.append(
+            {
+                "a": np.inf,
+                "b": -np.inf,
+            },
+            ignore_index=True,
+        )
+        res = self_d.dropinf(inplace=True)
+
+        assert res is None
+        assert self_d.equals(d)
 
 
 class TestFilterInAccessor:
