@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Iterable
+
 import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
@@ -140,17 +142,7 @@ class DropInfDataFrameAccessor(Accessor):
 
         inf_range = _get_inf_range(inf)
         mask = agg_obj.isin(inf_range)
-        mask = multi_if_else(
-            [
-                (how == "any", mask.any(axis=agg_axis)),
-                (how == "all", mask.all(axis=agg_axis)),
-            ],
-            if_condition_raise=[
-                (how is not None, ValueError(f"invalid inf option: {how}")),
-            ],
-            else_raise=TypeError("must specify how"),
-        )
-
+        mask = _get_mask(how, mask, agg_axis)
         result = self.pd_obj.loc(axis=axis)[~mask]
 
         if not inplace:
@@ -161,20 +153,138 @@ class DropInfDataFrameAccessor(Accessor):
 
 @register_dataframe_accessor("filterin")
 class FilterInAccessor(Accessor):
+    """
+    Filter :obj:`~pandas.DataFrame` contents.
+
+    Simlar to :meth:`~pandas.DataFrame.isin`, but the return is value not
+    bool.
+
+    Parameters
+    ----------
+    condition : iterable, Series, DataFrame or dict
+        The result will only be true at a location if all the labels match. If
+        ``condition`` is a Series, that's the index. If ``condition`` is a
+        :obj:`dict`, the keys must be the column names, which must match. If
+        ``condition`` is a DataFrame, then both the index and column labels
+        must match.
+
+    axis : {0 or 'index', 1 or 'columns'}, default 0
+        Determine if rows or columns which contain value are filtered.
+
+        * 0, or 'index' : Filter rows which contain value.
+        * 1, or 'columns' : Filter columns which contain value.
+
+    how : {'any', 'all'}, default 'all'
+        Determine if row or column is filtered from :obj:`~pandas.DataFrame`,
+        when we have at least one value or all value.
+
+        * 'any' : If any values are present, filter that row or column.
+        * 'all' : If all values are present, filter that row or column.
+
+    inplace : bool, default is False
+        If True, do operation inplace and return None.
+
+    Returns
+    -------
+    DataFrame
+
+    See Also
+    ----
+    pandas.DataFrame.isin : Whether each element in the DataFrame is contained
+        in values.
+    pandas.DataFrame.filter : Subset the dataframe rows or columns according
+        to the specified index labels.
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor import FilterInAccessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
+    ...                   index=['falcon', 'dog', 'cat'])
+    >>> df
+            num_legs  num_wings
+    falcon         2          2
+    dog            4          0
+    cat            2          0
+
+    When ``condition`` is a list check whether every value in the DataFrame is
+    present in the list (which animals have 0 or 2 legs or wings).
+
+    Filter rows.
+
+    >>> df.filterin([0, 2])
+            num_legs  num_wings
+    falcon         2          2
+    cat            2          0
+
+    Filter columns.
+
+    >>> df.filterin([0, 2], axis=1)
+                num_wings
+    falcon          2
+    dog             0
+    cat             0
+
+    When ``condition`` is a :obj:`dict``, we can pass values to check for each
+    column separately:
+
+    >>> df.filterin({'num_legs': [2], 'num_wings': [2]})
+            num_legs  num_wings
+    falcon         2          2
+
+    When ``values`` is a Series or DataFrame the index and column must match.
+    Note that ``falcon`` does not match based on the number of legs in df2.
+
+    >>> other = pd.DataFrame({'num_legs': [8, 2], 'num_wings': [0, 2]},
+    ...                      index=['spider', 'falcon'])
+    >>> other
+            num_legs  num_wings
+    spider         8          0
+    falcon         2          2
+    >>> df.filterin(other)
+            num_legs  num_wings
+    falcon         2          2
+    """
+
     def __call__(
         self,
-        cond: dict[str, list[str]],
+        condition: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+        axis: int | str = 0,
+        how: str = "all",
         inplace: bool = False,
     ) -> pd.DataFrame | None:
-        mask_all = self.pd_obj.isin(cond)
-        mask_selected = mask_all[cond.keys()]
-        result = self.pd_obj[mask_selected.all(axis=1)]
+        inplace = validate_bool_kwarg(inplace, "inplace")
+        if isinstance(axis, (tuple, list)):
+            msg = "supplying multiple axes to axis is no longer supported."
+            raise TypeError(msg)
 
-        if inplace:
-            self.pd_obj._update_inplace(result)
-            return None
+        axis = self.pd_obj._get_axis_number(axis)
+        agg_axis = 1 - axis
+        mask = self.pd_obj.isin(condition)
+        mask = _get_mask(how, mask, agg_axis)
+        result = self.pd_obj.loc(axis=axis)[mask]
 
-        return result
+        if not inplace:
+            return result
+
+        self.pd_obj._update_inplace(result)
+
+
+def _get_mask(
+    how: str,
+    mask: pd.DataFrame | np.ndarray,
+    axis: int,
+) -> pd.Series | np.ndarray:
+    return multi_if_else(
+        [
+            (how == "any", mask.any(axis=axis)),
+            (how == "all", mask.all(axis=axis)),
+        ],
+        if_condition_raise=[
+            (how is not None, ValueError(f"invalid inf option: {how}")),
+        ],
+        else_raise=TypeError("must specify how"),
+    )
 
 
 @register_dataframe_accessor("repeat")
