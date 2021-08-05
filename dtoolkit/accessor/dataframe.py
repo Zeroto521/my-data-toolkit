@@ -54,7 +54,7 @@ class DropInfDataFrameAccessor(Accessor):
 
     Examples
     --------
-    from dtoolkit.accessor import DropInfDataFrameAccessor
+    >>> from dtoolkit.accessor import DropInfDataFrameAccessor
     >>> import pandas as pd
     >>> import numpy as np
     >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
