@@ -105,7 +105,7 @@ class TestDropinfDataFrameAccessor:
             (TypeError, (0, 1), "any", None),
             (ValueError, 0, "whatever", None),
             (TypeError, 0, None, None),
-            (KeyError, 0, "any", "c"),
+            (KeyError, 0, "any", ["c"]),
         ],
     )
     def test_error(self, error, axis, how, subset):
