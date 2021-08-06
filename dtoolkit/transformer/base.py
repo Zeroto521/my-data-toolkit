@@ -35,7 +35,7 @@ class Transformer(TransformerMixin):
         ----------
         X : Series, DataFrame or array-like
             Input data to be transformed. The same one to
-            :func:`~Transformer.transforme`.
+            :func:`~Transformer.transform`.
         _
             The positional arguements of its.
         __
@@ -61,7 +61,7 @@ class Transformer(TransformerMixin):
         ----------
         X
             Input data to be transformed. The same one to
-            :func:`~Transformer.transforme`.
+            :func:`~Transformer.transform`.
 
         Notes
         -----
