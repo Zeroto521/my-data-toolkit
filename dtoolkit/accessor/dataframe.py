@@ -21,8 +21,7 @@ class DataFrameAccessor(Accessor):
             msg = "supplying multiple axes to axis is no longer supported."
             raise TypeError(msg)
 
-        axis = self.pd_obj._get_axis_number(axis)
-        return 1 - axis
+        return self.pd_obj._get_axis_number(axis)
 
 
 @register_dataframe_accessor("dropinf")
@@ -135,8 +134,8 @@ class DropInfDataFrameAccessor(DataFrameAccessor):
         inplace: bool = False,
     ) -> pd.DataFrame | None:
         inplace = self._validate_inplace(inplace)
-        agg_axis = self._validate_axis(axis)
-
+        axis = self._validate_axis(axis)
+        agg_axis = 1 - axis
         agg_obj = self.pd_obj
         if subset is not None:
             ax = self.pd_obj._get_axis(agg_axis)
@@ -261,9 +260,10 @@ class FilterInAccessor(DataFrameAccessor):
         inplace: bool = False,
     ) -> pd.DataFrame | None:
         inplace = self._validate_inplace(inplace)
-        agg_axis = self._validate_axis(axis)
+        axis = self._validate_axis(axis)
+        another_axis = 1 - axis
         mask = self.pd_obj.isin(condition)
-        mask = _get_mask(how, mask, agg_axis)
+        mask = _get_mask(how, mask, another_axis)
         result = self.pd_obj.loc(axis=axis)[mask]
 
         if not inplace:
