@@ -1,4 +1,7 @@
+from textwrap import dedent
+
 from pandas import DataFrame
+from pandas.util._decorators import doc
 
 from .._checking import check_dataframe_type
 from .._typing import Pd
@@ -9,14 +12,49 @@ from .base import Transformer
 class DataFrameTF(Transformer):
     pd_method: str
 
+    @doc(
+        Transformer.__init__,
+        dedent(
+            """
+        Notes
+        -----
+        If ``kwargs`` have ``inplace`` parameter, it would be remove autoly. 
+        The inplace parameter is not work for DataFrame transformer. Actually 
+        this would break pipeline stream. If a transformer's inplace is True, 
+        the next tf input would get None.""",
+        ),
+    )
     def __init__(self, *args, **kwargs):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    def validate(self, *args, **kwargs):
-        return check_dataframe_type(*args, **kwargs)
+    def validate(self, X: DataFrame):
+        """Check ``X`` is the type of :obj:`~pandas.DataFrame` or not."""
+
+        return check_dataframe_type(X)
 
     def operate(self, X: DataFrame, *args, **kwargs) -> Pd:
+        """
+        The backend algorithm of :func:`Transformer.transform`.
+
+        Parameters
+        ----------
+        X : Series, DataFrame or array-like
+            Input data to be transformed. The same one to
+            :func:`~Transformer.transform`.
+        args
+            They are the same to corresponding to relative
+            :obj:`~pandas.DataFrame`'s method.
+        kwargs
+            They are the same to corresponding to relative
+            :obj:`~pandas.DataFrame`'s method.
+
+        Returns
+        -------
+        DataFrame
+            A new X was transformed.
+        """
+
         return getattr(X, self.pd_method)(*args, **kwargs)
 
 
