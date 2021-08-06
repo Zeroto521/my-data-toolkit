@@ -1,4 +1,4 @@
-API reference
+API Reference
 =============
 
 The API Reference provides an overview of all public objects,
