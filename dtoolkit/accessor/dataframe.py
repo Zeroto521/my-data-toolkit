@@ -231,7 +231,7 @@ class FilterInAccessor(DataFrameAccessor):
     dog             0
     cat             0
 
-    When ``condition`` is a :obj:`dict``, we can pass values to check for each
+    When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately:
 
     >>> df.filterin({'num_legs': [2], 'num_wings': [2]})
