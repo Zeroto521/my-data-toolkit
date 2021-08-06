@@ -100,7 +100,7 @@ class Transformer(TransformerMixin):
         return self.operate(X, *self.args, **self.kwargs)
 
     def inverse_transform(
-        self, X: pd.DataFrame | np.ndarray
+        self, X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
         """
         Undo transform to X.
