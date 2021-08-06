@@ -317,7 +317,7 @@ class RepeatAccessor(DataFrameAccessor):
 
     See Also
     --------
-    numpy.repeat : this transformer's prototype method.
+    numpy.repeat : This transformer's prototype method.
 
     Examples
     --------
