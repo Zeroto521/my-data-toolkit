@@ -36,7 +36,7 @@ lint:
 	pre-commit run -a -v
 
 test:
-	pytest -v -r s -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
+	pytest -v -r a -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
 
 doctest:
 	pytest -v --color=yes --doctest-only $(pkg)
