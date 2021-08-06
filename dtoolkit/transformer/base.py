@@ -83,7 +83,7 @@ class Transformer(TransformerMixin):
 
     def transform(self, X: Pd | np.ndarray, *_) -> Pd | np.ndarray:
         """
-        Transform X.
+        Transform ``X``.
 
         Parameters
         ----------
@@ -105,7 +105,7 @@ class Transformer(TransformerMixin):
         X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
         """
-        Undo transform to X.
+        Undo transform to ``X``.
 
         Parameters
         ----------
