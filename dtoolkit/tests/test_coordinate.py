@@ -9,11 +9,11 @@ from shapely.geometry import MultiPolygon
 from shapely.geometry import Point
 from shapely.geometry import Polygon
 
-from dtoolkit.coordinate import _coords
-from dtoolkit.coordinate import _coords_num
-from dtoolkit.coordinate import coords
-from dtoolkit.coordinate import coords_num
-from dtoolkit.coordinate import coords_numlist
+from dtoolkit.geography.coordinate import _coords
+from dtoolkit.geography.coordinate import _coords_num
+from dtoolkit.geography.coordinate import coords
+from dtoolkit.geography.coordinate import coords_num
+from dtoolkit.geography.coordinate import coords_numlist
 
 
 cpoint = [(100, 1)]
