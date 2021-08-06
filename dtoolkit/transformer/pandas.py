@@ -341,6 +341,75 @@ class FillnaTF(DataFrameTF):
 
 
 class FilterInTF(DataFrameTF):
+    """
+    A transformer could filter :obj:`~pandas.DataFrame` contents.
+
+    See Also
+    --------
+    dtoolkit.accessor.FilterInAccessor
+
+    Notes
+    -----
+    :class:`~dtoolkit.accessor.FilterInAccessor`'s ``inplace`` parameter is
+    not work for this transformer. Actually this break pipeline stream. If a
+    transformer's ``inplace`` is ``True``, the next tf input would get
+    ``None``.
+
+    Examples
+    --------
+    >>> from dtoolkit.transformer import FilterInTF
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
+    ...                   index=['falcon', 'dog', 'cat'])
+    >>> df
+            num_legs  num_wings
+    falcon         2          2
+    dog            4          0
+    cat            2          0
+
+    When ``condition`` is a list check whether every value in the DataFrame is
+    present in the list (which animals have 0 or 2 legs or wings).
+
+    Filter rows.
+
+    >>> tf = FilterInTF([0, 2])
+    >>> tf.transform(df)
+            num_legs  num_wings
+    falcon         2          2
+    cat            2          0
+
+    Filter columns.
+
+    >>> tf = FilterInTF([0, 2], axis=1)
+    >>> tf.transform(df)
+                num_wings
+    falcon          2
+    dog             0
+    cat             0
+
+    When ``condition`` is a :obj:`dict`, we can pass values to check for each
+    column separately:
+
+    >>> tf = FilterInTF({'num_legs': [2], 'num_wings': [2]})
+    >>> tf.transform(df)
+            num_legs  num_wings
+    falcon         2          2
+
+    When ``values`` is a Series or DataFrame the index and column must match.
+    Note that ``falcon`` does not match based on the number of legs in df2.
+
+    >>> other = pd.DataFrame({'num_legs': [8, 2], 'num_wings': [0, 2]},
+    ...                      index=['spider', 'falcon'])
+    >>> other
+            num_legs  num_wings
+    spider         8          0
+    falcon         2          2
+    >>> tf = FilterInTF(other)
+    >>> tf.transform(df)
+            num_legs  num_wings
+    falcon         2          2
+    """
+
     pd_method = "filterin"
 
 
