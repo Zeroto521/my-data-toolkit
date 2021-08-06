@@ -1,13 +1,31 @@
-import numpy as np
-import pandas as pd
+from __future__ import annotations
 
+import numpy as np
+
+from .._typing import Pd
 from .base import Transformer
 
 
 class NumpyTransformer(Transformer):
     np_method: str
 
-    def operate(self, X: pd.DataFrame, *args, **kwargs) -> np.ndarray:
+    def operate(self, X: Pd | np.ndarray, *args, **kwargs) -> np.ndarray:
+        """
+        The backend algorithm of :func:`Transformer.transform`.
+
+        Parameters
+        ----------
+        X : Series, DataFrame or array-like
+            Input data to be transformed. The same one to
+            :func:`~Transformer.transform`.
+        args
+            They are the same to corresponding to relative
+            :obj:`~numpy.ndarray`'s method.
+        kwargs
+            They are the same to corresponding to relative
+            :obj:`~numpy.ndarray`'s method.
+        """
+
         return getattr(np, self.np_method)(X, *args, **kwargs)
 
 
