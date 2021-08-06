@@ -261,9 +261,9 @@ class FilterInAccessor(DataFrameAccessor):
     ) -> pd.DataFrame | None:
         inplace = self._validate_inplace(inplace)
         axis = self._validate_axis(axis)
-        agg_axis = 1 - axis
+        another_axis = 1 - axis
         mask = self.pd_obj.isin(condition)
-        mask = _get_mask(how, mask, agg_axis)
+        mask = _get_mask(how, mask, another_axis)
         result = self.pd_obj.loc(axis=axis)[mask]
 
         if not inplace:
