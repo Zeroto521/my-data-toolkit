@@ -4,17 +4,19 @@ Accessor
 
 
 Series Accessor
--------------------
+---------------
 .. autosummary::
     :toctree: api/accessor/
+    :template: autosummary/accessor_callable.rst
 
     DropInfSeriesAccessor
 
 
 DataFrame Accessor
--------------------
+------------------
 .. autosummary::
     :toctree: api/accessor/
+    :template: autosummary/accessor_callable.rst
 
     DropInfDataFrameAccessor
     FilterInAccessor
@@ -22,9 +24,10 @@ DataFrame Accessor
 
 
 Both Series and DataFrame Accessor
--------------------
+----------------------------------
 .. autosummary::
     :toctree: api/accessor/
+    :template: autosummary/accessor_callable.rst
 
     ColumnAccessor
 
