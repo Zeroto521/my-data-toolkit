@@ -39,7 +39,7 @@ test:
 	pytest -v -r a -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
 
 doctest:
-	pytest -v --color=yes --doctest-only $(pkg)
+	pytest -v -r a -n auto --color=yes --cov=$(pkg) --cov-append --cov-report xml --doctest-only $(pkg)
 
 dist: clean
 	python setup.py sdist bdist_wheel
