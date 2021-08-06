@@ -82,7 +82,8 @@ class Transformer(TransformerMixin):
         return self
 
     def transform(self, X: Pd | np.ndarray, *_) -> Pd | np.ndarray:
-        """Transform X separately by each transformer, concatenate results.
+        """
+        Transform X.
 
         Parameters
         ----------
@@ -100,7 +101,8 @@ class Transformer(TransformerMixin):
         return self.operate(X, *self.args, **self.kwargs)
 
     def inverse_transform(
-        self, X: pd.DataFrame | np.ndarray,
+        self,
+        X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
         """
         Undo transform to X.
