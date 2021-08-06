@@ -1,9 +1,17 @@
 import numpy as np
+import pandas as pd
 
 from .base import Transformer
 
 
-class RavelTF(Transformer):
+class NumpyTransformer(Transformer):
+    np_method: str
+
+    def operate(self, X: pd.DataFrame, *args, **kwargs) -> np.ndarray:
+        return getattr(np, self.np_method)(X, *args, **kwargs)
+
+
+class RavelTF(NumpyTransformer):
     """
     A transformer could return a contiguous flattened array.
 
@@ -28,5 +36,4 @@ class RavelTF(Transformer):
     array([1, 2, 3, 4, 5, 6])
     """
 
-    def operate(self, *args, **kwargs):
-        return np.ravel(*args, **kwargs)
+    np_method = "ravel"
