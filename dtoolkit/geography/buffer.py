@@ -32,37 +32,47 @@ def geographic_buffer(
     **kwargs,
 ) -> gpd.GeoSeries:
     """
-    Creates a buffer zone of specified size around or inside geometry.
-    Works similarly to the Bufferer, but is designed for use with
-    features in Geographic coordinates. Reprojects input features into
-    the DynamicEqual Distance projection, buffers them,
+    Creates a geographic buffer.
+
+    Creates a buffer zone of specified size around or inside geometry. It
+    is designed for use with features in Geographic coordinates. Reprojects
+    input features into the DynamicEqual Distance projection, buffers them,
     then reprojects back into the original Geographic coordinates.
-
-    Returns a ``GeoSeries`` of geometries representing all points within
-    a given ``distance`` of each geometric object.
-
-    See http://shapely.readthedocs.io/en/latest/manual.html#object.buffer
-    for details.
 
     Parameters
     ----------
-    df : gpd.GeoSeries
-        Only support `Point` geometry, at present.
-        if [geopandas#1952](https://github.com/geopandas/geopandas/pull/1952)
-        done, this method would be a `accessor` and be easier to use.
-    distance : int, float, np.ndarray, pd.Series, the unit is meter.
-        The radius of the buffer. If `np.ndarray` or `pd.Series` are used
-        then it must have same length as the GeoSeries.
+    df : GeoSeries
+        Only support `Point` geometry, at present. If
+        [geopandas#1952](https://github.com/geopandas/geopandas/pull/1952)
+        done, this method would be a :obj:`~geopandas.GeoSeries` or
+        :obj:`~geopandas.GeoDataFrame` and be easier to use.
+
+    distance : int, float, ndarray or Series, the unit is meter.
+        The radius of the buffer. If :obj:`~numpy.ndarray` or
+        :obj:`~pandas.Series` are used then it must have same length as the
+        :obj:`~geopandas.GeoSeries`.
+
     crs : str, optional
-        if `epsg` is specified The value can be anything accepted by
-        :meth:`pyproj.CRS.from_user_input() <pyproj.crs.CRS.from_user_input>`,
-        such as an authority string (eg "EPSG:4326") or a WKT string.
+        If ``epsg`` is specified, the value can be anything accepted by
+        :meth:`~pyproj.CRS.from_user_input`, such as an authority string
+        (eg "EPSG:4326") or a WKT string.
+
     epsg : int, optional
-        If `df.crs` is not None, the result would use the `GeoSeries` crs.
-        If `df.crs` is None, the result would use
-        the crs from `crs` or `epsg`.
-        If `crs` is specified EPSG code specifying output projection.
-        If `df` crs is `None`, the result would use `EPSG:4326`
+        * If ``df.crs`` is not None, the result would use the :obj:`~geopandas.GeoSeries` crs.
+        * If ``df.crs`` is None, the result would use the crs from ``crs`` or ``epsg``.
+        * If ``crs`` is specified EPSG code specifying output projection.
+        * If ``df.crs`` is ``None``, the result would use `EPSG:4326`
+
+    Returns
+    -------
+    GeoSeries
+        A ``GeoSeries`` of geometries representing all points within a given
+        ``distance`` of each geometric object.
+
+    See Also
+    --------
+    shapely.geometry.base.BaseGeometry.buffer
+        https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
     """
 
     check_geopandas_type(df)
