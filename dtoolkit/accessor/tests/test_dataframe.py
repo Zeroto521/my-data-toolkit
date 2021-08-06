@@ -154,6 +154,8 @@ class TestRepeatAccessor:
     @pytest.mark.parametrize(
         "repeats, axis, expected",
         [
+            (1, 0, pd.DataFrame({"a": [1, 2], "b": [3, 4]})),
+            (1, 1, pd.DataFrame({"a": [1, 2], "b": [3, 4]})),
             (
                 2,
                 0,
@@ -190,7 +192,7 @@ class TestRepeatAccessor:
         ],
     )
     def test_work(self, repeats, axis, expected):
-        result = self.d.repeat(repeats, axis)
+        result = self.d.repeat(repeats, axis=axis)
 
         assert result.equals(expected)
 
