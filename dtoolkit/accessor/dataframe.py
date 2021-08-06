@@ -356,7 +356,7 @@ class RepeatAccessor(DataFrameAccessor):
     def __call__(
         self,
         repeats: int | list[int],
-        axis: int = 0,
+        axis: int | str = 0,
     ) -> pd.DataFrame | None:
         new_index = self.pd_obj.index.copy()
         new_column = self.pd_obj.columns.copy()
