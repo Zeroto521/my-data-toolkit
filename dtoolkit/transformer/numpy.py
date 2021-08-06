@@ -11,13 +11,13 @@ class NumpyTransformer(Transformer):
 
     def operate(self, X: Pd | np.ndarray, *args, **kwargs) -> np.ndarray:
         """
-        The backend algorithm of :func:`Transformer.transform`.
+        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
 
         Parameters
         ----------
         X : Series, DataFrame or array-like
             Input data to be transformed. The same one to
-            :func:`~Transformer.transform`.
+            :func:`~dtoolkit.Transformer.transform`.
         args
             They are the same to corresponding to relative
             :obj:`~numpy.ndarray`'s method.

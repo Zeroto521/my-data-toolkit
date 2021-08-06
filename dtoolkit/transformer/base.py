@@ -19,9 +19,9 @@ class Transformer(TransformerMixin):
         Parameters
         ----------
         args
-            The positional arguements of :func:`~Transformer.operate`.
+            The positional arguements of :func:`~dtoolkit.Transformer.operate`.
         kwargs
-            The keyword arguements of :func:`~Transformer.operate`.
+            The keyword arguements of :func:`~dtoolkit.Transformer.operate`.
         """
 
         self.args = args
@@ -29,13 +29,13 @@ class Transformer(TransformerMixin):
 
     def operate(self, X: Pd | np.ndarray, *_, **__) -> Pd | np.ndarray:
         """
-        The backend algorithm of :func:`Transformer.transform`.
+        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
 
         Parameters
         ----------
         X : Series, DataFrame or array-like
             Input data to be transformed. The same one to
-            :func:`~Transformer.transform`.
+            :func:`~dtoolkit.Transformer.transform`.
         _
             The positional arguements of its.
         __
@@ -55,13 +55,13 @@ class Transformer(TransformerMixin):
 
     def validate(self, X: Any):
         """
-        It should validate the type of ``X``before ``X`` transformed.
+        It should validate the type of ``X`` before ``X`` transformed.
 
         Parameters
         ----------
         X
             Input data to be transformed. The same one to
-            :func:`~Transformer.transform`.
+            :func:`~dtoolkit.Transformer.transform`.
 
         Notes
         -----
@@ -92,7 +92,7 @@ class Transformer(TransformerMixin):
         Returns
         -------
         DataFrame or ndarray
-            A new X was transformed via :func:`~Transformer.operate`.
+            A new X was transformed via :func:`~dtoolkit.Transformer.operate`.
         """
 
         self.validate(X)
