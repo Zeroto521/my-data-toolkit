@@ -290,12 +290,12 @@ def _get_mask(
 
 
 @register_dataframe_accessor("repeat")
-class RepeatAccessor(Accessor):
+class RepeatAccessor(DataFrameAccessor):
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.
 
-    Returns a new DataFrame where each row/column
-    is repeated consecutively a given number of times.
+    Returns a new DataFrame where each row/column is repeated
+    consecutively a given number of times.
 
     Parameters
     ----------
@@ -303,8 +303,12 @@ class RepeatAccessor(Accessor):
         The number of repetitions for each element. This should be a
         non-negative integer. Repeating 0 times will return an empty
         :obj:`~pandas.DataFrame`.
-    axis :  {0, 1}, int
-        The axis along which to repeat. By default, along **row** to repeat.
+
+    axis : {0 or 'index', 1 or 'columns'}, default 0
+        The axis along which to repeat.
+
+        * 0, or 'index' : Along the row to repeat.
+        * 1, or 'columns' : Along the column to repeat.
 
     Returns
     -------
@@ -325,7 +329,7 @@ class RepeatAccessor(Accessor):
     0  1  3
     1  2  4
 
-    Each row repeat two times
+    Each row repeat two times.
 
     >>> df.repeat(2)
        a  b
@@ -334,14 +338,14 @@ class RepeatAccessor(Accessor):
     1  2  4
     1  2  4
 
-    Each column repeat two times
+    Each column repeat two times.
 
     >>> df.repeat(2, 1)
        a  a  b  b
     0  1  1  3  3
     1  2  2  4  4
 
-    'a' column repeat 1 times, 'b' column repeat 2 times
+    ``a`` column repeat 1 times, ``b`` column repeat 2 times.
 
     >>> df.repeat([1, 2], 1)
        a  b  b
@@ -356,14 +360,12 @@ class RepeatAccessor(Accessor):
     ) -> pd.DataFrame | None:
         new_index = self.pd_obj.index.copy()
         new_column = self.pd_obj.columns.copy()
+        axis = self._validate_axis(axis)
 
         if axis == 0:
             new_index = self.pd_obj.index.repeat(repeats)
         elif axis == 1:
             new_column = self.pd_obj.columns.repeat(repeats)
-        else:
-            msg = "axis must be 0 (row) or 1 (column), default is 0."
-            raise ValueError(msg)
 
         new_values = self.pd_obj._values.repeat(repeats, axis)
         return pd.DataFrame(
