@@ -27,6 +27,7 @@ corresponding to relative :class:`pandas.DataFrame`'s method.
     AppendTF
     DropTF
     EvalTF
+    FilterInTF
     FillnaTF
     GetTF
     QueryTF
