@@ -2,6 +2,8 @@ from sklearn.base import TransformerMixin
 
 
 class Transformer(TransformerMixin):
+    """Base class for all transformers in dtoolkit."""
+
     def __init__(self, *args, **kwargs):
         self.args = args
         self.kwargs = kwargs
@@ -19,9 +21,6 @@ class Transformer(TransformerMixin):
         self.validate(X)
 
         return self.operate(X, *self.args, **self.kwargs)
-
-    def fit_transform(self, X, *_):
-        return self.fit().transform(X)
 
     def inverse_transform(self, X, *_):
         return X
