@@ -48,7 +48,7 @@ class RavelTF(NumpyTransformer):
 
     See Also
     --------
-    numpy.ravel : this transformer's prototype method.
+    numpy.ravel : This transformer's prototype method.
 
     Examples
     --------

@@ -64,7 +64,7 @@ class AssignTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.assign : this transformer's prototype method.
+    pandas.DataFrame.assign : This transformer's prototype method.
 
     Examples
     --------
@@ -95,7 +95,7 @@ class AppendTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.append : this transformer's prototype method.
+    pandas.DataFrame.append : This transformer's prototype method.
 
     Examples
     --------
@@ -143,7 +143,7 @@ class DropTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.drop : this transformer's prototype method.
+    pandas.DataFrame.drop : This transformer's prototype method.
 
     Notes
     -----
@@ -233,7 +233,7 @@ class EvalTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.eval : this transformer's prototype method.
+    pandas.DataFrame.eval : This transformer's prototype method.
 
     Notes
     -----
@@ -307,7 +307,7 @@ class FillnaTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.fillna : this transformer's prototype method.
+    pandas.DataFrame.fillna : This transformer's prototype method.
 
     Notes
     -----
@@ -458,7 +458,7 @@ class FilterTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.filter : this transformer's prototype method.
+    pandas.DataFrame.filter : This transformer's prototype method.
 
     Examples
     --------
@@ -507,7 +507,7 @@ class GetTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.get : this transformer's prototype method.
+    pandas.DataFrame.get : This transformer's prototype method.
     """
 
     pd_method = "get"
@@ -520,7 +520,7 @@ class QueryTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.query : this transformer's prototype method.
+    pandas.DataFrame.query : This transformer's prototype method.
 
     Notes
     -----
@@ -576,7 +576,7 @@ class ReplaceTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.replace : this transformer's prototype method.
+    pandas.DataFrame.replace : This transformer's prototype method.
 
     Notes
     -----
@@ -702,7 +702,7 @@ class SelectDtypesTF(DataFrameTF):
 
     See Also
     --------
-    pandas.DataFrame.select_dtypes : this transformer's prototype method.
+    pandas.DataFrame.select_dtypes : This transformer's prototype method.
 
     Examples
     --------
