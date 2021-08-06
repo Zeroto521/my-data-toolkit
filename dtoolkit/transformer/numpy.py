@@ -24,6 +24,11 @@ class NumpyTransformer(Transformer):
         kwargs
             They are the same to corresponding to relative
             :obj:`~numpy.ndarray`'s method.
+
+        Returns
+        -------
+        ndarray
+            A new X was transformed.
         """
 
         return getattr(np, self.np_method)(X, *args, **kwargs)
