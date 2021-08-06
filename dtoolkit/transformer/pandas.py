@@ -384,7 +384,7 @@ class FilterInTF(DataFrameTF):
 
     See Also
     --------
-    dtoolkit.accessor.FilterInAccessor
+    dtoolkit.accessor.FilterInAccessor : This transformer's prototype method.
 
     Notes
     -----
