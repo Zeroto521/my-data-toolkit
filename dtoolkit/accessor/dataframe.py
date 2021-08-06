@@ -360,14 +360,18 @@ class RepeatAccessor(DataFrameAccessor):
     ) -> pd.DataFrame | None:
         new_index = self.pd_obj.index.copy()
         new_column = self.pd_obj.columns.copy()
+
         axis = self._validate_axis(axis)
-
         if axis == 0:
-            new_index = self.pd_obj.index.repeat(repeats)
+            new_index = new_index.repeat(repeats)
         elif axis == 1:
-            new_column = self.pd_obj.columns.repeat(repeats)
+            new_column = new_column.repeat(repeats)
 
-        new_values = self.pd_obj._values.repeat(repeats, axis)
+        new_values = np.repeat(
+            self.pd_obj._values,
+            repeats,
+            axis=axis,
+        )
         return pd.DataFrame(
             new_values,
             index=new_index,
