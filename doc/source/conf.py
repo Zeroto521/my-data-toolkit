@@ -89,4 +89,16 @@ intersphinx_mapping = {
         "https://numpy.org/doc/stable/",
         "https://numpy.org/doc/stable/objects.inv",
     ),
+    "geopandas": (
+        "https://geopandas.readthedocs.io/en/stable/",
+        "https://geopandas.readthedocs.io/en/stable/objects.inv",
+    ),
+    "shapely": (
+        "https://shapely.readthedocs.io/en/stable/",
+        "https://shapely.readthedocs.io/en/stable/objects.inv",
+    ),
+    "pyproj": (
+        "https://pyproj4.github.io/pyproj/stable/",
+        "https://pyproj4.github.io/pyproj/stable/objects.inv",
+    ),
 }
