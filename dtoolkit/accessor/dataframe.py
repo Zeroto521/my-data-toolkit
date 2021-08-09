@@ -281,11 +281,9 @@ def _get_mask(
         [
             (how == "any", mask.any(axis=axis)),
             (how == "all", mask.all(axis=axis)),
-        ],
-        if_condition_raise=[
             (how is not None, ValueError(f"invalid inf option: {how}")),
         ],
-        else_raise=TypeError("must specify how"),
+        TypeError("must specify how"),
     )
 
 
@@ -317,7 +315,7 @@ class RepeatAccessor(DataFrameAccessor):
 
     See Also
     --------
-    numpy.repeat : this transformer's prototype method.
+    numpy.repeat : This transformer's prototype method.
 
     Examples
     --------
