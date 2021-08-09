@@ -69,7 +69,7 @@ def multi_if_else(
 
             return result
 
-    if isinstance(result, Exception):
+    if isinstance(else_return, Exception):
         raise else_return
 
     return else_return
