@@ -6,22 +6,18 @@ from typing import Any
 def multi_if_else(
     if_condition_return: list[tuple(bool, Any)],
     else_return: Any | None = None,
-    if_condition_raise: list[tuple(bool, Any)] | None = None,
-    else_raise: Any | None = None,
 ) -> Any | None:
     """
-    Handle a series of ``if``, ``elif`` and ``else``.
+    Handle a series of ``if`` or ``elif``.
 
     Parameters
     ----------
     if_condition_return : list[tuple(bool, Any)]
-        Array of tuple contains the condition and result.
+        Array of tuple contains the condition and result. if the return is
+        :obj:`Exception` would raise a error.
     else_return : Any or None, default is None
-        The final returning result.
-    if_condition_raise: list[tuple(bool, Any)] or None, default is None
-        Array of tuple contains the condition and error.
-    else_raise : Any or None, default is None
-        The final raise error, if the value is None, nothing would be raised.
+        The final returning result, if the result is :obj:``Exception`` would
+        raise an error.
 
     Examples
     --------
@@ -40,14 +36,12 @@ def multi_if_else(
     >>> if_condition_return_lambda = lambda how: [
     ...     (how == "any", mask.any()),
     ...     (how == "all", mask.all()),
-    ... ]
-    >>> if_condition_raise_lambda = lambda how: [
     ...     (how is not None, ValueError(f"Invalid how option: {how}")),
     ... ]
+
     >>> mask_lambda = lambda how: multi_if_else(
-    ...         if_condition_return=if_condition_return_lambda(how),
-    ...         if_condition_raise=if_condition_raise_lambda(how),
-    ...         else_raise=TypeError("Must specify how"),
+    ...         if_condition_return_lambda(how),
+    ...         TypeError("Must specify how"),
     ...     )
     >>> mask_lambda("any")
     True
@@ -70,14 +64,12 @@ def multi_if_else(
 
     for condition, result in if_condition_return:
         if condition:
+            if isinstance(result, Exception):
+                raise result
+
             return result
 
-    if if_condition_raise:
-        for condition, error in if_condition_raise:
-            if condition:
-                raise error
-
-    if else_raise:
-        raise else_raise
+    if isinstance(result, Exception):
+        raise else_return
 
     return else_return

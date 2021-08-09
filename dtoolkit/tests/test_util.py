@@ -16,8 +16,6 @@ class TestMultiIfElse:
         self.if_condition_return_lambda = lambda how: [
             (how == "any", mask.any()),
             (how == "all", mask.all()),
-        ]
-        self.if_condition_raise_lambda = lambda how: [
             (how is not None, ValueError(f"Invalid how option: {how}")),
         ]
 
@@ -36,19 +34,17 @@ class TestMultiIfElse:
         assert res == expected
 
     @pytest.mark.parametrize(
-        "how, else_raise, error",
+        "how, else_return, error",
         [
             ("whatevery", None, ValueError),
             (None, TypeError("Must specify how"), TypeError),
         ],
     )
-    def test_error(self, how, else_raise, error):
+    def test_error(self, how, else_return, error):
         if_condition_return = self.if_condition_return_lambda(how)
-        if_condition_raise = self.if_condition_raise_lambda(how)
 
         with pytest.raises(error):
             multi_if_else(
-                if_condition_return=if_condition_return,
-                if_condition_raise=if_condition_raise,
-                else_raise=else_raise,
+                if_condition_return,
+                else_return,
             )
