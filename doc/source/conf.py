@@ -10,6 +10,12 @@
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
+from __future__ import annotations
+
+import inspect
+import os
+import sys
+
 import dtoolkit
 
 version = release = dtoolkit.__version__
@@ -30,6 +36,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
 ]
 
@@ -102,3 +109,46 @@ intersphinx_mapping = {
         "https://pyproj4.github.io/pyproj/stable/objects.inv",
     ),
 }
+
+
+# based on pandas doc/source/conf.py
+def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
+    """
+    Determine the URL corresponding to Python object
+    """
+
+    if domain != "py":
+        return None
+
+    modname = info["module"]
+    fullname = info["fullname"]
+
+    submod = sys.modules.get(modname)
+    if submod is None:
+        return None
+
+    obj = submod
+    for part in fullname.split("."):
+        try:
+            obj = getattr(obj, part)
+        except AttributeError:
+            return None
+
+    try:
+        fn = inspect.getsourcefile(inspect.unwrap(obj))
+    except TypeError:
+        fn = None
+
+    if not fn:
+        return None
+
+    try:
+        source, lineno = inspect.getsourcelines(obj)
+    except OSError:
+        lineno = None
+
+    linespec = f"#L{lineno}-L{lineno + len(source) - 1}" if lineno else ""
+    fn = os.path.relpath(fn, start=os.path.dirname(dtoolkit.__file__))
+
+    base_link = "https://github.com/Zeroto521/my-data-toolkit/blob"
+    return f"{base_link}/master/dtoolkit/{fn}{linespec}"
