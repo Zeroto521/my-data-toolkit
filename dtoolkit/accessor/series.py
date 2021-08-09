@@ -81,15 +81,12 @@ class DropInfSeriesAccessor(Accessor):
 
 
 def _get_inf_range(inf: str = "all") -> list[float]:
-
     return multi_if_else(
         [
             (inf == "all", [np.inf, -np.inf]),
             (inf == "pos", [np.inf]),
             (inf == "neg", [-np.inf]),
-        ],
-        if_condition_raise=[
             (inf is not None, ValueError(f"invalid inf option: {inf}")),
         ],
-        else_raise=TypeError("must specify inf"),
+        TypeError("must specify inf"),
     )
