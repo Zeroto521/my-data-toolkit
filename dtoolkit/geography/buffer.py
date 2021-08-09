@@ -55,7 +55,7 @@ def geographic_buffer(
 
     crs : str, optional
         If ``epsg`` is specified, the value can be anything accepted by
-        :meth:`~pyproj.CRS.from_user_input`, such as an authority string
+        :meth:`pyproj.crs.CRS.from_user_input`, such as an authority string
         (eg "EPSG:4326") or a WKT string.
 
     epsg : int, optional
