@@ -42,10 +42,11 @@ def geographic_buffer(
     Parameters
     ----------
     df : GeoSeries
-        Only support `Point` geometry, at present. If
-        [geopandas#1952](https://github.com/geopandas/geopandas/pull/1952)
-        done, this method would be a :obj:`~geopandas.GeoSeries` or
+        Only support `Point` geometry, at present. If `geopandas#1952`_ done,
+        this method would be a :obj:`~geopandas.GeoSeries` or
         :obj:`~geopandas.GeoDataFrame` and be easier to use.
+
+        .. _geopandas#1952: https://github.com/geopandas/geopandas/pull/1952
 
     distance : int, float, ndarray or Series, the unit is meter.
         The radius of the buffer. If :obj:`~numpy.ndarray` or
