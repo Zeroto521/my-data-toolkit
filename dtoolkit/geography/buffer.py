@@ -59,8 +59,11 @@ def geographic_buffer(
         (eg "EPSG:4326") or a WKT string.
 
     epsg : int, optional
-        * If ``df.crs`` is not None, the result would use the :obj:`~geopandas.GeoSeries` crs.
-        * If ``df.crs`` is None, the result would use the crs from ``crs`` or ``epsg``.
+
+        * If ``df.crs`` is not None, the result would use the
+          :obj:`~geopandas.GeoSeries` crs.
+        * If ``df.crs`` is None, the result would use the crs from ``crs`` or
+          ``epsg``.
         * If ``crs`` is specified EPSG code specifying output projection.
         * If ``df.crs`` is ``None``, the result would use `EPSG:4326`
 
