@@ -16,8 +16,58 @@ def multi_if_else(
         Array of tuple contains the condition and result. if the return is
         :obj:`Exception` would raise a error.
     else_return : Any or None, default is None
-        The final returning result, if the result is :obj:``Exception`` would
+        The final returning result, if the result is :obj:`Exception` would
         raise an error.
+
+    Notes
+    -----
+    The back of :func:`multi_if_else` is using multiple :keyword:`if` not
+    one :keyword:`if` and multiple :keyword:`elif`. So :keyword:`if`'s
+    condition should be more specific compare to :keyword:`elif`.
+
+    :keyword:`elif` version:
+
+    .. code-block:: python
+
+        def rank(score: int) -> str:
+            if not isinstance(score, int):
+                raise TypeError("the 'score' must be an integer.")
+
+            if 100 >= score >= 90:
+                return 'A'
+            elif score >= 70:
+                return 'B'
+            elif score >= 60:
+                return 'C'
+            elif score >= 30:
+                return 'D'
+            elif score >= 0:
+                return 'E'
+            else:
+                raise ValueError(
+                    "the 'score' range should be between 0 and 100.",
+                )
+
+    :keyword:`if` version:
+
+    .. code-block:: python
+
+        def rank(score: int) -> str:
+            if not isinstance(score, int):
+                raise TypeError("the 'score' must be an integer.")
+
+            if 100 >= score >= 90:
+                return 'A'
+            if 90 > score >= 70:
+                return 'B'
+            if 70 > score >= 60:
+                return 'C'
+            if 60 > score >= 30:
+                return 'D'
+            if 30 > score >= 0:
+                return 'E'
+
+            raise ValueError("the 'score' range should be between 0 and 100.")
 
     Examples
     --------
