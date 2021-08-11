@@ -47,3 +47,21 @@ There are some stores sale data of one chain brand.
 2  811-10003    C    1F   impotant  Office   177        2000      6       250  3000
 3  811-10004    D    B2     normal    Home    70        1500      5        15  1500
 ```
+
+### Feature Types and Dealing Steps
+
+First of all, we should konw there are three types of features ($X$) and one label ($y$).
+
+- Additional information features: drop
+  - code
+  - name
+- Categorical features: encode to one-hot
+  - floor
+  - type: drop `'Home'` type, this type store numbers are very small.
+- Number features: scale
+  - level: it is not **categorical** type, because it could be compared.
+  - area
+  - population: there is buffer ranging population, but more want to enter store population, equal to $\frac{score}{10} \times population$.
+  - score
+  - opendays: filter `opendays <= 30` stores then drop this field
+- Label: need to balance, should transform to daily sale, equal to $\frac{sale}{opendays}$ then sacle
