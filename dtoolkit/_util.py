@@ -44,7 +44,9 @@ def multi_if_else(
             elif score >= 0:
                 return 'E'
             else:
-                raise ValueError("the 'score' range should be between 0 and 100.")
+                raise ValueError(
+                    "the 'score' range should be between 0 and 100.",
+                )
 
     :keyword:`if` version:
 
