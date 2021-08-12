@@ -36,11 +36,13 @@ class DataFrameAccessor(Accessor):
 
         if isinstance(values, dict) and axis == 1:
             values = defaultdict(list, values)
-            res = (
-                self.pd_obj.iloc[[i], :].isin(values[ind])
-                for i, ind in enumerate(self.pd_obj.index)
+            return pd.concat(
+                (
+                    self.pd_obj.iloc[[i], :].isin(values[ind])
+                    for i, ind in enumerate(self.pd_obj.index)
+                ),
+                axis=0,
             )
-            return pd.concat(res, axis=0)
 
         return self.pd_obj.isin(values)
 
