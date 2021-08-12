@@ -65,3 +65,7 @@ First of all, we should konw there are three types of features ( {math}`X`) and 
   - score
   - opendays: filter `opendays <= 30` stores then drop this field
 - Label: need to balance, should transform to daily sale, equal to {math}`\frac{sale}{opendays}` then sacle
+
+:::{note} Mission
+Our mission is to find some relationships between these features and label.
+:::
