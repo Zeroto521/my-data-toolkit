@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import defaultdict
 from typing import Iterable
 
 import numpy as np
@@ -22,6 +23,26 @@ class DataFrameAccessor(Accessor):
             raise TypeError(msg)
 
         return self.pd_obj._get_axis_number(axis)
+
+    def isin(
+        self,
+        values: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+        axis: int = 0,
+    ) -> pd.DataFrame:
+        """
+        Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
+        :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
+        """
+
+        if isinstance(values, dict) and axis == 1:
+            values = defaultdict(list, values)
+            res = [
+                self.pd_obj.iloc[[i], :].isin(values[ind])
+                for i, ind in enumerate(self.pd_obj.index)
+            ]
+            return pd.concat(res, axis=0)
+
+        return self.pd_obj.isin(values)
 
 
 @register_dataframe_accessor("dropinf")
@@ -168,11 +189,16 @@ class FilterInAccessor(DataFrameAccessor):
     Parameters
     ----------
     condition : iterable, Series, DataFrame or dict
-        The result will only be true at a location if all the labels match. If
-        ``condition`` is a Series, that's the index. If ``condition`` is a
-        :obj:`dict`, the keys must be the column names, which must match. If
-        ``condition`` is a DataFrame, then both the index and column labels
-        must match.
+        The result will only be true at a location if all the labels match.
+
+        * If ``condition`` is a :obj:`dict`, the keys must be the row/column names
+          , which must match. And ``how`` only works on these gave keys.
+            - ``axis`` is 0 or 'index', keys would be recognize as column names.
+            - ``axis`` is 1 or 'columns', keys would be recognize as index names.
+
+        * If ``condition`` is a :obj:`~pandas.Series`, that's the index.
+        * If ``condition`` is a :obj:`~pandas.DataFrame`, then both the index
+          and column labels must match.
 
     axis : {0 or 'index', 1 or 'columns'}, default 0
         Determine if rows or columns which contain value are filtered.
@@ -232,14 +258,24 @@ class FilterInAccessor(DataFrameAccessor):
     cat             0
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
-    column separately:
+    row/column (depend on ``axis``) separately.
+
+    Filter rows, to check under the column (key) whether contains the value.
 
     >>> df.filterin({'num_legs': [2], 'num_wings': [2]})
             num_legs  num_wings
     falcon         2          2
 
+    Filter columns, to check under the index (key) whether contains the value.
+
+    >>> df.filterin({'cat': [2]}, axis=1)
+            num_legs
+    falcon         2
+    dog            4
+    cat            2
+
     When ``values`` is a Series or DataFrame the index and column must match.
-    Note that ``falcon`` does not match based on the number of legs in df2.
+    Note that 'spider' doesn't match based on the number of legs in ``other``.
 
     >>> other = pd.DataFrame({'num_legs': [8, 2], 'num_wings': [0, 2]},
     ...                      index=['spider', 'falcon'])
@@ -260,12 +296,18 @@ class FilterInAccessor(DataFrameAccessor):
         inplace: bool = False,
     ) -> pd.DataFrame | None:
         inplace = self._validate_inplace(inplace)
+
         axis = self._validate_axis(axis)
         another_axis = 1 - axis
-        mask = self.pd_obj.isin(condition)
-        mask = _get_mask(how, mask, another_axis)
-        result = self.pd_obj.loc(axis=axis)[mask]
 
+        mask = self.isin(condition, axis)
+        if isinstance(condition, dict):
+            # 'how' only works on condition's keys
+            names = condition.keys()
+            mask = mask[names] if axis == 0 else mask.loc[names]
+        mask = _get_mask(how, mask, another_axis)
+
+        result = self.pd_obj.loc(axis=axis)[mask]
         if not inplace:
             return result
 
