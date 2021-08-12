@@ -19,7 +19,7 @@ There are some stores sale data of one chain brand.
 - These stores place one region.
 - Time is one specific year.
 - Sale is a year total amount.
-- Population is surrounding $200m$ buffer daily people numbers.
+- Population is surrounding {math}`200m` buffer daily people numbers.
 - Score is given by the expert, ranges from 0 to 10.
 
 ```{code-block} python
