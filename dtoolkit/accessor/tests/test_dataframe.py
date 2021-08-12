@@ -146,6 +146,27 @@ class TestFilterInAccessor:
         assert res is None
         assert self.d.equals(d) is False
 
+    def test_issue_145(self):
+        # test my-data-toolkit#145
+        df = pd.DataFrame(
+            {
+                "legs": [2, 4, 2],
+                "wings": [2, 0, 0],
+            },
+            index=["falcon", "dog", "cat"],
+        )
+        res = df.filterin({"legs": [2]})
+
+        expected = pd.DataFrame(
+            {
+                "legs": [2, 2],
+                "wings": [2, 0],
+            },
+            index=["falcon", "cat"],
+        )
+
+        assert res.equals(expected)
+
 
 class TestRepeatAccessor:
     def setup_method(self):
