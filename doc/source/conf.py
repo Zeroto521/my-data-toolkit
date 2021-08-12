@@ -38,7 +38,6 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
-    "sphinxcontrib.mermaid",
 ]
 
 myst_enable_extensions = [
