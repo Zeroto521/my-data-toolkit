@@ -40,6 +40,10 @@ extensions = [
     "sphinx_toggleprompt",
 ]
 
+myst_enable_extensions = [
+    "colon_fence",
+]
+
 
 # The suffix of source filenames.
 source_suffix = [".rst", ".md"]
