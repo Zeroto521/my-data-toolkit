@@ -50,7 +50,7 @@ There are some stores sale data of one chain brand.
 
 ### Feature Types and Dealing Steps
 
-First of all, we should konw there are three types of features ($X$) and one label ($y$).
+First of all, we should konw there are three types of features ( {math}`X`) and one label ( {math}`y`).
 
 - Additional information features: drop
   - code
@@ -61,7 +61,7 @@ First of all, we should konw there are three types of features ($X$) and one lab
 - Number features: scale
   - level: it is not **categorical** type, because it could be compared.
   - area
-  - population: there is buffer ranging population, but more want to enter store population, equal to $\frac{score}{10} \times population$.
+  - population: there is buffer ranging population, but more want to enter store population, equal to  {math}`\frac{score}{10} \times population`.
   - score
   - opendays: filter `opendays <= 30` stores then drop this field
-- Label: need to balance, should transform to daily sale, equal to $\frac{sale}{opendays}$ then sacle
+- Label: need to balance, should transform to daily sale, equal to {math}`\frac{sale}{opendays}` then sacle
