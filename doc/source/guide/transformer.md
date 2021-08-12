@@ -162,3 +162,113 @@ Output `X`
  [1.         1.         0.18181818 0.         1.         0.
   0.         1.         0.        ]]
 ```
+
+## The Pipeline Way
+
+From {ref}`The Pandas Way <pandas-way>` section, we can see that:
+
+- The intermediate variables are full of steps. We don't care about them at the most time except debugging and reviewing.
+- Data workflow is messy. Hard to separate data and operations.
+- The outputting datastruct is not comfortable. The inputting type is {obj}`~pandas.DataFrame` but the outputting type is {obj}`~numpy.ndarray`.
+- Hard to apply in prediction data.
+
+(further-one-step-to-pipeline)=
+### Further One Step to Pipeline
+
+{obj}`~sklearn.pipeline.Pipeline` is a good frame to fix these problems.
+
+Transform {ref}`Process X <process-x>` and {ref}`Process y <process-y>` section codes to pipeline codees.
+
+But actually, these things are hard to transform to pipeline. Most are pandas methods, only OneHotEncoder and MinMaxScaler is could be added into {obj}`~sklearn.pipeline.Pipeline`.
+
+The codes are still messy on **typing** and **applying** two ways.
+
+## The dtoolkit.transformer Way
+
+Frame is good, but from {ref}`further one step to pipeline <further-one-step-to-pipeline>`
+section we could see that the core problem is **missing transformer**.
+
+- Pandas's methods couldn't be used as a transformer.
+- Numpy's methods couldn't be used as a transformer.
+- Sklearn's transformers can't pandas in and pandas out.
+
+### Further More Steps to Pipeline
+
+Data Workflow:
+
+```{code-block} python
+from dtoolkit.transformer import (
+    EvalTF,
+    FilterInTF,
+    GetTF,
+    MinMaxScaler,
+    ReplaceTF,
+    OneHotEncoder,
+    QueryTF,
+    make_union,
+    RavelTF,
+)
+from sklearn.pipeline import **make_pipeline**
+
+
+pl_xy = make_pipeline(
+    QueryTF("opendays > 30"),
+    FilterInTF({"type": ["School", "Mall", "Office"]}),
+    EvalTF("sale = sale / opendays"),
+    EvalTF("population = score / 10 * population"),
+)
+pl_x = make_pipeline(
+    GetTF(features),
+    ReplaceTF({"normal": 1, "important": 2, "strategic": 3}),
+    make_union(
+        make_pipeline(
+            GetTF(features_category),
+            OneHotEncoder(),
+        ),
+        make_pipeline(
+            GetTF(features_number),
+            MinMaxScaler(),
+        ),
+    ),
+)
+
+pl_y = make_pipeline(
+    GetTF(label),
+    MinMaxScaler(),
+    RavelTF(),
+)
+```
+
+Apply to data:
+
+```{code-block} python
+xy = pl_xy.fit_transform(df)
+X = pl_x.fit_transform(xy)
+y = pl_y.fit_transform(xy)
+```
+
+Output:
+
+```{code-block} python
+>>> xy
+        code name floor      level    type  area  population  score  opendays       sale
+0  811-10001    A    1F  important  School   100      3000.0     10       300  26.666667
+1  811-10002    B    2F     normal    Mall    95       800.0      8       100  50.000000
+2  811-10003    C    1F  important  Office   177      1200.0      6       250  12.000000
+>>> X
+   floor_1F  floor_2F  type_Mall  type_Office  type_School  level      area  population  score
+0       1.0       0.0        0.0          0.0          1.0    1.0  0.060976    1.000000    1.0
+1       0.0       1.0        1.0          0.0          0.0    0.0  0.000000    0.000000    0.5
+2       1.0       0.0        0.0          1.0          0.0    1.0  1.000000    0.181818    0.0
+>>> y
+[0.38596491 1.         0.        ]
+```
+
+## Other ways to handle this
+
+{meth}`~pandas.DataFrame.pipe` and {keyword}`def` function ways are ok.
+
+But they are:
+
+- hard to transform to application codes rightly
+- hard to debug, and check the processing data
