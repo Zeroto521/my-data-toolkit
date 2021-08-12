@@ -8,9 +8,7 @@ In steps of data preprocessing, we always need to do some **duplication things**
 
 When we finished dealing with the training dataset, we also need to sort those preprocessing steps out and make them to a function, a API, or something.
 
-## Example
-
-### Sample Data
+## Sample Data
 
 :::{note}
 All data are virtual.
@@ -31,7 +29,7 @@ There are some stores sale data of one chain brand.
 ...     "code": ["811-10001", "811-10002", "811-10003", "811-10004"],
 ...     "name": ["A", "B", "C", "D"],
 ...     "floor": ["1F", "2F", "1F", "B2"],
-...     "level": ["strategic", "normal", "impotant", "normal"],
+...     "level": ["strategic", "normal", "important", "normal"],
 ...     "type": ["School", "Mall", "Office", "Home"],
 ...     "area": [100, 95, 177, 70],
 ...     "population": [3000, 1000, 2000, 1500],
@@ -39,16 +37,16 @@ There are some stores sale data of one chain brand.
 ...     "opendays": [300, 100, 250, 15],
 ...     "sale": [8000, 5000, 3000, 1500],
 ... }
->>> df = pd.DataFrame.from_dict(store_sale_dict)
+>>> df = pd.DataFrame(store_sale_dict)
 >>> df
         code name floor      level    type  area  population  score  opendays  sale
 0  811-10001    A    1F  strategic  School   100        3000     10       300  8000
 1  811-10002    B    2F     normal    Mall    95        1000      8       100  5000
-2  811-10003    C    1F   impotant  Office   177        2000      6       250  3000
+2  811-10003    C    1F  important  Office   177        2000      6       250  3000
 3  811-10004    D    B2     normal    Home    70        1500      5        15  1500
 ```
 
-### Feature Types and Dealing Steps
+## Feature Types and Dealing Steps
 
 First of all, we should konw there are three types of features ( {math}`X`) and one label ( {math}`y`).
 
