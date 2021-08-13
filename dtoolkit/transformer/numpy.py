@@ -7,6 +7,11 @@ from .base import Transformer
 
 
 class NumpyTransformer(Transformer):
+    """
+    Base class for all :class:`numpy` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
     np_method: str
 
     def operate(self, X: Pd | np.ndarray, *args, **kwargs) -> np.ndarray:
