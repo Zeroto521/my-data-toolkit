@@ -3,6 +3,19 @@ Transformer
 .. currentmodule:: dtoolkit.transformer
 
 
+Base Transformer
+----------------
+
+Base class for all transformers.
+
+.. autosummary::
+    :toctree: api/transformer/base
+
+    Transformer
+    DataFrameTF
+    NumpyTF
+
+
 Sklearn Transformer
 -------------------
 .. autosummary::
