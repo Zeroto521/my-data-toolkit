@@ -6,7 +6,8 @@
 
 In steps of data preprocessing, we always need to do some **duplication things**.
 
-When we finished dealing with the training dataset, we also need to sort those preprocessing steps out and make them to a function, a API, or something.
+When we finished dealing with the training dataset, we also need to sort those
+preprocessing steps out and make them to a function, a API, or something.
 
 ## Sample Data
 
@@ -68,7 +69,7 @@ First of all, we should konw there are three types of features ( {math}`X`) and 
 Our mission is to find some relationships between these features and label.
 :::
 
-(pandas-way)=
+(the-pandas-way)=
 ## The Pandas Way
 
 In pandas code, most users might type something like this:
@@ -165,9 +166,9 @@ Output `X`
 
 ## The Pipeline Way
 
-From {ref}`The Pandas Way <pandas-way>` section, we can see that:
+From {ref}`the-pandas-way` section, we can see that:
 
-- The intermediate variables are full of steps. We don't care about them at the most time except debugging and reviewing.
+- The intermediate variables are full of steps. We don't care about them atthe most time except debugging and reviewing.
 - Data workflow is messy. Hard to separate data and operations.
 - The outputting datastruct is not comfortable. The inputting type is {obj}`~pandas.DataFrame` but the outputting type is {obj}`~numpy.ndarray`.
 - Hard to apply in prediction data.
@@ -177,16 +178,18 @@ From {ref}`The Pandas Way <pandas-way>` section, we can see that:
 
 {obj}`~sklearn.pipeline.Pipeline` is a good frame to fix these problems.
 
-Transform {ref}`Process X <process-x>` and {ref}`Process y <process-y>` section codes to pipeline codees.
+Transform {ref}`process-x` and {ref}`process-y` section codes to pipeline codees.
 
-But actually, these things are hard to transform to pipeline. Most are pandas methods, only OneHotEncoder and MinMaxScaler is could be added into {obj}`~sklearn.pipeline.Pipeline`.
+But actually, these things are hard to transform to pipeline.
+Most are pandas methods, only OneHotEncoder and MinMaxScaler is could be added
+into {obj}`~sklearn.pipeline.Pipeline`.
 
 The codes are still messy on **typing** and **applying** two ways.
 
-## The dtoolkit.transformer Way
+## The {ref}`dtoolkit.transformer <transformer>` Way
 
-Frame is good, but from {ref}`further one step to pipeline <further-one-step-to-pipeline>`
-section we could see that the core problem is **missing transformer**.
+Frame is good, but from {ref}`further-one-step-to-pipeline` section we could
+see that the core problem is **missing transformer**.
 
 - Pandas's methods couldn't be used as a transformer.
 - Numpy's methods couldn't be used as a transformer.
@@ -266,7 +269,7 @@ Output:
 [0.38596491 1.         0.        ]
 ```
 
-## Other ways to handle this
+## Other Ways to Handle This
 
 {meth}`~pandas.DataFrame.pipe` and {keyword}`def` function ways are ok.
 
@@ -274,3 +277,12 @@ But they are:
 
 - hard to transform to application codes rightly
 - hard to debug, and check the processing data
+
+## Next Steps - Learn or Build Transformers
+
+In this tutorial we've a quickly glance about {ref}`dtoolkit.transformer <transformer>`.
+
+And the next steps, should learn about other transformers,
+see documentation on {ref}`Transformer API <transformer>`.
+If those transformers don't meet your requirements, you could build your own
+transformer, follow the documentation on {ref}`how-to-build-transformer`.
