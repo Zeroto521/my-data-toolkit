@@ -197,6 +197,9 @@ section we could see that the core problem is **missing transformer**.
 Data Workflow:
 
 ```{code-block} python
+---
+emphasize-lines: 16-19, 22-33, 36-38
+---
 from dtoolkit.transformer import (
     EvalTF,
     FilterInTF,
@@ -231,7 +234,6 @@ pl_x = make_pipeline(
         ),
     ),
 )
-
 pl_y = make_pipeline(
     GetTF(label),
     MinMaxScaler(),

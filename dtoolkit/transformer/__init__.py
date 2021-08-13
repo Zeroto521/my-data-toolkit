@@ -1,6 +1,9 @@
+from .base import Transformer
+from .numpy import NumpyTF
 from .numpy import RavelTF
 from .pandas import AppendTF
 from .pandas import AssignTF
+from .pandas import DataFrameTF
 from .pandas import DropTF
 from .pandas import EvalTF
 from .pandas import FillnaTF
@@ -10,19 +13,21 @@ from .pandas import GetTF
 from .pandas import QueryTF
 from .pandas import ReplaceTF
 from .pandas import SelectDtypesTF
-from .sklearn import _change_data_to_df  # noqa
 from .sklearn import FeatureUnion
 from .sklearn import make_union
 from .sklearn import MinMaxScaler
 from .sklearn import OneHotEncoder
 
 __all__ = [
-    "FeatureUnion",
-    "make_union",
-    "MinMaxScaler",
-    "OneHotEncoder",
-    "AssignTF",
+    # base transformer
+    "Transformer",
+    "NumpyTF",
+    "DataFrameTF",
+    # numpy transformer
+    "RavelTF",
+    # pandas transformer
     "AppendTF",
+    "AssignTF",
     "DropTF",
     "EvalTF",
     "FillnaTF",
@@ -32,5 +37,9 @@ __all__ = [
     "QueryTF",
     "ReplaceTF",
     "SelectDtypesTF",
-    "RavelTF",
+    # sklearn transformer
+    "FeatureUnion",
+    "make_union",
+    "MinMaxScaler",
+    "OneHotEncoder",
 ]

@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import numpy as np
 
+from . import Transformer
 from .._typing import Pd
-from .base import Transformer
 
 
-class NumpyTransformer(Transformer):
+class NumpyTF(Transformer):
+    """
+    Base class for all :class:`numpy` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
     np_method: str
 
     def operate(self, X: Pd | np.ndarray, *args, **kwargs) -> np.ndarray:
@@ -34,7 +39,7 @@ class NumpyTransformer(Transformer):
         return getattr(np, self.np_method)(X, *args, **kwargs)
 
 
-class RavelTF(NumpyTransformer):
+class RavelTF(NumpyTF):
     """
     A transformer could return a contiguous flattened array.
 
