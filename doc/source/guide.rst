@@ -7,3 +7,4 @@ Some tips about dtoolkit.
     :maxdepth: 2
 
     Transformer and Pipeline Quickstart <guide/transformer>
+    How to Build Transformer <guide/build_transformer>

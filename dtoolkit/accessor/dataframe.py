@@ -195,12 +195,14 @@ class FilterInAccessor(DataFrameAccessor):
 
         * If ``condition`` is a :obj:`dict`, the keys must be the row/column
           names, which must match. And ``how`` only works on these gave keys.
+
             - ``axis`` is 0 or 'index', keys would be recognize as column
               names.
             - ``axis`` is 1 or 'columns', keys would be recognize as index
               names.
 
         * If ``condition`` is a :obj:`~pandas.Series`, that's the index.
+
         * If ``condition`` is a :obj:`~pandas.DataFrame`, then both the index
           and column labels must match.
 
