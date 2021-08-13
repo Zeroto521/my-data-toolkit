@@ -10,6 +10,11 @@ from .base import Transformer
 
 
 class DataFrameTF(Transformer):
+    """
+    Base class for all :class:`~pandas.DataFrame` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
     pd_method: str
 
     @doc(
