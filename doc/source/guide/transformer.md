@@ -269,7 +269,7 @@ Output:
 [0.38596491 1.         0.        ]
 ```
 
-## Other ways to handle this
+## Other Ways to Handle This
 
 {meth}`~pandas.DataFrame.pipe` and {keyword}`def` function ways are ok.
 
