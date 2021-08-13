@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from .._typing import Pd
 from . import Transformer
+from .._typing import Pd
 
 
 class NumpyTF(Transformer):
