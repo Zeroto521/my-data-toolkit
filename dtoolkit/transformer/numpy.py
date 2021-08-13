@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 
 from .._typing import Pd
-from .base import Transformer
+from . import Transformer
 
 
 class NumpyTF(Transformer):

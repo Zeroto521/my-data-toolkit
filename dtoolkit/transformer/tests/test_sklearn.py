@@ -5,9 +5,9 @@ from scipy import sparse
 from . import array
 from . import df_iris
 from . import df_label
-from dtoolkit.transformer import _change_data_to_df
 from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
+from dtoolkit.transformer.sklearn import _change_data_to_df
 
 #
 # Create dataset

@@ -3,10 +3,10 @@ from textwrap import dedent
 from pandas import DataFrame
 from pandas.util._decorators import doc
 
+from . import Transformer
 from .._checking import check_dataframe_type
 from .._typing import Pd
 from ..accessor import FilterInAccessor  # noqa
-from .base import Transformer
 
 
 class DataFrameTF(Transformer):
