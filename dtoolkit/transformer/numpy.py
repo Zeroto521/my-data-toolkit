@@ -6,7 +6,7 @@ from .._typing import Pd
 from .base import Transformer
 
 
-class NumpyTransformer(Transformer):
+class NumpyTF(Transformer):
     """
     Base class for all :class:`numpy` transformers in
     :class:`dtoolkit.transformer`.
@@ -39,7 +39,7 @@ class NumpyTransformer(Transformer):
         return getattr(np, self.np_method)(X, *args, **kwargs)
 
 
-class RavelTF(NumpyTransformer):
+class RavelTF(NumpyTF):
     """
     A transformer could return a contiguous flattened array.
 
