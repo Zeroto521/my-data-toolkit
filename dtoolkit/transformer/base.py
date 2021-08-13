@@ -10,7 +10,7 @@ from .._typing import Pd
 
 
 class Transformer(TransformerMixin):
-    """Base class for all transformers in dtoolkit."""
+    """Base class for all transformers in :class:`dtoolkit.transformer`."""
 
     def __init__(self, *args, **kwargs):
         """
