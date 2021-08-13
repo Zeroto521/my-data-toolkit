@@ -6,7 +6,7 @@ Transformer
 Base Transformer
 ----------------
 
-Base class for all transformers.
+Base transformer class for all transformers.
 
 .. autosummary::
     :toctree: api/transformer/base
