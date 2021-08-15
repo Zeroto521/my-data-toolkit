@@ -197,6 +197,10 @@ see that the core problem is **missing transformer**.
 
 ### Further More Steps to Pipeline
 
+:::{tip}
+You can {download}`Download the source code for the following <../../../example/transformer/dtoolkit-way.py>`.
+:::
+
 Data Workflow:
 
 ```{code-block} python
