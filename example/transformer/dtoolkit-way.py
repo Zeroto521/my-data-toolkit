@@ -12,6 +12,7 @@ from dtoolkit.transformer import (
 )
 from sklearn.pipeline import make_pipeline
 
+# basic data
 store_sale_dict = {
     "code": ["811-10001", "811-10002", "811-10003", "811-10004"],
     "name": ["A", "B", "C", "D"],
@@ -26,6 +27,7 @@ store_sale_dict = {
 }
 df = pd.DataFrame(store_sale_dict)
 
+# Set a series of feature name constants.
 features_category = ["floor", "type"]
 features_number = ["level", "area", "population", "score"]
 features = features_category + features_number
