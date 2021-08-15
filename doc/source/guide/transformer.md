@@ -72,6 +72,10 @@ Our mission is to find some relationships between these features and label.
 (the-pandas-way)=
 ## The Pandas Way
 
+:::{tip}
+You can {download}`Download the source code for the following <../../../example/transformer/pandas-way.py>`.
+:::
+
 In pandas code, most users might type something like this:
 
 Set a series of feature name constants.
@@ -196,6 +200,10 @@ see that the core problem is **missing transformer**.
 - Sklearn's transformers can't pandas in and pandas out.
 
 ### Further More Steps to Pipeline
+
+:::{tip}
+You can {download}`Download the source code for the following <../../../example/transformer/dtoolkit-way.py>`.
+:::
 
 Data Workflow:
 
