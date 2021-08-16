@@ -10,7 +10,7 @@ include geographic calculation, data engineering, and so on.
 - Python (>= 3.7)
 - Pandas (>= 1.1.0)
 - GeoPandas (>= 0.9.0)
-- Scikit-learn
+- Scikit-learn (>= 0.24.0)
 
 ## User Installation
 

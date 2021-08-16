@@ -31,6 +31,7 @@ jobs:
         env:
           - ci/envs/37.yaml
           - ci/envs/38.yaml
+          - ci/envs/38-minimal.yaml
         include:
           - env: ci/envs/38-dev.yaml
             os: ubuntu-latest
