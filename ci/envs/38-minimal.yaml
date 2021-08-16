@@ -7,11 +7,10 @@ dependencies:
   # required
   - pandas
   - geopandas=0.9.*
-  - scikit-learn=0.20.4
+  - scikit-learn=0.21.*
   - more-itertools
   # testing
   - pytest
   - pytest-cov
   - pytest-xdist
   - codecov
-
