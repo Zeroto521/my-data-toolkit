@@ -1,0 +1,17 @@
+name: test
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  # required
+  - pandas
+  - geopandas=0.9.*
+  - scikit-learn=0.20.*
+  - more-itertools
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov
+
