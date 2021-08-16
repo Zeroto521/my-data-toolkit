@@ -7,7 +7,7 @@ dependencies:
   # required
   - pandas
   - geopandas=0.9.*
-  - scikit-learn=0.21.*
+  - scikit-learn=0.23.*
   - more-itertools
   # testing
   - pytest
