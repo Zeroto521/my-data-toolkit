@@ -69,6 +69,20 @@ df_mixed = pd.concat([df_iris, df_label], axis=1)
             pd.DataFrame(s),
             make_pipeline(GetTF("target"), RavelTF()),
         ),
+        (
+            "mixed",
+            df_mixed,
+            make_union(
+                make_pipeline(
+                    GetTF(["a"]),
+                    FilterInTF({"a": [0]}),
+                ),
+                make_pipeline(
+                    GetTF(["b"]),
+                    FilterInTF({"b": [1]}),
+                ),
+            ),
+        ),
     ],
 )
 def test_pipeline_work(name, data, pipeline):
