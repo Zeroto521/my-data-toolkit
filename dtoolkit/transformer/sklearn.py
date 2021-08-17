@@ -14,9 +14,10 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from .._checking import istype
 from .._typing import PandasTypeList
 from ..accessor import ColumnAccessor  # noqa
+from .base import Transformer
 
 
-class FeatureUnion(SKFeatureUnion):
+class FeatureUnion(SKFeatureUnion, Transformer):
     """
     Concatenates results of multiple transformer objects.
 
