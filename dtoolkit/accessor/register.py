@@ -1,7 +1,7 @@
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_series_accessor
 
-from .base import MethodAccessor
+from .base import Accessor
 
 
 def register_method_factory(register_accessor: callable) -> callable:
@@ -14,8 +14,9 @@ def register_method_factory(register_accessor: callable) -> callable:
         """
 
         @register_accessor(method.__name__)
-        class InnerAccessor(MethodAccessor):
-            amethod = method
+        class InnerAccessor(Accessor):
+            def __call__(self, *args, **kwargs):
+                return method(self.pd_obj, *args, **kwargs)
 
         # Must return method itself, otherwise would get None.
         return method
