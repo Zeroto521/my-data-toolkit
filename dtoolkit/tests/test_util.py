@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from dtoolkit._util import multi_if_else
+from dtoolkit.util import multi_if_else
 
 
 class TestMultiIfElse:

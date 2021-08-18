@@ -71,7 +71,7 @@ def multi_if_else(
 
     Examples
     --------
-    >>> from dtoolkit._util import multi_if_else
+    >>> from dtoolkit.util import multi_if_else
     >>> import numpy as np
     >>> array = np.asarray(
     ...     [
