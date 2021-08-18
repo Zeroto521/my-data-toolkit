@@ -1,33 +1,26 @@
 Accessor
 ========
-.. currentmodule:: dtoolkit.accessor
+
+Pandas object accessor.
 
 
 Series Accessor
 ---------------
+.. currentmodule:: dtoolkit.accessor.series
 .. autosummary::
     :toctree: api/accessor/
-    :template: autosummary/accessor_callable.rst
 
-    DropInfSeriesAccessor
+    dropinf
+    cols
 
 
 DataFrame Accessor
 ------------------
+.. currentmodule:: dtoolkit.accessor.dataframe
 .. autosummary::
     :toctree: api/accessor/
-    :template: autosummary/accessor_callable.rst
 
-    DropInfDataFrameAccessor
-    FilterInAccessor
-    RepeatAccessor
-
-
-Both Series and DataFrame Accessor
-----------------------------------
-.. autosummary::
-    :toctree: api/accessor/
-    :template: autosummary/accessor_callable.rst
-
-    ColumnAccessor
-
+    dropinf
+    cols
+    filterin
+    repeat
