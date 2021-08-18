@@ -1,6 +1,8 @@
-from pandas.api.extensions import register_dataframe_accessor, register_series_accessor
+from pandas.api.extensions import register_dataframe_accessor
+from pandas.api.extensions import register_series_accessor
 
-from .base import MethodAccessor, register_method_factory
+from .base import MethodAccessor
+from .base import register_method_factory
 
 
 def register_method_factory(register_accessor: callable) -> callable:

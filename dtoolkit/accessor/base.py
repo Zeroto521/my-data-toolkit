@@ -43,7 +43,7 @@ class Accessor:
     >>> @register_dataframe_accessor('HookingName')
     ... class MyAccessor(MethodAccessor):
     ...     method = yourmethod
-    """
+    """,
     ),
 )
 class MethodAccessor(Accessor):
