@@ -8,7 +8,7 @@ import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.util._validators import validate_bool_kwarg
 
-from .._util import multi_if_else
+from ..util import multi_if_else
 from .base import Accessor
 from .series import _get_inf_range
 
