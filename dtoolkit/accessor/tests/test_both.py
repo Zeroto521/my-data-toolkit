@@ -2,7 +2,8 @@ import pytest
 
 from . import d
 from . import s
-from dtoolkit.accessor import ColumnAccessor  # noqa
+from dtoolkit.accessor.dataframe import cols  # noqa
+from dtoolkit.accessor.series import cols  # noqa
 
 
 @pytest.mark.parametrize(
@@ -12,5 +13,5 @@ from dtoolkit.accessor import ColumnAccessor  # noqa
         (d, d.columns.tolist()),
     ],
 )
-def test_columnaccessor(df, expt):
+def test_column(df, expt):
     assert df.cols() == expt
