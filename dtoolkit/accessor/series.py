@@ -5,7 +5,7 @@ import pandas as pd
 from pandas.api.extensions import register_series_accessor
 from pandas.util._validators import validate_bool_kwarg
 
-from .._util import multi_if_else
+from ..util import multi_if_else
 from .base import Accessor
 
 
