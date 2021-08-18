@@ -15,6 +15,12 @@ def register_method_factory(register_accessor: callable) -> callable:
 
         @register_accessor(method.__name__)
         class InnerAccessor(Accessor):
+            __module__ = method.__module__
+            __name__ = method.__name__
+            __doc__ = method.__doc__
+            __qualname__ = method.__qualname__
+            __annotations__ = method.__annotations__
+
             def __call__(self, *args, **kwargs):
                 return method(self.pd_obj, *args, **kwargs)
 
