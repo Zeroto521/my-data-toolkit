@@ -81,7 +81,8 @@ def dropinf(
 
     See Also
     --------
-    DropInfSeriesAccessor : :obj:`~pandas.Series` drops ``inf`` values.
+    dtoolkit.accessor.series.dropinf : :obj:`~pandas.Series` drops ``inf``
+        values.
 
     Examples
     --------
