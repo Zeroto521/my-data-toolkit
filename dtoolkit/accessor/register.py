@@ -1,6 +1,7 @@
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_series_accessor
 
+from ..util import wraps
 from .base import Accessor
 
 
@@ -46,16 +47,8 @@ def register_method_factory(register_accessor: callable) -> callable:
         """
 
         @register_accessor(method.__name__)
-        class InnerAccessor(Accessor):
-            # Keep the same additional attributes with method
-            # Can't use functools.wraps, method is a functin object but
-            # InnerAccessor is a class object.
-            __module__ = method.__module__
-            __name__ = method.__name__
-            __doc__ = method.__doc__
-            __qualname__ = method.__qualname__
-            __annotations__ = method.__annotations__
-
+        @wraps(method)
+        class PdCustomMethod(Accessor):
             def __call__(self, *args, **kwargs):
                 return method(self.pd_obj, *args, **kwargs)
 
