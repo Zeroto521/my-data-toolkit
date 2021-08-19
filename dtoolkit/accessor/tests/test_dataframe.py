@@ -3,12 +3,12 @@ import pandas as pd
 import pytest
 
 from . import d
-from dtoolkit.accessor import DropInfDataFrameAccessor  # noqa
-from dtoolkit.accessor import FilterInAccessor  # noqa
-from dtoolkit.accessor import RepeatAccessor  # noqa
+from dtoolkit.accessor.dataframe import dropinf  # noqa
+from dtoolkit.accessor.dataframe import filterin  # noqa
+from dtoolkit.accessor.dataframe import repeat  # noqa
 
 
-class TestDropinfDataFrameAccessor:
+class TestDropinf:
     @pytest.mark.parametrize(
         "df, axis, how, inf, subset, expt",
         [
@@ -127,7 +127,7 @@ class TestDropinfDataFrameAccessor:
         assert self_d.equals(d)
 
 
-class TestFilterInAccessor:
+class TestFilterIn:
     def setup_method(self):
         self.d = d.copy(True)
         self.condition = {"a": [0, 1], "b": [2]}
@@ -168,7 +168,7 @@ class TestFilterInAccessor:
         assert res.equals(expected)
 
 
-class TestRepeatAccessor:
+class TestRepeat:
     def setup_method(self):
         self.d = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
 

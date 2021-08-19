@@ -1,12 +1,16 @@
 import joblib
-import numpy as np
 import pandas as pd
 import pytest
 from scipy import sparse
-from sklearn.datasets import load_iris
 from sklearn.pipeline import make_pipeline
 
-from dtoolkit.accessor import ColumnAccessor  # noqa
+from . import df_iris
+from . import df_label
+from . import df_mixed
+from . import feature_names
+from . import s
+from dtoolkit.accessor.dataframe import cols  # noqa
+from dtoolkit.accessor.series import cols  # noqa
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
 from dtoolkit.transformer import FeatureUnion
@@ -17,37 +21,6 @@ from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
-
-#
-# Create dataset
-#
-
-iris = load_iris(as_frame=True)
-feature_names = iris.feature_names
-df_iris = iris.data
-s = iris.target
-array = df_iris.values
-
-period_names = [f"h_{t}" for t in range(24 + 1)]
-df_period = pd.DataFrame(
-    np.random.randint(
-        len(period_names),
-        size=(len(df_iris), len(period_names)),
-    ),
-    columns=period_names,
-)
-
-label_size = 3
-data_size = len(df_iris)
-df_label = pd.DataFrame(
-    {
-        "a": np.random.randint(label_size, size=data_size),
-        "b": np.random.randint(label_size, size=data_size),
-    },
-)
-
-
-df_mixed = pd.concat([df_iris, df_label], axis=1)
 
 
 @pytest.mark.parametrize(

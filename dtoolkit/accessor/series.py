@@ -1,16 +1,66 @@
 from __future__ import annotations
 
-import numpy as np
+from textwrap import dedent
+
 import pandas as pd
-from pandas.api.extensions import register_series_accessor
+from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from ..util import multi_if_else
-from .base import Accessor
+from ._util import get_inf_range
+from .register import register_series_method
+
+__all__ = ["cols", "dropinf"]
 
 
-@register_series_accessor("dropinf")
-class DropInfSeriesAccessor(Accessor):
+@register_series_method
+@doc(
+    returns=dedent(
+        """
+    Returns
+    -------
+    str
+        The name of the series.
+    """,
+    ),
+)
+def cols(s: pd.Series) -> str:
+    """
+    A API to gather :attr:`~pandas.Series.name` and
+    :attr:`~pandas.DataFrame.columns` to one.
+    {returns}
+    See Also
+    --------
+    pandas.Series.name
+    pandas.DataFrame.columns
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.dataframe import cols
+    >>> from dtoolkit.accessor.series import cols
+    >>> import pandas as pd
+
+    Get :attr:`~pandas.Series.name`.
+
+    >>> s = pd.Series(range(10), name="item")
+    >>> s.cols()
+    'item'
+
+    Get :attr:`~pandas.DataFrame.columns`.
+
+    >>> d = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+    >>> d.cols()
+    ['a', 'b']
+    """
+
+    return s.name
+
+
+@register_series_method
+def dropinf(
+    s: pd.Series,
+    inf: str = "all",
+    inplace: bool = False,
+) -> pd.Series | None:
     """
     Remove ``inf`` values.
 
@@ -37,7 +87,7 @@ class DropInfSeriesAccessor(Accessor):
 
     Examples
     --------
-    >>> from dtoolkit.accessor import DropInfSeriesAccessor
+    >>> from dtoolkit.accessor.series import dropinf
     >>> import pandas as pd
     >>> import numpy as np
     >>> ser = pd.Series([1., 2., np.inf])
@@ -63,30 +113,12 @@ class DropInfSeriesAccessor(Accessor):
     dtype: float64
     """
 
-    def __call__(
-        self,
-        inf: str = "all",
-        inplace: bool = False,
-    ) -> pd.Series | None:
-        inplace = validate_bool_kwarg(inplace, "inplace")
+    inplace = validate_bool_kwarg(inplace, "inplace")
+    inf_range = get_inf_range(inf)
+    mask = s.isin(inf_range)
+    result = s[~mask]
 
-        inf_range = _get_inf_range(inf)
-        mask = self.pd_obj.isin(inf_range)
-        result = self.pd_obj[~mask]
+    if not inplace:
+        return result
 
-        if not inplace:
-            return result
-
-        self.pd_obj._update_inplace(result)
-
-
-def _get_inf_range(inf: str = "all") -> list[float]:
-    return multi_if_else(
-        [
-            (inf == "all", [np.inf, -np.inf]),
-            (inf == "pos", [np.inf]),
-            (inf == "neg", [-np.inf]),
-            (inf is not None, ValueError(f"invalid inf option: {inf}")),
-        ],
-        TypeError("must specify inf"),
-    )
+    s._update_inplace(result)

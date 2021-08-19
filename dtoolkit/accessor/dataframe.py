@@ -1,54 +1,48 @@
 from __future__ import annotations
 
 from collections import defaultdict
+from textwrap import dedent
 from typing import Iterable
 
 import numpy as np
 import pandas as pd
-from pandas.api.extensions import register_dataframe_accessor
+from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from ..util import multi_if_else
-from .base import Accessor
-from .series import _get_inf_range
+from ._util import get_inf_range
+from ._util import get_mask
+from ._util import validate_axis
+from .register import register_dataframe_method
+from .series import cols as series_cols
+
+__all__ = ["cols", "dropinf", "filterin", "repeat"]
 
 
-class DataFrameAccessor(Accessor):
-    def _validate_inplace(self, inplace: bool) -> bool:
-        return validate_bool_kwarg(inplace, "inplace")
-
-    def _validate_axis(self, axis: int | str) -> int:
-        if isinstance(axis, (tuple, list)):
-            msg = "supplying multiple axes to axis is no longer supported."
-            raise TypeError(msg)
-
-        return self.pd_obj._get_axis_number(axis)
-
-    def isin(
-        self,
-        values: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
-        axis: int = 0,
-    ) -> pd.DataFrame:
+@register_dataframe_method
+@doc(
+    series_cols,
+    returns=dedent(
         """
-        Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
-        :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
-        """
-
-        if isinstance(values, dict) and axis == 1:
-            values = defaultdict(list, values)
-            return pd.concat(
-                (
-                    self.pd_obj.iloc[[i], :].isin(values[ind])
-                    for i, ind in enumerate(self.pd_obj.index)
-                ),
-                axis=0,
-            )
-
-        return self.pd_obj.isin(values)
+    Returns
+    -------
+    list of str
+        The column names.
+    """,
+    ),
+)
+def cols(df: pd.DataFrame) -> list[str]:
+    return df.columns.tolist()
 
 
-@register_dataframe_accessor("dropinf")
-class DropInfDataFrameAccessor(DataFrameAccessor):
+@register_dataframe_method
+def dropinf(
+    df: pd.DataFrame,
+    axis: int | str = 0,
+    how: str = "any",
+    inf: str = "all",
+    subset: list[str] | None = None,
+    inplace: bool = False,
+) -> pd.DataFrame | None:
     """
     Remove ``inf`` values.
 
@@ -91,7 +85,7 @@ class DropInfDataFrameAccessor(DataFrameAccessor):
 
     Examples
     --------
-    >>> from dtoolkit.accessor import DropInfDataFrameAccessor
+    >>> from dtoolkit.accessor.dataframe import dropinf
     >>> import pandas as pd
     >>> import numpy as np
     >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
@@ -148,40 +142,40 @@ class DropInfDataFrameAccessor(DataFrameAccessor):
     1    Batman  Batmobile  1940-04-25 00:00:00
     """
 
-    def __call__(
-        self,
-        axis: int | str = 0,
-        how: str = "any",
-        inf: str = "all",
-        subset: list[str] | None = None,
-        inplace: bool = False,
-    ) -> pd.DataFrame | None:
-        inplace = self._validate_inplace(inplace)
-        axis = self._validate_axis(axis)
-        agg_axis = 1 - axis
-        agg_obj = self.pd_obj
-        if subset is not None:
-            ax = self.pd_obj._get_axis(agg_axis)
-            indices = ax.get_indexer_for(subset)
-            check = indices == -1
-            if check.any():
-                raise KeyError(list(np.compress(check, subset)))
+    inplace = validate_bool_kwarg(inplace, "inplace")
 
-            agg_obj = self.pd_obj.take(indices, axis=agg_axis)
+    axis = validate_axis(df, axis)
+    agg_axis = 1 - axis
 
-        inf_range = _get_inf_range(inf)
-        mask = agg_obj.isin(inf_range)
-        mask = _get_mask(how, mask, agg_axis)
-        result = self.pd_obj.loc(axis=axis)[~mask]
+    agg_obj = df
+    if subset is not None:
+        ax = df._get_axis(agg_axis)
+        indices = ax.get_indexer_for(subset)
+        check = indices == -1
+        if check.any():
+            raise KeyError(list(np.compress(check, subset)))
 
-        if not inplace:
-            return result
+        agg_obj = df.take(indices, axis=agg_axis)
 
-        self.pd_obj._update_inplace(result)
+    inf_range = get_inf_range(inf)
+    mask = agg_obj.isin(inf_range)
+    mask = get_mask(how, mask, agg_axis)
+    result = df.loc(axis=axis)[~mask]
+
+    if not inplace:
+        return result
+
+    df._update_inplace(result)
 
 
-@register_dataframe_accessor("filterin")
-class FilterInAccessor(DataFrameAccessor):
+@register_dataframe_method
+def filterin(
+    df: pd.DataFrame,
+    condition: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+    axis: int | str = 0,
+    how: str = "all",
+    inplace: bool = False,
+) -> pd.DataFrame | None:
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
@@ -235,7 +229,7 @@ class FilterInAccessor(DataFrameAccessor):
 
     Examples
     --------
-    >>> from dtoolkit.accessor import FilterInAccessor
+    >>> from dtoolkit.accessor.dataframe import filterin
     >>> import pandas as pd
     >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
     ...                   index=['falcon', 'dog', 'cat'])
@@ -294,49 +288,31 @@ class FilterInAccessor(DataFrameAccessor):
     falcon         2          2
     """
 
-    def __call__(
-        self,
-        condition: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
-        axis: int | str = 0,
-        how: str = "all",
-        inplace: bool = False,
-    ) -> pd.DataFrame | None:
-        inplace = self._validate_inplace(inplace)
+    inplace = validate_bool_kwarg(inplace, "inplace")
+    axis = validate_axis(df, axis)
 
-        axis = self._validate_axis(axis)
-        another_axis = 1 - axis
+    another_axis = 1 - axis
 
-        mask = self.isin(condition, axis)
-        if isinstance(condition, dict):
-            # 'how' only works on condition's keys
-            names = condition.keys()
-            mask = mask[names] if axis == 0 else mask.loc[names]
-        mask = _get_mask(how, mask, another_axis)
+    mask = isin(df, condition, axis)
+    if isinstance(condition, dict):
+        # 'how' only works on condition's keys
+        names = condition.keys()
+        mask = mask[names] if axis == 0 else mask.loc[names]
+    mask = get_mask(how, mask, another_axis)
 
-        result = self.pd_obj.loc(axis=axis)[mask]
-        if not inplace:
-            return result
+    result = df.loc(axis=axis)[mask]
+    if not inplace:
+        return result
 
-        self.pd_obj._update_inplace(result)
+    df._update_inplace(result)
 
 
-def _get_mask(
-    how: str,
-    mask: pd.DataFrame | np.ndarray,
-    axis: int,
-) -> pd.Series | np.ndarray:
-    return multi_if_else(
-        [
-            (how == "any", mask.any(axis=axis)),
-            (how == "all", mask.all(axis=axis)),
-            (how is not None, ValueError(f"invalid inf option: {how}")),
-        ],
-        TypeError("must specify how"),
-    )
-
-
-@register_dataframe_accessor("repeat")
-class RepeatAccessor(DataFrameAccessor):
+@register_dataframe_method
+def repeat(
+    df: pd.DataFrame,
+    repeats: int | list[int],
+    axis: int | str = 0,
+) -> pd.DataFrame | None:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.
 
@@ -368,7 +344,7 @@ class RepeatAccessor(DataFrameAccessor):
     Examples
     --------
     >>> import pandas as pd
-    >>> from dtoolkit.accessor import RepeatAccessor
+    >>> from dtoolkit.accessor.dataframe import repeat
     >>> df = pd.DataFrame({'a': [1, 2], 'b':[3, 4]})
     >>> df
        a  b
@@ -399,27 +375,40 @@ class RepeatAccessor(DataFrameAccessor):
     1  2  4  4
     """
 
-    def __call__(
-        self,
-        repeats: int | list[int],
-        axis: int | str = 0,
-    ) -> pd.DataFrame | None:
-        new_index = self.pd_obj.index.copy()
-        new_column = self.pd_obj.columns.copy()
+    new_index = df.index.copy()
+    new_column = df.columns.copy()
 
-        axis = self._validate_axis(axis)
-        if axis == 0:
-            new_index = new_index.repeat(repeats)
-        elif axis == 1:
-            new_column = new_column.repeat(repeats)
+    axis = validate_axis(df, axis)
+    if axis == 0:
+        new_index = new_index.repeat(repeats)
+    elif axis == 1:
+        new_column = new_column.repeat(repeats)
 
-        new_values = np.repeat(
-            self.pd_obj._values,
-            repeats,
-            axis=axis,
-        )
-        return pd.DataFrame(
-            new_values,
-            index=new_index,
-            columns=new_column,
-        )
+    new_values = np.repeat(
+        df._values,
+        repeats,
+        axis=axis,
+    )
+    return pd.DataFrame(
+        new_values,
+        index=new_index,
+        columns=new_column,
+    )
+
+
+def isin(
+    df: pd.DataFrame,
+    values: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+    axis: int = 0,
+) -> pd.DataFrame:
+    """
+    Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
+    :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
+    """
+
+    if isinstance(values, dict) and axis == 1:
+        values = defaultdict(list, values)
+        result = (df.iloc[[r]].isin(values[i]) for r, i in enumerate(df.index))
+        return pd.concat(result, axis=0)
+
+    return df.isin(values)
