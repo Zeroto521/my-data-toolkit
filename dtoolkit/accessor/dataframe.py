@@ -408,7 +408,10 @@ def isin(
 
     if isinstance(values, dict) and axis == 1:
         values = defaultdict(list, values)
-        result = (df.iloc[[i]].isin(values[ind]) for i, ind in enumerate(df.index))
+        result = (
+            df.iloc[[i]].isin(values[ind])
+            for i, ind in enumerate(df.index)
+        )
         return pd.concat(result, axis=0)
 
     return df.isin(values)
