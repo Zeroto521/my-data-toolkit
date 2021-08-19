@@ -1,0 +1,9 @@
+Utility
+=======
+.. currentmodule:: dtoolkit.util
+
+
+.. autosummary::
+    :toctree: api/util/
+
+    multi_if_else
