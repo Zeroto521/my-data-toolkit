@@ -8,8 +8,8 @@ from . import df_label
 from . import df_mixed
 from . import df_period
 from . import feature_names
-from dtoolkit.accessor.dataframe import cols  # noqa
-from dtoolkit.accessor.series import cols  # noqa
+from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa
+from dtoolkit.accessor.series import cols as series_cols  # noqa
 from dtoolkit.transformer import AppendTF
 from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF
