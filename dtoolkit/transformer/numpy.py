@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from . import Transformer
+from .base import Transformer
 from .._typing import Pd
 
 
