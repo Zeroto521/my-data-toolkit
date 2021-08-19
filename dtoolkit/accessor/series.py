@@ -82,8 +82,8 @@ def dropinf(
 
     See Also
     --------
-    DropInfDataFrameAccessor : :obj:`~pandas.DataFrame` drops rows or columns
-        which contain :obj:`~numpy.inf` values.
+    dtoolkit.accessor.dataframe.dropinf : :obj:`~pandas.DataFrame` drops rows
+        or columns which contain :obj:`~numpy.inf` values.
 
     Examples
     --------
