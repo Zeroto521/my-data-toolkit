@@ -129,7 +129,8 @@ def wraps(wrapped):
     """
     Keep the same additional attributes with ``wrapped``.
 
-    Can't use :meth`functools.wraps`, specially when ``wrapped`` type is :type:`functin` and ``wrapper`` is :type:`class`.
+    Can't use :meth`functools.wraps`, specially when ``wrapped`` type is
+    :type:`functin` and ``wrapper`` is :type:`class`.
     """
 
     def decorator(wrapper):
