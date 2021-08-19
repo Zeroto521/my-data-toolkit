@@ -7,3 +7,4 @@ Utility
     :toctree: api/util/
 
     multi_if_else
+    wraps
