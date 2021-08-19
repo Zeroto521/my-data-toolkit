@@ -4,9 +4,10 @@ import pytest
 
 from . import s
 from . import s_inf
+from dtoolkit.accessor.series import dropinf  # noqa
 
 
-class TestDropinfSeriesAccessor:
+class TestDropinf:
     def setup_method(self):
         self.s = s.copy(True)
         self.s = self.s.append(s_inf)

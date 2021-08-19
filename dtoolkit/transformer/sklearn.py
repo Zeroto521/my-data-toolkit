@@ -13,7 +13,8 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from .._checking import istype
 from .._typing import PandasTypeList
-from ..accessor import ColumnAccessor  # noqa
+from ..accessor.dataframe import cols  # noqa
+from ..accessor.series import cols  # noqa
 from .base import Transformer
 
 
