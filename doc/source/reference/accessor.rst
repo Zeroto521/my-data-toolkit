@@ -22,3 +22,13 @@ DataFrame Accessor
     dropinf
     filterin
     repeat
+
+
+Register
+--------
+.. currentmodule:: dtoolkit.accessor.register
+.. autosummary::
+    :toctree: api/accessor/
+
+    register_series_method
+    register_dataframe_method
