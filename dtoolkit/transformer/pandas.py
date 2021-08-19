@@ -3,10 +3,10 @@ from textwrap import dedent
 from pandas import DataFrame
 from pandas.util._decorators import doc
 
-from .base import Transformer
 from .._checking import check_dataframe_type
 from .._typing import Pd
 from ..accessor.dataframe import filterin  # noqa
+from .base import Transformer
 
 
 class DataFrameTF(Transformer):
@@ -33,14 +33,9 @@ class DataFrameTF(Transformer):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    def validate(self, X: DataFrame):
-        """Check ``X`` is the type of :obj:`~pandas.DataFrame` or not."""
-
-        return check_dataframe_type(X)
-
-    def operate(self, X: DataFrame, *args, **kwargs) -> Pd:
+    def transform(self, X: DataFrame) -> Pd:
         """
-        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
+        Transform ``X``.
 
         Parameters
         ----------
@@ -60,7 +55,9 @@ class DataFrameTF(Transformer):
             A new X was transformed.
         """
 
-        return getattr(X, self.pd_method)(*args, **kwargs)
+        check_dataframe_type(X)
+
+        return getattr(X, self.pd_method)(*self.args, **self.kwargs)
 
 
 class AssignTF(DataFrameTF):

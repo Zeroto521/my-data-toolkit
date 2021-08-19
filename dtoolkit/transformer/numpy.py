@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from .base import Transformer
 from .._typing import Pd
+from .base import Transformer
 
 
 class NumpyTF(Transformer):
@@ -14,9 +14,9 @@ class NumpyTF(Transformer):
 
     np_method: str
 
-    def operate(self, X: Pd | np.ndarray, *args, **kwargs) -> np.ndarray:
+    def transform(self, X: Pd | np.ndarray) -> np.ndarray:
         """
-        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
+        Transform ``X``.
 
         Parameters
         ----------
@@ -36,7 +36,7 @@ class NumpyTF(Transformer):
             A new X was transformed.
         """
 
-        return getattr(np, self.np_method)(X, *args, **kwargs)
+        return getattr(np, self.np_method)(X, *self.args, **self.kwargs)
 
 
 class RavelTF(NumpyTF):
