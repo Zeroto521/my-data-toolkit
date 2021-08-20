@@ -28,8 +28,24 @@ class RavelTF(NumpyTF):
     >>> from dtoolkit.transformer import RavelTF
     >>> x = np.array([[1, 2, 3], [4, 5, 6]])
     >>> tf = RavelTF()
-    >>> tf.transform(x)
+
+    :meth:`RavelTF.transform`, flatten data:
+
+    >>> transformed_data = tf.transform(x)
+    >>> transformed_data
     array([1, 2, 3, 4, 5, 6])
+
+    :meth:`RavelTF.inverse_transform`, transform data to
+    :class:`~pandas.Series`:
+
+    >>> tf.inverse_transform(transformed_data)
+    0    1
+    1    2
+    2    3
+    3    4
+    4    5
+    5    6
+    dtype: int32
     """
 
     transform_method = np.ravel.__name__
