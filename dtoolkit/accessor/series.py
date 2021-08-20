@@ -19,7 +19,7 @@ __all__ = ["cols", "dropinf"]
     Returns
     -------
     str
-        The name of the series.
+        The name of the Series.
     """,
     ),
 )
@@ -62,14 +62,14 @@ def dropinf(
     inplace: bool = False,
 ) -> pd.Series | None:
     """
-    Remove ``inf`` values.
+    Remove :obj:`~numpy.inf` values.
 
     Parameters
     ----------
     inf : {'all', 'pos', 'neg'}, default 'all'
-        * 'all' : Remove :obj:`~numpy.inf` and -:obj:`~numpy.inf`.
-        * 'pos' : Only remove :obj:`~numpy.inf`:.
-        * 'neg' : Only remove -:obj:`~numpy.inf`:.
+        * 'all' : Remove ``inf`` and ``-inf``.
+        * 'pos' : Only remove ``inf``.
+        * 'neg' : Only remove ``-inf``.
 
     inplace : bool, default False
         If True, do operation inplace and return None.
