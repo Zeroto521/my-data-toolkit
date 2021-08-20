@@ -8,7 +8,7 @@ def multi_if_else(
     else_return: Any | None = None,
 ) -> Any | None:
     """
-    Handle a series of ``if`` or ``elif``.
+    Handle a series of :keyword:`if` or :keyword:`elif`.
 
     Parameters
     ----------
