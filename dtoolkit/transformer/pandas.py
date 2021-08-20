@@ -330,11 +330,11 @@ class FilterInTF(DataFrameTF):
 
     See Also
     --------
-    dtoolkit.accessor.FilterInAccessor : This transformer's prototype method.
+    dtoolkit.accessor.dataframe.filterin : This transformer's prototype method.
 
     Notes
     -----
-    :class:`~dtoolkit.accessor.FilterInAccessor`'s ``inplace`` parameter is
+    :func:`~dtoolkit.accessor.dataframe.filterin`'s ``inplace`` parameter is
     not work for this transformer. Actually this break pipeline stream. If a
     transformer's ``inplace`` is ``True``, the next tf input would get
     ``None``.
