@@ -78,8 +78,7 @@ class NumpyTF(ObjectInnerMethodTF):
         Parameters
         ----------
         X : Series, DataFrame or array-like
-            Input data to be transformed. The same one to
-            :func:`~dtoolkit.Transformer.transform`.
+            Input data to be transformed.
 
         Returns
         -------
@@ -118,9 +117,8 @@ class DataFrameTF(ObjectInnerMethodTF):
 
         Parameters
         ----------
-        X : Series, DataFrame or array-like
-            Input data to be transformed. The same one to
-            :func:`~dtoolkit.Transformer.transform`.
+        X : DataFrame
+            Input data to be transformed.
 
         Returns
         -------
