@@ -279,7 +279,7 @@ Output:
 
 ## Other Ways to Handle This
 
-{meth}`~pandas.DataFrame.pipe` and {keyword}`def` function ways are ok.
+{meth}`~pandas.DataFrame.pipe` and {keyword}`function` ways are ok.
 
 But they are:
 
