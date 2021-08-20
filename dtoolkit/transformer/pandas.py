@@ -1,66 +1,7 @@
-from textwrap import dedent
-
 from pandas import DataFrame
-from pandas.util._decorators import doc
 
-from . import Transformer
-from .._checking import check_dataframe_type
-from .._typing import Pd
 from ..accessor.dataframe import filterin  # noqa
-
-
-class DataFrameTF(Transformer):
-    """
-    Base class for all :class:`~pandas.DataFrame` transformers in
-    :class:`dtoolkit.transformer`.
-    """
-
-    pd_method: str
-
-    @doc(
-        Transformer.__init__,
-        dedent(
-            """
-        Notes
-        -----
-        If ``kwargs`` have ``inplace`` parameter, it would be remove autoly.
-        The inplace parameter is not work for DataFrame transformer. Actually
-        this would break pipeline stream. If a transformer's inplace is True,
-        the next tf input would get None.""",
-        ),
-    )
-    def __init__(self, *args, **kwargs):
-        kwargs.pop("inplace", None)
-        super().__init__(*args, **kwargs)
-
-    def validate(self, X: DataFrame):
-        """Check ``X`` is the type of :obj:`~pandas.DataFrame` or not."""
-
-        return check_dataframe_type(X)
-
-    def operate(self, X: DataFrame, *args, **kwargs) -> Pd:
-        """
-        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
-
-        Parameters
-        ----------
-        X : Series, DataFrame or array-like
-            Input data to be transformed. The same one to
-            :func:`~dtoolkit.Transformer.transform`.
-        args
-            They are the same to corresponding to relative
-            :obj:`~pandas.DataFrame`'s method.
-        kwargs
-            They are the same to corresponding to relative
-            :obj:`~pandas.DataFrame`'s method.
-
-        Returns
-        -------
-        DataFrame
-            A new X was transformed.
-        """
-
-        return getattr(X, self.pd_method)(*args, **kwargs)
+from .base import DataFrameTF
 
 
 class AssignTF(DataFrameTF):
@@ -91,7 +32,7 @@ class AssignTF(DataFrameTF):
     Berkeley    25.0    77.0
     """
 
-    pd_method = "assign"
+    transform_method = DataFrame.assign.__name__
 
 
 class AppendTF(DataFrameTF):
@@ -139,7 +80,7 @@ class AppendTF(DataFrameTF):
     3  7  8
     """
 
-    pd_method = "append"
+    transform_method = DataFrame.append.__name__
 
 
 class DropTF(DataFrameTF):
@@ -228,7 +169,7 @@ class DropTF(DataFrameTF):
             weight  1.0     0.8
     """
 
-    pd_method = "drop"
+    transform_method = DataFrame.drop.__name__
 
 
 class EvalTF(DataFrameTF):
@@ -303,7 +244,7 @@ class EvalTF(DataFrameTF):
     4  5   2   7  3
     """
 
-    pd_method = "eval"
+    transform_method = DataFrame.eval.__name__
 
 
 class FillnaTF(DataFrameTF):
@@ -380,7 +321,7 @@ class FillnaTF(DataFrameTF):
     3   NaN 3.0 NaN 4
     """
 
-    pd_method = "fillna"
+    transform_method = DataFrame.fillna.__name__
 
 
 class FilterInTF(DataFrameTF):
@@ -453,7 +394,7 @@ class FilterInTF(DataFrameTF):
     falcon         2          2
     """
 
-    pd_method = "filterin"
+    transform_method = DataFrame.filterin.__name__
 
 
 class FilterTF(DataFrameTF):
@@ -502,7 +443,7 @@ class FilterTF(DataFrameTF):
     rabbit    4    5      6
     """
 
-    pd_method = "filter"
+    transform_method = DataFrame.filter.__name__
 
 
 class GetTF(DataFrameTF):
@@ -515,7 +456,7 @@ class GetTF(DataFrameTF):
     pandas.DataFrame.get : This transformer's prototype method.
     """
 
-    pd_method = "get"
+    transform_method = DataFrame.get.__name__
 
 
 class QueryTF(DataFrameTF):
@@ -572,7 +513,7 @@ class QueryTF(DataFrameTF):
     0  1  10   10
     """
 
-    pd_method = "query"
+    transform_method = DataFrame.query.__name__
 
 
 class ReplaceTF(DataFrameTF):
@@ -697,7 +638,7 @@ class ReplaceTF(DataFrameTF):
     2  bait  xyz
     """
 
-    pd_method = "replace"
+    transform_method = DataFrame.replace.__name__
 
 
 class SelectDtypesTF(DataFrameTF):
@@ -756,4 +697,4 @@ class SelectDtypesTF(DataFrameTF):
     5  False  2.0
     """
 
-    pd_method = "select_dtypes"
+    transform_method = DataFrame.select_dtypes.__name__

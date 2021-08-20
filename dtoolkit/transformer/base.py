@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from typing import Any
+from textwrap import dedent
 
 import numpy as np
 import pandas as pd
+from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
+from .._checking import check_dataframe_type
 from .._typing import Pd
 
 
@@ -15,59 +17,10 @@ class Transformer(TransformerMixin):
     def __init__(self, *args, **kwargs):
         """
         Transformer arguement entry.
-
-        Parameters
-        ----------
-        args
-            The positional arguements of :func:`~dtoolkit.Transformer.operate`.
-        kwargs
-            The keyword arguements of :func:`~dtoolkit.Transformer.operate`.
         """
 
         self.args = args
         self.kwargs = kwargs
-
-    def operate(self, X: Pd | np.ndarray, *_, **__) -> Pd | np.ndarray:
-        """
-        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
-
-        Parameters
-        ----------
-        X : Series, DataFrame or array-like
-            Input data to be transformed. The same one to
-            :func:`~dtoolkit.Transformer.transform`.
-        _
-            The positional arguements of its.
-        __
-            The keyword arguements of its.
-
-        Returns
-        -------
-        DataFrame or ndarray
-            A new X was transformed.
-
-        Notes
-        -----
-        The subclass should implement its own method.
-        """
-
-        return X
-
-    def validate(self, X: Any):
-        """
-        It should validate the type of ``X`` before ``X`` transformed.
-
-        Parameters
-        ----------
-        X
-            Input data to be transformed. The same one to
-            :func:`~dtoolkit.Transformer.transform`.
-
-        Notes
-        -----
-        The subclass should implement its own method.
-        """
-        ...
 
     def fit(self, *_):
         """
@@ -80,25 +33,6 @@ class Transformer(TransformerMixin):
         """
 
         return self
-
-    def transform(self, X: Pd | np.ndarray, *_) -> Pd | np.ndarray:
-        """
-        Transform ``X``.
-
-        Parameters
-        ----------
-        X : Series, DataFrame or array-like
-            Input data to be transformed.
-
-        Returns
-        -------
-        DataFrame or ndarray
-            A new X was transformed via :func:`~dtoolkit.Transformer.operate`.
-        """
-
-        self.validate(X)
-
-        return self.operate(X, *self.args, **self.kwargs)
 
     def inverse_transform(
         self,
@@ -125,3 +59,73 @@ class Transformer(TransformerMixin):
         """
 
         return X
+
+
+class ObjectInnerMethodTF(Transformer):
+    transform_method: str
+
+
+class NumpyTF(ObjectInnerMethodTF):
+    """
+    Base class for all :class:`numpy` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
+    def transform(self, X: Pd | np.ndarray) -> np.ndarray:
+        """
+        Transform ``X``.
+
+        Parameters
+        ----------
+        X : Series, DataFrame or array-like
+            Input data to be transformed.
+
+        Returns
+        -------
+        ndarray
+            A new X was transformed.
+        """
+
+        return getattr(np, self.transform_method)(X, *self.args, **self.kwargs)
+
+
+class DataFrameTF(ObjectInnerMethodTF):
+    """
+    Base class for all :class:`~pandas.DataFrame` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
+    @doc(
+        ObjectInnerMethodTF.__init__,
+        dedent(
+            """
+        Notes
+        -----
+        If ``kwargs`` have ``inplace`` parameter, it would be remove autoly.
+        The inplace parameter is not work for DataFrame transformer. Actually
+        this would break pipeline stream. If a transformer's inplace is True,
+        the next tf input would get None.""",
+        ),
+    )
+    def __init__(self, *args, **kwargs):
+        kwargs.pop("inplace", None)
+        super().__init__(*args, **kwargs)
+
+    def transform(self, X: pd.DataFrame) -> Pd:
+        """
+        Transform ``X``.
+
+        Parameters
+        ----------
+        X : DataFrame
+            Input data to be transformed.
+
+        Returns
+        -------
+        DataFrame
+            A new X was transformed.
+        """
+
+        check_dataframe_type(X)
+
+        return getattr(X, self.transform_method)(*self.args, **self.kwargs)

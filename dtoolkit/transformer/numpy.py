@@ -1,42 +1,6 @@
-from __future__ import annotations
-
 import numpy as np
 
-from . import Transformer
-from .._typing import Pd
-
-
-class NumpyTF(Transformer):
-    """
-    Base class for all :class:`numpy` transformers in
-    :class:`dtoolkit.transformer`.
-    """
-
-    np_method: str
-
-    def operate(self, X: Pd | np.ndarray, *args, **kwargs) -> np.ndarray:
-        """
-        The backend algorithm of :func:`~dtoolkit.Transformer.transform`.
-
-        Parameters
-        ----------
-        X : Series, DataFrame or array-like
-            Input data to be transformed. The same one to
-            :func:`~dtoolkit.Transformer.transform`.
-        args
-            They are the same to corresponding to relative
-            :obj:`~numpy.ndarray`'s method.
-        kwargs
-            They are the same to corresponding to relative
-            :obj:`~numpy.ndarray`'s method.
-
-        Returns
-        -------
-        ndarray
-            A new X was transformed.
-        """
-
-        return getattr(np, self.np_method)(X, *args, **kwargs)
+from .base import NumpyTF
 
 
 class RavelTF(NumpyTF):
@@ -64,4 +28,4 @@ class RavelTF(NumpyTF):
     array([1, 2, 3, 4, 5, 6])
     """
 
-    np_method = "ravel"
+    transform_method = np.ravel.__name__
