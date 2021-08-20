@@ -54,11 +54,24 @@ def test_appendtf():
     assert res.equals(expt)
 
 
-def test_droptf():
-    tf = DropTF(columns=[feature_names[0]])
-    res = tf.fit_transform(df_iris)
+class TestDropTF:
+    def setup_method(self):
+        self.df_iris = df_iris.copy()
 
-    assert feature_names[0] not in res.cols()
+    def test_work(self):
+        tf = DropTF(columns=[feature_names[0]])
+        res = tf.fit_transform(self.df_iris)
+
+        assert feature_names[0] not in res.cols()
+
+    def test_inplace(self):
+        tf = DropTF(columns=[feature_names[0]], inplace=True)
+
+        res = tf.fit_transform(self.df_iris)
+
+        assert res is not None
+        assert feature_names[0] not in res.cols()
+        assert self.df_iris.equals(df_iris)
 
 
 def test_evaltf():
