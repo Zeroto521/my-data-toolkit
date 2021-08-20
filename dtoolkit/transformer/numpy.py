@@ -52,7 +52,7 @@ class RavelTF(NumpyTF):
 
     def inverse_transform(self, X: np.ndarray | Pd) -> pd.Series:
         """
-        Transform ``X`` to :class:`~pd.Series` (1D data).
+        Transform ``X`` to :class:`~pandas.Series` (1D data).
 
         Parameters
         ----------
