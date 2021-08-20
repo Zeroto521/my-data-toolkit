@@ -123,3 +123,23 @@ def multi_if_else(
         raise else_return
 
     return else_return
+
+
+def wraps(wrapped):
+    """
+    Keep the same additional attributes with ``wrapped``.
+
+    Can't use :meth`functools.wraps`, specially when ``wrapped`` type is
+    :type:`functin` and ``wrapper`` is :type:`class`.
+    """
+
+    def decorator(wrapper):
+        wrapper.__module__ = wrapped.__module__
+        wrapper.__name__ = wrapped.__name__
+        wrapper.__doc__ = wrapped.__doc__
+        wrapper.__qualname__ = wrapped.__qualname__
+        wrapper.__annotations__ = wrapped.__annotations__
+
+        return wrapper
+
+    return decorator
