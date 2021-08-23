@@ -277,6 +277,9 @@ Output:
 [0.38596491 1.         0.        ]
 ```
 
+We could also save these pipelines as a binary file via (ex. joblib).
+When new data coming we could quickly transform them via binary file.
+
 ## Other Ways to Handle This
 
 {meth}`~pandas.DataFrame.pipe` and {keyword}`function` ways are ok.
