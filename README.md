@@ -5,7 +5,7 @@
 A series of toolkits to decrease the same work
 include geographic calculation, data engineering, and so on.
 
-Note: DToolKit is under heavy development. While the available functionality should be stable and working correctly, it's still possible that APIs change in upcoming releases.
+See [documentation](https://my-data-toolkit.readthedocs.io/) for more information.
 
 ## Introduction
 
@@ -15,21 +15,8 @@ DToolKit includes three packages:
 - [transformer](https://my-data-toolkit.readthedocs.io/en/latest/guide/transformer.html): faces the engineering of data preprocessing.
 - [geography](https://my-data-toolkit.readthedocs.io/en/latest/reference/geography.html): some useful geographic functions
 
-## Dependencies
+## Note
 
-See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details. DToolKit depends on the following packages:
-
-- Base
-  - Python (>= 3.7)
-  - Pandas (>= 1.1.0)
-- Optionals
-  - GeoPandas (>= 0.9.0)
-  - Scikit-learn (>= 0.24.0)
-
-## Installation
-
-Only support to build from source, at present.
-
-```bash
-pip install git+https://github.com/Zeroto521/my-data-toolkit
-```
+DToolKit is under heavy development.
+While the available functionality should be stable and working correctly,
+it's still possible that APIs change in upcoming releases.
