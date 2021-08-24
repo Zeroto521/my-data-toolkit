@@ -1,3 +1,5 @@
+.. _geography:
+
 Geography
 =========
 .. currentmodule:: dtoolkit.geography
