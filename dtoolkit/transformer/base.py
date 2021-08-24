@@ -7,8 +7,8 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from .._checking import check_dataframe_type
 from .._typing import Pd
+from ._decorator import require_dataframe_type
 
 
 class Transformer(TransformerMixin):
@@ -111,6 +111,7 @@ class DataFrameTF(ObjectInnerMethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
+    @require_dataframe_type
     def transform(self, X: pd.DataFrame) -> Pd:
         """
         Transform ``X``.
@@ -125,7 +126,5 @@ class DataFrameTF(ObjectInnerMethodTF):
         DataFrame
             A new X was transformed.
         """
-
-        check_dataframe_type(X)
 
         return getattr(X, self.transform_method)(*self.args, **self.kwargs)
