@@ -67,7 +67,7 @@ class ObjectInnerMethodTF(Transformer):
 
 class NumpyTF(ObjectInnerMethodTF):
     """
-    Base class for all :class:`numpy` transformers in
+    Base class for all :mod:`numpy` transformers in
     :class:`dtoolkit.transformer`.
     """
 

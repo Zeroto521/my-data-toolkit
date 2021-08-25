@@ -11,7 +11,7 @@ from dtoolkit.transformer import DataFrameTF
 class MyTF(DataFrameTF):
     """Doc here"""
 
-    pd_method = "DataFrameMethod"
+    transform_method = "DataFrameMethod"
 ```
 
 :::{note}
@@ -19,7 +19,7 @@ class MyTF(DataFrameTF):
 The following codes show how the method work.
 
 ```{code-block} python
-getattr(X, self.pd_method)(*args, **kwargs)
+getattr(X, self.transform_method)(*args, **kwargs)
 ```
 :::
 
@@ -33,7 +33,7 @@ from dtoolkit.transformer import NumpyTF
 class MyTF(DataFrameTF):
     """Doc here"""
 
-    np_method = "NumpyMethod"
+    transform_method = "NumpyMethod"
 ```
 
 :::{note}
@@ -41,6 +41,6 @@ class MyTF(DataFrameTF):
 The following codes show how the method work.
 
 ```{code-block} python
-getattr(numpy, self.np_method)(*args, **kwargs)
+getattr(numpy, self.transform_method)(*args, **kwargs)
 ```
 :::
