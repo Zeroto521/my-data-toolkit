@@ -28,4 +28,4 @@ class RavelTF(NumpyTF):
     array([1, 2, 3, 4, 5, 6])
     """
 
-    transform_method = np.ravel.__name__
+    transform_method = staticmethod(np.ravel)

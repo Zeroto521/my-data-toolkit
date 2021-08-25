@@ -61,17 +61,10 @@ class Transformer(TransformerMixin):
         return X
 
 
-class ObjectInnerMethodTF(Transformer):
-    transform_method: str
+class MethodTF(Transformer):
+    transform_method: callable
 
-
-class NumpyTF(ObjectInnerMethodTF):
-    """
-    Base class for all :mod:`numpy` transformers in
-    :class:`dtoolkit.transformer`.
-    """
-
-    def transform(self, X: Pd | np.ndarray) -> np.ndarray:
+    def transform(self, X: Pd | np.ndarray) -> pd.DataFrame | np.ndarray:
         """
         Transform ``X``.
 
@@ -82,21 +75,28 @@ class NumpyTF(ObjectInnerMethodTF):
 
         Returns
         -------
-        ndarray
+        DataFrame or ndarray
             A new X was transformed.
         """
 
-        return getattr(np, self.transform_method)(X, *self.args, **self.kwargs)
+        return self.transform_method(X, *self.args, **self.kwargs)
 
 
-class DataFrameTF(ObjectInnerMethodTF):
+class NumpyTF(MethodTF):
+    """
+    Base class for all :mod:`numpy` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
+
+class DataFrameTF(MethodTF):
     """
     Base class for all :class:`~pandas.DataFrame` transformers in
     :class:`dtoolkit.transformer`.
     """
 
     @doc(
-        ObjectInnerMethodTF.__init__,
+        MethodTF.__init__,
         dedent(
             """
         Notes
@@ -110,22 +110,3 @@ class DataFrameTF(ObjectInnerMethodTF):
     def __init__(self, *args, **kwargs):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
-
-    def transform(self, X: pd.DataFrame) -> Pd:
-        """
-        Transform ``X``.
-
-        Parameters
-        ----------
-        X : DataFrame
-            Input data to be transformed.
-
-        Returns
-        -------
-        DataFrame
-            A new X was transformed.
-        """
-
-        check_dataframe_type(X)
-
-        return getattr(X, self.transform_method)(*self.args, **self.kwargs)
