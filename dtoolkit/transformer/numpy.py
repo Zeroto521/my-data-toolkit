@@ -46,7 +46,7 @@ class RavelTF(NumpyTF):
     3    4
     4    5
     5    6
-    dtype: int32
+    dtype: int64
     """
 
     transform_method = np.ravel.__name__
