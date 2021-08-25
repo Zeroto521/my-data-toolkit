@@ -121,3 +121,22 @@ class DataFrameTF(MethodTF):
     def __init__(self, *args, **kwargs):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
+
+    def transform(self, X: pd.DataFrame) -> Pd:
+        """
+        Transform ``X``.
+
+        Parameters
+        ----------
+        X : DataFrame
+            Input data to be transformed.
+
+        Returns
+        -------
+        DataFrame
+            A new X was transformed.
+        """
+
+        check_dataframe_type(X)
+
+        return super().transform(X)
