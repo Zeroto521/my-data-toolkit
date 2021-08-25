@@ -38,7 +38,8 @@ class RavelTF(NumpyTF):
     :meth:`RavelTF.inverse_transform`, transform data to
     :class:`~pandas.Series`:
 
-    >>> tf.inverse_transform(transformed_data)
+    >>> res = tf.inverse_transform(transformed_data)
+    >>> res.astype('int64')
     0    1
     1    2
     2    3
