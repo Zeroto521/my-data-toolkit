@@ -63,6 +63,7 @@ class Transformer(TransformerMixin):
 
 class MethodTF(Transformer):
     transform_method: callable
+    inverse_transform_method: callable | None = None
 
     def transform(self, X: Pd | np.ndarray) -> pd.DataFrame | np.ndarray:
         """
@@ -80,6 +81,16 @@ class MethodTF(Transformer):
         """
 
         return self.transform_method(X, *self.args, **self.kwargs)
+
+    @doc(Transformer.inverse_transform)
+    def inverse_transform(
+        self,
+        X: pd.DataFrame | np.ndarray,
+    ) -> pd.DataFrame | np.ndarray:
+        if self.inverse_transform_method:
+            return self.inverse_transform_method(X)
+
+        return super().inverse_transform(X)
 
 
 class NumpyTF(MethodTF):
