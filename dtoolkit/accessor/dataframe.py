@@ -44,7 +44,7 @@ def dropinf(
     inplace: bool = False,
 ) -> pd.DataFrame | None:
     """
-    Remove ``inf`` values.
+    Remove :obj:`~numpy.inf` values.
 
     Parameters
     ----------
@@ -63,9 +63,9 @@ def dropinf(
         * 'all' : If all values are ``inf``, drop that row or column.
 
     inf : {'all', 'pos', 'neg'}, default 'all'
-        * 'all' : Remove :obj:`numpy.inf`: and -:obj:`numpy.inf`.
-        * 'pos' : Only remove :obj:`numpy.inf`:.
-        * 'neg' : Only remove -:obj:`numpy.inf`:.
+        * 'all' : Remove ``inf`` and ``-inf``.
+        * 'pos' : Only remove ``inf``.
+        * 'neg' : Only remove ``-inf``.
 
     subset : array-like, optional
         Labels along other axis to consider, e.g. if you are dropping rows
@@ -76,13 +76,13 @@ def dropinf(
     Returns
     -------
     DataFrame or None
-        DataFrame with ``inf`` entries dropped from it or None if
+        DataFrame with :obj:`~numpy.inf` entries dropped from it or None if
         ``inplace=True``.
 
     See Also
     --------
-    dtoolkit.accessor.series.dropinf : :obj:`~pandas.Series` drops ``inf``
-        values.
+    dtoolkit.accessor.series.dropinf : :obj:`~pandas.Series` drops
+        :obj:`~numpy.inf` values.
 
     Examples
     --------

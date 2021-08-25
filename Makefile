@@ -6,10 +6,12 @@ help:
 	@echo "'clean-pyc' - remove Python file artifacts"
 	@echo "'clean-cov' - remove coverage files"
 	@echo "'clean-model' - remove model or pipeline files"
+	@echo "'clean-doc' - remove documentation"
 	@echo "'lint' - lint source codes"
 	@echo "'dist' - build package"
 	@echo "'test' - run tests and check coverage"
 	@echo "'info' - show conda environment and $(pkg) information"
+	@echo "'html' - build html documentation"
 
 clean-build:
 	rm -fr build/
@@ -30,7 +32,11 @@ clean-cov:
 	rm -rf coverage.xml
 	rm -rf .coverage
 
-clean: clean-build clean-pyc clean-cov clean-model
+clean-doc:
+	cd doc && make clean
+	rm -rf doc/source/reference/api
+
+clean: clean-build clean-pyc clean-cov clean-model clean-doc
 
 lint:
 	pre-commit run -a -v
@@ -50,3 +56,6 @@ info:
 	python -c "import $(pkg); print($(pkg).__version__)"
 	conda info
 	conda list
+
+html:
+	cd doc && make html

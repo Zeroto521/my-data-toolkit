@@ -23,7 +23,7 @@ class AssignTF(DataFrameTF):
     Portland    17.0
     Berkeley    25.0
 
-    Where the value is a callable, evaluated on `df`:
+    Where the value is a callable, evaluated on ``df``:
 
     >>> pipeline = AssignTF(temp_f=lambda x: x.temp_c * 9 / 5 + 32)
     >>> pipeline.transform(df)
@@ -69,7 +69,7 @@ class AppendTF(DataFrameTF):
     x  5  6
     y  7  8
 
-    With `ignore_index` set to `True`:
+    With ``ignore_index`` set to True:
 
     >>> tf = AppendTF(df2, ignore_index=True)
     >>> tf.transform(df)
@@ -330,11 +330,11 @@ class FilterInTF(DataFrameTF):
 
     See Also
     --------
-    dtoolkit.accessor.FilterInAccessor : This transformer's prototype method.
+    dtoolkit.accessor.dataframe.filterin : This transformer's prototype method.
 
     Notes
     -----
-    :class:`~dtoolkit.accessor.FilterInAccessor`'s ``inplace`` parameter is
+    :func:`~dtoolkit.accessor.dataframe.filterin`'s ``inplace`` parameter is
     not work for this transformer. Actually this break pipeline stream. If a
     transformer's ``inplace`` is ``True``, the next tf input would get
     ``None``.

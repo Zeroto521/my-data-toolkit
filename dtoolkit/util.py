@@ -8,7 +8,7 @@ def multi_if_else(
     else_return: Any | None = None,
 ) -> Any | None:
     """
-    Handle a series of ``if`` or ``elif``.
+    Handle a series of :keyword:`if` or :keyword:`elif`.
 
     Parameters
     ----------
@@ -83,16 +83,14 @@ def multi_if_else(
     >>> mask
     array([[False,  True],
            [ True, False]])
-    >>> if_condition_return_lambda = lambda how: [
-    ...     (how == "any", mask.any()),
-    ...     (how == "all", mask.all()),
-    ...     (how is not None, ValueError(f"Invalid how option: {how}")),
-    ... ]
-
     >>> mask_lambda = lambda how: multi_if_else(
-    ...         if_condition_return_lambda(how),
-    ...         TypeError("Must specify how"),
-    ...     )
+    ...     [
+    ...         (how == "any", mask.any()),
+    ...         (how == "all", mask.all()),
+    ...         (how is not None, ValueError(f"Invalid how option: {how}")),
+    ...     ],
+    ...     TypeError("Must specify how"),
+    ... )
     >>> mask_lambda("any")
     True
     >>> mask_lambda("all")
@@ -101,15 +99,17 @@ def multi_if_else(
     :func:`mask_lambda` equal to following, but with helping of
     :func:`multi_if_else` could be more easier.
 
-    >>> def mask_lambda(how, mask):
-    ...     if how == 'any':
-    ...         return mask.any()
-    ...     elif how == 'all':
-    ...         return mask.all()
-    ...     elif how is not None:
-    ...         ValueError(f"Invalid how option: {how}")
-    ...     else:
-    ...         TypeError("Must specify how")
+    .. code-block:: python
+
+        def mask_lambda(how, mask):
+            if how == 'any':
+                return mask.any()
+            elif how == 'all':
+                return mask.all()
+            elif how is not None:
+                ValueError(f"Invalid how option: {how}")
+            else:
+                TypeError("Must specify how")
     """
 
     for condition, result in if_condition_return:
