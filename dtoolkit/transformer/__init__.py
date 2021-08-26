@@ -1,4 +1,5 @@
 from .base import DataFrameTF
+from .base import MethodTF
 from .base import NumpyTF
 from .base import Transformer
 from .factory import methodtf_factory
@@ -22,6 +23,7 @@ from .sklearn import OneHotEncoder
 __all__ = [
     # base transformer
     "Transformer",
+    "MethodTF",
     "NumpyTF",
     "DataFrameTF",
     # transformer generator
