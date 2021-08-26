@@ -10,7 +10,7 @@ def plus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
     return X + constant
 
 
-def decrease_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
+def minus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
     return X - constant
 
 
@@ -22,7 +22,7 @@ class TestMethodtfFactory:
                 # test transform method and inverse transfor method both have
                 np.asarray([1, 2, 3]),
                 plus_constant,
-                decrease_constant,
+                minus_constant,
                 dict(constant=1),
                 dict(constant=0),
                 np.asarray([2, 3, 4]),
