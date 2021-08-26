@@ -61,6 +61,10 @@ class Transformer(TransformerMixin):
 
 
 class MethodTF(Transformer):
+    """
+    Base class for all method transformers in :class:`dtoolkit.transformer`.
+    """
+
     transform_method: callable
     inverse_transform_method: callable | None = None
 
