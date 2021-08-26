@@ -1,6 +1,7 @@
 from .base import DataFrameTF
 from .base import NumpyTF
 from .base import Transformer
+from .factory import methodtf_factory
 from .numpy import RavelTF
 from .pandas import AppendTF
 from .pandas import AssignTF
@@ -23,6 +24,8 @@ __all__ = [
     "Transformer",
     "NumpyTF",
     "DataFrameTF",
+    # transformer generator
+    "methodtf_factory",
     # numpy transformer
     "RavelTF",
     # pandas transformer
