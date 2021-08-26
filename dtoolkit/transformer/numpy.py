@@ -1,5 +1,9 @@
-import numpy as np
+from __future__ import annotations
 
+import numpy as np
+import pandas as pd
+
+from .._typing import Pd
 from .base import NumpyTF
 
 
@@ -24,8 +28,42 @@ class RavelTF(NumpyTF):
     >>> from dtoolkit.transformer import RavelTF
     >>> x = np.array([[1, 2, 3], [4, 5, 6]])
     >>> tf = RavelTF()
-    >>> tf.transform(x)
+
+    :meth:`RavelTF.transform`, flatten data:
+
+    >>> transformed_data = tf.transform(x)
+    >>> transformed_data
     array([1, 2, 3, 4, 5, 6])
+
+    :meth:`RavelTF.inverse_transform`, transform data to
+    :class:`~pandas.Series`:
+
+    >>> res = tf.inverse_transform(transformed_data)
+    >>> res.astype('int64')
+    0    1
+    1    2
+    2    3
+    3    4
+    4    5
+    5    6
+    dtype: int64
     """
 
-    transform_method = np.ravel.__name__
+    transform_method = staticmethod(np.ravel)
+
+    def inverse_transform(self, X: np.ndarray | Pd) -> pd.Series:
+        """
+        Transform ``X`` to :class:`~pandas.Series` (1D data).
+
+        Parameters
+        ----------
+        X : DataFrame or array-like of shape ``(n_samples, n_features)``
+            Input data that will be transformed.
+
+        Returns
+        -------
+        pd.Series
+            Transformed data.
+        """
+
+        return pd.Series(np.ravel(X))

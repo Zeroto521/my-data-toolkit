@@ -15,10 +15,9 @@ class Transformer(TransformerMixin):
     """Base class for all transformers in :class:`dtoolkit.transformer`."""
 
     def __init__(self, *args, **kwargs):
-        """
-        Transformer arguement entry.
-        """
+        """Transform method arguement entry."""
 
+        # transform method parameters
         self.args = args
         self.kwargs = kwargs
 
@@ -61,17 +60,31 @@ class Transformer(TransformerMixin):
         return X
 
 
-class ObjectInnerMethodTF(Transformer):
-    transform_method: str
-
-
-class NumpyTF(ObjectInnerMethodTF):
+class MethodTF(Transformer):
     """
-    Base class for all :mod:`numpy` transformers in
-    :class:`dtoolkit.transformer`.
+    Base class for all method transformers in :class:`dtoolkit.transformer`.
     """
 
-    def transform(self, X: Pd | np.ndarray) -> np.ndarray:
+    transform_method: callable
+    inverse_transform_method: callable | None = None
+
+    @doc(Transformer.__init__)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # inverse transform parameters
+        self.inverse_args = ()
+        self.inverse_kwargs = {}
+
+    def update_invargs(self, *args, **kwargs):
+        """Inverse transform method arguement entry."""
+
+        self.inverse_args = args
+        self.inverse_kwargs = kwargs
+
+        return self
+
+    def transform(self, X: Pd | np.ndarray) -> pd.DataFrame | np.ndarray:
         """
         Transform ``X``.
 
@@ -82,21 +95,40 @@ class NumpyTF(ObjectInnerMethodTF):
 
         Returns
         -------
-        ndarray
+        DataFrame or ndarray
             A new X was transformed.
         """
 
-        return getattr(np, self.transform_method)(X, *self.args, **self.kwargs)
+        return self.transform_method(X, *self.args, **self.kwargs)
+
+    @doc(Transformer.inverse_transform)
+    def inverse_transform(
+        self,
+        X: pd.DataFrame | np.ndarray,
+    ) -> pd.DataFrame | np.ndarray:
+        if self.inverse_transform_method:
+            return self.inverse_transform_method(
+                X, *self.inverse_args, **self.inverse_kwargs
+            )
+
+        return super().inverse_transform(X)
 
 
-class DataFrameTF(ObjectInnerMethodTF):
+class NumpyTF(MethodTF):
+    """
+    Base class for all :mod:`numpy` transformers in
+    :class:`dtoolkit.transformer`.
+    """
+
+
+class DataFrameTF(MethodTF):
     """
     Base class for all :class:`~pandas.DataFrame` transformers in
     :class:`dtoolkit.transformer`.
     """
 
     @doc(
-        ObjectInnerMethodTF.__init__,
+        MethodTF.__init__,
         dedent(
             """
         Notes
@@ -127,4 +159,4 @@ class DataFrameTF(ObjectInnerMethodTF):
             A new X was transformed.
         """
 
-        return getattr(X, self.transform_method)(*self.args, **self.kwargs)
+        return super().transform(X)
