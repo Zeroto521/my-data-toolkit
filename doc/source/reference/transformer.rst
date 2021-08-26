@@ -14,6 +14,7 @@ Base transformer class for all transformers.
     :toctree: api/transformer/base
 
     Transformer
+    MethodTF
     DataFrameTF
     NumpyTF
 
