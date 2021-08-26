@@ -49,7 +49,7 @@ class RavelTF(NumpyTF):
     dtype: int64
     """
 
-    transform_method = np.ravel.__name__
+    transform_method = staticmethod(np.ravel)
 
     def inverse_transform(self, X: np.ndarray | Pd) -> pd.Series:
         """
