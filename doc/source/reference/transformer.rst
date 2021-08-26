@@ -17,6 +17,7 @@ Base transformer class for all transformers.
     MethodTF
     DataFrameTF
     NumpyTF
+    methodtf_factory
 
 
 Sklearn Transformer
