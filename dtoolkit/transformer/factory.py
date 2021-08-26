@@ -9,7 +9,6 @@ from .base import MethodTF
 def methodtf_factory(
     transform_method: callable,
     inverse_transform_method: callable | None = None,
-    baseclass: MethodTF = MethodTF,
 ) -> MethodTF:
     """
     Quickly generate a transformer from a method.
@@ -18,7 +17,6 @@ def methodtf_factory(
     ----------
     transform_method
     inverse_transform_method
-    baseclass
 
     Examples
     --------
@@ -37,7 +35,7 @@ def methodtf_factory(
 
     return type(
         classname,
-        (baseclass,),
+        (MethodTF,),
         dict(
             transform_method=staticmethod(transform_method),
             inverse_transform_method=inverse_transform_method,
