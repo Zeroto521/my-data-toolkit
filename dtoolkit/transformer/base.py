@@ -8,7 +8,7 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from .._typing import Pd
-from ._decorator import require_dataframe_type
+from ..decorator import require_dataframe_type
 
 
 class Transformer(TransformerMixin):
@@ -143,7 +143,7 @@ class DataFrameTF(MethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    @require_dataframe_type
+    @require_dataframe_type("X")
     def transform(self, X: pd.DataFrame) -> Pd:
         """
         Transform ``X``.
