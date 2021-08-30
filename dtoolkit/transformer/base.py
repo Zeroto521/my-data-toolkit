@@ -7,8 +7,8 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from .._checking import check_dataframe_type
 from .._typing import Pd
+from ..util._validation import check_dataframe_type
 
 
 class Transformer(TransformerMixin):

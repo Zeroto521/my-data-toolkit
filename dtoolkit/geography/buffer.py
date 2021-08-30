@@ -13,15 +13,14 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from .._checking import bad_condition_raise_error
-from .._checking import check_geometry_type
-from .._checking import check_geopandas_type
-from .._checking import check_greater_than_zero
-from .._checking import check_number_tyep
-from .._checking import istype
-from .._typing import GPd
 from .._typing import Num
 from .._typing import NumericTypeList
+from ._typing import GPd
+from ._validation import check_geometry_type
+from ._validation import check_geopandas_type
+from ._validation import check_greater_than_zero
+from ._validation import check_number_tyep
+from ._validation import istype
 
 
 def geographic_buffer(
@@ -94,11 +93,10 @@ def geographic_buffer(
 
     out: np.ndarray = np.empty(len(df), dtype=object)
     if istype(distance, np.ndarray):
-        bad_condition_raise_error(
-            len(distance) != len(df),
-            IndexError,
-            "Length of distance doesn't match length of the GeoSeries.",
-        )
+        if len(distance) != len(df):
+            raise IndexError(
+                "Length of distance doesn't match length of the GeoSeries.",
+            )
 
         out[:] = [
             _geographic_buffer(geom, distance=dist, crs=gscrs, **kwargs)
