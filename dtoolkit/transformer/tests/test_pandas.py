@@ -73,11 +73,6 @@ class TestDropTF:
         assert feature_names[0] not in res.cols()
         assert self.df_iris.equals(df_iris)
 
-    def test_input_is_not_dataframe(self):
-        tf = DropTF(columns=feature_names)
-        with pytest.raises(TypeError):
-            tf.transform(1)
-
 
 def test_evaltf():
     new_column = "double_value"

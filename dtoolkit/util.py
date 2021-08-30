@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from inspect import getfullargspec
 from typing import Any
 
 
@@ -144,23 +143,3 @@ def wraps(wrapped):
         return wrapper
 
     return decorator
-
-
-def fargs_dict(func: callable, *args, **kwargs) -> dict[str, Any]:
-    """
-    Return a {key}``dict`` which uses function's parameter name as key,
-    parameter value as value.
-    """
-
-    argspec = getfullargspec(func)
-    names = argspec.args
-    defaults = argspec.defaults
-
-    kwargs_len = len(defaults) if defaults else 0
-    args_len = len(args) - kwargs_len
-    args_name, kwargs_name = names[:args_len], names[args_len:]
-
-    kwargs_dict = dict(zip(kwargs_name, defaults)) if defaults else {}
-    args_dict = dict(zip(args_name, args))
-
-    return {**kwargs_dict, **kwargs, **args_dict}
