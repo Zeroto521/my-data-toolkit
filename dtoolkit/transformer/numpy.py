@@ -39,14 +39,13 @@ class RavelTF(NumpyTF):
     :class:`~pandas.Series`:
 
     >>> res = tf.inverse_transform(transformed_data)
-    >>> res.astype('int64')
-    0    1
-    1    2
-    2    3
-    3    4
-    4    5
-    5    6
-    dtype: int64
+       0
+    0  1
+    1  2
+    2  3
+    3  4
+    4  5
+    5  6
     """
 
     transform_method = staticmethod(np.ravel)
