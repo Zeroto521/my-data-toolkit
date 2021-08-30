@@ -8,7 +8,6 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from .._typing import Pd
-from ..util._validation import check_dataframe_type
 
 
 class Transformer(TransformerMixin):
@@ -158,6 +157,10 @@ class DataFrameTF(MethodTF):
             A new X was transformed.
         """
 
-        check_dataframe_type(X)
+        if not isinstance(X, pd.DataFrame):
+            raise TypeError(
+                f"For argument 'X' expected type 'pandas.DataFrame', "
+                f"received type {type(X).__name__}.",
+            )
 
         return super().transform(X)
