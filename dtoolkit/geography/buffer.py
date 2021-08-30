@@ -18,8 +18,6 @@ from .._typing import NumericTypeList
 from ._typing import GPd
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
-from ._validation import check_greater_than_zero
-from ._validation import check_number_tyep
 from ._validation import istype
 
 
@@ -139,8 +137,10 @@ def _geographic_buffer(
 
     check_geometry_type(geom)
 
-    check_number_tyep(distance)
-    check_greater_than_zero(distance)
+    if not istype(distance, NumericTypeList):
+        raise TypeError("The type of 'distance' must be int or float.")
+    if distance <= 0:
+        raise ValueError("The distance must be greater than 0.")
 
     crs = crs or string_or_int_to_crs()
 
