@@ -40,7 +40,11 @@ from dtoolkit.transformer import RavelTF
         (
             "yiris",
             pd.DataFrame(s),
-            make_pipeline(GetTF("target"), RavelTF()),
+            make_pipeline(
+                GetTF(["target"]),
+                MinMaxScaler(),
+                RavelTF(),
+            ),
         ),
         (
             "mixed",
