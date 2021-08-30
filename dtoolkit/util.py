@@ -157,7 +157,7 @@ def fargs_dict(func: callable, *args, **kwargs) -> dict[str, Any]:
     defaults = argspec.defaults
 
     kwargs_len = len(defaults) if defaults else 0
-    args_len = len(names) - kwargs_len
+    args_len = len(args) - kwargs_len
     args_name, kwargs_name = names[:args_len], names[args_len:]
 
     kwargs_dict = dict(zip(kwargs_name, defaults)) if defaults else {}
