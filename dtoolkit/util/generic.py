@@ -125,21 +125,7 @@ def multi_if_else(
     return else_return
 
 
-def wraps(wrapped):
-    """
-    Keep the same additional attributes with ``wrapped``.
-
-    Can't use :meth:`functools.wraps`, specially when ``wrapped`` type is
-    :keyword:`function` and ``wrapper`` is :keyword:`class`.
-    """
-
-    def decorator(wrapper):
-        wrapper.__module__ = wrapped.__module__
-        wrapper.__name__ = wrapped.__name__
-        wrapper.__doc__ = wrapped.__doc__
-        wrapper.__qualname__ = wrapped.__qualname__
-        wrapper.__annotations__ = wrapped.__annotations__
-
-        return wrapper
-
-    return decorator
+def snake_to_camel(snake_str):
+    components = snake_str.split("_")
+    components = (x.title() for x in components)
+    return "".join(components)

@@ -3,7 +3,7 @@ from __future__ import annotations
 from inspect import isfunction
 
 from ..util import wraps
-from ._util import snake_to_camel
+from ..util.generic import snake_to_camel
 from .base import MethodTF
 
 

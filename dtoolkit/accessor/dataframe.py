@@ -11,7 +11,7 @@ from pandas.util._validators import validate_bool_kwarg
 
 from ._util import get_inf_range
 from ._util import get_mask
-from ._util import validate_axis
+from ._validation import validate_axis
 from .register import register_dataframe_method
 from .series import cols as series_cols
 
