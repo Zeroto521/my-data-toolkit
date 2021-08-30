@@ -17,6 +17,11 @@ LONG_DESCRIPTION = open("README.md", "r").read()
 repository_name = os.path.basename(os.getcwd())
 GITHUB_URL = f"https://github.com/{GITHUB_USERNAME}/{repository_name}"
 
+PROJECT_URLS = {
+    "Documentation": "https://my-data-toolkit.readthedocs.io/",
+    "Issue Tracker": "https://github.com/zeroto521/my-data-toolkit/issues",
+}
+
 PLATFORMS = ["Windows", "MacOS", "Unix"]
 CLASSIFIERS = [
     "Development Status :: 2 - Pre-Alpha",
@@ -46,6 +51,7 @@ setup(
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     url=GITHUB_URL,
+    project_urls=PROJECT_URLS,
     license=LICENSE,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
