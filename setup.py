@@ -44,5 +44,8 @@ setup(
     ],
     packages=find_packages(),
     python_requires=">=3.7",
-    install_requires=["pandas >= 1.1.0"],
+    install_requires=[
+        "pandas >= 1.1.0",
+        "packaging",
+    ],
 )

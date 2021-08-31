@@ -8,6 +8,7 @@ dependencies:
   - geopandas=0.9.*
   - scikit-learn
   - more-itertools
+  - packaging
   # doc dependencies
   - sphinx
   - pydata-sphinx-theme
