@@ -43,7 +43,7 @@ def has_moudle(name: str, mini_version: str = "") -> bool:
 # geography compat
 #
 
-HAS_GEOPANDAS = has_moudle("geopandas", "0.24")
+HAS_GEOPANDAS = has_moudle("geopandas", "0.9")
 
 #
 # transformer compat
