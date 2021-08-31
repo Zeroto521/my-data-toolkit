@@ -12,24 +12,24 @@ from .._typing import CoordType
 from .._typing import NumericBaseList
 from .._typing import NumericBaseType
 from ..util._validation import istype
-from ._typing import GPd
+from ._typing import GeoPandasType
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
 
 
-def coords(df: GPd) -> pd.Series:
+def coords(df: GeoPandasType) -> pd.Series:
     check_geopandas_type(df)
 
     return df.geometry.apply(_coords)
 
 
-def coords_numlist(df: GPd) -> pd.Series:
+def coords_numlist(df: GeoPandasType) -> pd.Series:
     check_geopandas_type(df)
 
     return df.geometry.apply(_coords_num)
 
 
-def coords_num(df: GPd) -> pd.Series:
+def coords_num(df: GeoPandasType) -> pd.Series:
     res = coords_numlist(df)
 
     def sum_nums(nums: CoordNumType) -> NumericBaseType:
