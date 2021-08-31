@@ -7,12 +7,12 @@ from more_itertools import collapse
 from shapely.geometry import mapping
 from shapely.geometry.base import BaseGeometry
 
-from .._typing import CoordNumType
-from .._typing import CoordType
-from .._typing import NumericBaseList
-from .._typing import NumericBaseType
 from ..util._validation import istype
+from ._typing import CoordNumType
+from ._typing import CoordType
 from ._typing import GeoPandasType
+from ._typing import NumericBaseList
+from ._typing import NumericBaseType
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
 

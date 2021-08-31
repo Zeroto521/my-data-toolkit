@@ -13,9 +13,9 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from .._typing import NumericType
-from .._typing import NumericTypeList
 from ._typing import GeoPandasType
+from ._typing import NumericType
+from ._typing import NumericTypeList
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
 from ._validation import istype
