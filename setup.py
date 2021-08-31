@@ -59,6 +59,5 @@ setup(
     classifiers=CLASSIFIERS,
     packages=find_packages(),
     python_requires=">=3.7",
-    py_modules=[NAME],
     install_requires=INSTALL_REQUIRES,
 )
