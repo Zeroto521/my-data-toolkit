@@ -2,8 +2,6 @@ from typing import Tuple
 from typing import TypeVar
 from typing import Union
 
-from geopandas import GeoDataFrame
-from geopandas import GeoSeries
 from numpy import float32
 from numpy import float64
 from numpy import float_
@@ -49,10 +47,6 @@ Num = TypeVar("Num", bound=NumericType)
 PandasTypeList = [Series, DataFrame]
 PandasType = Union[tuple(PandasTypeList)]
 Pd = TypeVar("Pd", bound=PandasType)
-
-GeoPandasList = [GeoSeries, GeoDataFrame]
-GeoPandasType = Union[tuple(GeoPandasList)]
-GPd = TypeVar("GPd", bound=GeoPandasType)
 
 
 #

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from inspect import getfullargspec
 from typing import Any
 
 
@@ -126,41 +125,27 @@ def multi_if_else(
     return else_return
 
 
-def wraps(wrapped):
+def snake_to_camel(name: str) -> str:
     """
-    Keep the same additional attributes with ``wrapped``.
+    Change snake style name to camel style name.
 
-    Can't use :meth:`functools.wraps`, specially when ``wrapped`` type is
-    :keyword:`function` and ``wrapper`` is :keyword:`class`.
-    """
+    Parameters
+    ----------
+    name : str
+        Snake style name
 
-    def decorator(wrapper):
-        wrapper.__module__ = wrapped.__module__
-        wrapper.__name__ = wrapped.__name__
-        wrapper.__doc__ = wrapped.__doc__
-        wrapper.__qualname__ = wrapped.__qualname__
-        wrapper.__annotations__ = wrapped.__annotations__
+    Returns
+    -------
+    str
+        Camel style name
 
-        return wrapper
-
-    return decorator
-
-
-def fargs_dict(func: callable, *args, **kwargs) -> dict[str, Any]:
-    """
-    Return a {key}``dict`` which uses function's parameter name as key,
-    parameter value as value.
+    Examples
+    --------
+    >>> from dtoolkit.util import snake_to_camel
+    >>> snake_to_camel(snake_to_camel.__name__)
+    'SnakeToCamel'
     """
 
-    argspec = getfullargspec(func)
-    names = argspec.args
-    defaults = argspec.defaults
-
-    kwargs_len = len(defaults) if defaults else 0
-    args_len = len(names) - kwargs_len
-    args_name, kwargs_name = names[:args_len], names[args_len:]
-
-    kwargs_dict = dict(zip(kwargs_name, defaults)) if defaults else {}
-    args_dict = dict(zip(args_name, args))
-
-    return {**kwargs_dict, **kwargs, **args_dict}
+    components = name.split("_")
+    components = (x.title() for x in components)
+    return "".join(components)

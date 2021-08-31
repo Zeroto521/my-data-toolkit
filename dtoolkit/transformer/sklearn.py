@@ -11,10 +11,10 @@ from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
-from .._checking import istype
 from .._typing import PandasTypeList
 from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
+from ..util._validation import istype
 from .base import Transformer
 
 
