@@ -15,7 +15,10 @@ def minus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
     return X - constant
 
 
-@pytest.mark.skipif(not compat.HAS_SKLEARN)
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 class TestMethodtfFactory:
     @pytest.mark.parametrize(
         "data, method, inv_method, kwargs, inv_kwargs, expt, inv_expt",
