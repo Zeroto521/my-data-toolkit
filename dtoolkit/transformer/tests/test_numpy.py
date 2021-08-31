@@ -1,6 +1,7 @@
 import pandas as pd
 import pytest
 
+import dtoolkit._compat as compat
 from . import array
 from . import df_iris
 from . import s
@@ -11,6 +12,10 @@ from dtoolkit.transformer import RavelTF
 #
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 class TestRavelTF:
     @pytest.mark.parametrize("data", [array, df_iris, s, s.tolist()])
     def test_transform(self, data):

@@ -4,6 +4,7 @@ import pytest
 from scipy import sparse
 from sklearn.pipeline import make_pipeline
 
+import dtoolkit._compat as compat
 from . import df_iris
 from . import df_label
 from . import df_mixed
@@ -23,6 +24,10 @@ from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 @pytest.mark.parametrize(
     "name, data, pipeline",
     [
@@ -69,6 +74,10 @@ def test_pipeline_work(name, data, pipeline):
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 class TestFeatureUnion:
     @pytest.mark.parametrize(
         "pipeline",
@@ -125,6 +134,10 @@ class TestFeatureUnion:
         assert sparse.isspmatrix(res)
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_issue_87():
     tf = make_union(
         make_pipeline(

@@ -3,6 +3,7 @@ from functools import partial
 import pandas as pd
 import pytest
 
+import dtoolkit._compat as compat
 from . import df_iris
 from . import df_label
 from . import df_mixed
@@ -27,6 +28,10 @@ from dtoolkit.transformer import SelectDtypesTF
 #
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_assigntf():
     def period(df, regex):
         df_filter = df.filter(regex=regex, axis=1)
@@ -45,6 +50,10 @@ def test_assigntf():
         assert (res[key] > 0).any()
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_appendtf():
     tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
 
@@ -54,6 +63,10 @@ def test_appendtf():
     assert res.equals(expt)
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 class TestDropTF:
     def setup_method(self):
         self.df_iris = df_iris.copy()
@@ -79,6 +92,10 @@ class TestDropTF:
             tf.transform(1)
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_evaltf():
     new_column = "double_value"
     tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
@@ -87,6 +104,10 @@ def test_evaltf():
     assert res[new_column].equals(df_iris[feature_names[0]] * 2)
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 class TestFillnaTF:
     def setup_method(self):
         self.df = pd.DataFrame({"a": [None, 1], "b": [1, None]})
@@ -98,6 +119,10 @@ class TestFillnaTF:
         assert None not in res
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_filterintf():
     tf = FilterInTF({"a": [0]})
 
@@ -106,6 +131,10 @@ def test_filterintf():
     assert (~res["a"].isin([1, 2])).all()  # 1 and 2 not in a
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_filtertf():
     tf = FilterTF(regex=r"^\w+?_(1[8-9]|2[0-2])$", axis=1)
 
@@ -114,6 +143,10 @@ def test_filtertf():
     assert len(res.cols()) == 5
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 @pytest.mark.parametrize("cols", [feature_names[0], feature_names])
 def test_gettf(cols):
     tf = GetTF(cols)
@@ -124,6 +157,10 @@ def test_gettf(cols):
     assert res.equals(expt)
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 class TestQueryTF:
     def test_greater_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` > 0")
@@ -144,6 +181,10 @@ class TestQueryTF:
         assert len(res) == 0
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 def test_replacetf():
     tf = ReplaceTF({1: "a"})
 
@@ -152,6 +193,10 @@ def test_replacetf():
     assert res.isin(["a"]).any(axis=None)
 
 
+@pytest.mark.skipif(
+    not compat.HAS_SKLEARN,
+    reason="transformer requires `sklearn`",
+)
 @pytest.mark.parametrize(
     "types, expt",
     [
