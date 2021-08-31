@@ -38,22 +38,21 @@ class RavelTF(NumpyTF):
     :meth:`RavelTF.inverse_transform`, transform data to
     :class:`~pandas.Series`:
 
-    >>> res = tf.inverse_transform(transformed_data)
-    >>> res.astype('int64')
-    0    1
-    1    2
-    2    3
-    3    4
-    4    5
-    5    6
-    dtype: int64
+    >>> tf.inverse_transform(transformed_data)
+       0
+    0  1
+    1  2
+    2  3
+    3  4
+    4  5
+    5  6
     """
 
     transform_method = staticmethod(np.ravel)
 
     def inverse_transform(self, X: np.ndarray | Pd) -> pd.Series:
         """
-        Transform ``X`` to :class:`~pandas.Series` (1D data).
+        Transform ``X`` to a column :class:`~pandas.DataFrame` (1D data).
 
         Parameters
         ----------
@@ -62,8 +61,8 @@ class RavelTF(NumpyTF):
 
         Returns
         -------
-        pd.Series
-            Transformed data.
+        pd.DataFrame
+            Transformed a column data.
         """
 
-        return pd.Series(np.ravel(X))
+        return pd.DataFrame(np.ravel(X))
