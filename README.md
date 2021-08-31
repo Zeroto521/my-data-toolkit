@@ -15,6 +15,19 @@ DToolKit mainly includes following packages:
 - [transformer](https://my-data-toolkit.readthedocs.io/en/latest/guide/transformer.html): faces the engineering of data preprocessing.
 - [geography](https://my-data-toolkit.readthedocs.io/en/latest/reference/geography.html): some useful geographic functions
 
+## Dependencies
+
+See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
+DToolKit depends on the following packages:
+
+- Base
+  - Python (>= 3.7)
+  - Pandas (>= 1.1.0)
+- Optionals
+  - GeoPandas (>= 0.9.0)
+  - Scikit-learn (>= 0.24.0)
+  - More-Itertools (>=7.1.0)
+
 ## Note
 
 DToolKit is under heavy development.
