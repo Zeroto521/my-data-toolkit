@@ -7,6 +7,7 @@ from pyproj import CRS
 from shapely import wkt
 from shapely.geometry.base import BaseGeometry
 
+import dtoolkit._compat as compat
 import dtoolkit.geography.buffer as buffer
 
 
@@ -15,6 +16,7 @@ my_points = [wkt.loads(i) for i in my_wkts]
 distances = np.asarray(range(1, 1000, 499))
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 @pytest.mark.parametrize("crs", [None, "epsg:4326"])
 @pytest.mark.parametrize("epsg", [None, 4326])
 def test_to_crs_work(crs, epsg):
@@ -22,6 +24,7 @@ def test_to_crs_work(crs, epsg):
     assert isinstance(c, CRS)
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_to_crs_missing():
     with tm.assert_produces_warning(UserWarning) as w:
         buffer.string_or_int_to_crs()
@@ -36,6 +39,7 @@ def test_to_crs_missing():
 # -----------------------------------------------------------------------------
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 class TestDealingOneGeometry:
     def setup_method(self):
         self.p = my_points[0]
@@ -67,6 +71,7 @@ class TestDealingOneGeometry:
 # -----------------------------------------------------------------------------
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 class TestDealingMultipleGeometry:
     def setup_method(self):
         self.s = gpd.GeoSeries.from_wkt(my_wkts, crs="epsg:4326")

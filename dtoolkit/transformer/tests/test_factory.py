@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
+import dtoolkit._compat as compat
 from dtoolkit.transformer.factory import methodtf_factory
 
 
@@ -14,6 +15,7 @@ def minus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
     return X - constant
 
 
+@pytest.mark.skipif(not compat.HAS_SKLEARN)
 class TestMethodtfFactory:
     @pytest.mark.parametrize(
         "data, method, inv_method, kwargs, inv_kwargs, expt, inv_expt",

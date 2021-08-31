@@ -9,6 +9,7 @@ from shapely.geometry import MultiPolygon
 from shapely.geometry import Point
 from shapely.geometry import Polygon
 
+import dtoolkit._compat as compat
 from dtoolkit.geography.coordinate import _coords
 from dtoolkit.geography.coordinate import _coords_num
 from dtoolkit.geography.coordinate import coords
@@ -66,6 +67,7 @@ geometrys = [
 ]
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 @pytest.mark.parametrize("rcoord, geom", zip(cgeometrys, geometrys))
 def test_single_geometry_coords(rcoord, geom):
     tcoord = _coords(geom)
@@ -76,11 +78,13 @@ def test_single_geometry_coords(rcoord, geom):
     assert tcoord == rcoord
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_none_geometry_coords():
     with pytest.raises(TypeError):
         _coords(None)
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_geoseries_coords():
     s = gpd.GeoSeries(geometrys)
 
@@ -92,30 +96,36 @@ def test_geoseries_coords():
         assert tcoord == rcoord
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_not_geopandas_coords():
     with pytest.raises(TypeError):
         coords(None)
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def unique_point(coords):
     return set(collapse(coords, levels=2))
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 @pytest.mark.parametrize("geom", (geometrys))
 def test_single_geometry_coords_num(geom):
     _coords_num(geom)
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_geoseries_coords_num():
     s = gpd.GeoSeries(geometrys)
     coords_num(s)
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_not_geopandas_coords_num():
     with pytest.raises(TypeError):
         coords_num(None)
 
 
+@pytest.mark.skipif(not compat.HAS_GEOPANDAS)
 def test_geoseries_coords_numlist():
     s = gpd.GeoSeries(geometrys)
     coords_numlist(s)
