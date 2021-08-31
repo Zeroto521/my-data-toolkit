@@ -7,7 +7,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from .._typing import Pd
+from .._typing import PandasType
 
 
 class Transformer(TransformerMixin):
@@ -83,7 +83,10 @@ class MethodTF(Transformer):
 
         return self
 
-    def transform(self, X: Pd | np.ndarray) -> pd.DataFrame | np.ndarray:
+    def transform(
+        self,
+        X: PandasType | np.ndarray,
+    ) -> pd.DataFrame | np.ndarray:
         """
         Transform ``X``.
 
@@ -142,7 +145,7 @@ class DataFrameTF(MethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    def transform(self, X: pd.DataFrame) -> Pd:
+    def transform(self, X: pd.DataFrame) -> PandasType:
         """
         Transform ``X``.
 

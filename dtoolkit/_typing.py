@@ -1,5 +1,4 @@
 from typing import Tuple
-from typing import TypeVar
 from typing import Union
 
 from numpy import float32
@@ -41,12 +40,10 @@ NumericNumpyList = [
 ]
 NumericTypeList = NumericBaseList + NumericNumpyList
 NumericType = Union[tuple(NumericTypeList)]
-Num = TypeVar("Num", bound=NumericType)
 
 
 PandasTypeList = [Series, DataFrame]
 PandasType = Union[tuple(PandasTypeList)]
-Pd = TypeVar("Pd", bound=PandasType)
 
 
 #

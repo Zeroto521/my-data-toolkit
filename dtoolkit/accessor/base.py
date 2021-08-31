@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .._typing import Pd
+from .._typing import PandasType
 
 
 class Accessor:
@@ -19,5 +19,5 @@ class Accessor:
     pandas.api.extensions.register_dataframe_accessor
     """
 
-    def __init__(self, pd_obj: Pd):
+    def __init__(self, pd_obj: PandasType):
         self.pd_obj = pd_obj

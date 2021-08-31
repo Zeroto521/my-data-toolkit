@@ -13,17 +13,17 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from .._typing import Num
+from .._typing import NumericType
 from .._typing import NumericTypeList
-from ._typing import GPd
+from ._typing import GeoPandasType
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
 from ._validation import istype
 
 
 def geographic_buffer(
-    df: GPd,
-    distance: Num | list[Num] | np.ndarray | pd.Series,
+    df: GeoPandasType,
+    distance: NumericType | list[NumericType] | np.ndarray | pd.Series,
     crs: str | None = None,
     epsg: int | None = None,
     **kwargs,
@@ -127,7 +127,7 @@ def string_or_int_to_crs(
 
 def _geographic_buffer(
     geom: BaseGeometry | None,
-    distance: Num,
+    distance: NumericType,
     crs: CRS | None = None,
     **kwargs,
 ) -> BaseGeometry | None:

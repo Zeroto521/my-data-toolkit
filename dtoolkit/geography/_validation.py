@@ -2,10 +2,10 @@ from shapely.geometry.base import BaseGeometry
 
 from ..util._validation import istype
 from ._typing import GeoPandasList
-from ._typing import GPd
+from ._typing import GeoPandasType
 
 
-def check_geopandas_type(df: GPd):
+def check_geopandas_type(df: GeoPandasType):
     if not istype(df, GeoPandasList):
         raise TypeError(f"{df} must be GeoSeries or GeoDataFrame.")
 

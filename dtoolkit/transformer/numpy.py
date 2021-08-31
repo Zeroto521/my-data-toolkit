@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from .._typing import Pd
+from .._typing import PandasType
 from .base import NumpyTF
 
 
@@ -50,7 +50,7 @@ class RavelTF(NumpyTF):
 
     transform_method = staticmethod(np.ravel)
 
-    def inverse_transform(self, X: np.ndarray | Pd) -> pd.Series:
+    def inverse_transform(self, X: np.ndarray | PandasType) -> pd.Series:
         """
         Transform ``X`` to a column :class:`~pandas.DataFrame` (1D data).
 
