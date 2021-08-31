@@ -11,7 +11,6 @@ from pandas.util._validators import validate_bool_kwarg
 
 from ._util import get_inf_range
 from ._util import get_mask
-from ._util import validate_axis
 from .register import register_dataframe_method
 from .series import cols as series_cols
 
@@ -145,7 +144,7 @@ def dropinf(
 
     inplace = validate_bool_kwarg(inplace, "inplace")
 
-    axis = validate_axis(df, axis)
+    axis = df._get_axis_number(axis)
     agg_axis = 1 - axis
 
     agg_obj = df
@@ -290,7 +289,7 @@ def filterin(
     """
 
     inplace = validate_bool_kwarg(inplace, "inplace")
-    axis = validate_axis(df, axis)
+    axis = df._get_axis_number(axis)
 
     another_axis = 1 - axis
 
@@ -379,7 +378,7 @@ def repeat(
     new_index = df.index.copy()
     new_column = df.columns.copy()
 
-    axis = validate_axis(df, axis)
+    axis = df._get_axis_number(axis)
     if axis == 0:
         new_index = new_index.repeat(repeats)
     elif axis == 1:

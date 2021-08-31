@@ -125,21 +125,27 @@ def multi_if_else(
     return else_return
 
 
-def wraps(wrapped):
+def snake_to_camel(name: str) -> str:
     """
-    Keep the same additional attributes with ``wrapped``.
+    Change snake style name to camel style name.
 
-    Can't use :meth:`functools.wraps`, specially when ``wrapped`` type is
-    :keyword:`function` and ``wrapper`` is :keyword:`class`.
+    Parameters
+    ----------
+    name : str
+        Snake style name
+
+    Returns
+    -------
+    str
+        Camel style name
+
+    Examples
+    --------
+    >>> from dtoolkit.util import snake_to_camel
+    >>> snake_to_camel(snake_to_camel.__name__)
+    'SnakeToCamel'
     """
 
-    def decorator(wrapper):
-        wrapper.__module__ = wrapped.__module__
-        wrapper.__name__ = wrapped.__name__
-        wrapper.__doc__ = wrapped.__doc__
-        wrapper.__qualname__ = wrapped.__qualname__
-        wrapper.__annotations__ = wrapped.__annotations__
-
-        return wrapper
-
-    return decorator
+    components = name.split("_")
+    components = (x.title() for x in components)
+    return "".join(components)

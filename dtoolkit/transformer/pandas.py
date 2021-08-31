@@ -1,4 +1,4 @@
-from pandas import DataFrame
+import pandas as pd
 
 from ..accessor.dataframe import filterin  # noqa
 from .base import DataFrameTF
@@ -32,7 +32,7 @@ class AssignTF(DataFrameTF):
     Berkeley    25.0    77.0
     """
 
-    transform_method = DataFrame.assign.__name__
+    transform_method = staticmethod(pd.DataFrame.assign)
 
 
 class AppendTF(DataFrameTF):
@@ -80,7 +80,7 @@ class AppendTF(DataFrameTF):
     3  7  8
     """
 
-    transform_method = DataFrame.append.__name__
+    transform_method = staticmethod(pd.DataFrame.append)
 
 
 class DropTF(DataFrameTF):
@@ -169,7 +169,7 @@ class DropTF(DataFrameTF):
             weight  1.0     0.8
     """
 
-    transform_method = DataFrame.drop.__name__
+    transform_method = staticmethod(pd.DataFrame.drop)
 
 
 class EvalTF(DataFrameTF):
@@ -244,7 +244,7 @@ class EvalTF(DataFrameTF):
     4  5   2   7  3
     """
 
-    transform_method = DataFrame.eval.__name__
+    transform_method = staticmethod(pd.DataFrame.eval)
 
 
 class FillnaTF(DataFrameTF):
@@ -321,7 +321,7 @@ class FillnaTF(DataFrameTF):
     3   NaN 3.0 NaN 4
     """
 
-    transform_method = DataFrame.fillna.__name__
+    transform_method = staticmethod(pd.DataFrame.fillna)
 
 
 class FilterInTF(DataFrameTF):
@@ -394,7 +394,7 @@ class FilterInTF(DataFrameTF):
     falcon         2          2
     """
 
-    transform_method = DataFrame.filterin.__name__
+    transform_method = staticmethod(filterin)
 
 
 class FilterTF(DataFrameTF):
@@ -443,7 +443,7 @@ class FilterTF(DataFrameTF):
     rabbit    4    5      6
     """
 
-    transform_method = DataFrame.filter.__name__
+    transform_method = staticmethod(pd.DataFrame.filter)
 
 
 class GetTF(DataFrameTF):
@@ -456,7 +456,7 @@ class GetTF(DataFrameTF):
     pandas.DataFrame.get : This transformer's prototype method.
     """
 
-    transform_method = DataFrame.get.__name__
+    transform_method = staticmethod(pd.DataFrame.get)
 
 
 class QueryTF(DataFrameTF):
@@ -513,7 +513,7 @@ class QueryTF(DataFrameTF):
     0  1  10   10
     """
 
-    transform_method = DataFrame.query.__name__
+    transform_method = staticmethod(pd.DataFrame.query)
 
 
 class ReplaceTF(DataFrameTF):
@@ -638,7 +638,7 @@ class ReplaceTF(DataFrameTF):
     2  bait  xyz
     """
 
-    transform_method = DataFrame.replace.__name__
+    transform_method = staticmethod(pd.DataFrame.replace)
 
 
 class SelectDtypesTF(DataFrameTF):
@@ -697,4 +697,4 @@ class SelectDtypesTF(DataFrameTF):
     5  False  2.0
     """
 
-    transform_method = DataFrame.select_dtypes.__name__
+    transform_method = staticmethod(pd.DataFrame.select_dtypes)

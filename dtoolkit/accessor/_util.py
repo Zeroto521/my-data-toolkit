@@ -6,14 +6,6 @@ import pandas as pd
 from ..util import multi_if_else
 
 
-def validate_axis(df: pd.DataFrame, axis: int | str) -> int:
-    if isinstance(axis, (tuple, list)):
-        msg = "supplying multiple axes to axis is no longer supported."
-        raise TypeError(msg)
-
-    return df._get_axis_number(axis)
-
-
 def get_inf_range(inf: str = "all") -> list[float]:
     return multi_if_else(
         [

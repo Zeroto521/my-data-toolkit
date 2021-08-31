@@ -102,7 +102,7 @@ class TestDropinf:
     @pytest.mark.parametrize(
         "error, axis, how, subset",
         [
-            (TypeError, (0, 1), "any", None),
+            (ValueError, (0, 1), "any", None),
             (ValueError, 0, "whatever", None),
             (TypeError, 0, None, None),
             (KeyError, 0, "any", ["c"]),
