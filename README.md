@@ -9,7 +9,7 @@ See [documentation](https://my-data-toolkit.readthedocs.io/) for more informatio
 
 ## Introduction
 
-DToolKit includes three packages:
+DToolKit mainly includes following packages:
 
 - [accessor](https://my-data-toolkit.readthedocs.io/en/latest/reference/accessor.html): hook some useful functions into pandas object, use functions like pandas native way.
 - [transformer](https://my-data-toolkit.readthedocs.io/en/latest/guide/transformer.html): faces the engineering of data preprocessing.
