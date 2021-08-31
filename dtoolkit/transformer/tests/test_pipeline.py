@@ -1,33 +1,34 @@
-import joblib
 import pandas as pd
 import pytest
-from scipy import sparse
-from sklearn.pipeline import make_pipeline
 
 import dtoolkit._compat as compat
-from . import df_iris
-from . import df_label
-from . import df_mixed
-from . import feature_names
-from . import s
+from . import need_dependency
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
-from dtoolkit.transformer import DropTF
-from dtoolkit.transformer import EvalTF
-from dtoolkit.transformer import FeatureUnion
-from dtoolkit.transformer import FilterInTF
-from dtoolkit.transformer import GetTF
-from dtoolkit.transformer import make_union
-from dtoolkit.transformer import MinMaxScaler
-from dtoolkit.transformer import OneHotEncoder
-from dtoolkit.transformer import QueryTF
-from dtoolkit.transformer import RavelTF
+
+if compat.HAS_SKLEARN:
+    import joblib
+    from scipy import sparse
+    from sklearn.pipeline import make_pipeline
+
+    from . import df_iris
+    from . import df_label
+    from . import df_mixed
+    from . import feature_names
+    from . import s
+    from dtoolkit.transformer import DropTF
+    from dtoolkit.transformer import EvalTF
+    from dtoolkit.transformer import FeatureUnion
+    from dtoolkit.transformer import FilterInTF
+    from dtoolkit.transformer import GetTF
+    from dtoolkit.transformer import make_union
+    from dtoolkit.transformer import MinMaxScaler
+    from dtoolkit.transformer import OneHotEncoder
+    from dtoolkit.transformer import QueryTF
+    from dtoolkit.transformer import RavelTF
 
 
-@pytest.mark.skipif(
-    not compat.HAS_SKLEARN,
-    reason="transformer requires `sklearn`",
-)
+@need_dependency
 @pytest.mark.parametrize(
     "name, data, pipeline",
     [
@@ -74,10 +75,7 @@ def test_pipeline_work(name, data, pipeline):
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
 
 
-@pytest.mark.skipif(
-    not compat.HAS_SKLEARN,
-    reason="transformer requires `sklearn`",
-)
+@need_dependency
 class TestFeatureUnion:
     @pytest.mark.parametrize(
         "pipeline",
@@ -134,10 +132,7 @@ class TestFeatureUnion:
         assert sparse.isspmatrix(res)
 
 
-@pytest.mark.skipif(
-    not compat.HAS_SKLEARN,
-    reason="transformer requires `sklearn`",
-)
+@need_dependency
 def test_issue_87():
     tf = make_union(
         make_pipeline(

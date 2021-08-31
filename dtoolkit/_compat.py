@@ -50,3 +50,4 @@ HAS_GEOPANDAS = has_moudle("geopandas", "0.9")
 #
 
 HAS_SKLEARN = has_moudle("sklearn", "0.24")
+HAS_ITERTOOLS = has_moudle("more_itertools", "7.1.0")

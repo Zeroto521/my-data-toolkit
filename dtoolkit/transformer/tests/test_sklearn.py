@@ -1,19 +1,21 @@
 import pandas as pd
 import pytest
-from scipy import sparse
 
-from . import array
-from . import df_iris
-from . import df_label
-from dtoolkit.transformer import MinMaxScaler
-from dtoolkit.transformer import OneHotEncoder
-from dtoolkit.transformer.sklearn import _change_data_to_df
+import dtoolkit._compat as compat
+from . import need_dependency
 
-#
-# Create dataset
-#
+if compat.HAS_SKLEARN:
+    from scipy import sparse
+
+    from . import array
+    from . import df_iris
+    from . import df_label
+    from dtoolkit.transformer import MinMaxScaler
+    from dtoolkit.transformer import OneHotEncoder
+    from dtoolkit.transformer.sklearn import _change_data_to_df
 
 
+@need_dependency
 @pytest.mark.parametrize("data, df", [(array, df_iris), (array, array)])
 def test_change_data_to_df(data, df):
     data_new = _change_data_to_df(data, df)
@@ -21,6 +23,7 @@ def test_change_data_to_df(data, df):
     assert type(df) is type(data_new)  # pylint: disable=unidiomatic-typecheck
 
 
+@need_dependency
 def test_minmaxscaler():
     tf = MinMaxScaler().fit(df_iris)
 
@@ -31,6 +34,7 @@ def test_minmaxscaler():
     assert df_iris.equals(data)
 
 
+@need_dependency
 class TestOneHotEncoder:
     def test_dataframe_in_dataframe_out(self):
         tf = OneHotEncoder()
