@@ -22,7 +22,6 @@ PROJECT_URLS = {
     "Issue Tracker": "https://github.com/zeroto521/my-data-toolkit/issues",
 }
 
-PLATFORMS = ["Windows", "MacOS", "Unix"]
 CLASSIFIERS = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
@@ -56,7 +55,7 @@ setup(
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
-    platforms=PLATFORMS,
+    platforms="any",
     classifiers=CLASSIFIERS,
     packages=find_packages(),
     python_requires=">=3.7",
