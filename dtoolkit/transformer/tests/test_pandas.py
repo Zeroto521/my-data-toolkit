@@ -22,10 +22,6 @@ from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import ReplaceTF
 from dtoolkit.transformer import SelectDtypesTF
 
-#
-# Create dataset
-#
-
 
 def test_assigntf():
     def period(df, regex):

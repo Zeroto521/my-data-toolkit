@@ -6,10 +6,6 @@ from . import df_iris
 from . import s
 from dtoolkit.transformer import RavelTF
 
-#
-# Create dataset
-#
-
 
 class TestRavelTF:
     @pytest.mark.parametrize("data", [array, df_iris, s, s.tolist()])
