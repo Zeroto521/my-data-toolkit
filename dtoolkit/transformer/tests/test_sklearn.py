@@ -9,10 +9,6 @@ from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer.sklearn import _change_data_to_df
 
-#
-# Create dataset
-#
-
 
 @pytest.mark.parametrize("data, df", [(array, df_iris), (array, array)])
 def test_change_data_to_df(data, df):
