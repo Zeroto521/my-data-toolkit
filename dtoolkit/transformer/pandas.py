@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ..accessor.dataframe import filterin  # noqa
+from ..accessor.dataframe import filterin
 from .base import DataFrameTF
 
 
