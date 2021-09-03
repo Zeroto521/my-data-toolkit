@@ -7,8 +7,6 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from .._typing import PandasType
-
 
 class Transformer(TransformerMixin):
     """Base class for all transformers in :class:`dtoolkit.transformer`."""
@@ -85,7 +83,7 @@ class MethodTF(Transformer):
 
     def transform(
         self,
-        X: PandasType | np.ndarray,
+        X: np.ndarray | pd.Series | pd.DataFrame,
     ) -> pd.DataFrame | np.ndarray:
         """
         Transform ``X``.
@@ -145,7 +143,7 @@ class DataFrameTF(MethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    def transform(self, X: pd.DataFrame) -> PandasType:
+    def transform(self, X: pd.DataFrame) -> pd.Series | pd.DataFrame:
         """
         Transform ``X``.
 
