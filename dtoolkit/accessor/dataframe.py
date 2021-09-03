@@ -399,12 +399,14 @@ def repeat(
 def isin(
     df: pd.DataFrame,
     values: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: int = 0,
+    axis: int | str = 0,
 ) -> pd.DataFrame:
     """
     Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
     :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
     """
+
+    axis = df._get_axis_number(axis)
 
     if isinstance(values, dict) and axis == 1:
         values = defaultdict(list, values)
