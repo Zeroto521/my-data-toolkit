@@ -2,34 +2,34 @@ from __future__ import annotations
 
 from warnings import warn
 
+import geopandas as gpd
 import pandas as pd
 from more_itertools import collapse
 from shapely.geometry import mapping
 from shapely.geometry.base import BaseGeometry
 
-from ..util._validation import istype
 from ._typing import CoordNumType
 from ._typing import CoordType
-from ._typing import GeoPandasType
 from ._typing import NumericBaseList
 from ._typing import NumericBaseType
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
+from ._validation import istype
 
 
-def coords(df: GeoPandasType) -> pd.Series:
+def coords(df: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
     check_geopandas_type(df)
 
     return df.geometry.apply(_coords)
 
 
-def coords_numlist(df: GeoPandasType) -> pd.Series:
+def coords_numlist(df: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
     check_geopandas_type(df)
 
     return df.geometry.apply(_coords_num)
 
 
-def coords_num(df: GeoPandasType) -> pd.Series:
+def coords_num(df: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
     res = coords_numlist(df)
 
     def sum_nums(nums: CoordNumType) -> NumericBaseType:
