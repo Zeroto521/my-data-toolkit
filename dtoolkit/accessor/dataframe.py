@@ -398,7 +398,7 @@ def repeat(
 
 def isin(
     df: pd.DataFrame,
-    values: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+    values: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
     axis: int = 0,
 ) -> pd.DataFrame:
     """
