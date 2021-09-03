@@ -11,10 +11,8 @@ from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
-from .._typing import PandasTypeList
 from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
-from ..util._validation import istype
 from .base import Transformer
 
 
@@ -46,7 +44,7 @@ class FeatureUnion(SKFeatureUnion, Transformer):
     """
 
     def _hstack(self, Xs):
-        if all(istype(i, PandasTypeList) for i in Xs):
+        if all(isinstance(i, (pd.Series, pd.DataFrame)) for i in Xs):
             Xs = (i.reset_index(drop=True) for i in Xs)
             return pd.concat(Xs, axis=1)
 
