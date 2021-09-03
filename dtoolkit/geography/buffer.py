@@ -78,7 +78,7 @@ def geographic_buffer(
 
     check_geopandas_type(df)
 
-    if istype(distance, pd.Series) and not df.index.equals(distance.index):
+    if isinstance(distance, pd.Series) and not df.index.equals(distance.index):
         raise IndexError(
             "Index values of distance sequence does "
             "not match index values of the GeoSeries",
@@ -90,7 +90,7 @@ def geographic_buffer(
     gscrs: CRS = df.crs or string_or_int_to_crs(crs, epsg)
 
     out: np.ndarray = np.empty(len(df), dtype=object)
-    if istype(distance, np.ndarray):
+    if isinstance(distance, np.ndarray):
         if len(distance) != len(df):
             raise IndexError(
                 "Length of distance doesn't match length of the GeoSeries.",
