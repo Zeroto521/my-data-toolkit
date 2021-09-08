@@ -77,7 +77,7 @@ class MethodTF(Transformer):
         """Inverse transform method arguement entry."""
 
         self.inverse_args = args
-        self.inverse_kwargs = kwargs
+        self.inverse_kwargs.update(kwargs)
 
         return self
 
