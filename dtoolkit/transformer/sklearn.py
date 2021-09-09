@@ -14,7 +14,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
-from ._util import transform_array_to_frame
+from ._decorator import frame_in_frame_out
 from .base import Transformer
 
 
@@ -54,7 +54,7 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
 
 def make_union(
-    *transformers: list,
+    *transformers: list[Transformer],
     n_jobs: int | None = None,
     verbose: bool = False,
 ) -> FeatureUnion:
@@ -132,13 +132,13 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.""",
         ),
     )
+    @frame_in_frame_out
     def transform(
         self,
         X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
 
-        X_new = super().transform(X)
-        return transform_array_to_frame(X_new, X)
+        return super().transform(X)
 
     @doc(
         SKMinMaxScaler.inverse_transform,
@@ -150,13 +150,13 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.""",
         ),
     )
+    @frame_in_frame_out
     def inverse_transform(
         self,
         X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
 
-        X_new = super().inverse_transform(X)
-        return transform_array_to_frame(X_new, X)
+        return super().inverse_transform(X)
 
 
 class OneHotEncoder(SKOneHotEncoder):
