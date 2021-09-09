@@ -11,25 +11,6 @@ from sklearn.base import TransformerMixin
 class Transformer(TransformerMixin):
     """Base class for all transformers in :class:`dtoolkit.transformer`."""
 
-    def __init__(self, *args, **kwargs):
-        """Transform method arguement entry."""
-
-        # transform method parameters
-        self.args = args
-        self.kwargs = kwargs
-
-    def fit(self, *_):
-        """
-        Fit transformer.
-
-        Returns
-        -------
-        self
-            This estimator
-        """
-
-        return self
-
     def inverse_transform(
         self,
         X: pd.DataFrame | np.ndarray,
@@ -65,13 +46,28 @@ class MethodTF(Transformer):
     transform_method: callable
     inverse_transform_method: callable | None = None
 
-    @doc(Transformer.__init__)
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        """Transform method arguement entry."""
+
+        # transform method parameters
+        self.args = args
+        self.kwargs = kwargs
 
         # inverse transform parameters
         self.inverse_args = ()
         self.inverse_kwargs = {}
+
+    def fit(self, *_):
+        """
+        Fit transformer.
+
+        Returns
+        -------
+        self
+            This estimator
+        """
+
+        return self
 
     def update_invargs(self, *args, **kwargs):
         """Inverse transform method arguement entry."""
