@@ -43,7 +43,7 @@ def dropinf(
     inplace: bool = False,
 ) -> pd.DataFrame | None:
     """
-    Remove :obj:`~numpy.inf` values.
+    Remove ``inf`` values.
 
     Parameters
     ----------
@@ -75,13 +75,13 @@ def dropinf(
     Returns
     -------
     DataFrame or None
-        DataFrame with :obj:`~numpy.inf` entries dropped from it or None if
+        DataFrame with ``inf`` entries dropped from it or None if
         ``inplace=True``.
 
     See Also
     --------
-    dtoolkit.accessor.series.dropinf : :obj:`~pandas.Series` drops
-        :obj:`~numpy.inf` values.
+    dtoolkit.accessor.series.dropinf : :obj:`~pandas.Series` drops ``inf``
+        values.
 
     Examples
     --------
