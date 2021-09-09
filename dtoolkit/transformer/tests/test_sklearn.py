@@ -1,20 +1,10 @@
 import pandas as pd
-import pytest
 from scipy import sparse
 
-from . import array
 from . import df_iris
 from . import df_label
 from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
-from dtoolkit.transformer.sklearn import _change_data_to_df
-
-
-@pytest.mark.parametrize("data, df", [(array, df_iris), (array, array)])
-def test_change_data_to_df(data, df):
-    data_new = _change_data_to_df(data, df)
-
-    assert type(df) is type(data_new)  # pylint: disable=unidiomatic-typecheck
 
 
 def test_minmaxscaler():
