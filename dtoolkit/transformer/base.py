@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -11,22 +12,9 @@ from sklearn.base import TransformerMixin
 class Transformer(TransformerMixin):
     """Base class for all transformers in :class:`dtoolkit.transformer`."""
 
-    def inverse_transform(
-        self,
-        X: pd.DataFrame | np.ndarray,
-    ) -> pd.DataFrame | np.ndarray:
+    def inverse_transform(self, X: Any) -> Any:
         """
         Undo transform to ``X``.
-
-        Parameters
-        ----------
-        X : DataFrame or array-like of shape ``(n_samples, n_features)``
-            Input data that will be transformed.
-
-        Returns
-        -------
-        DataFrame or ndarray of shape ``(n_samples, n_features)``
-            Transformed data.
 
         Notes
         -----
@@ -97,14 +85,34 @@ class MethodTF(Transformer):
 
         return self.transform_method(X, *self.args, **self.kwargs)
 
-    @doc(Transformer.inverse_transform)
     def inverse_transform(
         self,
         X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
+        """
+        Undo transform to ``X``.
+
+        Parameters
+        ----------
+        X : DataFrame or array-like of shape ``(n_samples, n_features)``
+            Input data that will be transformed.
+
+        Returns
+        -------
+        DataFrame or ndarray
+            Transformed data.
+
+        Notes
+        -----
+        If ``inverse_transform_method`` is None, there would do nothing for
+        ``X``.
+        """
+
         if self.inverse_transform_method:
             return self.inverse_transform_method(
-                X, *self.inverse_args, **self.inverse_kwargs
+                X,
+                *self.inverse_args,
+                **self.inverse_kwargs,
             )
 
         return super().inverse_transform(X)
