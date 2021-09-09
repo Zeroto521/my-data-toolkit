@@ -1,17 +1,22 @@
 from __future__ import annotations
 
-import numpy as np
-import pandas as pd
+from typing import TYPE_CHECKING
 
 from ..util import multi_if_else
 
+if TYPE_CHECKING:
+    import pandas as pd
+    import numpy as np
+
 
 def get_inf_range(inf: str = "all") -> list[float]:
+    infinity = float("inf")
+
     return multi_if_else(
         [
-            (inf == "all", [np.inf, -np.inf]),
-            (inf == "pos", [np.inf]),
-            (inf == "neg", [-np.inf]),
+            (inf == "all", [infinity, -infinity]),
+            (inf == "pos", [infinity]),
+            (inf == "neg", [-infinity]),
             (inf is not None, ValueError(f"invalid inf option: {inf}")),
         ],
         TypeError("must specify inf"),
