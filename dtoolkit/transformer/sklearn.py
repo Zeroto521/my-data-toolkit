@@ -54,7 +54,7 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
 
 def make_union(
-    *transformers: list,
+    *transformers: list[Transformer],
     n_jobs: int | None = None,
     verbose: bool = False,
 ) -> FeatureUnion:
