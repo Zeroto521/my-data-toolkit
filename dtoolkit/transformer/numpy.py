@@ -54,7 +54,7 @@ class RavelTF(NumpyTF):
         X: np.ndarray | pd.Series | pd.DataFrame,
     ) -> pd.Series:
         """
-        Transform ``X`` to a column :class:`~pandas.DataFrame` (1D data).
+        Transform ``X`` to a column :class:`~pandas.Series` (1D data).
 
         Parameters
         ----------
@@ -63,8 +63,8 @@ class RavelTF(NumpyTF):
 
         Returns
         -------
-        pd.DataFrame
+        Series
             Transformed a column data.
         """
 
-        return pd.DataFrame(np.ravel(X))
+        return pd.Series(np.ravel(X))

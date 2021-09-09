@@ -21,4 +21,4 @@ class TestRavelTF:
         transformed_data = tf.fit_transform(data)
         res = tf.inverse_transform(transformed_data)
 
-        assert isinstance(res, pd.DataFrame)
+        assert isinstance(res, pd.Series)
