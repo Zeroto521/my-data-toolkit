@@ -4,7 +4,7 @@ from typing import Any
 
 
 def multi_if_else(
-    if_condition_return: list[tuple(bool, Any)],
+    if_condition_return: list[tuple[bool, Any]],
     else_return: Any | None = None,
 ) -> Any | None:
     """
