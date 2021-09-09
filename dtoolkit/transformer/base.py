@@ -2,14 +2,11 @@ from __future__ import annotations
 
 from textwrap import dedent
 from typing import Any
-from typing import TYPE_CHECKING
 
+import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
-
-if TYPE_CHECKING:
-    import numpy as np
 
 
 class Transformer(TransformerMixin):

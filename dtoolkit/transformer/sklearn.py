@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
@@ -16,9 +15,6 @@ from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
 from ._util import transform_array_to_frame
 from .base import Transformer
-
-if TYPE_CHECKING:
-    from scipy.sparse import csr_matrix
 
 
 class FeatureUnion(SKFeatureUnion, Transformer):
@@ -259,11 +255,8 @@ class OneHotEncoder(SKOneHotEncoder):
         This would let :obj:`~pandas.DataFrame` out.""",
         ),
     )
-    def transform(
-        self,
-        X: pd.DataFrame | np.ndarray,
-    ) -> pd.DataFrame | np.ndarray | csr_matrix:
-        X_new = super().transform(X)
+    def transform(self, X, *_):
+        X_new = super().transform(X, *_)
 
         if self.sparse is False:
             categories = (
