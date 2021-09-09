@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from more_itertools import flatten
 from pandas.util._decorators import doc
+from scipy.sparse import csr_matrix
 from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
@@ -255,8 +256,11 @@ class OneHotEncoder(SKOneHotEncoder):
         This would let :obj:`~pandas.DataFrame` out.""",
         ),
     )
-    def transform(self, X, *_):
-        X_new = super().transform(X, *_)
+    def transform(
+        self,
+        X: pd.DataFrame | np.ndarray,
+    ) -> pd.DataFrame | np.ndarray | csr_matrix:
+        X_new = super().transform(X)
 
         if self.sparse is False:
             categories = (
