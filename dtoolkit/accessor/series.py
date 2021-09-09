@@ -62,7 +62,7 @@ def dropinf(
     inplace: bool = False,
 ) -> pd.Series | None:
     """
-    Remove ``inf`` values.
+    Remove :obj:`~numpy.inf` values.
 
     Parameters
     ----------
@@ -83,7 +83,7 @@ def dropinf(
     See Also
     --------
     dtoolkit.accessor.dataframe.dropinf : :obj:`~pandas.DataFrame` drops rows
-        or columns which contain ``inf`` values.
+        or columns which contain :obj:`~numpy.inf` values.
 
     Examples
     --------
