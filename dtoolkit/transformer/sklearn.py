@@ -13,6 +13,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
+from ._util import transform_array_to_frame
 from .base import Transformer
 
 
@@ -85,16 +86,6 @@ def make_union(
     )
 
 
-def _change_data_to_df(
-    data: np.ndarray,
-    df: pd.DataFrame | np.ndarray,
-) -> pd.DataFrame | np.ndarray:
-    if isinstance(df, pd.DataFrame):
-        return pd.DataFrame(data, columns=df.columns, index=df.index)
-
-    return data
-
-
 class MinMaxScaler(SKMinMaxScaler):
     """
     Transform features by scaling each feature to a given range.
@@ -140,10 +131,13 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.""",
         ),
     )
-    def transform(self, X, *_):
-        X_new = super().transform(X, *_)
+    def transform(
+        self,
+        X: pd.DataFrame | np.ndarray,
+    ) -> pd.DataFrame | np.ndarray:
 
-        return _change_data_to_df(X_new, X)
+        X_new = super().transform(X)
+        return transform_array_to_frame(X_new, X)
 
     @doc(
         SKMinMaxScaler.inverse_transform,
@@ -155,10 +149,13 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.""",
         ),
     )
-    def inverse_transform(self, X, *_):
-        X_new = super().inverse_transform(X, *_)
+    def inverse_transform(
+        self,
+        X: pd.DataFrame | np.ndarray,
+    ) -> pd.DataFrame | np.ndarray:
 
-        return _change_data_to_df(X_new, X)
+        X_new = super().inverse_transform(X)
+        return transform_array_to_frame(X_new, X)
 
 
 class OneHotEncoder(SKOneHotEncoder):
