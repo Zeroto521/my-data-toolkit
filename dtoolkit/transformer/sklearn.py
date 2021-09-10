@@ -123,8 +123,8 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
-    @frame_in_frame_out
     @force_series_to_frame
+    @frame_in_frame_out
     def transform(
         self,
         X: pd.Series | pd.DataFrame | np.ndarray,
@@ -150,8 +150,8 @@ class MinMaxScaler(SKMinMaxScaler):
 
         return super().transform(X)
 
-    @frame_in_frame_out
     @force_series_to_frame
+    @frame_in_frame_out
     def inverse_transform(
         self,
         X: pd.Series | pd.DataFrame | np.ndarray,

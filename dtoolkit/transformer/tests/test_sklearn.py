@@ -3,18 +3,28 @@ from scipy import sparse
 
 from . import df_iris
 from . import df_label
+from . import s
 from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
 
 
-def test_minmaxscaler():
-    tf = MinMaxScaler().fit(df_iris)
+class TestMinMaxscaler:
+    def test_work(self):
+        tf = MinMaxScaler().fit(df_iris)
 
-    data_transformed = tf.transform(df_iris)
-    data = tf.inverse_transform(data_transformed)
-    data = data.round(2)
+        data_transformed = tf.transform(df_iris)
+        data = tf.inverse_transform(data_transformed)
+        data = data.round(2)
 
-    assert df_iris.equals(data)
+        assert df_iris.equals(data)
+
+    def test_series_in_dataframe_out(self):
+        tf = MinMaxScaler()
+        tf.fit(s.to_frame())
+        res = tf.inverse_transform(s)
+
+        assert isinstance(s, pd.Series)
+        assert isinstance(res, pd.DataFrame)
 
 
 class TestOneHotEncoder:
