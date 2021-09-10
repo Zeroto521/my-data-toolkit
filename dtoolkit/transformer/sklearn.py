@@ -123,18 +123,17 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
-    @force_series_to_frame
     @frame_in_frame_out
     def transform(
         self,
-        X: pd.Series | pd.DataFrame | np.ndarray,
+        X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
         """
         Scale features of X according to feature_range.
 
         Parameters
         ----------
-        X : Series, DataFrame or array-like of shape `(n_samples, n_features)`
+        X : DataFrame or array-like of shape `(n_samples, n_features)`
             Input data that will be transformed.
 
         Returns
