@@ -9,6 +9,7 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from ._decorator import force_series_to_frame
+from ._decorator import require_series_or_frame
 
 
 class Transformer(TransformerMixin):
@@ -144,6 +145,7 @@ class DataFrameTF(MethodTF):
         super().__init__(*args, **kwargs)
 
     @force_series_to_frame
+    @require_series_or_frame
     def transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Transform ``X``.
@@ -159,15 +161,10 @@ class DataFrameTF(MethodTF):
             A new X was transformed.
         """
 
-        if not isinstance(X, pd.DataFrame):
-            raise TypeError(
-                f"For argument 'X' expected type 'pandas.DataFrame', "
-                f"received type {type(X).__name__}.",
-            )
-
         return super().transform(X)
 
     @force_series_to_frame
+    @require_series_or_frame
     def inverse_transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Undo transform to ``X``.
