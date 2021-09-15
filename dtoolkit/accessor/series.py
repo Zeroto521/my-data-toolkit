@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Any
 
 import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
+from ..util.generic import multi_if_else
+from ._util import between
 from ._util import get_inf_range
 from .register import register_series_method
 
@@ -117,6 +120,36 @@ def dropinf(
     inf_range = get_inf_range(inf)
     mask = s.isin(inf_range)
     result = s[~mask]
+
+    if not inplace:
+        return result
+
+    s._update_inplace(result)
+
+
+@register_series_method
+def range_replace(
+    s: pd.DataFrame,
+    to_replace: dict[tuple, Any],
+    equal_sign: str = "left",
+    inplace: bool = False,
+) -> pd.Series | None:
+    result = s.apply(
+        lambda value: multi_if_else(
+            if_condition_return=(
+                (
+                    between(
+                        value,
+                        *left_right,
+                        equal_sign=equal_sign,
+                    ),
+                    label,
+                )
+                for left_right, label in to_replace.items()
+            ),
+            else_return=value,
+        ),
+    )
 
     if not inplace:
         return result
