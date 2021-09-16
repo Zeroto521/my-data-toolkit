@@ -155,7 +155,7 @@ def range_replace(
             else_return=value,
         )
 
-    result = s.apply(lambda value: replace(value))
+    result = s.apply(replace)
 
     if not inplace:
         return result
