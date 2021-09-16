@@ -134,6 +134,8 @@ def range_replace(
     equal_sign: str = "left",
     inplace: bool = False,
 ) -> pd.Series | None:
+    inplace = validate_bool_kwarg(inplace, "inplace")
+
     result = s.apply(
         lambda value: multi_if_else(
             if_condition_return=(
