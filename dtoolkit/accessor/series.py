@@ -136,8 +136,11 @@ def range_replace(
 ) -> pd.Series | None:
     inplace = validate_bool_kwarg(inplace, "inplace")
 
-    result = s.apply(
-        lambda value: multi_if_else(
+    def replace(value):
+        if not isinstance(value, (int, float)):
+            return value
+
+        return multi_if_else(
             if_condition_return=(
                 (
                     between(
@@ -150,8 +153,9 @@ def range_replace(
                 for left_right, label in to_replace.items()
             ),
             else_return=value,
-        ),
-    )
+        )
+
+    result = s.apply(lambda value: replace(value))
 
     if not inplace:
         return result
