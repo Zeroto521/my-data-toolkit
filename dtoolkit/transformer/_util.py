@@ -31,3 +31,24 @@ def transform_array_to_frame(
         )
 
     return array
+
+
+def transform_series_to_frame(
+    X: np.ndarray | pd.Series | pd.DataFrame,
+) -> pd.DataFrame | np.ndarray:
+    """
+    Transform ``X`` to DataFrame if ``X`` type is Series.
+
+    Parameters
+    ----------
+    X : ndarray, Series or DataFrame
+
+    Returns
+    -------
+    DataFrame or ndarray
+    """
+
+    if isinstance(X, pd.Series):
+        return X.to_frame()
+
+    return X
