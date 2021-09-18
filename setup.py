@@ -1,20 +1,15 @@
-import os
-
 from setuptools import find_packages, setup
 
 NAME = "dtoolkit"
 GITHUB_USERNAME = "Zeroto521"
 AUTHOR = f"Zero <@{GITHUB_USERNAME}>"
 
-repository_name = os.path.basename(os.getcwd())
-
-
 setup(
     name=NAME,
     version=__import__(NAME).__version__,
     author=AUTHOR,
     author_email="Zeroto521@gmail.com",
-    url=f"https://github.com/{GITHUB_USERNAME}/{repository_name}",
+    url=f"https://github.com/{GITHUB_USERNAME}/my-data-toolkit",
     project_urls={
         "Documentation": "https://my-data-toolkit.readthedocs.io/",
         "Issue Tracker": "https://github.com/zeroto521/my-data-toolkit/issues",
