@@ -8,7 +8,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from ._decorator import force_series_to_frame
+from ._util import transform_series_to_frame
 from ._validation import require_series_or_frame
 
 
@@ -144,7 +144,6 @@ class DataFrameTF(MethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    @force_series_to_frame
     def transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Transform ``X``.
@@ -161,10 +160,10 @@ class DataFrameTF(MethodTF):
         """
 
         require_series_or_frame(X)
+        X = transform_series_to_frame(X)
 
         return super().transform(X)
 
-    @force_series_to_frame
     def inverse_transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Undo transform to ``X``.
@@ -186,5 +185,6 @@ class DataFrameTF(MethodTF):
         """
 
         require_series_or_frame(X)
+        X = transform_series_to_frame(X)
 
         return super().inverse_transform(X)

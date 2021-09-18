@@ -14,8 +14,8 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
-from ._decorator import force_series_to_frame
-from ._decorator import frame_in_frame_out
+from ._util import transform_array_to_frame
+from ._util import transform_series_to_frame
 from .base import Transformer
 
 
@@ -123,7 +123,6 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
-    @frame_in_frame_out
     def transform(
         self,
         X: pd.DataFrame | np.ndarray,
@@ -147,10 +146,10 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.
         """
 
-        return super().transform(X)
+        X_new = super().transform(X)
 
-    @force_series_to_frame
-    @frame_in_frame_out
+        return transform_array_to_frame(X_new, X)
+
     def inverse_transform(
         self,
         X: pd.Series | pd.DataFrame | np.ndarray,
@@ -174,7 +173,10 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.
         """
 
-        return super().inverse_transform(X)
+        X = transform_series_to_frame(X)
+        X_new = super().inverse_transform(X)
+
+        return transform_array_to_frame(X_new, X)
 
 
 class OneHotEncoder(SKOneHotEncoder):
