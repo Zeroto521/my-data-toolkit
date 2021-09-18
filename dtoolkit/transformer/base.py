@@ -9,7 +9,7 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from ._decorator import force_series_to_frame
-from ._decorator import require_series_or_frame
+from ._validation import require_series_or_frame
 
 
 class Transformer(TransformerMixin):
@@ -145,7 +145,6 @@ class DataFrameTF(MethodTF):
         super().__init__(*args, **kwargs)
 
     @force_series_to_frame
-    @require_series_or_frame
     def transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Transform ``X``.
@@ -161,10 +160,11 @@ class DataFrameTF(MethodTF):
             A new X was transformed.
         """
 
+        require_series_or_frame(X)
+
         return super().transform(X)
 
     @force_series_to_frame
-    @require_series_or_frame
     def inverse_transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Undo transform to ``X``.
@@ -184,5 +184,7 @@ class DataFrameTF(MethodTF):
         If ``inverse_transform_method`` is None, there would do nothing for
         ``X``.
         """
+
+        require_series_or_frame(X)
 
         return super().inverse_transform(X)
