@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from collections import defaultdict
+from typing import Iterable
+
 import numpy as np
 import pandas as pd
 
@@ -31,3 +34,23 @@ def get_mask(
         ],
         TypeError("must specify how"),
     )
+
+
+def isin(
+    df: pd.DataFrame,
+    values: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
+    axis: int | str = 0,
+) -> pd.DataFrame:
+    """
+    Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
+    :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
+    """
+
+    axis = df._get_axis_number(axis)
+
+    if isinstance(values, dict) and axis == 1:
+        values = defaultdict(list, values)
+        result = (df.iloc[[r]].isin(values[i]) for r, i in enumerate(df.index))
+        return pd.concat(result, axis=0)
+
+    return df.isin(values)

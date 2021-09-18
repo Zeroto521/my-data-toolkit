@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections import defaultdict
 from textwrap import dedent
 from typing import Iterable
 
@@ -11,6 +10,7 @@ from pandas.util._validators import validate_bool_kwarg
 
 from ._util import get_inf_range
 from ._util import get_mask
+from ._util import isin
 from .register import register_dataframe_method
 from .series import cols as series_cols
 
@@ -394,23 +394,3 @@ def repeat(
         index=new_index,
         columns=new_column,
     )
-
-
-def isin(
-    df: pd.DataFrame,
-    values: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: int | str = 0,
-) -> pd.DataFrame:
-    """
-    Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
-    :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
-    """
-
-    axis = df._get_axis_number(axis)
-
-    if isinstance(values, dict) and axis == 1:
-        values = defaultdict(list, values)
-        result = (df.iloc[[r]].isin(values[i]) for r, i in enumerate(df.index))
-        return pd.concat(result, axis=0)
-
-    return df.isin(values)
