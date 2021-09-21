@@ -5,13 +5,13 @@ from ..util import wraps
 from .base import Accessor
 
 
-def register_method_factory(register_accessor: callable) -> callable:
+def register_method_factory(register_accessor):
     """
     Decrease the same things via factory pattern.
     """
 
     # based on pandas_flavor/register.py
-    def register_accessor_method(method: callable) -> callable:
+    def register_accessor_method(method):
         """
         Register a function as a pandas's object native method.
 
