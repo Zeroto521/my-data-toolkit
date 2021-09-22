@@ -1,8 +1,10 @@
+from __future__ import annotations
+
+from functools import wraps
+
+import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_series_accessor
-
-from ..util import wraps
-from .base import Accessor
 
 
 def register_method_factory(register_accessor):
@@ -46,11 +48,15 @@ def register_method_factory(register_accessor):
         'a'
         """
 
-        @register_accessor(method.__name__)
         @wraps(method)
-        class PdCustomMethod(Accessor):
-            def __call__(self, *args, **kwargs):
-                return method(self.pd_obj, *args, **kwargs)
+        def method_accessor(pd_obj: pd.Series | pd.DataFrame):
+            @wraps(method)
+            def wrapper(*args, **kwargs):
+                return method(pd_obj, *args, **kwargs)
+
+            return wrapper
+
+        register_accessor(method.__name__)(method_accessor)
 
         # Must return method itself, otherwise would get None.
         return method
