@@ -18,11 +18,12 @@ from ._typing import NumericType
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
 from dtoolkit._typing import get_args
+from dtoolkit._typing import OneDimArray
 
 
 def geographic_buffer(
     df: GeoSeriesOrGeoFrame,
-    distance: NumericType | list[NumericType] | np.ndarray | pd.Series,
+    distance: NumericType | list[NumericType] | OneDimArray,
     crs: str | None = None,
     epsg: int | None = None,
     **kwargs,
