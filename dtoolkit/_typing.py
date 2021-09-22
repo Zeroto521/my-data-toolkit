@@ -5,7 +5,7 @@ import pandas as pd
 SeriesOrFrame = Union[pd.Series, pd.DataFrame]
 
 #
-# typing compat
+# typing.get_args compat
 #
 
 try:

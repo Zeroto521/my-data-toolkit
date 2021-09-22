@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from typing import get_args
-
+from dtoolkit._typing import get_args
 from dtoolkit._typing import SeriesOrFrame
 
 
