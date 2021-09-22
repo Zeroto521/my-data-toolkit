@@ -15,10 +15,9 @@ from shapely.ops import transform
 
 from ._typing import GeoSeriesOrGeoFrame
 from ._typing import NumericType
-from ._typing import NumericTypeList
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
-from ._validation import istype
+from dtoolkit._typing import get_args
 
 
 def geographic_buffer(
@@ -84,7 +83,7 @@ def geographic_buffer(
             "not match index values of the GeoSeries",
         )
 
-    if not istype(distance, NumericTypeList):
+    if not isinstance(distance, get_args(NumericType)):
         distance = np.asarray(distance)
 
     gscrs: CRS = df.crs or string_or_int_to_crs(crs, epsg)
@@ -137,7 +136,7 @@ def _geographic_buffer(
 
     check_geometry_type(geom)
 
-    if not istype(distance, NumericTypeList):
+    if not isinstance(distance, get_args(NumericType)):
         raise TypeError("The type of 'distance' must be int or float.")
     if distance <= 0:
         raise ValueError("The distance must be greater than 0.")
