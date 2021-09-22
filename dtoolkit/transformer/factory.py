@@ -2,23 +2,24 @@ from __future__ import annotations
 
 from functools import wraps
 from inspect import isfunction
+from typing import Callable
 
 from .base import MethodTF
 from dtoolkit.util.generic import snake_to_camel
 
 
 def methodtf_factory(
-    transform_method: callable,
-    inverse_transform_method: callable | None = None,
+    transform_method: Callable,
+    inverse_transform_method: Callable | None = None,
 ) -> MethodTF:
     """
     Quickly generate transformer from methods.
 
     Parameters
     ----------
-    transform_method : callable
+    transform_method : Callable
         The back algorithm of the :func:`~MethodTF.transform`.
-    inverse_transform_method : callable or None
+    inverse_transform_method : Callable or None
         The back algorithm of the :func:`~MethodTF.inverse_transform`.
 
     Examples
