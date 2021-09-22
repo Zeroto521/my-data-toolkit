@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from warnings import warn
 
-import geopandas as gpd
 import pandas as pd
 from more_itertools import collapse
 from shapely.geometry import mapping
@@ -10,30 +9,30 @@ from shapely.geometry.base import BaseGeometry
 
 from ._typing import CoordNumType
 from ._typing import CoordType
-from ._typing import NumericBaseList
+from ._typing import GeoSeriesOrGeoFrame
 from ._typing import NumericBaseType
 from ._validation import check_geometry_type
 from ._validation import check_geopandas_type
-from ._validation import istype
+from dtoolkit._typing import get_args
 
 
-def coords(df: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
+def coords(df: GeoSeriesOrGeoFrame) -> pd.Series:
     check_geopandas_type(df)
 
     return df.geometry.apply(_coords)
 
 
-def coords_numlist(df: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
+def coords_numlist(df: GeoSeriesOrGeoFrame) -> pd.Series:
     check_geopandas_type(df)
 
     return df.geometry.apply(_coords_num)
 
 
-def coords_num(df: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
+def coords_num(df: GeoSeriesOrGeoFrame) -> pd.Series:
     res = coords_numlist(df)
 
     def sum_nums(nums: CoordNumType) -> NumericBaseType:
-        if istype(nums, NumericBaseList):
+        if isinstance(nums, get_args(NumericBaseType)):
             return nums
 
         return sum(collapse(nums, levels=1))

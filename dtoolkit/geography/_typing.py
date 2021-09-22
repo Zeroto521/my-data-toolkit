@@ -1,6 +1,7 @@
 from typing import Tuple
 from typing import Union
 
+import geopandas as gpd
 from numpy import float32
 from numpy import float64
 from numpy import float_
@@ -13,6 +14,8 @@ from numpy import uint32
 from numpy import uint64
 from numpy import uint8
 
+
+GeoSeriesOrGeoFrame = Union[gpd.GeoSeries, gpd.GeoDataFrame]
 
 #
 # numeric type
