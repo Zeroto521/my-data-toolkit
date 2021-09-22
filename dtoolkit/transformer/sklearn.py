@@ -15,6 +15,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from ._util import transform_array_to_frame
 from ._util import transform_series_to_frame
 from .base import Transformer
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 
@@ -152,7 +153,7 @@ class MinMaxScaler(SKMinMaxScaler):
 
     def inverse_transform(
         self,
-        X: pd.Series | pd.DataFrame | np.ndarray,
+        X: SeriesOrFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
         """
         Undo the scaling of X according to feature_range.

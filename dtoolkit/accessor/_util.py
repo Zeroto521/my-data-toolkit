@@ -6,6 +6,7 @@ from typing import Iterable
 import numpy as np
 import pandas as pd
 
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.util import multi_if_else
 
 
@@ -38,7 +39,7 @@ def get_mask(
 
 def isin(
     df: pd.DataFrame,
-    values: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
+    values: Iterable | SeriesOrFrame | dict[str, list[str]],
     axis: int | str = 0,
 ) -> pd.DataFrame:
     """

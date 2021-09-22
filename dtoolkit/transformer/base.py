@@ -11,6 +11,7 @@ from sklearn.base import TransformerMixin
 
 from ._util import transform_series_to_frame
 from ._validation import require_series_or_frame
+from dtoolkit._typing import SeriesOrFrame
 
 
 class Transformer(TransformerMixin):
@@ -145,7 +146,7 @@ class DataFrameTF(MethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    def transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
+    def transform(self, X: SeriesOrFrame) -> pd.DataFrame:
         """
         Transform ``X``.
 
@@ -165,7 +166,7 @@ class DataFrameTF(MethodTF):
 
         return super().transform(X)
 
-    def inverse_transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
+    def inverse_transform(self, X: SeriesOrFrame) -> pd.DataFrame:
         """
         Undo transform to ``X``.
 

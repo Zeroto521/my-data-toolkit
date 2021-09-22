@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 
 from .base import NumpyTF
+from dtoolkit._typing import SeriesOrFrame
 
 
 class RavelTF(NumpyTF):
@@ -51,7 +52,7 @@ class RavelTF(NumpyTF):
 
     def inverse_transform(
         self,
-        X: np.ndarray | pd.Series | pd.DataFrame,
+        X: np.ndarray | SeriesOrFrame,
     ) -> pd.Series:
         """
         Transform ``X`` to a column :class:`~pandas.Series` (1D data).

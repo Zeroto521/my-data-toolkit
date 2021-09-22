@@ -3,6 +3,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from dtoolkit._typing import SeriesOrFrame
+
 
 def transform_array_to_frame(
     array: np.ndarray,
@@ -34,7 +36,7 @@ def transform_array_to_frame(
 
 
 def transform_series_to_frame(
-    X: np.ndarray | pd.Series | pd.DataFrame,
+    X: np.ndarray | SeriesOrFrame,
 ) -> pd.DataFrame | np.ndarray:
     """
     Transform ``X`` to DataFrame if ``X`` type is Series.
