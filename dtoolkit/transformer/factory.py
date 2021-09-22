@@ -3,8 +3,8 @@ from __future__ import annotations
 from functools import wraps
 from inspect import isfunction
 
-from ..util.generic import snake_to_camel
 from .base import MethodTF
+from dtoolkit.util.generic import snake_to_camel
 
 
 def methodtf_factory(

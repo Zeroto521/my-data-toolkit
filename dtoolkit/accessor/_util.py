@@ -6,7 +6,7 @@ from typing import Iterable
 import numpy as np
 import pandas as pd
 
-from ..util import multi_if_else
+from dtoolkit.util import multi_if_else
 
 
 def get_inf_range(inf: str = "all") -> list[float]:
