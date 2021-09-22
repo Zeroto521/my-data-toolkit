@@ -41,6 +41,9 @@ jobs:
           - env: ci/envs/38-dev.yaml
             os: ubuntu-latest
             dev: true
+          - env: ci/envs/39.yaml
+            os: ubuntu-latest
+            dev: false
 
     steps:
       - uses: actions/checkout@v2
