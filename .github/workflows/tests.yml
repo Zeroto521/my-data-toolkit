@@ -31,6 +31,7 @@ jobs:
         env:
           - ci/envs/37.yaml
           - ci/envs/38.yaml
+          - ci/envs/39.yaml
         include:
           - env: ci/envs/37-minimal.yaml
             os: ubuntu-latest
@@ -41,7 +42,7 @@ jobs:
           - env: ci/envs/38-dev.yaml
             os: ubuntu-latest
             dev: true
-          - env: ci/envs/39.yaml
+          - env: ci/envs/39-minimal.yaml
             os: ubuntu-latest
             dev: false
 
