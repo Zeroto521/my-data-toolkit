@@ -15,4 +15,6 @@ try:
 except ImportError:
 
     def get_args(tp) -> tuple:
+        """Get type arguments with all substitutions performed."""
+
         return tp.__args__
