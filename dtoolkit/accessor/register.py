@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from functools import wraps
 
-import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_series_accessor
+
+from dtoolkit._typing import SeriesOrFrame
 
 
 def register_method_factory(register_accessor):
@@ -49,7 +50,7 @@ def register_method_factory(register_accessor):
         """
 
         @wraps(method)
-        def method_accessor(pd_obj: pd.Series | pd.DataFrame):
+        def method_accessor(pd_obj: SeriesOrFrame):
             @wraps(method)
             def wrapper(*args, **kwargs):
                 return method(pd_obj, *args, **kwargs)

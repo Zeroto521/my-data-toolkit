@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import pandas as pd
 
+from dtoolkit._typing import SeriesOrFrame
 
-def require_series_or_frame(X: pd.Series | pd.DataFrame):
+
+def require_series_or_frame(X: SeriesOrFrame):
     """Validate data type is a series or dataframe."""
 
     if not isinstance(X, (pd.Series, pd.DataFrame)):
