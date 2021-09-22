@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-import pandas as pd
+from dtoolkit._typing import get_args
+from dtoolkit._typing import SeriesOrFrame
 
 
-def require_series_or_frame(X: pd.Series | pd.DataFrame):
+def require_series_or_frame(X: SeriesOrFrame):
     """Validate data type is a series or dataframe."""
 
-    if not isinstance(X, (pd.Series, pd.DataFrame)):
+    if not isinstance(X, get_args(SeriesOrFrame)):
         raise TypeError(
             f"For argument 'X' expected type 'pandas.Series' or "
             f"'pandas.DataFrame', received type {type(X).__name__}.",
