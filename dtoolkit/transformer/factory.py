@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from functools import wraps
 from inspect import isfunction
 
-from ..util import wraps
 from ..util.generic import snake_to_camel
 from .base import MethodTF
 

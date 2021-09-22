@@ -1,17 +1,19 @@
+from __future__ import annotations
+
+from functools import wraps
+
+import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_series_accessor
 
-from ..util import wraps
-from .base import Accessor
 
-
-def register_method_factory(register_accessor: callable) -> callable:
+def register_method_factory(register_accessor):
     """
     Decrease the same things via factory pattern.
     """
 
     # based on pandas_flavor/register.py
-    def register_accessor_method(method: callable) -> callable:
+    def register_accessor_method(method):
         """
         Register a function as a pandas's object native method.
 
@@ -46,11 +48,15 @@ def register_method_factory(register_accessor: callable) -> callable:
         'a'
         """
 
-        @register_accessor(method.__name__)
         @wraps(method)
-        class PdCustomMethod(Accessor):
-            def __call__(self, *args, **kwargs):
-                return method(self.pd_obj, *args, **kwargs)
+        def method_accessor(pd_obj: pd.Series | pd.DataFrame):
+            @wraps(method)
+            def wrapper(*args, **kwargs):
+                return method(pd_obj, *args, **kwargs)
+
+            return wrapper
+
+        register_accessor(method.__name__)(method_accessor)
 
         # Must return method itself, otherwise would get None.
         return method
@@ -58,9 +64,11 @@ def register_method_factory(register_accessor: callable) -> callable:
     return register_accessor_method
 
 
-register_dataframe_method = register_method_factory(
-    register_dataframe_accessor,
-)
-register_series_method = register_method_factory(
-    register_series_accessor,
-)
+@register_method_factory
+def register_series_method(method):
+    return register_series_accessor(method)
+
+
+@register_method_factory
+def register_dataframe_method(method):
+    return register_dataframe_accessor(method)
