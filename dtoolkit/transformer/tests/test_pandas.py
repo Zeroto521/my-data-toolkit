@@ -8,6 +8,7 @@ from . import df_label
 from . import df_mixed
 from . import df_period
 from . import feature_names
+from . import s
 from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa
 from dtoolkit.accessor.series import cols as series_cols  # noqa
 from dtoolkit.transformer import AppendTF
@@ -69,10 +70,16 @@ class TestDropTF:
         assert feature_names[0] not in res.cols()
         assert self.df_iris.equals(df_iris)
 
-    def test_input_is_not_dataframe(self):
+    def test_input_is_not_series_or_dataframe(self):
         tf = DropTF(columns=feature_names)
         with pytest.raises(TypeError):
             tf.transform(1)
+
+    def test_input_is_series(self):
+        tf = DropTF(columns=s.name)
+        res = tf.transform(s)
+
+        assert len(res.columns) == 0
 
 
 def test_evaltf():
