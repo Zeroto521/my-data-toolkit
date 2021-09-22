@@ -13,6 +13,7 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
+from ._typing import GeoSeriesOrGeoFrame
 from ._typing import NumericType
 from ._typing import NumericTypeList
 from ._validation import check_geometry_type
@@ -21,7 +22,7 @@ from ._validation import istype
 
 
 def geographic_buffer(
-    df: gpd.GeoSeries | gpd.GeoDataFrame,
+    df: GeoSeriesOrGeoFrame,
     distance: NumericType | list[NumericType] | np.ndarray | pd.Series,
     crs: str | None = None,
     epsg: int | None = None,

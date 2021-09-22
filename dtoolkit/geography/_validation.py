@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from typing import Any
+from typing import get_args
 
-import geopandas as gpd
 from shapely.geometry.base import BaseGeometry
 
+from ._typing import GeoSeriesOrGeoFrame
 
-def check_geopandas_type(df: gpd.GeoSeries | gpd.GeoDataFrame):
-    if not isinstance(df, (gpd.GeoSeries, gpd.GeoDataFrame)):
+
+def check_geopandas_type(df: GeoSeriesOrGeoFrame):
+    if not isinstance(df, get_args(GeoSeriesOrGeoFrame)):
         raise TypeError(f"{df} must be GeoSeries or GeoDataFrame.")
 
 
