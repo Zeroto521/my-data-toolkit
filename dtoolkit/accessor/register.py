@@ -64,9 +64,11 @@ def register_method_factory(register_accessor):
     return register_accessor_method
 
 
-register_dataframe_method = register_method_factory(
-    register_dataframe_accessor,
-)
-register_series_method = register_method_factory(
-    register_series_accessor,
-)
+@register_method_factory
+def register_series_method(method):
+    return register_series_accessor(method)
+
+
+@register_method_factory
+def register_dataframe_method(method):
+    return register_dataframe_accessor(method)
