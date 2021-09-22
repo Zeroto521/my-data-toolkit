@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from textwrap import dedent
 from typing import Any
+from typing import Callable
 
 import numpy as np
 import pandas as pd
@@ -34,8 +35,8 @@ class MethodTF(Transformer):
     Base class for all method transformers in :class:`dtoolkit.transformer`.
     """
 
-    transform_method: callable
-    inverse_transform_method: callable | None = None
+    transform_method: Callable
+    inverse_transform_method: Callable | None = None
 
     def __init__(self, *args, **kwargs):
         """Transform method arguement entry."""
