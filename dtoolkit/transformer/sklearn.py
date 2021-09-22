@@ -14,7 +14,8 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from ..accessor.dataframe import cols  # noqa
 from ..accessor.series import cols  # noqa
-from ._decorator import frame_in_frame_out
+from ._util import transform_array_to_frame
+from ._util import transform_series_to_frame
 from .base import Transformer
 
 
@@ -122,41 +123,60 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
-    @doc(
-        SKMinMaxScaler.transform,
-        dedent(
-            """
-        Notes
-        -----
-        This would let :obj:`~pandas.DataFrame` in and
-        :obj:`~pandas.DataFrame` out.""",
-        ),
-    )
-    @frame_in_frame_out
     def transform(
         self,
         X: pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
+        """
+        Scale features of X according to feature_range.
 
-        return super().transform(X)
+        Parameters
+        ----------
+        X : DataFrame or array-like of shape `(n_samples, n_features)`
+            Input data that will be transformed.
 
-    @doc(
-        SKMinMaxScaler.inverse_transform,
-        dedent(
-            """
+        Returns
+        -------
+        DataFrame or ndarray of shape `(n_samples, n_features)`
+            Transformed data.
+
         Notes
         -----
         This would let :obj:`~pandas.DataFrame` in and
-        :obj:`~pandas.DataFrame` out.""",
-        ),
-    )
-    @frame_in_frame_out
+        :obj:`~pandas.DataFrame` out.
+        """
+
+        X_new = super().transform(X)
+
+        return transform_array_to_frame(X_new, X)
+
     def inverse_transform(
         self,
-        X: pd.DataFrame | np.ndarray,
+        X: pd.Series | pd.DataFrame | np.ndarray,
     ) -> pd.DataFrame | np.ndarray:
+        """
+        Undo the scaling of X according to feature_range.
 
-        return super().inverse_transform(X)
+        Parameters
+        ----------
+        X : Series, DataFrame or array-like of shape `(n_samples, n_features)`
+            Input data that will be transformed. It cannot be sparse.
+
+        Returns
+        -------
+        DataFrame or ndarray of shape (n_samples, n_features)
+            Transformed data.
+
+        Notes
+        -----
+        This would let :obj:`~pandas.DataFrame` in and
+        :obj:`~pandas.DataFrame` out.
+        """
+
+        X = transform_series_to_frame(X)
+        X_new = super().inverse_transform(X)
+
+        return transform_array_to_frame(X_new, X)
 
 
 class OneHotEncoder(SKOneHotEncoder):

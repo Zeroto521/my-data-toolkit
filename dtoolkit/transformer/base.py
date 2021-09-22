@@ -8,6 +8,9 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
+from ._util import transform_series_to_frame
+from ._validation import require_series_or_frame
+
 
 class Transformer(TransformerMixin):
     """Base class for all transformers in :class:`dtoolkit.transformer`."""
@@ -65,41 +68,35 @@ class MethodTF(Transformer):
 
         return self
 
-    def transform(
-        self,
-        X: np.ndarray | pd.Series | pd.DataFrame,
-    ) -> pd.DataFrame | np.ndarray:
+    def transform(self, X: np.ndarray) -> np.ndarray:
         """
         Transform ``X``.
 
         Parameters
         ----------
-        X : Series, DataFrame or array-like
+        X : array-like
             Input data to be transformed.
 
         Returns
         -------
-        DataFrame or ndarray
+        ndarray
             A new X was transformed.
         """
 
         return self.transform_method(X, *self.args, **self.kwargs)
 
-    def inverse_transform(
-        self,
-        X: pd.DataFrame | np.ndarray,
-    ) -> pd.DataFrame | np.ndarray:
+    def inverse_transform(self, X: np.ndarray) -> np.ndarray:
         """
         Undo transform to ``X``.
 
         Parameters
         ----------
-        X : DataFrame or array-like of shape ``(n_samples, n_features)``
+        X : array-like of shape ``(n_samples, n_features)``
             Input data that will be transformed.
 
         Returns
         -------
-        DataFrame or ndarray
+        ndarray
             Transformed data.
 
         Notes
@@ -147,13 +144,13 @@ class DataFrameTF(MethodTF):
         kwargs.pop("inplace", None)
         super().__init__(*args, **kwargs)
 
-    def transform(self, X: pd.DataFrame) -> pd.Series | pd.DataFrame:
+    def transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
         """
         Transform ``X``.
 
         Parameters
         ----------
-        X : DataFrame
+        X : Series or DataFrame
             Input data to be transformed.
 
         Returns
@@ -162,10 +159,32 @@ class DataFrameTF(MethodTF):
             A new X was transformed.
         """
 
-        if not isinstance(X, pd.DataFrame):
-            raise TypeError(
-                f"For argument 'X' expected type 'pandas.DataFrame', "
-                f"received type {type(X).__name__}.",
-            )
+        require_series_or_frame(X)
+        X = transform_series_to_frame(X)
 
         return super().transform(X)
+
+    def inverse_transform(self, X: pd.Series | pd.DataFrame) -> pd.DataFrame:
+        """
+        Undo transform to ``X``.
+
+        Parameters
+        ----------
+        X : Series or DataFrame
+            Input data that will be transformed.
+
+        Returns
+        -------
+        DataFrame
+            Transformed data.
+
+        Notes
+        -----_
+        If ``inverse_transform_method`` is None, there would do nothing for
+        ``X``.
+        """
+
+        require_series_or_frame(X)
+        X = transform_series_to_frame(X)
+
+        return super().inverse_transform(X)
