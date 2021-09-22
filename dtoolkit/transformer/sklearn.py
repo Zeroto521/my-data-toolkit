@@ -16,6 +16,7 @@ from ._util import transform_array_to_frame
 from ._util import transform_series_to_frame
 from .base import Transformer
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 
@@ -124,10 +125,7 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
-    def transform(
-        self,
-        X: pd.DataFrame | np.ndarray,
-    ) -> pd.DataFrame | np.ndarray:
+    def transform(self, X: TwoDimArray) -> TwoDimArray:
         """
         Scale features of X according to feature_range.
 
@@ -151,10 +149,7 @@ class MinMaxScaler(SKMinMaxScaler):
 
         return transform_array_to_frame(X_new, X)
 
-    def inverse_transform(
-        self,
-        X: SeriesOrFrame | np.ndarray,
-    ) -> pd.DataFrame | np.ndarray:
+    def inverse_transform(self, X: SeriesOrFrame | np.ndarray) -> TwoDimArray:
         """
         Undo the scaling of X according to feature_range.
 
@@ -277,10 +272,7 @@ class OneHotEncoder(SKOneHotEncoder):
         This would let :obj:`~pandas.DataFrame` out.""",
         ),
     )
-    def transform(
-        self,
-        X: pd.DataFrame | np.ndarray,
-    ) -> pd.DataFrame | np.ndarray | csr_matrix:
+    def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:
         X_new = super().transform(X)
 
         if self.sparse is False:

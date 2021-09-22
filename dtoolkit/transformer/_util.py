@@ -4,15 +4,17 @@ import numpy as np
 import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 
 
 def transform_array_to_frame(
     array: np.ndarray,
     frame: pd.DataFrame,
-) -> pd.DataFrame | np.ndarray:
+) -> TwoDimArray:
     """
     Transform ``array``'s :obj:`type` (:obj:`~numpy.ndarray`) to
-    ``frame``'s :obj:`type` (:obj:`~pandas.DataFrame`).
+    `
+    :obj:`type` (:obj:`~pandas.DataFrame`).
 
     Parameters
     ----------
@@ -35,9 +37,7 @@ def transform_array_to_frame(
     return array
 
 
-def transform_series_to_frame(
-    X: np.ndarray | SeriesOrFrame,
-) -> pd.DataFrame | np.ndarray:
+def transform_series_to_frame(X: np.ndarray | SeriesOrFrame) -> TwoDimArray:
     """
     Transform ``X`` to DataFrame if ``X`` type is Series.
 

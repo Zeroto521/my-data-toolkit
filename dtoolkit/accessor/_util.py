@@ -6,7 +6,9 @@ from typing import Iterable
 import numpy as np
 import pandas as pd
 
+from dtoolkit._typing import OneDimArray
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 from dtoolkit.util import multi_if_else
 
 
@@ -22,11 +24,7 @@ def get_inf_range(inf: str = "all") -> list[float]:
     )
 
 
-def get_mask(
-    how: str,
-    mask: pd.DataFrame | np.ndarray,
-    axis: int,
-) -> pd.Series | np.ndarray:
+def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
     return multi_if_else(
         [
             (how == "any", mask.any(axis=axis)),
