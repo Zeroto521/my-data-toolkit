@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas import testing as tm
 
 from . import s
 from . import s_inf
@@ -25,13 +26,13 @@ class TestDropinf:
     def test_work(self, inf, df, expt):
         res = df.dropinf(inf=inf)
 
-        assert res.equals(expt)
+        assert tm.assert_series_equal(res, expt)
 
     def test_inplace_is_true(self):
         res = self.s.dropinf(inplace=True)
 
         assert res is None
-        assert self.s.equals(s)
+        assert tm.assert_series_equal(self.s, s)
 
     @pytest.mark.parametrize(
         "error, inf",
@@ -95,7 +96,7 @@ class TestBin:
             dtype=pd.CategoricalDtype(categories=labels),
         )
 
-        assert res.equals(excepted)
+        assert tm.assert_series_equal(res, excepted)
 
     def test_inplace_is_true(self):
         res = self.s.bin([10, 20], ["a"], inplace=True)
@@ -105,4 +106,4 @@ class TestBin:
         )
 
         assert res is None
-        assert self.s.equals(excepted)
+        assert tm.assert_series_equal(self.s, excepted)
