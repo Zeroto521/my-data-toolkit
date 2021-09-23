@@ -137,6 +137,40 @@ def bin(
     ordered: bool = False,
     inplace: bool = False,
 ) -> pd.Series | None:
+    """
+    Bin values into discrete intervals.
+
+    See Also
+    --------
+    pandas.cut: This accessor's prototype method.
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.series import bin
+    >>> import pandas as pd
+
+    Create **score** samples:
+
+    >>> s = pd.Series([100, 10, 50, 20, 90, 60])
+
+    Bin score to rank level:
+
+        - (0, 60] -> E
+        - (60, 70] -> D
+        - (70, 80] -> C
+        - (80, 90] -> B
+        - (90, 100] -> A
+
+    >>> s.bin([0, 60, 70, 80, 90, 100], ['E', 'D', 'C', 'B', 'A'], right=True)
+    0    A
+    1    E
+    2    E
+    3    E
+    4    B
+    5    E
+    dtype: category
+    Categories (5, object): ['E', 'D', 'C', 'B', 'A']
+    """
     result = pd.cut(
         s,
         bins=bins,
