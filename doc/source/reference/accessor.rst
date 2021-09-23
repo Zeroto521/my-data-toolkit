@@ -10,6 +10,7 @@ Series Accessor
 
     cols
     dropinf
+    bin
 
 
 DataFrame Accessor
