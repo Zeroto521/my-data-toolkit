@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import pytest
-from pandas import testing as tm
 
 from . import s
 from . import s_inf
@@ -32,7 +31,7 @@ class TestDropinf:
         res = self.s.dropinf(inplace=True)
 
         assert res is None
-        assert tm.assert_series_equal(self.s, s)
+        assert self.s.equals(s)
 
     @pytest.mark.parametrize(
         "error, inf",
