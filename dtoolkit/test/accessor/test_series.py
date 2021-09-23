@@ -4,8 +4,8 @@ import pytest
 
 from . import s
 from . import s_inf
+from dtoolkit.accessor.series import bin  # noqa
 from dtoolkit.accessor.series import dropinf  # noqa
-from dtoolkit.accessor.series import range_replace  # noqa
 
 
 class TestDropinf:
@@ -45,79 +45,64 @@ class TestDropinf:
             s_inf.dropinf(inf=inf)
 
 
-class TestRangeReplace:
+class TestBin:
     def setup_method(self):
         self.s = pd.Series([1, 10, 20, 30, 40, 50])
 
     @pytest.mark.parametrize(
-        "to_replace, equal_sign, excepted",
+        "bins, labels, right, excepted",
         [
             (
-                {
-                    (-np.inf, 1): "a",
-                    (1, 10): "b",
-                    (10, 20): "c",
-                    (20, 30): "d",
-                    (30, np.inf): "e",
-                },
-                "left",
+                [-np.inf, 1, 10, 20, 30, np.inf],
+                ["a", "b", "c", "d", "e"],
+                False,
                 ["b", "c", "d", "e", "e", "e"],
             ),
             (
-                {
-                    (-np.inf, 1): "a",
-                    (1, 10): "b",
-                    (10, 20): "c",
-                    (20, 30): "d",
-                    (30, np.inf): "e",
-                },
-                "right",
+                [-np.inf, 1, 10, 20, 30, np.inf],
+                ["a", "b", "c", "d", "e"],
+                True,
                 ["a", "b", "c", "d", "e", "e"],
             ),
             (
-                {
-                    (-np.inf, 1): "a",
-                    (1, 10): "b",
-                    (10, 20): "c",
-                },
-                "right",
-                ["a", "b", "c", 30, 40, 50],
+                [-np.inf, 1, 10, 20],
+                ["a", "b", "c"],
+                True,
+                ["a", "b", "c"] + [np.nan] * 3,
             ),
             (
-                {
-                    (1, 10): "a",
-                    (10, 20): "b",
-                },
-                "left",
-                ["a", "b", 20, 30, 40, 50],
+                [1, 10, 20],
+                ["a", "b"],
+                False,
+                ["a", "b"] + [np.nan] * 4,
             ),
             (
-                {
-                    (-np.inf, np.inf): "a",
-                },
-                "left",
+                [-np.inf, np.inf],
+                ["a"],
+                False,
                 ["a"] * 6,
-            ),
-            (
-                {
-                    (np.inf, -np.inf): "a",
-                },
-                "left",
-                [1, 10, 20, 30, 40, 50],
             ),
         ],
     )
-    def test_work(self, to_replace, equal_sign, excepted):
-        res = self.s.range_replace(
-            to_replace=to_replace,
-            equal_sign=equal_sign,
+    def test_work(self, bins, labels, right, excepted):
+        res = self.s.bin(
+            bins=bins,
+            labels=labels,
+            right=right,
         )
-        excepted = pd.Series(excepted, index=self.s.index)
+        excepted = pd.Series(
+            excepted,
+            dtype=pd.CategoricalDtype(categories=labels),
+        )
 
         assert res.equals(excepted)
 
     def test_inplace_is_true(self):
-        res = self.s.range_replace({(10, 20): None}, inplace=True)
+        res = self.s.bin([10, 20], ["a"], inplace=True)
+        excepted = pd.Series(
+            [np.nan, np.nan, "a", np.nan, np.nan, np.nan],
+            dtype="category",
+        )
 
         assert res is None
-        assert self.s.equals(pd.Series([1, None, 20, 30, 40, 50]))
+        assert self.s.equals(excepted)

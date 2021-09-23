@@ -53,28 +53,3 @@ def isin(
         return pd.concat(result, axis=0)
 
     return df.isin(values)
-
-
-def between(
-    value: int | float,
-    left: int | float,
-    right: int | float,
-    equal_sign: str,
-) -> bool:
-    """
-    Return boolean, equivalent to ``left <= value < right`` or
-    ``left <= value < right``.
-    """
-
-    if equal_sign == "left":
-        lmask = value >= left
-        rmask = value < right
-    elif equal_sign == "right":
-        lmask = value > left
-        rmask = value <= right
-    else:
-        raise ValueError(
-            "Inclusive has to be either string of 'left' or 'right'.",
-        )
-
-    return lmask & rmask
