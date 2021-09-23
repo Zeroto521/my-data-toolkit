@@ -26,7 +26,7 @@ class TestDropinf:
     def test_work(self, inf, df, expt):
         res = df.dropinf(inf=inf)
 
-        assert tm.assert_series_equal(res, expt)
+        assert res.equals(expt)
 
     def test_inplace_is_true(self):
         res = self.s.dropinf(inplace=True)
@@ -96,7 +96,7 @@ class TestBin:
             dtype=pd.CategoricalDtype(categories=labels),
         )
 
-        assert tm.assert_series_equal(res, excepted)
+        assert res.equals(excepted)
 
     def test_inplace_is_true(self):
         res = self.s.bin([10, 20], ["a"], inplace=True)
@@ -106,4 +106,4 @@ class TestBin:
         )
 
         assert res is None
-        assert tm.assert_series_equal(self.s, excepted)
+        assert self.s.equals(excepted)
