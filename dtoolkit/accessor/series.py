@@ -126,7 +126,7 @@ def dropinf(
 
 @register_series_method
 def bin(
-    s: pd.DataFrame,
+    s: pd.Series,
     bins,
     labels=None,
     right: bool = True,
