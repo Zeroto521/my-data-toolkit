@@ -13,6 +13,7 @@ from ._util import get_mask
 from ._util import isin
 from .register import register_dataframe_method
 from .series import cols as series_cols
+from .series import top_n as series_top_n
 
 __all__ = ["cols", "dropinf", "filterin", "repeat"]
 
@@ -393,4 +394,31 @@ def repeat(
         new_values,
         index=new_index,
         columns=new_column,
+    )
+
+
+@register_dataframe_method
+def top_n(
+    df: pd.DataFrame,
+    n: int,
+    largest: bool = True,
+    keep: str = "first",
+    prefix: str = "top",
+    delimiter: str = "_",
+) -> pd.DataFrame:
+    def _series_top_n(*args, **kwargs) -> pd.Series:
+        top = series_top_n(*args, **kwargs)
+        index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
+
+        return pd.Series(
+            zip(top.index, top.values),
+            index=index,
+        )
+
+    return df.apply(
+        _series_top_n,
+        axis=1,
+        n=n,
+        largest=largest,
+        keep=keep,
     )
