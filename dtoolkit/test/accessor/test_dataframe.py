@@ -341,3 +341,47 @@ class TestTopN:
         excepted = pd.DataFrame(excepted)
 
         assert result.equals(excepted)
+
+    @pytest.mark.parametrize(
+        "df, n, excepted",
+        [
+            (
+                {
+                    ("a1", "a2"): [1, 3],
+                    ("b1", "b2"): [2, 3],
+                    ("c1", "c2"): [3, 3],
+                },
+                1,
+                {
+                    "top_1": [
+                        (("c1", "c2"), 3),
+                        (("a1", "a2"), 3),
+                    ],
+                },
+            ),
+            (
+                {
+                    ("a1", "a2"): [1, 3],
+                    ("b1", "b2"): [2, 2],
+                    ("c1", "c2"): [3, 1],
+                },
+                2,
+                {
+                    "top_1": [
+                        (("c1", "c2"), 3),
+                        (("a1", "a2"), 3),
+                    ],
+                    "top_2": [
+                        (("b1", "b2"), 2),
+                        (("b1", "b2"), 2),
+                    ],
+                },
+            ),
+        ],
+    )
+    def test_multi_index(self, df, n, excepted):
+        df = pd.DataFrame(df)
+        result = df.top_n(n=n)
+        excepted = pd.DataFrame(excepted)
+
+        assert result.equals(excepted)
