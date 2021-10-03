@@ -9,7 +9,7 @@ from pandas.util._validators import validate_bool_kwarg
 from ._util import get_inf_range
 from .register import register_series_method
 
-__all__ = ["cols", "dropinf"]
+__all__ = ["cols", "dropinf", "bin"]
 
 
 @register_series_method
