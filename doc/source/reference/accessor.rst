@@ -24,6 +24,7 @@ DataFrame Accessor
     dropinf
     filterin
     repeat
+    top_n
 
 
 Register
