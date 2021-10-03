@@ -25,31 +25,31 @@ __all__ = ["cols", "dropinf", "top_n"]
 )
 def cols(s: pd.Series) -> str:
     """
-        A API to gather :attr:`~pandas.Series.name` and
-        :attr:`~pandas.DataFrame.columns` to one.
-        {returns}
-        See Also
-        --------
-        pandas.Series.name
-        pandas.DataFrame.columns
+    A API to gather :attr:`~pandas.Series.name` and
+    :attr:`~pandas.DataFrame.columns` to one.
+    {returns}
+    See Also
+    --------
+    pandas.Series.name
+    pandas.DataFrame.columns
 
-        Examples
-        --------
-        >>> from dtoolkit.accessor.dataframe import cols
-        >>> from dtoolkit.accessor.series import cols
-        >>> import pandas as pd
+    Examples
+    --------
+    >>> from dtoolkit.accessor.dataframe import cols
+    >>> from dtoolkit.accessor.series import cols
+    >>> import pandas as pd
 
-        Get :attr:`~pandas.Series.name`.
+    Get :attr:`~pandas.Series.name`.
 
-        >>> s = pd.Series(range(10), name="item")
-        >>> s.cols()
-    d    'item'
+    >>> s = pd.Series(range(10), name="item")
+    >>> s.cols()
+    'item'
 
-        Get :attr:`~pandas.DataFrame.columns`.
+    Get :attr:`~pandas.DataFrame.columns`.
 
-        >>> d = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
-        >>> d.cols()
-        ['a', 'b']
+    >>> d = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+    >>> d.cols()
+    ['a', 'b']
     """
 
     return s.name
