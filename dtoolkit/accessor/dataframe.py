@@ -484,7 +484,7 @@ def top_n(
     3  (a, 1)  (b, 1)  (c, 1)
     """
 
-    def _series_top_n(*args, **kwargs) -> pd.Series:
+    def wrap_series_top_n(*args, **kwargs) -> pd.Series:
         top = series_top_n(*args, **kwargs)
         index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
 
@@ -494,7 +494,7 @@ def top_n(
         )
 
     return df.apply(
-        _series_top_n,
+        wrap_series_top_n,
         axis=1,
         n=n,
         largest=largest,
