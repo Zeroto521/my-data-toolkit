@@ -13,6 +13,7 @@ from ._util import get_mask
 from ._util import isin
 from .register import register_dataframe_method
 from .series import cols as series_cols
+from .series import top_n as series_top_n
 
 __all__ = ["cols", "dropinf", "filterin", "repeat"]
 
@@ -393,4 +394,103 @@ def repeat(
         new_values,
         index=new_index,
         columns=new_column,
+    )
+
+
+@register_dataframe_method
+def top_n(
+    df: pd.DataFrame,
+    n: int,
+    largest: bool = True,
+    keep: str = "first",
+    prefix: str = "top",
+    delimiter: str = "_",
+) -> pd.DataFrame:
+    """
+    Returns each row's top `n`.
+
+    Parameters
+    ----------
+    n : int
+        Number of top to return.
+
+    largest : bool, default True
+        - True, the top is the largest.
+        - True, the top is the smallest.
+
+    keep : {"first", "last’, "all"}, default "first"
+        Where there are duplicate values:
+
+        - first : prioritize the first occurrence(s)
+        - last : prioritize the last occurrence(s)
+        - all : do not drop any duplicates, even it means selecting more than
+          n items.
+
+    prefix : str, default "top"
+        The prefix name of the new DataFrame column.
+
+    delimiter : str, default "_"
+        The delimiter between `prefix` and number.
+
+    Notes
+    -----
+    Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
+    :meth:`~pandas.DataFrame.nsmallest`?
+
+    A: :meth:`~pandas.DataFrame.nlargest` and
+    :meth:`~pandas.DataFrame.nsmallest` base one column to return all selected
+    columns dataframe top `n`.
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.dataframe import top_n
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "a": [1, 3, 2, 1],
+    ...         "b": [3, 2, 1, 1],
+    ...         "c": [2, 1, 3, 1],
+    ...     },
+    ... )
+    >>> df
+       a  b  c
+    0  1  3  2
+    1  3  2  1
+    2  2  1  3
+    3  1  1  1
+
+    Get each row's largest top **2**.
+
+    >>> df.top_n(2)
+        top_1   top_2
+    0  (b, 3)  (c, 2)
+    1  (a, 3)  (b, 2)
+    2  (c, 3)  (a, 2)
+    3  (a, 1)  (b, 1)
+
+    Get each row's smallest top **1** and **keep** the duplicated values.
+
+    >>> df.top_n(1, largest=False, keep="all")
+        top_1   top_2   top_3
+    0  (a, 1)     NaN     NaN
+    1  (c, 1)     NaN     NaN
+    2  (b, 1)     NaN     NaN
+    3  (a, 1)  (b, 1)  (c, 1)
+    """
+
+    def _series_top_n(*args, **kwargs) -> pd.Series:
+        top = series_top_n(*args, **kwargs)
+        index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
+
+        return pd.Series(
+            zip(top.index, top.values),
+            index=index,
+        )
+
+    return df.apply(
+        _series_top_n,
+        axis=1,
+        n=n,
+        largest=largest,
+        keep=keep,
     )

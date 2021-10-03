@@ -11,6 +11,7 @@ Series Accessor
     cols
     dropinf
     bin
+    top_n
 
 
 DataFrame Accessor
@@ -23,6 +24,7 @@ DataFrame Accessor
     dropinf
     filterin
     repeat
+    top_n
 
 
 Register

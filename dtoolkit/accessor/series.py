@@ -9,7 +9,7 @@ from pandas.util._validators import validate_bool_kwarg
 from ._util import get_inf_range
 from .register import register_series_method
 
-__all__ = ["cols", "dropinf", "bin"]
+__all__ = ["cols", "dropinf", "top_n"]
 
 
 @register_series_method
@@ -188,3 +188,35 @@ def bin(
         return result
 
     s._update_inplace(result)
+
+
+@register_series_method
+def top_n(
+    s: pd.Series,
+    n: int,
+    largest: bool = True,
+    keep: str = "first",
+) -> pd.Series:
+    """
+    Return the top `n` values.
+
+    This method is the collection of
+    :meth:`~pandas.Series.nlargest` and :meth:`~pandas.Series.nsmallest`
+    methods.
+
+    Except `largest` other parameters is same to
+    :meth:`~pandas.Series.nlargest`.
+
+    - If `largest` is True, use :meth:`~pandas.Series.nlargest`
+    - If `largest` is False, use :meth:`~pandas.Series.nsmallest`
+
+    See Also
+    --------
+    pandas.Series.nlargest : Get the largest `n` elements.
+    pandas.Series.nsmallest : Get the smallest `n` elements.
+    """
+
+    if largest:
+        return s.nlargest(n=n, keep=keep)
+
+    return s.nsmallest(n=n, keep=keep)

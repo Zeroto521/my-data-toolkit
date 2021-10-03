@@ -222,7 +222,7 @@ from dtoolkit.transformer import (
     make_union,
     RavelTF,
 )
-from sklearn.pipeline import make_pipeline
+from sklearn.pipeline import **make_pipeline**
 
 
 pl_xy = make_pipeline(
