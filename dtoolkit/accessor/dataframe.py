@@ -15,7 +15,7 @@ from .register import register_dataframe_method
 from .series import cols as series_cols
 from .series import top_n as series_top_n
 
-__all__ = ["cols", "dropinf", "filterin", "repeat"]
+__all__ = ["cols", "dropinf", "filterin", "repeat", "top_n"]
 
 
 @register_dataframe_method
