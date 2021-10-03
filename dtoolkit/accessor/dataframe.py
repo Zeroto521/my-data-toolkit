@@ -432,6 +432,12 @@ def top_n(
     delimiter : str, default "_"
         The delimiter between `prefix` and number.
 
+    Returns
+    -------
+    DataFrame
+        - The structure of column name is ``{prefix}{delimiter}{number}``.
+        - The structure of value is ``({column index}, {value})``.
+
     Notes
     -----
     Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
