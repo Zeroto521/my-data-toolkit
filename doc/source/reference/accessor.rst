@@ -11,6 +11,7 @@ Series Accessor
     cols
     dropinf
     bin
+    top_n
 
 
 DataFrame Accessor
