@@ -5,7 +5,7 @@ dependencies:
   - python=3.8
   # required
   - pandas
-  - geopandas=0.9.*
+  - geopandas
   - scikit-learn
   - more-itertools
   # testing
