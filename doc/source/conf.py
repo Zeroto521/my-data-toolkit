@@ -23,7 +23,7 @@ version = release = dtoolkit.__version__
 project = "DToolKit"
 copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
 author = "Zero <@Zeroto521>"
-
+github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 # -- General configuration ---------------------------------------------------
 
@@ -35,6 +35,7 @@ extensions = [
     "numpydoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
@@ -71,7 +72,7 @@ html_theme = "pydata_sphinx_theme"
 # documentation.
 html_theme_options = {
     "search_bar_position": "sidebar",
-    "github_url": "https://github.com/Zeroto521/my-data-toolkit",
+    "github_url": github_url,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -84,10 +85,7 @@ html_theme_options = {
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": (
-        "http://docs.python.org/",
-        "https://docs.python.org/objects.inv",
-    ),
+    "python": ("http://docs.python.org/", "https://docs.python.org/objects.inv",),
     "sklearn": (
         "https://scikit-learn.org/stable/",
         "https://scikit-learn.org/stable/objects.inv",
@@ -112,6 +110,12 @@ intersphinx_mapping = {
         "https://pyproj4.github.io/pyproj/stable/",
         "https://pyproj4.github.io/pyproj/stable/objects.inv",
     ),
+}
+
+# extlinks alias
+extlinks = {
+    "issue": (f"{github_url}/issues/%s", "issue#"),
+    "pr": (f"{github_url}/pulls/%s", "pr#"),
 }
 
 
@@ -154,5 +158,5 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     linespec = f"#L{lineno}-L{lineno + len(source) - 1}" if lineno else ""
     fn = os.path.relpath(fn, start=os.path.dirname(dtoolkit.__file__))
 
-    base_link = "https://github.com/Zeroto521/my-data-toolkit/blob"
+    base_link = f"{github_url}/blob"
     return f"{base_link}/master/dtoolkit/{fn}{linespec}"
