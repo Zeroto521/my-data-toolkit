@@ -12,6 +12,7 @@ Routes
     Home <self>
     User Guide <guide>
     API Reference <reference>
+    Changelog <changelog>
 
 
 Useful Links

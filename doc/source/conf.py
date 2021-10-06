@@ -35,6 +35,7 @@ extensions = [
     "numpydoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
@@ -109,6 +110,12 @@ intersphinx_mapping = {
         "https://pyproj4.github.io/pyproj/stable/",
         "https://pyproj4.github.io/pyproj/stable/objects.inv",
     ),
+}
+
+# extlinks alias
+extlinks = {
+    "issue": (f"{github_url}/issues/%s", "issue#"),
+    "pr": (f"{github_url}/pulls/%s", "pr#"),
 }
 
 
