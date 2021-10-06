@@ -1,4 +1,4 @@
-My Data Toolkit: DToolKit |version|
+DToolKit |version|
 ===================================
 
 A series of toolkits to decrease the same work.
