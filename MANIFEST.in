@@ -1,5 +1,7 @@
 include LICENSE
 include README.md
+include versioneer.py
+include dtoolkit/_version.py
 
 recursive-include test *
 

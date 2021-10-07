@@ -1,4 +1,7 @@
-from setuptools import find_packages, setup
+from setuptools import find_packages
+from setuptools import setup
+
+import versioneer
 
 NAME = "dtoolkit"
 GITHUB_USERNAME = "Zeroto521"
@@ -6,7 +9,7 @@ AUTHOR = f"Zero <@{GITHUB_USERNAME}>"
 
 setup(
     name=NAME,
-    version=__import__(NAME).__version__,
+    version=versioneer.get_version(),
     author=AUTHOR,
     author_email="Zeroto521@gmail.com",
     url=f"https://github.com/{GITHUB_USERNAME}/my-data-toolkit",
@@ -41,4 +44,5 @@ setup(
     packages=find_packages(),
     python_requires=">=3.7",
     install_requires=["pandas >= 1.1.0"],
+    cmdclass=versioneer.get_cmdclass(),
 )

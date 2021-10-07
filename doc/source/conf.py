@@ -85,7 +85,10 @@ html_theme_options = {
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": ("http://docs.python.org/", "https://docs.python.org/objects.inv",),
+    "python": (
+        "http://docs.python.org/",
+        "https://docs.python.org/objects.inv",
+    ),
     "sklearn": (
         "https://scikit-learn.org/stable/",
         "https://scikit-learn.org/stable/objects.inv",
@@ -158,5 +161,8 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     linespec = f"#L{lineno}-L{lineno + len(source) - 1}" if lineno else ""
     fn = os.path.relpath(fn, start=os.path.dirname(dtoolkit.__file__))
 
-    base_link = f"{github_url}/blob"
-    return f"{base_link}/master/dtoolkit/{fn}{linespec}"
+    base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
+    if "+" in version:
+        return base_link.format(branch="master")
+
+    return base_link.format(branch=f"v{version}")
