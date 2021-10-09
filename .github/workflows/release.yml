@@ -42,6 +42,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Upload Release Asset to GitHub
         uses: softprops/action-gh-release@v1
         with:
