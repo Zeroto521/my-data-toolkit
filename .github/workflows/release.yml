@@ -37,7 +37,7 @@ jobs:
       var: ${{ steps.tar.outputs.file }}
       whl: ${{ steps.whl.outputs.file }}
 
-  github:
+  publish-to-github:
     needs: build
     runs-on: ubuntu-latest
 
