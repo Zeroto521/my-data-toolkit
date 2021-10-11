@@ -11,7 +11,7 @@ Base Transformer
 Base transformer class for all transformers.
 
 .. autosummary::
-    :toctree: api/transformer/base
+    :toctree: api/
 
     Transformer
     MethodTF
@@ -23,7 +23,7 @@ Base transformer class for all transformers.
 Sklearn Transformer
 -------------------
 .. autosummary::
-    :toctree: api/transformer/sklearn
+    :toctree: api/
 
     OneHotEncoder
     MinMaxScaler
@@ -38,7 +38,7 @@ The parameters of transformer (``args``, ``kwargs``) are the same to
 corresponding to relative :class:`pandas.DataFrame`'s method.
 
 .. autosummary::
-    :toctree: api/transformer/pandas
+    :toctree: api/
 
     AssignTF
     AppendTF
@@ -59,6 +59,6 @@ The parameters of transformer (``args``, ``kwargs``) are the same to
 corresponding to relative :class:`numpy.ndarray`'s method.
 
 .. autosummary::
-    :toctree: api/transformer/numpy
+    :toctree: api/
 
     RavelTF
