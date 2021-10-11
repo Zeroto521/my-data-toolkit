@@ -1,5 +1,6 @@
 .. _transformer:
 
+===========
 Transformer
 ===========
 .. currentmodule:: dtoolkit.transformer
