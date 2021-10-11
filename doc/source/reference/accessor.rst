@@ -6,7 +6,7 @@ Series Accessor
 ---------------
 .. currentmodule:: dtoolkit.accessor.series
 .. autosummary::
-    :toctree: api/accessor/
+    :toctree: api/
 
     cols
     dropinf
@@ -18,7 +18,7 @@ DataFrame Accessor
 ------------------
 .. currentmodule:: dtoolkit.accessor.dataframe
 .. autosummary::
-    :toctree: api/accessor/
+    :toctree: api/
 
     cols
     dropinf
@@ -31,7 +31,7 @@ Register
 --------
 .. currentmodule:: dtoolkit.accessor.register
 .. autosummary::
-    :toctree: api/accessor/
+    :toctree: api/
 
     register_series_method
     register_dataframe_method

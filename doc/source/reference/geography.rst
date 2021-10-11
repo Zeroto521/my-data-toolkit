@@ -8,6 +8,6 @@ Geography
 Geographic Buffer Generation
 ----------------------------
 .. autosummary::
-    :toctree: api/geography/
+    :toctree: api/
 
     geographic_buffer
