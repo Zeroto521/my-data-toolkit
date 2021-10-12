@@ -65,5 +65,5 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify setup.py contents ({pr}`185`).
 
-[Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
+[Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...master
 [Version 0.0.2]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.1...v0.0.2
