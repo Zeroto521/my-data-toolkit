@@ -1,5 +1,25 @@
 # Changelog
 
+## [Version 0.0.3] (2021-??-??)
+
+New features and improvements:
+
+- Add new series accessor method `bin` ({pr}`213`, {pr}`216`).
+- Add new accessor method `top_n` ({pr}`217`, {pr}`218`, {pr}`219`)
+
+Documentation:
+
+- Let class method doc could show ({pr}`226`).
+- Add changelog file ({pr}`222`).
+- Change API URL, from `reference/api/geography/dtoolkit.geography.geographic_buffer.html` to `reference/api/dtoolkit.geography.geographic_buffer.html` ({pr}`225`).
+- Remove extra `*` in example's doc ({pr}`215`, {pr}`227`).
+
+Maintenance development:
+
+- Add auto releases workflows ({pr}`224`).
+- Use versioneer to control software version ({pr}`223`).
+- Support geopandas >= 0.9.0 ({pr}`220`, {pr}`221`).
+
 ## [Version 0.0.2] (2021-9-2)
 
 Now DToolKit supports py3.9, works with Python >= 3.7 ({pr}`211`).
@@ -45,4 +65,5 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify setup.py contents ({pr}`185`).
 
+[Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
 [Version 0.0.2]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.1...v0.0.2
