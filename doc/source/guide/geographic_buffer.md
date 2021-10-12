@@ -80,6 +80,8 @@ Local CRS means build CRS for each point.
 
 ![Azimuthal Equidistant projection](https://proj.org/_images/aeqd.png)
 
+> From [PROJ Coordinate operations](https://proj.org/operations/projections/aeqd.html)
+
 All most single mapping relationships are good for a piece of small areas.
 But what if we build a lot of mapping relationships and then combine them together, this new mapping relationship could represent all areas.
 
