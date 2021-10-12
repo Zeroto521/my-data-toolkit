@@ -48,6 +48,9 @@ jobs:
           - env: ci/envs/39-minimal.yaml
             os: ubuntu-latest
             dev: false
+          - env: ci/envs/310-minimal.yaml
+            os: ubuntu-latest
+            dev: false
 
     steps:
       - uses: actions/checkout@v2
