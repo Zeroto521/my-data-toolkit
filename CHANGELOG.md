@@ -11,7 +11,7 @@ Documentation:
 
 - Add an introduction for {meth}`~dtoolkit.geography.geographic_buffer` ({pr}`229`).
 - Let class method doc could show ({pr}`226`).
-- Add changelog file ({pr}`222`).
+- Add `CHANGELOG.md` file ({pr}`222`).
 - Change API URL, from `reference/api/geography/dtoolkit.geography.geographic_buffer.html` to `reference/api/dtoolkit.geography.geographic_buffer.html` ({pr}`225`).
 - Remove extra `*` in example's doc ({pr}`215`, {pr}`227`).
 
@@ -57,7 +57,7 @@ Typing annotations:
 Documentation:
 
 - `dropinf`'s `inf` could be any `inf`, not only `np.inf` ({pr}`197`).
-- Update README.md contents ({pr}`185`).
+- Update `README.md` contents ({pr}`185`).
 
 Maintenance development:
 
