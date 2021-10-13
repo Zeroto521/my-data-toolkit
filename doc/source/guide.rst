@@ -10,3 +10,4 @@ Some tips about dtoolkit.
     Installation <guide/installation>
     Transformer and Pipeline Quickstart <guide/transformer>
     How to Build Transformer <guide/build_transformer>
+    What is the Geographic Buffer? <guide/geographic_buffer>
