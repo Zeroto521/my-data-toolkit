@@ -9,6 +9,7 @@ New features and improvements:
 
 Documentation:
 
+- Add an introduction for geographic buffer ({pr}`229`).
 - Let class method doc could show ({pr}`226`).
 - Add changelog file ({pr}`222`).
 - Change API URL, from `reference/api/geography/dtoolkit.geography.geographic_buffer.html` to `reference/api/dtoolkit.geography.geographic_buffer.html` ({pr}`225`).
