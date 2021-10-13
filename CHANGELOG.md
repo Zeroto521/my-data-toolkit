@@ -5,7 +5,7 @@
 New features and improvements:
 
 - Add new series accessor method `bin` ({pr}`213`, {pr}`216`).
-- Add new accessor method `top_n` ({pr}`217`, {pr}`218`, {pr}`219`)
+- Add new accessor method `top_n` ({pr}`217`, {pr}`218`, {pr}`219`).
 
 Documentation:
 
