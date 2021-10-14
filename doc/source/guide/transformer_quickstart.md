@@ -277,7 +277,7 @@ Output:
 [0.38596491 1.         0.        ]
 ```
 
-We could also save these pipelines as a binary file via (ex. joblib).
+We could also save these pipelines as a binary file via pickle or joblib.
 When new data coming we could quickly transform them via binary file.
 
 ## Other Ways to Handle This
