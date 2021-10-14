@@ -8,6 +8,6 @@ Some tips about dtoolkit.
     :maxdepth: 2
 
     Installation <guide/installation>
-    Transformer and Pipeline Quickstart <guide/transformer>
+    Transformer and Pipeline Quickstart <guide/transformer_quickstart>
     How to Build Transformer <guide/build_transformer>
     What is the Geographic Buffer? <guide/geographic_buffer>
