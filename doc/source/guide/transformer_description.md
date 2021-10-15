@@ -43,13 +43,13 @@ It is important to keep track of the data changing. So {class}`dtoolkit.transfor
 
 ### Engineering of Data Preprocessing
 
-What would be going on if there are a lot of transformers?
+{class}`dtoolkit.transformer` could handle what a mess codes of data preprocessing codes.
 
-A surprise comes here.
+A surprise comes here. It can face to the engineering of data preprocessing.
 
-So {class}`dtoolkit.transformer` could handle what a mess codes of data preprocessing codes.
-
-It can face to the engineering of data preprocessing.
+- {class}`~pandas.DataFrame` gives a good view to show the data.
+- {class}`~dtoolkit.transformer.Transformer` contains the processing or transforming methods.
+- {class}`~sklearn.pipeline.Pipeline` as the manager to control the running.
 
 ![DToolKit for transformer](../_static/transformer-with-pipeline.png)
 
