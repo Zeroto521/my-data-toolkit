@@ -10,6 +10,18 @@ The {class}`~dtoolkit.transformer.Transformer` is a protocol that defines the in
 
 It is just like a **pipe** in the real world.
 
+![Transformer methods](../_static/transformer-methods.png)
+
+Direction:
+
+- `fit`, `transform` and `fit_transform` go forward.
+- `inverse_transform` goes backward.
+
+Minimal methods require:
+
+- `transform` and `fit_transform` are necessary methods.
+- `fit` and `inverse_transform` are optional method.
+
 ## What is Pipeline?
 
 The {class}`~sklearn.pipeline.Pipeline` combines each port of {class}`~dtoolkit.transformer.Transformer` into a stream.
