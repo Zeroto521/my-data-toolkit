@@ -52,9 +52,3 @@ A surprise comes here. It can face to the engineering of data preprocessing.
 - {class}`~sklearn.pipeline.Pipeline` as the manager to control the running.
 
 ![DToolKit for transformer](../_static/transformer-with-pipeline.png)
-
-### The Next Step
-
-{math}`Data Preprocessing Pipeline + Feature Engine Pipeline + ML Pipeline \to Auto ML (All\;in\;One)`
-
-A real big surprise comes here.
