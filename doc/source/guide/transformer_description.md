@@ -51,7 +51,7 @@ So {class}`dtoolkit.transformer` could handle what a mess codes of data preproce
 
 It can face to the engineering of data preprocessing.
 
-![DToolKit for transformer](../_static/transform-method-to-transformer.png)
+![DToolKit for transformer](../_static/transformer-with-pipeline.png)
 
 ### The Next Step
 
