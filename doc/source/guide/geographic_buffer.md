@@ -89,4 +89,4 @@ In this way, CRS could totally describe the point in Earth.
 
 That is what the {meth}`dtoolkit.geography.geographic_buffer` method does.
 
-Next step? Try to use it.
+What's next? Try to use it.
