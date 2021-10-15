@@ -57,7 +57,7 @@ With the following steps:
 3. Transform points from `EPSG:3857` to `EPSG:4326`.
 4. Display on the map.
 
-![points buffer](../_static/points-buffer.png)
+![Points buffer](../_static/points-buffer.png)
 
 The green one is the non geographic buffer, and the blue one is the geographic buffer.
 
@@ -89,4 +89,4 @@ In this way, CRS could totally describe the point in Earth.
 
 That is what the {meth}`dtoolkit.geography.geographic_buffer` method does.
 
-Next step? Try to use it.
+What's next? Try to use it.
