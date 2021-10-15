@@ -37,7 +37,7 @@ It is just like a real **pipeline** in the real world.
 As if there has a pipline `[DropColumnTF, DropRowTF, Map, MapColumnTF]`.
 If we put a {class}`~pandas.DataFrame` into this pipeline and want to debug and check the preprocessing data. However, it is hard to trace the data changing. There is only left data itself, other information is missing.
 
-It is important to keep track of the data changing. So {class}`dtoolkit.transformer` would keep the {class}`~pandas.DataFrame` unchanged in stream, let {class}`~pandas.DataFrame` in and {class}`~pandas.DataFrame` out.
+It is important to keep trace the data changing. So {class}`dtoolkit.transformer` would keep the {class}`~pandas.DataFrame` unchanged in stream, let {class}`~pandas.DataFrame` in and {class}`~pandas.DataFrame` out.
 
 ![Transformer architecture](../_static/transformer-architecture.png)
 
