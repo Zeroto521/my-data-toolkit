@@ -1,18 +1,18 @@
-# Transformer and Pipeline Brief Description
+# {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` Brief Description
 
 ![Real world Pipeline](https://cdn.pixabay.com/photo/2015/03/19/17/50/winter-681175_960_720.jpg)
 
 > Image by [Robson Machado](https://pixabay.com/photos/winter-alaska-pipeline-oil-snow-681175/)
 
-## What is Transformer?
+## What is {class}`~dtoolkit.transformer.Transformer`?
 
-The `Transformer` is a protocol that defines the input port and output port.
+The {class}`~dtoolkit.transformer.Transformer` is a protocol that defines the input port and output port.
 
 It is just like a **pipe** in the real world.
 
 ## What is Pipeline?
 
-The `Pipeline` combines each port of `Transformer` into a stream.
+The {class}`~sklearn.pipeline.Pipeline` combines each port of {class}`~dtoolkit.transformer.Transformer` into a stream.
 
 You could control the **direction** of the stream to go forward or backward.
 And you could stop the stream where you want and check its **internal**.
