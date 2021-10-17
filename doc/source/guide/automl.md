@@ -12,7 +12,7 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 
 ## What Could `AutoML` Do Now?
 
-{math}`AutoML \xleftarrow{OptimizationAlgorithm} FeatureEngineeringPipeline + MLPipeline`
+{math}`AutoML \xleftarrow{OptimizationAlgorithm} Feature Engineering Pipeline + ML Pipeline`
 
 - Part of `Feature Engneering`
 - `Algorithm Selection`
