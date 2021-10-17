@@ -56,3 +56,11 @@ For `GA`, just like genes don't always work up alone, they could also work up to
 ## A Example of `Pipeline`
 
 ![Store data pipeline](../_static/store-data-pipeline.png)
+
+This is a store data complete pipeline waht we have seen at {ref}`Transformer and Pipeline Quickstart <further-more-steps-to-pipeline>`.
+
+All jobs in `Pipeline`, from `Data Cleaning` to `Data Preprocessing`, from `Feature Engineering` to `Regression`.
+
+With the helping of `Pipeline`, the total work could easily be drawn into workflow.
+
+This workflow is clearly described.
