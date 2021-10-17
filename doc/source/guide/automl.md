@@ -1,4 +1,4 @@
-# Pipeline One More Step: AutoML
+# Automated `Pipeline`: `AutoML`
 
 It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
 
