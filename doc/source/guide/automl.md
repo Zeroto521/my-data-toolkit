@@ -31,7 +31,7 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 
 ![Basic AutoML workflow](../_static/basic-automl-workflow.png)
 
-## What Would `AutoML` Do via Pipeline?
+## What Would `AutoML` Do via `Pipeline`?
 
 Base the idea of {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
