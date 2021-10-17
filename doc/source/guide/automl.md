@@ -21,13 +21,13 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 `Hyperparameter Optimization` already has the iterable method such as the `Grid Search`.
 
 With the `Intelligent Optimization Algorithm` helping, `Hyperparameter Optimization` could be much easier done.
-And the same time, `Algorithm Selection` could be done at the same time. The `Intelligent Optimization Algorithm` power is much more than iterable method.
+And the same time, `Algorithm Selection` could be done at the same time. The `Intelligent Optimization Algorithm` searching effectction power is much more than iterable method.
 
-The {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` could be the bridge for these algorithms from abstract theory to specifc application.
+The {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` could be the bridge for `Intelligent Optimization Algorithm` from abstract theory to specifc application.
 
-To build the bridge for `GA` (*Genetic Algorithm*), {class}`dtoolkit.transformer.Transformer` and the `Hyperparameter` could be the genric. And {class}`sklearn.pipeline.Pipeline` is the chromosome.
+To build the bridge for `GA` (*Genetic Algorithm*), {class}`dtoolkit.transformer.Transformer` and the `Hyperparameter` could be the gene. And {class}`sklearn.pipeline.Pipeline` is the chromosome.
 
-As for `Feature Engineering`, part of them could be automated. `Feature Engineering` will face more problems to be automated. The big problem is the sequence and the combination of `Feature Engineering` plugins in a pipeline is arbitary.
+As for `Feature Engineering`, part of them could be automated. `Feature Engineering` will face more problems when it is automated. The big problem is the sequence and the combination of `Feature Engineering` plugins in a pipeline is arbitary.
 
 ![Basic AutoML workflow](../_static/basic-automl-workflow.png)
 
