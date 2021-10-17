@@ -23,7 +23,7 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 With the `Intelligent Optimization Algorithm` helping, `Hyperparameter Optimization` could be much easier done.
 And the same time, `Algorithm Selection` could be done at the same time. The `Intelligent Optimization Algorithm` searching effectction power is much more than iterable method.
 
-The {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` could be the bridge for `Intelligent Optimization Algorithm` from abstract theory to specifc application.
+The {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` could be the bridge for `Intelligent Optimization Algorithm` from abstract theory to specifc application.
 
 To build the bridge for `GA` (*Genetic Algorithm*), {class}`dtoolkit.transformer.Transformer` and the `Hyperparameter` could be the gene. And {class}`sklearn.pipeline.Pipeline` is the chromosome.
 
@@ -33,7 +33,7 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 
 ## What Would `AutoML` Do via `Pipeline`?
 
-Base the idea of {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
+Base the idea of {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
 So in this way, data processing could also be automated.
 
