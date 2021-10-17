@@ -12,7 +12,7 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 
 ## What Could `AutoML` Do Now?
 
-`AutoML` = `Feature Engineering Pipeline` + `ML Pipeline`
+{math}`AutoML \xleftarrow{OptimizationAlgorithm} FeatureEngineeringPipeline + MLPipeline`
 
 - Part of `Feature Engneering`
 - `Algorithm Selection`
@@ -37,7 +37,7 @@ Base the idea of {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.p
 
 So in this way, data processing could also be automated.
 
-`AutoML` = `Data Preprocessing Pipeline` + `Feature Engineering Pipeline` + `ML Pipeline`
+{math}`AutoML \xleftarrow{Optimization Algorithm} Data Preprocessing Pipeline + Feature Engineering Pipeline + ML Pipeline`
 
 However, the same problem of automated `Feature Engineering` facing is also happened to automated `Data Preprocessing`.
 
@@ -48,6 +48,8 @@ In other words, there need not only `Optimization Algorithm` but also `Strategy`
 
 `Strategy` means plugins of sequence and combination is not **real** arbitrary, them have some invisible mode and connection.
 For `GA`, just like genes don't always work up alone, they could also work up together in parts.
+
+{math}`AutoML \xleftarrow[Strategy]{Optimization Algorithm} Data Preprocessing Pipeline + Feature Engineering Pipeline + ML Pipeline`
 
 ![Complete AutoML workflow](../_static/complete-automl-workflow.png)
 
