@@ -33,15 +33,21 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 
 ## What would `AutoML` do via Pipeline?
 
-Base the idea of {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a plugin.
+Base the idea of {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
-So in this way, data processing could be automated.
+So in this way, data processing could also be automated.
 
 `AutoML` = `Data Preprocessing Pipeline` + `Feature Engineering Pipeline` + `ML Pipeline`
 
 However, the same problem of automated `Feature Engineering` facing is also happened to automated `Data Preprocessing`.
 
-In my `ML` experience, it could be fix via indirect way.
+In our `ML` experience, it could be fix via indirect way.
+Some plugins of sequence and combination are fixed such as we would use `Order Transformer` then use `OneHotEncoder` to handle categorical variables.
+
+In other words, there need not only `Optimization Algorithm` but also `Strategy`.
+
+`Strategy` means plugins of sequence and combination is not **real** arbitrary, them have some invisible mode and connection.
+For `GA`, just like genes don't always work up alone, they could also work up together in parts.
 
 ![Complete AutoML workflow](../_static/complete-automl-workflow.png)
 
