@@ -10,7 +10,7 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 - `Algorithm Selection`
 - `Hyperparameter Optimization`
 
-## What could `AutoML` do now?
+## What Could `AutoML` Do Now?
 
 `AutoML` = `Feature Engineering Pipeline` + `ML Pipeline`
 
@@ -31,7 +31,7 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 
 ![Basic AutoML workflow](../_static/basic-automl-workflow.png)
 
-## What would `AutoML` do via Pipeline?
+## What Would `AutoML` Do via Pipeline?
 
 Base the idea of {class}`dtoolkit.transformer.Transformer` and {class}`sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
