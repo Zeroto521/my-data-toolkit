@@ -37,7 +37,7 @@ If you know about them, you would get the programming experience is totally diff
 
 > From [Orange website screenshots](https://orangedatamining.com/screenshots/)
 
-## Q & A
+## Question & Answer
 
 ### How Do `Pipeline` with `Workflow`?
 
