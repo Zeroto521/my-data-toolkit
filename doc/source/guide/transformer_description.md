@@ -22,7 +22,7 @@ Minimal methods require:
 - `transform` and `fit_transform` are necessary methods.
 - `fit` and `inverse_transform` are optional method.
 
-## What is Pipeline?
+## What is {class}`~sklearn.pipeline.Pipeline`?
 
 The {class}`~sklearn.pipeline.Pipeline` combines each port of {class}`~dtoolkit.transformer.Transformer` into a stream.
 
