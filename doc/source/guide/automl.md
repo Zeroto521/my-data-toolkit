@@ -1,5 +1,9 @@
 # Automated `Pipeline`: `AutoML`
 
+:::{note}
+`AutoML` is an idea at present.
+:::
+
 It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
 
 `AutoML` (*Automated Machine Learning*) tries to let automatically finish the following tasks:
