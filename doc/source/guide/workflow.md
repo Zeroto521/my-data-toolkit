@@ -1,3 +1,4 @@
+(workflow)=
 # Data Visual Modeling Language: `Workflow`
 
 :::{note}
