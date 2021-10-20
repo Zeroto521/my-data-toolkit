@@ -8,12 +8,12 @@ import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from ._util import get_inf_range
-from ._util import get_mask
-from ._util import isin
-from .register import register_dataframe_method
-from .series import cols as series_cols
-from .series import top_n as series_top_n
+from dtoolkit.accessor._util import get_inf_range
+from dtoolkit.accessor._util import get_mask
+from dtoolkit.accessor._util import isin
+from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series import cols as series_cols
+from dtoolkit.accessor.series import top_n as series_top_n
 
 __all__ = ["cols", "dropinf", "filterin", "repeat", "top_n"]
 

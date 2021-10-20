@@ -9,9 +9,9 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from ._util import transform_series_to_frame
-from ._validation import require_series_or_frame
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.transformer._util import transform_series_to_frame
+from dtoolkit.transformer._validation import require_series_or_frame
 
 
 class Transformer(TransformerMixin):

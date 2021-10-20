@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from . import s
-from . import s_inf
 from dtoolkit.accessor.series import bin  # noqa
 from dtoolkit.accessor.series import dropinf  # noqa
 from dtoolkit.accessor.series import top_n  # noqa
+from dtoolkit.test.accessor import s
+from dtoolkit.test.accessor import s_inf
 
 
 class TestDropinf:

@@ -1,7 +1,7 @@
 import pandas as pd
 
-from .base import DataFrameTF
 from dtoolkit.accessor.dataframe import filterin
+from dtoolkit.transformer.base import DataFrameTF
 
 
 class AssignTF(DataFrameTF):

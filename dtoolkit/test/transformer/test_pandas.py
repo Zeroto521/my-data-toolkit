@@ -3,14 +3,14 @@ from functools import partial
 import pandas as pd
 import pytest
 
-from . import df_iris
-from . import df_label
-from . import df_mixed
-from . import df_period
-from . import feature_names
-from . import s
 from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa
 from dtoolkit.accessor.series import cols as series_cols  # noqa
+from dtoolkit.test.transformer import df_iris
+from dtoolkit.test.transformer import df_label
+from dtoolkit.test.transformer import df_mixed
+from dtoolkit.test.transformer import df_period
+from dtoolkit.test.transformer import feature_names
+from dtoolkit.test.transformer import s
 from dtoolkit.transformer import AppendTF
 from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF

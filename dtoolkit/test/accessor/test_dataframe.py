@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from . import d
 from dtoolkit.accessor.dataframe import dropinf  # noqa
 from dtoolkit.accessor.dataframe import filterin  # noqa
 from dtoolkit.accessor.dataframe import repeat  # noqa
 from dtoolkit.accessor.dataframe import top_n  # noqa
+from dtoolkit.test.accessor import d
 
 
 class TestDropinf:
