@@ -1,3 +1,4 @@
+(automl)=
 # Automated `Pipeline`: `AutoML`
 
 :::{note}

@@ -64,3 +64,10 @@ A surprise comes here. It can face to the engineering of data preprocessing.
 - {class}`~sklearn.pipeline.Pipeline` as the manager to control the running.
 
 ![DToolKit for transformer](../_static/transformer-with-pipeline.png)
+
+## What's Next?
+
+There are two articles about some future features of `Transformer` and `Pipeline`.
+
+- {ref}`automl`
+- {ref}`workflow`
