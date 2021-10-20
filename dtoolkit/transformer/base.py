@@ -9,9 +9,9 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from ._util import transform_series_to_frame
-from ._validation import require_series_or_frame
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.transformer._util import transform_series_to_frame
+from dtoolkit.transformer._validation import require_series_or_frame
 
 
 class Transformer(TransformerMixin):
@@ -40,7 +40,7 @@ class MethodTF(Transformer):
     inverse_transform_method: Callable | None = None
 
     def __init__(self, *args, **kwargs):
-        """Transform method arguement entry."""
+        """Transform method argument entry."""
 
         # transform method parameters
         self.args = args
@@ -63,7 +63,7 @@ class MethodTF(Transformer):
         return self
 
     def update_invargs(self, *args, **kwargs):
-        """Inverse transform method arguement entry."""
+        """Inverse transform method argument entry."""
 
         self.inverse_args = args or self.inverse_args
         self.inverse_kwargs.update(kwargs)

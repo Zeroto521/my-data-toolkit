@@ -54,7 +54,7 @@ cgeometrys = [
     ccollections,
 ]
 
-geometrys = [
+geometries = [
     point,
     points,
     line,
@@ -66,7 +66,7 @@ geometrys = [
 ]
 
 
-@pytest.mark.parametrize("rcoord, geom", zip(cgeometrys, geometrys))
+@pytest.mark.parametrize("rcoord, geom", zip(cgeometrys, geometries))
 def test_single_geometry_coords(rcoord, geom):
     tcoord = _coords(geom)
 
@@ -82,7 +82,7 @@ def test_none_geometry_coords():
 
 
 def test_geoseries_coords():
-    s = gpd.GeoSeries(geometrys)
+    s = gpd.GeoSeries(geometries)
 
     tcoords = coords(s)
     for tcoord, rcoord in zip(tcoords, cgeometrys):
@@ -101,13 +101,13 @@ def unique_point(coords):
     return set(collapse(coords, levels=2))
 
 
-@pytest.mark.parametrize("geom", (geometrys))
+@pytest.mark.parametrize("geom", (geometries))
 def test_single_geometry_coords_num(geom):
     _coords_num(geom)
 
 
 def test_geoseries_coords_num():
-    s = gpd.GeoSeries(geometrys)
+    s = gpd.GeoSeries(geometries)
     coords_num(s)
 
 
@@ -117,5 +117,5 @@ def test_not_geopandas_coords_num():
 
 
 def test_geoseries_coords_numlist():
-    s = gpd.GeoSeries(geometrys)
+    s = gpd.GeoSeries(geometries)
     coords_numlist(s)

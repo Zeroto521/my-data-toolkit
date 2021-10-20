@@ -13,12 +13,12 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from ._typing import GeoSeriesOrGeoFrame
-from ._typing import NumericType
-from ._validation import check_geometry_type
-from ._validation import check_geopandas_type
 from dtoolkit._typing import get_args
 from dtoolkit._typing import OneDimArray
+from dtoolkit.geography._typing import GeoSeriesOrGeoFrame
+from dtoolkit.geography._typing import NumericType
+from dtoolkit.geography._validation import check_geometry_type
+from dtoolkit.geography._validation import check_geopandas_type
 
 
 def geographic_buffer(

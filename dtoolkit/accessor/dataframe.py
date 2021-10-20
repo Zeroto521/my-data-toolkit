@@ -8,12 +8,12 @@ import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from ._util import get_inf_range
-from ._util import get_mask
-from ._util import isin
-from .register import register_dataframe_method
-from .series import cols as series_cols
-from .series import top_n as series_top_n
+from dtoolkit.accessor._util import get_inf_range
+from dtoolkit.accessor._util import get_mask
+from dtoolkit.accessor._util import isin
+from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series import cols as series_cols
+from dtoolkit.accessor.series import top_n as series_top_n
 
 __all__ = ["cols", "dropinf", "filterin", "repeat", "top_n"]
 
@@ -172,7 +172,7 @@ def dropinf(
 @register_dataframe_method
 def filterin(
     df: pd.DataFrame,
-    condition: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+    condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
     axis: int | str = 0,
     how: str = "all",
     inplace: bool = False,
@@ -180,7 +180,7 @@ def filterin(
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
-    Simlar to :meth:`~pandas.DataFrame.isin`, but the return is value not
+    Similar to :meth:`~pandas.DataFrame.isin`, but the return is value not
     bool.
 
     Parameters

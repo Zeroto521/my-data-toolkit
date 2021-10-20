@@ -12,13 +12,13 @@ from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
-from ._util import transform_array_to_frame
-from ._util import transform_series_to_frame
-from .base import Transformer
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
+from dtoolkit.transformer._util import transform_array_to_frame
+from dtoolkit.transformer._util import transform_series_to_frame
+from dtoolkit.transformer.base import Transformer
 
 
 class FeatureUnion(SKFeatureUnion, Transformer):
