@@ -51,4 +51,4 @@ jobs:
         run: |
           cd ..
           conda list
-          python -c "import dtoolkit; dtoolkit.__version__;"
+          python -c "import dtoolkit; print(dtoolkit.__version__);"
