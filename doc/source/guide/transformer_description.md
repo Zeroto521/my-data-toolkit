@@ -65,7 +65,7 @@ A surprise comes here. It can face to the engineering of data preprocessing.
 
 ![DToolKit for transformer](../_static/transformer-with-pipeline.png)
 
-## What's Next?
+## What's Next - Future Features
 
 There are two articles about some future features of `Transformer` and `Pipeline`.
 
