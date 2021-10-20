@@ -12,4 +12,5 @@ Some tips about dtoolkit.
     How to Build Transformer <guide/build_transformer>
     Transformer and Pipeline Brief Description <guide/transformer_description>
     Automated Pipeline: AutoML <guide/automl>
+    Data Visual Modeling Language: Workflow <guide/workflow>
     What is the Geographic Buffer? <guide/geographic_buffer>
