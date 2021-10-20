@@ -35,7 +35,7 @@ Sklearn Transformer
 Pandas Transformer
 ------------------
 
-The parameters of transformer (``args``, ``kwargs``) are the same to 
+The parameters of transformer (``args``, ``kwargs``) are the same to
 corresponding to relative :class:`pandas.DataFrame`'s method.
 
 .. autosummary::
@@ -56,7 +56,7 @@ corresponding to relative :class:`pandas.DataFrame`'s method.
 Numpy Transformer
 -----------------
 
-The parameters of transformer (``args``, ``kwargs``) are the same to 
+The parameters of transformer (``args``, ``kwargs``) are the same to
 corresponding to relative :class:`numpy.ndarray`'s method.
 
 .. autosummary::

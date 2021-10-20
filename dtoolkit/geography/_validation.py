@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from shapely.geometry.base import BaseGeometry
 
-from ._typing import GeoSeriesOrGeoFrame
 from dtoolkit._typing import get_args
+from dtoolkit.geography._typing import GeoSeriesOrGeoFrame
 
 
 def check_geopandas_type(df: GeoSeriesOrGeoFrame):

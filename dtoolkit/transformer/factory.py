@@ -4,7 +4,7 @@ from functools import wraps
 from inspect import isfunction
 from typing import Callable
 
-from .base import MethodTF
+from dtoolkit.transformer.base import MethodTF
 from dtoolkit.util.generic import snake_to_camel
 
 

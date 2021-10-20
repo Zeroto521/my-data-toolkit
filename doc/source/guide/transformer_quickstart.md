@@ -49,7 +49,7 @@ There are some stores sale data of one chain brand.
 
 ## Feature Types and Dealing Steps
 
-First of all, we should konw there are three types of features ( {math}`X`) and one label ( {math}`y`).
+First of all, we should know there are three types of features ( {math}`X`) and one label ( {math}`y`).
 
 - Additional information features: drop
   - code
@@ -63,7 +63,7 @@ First of all, we should konw there are three types of features ( {math}`X`) and 
   - population: there is buffer ranging population, but more want to enter store population, equal to  {math}`\frac{score}{10} \times population`.
   - score
   - opendays: filter `opendays <= 30` stores then drop this field
-- Label: need to balance, should transform to daily sale, equal to {math}`\frac{sale}{opendays}` then sacle
+- Label: need to balance, should transform to daily sale, equal to {math}`\frac{sale}{opendays}` then scale
 
 :::{admonition} Mission
 Our mission is to find some relationships between these features and label.
@@ -199,6 +199,7 @@ see that the core problem is **missing transformer**.
 - Numpy's methods couldn't be used as a transformer.
 - Sklearn's transformers can't pandas in and pandas out.
 
+(further-more-steps-to-pipeline)=
 ### Further More Steps to Pipeline
 
 :::{tip}
@@ -277,7 +278,7 @@ Output:
 [0.38596491 1.         0.        ]
 ```
 
-We could also save these pipelines as a binary file via (ex. joblib).
+We could also save these pipelines as a binary file via pickle or joblib.
 When new data coming we could quickly transform them via binary file.
 
 ## Other Ways to Handle This
@@ -289,7 +290,7 @@ But they are:
 - hard to transform to application codes rightly
 - hard to debug, and check the processing data
 
-## Next Steps - Learn or Build Transformers
+## What's Next - Learn or Build Transformers
 
 In this tutorial we've a quickly glance about {ref}`dtoolkit.transformer <transformer>`.
 
