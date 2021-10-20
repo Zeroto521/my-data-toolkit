@@ -40,7 +40,7 @@ class MethodTF(Transformer):
     inverse_transform_method: Callable | None = None
 
     def __init__(self, *args, **kwargs):
-        """Transform method arguement entry."""
+        """Transform method argument entry."""
 
         # transform method parameters
         self.args = args
@@ -63,7 +63,7 @@ class MethodTF(Transformer):
         return self
 
     def update_invargs(self, *args, **kwargs):
-        """Inverse transform method arguement entry."""
+        """Inverse transform method argument entry."""
 
         self.inverse_args = args or self.inverse_args
         self.inverse_kwargs.update(kwargs)

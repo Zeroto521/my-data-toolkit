@@ -90,8 +90,8 @@ def dropinf(
     >>> from dtoolkit.accessor.series import dropinf
     >>> import pandas as pd
     >>> import numpy as np
-    >>> ser = pd.Series([1., 2., np.inf])
-    >>> ser
+    >>> s = pd.Series([1., 2., np.inf])
+    >>> s
     0    1.0
     1    2.0
     2    inf
@@ -99,15 +99,15 @@ def dropinf(
 
     Drop inf values from a Series.
 
-    >>> ser.dropinf()
+    >>> s.dropinf()
     0    1.0
     1    2.0
     dtype: float64
 
     Keep the Series with valid entries in the same variable.
 
-    >>> ser.dropinf(inplace=True)
-    >>> ser
+    >>> s.dropinf(inplace=True)
+    >>> s
     0    1.0
     1    2.0
     dtype: float64

@@ -172,7 +172,7 @@ def dropinf(
 @register_dataframe_method
 def filterin(
     df: pd.DataFrame,
-    condition: Iterable | pd.Serie | pd.DataFrame | dict[str, list[str]],
+    condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
     axis: int | str = 0,
     how: str = "all",
     inplace: bool = False,
@@ -180,7 +180,7 @@ def filterin(
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
-    Simlar to :meth:`~pandas.DataFrame.isin`, but the return is value not
+    Similar to :meth:`~pandas.DataFrame.isin`, but the return is value not
     bool.
 
     Parameters
