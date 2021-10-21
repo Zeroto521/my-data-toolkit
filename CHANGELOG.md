@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.3] (2021-??-??)
+## [Version 0.0.3] (2021-10-21)
 
 New features and improvements:
 
@@ -11,7 +11,7 @@ Documentation:
 
 - Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/latest/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
 - Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/latest/guide/automl.html) ({pr}`236`, {pr}`237`).
-- Update the description of dtoolkit ({pr}`234`).
+- Update the description of dtoolkit ({pr}`234`, {pr}`241`).
 - Add an introduction for {meth}`~dtoolkit.transformer` ({pr}`232`, {pr}`233`).
 - Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/latest/py-modindex.html) ({pr}`231`).
 - Add an introduction for {meth}`~dtoolkit.geography.geographic_buffer`, see [What is the Geographic Buffer?](https://my-data-toolkit.readthedocs.io/en/latest/guide/geographic_buffer.html) ({pr}`229`).
@@ -72,5 +72,5 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
-[Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...master
+[Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
 [Version 0.0.2]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.1...v0.0.2
