@@ -1,5 +1,5 @@
 (workflow)=
-# Data Visual Modeling Language: `Workflow`
+# Data Visual Modeling: `Workflow`
 
 :::{note}
 `Workflow` is an idea at present.
