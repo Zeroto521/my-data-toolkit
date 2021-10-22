@@ -60,6 +60,4 @@ jobs:
       - name: Upload Release Asset to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            dist/${{ needs.build.outputs.var }}
-            dist/${{ needs.build.outputs.whl }}
+          files: dist/${{ needs.build.outputs.var }}
