@@ -39,7 +39,7 @@ jobs:
           path: dist/
 
     outputs:
-      var: ${{ steps.tar.outputs.file }}
+      tar: ${{ steps.tar.outputs.file }}
       whl: ${{ steps.whl.outputs.file }}
 
   publish-to-github:
@@ -60,4 +60,4 @@ jobs:
       - name: Upload Release Asset to GitHub
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/${{ needs.build.outputs.var }}
+          files: dist/${{ needs.build.outputs.tar }}
