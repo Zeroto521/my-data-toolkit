@@ -483,7 +483,7 @@ def top_n(
     2  (c, 3)  (a, 2)
     3  (a, 1)  (b, 1)
 
-    Only get each row's the index of largest top 2.
+    Only get each row's the **index** of largest top 2.
 
     >>> df.top_n(2, element="index")
         top_1   top_2
