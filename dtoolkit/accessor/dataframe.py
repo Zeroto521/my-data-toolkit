@@ -433,7 +433,7 @@ def top_n(
     delimiter : str, default "_"
         The delimiter between `prefix` and number.
 
-    element : str, default "both"
+    element : {"both", "index", "value"}, default "both"
         To control the structure of return dataframe value.
 
         - both: the structure of value is ``({column index}, {value})``.
