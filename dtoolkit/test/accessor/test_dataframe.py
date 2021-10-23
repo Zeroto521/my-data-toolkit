@@ -226,7 +226,7 @@ class TestRepeat:
 
 class TestTopN:
     @pytest.mark.parametrize(
-        "n, largest, keep, prefix, delimiter, excepted",
+        "n, largest, keep, prefix, delimiter, element, excepted",
         [
             (
                 1,
@@ -234,6 +234,7 @@ class TestTopN:
                 "first",
                 "top",
                 "_",
+                "both",
                 {
                     "top_1": [
                         ("b", 3),
@@ -248,6 +249,7 @@ class TestTopN:
                 "first",
                 "top",
                 "_",
+                "both",
                 {
                     "top_1": [("b", 3), ("a", 3), ("c", 3)],
                     "top_2": [("c", 2), ("b", 2), ("a", 2)],
@@ -259,6 +261,7 @@ class TestTopN:
                 "first",
                 "top",
                 "_",
+                "both",
                 {
                     "top_1": [("a", 1), ("c", 1), ("b", 1)],
                 },
@@ -269,12 +272,37 @@ class TestTopN:
                 "first",
                 "largest",
                 "-",
+                "both",
                 {
                     "largest-1": [
                         ("b", 3),
                         ("a", 3),
                         ("c", 3),
                     ],
+                },
+            ),
+            (  # test 'element'
+                2,
+                True,
+                "first",
+                "top",
+                "_",
+                "index",
+                {
+                    "top_1": ["b", "a", "c"],
+                    "top_2": ["c", "b", "a"],
+                },
+            ),
+            (  # test 'element'
+                2,
+                True,
+                "first",
+                "top",
+                "_",
+                "value",
+                {
+                    "top_1": [3, 3, 3],
+                    "top_2": [2, 2, 2],
                 },
             ),
         ],
@@ -286,6 +314,7 @@ class TestTopN:
         keep,
         prefix,
         delimiter,
+        element,
         excepted,
     ):
         df = pd.DataFrame(
@@ -302,6 +331,7 @@ class TestTopN:
             keep=keep,
             prefix=prefix,
             delimiter=delimiter,
+            element=element,
         )
 
         excepted = pd.DataFrame(excepted)
@@ -385,3 +415,15 @@ class TestTopN:
         excepted = pd.DataFrame(excepted)
 
         assert result.equals(excepted)
+
+    def test_element_error(self):
+        df = pd.DataFrame(
+            {
+                "a": [1, 3, 2],
+                "b": [3, 2, 1],
+                "c": [2, 1, 3],
+            },
+        )
+
+        with pytest.raises(ValueError):
+            df.top_n(1, element="whatever")
