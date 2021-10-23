@@ -405,6 +405,7 @@ def top_n(
     keep: str = "first",
     prefix: str = "top",
     delimiter: str = "_",
+    element: str = "both",
 ) -> pd.DataFrame:
     """
     Returns each row's top `n`.
@@ -421,8 +422,8 @@ def top_n(
     keep : {"first", "last’, "all"}, default "first"
         Where there are duplicate values:
 
-        - first : prioritize the first occurrence(s)
-        - last : prioritize the last occurrence(s)
+        - first : prioritize the first occurrence(s).
+        - last : prioritize the last occurrence(s).
         - all : do not drop any duplicates, even it means selecting more than
           n items.
 
@@ -431,6 +432,13 @@ def top_n(
 
     delimiter : str, default "_"
         The delimiter between `prefix` and number.
+
+    element : str, default "both"
+        To control the structure of return dataframe value.
+
+        - both: the structure of value is ``({column index}, {value})``.
+        - index: the structure of value is only ``{column index}``.
+        - value: the structure of value is only ``{value}``.
 
     Returns
     -------
@@ -474,6 +482,15 @@ def top_n(
     2  (c, 3)  (a, 2)
     3  (a, 1)  (b, 1)
 
+    Only get row's the **index** of largest top 2.
+
+    >>> df.top_n(2, element="index")
+        top_1   top_2
+    0   b       c
+    1   a       b
+    2   c       a
+    3   a       b
+
     Get each row's smallest top **1** and **keep** the duplicated values.
 
     >>> df.top_n(1, largest=False, keep="all")
@@ -484,14 +501,21 @@ def top_n(
     3  (a, 1)  (b, 1)  (c, 1)
     """
 
+    if element not in ("both", "index", "value"):
+        raise ValueError('element must be either "both", "index" or "value"')
+
     def wrap_series_top_n(*args, **kwargs) -> pd.Series:
         top = series_top_n(*args, **kwargs)
         index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
 
-        return pd.Series(
-            zip(top.index, top.values),
-            index=index,
-        )
+        if element == "both":
+            data = zip(top.index, top.values)
+        elif element == "index":
+            data = top.index
+        elif element == "value":
+            data = top.values
+
+        return pd.Series(data, index=index)
 
     return df.apply(
         wrap_series_top_n,
