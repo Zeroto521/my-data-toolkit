@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.dataframe import dropinf  # noqa
+from dtoolkit.accessor.dataframe import drop_inf  # noqa
 from dtoolkit.accessor.dataframe import filterin  # noqa
 from dtoolkit.accessor.dataframe import repeat  # noqa
 from dtoolkit.accessor.dataframe import top_n  # noqa
@@ -96,7 +96,7 @@ class TestDropinf:
         ],
     )
     def test_work(self, df, axis, how, inf, subset, expt):
-        res = df.dropinf(axis=axis, how=how, inf=inf, subset=subset)
+        res = df.drop_inf(axis=axis, how=how, inf=inf, subset=subset)
 
         assert res.equals(expt)
 
@@ -111,7 +111,7 @@ class TestDropinf:
     )
     def test_error(self, error, axis, how, subset):
         with pytest.raises(error):
-            d.dropinf(axis=axis, how=how, subset=subset)
+            d.drop_inf(axis=axis, how=how, subset=subset)
 
     def test_inplace_is_true(self):
         self_d = d.copy(True)
@@ -122,7 +122,7 @@ class TestDropinf:
             },
             ignore_index=True,
         )
-        res = self_d.dropinf(inplace=True)
+        res = self_d.drop_inf(inplace=True)
 
         assert res is None
         assert self_d.equals(d)

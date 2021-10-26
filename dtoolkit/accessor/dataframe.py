@@ -15,7 +15,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as series_cols
 from dtoolkit.accessor.series import top_n as series_top_n
 
-__all__ = ["cols", "dropinf", "filterin", "repeat", "top_n"]
+__all__ = ["cols", "drop_inf", "filterin", "repeat", "top_n"]
 
 
 @register_dataframe_method
@@ -35,7 +35,7 @@ def cols(df: pd.DataFrame) -> list[str]:
 
 
 @register_dataframe_method
-def dropinf(
+def drop_inf(
     df: pd.DataFrame,
     axis: int | str = 0,
     how: str = "any",
@@ -81,12 +81,12 @@ def dropinf(
 
     See Also
     --------
-    dtoolkit.accessor.series.dropinf : :obj:`~pandas.Series` drops ``inf``
+    dtoolkit.accessor.series.drop_inf : :obj:`~pandas.Series` drops ``inf``
         values.
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import dropinf
+    >>> from dtoolkit.accessor.dataframe import drop_inf
     >>> import pandas as pd
     >>> import numpy as np
     >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
@@ -101,13 +101,13 @@ def dropinf(
 
     Drop the rows where at least one element is inf and -inf.
 
-    >>> df.dropinf()
+    >>> df.drop_inf()
          name        toy                 born
     1  Batman  Batmobile  1940-04-25 00:00:00
 
     Drop the columns where at least one element is inf and -inf.
 
-    >>> df.dropinf(axis='columns')
+    >>> df.drop_inf(axis='columns')
             name
     0    Alfred
     1    Batman
@@ -115,7 +115,7 @@ def dropinf(
 
     Drop the rows where all elements are inf and -inf.
 
-    >>> df.dropinf(how='all')
+    >>> df.drop_inf(how='all')
            name        toy                 born
     0    Alfred        inf                  inf
     1    Batman  Batmobile  1940-04-25 00:00:00
@@ -123,21 +123,21 @@ def dropinf(
 
     Drop the rows where at least one element is -inf.
 
-    >>> df.dropinf(inf='neg')
+    >>> df.drop_inf(inf='neg')
            name        toy                 born
     0    Alfred        inf                  inf
     1    Batman  Batmobile  1940-04-25 00:00:00
 
     Define in which columns to look for inf and -inf values.
 
-    >>> df.dropinf(subset=['name', 'toy'])
+    >>> df.drop_inf(subset=['name', 'toy'])
            name        toy                 born
     1    Batman  Batmobile  1940-04-25 00:00:00
     2  Catwoman   Bullwhip                 -inf
 
     Keep the DataFrame with valid entries in the same variable.
 
-    >>> df.dropinf(inplace=True)
+    >>> df.drop_inf(inplace=True)
     >>> df
            name        toy                 born
     1    Batman  Batmobile  1940-04-25 00:00:00
