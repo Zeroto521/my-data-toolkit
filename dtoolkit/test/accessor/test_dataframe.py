@@ -367,7 +367,7 @@ class TestTopN:
             },
         )
 
-        result = df.top_n(n=n, keep=keep)
+        result = df.top_n(n=n, keep=keep, element="both")
         excepted = pd.DataFrame(excepted)
 
         assert result.equals(excepted)
@@ -411,7 +411,7 @@ class TestTopN:
     )
     def test_multi_index(self, df, n, excepted):
         df = pd.DataFrame(df)
-        result = df.top_n(n=n)
+        result = df.top_n(n=n, element="both")
         excepted = pd.DataFrame(excepted)
 
         assert result.equals(excepted)

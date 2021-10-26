@@ -405,7 +405,7 @@ def top_n(
     keep: str = "first",
     prefix: str = "top",
     delimiter: str = "_",
-    element: str = "both",
+    element: str = "index",
 ) -> pd.DataFrame:
     """
     Returns each row's top `n`.
@@ -444,8 +444,8 @@ def top_n(
     -------
     DataFrame
         - The structure of column name is ``{prefix}{delimiter}{number}``.
-        - The default structure of value is ``({column index}, {value})`` and
-          could be controled via ``element``.
+        - The default structure of value is ``{column index}`` and could be
+          controled via ``element``.
 
     Notes
     -----
@@ -478,28 +478,28 @@ def top_n(
 
     >>> df.top_n(2)
         top_1   top_2
+    0       b       c
+    1       a       b
+    2       c       a
+    3       a       b
+
+    Get each row's both **index** and **value** of largest top 2.
+
+    >>> df.top_n(2, element="both")
+        top_1   top_2
     0  (b, 3)  (c, 2)
     1  (a, 3)  (b, 2)
     2  (c, 3)  (a, 2)
     3  (a, 1)  (b, 1)
 
-    Only get each row's the **index** of largest top 2.
-
-    >>> df.top_n(2, element="index")
-        top_1   top_2
-    0   b       c
-    1   a       b
-    2   c       a
-    3   a       b
-
     Get each row's smallest top **1** and **keep** the duplicated values.
 
     >>> df.top_n(1, largest=False, keep="all")
         top_1   top_2   top_3
-    0  (a, 1)     NaN     NaN
-    1  (c, 1)     NaN     NaN
-    2  (b, 1)     NaN     NaN
-    3  (a, 1)  (b, 1)  (c, 1)
+    0       a     NaN     NaN
+    1       c     NaN     NaN
+    2       b     NaN     NaN
+    3       a       b       c
     """
 
     if element not in ("both", "index", "value"):
