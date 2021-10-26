@@ -419,7 +419,7 @@ def top_n(
         - True, the top is the largest.
         - True, the top is the smallest.
 
-    keep : {"first", "last’, "all"}, default "first"
+    keep : {"first", "last", "all"}, default "first"
         Where there are duplicate values:
 
         - first : prioritize the first occurrence(s).
