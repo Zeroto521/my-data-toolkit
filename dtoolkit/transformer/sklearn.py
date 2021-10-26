@@ -206,7 +206,7 @@ class OneHotEncoder(SKOneHotEncoder):
     >>> enc.inverse_transform([[0, 1, 1, 0, 0], [0, 0, 0, 1, 0]])
     array([['Male', 1],
            [None, 2]], dtype=object)
-    >>> enc.get_feature_names(['gender', 'group'])
+    >>> enc.get_feature_names_out(['gender', 'group'])
     array(['gender_Female', 'gender_Male', 'group_1', 'group_2', 'group_3'],
       dtype=object)
 
@@ -277,7 +277,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
         if self.sparse is False:
             categories = (
-                self.get_feature_names(X.cols())
+                self.get_feature_names_out(X.cols())
                 if self.categories_with_parent
                 else flatten(self.categories_)
             )
