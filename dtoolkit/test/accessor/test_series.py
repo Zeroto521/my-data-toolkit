@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 
 from dtoolkit.accessor.series import bin  # noqa
-from dtoolkit.accessor.series import dropinf  # noqa
+from dtoolkit.accessor.series import drop_inf  # noqa
 from dtoolkit.accessor.series import top_n  # noqa
 from dtoolkit.test.accessor import s
 from dtoolkit.test.accessor import s_inf
@@ -24,12 +24,12 @@ class TestDropinf:
         ],
     )
     def test_work(self, inf, df, expt):
-        res = df.dropinf(inf=inf)
+        res = df.drop_inf(inf=inf)
 
         assert res.equals(expt)
 
     def test_inplace_is_true(self):
-        res = self.s.dropinf(inplace=True)
+        res = self.s.drop_inf(inplace=True)
 
         assert res is None
         assert self.s.equals(s)
@@ -43,7 +43,7 @@ class TestDropinf:
     )
     def test_error(self, error, inf):
         with pytest.raises(error):
-            s_inf.dropinf(inf=inf)
+            s_inf.drop_inf(inf=inf)
 
 
 class TestBin:
