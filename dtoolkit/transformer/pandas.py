@@ -1,6 +1,6 @@
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import filterin
+from dtoolkit.accessor.dataframe import filter_in
 from dtoolkit.transformer.base import DataFrameTF
 
 
@@ -330,11 +330,11 @@ class FilterInTF(DataFrameTF):
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.filterin : This transformer's prototype method.
+    dtoolkit.accessor.dataframe.filter_in : This transformer's prototype method.
 
     Notes
     -----
-    :func:`~dtoolkit.accessor.dataframe.filterin`'s ``inplace`` parameter is
+    :func:`~dtoolkit.accessor.dataframe.filter_in`'s ``inplace`` parameter is
     not work for this transformer. Actually this break pipeline stream. If a
     transformer's ``inplace`` is ``True``, the next tf input would get
     ``None``.
@@ -394,7 +394,7 @@ class FilterInTF(DataFrameTF):
     falcon         2          2
     """
 
-    transform_method = staticmethod(filterin)
+    transform_method = staticmethod(filter_in)
 
 
 class FilterTF(DataFrameTF):
