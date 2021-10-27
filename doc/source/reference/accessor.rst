@@ -23,7 +23,7 @@ DataFrame Accessor
 
     cols
     drop_inf
-    filterin
+    filter_in
     repeat
     top_n
 
