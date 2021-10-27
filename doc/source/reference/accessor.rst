@@ -13,6 +13,7 @@ Series Accessor
     dropinf
     bin
     top_n
+    expand
 
 
 DataFrame Accessor

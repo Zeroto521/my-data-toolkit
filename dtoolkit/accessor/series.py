@@ -3,13 +3,12 @@ from __future__ import annotations
 from textwrap import dedent
 
 import pandas as pd
+from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
-
-__all__ = ["cols", "dropinf", "top_n"]
 
 
 @register_series_method
@@ -220,3 +219,88 @@ def top_n(
         return s.nlargest(n=n, keep=keep)
 
     return s.nsmallest(n=n, keep=keep)
+
+
+@register_series_method
+def expand(
+    s: pd.Series,
+    suffix: list | None = None,
+    delimiter: str = "_",
+) -> pd.DataFrame:
+    """
+    Transform each element of a list-like to a **column**.
+
+    .. image:: ../../../../_static/expand-vs-explode.svg
+        :width: 80%
+        :align: center
+
+    Parameters
+    ----------
+    suffix : list of str, default None
+        New columns of return :class:`~pandas.DataFrame`.
+
+    delimiter : str, default "_"
+        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
+
+    Returns
+    -------
+    DataFrame
+        The structure of new column name is ``{column name}{delimiter}{suffix}``.
+
+    See Also
+    --------
+    pandas.Series.explode : Transform each element of a list-like to a row.
+    pandas.DataFrame.expand : Transform each element of a list-like to a column.
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.series import expand
+    >>> import pandas as pd
+
+    Expand the *list-like* element.
+
+    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
+    >>> s.expand()
+       item_0  item_1
+    0       a       1
+    1       b       2
+
+    Set the columns of name.
+
+    >>> s.expand(suffix=["index", "value"], delimiter="-")
+       item-index  item-value
+    0           a           1
+    1           b           2
+
+    Also could handle **different lengths** of element and suffix list.
+
+    >>> s = pd.Series([(1, 2), [1, 2, 3]], name="item")
+    >>> s.expand()
+       item_0  item_1  item_2
+    0       1       2     NaN
+    1       1       2     3.0
+    >>> s.expand(suffix=["a", "b", "c", "d"])
+       item_a  item_b  item_c
+    0       1       2     NaN
+    1       1       2     3.0
+    """
+
+    if not is_list_like(s):
+        return s
+
+    if not s.apply(is_list_like).all():
+        raise ValueError("all elements should be list-like.")
+
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
+
+    max_len = s.apply(len).max()
+    if suffix and len(suffix) < max_len:
+        raise ValueError(
+            f"suffix length is less than the max size of {s.name!r} elements.",
+        )
+
+    iters = suffix or range(max_len)
+    columns = (s.name + delimiter + str(i) for i in iters[:max_len])
+
+    return pd.DataFrame(s.tolist(), columns=columns)
