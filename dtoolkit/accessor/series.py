@@ -250,7 +250,8 @@ def expand(
     See Also
     --------
     pandas.Series.explode : Transform each element of a list-like to a row.
-    pandas.DataFrame.expand : Transform each element of a list-like to a column.
+    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
+        a column.
 
     Examples
     --------
