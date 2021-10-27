@@ -286,10 +286,12 @@ def expand(
     1       1       2     3.0
     """
 
-    if not is_list_like(s):
+    bools = s.apply(is_list_like)
+    # All False
+    if False in bools.values and True not in bools.values:
         return s
-
-    if not s.apply(is_list_like).all():
+    # Both False and True exist
+    elif False in bools.values:
         raise ValueError("all elements should be list-like.")
 
     if s.name is None:
