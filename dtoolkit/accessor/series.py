@@ -303,4 +303,8 @@ def expand(
     iters = suffix or range(max_len)
     columns = (s.name + delimiter + str(i) for i in iters[:max_len])
 
-    return pd.DataFrame(s.tolist(), columns=columns)
+    return pd.DataFrame(
+        s.tolist(),
+        index=s.index,
+        columns=columns,
+    )
