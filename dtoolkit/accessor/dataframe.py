@@ -446,6 +446,11 @@ def top_n(
         - The default structure of value is ``({column index}, {value})`` and
           could be controled via ``element``.
 
+    See Also
+    --------
+    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
+        a column.
+
     Notes
     -----
     Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
