@@ -169,7 +169,7 @@ def drop_inf(
 
 
 @register_dataframe_method
-def filterin(
+def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
     axis: int | str = 0,
@@ -229,7 +229,7 @@ def filterin(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import filterin
+    >>> from dtoolkit.accessor.dataframe import filter_in
     >>> import pandas as pd
     >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
     ...                   index=['falcon', 'dog', 'cat'])
@@ -244,14 +244,14 @@ def filterin(
 
     Filter rows.
 
-    >>> df.filterin([0, 2])
+    >>> df.filter_in([0, 2])
             num_legs  num_wings
     falcon         2          2
     cat            2          0
 
     Filter columns.
 
-    >>> df.filterin([0, 2], axis=1)
+    >>> df.filter_in([0, 2], axis=1)
                 num_wings
     falcon          2
     dog             0
@@ -262,13 +262,13 @@ def filterin(
 
     Filter rows, to check under the column (key) whether contains the value.
 
-    >>> df.filterin({'num_legs': [2], 'num_wings': [2]})
+    >>> df.filter_in({'num_legs': [2], 'num_wings': [2]})
             num_legs  num_wings
     falcon         2          2
 
     Filter columns, to check under the index (key) whether contains the value.
 
-    >>> df.filterin({'cat': [2]}, axis=1)
+    >>> df.filter_in({'cat': [2]}, axis=1)
             num_legs
     falcon         2
     dog            4
@@ -283,7 +283,7 @@ def filterin(
             num_legs  num_wings
     spider         8          0
     falcon         2          2
-    >>> df.filterin(other)
+    >>> df.filter_in(other)
             num_legs  num_wings
     falcon         2          2
     """

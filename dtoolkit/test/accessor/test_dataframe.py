@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 
 from dtoolkit.accessor.dataframe import drop_inf  # noqa
-from dtoolkit.accessor.dataframe import filterin  # noqa
+from dtoolkit.accessor.dataframe import filter_in  # noqa
 from dtoolkit.accessor.dataframe import repeat  # noqa
 from dtoolkit.accessor.dataframe import top_n  # noqa
 from dtoolkit.test.accessor import d
@@ -134,7 +134,7 @@ class TestFilterIn:
         self.condition = {"a": [0, 1], "b": [2]}
 
     def test_work(self):
-        res = self.d.filterin(self.condition)
+        res = self.d.filter_in(self.condition)
 
         assert res["a"].isin([0, 1]).any()  # 0 and 1 in a
         assert (~res["a"].isin([2])).all()  # 2 not in a
@@ -142,7 +142,7 @@ class TestFilterIn:
         assert (~res["b"].isin([0, 1])).all()  # 0 and not in a
 
     def test_inplace_is_true(self):
-        res = self.d.filterin(self.condition, inplace=True)
+        res = self.d.filter_in(self.condition, inplace=True)
 
         assert res is None
         assert self.d.equals(d) is False
@@ -156,7 +156,7 @@ class TestFilterIn:
             },
             index=["falcon", "dog", "cat"],
         )
-        res = df.filterin({"legs": [2]})
+        res = df.filter_in({"legs": [2]})
 
         expected = pd.DataFrame(
             {
