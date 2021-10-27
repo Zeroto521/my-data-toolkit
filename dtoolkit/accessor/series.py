@@ -55,7 +55,7 @@ def cols(s: pd.Series) -> str:
 
 
 @register_series_method
-def dropinf(
+def drop_inf(
     s: pd.Series,
     inf: str = "all",
     inplace: bool = False,
@@ -81,12 +81,12 @@ def dropinf(
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.dropinf : :obj:`~pandas.DataFrame` drops rows
+    dtoolkit.accessor.dataframe.drop_inf : :obj:`~pandas.DataFrame` drops rows
         or columns which contain ``inf`` values.
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import dropinf
+    >>> from dtoolkit.accessor.series import drop_inf
     >>> import pandas as pd
     >>> import numpy as np
     >>> s = pd.Series([1., 2., np.inf])
@@ -98,14 +98,14 @@ def dropinf(
 
     Drop inf values from a Series.
 
-    >>> s.dropinf()
+    >>> s.drop_inf()
     0    1.0
     1    2.0
     dtype: float64
 
     Keep the Series with valid entries in the same variable.
 
-    >>> s.dropinf(inplace=True)
+    >>> s.drop_inf(inplace=True)
     >>> s
     0    1.0
     1    2.0

@@ -10,7 +10,7 @@ Series Accessor
     :toctree: api/
 
     cols
-    dropinf
+    drop_inf
     bin
     top_n
     expand
@@ -23,7 +23,7 @@ DataFrame Accessor
     :toctree: api/
 
     cols
-    dropinf
+    drop_inf
     filterin
     repeat
     top_n
