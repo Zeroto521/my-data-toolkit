@@ -27,6 +27,7 @@ DataFrame Accessor
     filterin
     repeat
     top_n
+    expand
 
 
 Register
