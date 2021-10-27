@@ -176,3 +176,118 @@ class TestTopN:
         excepted = pd.Series(excepted)
 
         assert result.equals(excepted)
+
+
+class TestExpand:
+    @pytest.mark.parametrize(
+        "suffix, delimiter, data, name, excepted",
+        [
+            # test default parameters
+            (
+                None,
+                "_",
+                [(1, 2), (3, 4)],
+                "item",
+                {
+                    "item_0": [1, 3],
+                    "item_1": [2, 4],
+                },
+            ),
+            # test delimiter
+            (
+                None,
+                "-",
+                [(1, 2), (3, 4)],
+                "item",
+                {
+                    "item-0": [1, 3],
+                    "item-1": [2, 4],
+                },
+            ),
+            # test suffix
+            (
+                ["a", "b"],
+                "_",
+                [(1, 2), (3, 4)],
+                "item",
+                {
+                    "item_a": [1, 3],
+                    "item_b": [2, 4],
+                },
+            ),
+            # test len(suffix) > max length of elements
+            (
+                ["a", "b", "c"],
+                "_",
+                [(1, 2), (3, 4)],
+                "item",
+                {
+                    "item_a": [1, 3],
+                    "item_b": [2, 4],
+                },
+            ),
+            # test each element length is different
+            (
+                None,
+                "_",
+                [(1, 2), (3, 4, 5)],
+                "item",
+                {
+                    "item_0": [1, 3],
+                    "item_1": [2, 4],
+                    "item_2": [np.nan, 5],
+                },
+            ),
+            # test len(suffix) > max length of elements
+            (
+                ["a", "b", "c", "d"],
+                "_",
+                [(1, 2), (3, 4, 5)],
+                "item",
+                {
+                    "item_a": [1, 3],
+                    "item_b": [2, 4],
+                    "item_c": [np.nan, 5],
+                },
+            ),
+        ],
+    )
+    def test_work(self, suffix, delimiter, data, name, excepted):
+        s = pd.Series(data, name=name)
+        excepted = pd.DataFrame(excepted)
+
+        result = s.expand(suffix=suffix, delimiter=delimiter)
+
+        assert result.equals(excepted)
+
+    @pytest.mark.parametrize(
+        "suffix, data, name, error",
+        [
+            # len(suffix) < max length of elements
+            (
+                ["a"],
+                [(1, 2)],
+                "item",
+                ValueError,
+            ),
+            # name of series is None
+            (
+                None,
+                [(1, 2)],
+                None,
+                ValueError,
+            ),
+            # some elements is not list-liek type
+            (
+                None,
+                [(1, 2), 1],
+                None,
+                ValueError,
+            ),
+        ],
+    )
+    def test_error(self, suffix, data, name, error):
+        s = pd.Series(data, name=name)
+
+        with pytest.raises(error):
+            s.expand(suffix=suffix)
