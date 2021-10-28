@@ -4,7 +4,7 @@
 
 Required Dependencies:
 
-- pandas (1.1.0 or later)
+- pandas (1.1.3 or later)
 
 Optional Dependencies:
 
