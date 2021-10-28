@@ -1,4 +1,4 @@
-name: Tests Pipeline
+name: tests
 
 on:
   push:
@@ -10,15 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Linting:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v2.0.0
-
-  Test:
-    needs: Linting
+  tests:
     name: ${{ matrix.os }}, ${{ matrix.env }}
     runs-on: ${{ matrix.os }}
     defaults:

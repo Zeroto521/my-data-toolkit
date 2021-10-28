@@ -118,7 +118,7 @@ intersphinx_mapping = {
 # extlinks alias
 extlinks = {
     "issue": (f"{github_url}/issues/%s", "issue#"),
-    "pr": (f"{github_url}/pulls/%s", "pr#"),
+    "pr": (f"{github_url}/issues/%s", "pr#"),
 }
 
 
@@ -151,6 +151,10 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
         fn = None
 
     if not fn:
+        return None
+
+    # to fix these doc doesn't exist in dtoolkit
+    if project.lower() not in fn:
         return None
 
     try:

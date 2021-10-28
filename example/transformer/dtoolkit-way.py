@@ -1,16 +1,15 @@
 import pandas as pd
-from dtoolkit.transformer import (
-    EvalTF,
-    FilterInTF,
-    GetTF,
-    MinMaxScaler,
-    OneHotEncoder,
-    QueryTF,
-    RavelTF,
-    ReplaceTF,
-    make_union,
-)
 from sklearn.pipeline import make_pipeline
+
+from dtoolkit.transformer import EvalTF
+from dtoolkit.transformer import FilterInTF
+from dtoolkit.transformer import GetTF
+from dtoolkit.transformer import make_union
+from dtoolkit.transformer import MinMaxScaler
+from dtoolkit.transformer import OneHotEncoder
+from dtoolkit.transformer import QueryTF
+from dtoolkit.transformer import RavelTF
+from dtoolkit.transformer import ReplaceTF
 
 # basic data
 store_sale_dict = {

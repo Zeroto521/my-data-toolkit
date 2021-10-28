@@ -3,8 +3,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from .base import NumpyTF
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.transformer.base import NumpyTF
 
 
 class RavelTF(NumpyTF):

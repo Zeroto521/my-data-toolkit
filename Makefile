@@ -47,7 +47,7 @@ test:
 doctest:
 	pytest -v -r a -n auto --color=yes --cov=$(pkg) --cov-append --cov-report xml --doctest-only $(pkg)
 
-dist: clean
+dist:
 	python setup.py sdist bdist_wheel
 	ls -l dist
 

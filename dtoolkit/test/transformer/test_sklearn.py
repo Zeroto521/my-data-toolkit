@@ -1,9 +1,9 @@
 import pandas as pd
 from scipy import sparse
 
-from . import df_iris
-from . import df_label
-from . import s
+from dtoolkit.test.transformer import df_iris
+from dtoolkit.test.transformer import df_label
+from dtoolkit.test.transformer import s
 from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
 

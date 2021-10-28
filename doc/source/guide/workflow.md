@@ -1,4 +1,5 @@
-# Data Visual Modeling Language: `Workflow`
+(workflow)=
+# Data Visual Modeling: `Workflow`
 
 :::{note}
 `Workflow` is an idea at present.
@@ -9,7 +10,7 @@
 `Workflow` is the visual programming, it can help us change the way of work from writing code to dragging components. The following graphs show some software I have met. And each of them is facing a specific field.
 
 - [Scratch](https://scratch.mit.edu/): programming enlightenment education
-- [LabVIEW](https://www.ni.com/en-us/shop/labview.html): hardware accessing and controling
+- [LabVIEW](https://www.ni.com/en-us/shop/labview.html): hardware accessing and controlling
 - [ArcGIS](https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview): GIS Platform
 - [FME](https://www.safe.com/): spatial data processing
 - [Orange](https://orangedatamining.com/): machine learning
@@ -73,7 +74,7 @@ But `Data Preprocessing` still needs to write code.
 
 ![Store data pipeline](../_static/store-data-pipeline.png)
 
-This is a store data complete pipeline waht we have seen at {ref}`Transformer and Pipeline Quickstart <further-more-steps-to-pipeline>`.
+This is a store data complete pipeline what we have seen at {ref}`Transformer and Pipeline Quickstart <further-more-steps-to-pipeline>`.
 
 All jobs in `Pipeline`, from `Data Cleaning` to `Data Preprocessing`, from `Feature Engineering` to `Regression`.
 

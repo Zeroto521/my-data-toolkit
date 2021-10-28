@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from . import d
-from dtoolkit.accessor.dataframe import dropinf  # noqa
-from dtoolkit.accessor.dataframe import filterin  # noqa
+from dtoolkit.accessor.dataframe import drop_inf  # noqa
+from dtoolkit.accessor.dataframe import filter_in  # noqa
 from dtoolkit.accessor.dataframe import repeat  # noqa
 from dtoolkit.accessor.dataframe import top_n  # noqa
+from dtoolkit.test.accessor import d
 
 
 class TestDropinf:
@@ -96,7 +96,7 @@ class TestDropinf:
         ],
     )
     def test_work(self, df, axis, how, inf, subset, expt):
-        res = df.dropinf(axis=axis, how=how, inf=inf, subset=subset)
+        res = df.drop_inf(axis=axis, how=how, inf=inf, subset=subset)
 
         assert res.equals(expt)
 
@@ -111,7 +111,7 @@ class TestDropinf:
     )
     def test_error(self, error, axis, how, subset):
         with pytest.raises(error):
-            d.dropinf(axis=axis, how=how, subset=subset)
+            d.drop_inf(axis=axis, how=how, subset=subset)
 
     def test_inplace_is_true(self):
         self_d = d.copy(True)
@@ -122,7 +122,7 @@ class TestDropinf:
             },
             ignore_index=True,
         )
-        res = self_d.dropinf(inplace=True)
+        res = self_d.drop_inf(inplace=True)
 
         assert res is None
         assert self_d.equals(d)
@@ -134,7 +134,7 @@ class TestFilterIn:
         self.condition = {"a": [0, 1], "b": [2]}
 
     def test_work(self):
-        res = self.d.filterin(self.condition)
+        res = self.d.filter_in(self.condition)
 
         assert res["a"].isin([0, 1]).any()  # 0 and 1 in a
         assert (~res["a"].isin([2])).all()  # 2 not in a
@@ -142,7 +142,7 @@ class TestFilterIn:
         assert (~res["b"].isin([0, 1])).all()  # 0 and not in a
 
     def test_inplace_is_true(self):
-        res = self.d.filterin(self.condition, inplace=True)
+        res = self.d.filter_in(self.condition, inplace=True)
 
         assert res is None
         assert self.d.equals(d) is False
@@ -156,7 +156,7 @@ class TestFilterIn:
             },
             index=["falcon", "dog", "cat"],
         )
-        res = df.filterin({"legs": [2]})
+        res = df.filter_in({"legs": [2]})
 
         expected = pd.DataFrame(
             {
@@ -226,7 +226,7 @@ class TestRepeat:
 
 class TestTopN:
     @pytest.mark.parametrize(
-        "n, largest, keep, prefix, delimiter, excepted",
+        "n, largest, keep, prefix, delimiter, element, excepted",
         [
             (
                 1,
@@ -234,6 +234,7 @@ class TestTopN:
                 "first",
                 "top",
                 "_",
+                "both",
                 {
                     "top_1": [
                         ("b", 3),
@@ -248,6 +249,7 @@ class TestTopN:
                 "first",
                 "top",
                 "_",
+                "both",
                 {
                     "top_1": [("b", 3), ("a", 3), ("c", 3)],
                     "top_2": [("c", 2), ("b", 2), ("a", 2)],
@@ -259,6 +261,7 @@ class TestTopN:
                 "first",
                 "top",
                 "_",
+                "both",
                 {
                     "top_1": [("a", 1), ("c", 1), ("b", 1)],
                 },
@@ -269,12 +272,37 @@ class TestTopN:
                 "first",
                 "largest",
                 "-",
+                "both",
                 {
                     "largest-1": [
                         ("b", 3),
                         ("a", 3),
                         ("c", 3),
                     ],
+                },
+            ),
+            (  # test 'element'
+                2,
+                True,
+                "first",
+                "top",
+                "_",
+                "index",
+                {
+                    "top_1": ["b", "a", "c"],
+                    "top_2": ["c", "b", "a"],
+                },
+            ),
+            (  # test 'element'
+                2,
+                True,
+                "first",
+                "top",
+                "_",
+                "value",
+                {
+                    "top_1": [3, 3, 3],
+                    "top_2": [2, 2, 2],
                 },
             ),
         ],
@@ -286,6 +314,7 @@ class TestTopN:
         keep,
         prefix,
         delimiter,
+        element,
         excepted,
     ):
         df = pd.DataFrame(
@@ -302,6 +331,7 @@ class TestTopN:
             keep=keep,
             prefix=prefix,
             delimiter=delimiter,
+            element=element,
         )
 
         excepted = pd.DataFrame(excepted)
@@ -337,7 +367,7 @@ class TestTopN:
             },
         )
 
-        result = df.top_n(n=n, keep=keep)
+        result = df.top_n(n=n, keep=keep, element="both")
         excepted = pd.DataFrame(excepted)
 
         assert result.equals(excepted)
@@ -381,7 +411,19 @@ class TestTopN:
     )
     def test_multi_index(self, df, n, excepted):
         df = pd.DataFrame(df)
-        result = df.top_n(n=n)
+        result = df.top_n(n=n, element="both")
         excepted = pd.DataFrame(excepted)
 
         assert result.equals(excepted)
+
+    def test_element_error(self):
+        df = pd.DataFrame(
+            {
+                "a": [1, 3, 2],
+                "b": [3, 2, 1],
+                "c": [2, 1, 3],
+            },
+        )
+
+        with pytest.raises(ValueError):
+            df.top_n(1, element="whatever")
