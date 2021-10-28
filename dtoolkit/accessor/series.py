@@ -31,6 +31,8 @@ def cols(s: pd.Series) -> str:
     --------
     pandas.Series.name
     pandas.DataFrame.columns
+    dtoolkit.accessor.series.cols
+    dtoolkit.accessor.dataframe.cols
 
     Examples
     --------
