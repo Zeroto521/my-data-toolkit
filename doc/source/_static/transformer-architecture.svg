@@ -1,0 +1,71 @@
+<svg width="3248" height="2050" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  overflow="hidden">
+  <defs>
+    <clipPath id="clip0">
+      <rect x="535" y="215" width="3248" height="2050" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip0)" transform="translate(-535 -215)">
+    <rect x="552" y="1443" width="3231" height="413" fill="#F9F8F8" />
+    <path
+      d="M1339 1551.17C1339 1524.01 1361.01 1502 1388.17 1502L1841.83 1502C1868.99 1502 1891 1524.01 1891 1551.17L1891 1747.83C1891 1774.99 1868.99 1797 1841.83 1797L1388.17 1797C1361.01 1797 1339 1774.99 1339 1747.83Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1498.12 1680)">Pandas</text>
+    <path
+      d="M1953 1551.17C1953 1524.01 1975.01 1502 2002.17 1502L2454.83 1502C2481.99 1502 2504 1524.01 2504 1551.17L2504 1747.83C2504 1774.99 2481.99 1797 2454.83 1797L2002.17 1797C1975.01 1797 1953 1774.99 1953 1747.83Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2102.42 1680)">NumPy</text>
+    <path
+      d="M2568 1551.17C2568 1524.01 2590.01 1502 2617.17 1502L3070.83 1502C3097.99 1502 3120 1524.01 3120 1551.17L3120 1747.83C3120 1774.99 3097.99 1797 3070.83 1797L2617.17 1797C2590.01 1797 2568 1774.99 2568 1747.83Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2651.63 1680)">Scikit<tspan font-size="83" x="192.5" y="0">-</tspan>learn</text>
+    <path
+      d="M3182 1551.17C3182 1524.01 3204.01 1502 3231.17 1502L3683.83 1502C3710.99 1502 3733 1524.01 3733 1551.17L3733 1747.83C3733 1774.99 3710.99 1797 3683.83 1797L3231.17 1797C3204.01 1797 3182 1774.99 3182 1747.83Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 3329.26 1680)">Custom<tspan fill="#000000" font-size="83" x="-2743.95" y="-11">
+        Algorithm Layer</tspan></text>
+    <rect x="552" y="625" width="3231" height="412" fill="#F9F8F8" />
+    <path
+      d="M1342 733.002C1342 705.939 1363.94 684 1391 684L3684 684C3711.06 684 3733 705.939 3733 733.002L3733 928.998C3733 956.061 3711.06 978 3684 978L1391 978C1363.94 978 1342 956.061 1342 928.998Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2402.19 861)">Pipeline<tspan fill="#000000" font-size="83" x="-1816.87" y="-10">
+        Application Layer</tspan></text>
+    <rect x="552" y="1853" width="3231" height="412" fill="#F9F8F8" />
+    <rect x="1342" y="1912" width="2391" height="294" fill="#E1F0D9" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2354.06 2089)">DataFrame<tspan font-size="83" x="-1762.72" y="-10">Data Structure
+        Layer</tspan></text>
+    <rect x="552" y="1034" width="3231" height="412" fill="#F9F8F8" />
+    <path
+      d="M1342 1142C1342 1114.94 1363.94 1093 1391 1093L1844 1093C1871.06 1093 1893 1114.94 1893 1142L1893 1338C1893 1365.06 1871.06 1387 1844 1387L1391 1387C1363.94 1387 1342 1365.06 1342 1338Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1410.94 1271)">Transformer<tspan fill="#000000" font-size="83" x="-825.627" y="-11">
+        Protocol Layer</tspan></text>
+    <path
+      d="M1955 1142C1955 1114.94 1976.94 1093 2004 1093L2457 1093C2484.06 1093 2506 1114.94 2506 1142L2506 1338C2506 1365.06 2484.06 1387 2457 1387L2004 1387C1976.94 1387 1955 1365.06 1955 1338Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2024.41 1271)">Transformer</text>
+    <path
+      d="M2568 1142C2568 1114.94 2589.94 1093 2617 1093L3071 1093C3098.06 1093 3120 1114.94 3120 1142L3120 1338C3120 1365.06 3098.06 1387 3071 1387L2617 1387C2589.94 1387 2568 1365.06 2568 1338Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2637.88 1271)">Transformer</text>
+    <path
+      d="M3182 1142C3182 1114.94 3203.94 1093 3231 1093L3684 1093C3711.06 1093 3733 1114.94 3733 1142L3733 1338C3733 1365.06 3711.06 1387 3684 1387L3231 1387C3203.94 1387 3182 1365.06 3182 1338Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 3251.35 1271)">Transformer</text>
+    <rect x="552" y="215" width="3231" height="413" fill="#F9F8F8" />
+    <rect x="1342" y="274" width="2391" height="295" fill="#E1F0D9" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2376.98 452)">DToolKit<tspan font-size="83" x="-1791.66" y="-11">Frame Layer
+      </tspan></text>
+  </g>
+</svg>

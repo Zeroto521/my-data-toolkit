@@ -34,7 +34,7 @@ To build the bridge for `GA` (*Genetic Algorithm*), {class}`dtoolkit.transformer
 
 As for `Feature Engineering`, part of them could be automated. `Feature Engineering` will face more problems when it is automated. The big problem is the sequence and the combination of `Feature Engineering` plugins in a pipeline is arbitrary.
 
-![Basic AutoML workflow](../_static/basic-automl-workflow.png)
+![Basic AutoML workflow](../_static/basic-automl-workflow.svg)
 
 ## What Would `AutoML` Do via `Pipeline`?
 
@@ -56,4 +56,4 @@ For `GA`, just like genes don't always work up alone, they could also work up to
 
 {math}`AutoML \xleftarrow[Strategy]{Optimization Algorithm} Data Preprocessing Pipeline + Feature Engineering Pipeline + ML Pipeline`
 
-![Complete AutoML workflow](../_static/complete-automl-workflow.png)
+![Complete AutoML workflow](../_static/complete-automl-workflow.svg)

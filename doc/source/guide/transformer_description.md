@@ -10,7 +10,7 @@ The {class}`~dtoolkit.transformer.Transformer` is a protocol that defines the in
 
 It is just like a **pipe** in the real world.
 
-![Transformer methods](../_static/transformer-methods.png)
+![Transformer methods](../_static/transformer-methods.svg)
 
 Direction:
 
@@ -51,7 +51,7 @@ If we put a {class}`~pandas.DataFrame` into this pipeline and want to debug and 
 
 It is important to keep trace the data changing. So {class}`dtoolkit.transformer` would keep the {class}`~pandas.DataFrame` unchanged in stream, let {class}`~pandas.DataFrame` in and {class}`~pandas.DataFrame` out.
 
-![Transformer architecture](../_static/transformer-architecture.png)
+![Transformer architecture](../_static/transformer-architecture.svg)
 
 ### Engineering of Data Preprocessing
 
@@ -63,7 +63,7 @@ A surprise comes here. It can face to the engineering of data preprocessing.
 - {class}`~dtoolkit.transformer.Transformer` contains the processing or transforming methods.
 - {class}`~sklearn.pipeline.Pipeline` as the manager to control the running.
 
-![DToolKit for transformer](../_static/transformer-with-pipeline.png)
+![DToolKit for transformer](../_static/transformer-with-pipeline.svg)
 
 ## What's Next - Future Features
 

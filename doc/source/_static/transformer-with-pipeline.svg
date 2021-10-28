@@ -1,0 +1,73 @@
+<svg width="3936" height="996" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  overflow="hidden">
+  <defs>
+    <clipPath id="clip0">
+      <rect x="231" y="571" width="3936" height="996" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip0)" transform="translate(-231 -571)">
+    <rect x="909" y="783" width="2582" height="381" fill="#F9F8F8" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="700" font-size="128"
+      transform="matrix(1 0 0 1 1979.14 734)">Pipeline</text>
+    <rect x="999" y="1311" width="532" height="256" fill="#63A6D6" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1148.1 1469)">Pandas</text>
+    <path
+      d="M999 887.668C999 864.103 1018.1 845 1041.67 845L1488.33 845C1511.9 845 1531 864.103 1531 887.668L1531 1058.33C1531 1081.9 1511.9 1101 1488.33 1101L1041.67 1101C1018.1 1101 999 1081.9 999 1058.33Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1060.18 1004)">Transformer</text>
+    <path
+      d="M2.29167-4.45381e-06 2.29198 162.777-2.29135 162.777-2.29167 4.45381e-06ZM13.7503 158.194 0.000360892 185.694-13.7497 158.194Z"
+      fill="#63A6D6" transform="matrix(1 0 0 -1 1265.5 1311.19)" />
+    <rect x="1621" y="1311" width="531" height="256" fill="#63A6D6" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1760.59 1469)">NumPy</text>
+    <path
+      d="M1621 887.667C1621 864.103 1640.1 845 1663.67 845L2109.33 845C2132.9 845 2152 864.103 2152 887.667L2152 1058.33C2152 1081.9 2132.9 1101 2109.33 1101L1663.67 1101C1640.1 1101 1621 1081.9 1621 1058.33Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1681.83 1004)">Transformer</text>
+    <path d="M1885.21 1311.19 1885.21 1148.42 1889.79 1148.42 1889.79 1311.19ZM1873.75 1153 1887.5 1125.5 1901.25 1153Z"
+      fill="#63A6D6" />
+    <rect x="2242" y="1311" width="531" height="256" fill="#63A6D6" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2315.13 1469)">Scikit<tspan font-size="83" x="192.5" y="0">-</tspan>learn</text>
+    <path
+      d="M2242 887.668C2242 864.103 2261.1 845 2284.67 845L2730.33 845C2753.9 845 2773 864.103 2773 887.668L2773 1058.33C2773 1081.9 2753.9 1101 2730.33 1101L2284.67 1101C2261.1 1101 2242 1081.9 2242 1058.33Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2302.84 1004)">Transformer</text>
+    <path
+      d="M2.29167-4.45381e-06 2.29198 162.777-2.29135 162.777-2.29167 4.45381e-06ZM13.7503 158.194 0.000360892 185.694-13.7497 158.194Z"
+      fill="#63A6D6" transform="matrix(1 0 0 -1 2508.5 1311.19)" />
+    <rect x="2863" y="1311" width="531" height="256" fill="#63A6D6" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 3000.3 1469)">Custom</text>
+    <path
+      d="M2863 887.667C2863 864.103 2882.1 845 2905.67 845L3351.33 845C3374.9 845 3394 864.103 3394 887.667L3394 1058.33C3394 1081.9 3374.9 1101 3351.33 1101L2905.67 1101C2882.1 1101 2863 1081.9 2863 1058.33Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2923.84 1004)">Transformer</text>
+    <path
+      d="M2.29167-4.45381e-06 2.29198 162.777-2.29135 162.777-2.29167 4.45381e-06ZM13.7503 158.194 0.000360892 185.694-13.7497 158.194Z"
+      fill="#63A6D6" transform="matrix(1 0 0 -1 3129.5 1311.19)" />
+    <path d="M3523 940 3608 940 3608 907 3674 973 3608 1039 3608 1006 3523 1006Z" fill="#63A6D6" fill-rule="evenodd" />
+    <path d="M726 940 811 940 811 907 877 973 811 1039 811 1006 726 1006Z" fill="#63A6D6" fill-rule="evenodd" />
+    <path
+      d="M233.5 888.167C233.5 864.603 336.474 845.5 463.5 845.5 590.525 845.5 693.5 864.603 693.5 888.167L693.5 1058.83C693.5 1082.4 590.525 1101.5 463.5 1101.5 336.474 1101.5 233.5 1082.4 233.5 1058.83Z"
+      fill="#E1F0D9" fill-rule="evenodd" />
+    <path d="M693.5 888.167C693.5 911.731 590.525 930.833 463.5 930.833 336.474 930.833 233.5 911.731 233.5 888.167"
+      stroke="#FFFFFF" stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" />
+    <path
+      d="M233.5 888.167C233.5 864.603 336.474 845.5 463.5 845.5 590.525 845.5 693.5 864.603 693.5 888.167L693.5 1058.83C693.5 1082.4 590.525 1101.5 463.5 1101.5 336.474 1101.5 233.5 1082.4 233.5 1058.83Z"
+      stroke="#FFFFFF" stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 385.316 1029)">Data</text>
+    <path
+      d="M3707 887.668C3707 864.103 3726.1 845 3749.67 845L4124.33 845C4147.9 845 4167 864.103 4167 887.668L4167 1058.33C4167 1081.9 4147.9 1101 4124.33 1101L3749.67 1101C3726.1 1101 3707 1081.9 3707 1058.33Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 3829.06 1004)">Model</text>
+  </g>
+</svg>
