@@ -56,4 +56,4 @@ For `GA`, just like genes don't always work up alone, they could also work up to
 
 {math}`AutoML \xleftarrow[Strategy]{Optimization Algorithm} Data Preprocessing Pipeline + Feature Engineering Pipeline + ML Pipeline`
 
-![Complete AutoML workflow](../_static/complete-automl-workflow.png)
+![Complete AutoML workflow](../_static/complete-automl-workflow.svg)
