@@ -72,7 +72,7 @@ But `Data Preprocessing` still needs to write code.
 
 ## A Example of `Workflow`
 
-![Store data pipeline](../_static/store-data-pipeline.png)
+![Store data pipeline](../_static/store-data-pipeline.svg)
 
 This is a store data complete pipeline what we have seen at {ref}`Transformer and Pipeline Quickstart <further-more-steps-to-pipeline>`.
 

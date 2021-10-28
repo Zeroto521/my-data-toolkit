@@ -1,0 +1,121 @@
+<svg width="3613" height="1364" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  overflow="hidden">
+  <defs>
+    <clipPath id="clip0">
+      <rect x="472" y="609" width="3613" height="1364" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip0)" transform="translate(-472 -609)">
+    <rect x="877" y="752" width="3208" height="1221" fill="#F9F8F8" />
+    <rect x="916" y="793" width="993" height="786" fill="#E1F0D9" />
+    <path
+      d="M474.5 1125C474.5 1107.6 561.133 1093.5 668 1093.5 774.867 1093.5 861.5 1107.6 861.5 1125L861.5 1251C861.5 1268.4 774.867 1282.5 668 1282.5 561.133 1282.5 474.5 1268.4 474.5 1251Z"
+      fill="#E1F0D9" fill-rule="evenodd" />
+    <path d="M861.5 1125C861.5 1142.4 774.867 1156.5 668 1156.5 561.133 1156.5 474.5 1142.4 474.5 1125" stroke="#FFFFFF"
+      stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" />
+    <path
+      d="M474.5 1125C474.5 1107.6 561.133 1093.5 668 1093.5 774.867 1093.5 861.5 1107.6 861.5 1125L861.5 1251C861.5 1268.4 774.867 1282.5 668 1282.5 561.133 1282.5 474.5 1268.4 474.5 1251Z"
+      stroke="#FFFFFF" stroke-width="4.58333" stroke-miterlimit="8" fill="none" fill-rule="evenodd" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 558.091 1226)">Raw Data</text>
+    <path
+      d="M986 1136.5C986 1122.42 997.417 1111 1011.5 1111L1348.5 1111C1362.58 1111 1374 1122.42 1374 1136.5L1374 1238.5C1374 1252.58 1362.58 1264 1348.5 1264L1011.5 1264C997.417 1264 986 1252.58 986 1238.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 1128.08 1171)">Data<tspan font-size="55" x="-47.552" y="80">Cleaning</tspan>
+    </text>
+    <path
+      d="M1499 1136.5C1499 1122.42 1510.42 1111 1524.5 1111L1861.5 1111C1875.58 1111 1887 1122.42 1887 1136.5L1887 1238.5C1887 1252.58 1875.58 1264 1861.5 1264L1524.5 1264C1510.42 1264 1499 1252.58 1499 1238.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="50"
+      transform="matrix(1 0 0 1 1645.37 1172)">Data <tspan font-size="50" x="-93.3855" y="73">Preprocessing
+      </tspan></text>
+    <rect x="1940" y="793" width="1025" height="786" fill="#E1F0D9" />
+    <path
+      d="M2012 1136.5C2012 1122.42 2023.42 1111 2037.5 1111L2373.5 1111C2387.58 1111 2399 1122.42 2399 1136.5L2399 1238.5C2399 1252.58 2387.58 1264 2373.5 1264L2037.5 1264C2023.42 1264 2012 1252.58 2012 1238.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 2122.84 1171)">Feature<tspan font-size="55" x="-20.052" y="80">Selection</tspan>
+    </text>
+    <path
+      d="M2523 887.5C2523 873.417 2534.42 862 2548.5 862L2884.5 862C2898.58 862 2910 873.417 2910 887.5L2910 989.499C2910 1003.58 2898.58 1015 2884.5 1015L2548.5 1015C2534.42 1015 2523 1003.58 2523 989.499Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 2633.68 922)">Feature<tspan font-size="55" x="-67.604" y="80">Enhancement</tspan>
+    </text>
+    <path
+      d="M2523 1136.5C2523 1122.42 2534.42 1111 2548.5 1111L2884.5 1111C2898.58 1111 2910 1122.42 2910 1136.5L2910 1238.5C2910 1252.58 2898.58 1264 2884.5 1264L2548.5 1264C2534.42 1264 2523 1252.58 2523 1238.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 2633.68 1171)">Feature<tspan font-size="55" x="-59.5833" y="80">Construction
+      </tspan></text>
+    <path
+      d="M2529 1385.5C2529 1371.42 2540.42 1360 2554.5 1360L2891.5 1360C2905.58 1360 2917 1371.42 2917 1385.5L2917 1487.5C2917 1501.58 2905.58 1513 2891.5 1513L2554.5 1513C2540.42 1513 2529 1501.58 2529 1487.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 2640.5 1420)">Feature<tspan font-size="55" x="-61.302" y="80">Combination</tspan>
+    </text>
+    <rect x="3010" y="793" width="1026" height="786" fill="#E1F0D9" />
+    <path
+      d="M3060 1136.5C3060 1122.42 3071.42 1111 3085.5 1111L3422.5 1111C3436.58 1111 3448 1122.42 3448 1136.5L3448 1238.5C3448 1252.58 3436.58 1264 3422.5 1264L3085.5 1264C3071.42 1264 3060 1252.58 3060 1238.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 3138.84 1171)">Algorithm <tspan font-size="55" x="12.0313" y="80">Selection
+      </tspan></text>
+    <path
+      d="M3597 1136.5C3597 1122.42 3608.42 1111 3622.5 1111L3959.5 1111C3973.58 1111 3985 1122.42 3985 1136.5L3985 1238.5C3985 1252.58 3973.58 1264 3959.5 1264L3622.5 1264C3608.42 1264 3597 1252.58 3597 1238.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 3678.94 1171)">Parameter<tspan font-size="55" x="-33.802" y="80">Optimization
+      </tspan></text>
+    <path
+      d="M861.5 1186.21 963.689 1186.21 963.689 1190.79 861.5 1190.79ZM959.106 1174.75 986.606 1188.5 959.106 1202.25Z"
+      fill="#63A6D6" />
+    <path
+      d="M1374.5 1186.21 1476.69 1186.21 1476.69 1190.79 1374.5 1190.79ZM1472.11 1174.75 1499.61 1188.5 1472.11 1202.25Z"
+      fill="#63A6D6" />
+    <path
+      d="M1887.5 1186.21 1989.69 1186.21 1989.69 1190.79 1887.5 1190.79ZM1985.11 1174.75 2012.61 1188.5 1985.11 1202.25Z"
+      fill="#63A6D6" /><text font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="700"
+      font-size="83" transform="matrix(1 0 0 1 2283.98 714)">AutoML</text>
+    <path
+      d="M2399.5 1186.21 2499.83 1186.21 2499.83 1190.79 2399.5 1190.79ZM2495.24 1174.75 2522.74 1188.5 2495.24 1202.25Z"
+      fill="#63A6D6" />
+    <path
+      d="M2910.5 1186.21 3037.23 1186.21 3037.23 1190.79 2910.5 1190.79ZM3032.64 1174.75 3060.14 1188.5 3032.64 1202.25Z"
+      fill="#63A6D6" />
+    <path
+      d="M0-2.29167 63.913-2.29167 63.913 249.221 61.6213 246.929 100.326 246.929 100.326 251.513 59.3296 251.513 59.3296 0 61.6213 2.29167 0 2.29167ZM95.7426 235.471 123.243 249.221 95.7426 262.971Z"
+      fill="#63A6D6" transform="matrix(1 0 0 -1 2399.5 1187.72)" />
+    <path
+      d="M2399.5 1186.21 2463.16 1186.21 2463.16 1437.72 2460.87 1435.43 2506.65 1435.43 2506.65 1440.01 2458.57 1440.01 2458.57 1188.5 2460.87 1190.79 2399.5 1190.79ZM2502.06 1423.97 2529.56 1437.72 2502.06 1451.47Z"
+      fill="#63A6D6" />
+    <path
+      d="M3448.5 1186.21 3575.23 1186.21 3575.23 1190.79 3448.5 1190.79ZM3570.64 1174.75 3598.14 1188.5 3570.64 1202.25Z"
+      fill="#63A6D6" />
+    <path
+      d="M2910.5 936.208 2987.62 936.208 2987.62 1187.72 2985.32 1185.43 3037.23 1185.43 3037.23 1190.01 2983.03 1190.01 2983.03 938.5 2985.32 940.792 2910.5 940.792ZM3032.64 1173.97 3060.14 1187.72 3032.64 1201.47Z"
+      fill="#63A6D6" />
+    <path
+      d="M0-2.29167 70.0369-2.29167 70.0369 249.221 67.7452 246.929 119.906 246.929 119.906 251.513 65.4535 251.513 65.4535 0 67.7452 2.29167 0 2.29167ZM115.323 235.471 142.823 249.221 115.323 262.971Z"
+      fill="#63A6D6" transform="matrix(1 0 0 -1 2917.5 1437.72)" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="700" font-size="55"
+      transform="matrix(1 0 0 1 1973.03 1529)">Feature Engineering<tspan font-size="55" x="1054.35" y="7">Machine
+        Learning</tspan></text>
+    <rect x="916" y="1681" width="3120" height="249" fill="#E1F0D9" />
+    <rect x="2259" y="1729" width="388" height="153" fill="#63A6D6" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="55"
+      transform="matrix(1 0 0 1 2360.78 1828)">Strategy<tspan fill="#000000" font-weight="700" font-size="55"
+        x="-1411.69" y="59">Optimization</tspan></text>
+    <path
+      d="M3525.99 1602.42 3525.99 1808.43 2647.5 1808.43 2647.5 1803.85 3523.7 1803.85 3521.41 1806.14 3521.41 1602.42ZM3509.95 1607 3523.7 1579.5 3537.45 1607Z"
+      fill="#63A6D6" />
+    <path
+      d="M2451.21 1729.8 2451.21 1652.36 2453.5 1652.36 2451.21 1654.65 2451.21 1602.42 2455.79 1602.42 2455.79 1656.94 2453.5 1656.94 2455.79 1654.65 2455.79 1729.8ZM2439.75 1607 2453.5 1579.5 2467.25 1607Z"
+      fill="#63A6D6" /><text font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="700"
+      font-size="55" transform="matrix(1 0 0 1 949.088 1529)">Data Preprocessing</text>
+    <path
+      d="M2259.81 1808.43 1411.21 1808.43 1411.21 1602.42 1415.79 1602.42 1415.79 1806.14 1413.5 1803.85 2259.81 1803.85ZM1399.75 1607 1413.5 1579.5 1427.25 1607Z"
+      fill="#63A6D6" />
+  </g>
+</svg>
