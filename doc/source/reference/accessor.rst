@@ -13,6 +13,7 @@ Series Accessor
     drop_inf
     bin
     top_n
+    expand
 
 
 DataFrame Accessor
@@ -26,6 +27,7 @@ DataFrame Accessor
     filter_in
     repeat
     top_n
+    expand
 
 
 Register
