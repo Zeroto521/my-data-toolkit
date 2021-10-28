@@ -13,9 +13,8 @@ from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as series_cols
+from dtoolkit.accessor.series import expand as series_expand  # noqa
 from dtoolkit.accessor.series import top_n as series_top_n
-
-__all__ = ["cols", "drop_inf", "filterin", "repeat", "top_n"]
 
 
 @register_dataframe_method
@@ -170,7 +169,7 @@ def drop_inf(
 
 
 @register_dataframe_method
-def filterin(
+def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
     axis: int | str = 0,
@@ -230,7 +229,7 @@ def filterin(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import filterin
+    >>> from dtoolkit.accessor.dataframe import filter_in
     >>> import pandas as pd
     >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
     ...                   index=['falcon', 'dog', 'cat'])
@@ -245,14 +244,14 @@ def filterin(
 
     Filter rows.
 
-    >>> df.filterin([0, 2])
+    >>> df.filter_in([0, 2])
             num_legs  num_wings
     falcon         2          2
     cat            2          0
 
     Filter columns.
 
-    >>> df.filterin([0, 2], axis=1)
+    >>> df.filter_in([0, 2], axis=1)
                 num_wings
     falcon          2
     dog             0
@@ -263,13 +262,13 @@ def filterin(
 
     Filter rows, to check under the column (key) whether contains the value.
 
-    >>> df.filterin({'num_legs': [2], 'num_wings': [2]})
+    >>> df.filter_in({'num_legs': [2], 'num_wings': [2]})
             num_legs  num_wings
     falcon         2          2
 
     Filter columns, to check under the index (key) whether contains the value.
 
-    >>> df.filterin({'cat': [2]}, axis=1)
+    >>> df.filter_in({'cat': [2]}, axis=1)
             num_legs
     falcon         2
     dog            4
@@ -284,7 +283,7 @@ def filterin(
             num_legs  num_wings
     spider         8          0
     falcon         2          2
-    >>> df.filterin(other)
+    >>> df.filter_in(other)
             num_legs  num_wings
     falcon         2          2
     """
@@ -447,6 +446,11 @@ def top_n(
         - The default structure of value is ``{column index}`` and could be
           controled via ``element``.
 
+    See Also
+    --------
+    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
+        a column.
+
     Notes
     -----
     Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
@@ -525,3 +529,77 @@ def top_n(
         largest=largest,
         keep=keep,
     )
+
+
+@register_dataframe_method
+def expand(
+    df: pd.DataFrame,
+    suffix: list | None = None,
+    delimiter: str = "_",
+) -> pd.DataFrame:
+    """
+    Transform each element of a list-like to a **column**.
+
+    .. image:: ../../../../_static/expand-vs-explode.svg
+        :width: 80%
+        :align: center
+
+    Parameters
+    ----------
+    suffix : list of str, default None
+        New columns of return :class:`~pandas.DataFrame`.
+
+    delimiter : str, default "_"
+        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
+
+    Returns
+    -------
+    DataFrame
+        The structure of new column name is ``{column name}{delimiter}{suffix}``.
+
+    See Also
+    --------
+    dtoolkit.accessor.series.expand : Transform each element of a list-like to a column.
+    pandas.DataFrame.explode : Transform each element of a list-like to a row.
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.dataframe import expand
+    >>> import pandas as pd
+
+    Expand the *list-like* element.
+
+    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", 3), ("b", 4)]})
+    >>> df.expand()
+       col1  col2_0  col2_1
+    0     1       a       3
+    1     2       b       4
+
+    Set the columns of name.
+
+    >>> df.expand(suffix=["index", "value"], delimiter="-")
+       col1  col2-index  col2-value
+    0     1           a           3
+    1     2           b           4
+
+    Also could handle **different lengths** of element and suffix list.
+
+    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [(3, 4), (5, 6, 7)]})
+    >>> df.expand()
+       col1  col2_0  col2_1  col2_2
+    0     1       3       4     NaN
+    1     2       5       6     7.0
+    >>> df.expand(suffix=["a", "b", "c", "d"])
+       col1  col2_a  col2_b  col2_c
+    0     1       3       4     NaN
+    1     2       5       6     7.0
+    """
+
+    result = (
+        df.get(column).expand(
+            suffix=suffix,
+            delimiter=delimiter,
+        )
+        for column in df.columns
+    )
+    return pd.concat(result, axis=1)
