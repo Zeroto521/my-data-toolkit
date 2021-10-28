@@ -74,7 +74,9 @@ def register_geoseries_accessor(name: str):
             In [1]: import geopandas as gpd
 
             In [2]: s = gpd.GeoSeries.from_wkt(["POINT (1 1)", None])
-            Out[2]:
+
+            In [3]: s.coords.count_coordinates
+            Out[3]:
             0    1
             1    0
             dtype: int64
