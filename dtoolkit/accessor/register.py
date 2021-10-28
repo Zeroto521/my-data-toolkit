@@ -27,7 +27,7 @@ def register_method_factory(register_accessor):
 
         Examples
         --------
-        .. code-block:: python
+        In your library code::
 
             @register_dataframe_method
             @register_series_method
@@ -41,12 +41,19 @@ def register_method_factory(register_accessor):
 
                 return pd_obj.columns.tolist()
 
-        >>> import pandas as pd
-        >>> df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
-        >>> df.cols()
-        ['a', 'b']
-        >>> df.a.cols()
-        'a'
+        Back in an interactive IPython session:
+
+            .. ipython::
+
+                In [1]: import pandas as pd
+
+                In [2]: df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+
+                In [3]: df.cols()
+                Out[3]: ['a', 'b']
+
+                In [4]: df.a.cols()
+                Out[4]: 'a'
         """
 
         @wraps(method)
