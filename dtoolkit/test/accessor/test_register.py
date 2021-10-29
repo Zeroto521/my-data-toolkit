@@ -26,5 +26,5 @@ def test_method_hooked():
 
 
 def test_work():
-    assert df.names == ["a", "b"]
-    assert df.a == "a"
+    assert df.names() == ["a", "b"]
+    assert df.a.names() == "a"
