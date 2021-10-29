@@ -43,7 +43,7 @@ def register_method_factory(register_accessor):
 
         Back in an interactive IPython session:
 
-            .. ipython::
+            .. code-block:: ipython
 
                 In [1]: import pandas as pd
 
