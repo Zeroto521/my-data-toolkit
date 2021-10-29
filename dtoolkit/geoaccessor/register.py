@@ -29,7 +29,7 @@ def register_geoseries_method(method):
         from pygeos import count_coordinates, from_shapely
 
         @register_geoseries_method
-        def count_coord(s: gpd.GeoSeries):
+        def counts(s: gpd.GeoSeries):
             # Counts the number of coordinate pairs in geometry
 
             func = lambda x: count_coordinates(from_shapely(x))
@@ -41,12 +41,32 @@ def register_geoseries_method(method):
 
             In [1]: import geopandas as gpd
 
-            In [2]: s = gpd.GeoSeries.from_wkt(["POINT (1 1)", None])
+            In [2]: s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (1 1)", None])
 
-            In [3]: s.count_coord()
+            In [3]: s
             Out[3]:
+            0    POINT (0.00000 0.00000)
+            1    POINT (1.00000 1.00000)
+            2                       None
+            dtype: geometry
+
+            In [4]: s.counts()
+            Out[4]:
             0    1
-            1    0
+            1    1
+            2    0
+            dtype: int64
+
+            In [5]: d = gpd.GeoDataFrame(geometry=s)
+            Out[5]:
+                            geometry
+            0  POINT (0.00000 0.00000)
+            1  POINT (1.00000 1.00000)
+            2                     None
+
+            In [6]: d.counts()
+            Out[6]:
+            geometry    2
             dtype: int64
     """
     return register_geoseries_accessor(method)
