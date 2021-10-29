@@ -2,7 +2,7 @@ from pandas.core.accessor import _register_accessor
 from pandas.util._decorators import doc
 
 
-@doc(klass="GeoSeries")
+@doc(klass=":class:`geopandas.GeoSeries`")
 def register_geoseries_accessor(name: str):
     """
     Register a custom accessor on {klass} objects.
@@ -85,7 +85,7 @@ def register_geoseries_accessor(name: str):
     return _register_accessor(name, GeoSeries)
 
 
-@doc(register_geoseries_accessor, klass="GeoDataFrame")
+@doc(register_geoseries_accessor, klass=":class:`geopandas.GeoDataFrame`")
 def register_geodataframe_accessor(name: str):
     from geopandas import GeoDataFrame
 
