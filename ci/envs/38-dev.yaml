@@ -9,6 +9,7 @@ dependencies:
   - pytest-cov
   - pytest-xdist
   - codecov
+  - pygeos
   - pip:
     # dev versions of packages
     - git+https://github.com/pydata/pandas.git@master
