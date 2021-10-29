@@ -42,8 +42,8 @@ Method Register
 
 Core Algorithm
 --------------
-.. currentmodule:: dtoolkit.geoaccessor.geodataframe.tool
+.. currentmodule:: dtoolkit.geoaccessor.tool
 .. autosummary::
     :toctree: api/
 
-    dtoolkit.geoaccessor.tool.geographic_buffer
+    geographic_buffer
