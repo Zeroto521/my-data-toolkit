@@ -73,10 +73,12 @@ def register_series_method(method):
             In [2]: df = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
 
             In [3]: df.cols()
-            Out[3]: ['a', 'b']
+            Out[3]:
+            ['a', 'b']
 
             In [4]: df.a.cols()
-            Out[4]: 'a'
+            Out[4]:
+            'a'
     """
     return register_series_accessor(method)
 
