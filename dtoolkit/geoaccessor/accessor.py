@@ -33,9 +33,8 @@ def register_geoseries_accessor(name: str):
     Notes
     -----
     When accessed, your accessor will be initialized with the geopandas object
-    the user is interacting with. So the signature must be
+    the user is interacting with. So the signature must be::
 
-    .. code-block:: python
         def __init__(self, geopandas_object):  # noqa: E999
             ...
 
@@ -69,7 +68,7 @@ def register_geoseries_accessor(name: str):
 
     Back in an interactive IPython session:
 
-        .. ipython::
+        .. code-block:: ipython
 
             In [1]: import geopandas as gpd
 
