@@ -52,6 +52,8 @@ def register_series_method(method):
     --------
     In your library code::
 
+        import pandas as pd
+
         @register_dataframe_method
         @register_series_method
         def cols(pd_obj):
