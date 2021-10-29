@@ -13,6 +13,7 @@ dependencies:
   - pydata-sphinx-theme
   - myst-parser
   - numpydoc
+  - ipython
   - pip
   - pip:
       - sphinx-toggleprompt
