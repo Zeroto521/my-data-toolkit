@@ -4,17 +4,12 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 from pyproj import CRS
-from pyproj import Transformer
-from pyproj.crs import ProjectedCRS
-from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
-from shapely.geometry import Point
-from shapely.geometry.base import BaseGeometry
-from shapely.ops import transform
 
 from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor._util import is_int_or_float
 from dtoolkit.geoaccessor._util import string_or_int_to_crs
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor.tool import geographic_buffer
 
 
 @register_geoseries_method
@@ -46,8 +41,8 @@ def geobuffer(
 
     crs : str, optional
         If ``epsg`` is specified, the value can be anything accepted by
-        :meth:`pyproj.crs.CRS.from_user_input`, such as an authority string
-        (eg "EPSG:4326") or a WKT string.
+        :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority string
+        (e.g. "EPSG:4326") or a WKT string.
 
     epsg : int, optional
 
@@ -64,6 +59,8 @@ def geobuffer(
 
     See Also
     --------
+    dtoolkit.geoaccessor.tool.geographic_buffer : The core algorithm for creating
+        geographic buffer.
     shapely.geometry.base.BaseGeometry.buffer
         https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
     """
@@ -78,7 +75,7 @@ def geobuffer(
 
     if is_int_or_float(distance):
         result = df.apply(
-            _geographic_buffer,
+            geographic_buffer,
             distance=distance,
             crs=crs,
             **kwargs,
@@ -89,38 +86,8 @@ def geobuffer(
         )
     else:
         result = (
-            _geographic_buffer(geom, distance=dist, crs=crs, **kwargs)
+            geographic_buffer(geom, distance=dist, crs=crs, **kwargs)
             for geom, dist in zip(df.geometry, distance)
         )
 
     return gpd.GeoSeries(result, crs=crs)
-
-
-def _geographic_buffer(
-    geometry: BaseGeometry | None,
-    distance: int | float,
-    crs: CRS | None = None,
-    **kwargs,
-) -> BaseGeometry | None:
-
-    if geometry is None:
-        return None
-    elif not isinstance(geometry, BaseGeometry):
-        raise TypeError(f"{geometry} must be Geometry.")
-    elif not isinstance(geometry, Point):
-        # Only support 'Point' type to generate geographic buffer.
-        return geometry
-
-    if not is_int_or_float(distance):
-        raise TypeError("The type of 'distance' must be int or float.")
-    if distance <= 0:
-        raise ValueError("The distance must be greater than 0.")
-
-    crs = crs or string_or_int_to_crs()
-
-    azmed = ProjectedCRS(AzumuthalEquidistantConversion(geometry.y, geometry.x))
-    project: Transformer = Transformer.from_proj(azmed, crs, always_xy=True)
-
-    # TODO: extend to other geometry
-    buffer: BaseGeometry = Point(0, 0).buffer(distance, **kwargs)
-    return transform(project.transform, buffer)
