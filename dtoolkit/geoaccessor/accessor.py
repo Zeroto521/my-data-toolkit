@@ -89,7 +89,7 @@ def register_geoseries_accessor(name: str):
             2    0
             dtype: int64
 
-            In [5]: d = gpd.GeoDataFrame(geometry=s)
+            In [5]: d = s.to_frame("geometry")
             Out[5]:
                             geometry
             0  POINT (0.00000 0.00000)
