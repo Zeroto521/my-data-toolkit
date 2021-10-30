@@ -80,8 +80,8 @@ def drop_inf(
 
     See Also
     --------
-    dtoolkit.accessor.series.drop_inf : :obj:`~pandas.Series` drops ``inf``
-        values.
+    dtoolkit.accessor.series.drop_inf
+        :obj:`~pandas.Series` drops ``inf`` values.
 
     Examples
     --------
@@ -222,10 +222,11 @@ def filter_in(
 
     See Also
     --------
-    pandas.DataFrame.isin : Whether each element in the DataFrame is contained
-        in values.
-    pandas.DataFrame.filter : Subset the dataframe rows or columns according
-        to the specified index labels.
+    pandas.DataFrame.isin
+        Whether each element in the DataFrame is contained in values.
+    pandas.DataFrame.filter
+        Subset the dataframe rows or columns according to the specified index
+        labels.
 
     Examples
     --------
@@ -448,8 +449,8 @@ def top_n(
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
-        a column.
+    dtoolkit.accessor.dataframe.expand
+        Transform each element of a list-like to a column.
 
     Notes
     -----
@@ -559,8 +560,10 @@ def expand(
 
     See Also
     --------
-    dtoolkit.accessor.series.expand : Transform each element of a list-like to a column.
-    pandas.DataFrame.explode : Transform each element of a list-like to a row.
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+    pandas.DataFrame.explode
+        Transform each element of a list-like to a row.
 
     Examples
     --------
