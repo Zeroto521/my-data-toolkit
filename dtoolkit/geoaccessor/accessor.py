@@ -69,39 +69,39 @@ def register_geoseries_accessor(name: str):
 
     Back in an interactive IPython session:
 
-        .. code-block:: ipython
+    .. code-block:: ipython
 
-            In [1]: import geopandas as gpd
+        In [1]: import geopandas as gpd
 
-            In [2]: s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (1 1)", None])
+        In [2]: s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (1 1)", None])
 
-            In [3]: s
-            Out[3]:
-            0    POINT (0.00000 0.00000)
-            1    POINT (1.00000 1.00000)
-            2                       None
-            dtype: geometry
+        In [3]: s
+        Out[3]:
+        0    POINT (0.00000 0.00000)
+        1    POINT (1.00000 1.00000)
+        2                       None
+        dtype: geometry
 
-            In [4]: s.coords.count_coordinates
-            Out[4]:
-            0    1
-            1    1
-            2    0
-            dtype: int64
+        In [4]: s.coords.count_coordinates
+        Out[4]:
+        0    1
+        1    1
+        2    0
+        dtype: int64
 
-            In [5]: d = s.to_frame("geometry")
-            Out[5]:
-                            geometry
-            0  POINT (0.00000 0.00000)
-            1  POINT (1.00000 1.00000)
-            2                     None
+        In [5]: d = s.to_frame("geometry")
+        Out[5]:
+                        geometry
+        0  POINT (0.00000 0.00000)
+        1  POINT (1.00000 1.00000)
+        2                     None
 
-            In [6]: d.coords.count_coordinates
-            Out[6]:
-            0    1
-            1    1
-            2    0
-            Name: geometry, dtype: int64
+        In [6]: d.coords.count_coordinates
+        Out[6]:
+        0    1
+        1    1
+        2    0
+        Name: geometry, dtype: int64
     """
     from geopandas import GeoSeries
 

@@ -53,21 +53,21 @@ def methodtf_factory(
 
     Back in an interactive IPython session, use this transformer:
 
-        .. code-block:: ipython
+    .. code-block:: ipython
 
-            In [1]: import numpy as np
+        In [1]: import numpy as np
 
-            In [2]: a = np.array([1, 2, 3])
+        In [2]: a = np.array([1, 2, 3])
 
-            In [3]: tf = PlusTF(1).update_invargs(1)
+        In [3]: tf = PlusTF(1).update_invargs(1)
 
-            In [4]: tf.transform(a)
-            Out[4]:
-            [2 3 4]
+        In [4]: tf.transform(a)
+        Out[4]:
+        [2 3 4]
 
-            In [5]: tf.inverse_transform(a)
-            Out[5]:
-            [0 1 2]
+        In [5]: tf.inverse_transform(a)
+        Out[5]:
+        [0 1 2]
     """
 
     if not isfunction(transform_method):
