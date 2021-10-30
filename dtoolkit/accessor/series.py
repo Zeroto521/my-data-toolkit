@@ -83,8 +83,9 @@ def drop_inf(
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.drop_inf : :obj:`~pandas.DataFrame` drops rows
-        or columns which contain ``inf`` values.
+    dtoolkit.accessor.dataframe.drop_inf
+        :obj:`~pandas.DataFrame` drops rows or columns which contain ``inf``
+        values.
 
     Examples
     --------
@@ -251,9 +252,10 @@ def expand(
 
     See Also
     --------
-    pandas.Series.explode : Transform each element of a list-like to a row.
-    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
-        a column.
+    pandas.Series.explode
+        Transform each element of a list-like to a row.
+    dtoolkit.accessor.dataframe.expand
+        Transform each element of a list-like to a column.
 
     Examples
     --------
