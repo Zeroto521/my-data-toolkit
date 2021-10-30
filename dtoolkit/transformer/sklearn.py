@@ -27,8 +27,8 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
     See Also
     --------
-    make_union : Convenience function for simplified feature union
-        construction.
+    make_union
+        Convenience function for simplified feature union construction.
 
     Notes
     -----
@@ -66,8 +66,8 @@ def make_union(
 
     See Also
     --------
-    FeatureUnion : Class for concatenating the results of multiple transformer
-        objects.
+    FeatureUnion
+        Class for concatenating the results of multiple transformer objects.
 
     Notes
     -----
