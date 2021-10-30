@@ -40,10 +40,10 @@ def geographic_buffer(
 
     See Also
     --------
-    dtoolkit.geoaccessor.geoseries.geobuffer : GeoSeries geographic buffer
-        algorithm accessor.
-    dtoolkit.geoaccessor.geodataframe.geobuffer : GeoDataFrame geographic buffer
-        algorithm accessor.
+    dtoolkit.geoaccessor.geoseries.geobuffer
+        Creates geographic buffers for GeoSeries.
+    dtoolkit.geoaccessor.geodataframe.geobuffer
+        Creates geographic buffers for GeoDataFrame.
     shapely.geometry.base.BaseGeometry.buffer
         https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
     """
