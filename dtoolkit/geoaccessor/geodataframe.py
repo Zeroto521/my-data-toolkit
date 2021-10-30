@@ -4,7 +4,7 @@ import geopandas as gpd
 from pandas.util._decorators import doc
 
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor.geoseries import geobuffer as geoseries_geobuffer  # noqa
+from dtoolkit.geoaccessor.geoseries import geobuffer as geoseries_geobuffer
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
