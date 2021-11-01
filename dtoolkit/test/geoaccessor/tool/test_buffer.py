@@ -26,8 +26,8 @@ class TestGeographicBuffer:
         assert isinstance(b, BaseGeometry)
 
     def test_geometry_is_none(self):
-        res = geographic_buffer(None, self.distance, self.crs)
-        assert res is None
+        result = geographic_buffer(None, self.distance, self.crs)
+        assert result is None
 
     def test_geometry_is_not_geometry(self):
         with pytest.raises(TypeError):
