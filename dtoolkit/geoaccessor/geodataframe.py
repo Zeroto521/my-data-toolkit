@@ -91,34 +91,6 @@ def get_coordinates(
     include_z: bool = False,
     return_index: bool = False,
 ) -> pd.Series:
-    """
-    Gets coordinates from each geometry of {klass}.
-
-    Parameters
-    ----------
-    include_zbool: bool, default False
-        If True include the third dimension in the output.
-        If geometry has no third dimension, the z-coordinates will be NaN.
-
-    return_index: bool, default False
-        If True also return the index of each returned geometry.
-        For multidimensional, this indexes into the flattened array
-        (in C contiguous order).
-
-    Returns
-    -------
-    Series
-
-    See Also
-    --------
-    dtoolkit.geoaccessor.geoseries.get_coordinates
-        Gets coordinates from each geometry of GeoSeries.
-    dtoolkit.geoaccessor.geodataframe.get_coordinates
-        Gets coordinates from each geometry of GeoDataFrame.
-    pygeos.coordinates.get_coordinates
-        The core algorithm of this accessor.
-    {examples}
-    """
 
     return df.geometry.get_coordinates(
         include_z=include_z,
