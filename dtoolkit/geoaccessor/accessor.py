@@ -54,17 +54,18 @@ def register_geoseries_accessor(name: str):
 
         from pygeos import count_coordinates, from_shapely
 
+        @register_geodataframe_accessor("coords")
         @register_geoseries_accessor("coords")
         class CoordinateAccessor:
             def __init__(self, gpd_obj):
                 self._obj = gpd_obj
+                self.geometry = gpd_obj.geometry
 
             @property
             def count_coordinates(self):
                 # Counts the number of coordinate pairs in geometry
 
-                func = lambda x: count_coordinates(from_shapely(x))
-                return self._obj.apply(func)
+                return self.geometry.apply(count_coordinates(from_shapely(x)))
 
     Back in an interactive IPython session:
 
@@ -72,13 +73,35 @@ def register_geoseries_accessor(name: str):
 
         In [1]: import geopandas as gpd
 
-        In [2]: s = gpd.GeoSeries.from_wkt(["POINT (1 1)", None])
+        In [2]: s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (1 1)", None])
 
-        In [3]: s.coords.count_coordinates
+        In [3]: s
         Out[3]:
+        0    POINT (0.00000 0.00000)
+        1    POINT (1.00000 1.00000)
+        2                       None
+        dtype: geometry
+
+        In [4]: s.coords.count_coordinates
+        Out[4]:
         0    1
-        1    0
+        1    1
+        2    0
         dtype: int64
+
+        In [5]: d = s.to_frame("geometry")
+        Out[5]:
+                        geometry
+        0  POINT (0.00000 0.00000)
+        1  POINT (1.00000 1.00000)
+        2                     None
+
+        In [6]: d.coords.count_coordinates
+        Out[6]:
+        0    1
+        1    1
+        2    0
+        Name: geometry, dtype: int64
     """
     from geopandas import GeoSeries
 

@@ -28,12 +28,13 @@ def register_geoseries_method(method):
 
         from pygeos import count_coordinates, from_shapely
 
+        @register_geodataframe_method
         @register_geoseries_method
         def counts(s: gpd.GeoSeries):
             # Counts the number of coordinate pairs in geometry
 
             func = lambda x: count_coordinates(from_shapely(x))
-            return s.apply(func)
+            return s.geometry.apply(func)
 
     Back in an interactive IPython session:
 
@@ -57,7 +58,7 @@ def register_geoseries_method(method):
         2    0
         dtype: int64
 
-        In [5]: d = gpd.GeoDataFrame(geometry=s)
+        In [5]: d = s.to_frame("geometry")
         Out[5]:
                         geometry
         0  POINT (0.00000 0.00000)
@@ -66,8 +67,10 @@ def register_geoseries_method(method):
 
         In [6]: d.counts()
         Out[6]:
-        geometry    2
-        dtype: int64
+        0    1
+        1    1
+        2    0
+        Name: geometry, dtype: int64
     """
     return register_geoseries_accessor(method)
 

@@ -2,6 +2,23 @@
 GeoAccessor
 ===========
 
+GeoSeries Accessor
+------------------
+.. currentmodule:: dtoolkit.geoaccessor.geoseries
+.. autosummary::
+    :toctree: api/
+
+    geobuffer
+
+
+GeoDataFrame Accessor
+---------------------
+.. currentmodule:: dtoolkit.geoaccessor.geodataframe
+.. autosummary::
+    :toctree: api/
+
+    geobuffer
+
 
 Base Accessor Register
 ----------------------
@@ -21,3 +38,12 @@ Method Register
 
     register_geoseries_method
     register_geodataframe_method
+
+
+Core Algorithm
+--------------
+.. currentmodule:: dtoolkit.geoaccessor.tool
+.. autosummary::
+    :toctree: api/
+
+    geographic_buffer
