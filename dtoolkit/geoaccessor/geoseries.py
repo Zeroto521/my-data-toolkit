@@ -7,6 +7,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from pygeos import count_coordinates as pygeos_count_coordinates
 from pygeos import from_shapely
+from pygeos import get_coordinates as pygeos_get_coordinates
 from pyproj import CRS
 
 from dtoolkit._typing import OneDimArray
@@ -138,3 +139,70 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     """
 
     return s.apply(lambda x: pygeos_count_coordinates(from_shapely(x)))
+
+
+@register_geoseries_method
+@doc(
+    klass=":class:`~geopandas.GeoSeries`",
+    examples=dedent(
+        """
+    Examples
+    --------
+    >>> import geopandas as gpd
+    >>> from dtoolkit.geoaccessor.geoseries import get_coordinates
+    >>> s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "LINESTRING (2 2, 4 4)", None])
+    >>> s
+    0                          POINT (0.00000 0.00000)
+    1    LINESTRING (2.00000 2.00000, 4.00000 4.00000)
+    2                                             None
+    dtype: geometry
+
+    >>> s.get_coordinates()
+    0                [[0.0, 0.0]]
+    1    [[2.0, 2.0], [4.0, 4.0]]
+    2                          []
+    dtype: object
+    """,
+    ),
+)
+def get_coordinates(
+    s: gpd.GeoSeries,
+    include_z: bool = False,
+    return_index: bool = False,
+) -> pd.Series:
+    """
+    Gets coordinates from each geometry of {klass}.
+
+    Parameters
+    ----------
+    include_zbool: bool, default False
+        If True include the third dimension in the output.
+        If geometry has no third dimension, the z-coordinates will be NaN.
+
+    return_index: bool, default False
+        If True also return the index of each returned geometry.
+        For multidimensional, this indexes into the flattened array
+        (in C contiguous order).
+
+    Returns
+    -------
+    Series
+
+    See Also
+    --------
+    dtoolkit.geoaccessor.geoseries.get_coordinates
+        Gets coordinates from each geometry of GeoSeries.
+    dtoolkit.geoaccessor.geodataframe.get_coordinates
+        Gets coordinates from each geometry of GeoDataFrame.
+    pygeos.coordinates.get_coordinates
+        The core algorithm of this accessor.
+    {examples}
+    """
+
+    return s.apply(
+        lambda x: pygeos_get_coordinates(
+            from_shapely(x),
+            include_z=include_z,
+            return_index=return_index,
+        ),
+    )

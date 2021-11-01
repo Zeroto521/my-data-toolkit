@@ -10,6 +10,9 @@ from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor.geoseries import (
     count_coordinates as geoseries_count_coordinates,
 )
+from dtoolkit.geoaccessor.geoseries import (
+    count_coordinates as geoseries_get_coordinates,
+)
 from dtoolkit.geoaccessor.geoseries import geobuffer as geoseries_geobuffer
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
@@ -55,3 +58,69 @@ def geobuffer(
 )
 def count_coordinates(df: gpd.GeoDataFrame) -> pd.Series:
     return df.geometry.count_coordinates()
+
+
+@register_geodataframe_method
+@doc(
+    geoseries_get_coordinates,
+    klass=":class:`~geopandas.GeoDataFrame`",
+    examples=dedent(
+        """
+    Examples
+    --------
+    >>> import geopandas as gpd
+    >>> from dtoolkit.geoaccessor.geodataframe import get_coordinates
+    >>> d = gpd.GeoSeries.from_wkt(["POINT (0 0)", "LINESTRING (2 2, 4 4)", None])
+    >>> d = d.to_frame("geometry")
+    >>> d
+                                            geometry
+    0                        POINT (0.00000 0.00000)
+    1  LINESTRING (2.00000 2.00000, 4.00000 4.00000)
+    2                                           None
+
+    >>> d.get_coordinates()
+    0                [[0.0, 0.0]]
+    1    [[2.0, 2.0], [4.0, 4.0]]
+    2                          []
+    Name: geometry, dtype: object
+    """,
+    ),
+)
+def get_coordinates(
+    df: gpd.GeoDataFrame,
+    include_z: bool = False,
+    return_index: bool = False,
+) -> pd.Series:
+    """
+    Gets coordinates from each geometry of {klass}.
+
+    Parameters
+    ----------
+    include_zbool: bool, default False
+        If True include the third dimension in the output.
+        If geometry has no third dimension, the z-coordinates will be NaN.
+
+    return_index: bool, default False
+        If True also return the index of each returned geometry.
+        For multidimensional, this indexes into the flattened array
+        (in C contiguous order).
+
+    Returns
+    -------
+    Series
+
+    See Also
+    --------
+    dtoolkit.geoaccessor.geoseries.get_coordinates
+        Gets coordinates from each geometry of GeoSeries.
+    dtoolkit.geoaccessor.geodataframe.get_coordinates
+        Gets coordinates from each geometry of GeoDataFrame.
+    pygeos.coordinates.get_coordinates
+        The core algorithm of this accessor.
+    {examples}
+    """
+
+    return df.geometry.get_coordinates(
+        include_z=include_z,
+        return_index=return_index,
+    )
