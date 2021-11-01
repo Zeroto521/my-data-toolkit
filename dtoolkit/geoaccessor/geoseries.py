@@ -62,7 +62,7 @@ def geobuffer(
     dtoolkit.geoaccessor.geoseries.geobuffer
         Creates geographic buffers for GeoSeries.
     dtoolkit.geoaccessor.geodataframe.geobuffer
-        Creates geographic buffers for GeoDataFrame1.
+        Creates geographic buffers for GeoDataFrame.
     dtoolkit.geoaccessor.tool.geographic_buffer
         The core algorithm for creating geographic buffer.
     shapely.geometry.base.BaseGeometry.buffer
