@@ -9,6 +9,7 @@ GeoSeries Accessor
     :toctree: api/
 
     count_coordinates
+    get_coordinates
     geobuffer
 
 
@@ -19,6 +20,7 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
+    get_coordinates
     geobuffer
 
 
