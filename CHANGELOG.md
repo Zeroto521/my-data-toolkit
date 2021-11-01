@@ -9,12 +9,12 @@ New features and improvements:
 
 Documentation:
 
-- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/latest/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
-- Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/latest/guide/automl.html) ({pr}`236`, {pr}`237`).
+- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
+- Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/automl.html) ({pr}`236`, {pr}`237`).
 - Update the description of dtoolkit ({pr}`234`, {pr}`241`).
 - Add an introduction for {meth}`~dtoolkit.transformer` ({pr}`232`, {pr}`233`).
-- Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/latest/py-modindex.html) ({pr}`231`).
-- Add an introduction for {meth}`~dtoolkit.geography.geographic_buffer`, see [What is the Geographic Buffer?](https://my-data-toolkit.readthedocs.io/en/latest/guide/geographic_buffer.html) ({pr}`229`).
+- Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/v0.0.3/py-modindex.html) ({pr}`231`).
+- Add an introduction for {meth}`~dtoolkit.geography.geographic_buffer`, see [What is the Geographic Buffer?](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/geographic_buffer.html) ({pr}`229`).
 - Let class method doc could show ({pr}`226`).
 - Add `CHANGELOG.md` file ({pr}`222`).
 - Change API URL, from `reference/api/geography/dtoolkit.geography.geographic_buffer.html` to `reference/api/dtoolkit.geography.geographic_buffer.html` ({pr}`225`).
