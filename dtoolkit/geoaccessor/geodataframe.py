@@ -12,7 +12,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @doc(geoseries_geobuffer, klass="GeoDataFrame", alias="df")
 def geobuffer(
     df: gpd.GeoDataFrame,
-    distance: int | float | OneDimArray,
+    distance: int | float | list | OneDimArray,
     crs: str | None = None,
     epsg: int | None = None,
     **kwargs,
