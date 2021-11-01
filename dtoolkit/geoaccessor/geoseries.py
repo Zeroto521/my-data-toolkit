@@ -109,6 +109,7 @@ def geobuffer(
     1    LINESTRING (2.00000 2.00000, 4.00000 4.00000)
     2                                             None
     dtype: geometry
+
     >>> s.count_coordinates()
     0    1
     1    2
