@@ -10,10 +10,10 @@ from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor.geoseries import (
     count_coordinates as geoseries_count_coordinates,
 )
-from dtoolkit.geoaccessor.geoseries import (
-    count_coordinates as geoseries_get_coordinates,
-)
 from dtoolkit.geoaccessor.geoseries import geobuffer as geoseries_geobuffer
+from dtoolkit.geoaccessor.geoseries import (
+    get_coordinates as geoseries_get_coordinates,
+)
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
