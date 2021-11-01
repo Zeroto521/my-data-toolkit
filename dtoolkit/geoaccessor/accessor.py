@@ -29,6 +29,8 @@ def register_geoseries_accessor(name: str):
     --------
     dtoolkit.geoaccessor.accessor.register_geoseries_accessor
     dtoolkit.geoaccessor.accessor.register_geodataframe_accessor
+    dtoolkit.geoaccessor.register.register_geoseries_method
+    dtoolkit.geoaccessor.register.register_geodataframe_method
 
     Notes
     -----
