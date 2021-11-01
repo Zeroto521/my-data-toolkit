@@ -87,34 +87,14 @@ html_static_path = ["_static"]
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": (
-        "http://docs.python.org/",
-        "https://docs.python.org/objects.inv",
-    ),
-    "sklearn": (
-        "https://scikit-learn.org/stable/",
-        "https://scikit-learn.org/stable/objects.inv",
-    ),
-    "pandas": (
-        "https://pandas.pydata.org/pandas-docs/stable/",
-        "https://pandas.pydata.org/pandas-docs/stable/objects.inv",
-    ),
-    "numpy": (
-        "https://numpy.org/doc/stable/",
-        "https://numpy.org/doc/stable/objects.inv",
-    ),
-    "geopandas": (
-        "https://geopandas.readthedocs.io/en/stable/",
-        "https://geopandas.readthedocs.io/en/stable/objects.inv",
-    ),
-    "shapely": (
-        "https://shapely.readthedocs.io/en/stable/",
-        "https://shapely.readthedocs.io/en/stable/objects.inv",
-    ),
-    "pyproj": (
-        "https://pyproj4.github.io/pyproj/stable/",
-        "https://pyproj4.github.io/pyproj/stable/objects.inv",
-    ),
+    "python": ("http://docs.python.org/", None),
+    "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "sklearn": ("https://scikit-learn.org/stable/", None),
+    "geopandas": ("https://geopandas.readthedocs.io/en/stable/", None),
+    "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
+    "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
+    "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
 }
 
 # extlinks alias

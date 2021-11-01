@@ -3,13 +3,11 @@ import numpy as np
 import pandas as pd
 import pytest
 from pyproj import CRS
-from shapely import wkt
 
 from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa
 
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
-my_points = [wkt.loads(i) for i in my_wkts]
 distances = np.asarray(range(1, 1000, 499))
 
 
