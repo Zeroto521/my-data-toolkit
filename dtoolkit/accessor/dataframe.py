@@ -592,6 +592,7 @@ def expand(
        col1  col2_0  col2_1  col2_2
     0     1       3       4     NaN
     1     2       5       6     7.0
+
     >>> df.expand(suffix=["a", "b", "c", "d"])
        col1  col2_a  col2_b  col2_c
     0     1       3       4     NaN

@@ -291,12 +291,13 @@ def expand(
     """
 
     bools = s.apply(is_list_like).values
-    # All False
-    if False in bools and True not in bools:
-        return s
-    # Both False and True exist
-    elif False in bools:
-        raise ValueError("all elements should be list-like.")
+    if False in bools:
+        # All False
+        if True not in bools:
+            return s
+        # Both False and True exist
+        else:
+            raise ValueError("all elements should be list-like.")
 
     if s.name is None:
         raise ValueError("the column name should be specified.")
