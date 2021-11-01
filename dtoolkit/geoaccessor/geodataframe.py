@@ -44,6 +44,7 @@ def geobuffer(
     0                        POINT (0.00000 0.00000)
     1  LINESTRING (2.00000 2.00000, 4.00000 4.00000)
     2                                           None
+
     >>> d.count_coordinates()
     0    1
     1    2
