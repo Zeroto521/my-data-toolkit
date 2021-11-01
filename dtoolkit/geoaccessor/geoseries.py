@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+from textwrap import dedent
+
 import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
+from pygeos import count_coordinates as pygeos_count_coordinates
+from pygeos import from_shapely
 from pyproj import CRS
 
 from dtoolkit._typing import OneDimArray
@@ -88,3 +92,49 @@ def geobuffer(
 
     crs: CRS = s.crs or string_or_int_to_crs(crs, epsg)
     return gpd.GeoSeries(result, crs=crs, index=s.index, name=s.name)
+
+
+@register_geoseries_method
+@doc(
+    klass=":class:`~geopandas.GeoSeries`",
+    examples=dedent(
+        """
+    Examples
+    --------
+    >>> import geopandas as gpd
+    >>> from dtoolkit.geoaccessor.geoseries import count_coordinates
+    >>> s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "LINESTRING (2 2, 4 4)", None])
+    >>> s
+    0                          POINT (0.00000 0.00000)
+    1    LINESTRING (2.00000 2.00000, 4.00000 4.00000)
+    2                                             None
+    dtype: geometry
+    >>> s.count_coordinates()
+    0    1
+    1    2
+    2    0
+    dtype: int64
+    """,
+    ),
+)
+def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
+    """
+    Counts the number of coordinate pairs in each geometry of {klass}.
+
+    Returns
+    -------
+    Series
+
+    See Also
+    --------
+    dtoolkit.geoaccessor.geoseries.count_coordinates
+        Counts the number of coordinate pairs in each geometry of GeoSeries.
+    dtoolkit.geoaccessor.geodataframe.count_coordinates
+        Counts the number of coordinate pairs in each geometry of GeoDataFrame.
+    pygeos.count_coordinates
+        The core algorithm of this accessor.
+        https://pygeos.readthedocs.io/en/stable/coordinates.html#pygeos.coordinates.count_coordinates
+    {examples}
+    """
+
+    return s.apply(lambda x: pygeos_count_coordinates(from_shapely(x)))
