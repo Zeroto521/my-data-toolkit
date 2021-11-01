@@ -94,6 +94,7 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.readthedocs.io/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
+    "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
 }
 
 # extlinks alias
