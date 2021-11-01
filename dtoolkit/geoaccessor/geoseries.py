@@ -131,9 +131,8 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
         Counts the number of coordinate pairs in each geometry of GeoSeries.
     dtoolkit.geoaccessor.geodataframe.count_coordinates
         Counts the number of coordinate pairs in each geometry of GeoDataFrame.
-    pygeos.count_coordinates
+    pygeos.coordinates.count_coordinates
         The core algorithm of this accessor.
-        https://pygeos.readthedocs.io/en/stable/coordinates.html#pygeos.coordinates.count_coordinates
     {examples}
     """
 
