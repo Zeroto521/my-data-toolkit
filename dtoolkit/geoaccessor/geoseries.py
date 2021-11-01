@@ -177,7 +177,7 @@ def get_coordinates(
     ----------
     include_zbool: bool, default False
         If True include the third dimension in the output.
-        If geometry has no third dimension, the z-coordinates will be NaN.
+        If geometry has no third dimension, the z-coordinates will be `NaN`.
 
     return_index: bool, default False
         If True also return the index of each returned geometry.
