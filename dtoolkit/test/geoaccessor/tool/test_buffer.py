@@ -2,6 +2,7 @@ import numpy as np
 import pytest
 from pyproj import CRS
 from shapely import wkt
+from shapely.geometry import Polygon
 from shapely.geometry.base import BaseGeometry
 
 from dtoolkit.geoaccessor.geoseries import geographic_buffer
@@ -27,6 +28,15 @@ class TestGeographicBuffer:
     def test_geometry_is_none(self):
         res = geographic_buffer(None, self.distance, self.crs)
         assert res is None
+
+    def test_geometry_is_not_geometry(self):
+        with pytest.raises(TypeError):
+            geographic_buffer(1, self.distance, self.crs)
+
+    def test_geometry_is_not_point(self):
+        polygon = Polygon([(0, 0), (1, 1), (1, 0)])
+        result = geographic_buffer(polygon, self.distance, self.crs)
+        assert result is polygon
 
     def test_distance_type_is_not_num_type(self):
         with pytest.raises(TypeError):
