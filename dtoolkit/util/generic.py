@@ -84,6 +84,7 @@ def multi_if_else(
     >>> mask
     array([[False,  True],
            [ True, False]])
+
     >>> mask_lambda = lambda how: multi_if_else(
     ...     [
     ...         (how == "any", mask.any()),
@@ -94,6 +95,7 @@ def multi_if_else(
     ... )
     >>> mask_lambda("any")
     True
+
     >>> mask_lambda("all")
     False
 

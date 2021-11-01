@@ -108,13 +108,16 @@ class MinMaxScaler(SKMinMaxScaler):
     >>> scaler = MinMaxScaler()
     >>> scaler.fit(data)
     MinMaxScaler()
+
     >>> scaler.data_max_
     array([ 1., 18.])
+
     >>> scaler.transform(data)
     array([[0.  , 0.  ],
            [0.25, 0.25],
            [0.5 , 0.5 ],
            [1.  , 1.  ]])
+
     >>> scaler.transform([[2, 2]])
     array([[1.5, 0. ]])
 
@@ -198,14 +201,18 @@ class OneHotEncoder(SKOneHotEncoder):
     >>> X = [['Male', 1], ['Female', 3], ['Female', 2]]
     >>> enc.fit(X)
     OneHotEncoder(handle_unknown='ignore', sparse=True)
+
     >>> enc.categories_
     [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
+
     >>> enc.transform([['Female', 1], ['Male', 4]]).toarray()
     array([[1., 0., 1., 0., 0.],
            [0., 1., 0., 0., 0.]])
+
     >>> enc.inverse_transform([[0, 1, 1, 0, 0], [0, 0, 0, 1, 0]])
     array([['Male', 1],
            [None, 2]], dtype=object)
+
     >>> enc.get_feature_names(['gender', 'group'])
     array(['gender_Female', 'gender_Male', 'group_1', 'group_2', 'group_3'],
       dtype=object)
@@ -236,6 +243,7 @@ class OneHotEncoder(SKOneHotEncoder):
     0    Male       1
     1  Female       3
     2  Female       2
+
     >>> enc = OneHotEncoder(categories_with_parent=True)
     >>> enc.fit_transform(df)
     gender_Female  gender_Male  number_1  number_2  number_3

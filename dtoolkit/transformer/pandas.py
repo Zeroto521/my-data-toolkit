@@ -52,10 +52,12 @@ class AppendTF(DataFrameTF):
     ...     columns=list("AB"),
     ...     index=["x", "y"],
     ... )
+
     >>> df
         A  B
     x  1  2
     y  3  4
+
     >>> df2 = pd.DataFrame(
     ...     [[5, 6], [7, 8]],
     ...     columns=list("AB"),
@@ -199,6 +201,7 @@ class EvalTF(DataFrameTF):
     2  3   6
     3  4   4
     4  5   2
+
     >>> tf = EvalTF('A + B')
     >>> tf.transform(df)
     0    11
