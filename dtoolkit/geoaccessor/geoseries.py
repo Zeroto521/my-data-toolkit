@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import geopandas as gpd
-import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from pyproj import CRS
 
 from dtoolkit._typing import OneDimArray
+from dtoolkit.geoaccessor._util import is_int_or_float
 from dtoolkit.geoaccessor._util import string_or_int_to_crs
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.tool import geographic_buffer
@@ -16,7 +16,7 @@ from dtoolkit.geoaccessor.tool import geographic_buffer
 @doc(klass="GeoSeries", alias="s")
 def geobuffer(
     s: gpd.GeoSeries,
-    distance: int | float | OneDimArray,
+    distance: int | float | list | OneDimArray,
     crs: str | None = None,
     epsg: int | None = None,
     **kwargs,
@@ -69,22 +69,22 @@ def geobuffer(
         https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
     """
 
-    if isinstance(distance, np.ndarray) and len(distance) != len(s):
-        raise IndexError(
-            f"Length of 'distance' doesn't match length of the {type(s)!r}.",
-        )
-    if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
-        raise IndexError(
-            "Index values of 'distance' sequence doesn't "
-            f"match index values of the {type(s)!r}",
-        )
+    if is_int_or_float(distance):
+        result = (geographic_buffer(g, distance, crs=crs, **kwargs) for g in s)
+    else:
+        if len(distance) != len(s):
+            raise IndexError(
+                f"Length of 'distance' doesn't match length of the {type(s)!r}.",
+            )
+        if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
+            raise IndexError(
+                "Index values of 'distance' sequence doesn't "
+                f"match index values of the {type(s)!r}",
+            )
 
-    if isinstance(distance, (np.ndarray, pd.Series)):
         result = (
             geographic_buffer(g, d, crs=crs, **kwargs) for g, d in zip(s, distance)
         )
-    else:
-        result = (geographic_buffer(g, distance, crs=crs, **kwargs) for g in s)
 
     crs: CRS = s.crs or string_or_int_to_crs(crs, epsg)
     return gpd.GeoSeries(result, crs=crs, index=s.index, name=s.name)
