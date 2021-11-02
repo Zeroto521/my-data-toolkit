@@ -269,7 +269,8 @@ class OneHotEncoder(SKOneHotEncoder):
             """
         Notes
         -----
-        This would let :obj:`~pandas.DataFrame` out.""",
+        This would let :obj:`~pandas.DataFrame` out.
+        """,
         ),
     )
     def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:

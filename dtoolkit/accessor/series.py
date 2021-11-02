@@ -225,38 +225,19 @@ def top_n(
 
 
 @register_series_method
-def expand(
-    s: pd.Series,
-    suffix: list | None = None,
-    delimiter: str = "_",
-) -> pd.DataFrame:
-    """
-    Transform each element of a list-like to a **column**.
-
-    .. image:: ../../../../_static/expand-vs-explode.svg
-        :width: 80%
-        :align: center
-
-    Parameters
-    ----------
-    suffix : list of str, default None
-        New columns of return :class:`~pandas.DataFrame`.
-
-    delimiter : str, default "_"
-        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
-
-    Returns
-    -------
-    DataFrame
-        The structure of new column name is ``{column name}{delimiter}{suffix}``.
-
+@doc(
+    see_also=dedent(
+        """
     See Also
     --------
     pandas.Series.explode
         Transform each element of a list-like to a row.
     dtoolkit.accessor.dataframe.expand
         Transform each element of a list-like to a column.
-
+    """,
+    ),
+    examples=dedent(
+        """
     Examples
     --------
     >>> from dtoolkit.accessor.series import expand
@@ -288,15 +269,45 @@ def expand(
        item_a  item_b  item_c
     0       1       2     NaN
     1       1       2     3.0
+    """,
+    ),
+)
+def expand(
+    s: pd.Series,
+    suffix: list | None = None,
+    delimiter: str = "_",
+) -> pd.DataFrame:
+    """
+    Transform each element of a list-like to a **column**.
+
+    .. image:: ../../../../_static/expand-vs-explode.svg
+        :width: 80%
+        :align: center
+
+    Parameters
+    ----------
+    suffix : list of str, default None
+        New columns of return :class:`~pandas.DataFrame`.
+
+    delimiter : str, default "_"
+        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
+
+    Returns
+    -------
+    DataFrame
+        The structure of new column name is ``{{column name}}{{delimiter}}{{suffix}}``.
+    {see_also}
+    {examples}
     """
 
     bools = s.apply(is_list_like).values
-    # All False
-    if False in bools and True not in bools:
-        return s
-    # Both False and True exist
-    elif False in bools:
-        raise ValueError("all elements should be list-like.")
+    if False in bools:
+        # Both False and True exist
+        if True in bools:
+            raise ValueError("all elements should be list-like.")
+        # All False
+        else:
+            return s
 
     if s.name is None:
         raise ValueError("the column name should be specified.")

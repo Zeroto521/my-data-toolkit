@@ -13,7 +13,7 @@ from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as series_cols
-from dtoolkit.accessor.series import expand as series_expand  # noqa
+from dtoolkit.accessor.series import expand as series_expand
 from dtoolkit.accessor.series import top_n as series_top_n
 
 
@@ -533,38 +533,20 @@ def top_n(
 
 
 @register_dataframe_method
-def expand(
-    df: pd.DataFrame,
-    suffix: list | None = None,
-    delimiter: str = "_",
-) -> pd.DataFrame:
-    """
-    Transform each element of a list-like to a **column**.
-
-    .. image:: ../../../../_static/expand-vs-explode.svg
-        :width: 80%
-        :align: center
-
-    Parameters
-    ----------
-    suffix : list of str, default None
-        New columns of return :class:`~pandas.DataFrame`.
-
-    delimiter : str, default "_"
-        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
-
-    Returns
-    -------
-    DataFrame
-        The structure of new column name is ``{column name}{delimiter}{suffix}``.
-
+@doc(
+    series_expand,
+    see_also=dedent(
+        """
     See Also
     --------
     dtoolkit.accessor.series.expand
         Transform each element of a list-like to a column.
     pandas.DataFrame.explode
         Transform each element of a list-like to a row.
-
+    """,
+    ),
+    examples=dedent(
+        """
     Examples
     --------
     >>> from dtoolkit.accessor.dataframe import expand
@@ -596,7 +578,14 @@ def expand(
        col1  col2_a  col2_b  col2_c
     0     1       3       4     NaN
     1     2       5       6     7.0
-    """
+    """,
+    ),
+)
+def expand(
+    df: pd.DataFrame,
+    suffix: list | None = None,
+    delimiter: str = "_",
+) -> pd.DataFrame:
 
     result = (
         df.get(column).expand(

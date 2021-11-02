@@ -139,7 +139,8 @@ class DataFrameTF(MethodTF):
         If ``kwargs`` have ``inplace`` parameter, it would be remove autoly.
         The inplace parameter is not work for DataFrame transformer. Actually
         this would break pipeline stream. If a transformer's inplace is True,
-        the next tf input would get None.""",
+        the next tf input would get None.
+        """,
         ),
     )
     def __init__(self, *args, **kwargs):
