@@ -6,7 +6,6 @@ dependencies:
   # package dependencies
   - pandas
   - scikit-learn
-  - more-itertools
   - geopandas
   - pygeos
   # doc dependencies
