@@ -4,7 +4,7 @@
 
 Highlights of this release:
 
-- Let GeoPandas also has Pandas accessor function ({pr}`261`, {pr}`265`, {pr}`266`, {pr}`268`, {pr}`271`, {pr}`273`, {pr}`275`, {pr}`276`).
+- Let GeoPandas also has Pandas accessor function ({pr}`261`, {pr}`265`, {pr}`266`, {pr}`268`, {pr}`271`, {pr}`273`, {pr}`275`, {pr}`276`, {pr}`280`).
 - DToolKit requires Pandas >= 1.1.3 to support Python 3.9 ({pr}`254`).
 
 New features and improvements:
