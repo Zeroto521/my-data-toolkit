@@ -110,7 +110,6 @@ def geobuffer(
     1    LINESTRING (2.00000 2.00000, 4.00000 4.00000)
     2                                             None
     dtype: geometry
-
     >>> s.count_coordinates()
     0    1
     1    2
@@ -156,7 +155,6 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     1    LINESTRING (2.00000 2.00000, 4.00000 4.00000)
     2                                             None
     dtype: geometry
-
     >>> s.get_coordinates()
     0                [[0.0, 0.0]]
     1    [[2.0, 2.0], [4.0, 4.0]]
