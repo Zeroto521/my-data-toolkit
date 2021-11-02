@@ -4,12 +4,12 @@
 
 Highlights of this release:
 
-- DToolKit requires Pandas >= 1.1.3 to support Python 3.9 ({pr}`254`).
 - Let GeoPandas also has Pandas accessor function ({pr}`261`, {pr}`265`, {pr}`266`, {pr}`268`, {pr}`271`, {pr}`273`, {pr}`275`, {pr}`276`).
+- DToolKit requires Pandas >= 1.1.3 to support Python 3.9 ({pr}`254`).
 
 New features and improvements:
 
-- New accessor {meth}`dtoolkit.accessor.series.expand` and {meth}`dtoolkit.accessor.dataframe.expand` ({pr}`252`).
+- New accessor {meth}`dtoolkit.accessor.series.expand` and {meth}`dtoolkit.accessor.dataframe.expand` ({pr}`252`, {pr}`279`).
 - Add a new option `element` for {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
 - Let {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
 
