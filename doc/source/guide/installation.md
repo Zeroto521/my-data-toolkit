@@ -11,7 +11,6 @@ Optional Dependencies:
 - {mod}`dtoolkit.transformer` requires dependencies
 
   - scikit-learn (0.24.0 or later)
-  - more-itertools (7.1.0 or later)
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
@@ -37,7 +36,7 @@ conda create -n dtoolkit_env
 conda activate dtoolkit_env
 conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
-conda install python=3 pandas scikit-learn more-itertools geopandas pygeos
+conda install python=3 pandas scikit-learn geopandas pygeos
 pip install git+https://github.com/Zeroto521/my-data-toolkit
 ```
 
