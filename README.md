@@ -9,13 +9,14 @@ See [documentation](https://my-data-toolkit.readthedocs.io/) for more informatio
 See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
 DToolKit depends on the following packages:
 
-- Base
+- Requirements
   - Python (>= 3.7)
   - Pandas (>= 1.1.3)
 - Optionals
-  - GeoPandas (>= 0.9.0)
   - Scikit-learn (>= 0.24.0)
   - More-Itertools (>=7.1.0)
+  - GeoPandas (>= 0.9.0)
+  - PyGEOS (>= 0.8)
 
 ## Note
 
