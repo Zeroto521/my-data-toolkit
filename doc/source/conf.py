@@ -44,19 +44,11 @@ extensions = [
     "IPython.sphinxext.ipython_directive",
 ]
 
-myst_enable_extensions = [
-    "colon_fence",
-]
-
-
 # The suffix of source filenames.
 source_suffix = [".rst", ".md"]
 
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
-
-autosummary_generate = True
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -124,6 +116,11 @@ extlinks = {
     "pr": (f"{github_url}/issues/%s", "pr#"),
 }
 
+myst_enable_extensions = [
+    "colon_fence",
+]
+
+autosummary_generate = True
 
 # based on pandas doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:

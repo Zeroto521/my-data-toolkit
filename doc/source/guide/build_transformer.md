@@ -1,4 +1,3 @@
-(how-to-build-transformer)=
 # How to Build Transformer
 
 ## Generate Transformer from Method
@@ -43,7 +42,7 @@ tf.inverse_transform(a)
 # [0 1 2]
 ```
 
-## Build {obj}`~pandas.DataFrame` Transformer
+## Build DataFrame Transformer
 
 Port {obj}`~pandas.DataFrame`'s method to transformer.
 
@@ -56,7 +55,7 @@ class MyTF(DataFrameTF):
     transform_method = staticmethod("DataFrame's inner method")
 ```
 
-## Build {obj}`~numpy` Transformer
+## Build numpy Transformer
 
 Port {obj}`numpy`'s method to transformer.
 
