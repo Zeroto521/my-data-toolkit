@@ -4,6 +4,8 @@ channels:
 dependencies:
   - python=3.8
   - cython
+  # geo
+  - geos
   # testing
   - pytest
   - pytest-cov
