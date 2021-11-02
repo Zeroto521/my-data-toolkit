@@ -30,8 +30,8 @@ DataFrame Accessor
     expand
 
 
-Method Register
----------------
+Pandas Method Register
+----------------------
 .. currentmodule:: dtoolkit.accessor.register
 .. autosummary::
     :toctree: api/
