@@ -16,6 +16,7 @@ Optional Dependencies:
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
   - geopandas (0.9.0 or later)
+  - pygeos (0.8 or later)
 
 ## Install with Conda
 
