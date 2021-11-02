@@ -1,5 +1,4 @@
-(automl)=
-# Automated `Pipeline`: `AutoML`
+# Automated Pipeline: AutoML
 
 :::{note}
 `AutoML` is an idea at present.
@@ -15,7 +14,7 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 - `Algorithm Selection`
 - `Hyperparameter Optimization`
 
-## What Could `AutoML` Do Now?
+## What Could AutoML Do Now?
 
 {math}`AutoML \xleftarrow{OptimizationAlgorithm} Feature Engineering Pipeline + ML Pipeline`
 
@@ -36,7 +35,7 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 
 ![Basic AutoML workflow](../_static/basic-automl-workflow.svg)
 
-## What Would `AutoML` Do via `Pipeline`?
+## What Would AutoML Do via Pipeline?
 
 Base the idea of {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 

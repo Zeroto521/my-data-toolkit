@@ -1,5 +1,3 @@
-.. _transformer:
-
 ===========
 Transformer
 ===========

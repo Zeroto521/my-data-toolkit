@@ -5,9 +5,9 @@ dependencies:
   - python
   # package dependencies
   - pandas
-  - geopandas
   - scikit-learn
   - more-itertools
+  - geopandas
   - pygeos
   # doc dependencies
   - sphinx
