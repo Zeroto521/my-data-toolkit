@@ -76,7 +76,6 @@ def count_coordinates(df: gpd.GeoDataFrame) -> pd.Series:
     0                        POINT (0.00000 0.00000)
     1  LINESTRING (2.00000 2.00000, 4.00000 4.00000)
     2                                           None
-
     >>> d.get_coordinates()
     0                [[0.0, 0.0]]
     1    [[2.0, 2.0], [4.0, 4.0]]
