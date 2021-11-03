@@ -551,17 +551,31 @@ def top_n(
     --------
     >>> from dtoolkit.accessor.dataframe import expand
     >>> import pandas as pd
+    >>> import numpy as np
 
     Expand the *list-like* element.
 
-    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", 3), ("b", 4)]})
+    >>> df = pd.DataFrame({'A': [[0, 1, 2], 'foo', [], [3, 4]],
+    ...                    'B': 1,
+    ...                    'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']]})
     >>> df.expand()
-       col1  col2_0  col2_1
-    0     1       a       3
-    1     2       b       4
+        A_0  A_1  A_2  B   C_0   C_1   C_2
+    0     0  1.0  2.0  1     a     b     c
+    1   foo  NaN  NaN  1   NaN  None  None
+    2  None  NaN  NaN  1  None  None  None
+    3     3  4.0  NaN  1     d     e  None
+
+    Expand *sub-element* type is list-like.
+
+    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", "b"), (3, (5, 6))]})
+    >>> df.expand(flatten=True)
+       col1 col2_0 col2_1  col2_2
+    0     1      a      b     NaN
+    1     2      3      5     6.0
 
     Set the columns of name.
 
+    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", 3), ("b", 4)]})
     >>> df.expand(suffix=["index", "value"], delimiter="-")
        col1  col2-index  col2-value
     0     1           a           3
