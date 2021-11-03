@@ -245,6 +245,16 @@ def top_n(
     >>> from dtoolkit.accessor.series import expand
     >>> import pandas as pd
 
+    Expand the *list-like* element.
+
+    >>> s = pd.Series([[1, 2, 3], 'foo', [], [3, 4]], name="item")
+    >>> s.expand()
+       item_0  item_1  item_2
+    0       1     2.0     3.0
+    1     foo     NaN     NaN
+    2    None     NaN     NaN
+    3       3     4.0     NaN
+
     Expand *sub-element* type is list-like.
 
     >>> s = pd.Series([("a", "b"), [1, [2, 3]]], name="item")
