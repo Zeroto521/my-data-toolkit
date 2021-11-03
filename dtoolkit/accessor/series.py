@@ -317,9 +317,6 @@ def expand(
     {examples}
     """
 
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
-
     def wrap_collapse(x):
         if is_list_like(x):
             if flatten:
@@ -337,6 +334,9 @@ def expand(
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
+
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
 
     iters = suffix or range(max_len)
     columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
