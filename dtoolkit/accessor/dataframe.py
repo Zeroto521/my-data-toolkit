@@ -585,12 +585,14 @@ def expand(
     df: pd.DataFrame,
     suffix: list | None = None,
     delimiter: str = "_",
+    flatten: bool = False,
 ) -> pd.DataFrame:
 
     result = (
         df.get(column).expand(
             suffix=suffix,
             delimiter=delimiter,
+            flatten=flatten,
         )
         for column in df.columns
     )
