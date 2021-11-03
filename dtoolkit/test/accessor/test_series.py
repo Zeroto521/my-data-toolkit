@@ -284,3 +284,9 @@ class TestExpand:
 
         with pytest.raises(error):
             s.expand(suffix=suffix)
+
+    def test_not_list_like_type(self):
+        s = pd.Series([1, 2, 3])
+        result = s.expand()
+
+        assert s is result
