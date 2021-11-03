@@ -247,14 +247,15 @@ def top_n(
 
     Expand the *list-like* element.
 
-    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
-    >>> s.expand()
-       item_0  item_1
-    0       a       1
-    1       b       2
+    >>> s = pd.Series([("a", 1), ["b", [2, 3]]], name="item")
+    >>> s.expand(flatten=True)
+       item_0  item_1  item_2
+    0       a       1     NaN
+    1       b       2     3.0
 
     Set the columns of name.
 
+    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
     >>> s.expand(suffix=["index", "value"], delimiter="-")
        item-index  item-value
     0           a           1
@@ -309,16 +310,19 @@ def expand(
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    bools = s.apply(is_list_like).values
-    if False in bools:
-        # Both False and True exist
-        if True in bools:
-            raise ValueError("all elements should be list-like.")
-        # All False
-        else:
-            return s
+    def wrap_collapse(x):
+        if is_list_like(x):
+            if flatten:
+                return list(collapse(x))
+            return x
+        return [x]
 
-    max_len = s.lens().max()
+    s_list = s.apply(wrap_collapse)
+    s_len = s_list.lens()
+    if all(s_len == 1):
+        return s
+
+    max_len = s_len.max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
@@ -327,9 +331,8 @@ def expand(
     iters = suffix or range(max_len)
     columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
 
-    result = s.apply(lambda x: list(collapse(x))) if flatten else s
     return pd.DataFrame(
-        result.tolist(),
+        s_list.tolist(),
         index=s.index,
         columns=columns,
     )
