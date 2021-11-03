@@ -277,13 +277,6 @@ class TestExpand:
                 None,
                 ValueError,
             ),
-            # some elements is not list-liek type
-            (
-                None,
-                [(1, 2), 1],
-                None,
-                ValueError,
-            ),
         ],
     )
     def test_error(self, suffix, data, name, error):
