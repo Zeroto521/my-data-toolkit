@@ -71,4 +71,4 @@ def collapse(iterable: Iterable):
             for child in tree:
                 yield from walk(child)
 
-    yield from walk(iterable, 0)
+    yield from walk(iterable)
