@@ -306,6 +306,9 @@ def expand(
     {examples}
     """
 
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
+
     bools = s.apply(is_list_like).values
     if False in bools:
         # Both False and True exist
@@ -314,9 +317,6 @@ def expand(
         # All False
         else:
             return s
-
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
 
     max_len = s.lens().max()
     if suffix and len(suffix) < max_len:
