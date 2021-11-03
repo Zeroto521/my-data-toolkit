@@ -313,7 +313,7 @@ def expand(
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    max_len = s.apply(len).max()
+    max_len = s.lens().max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
