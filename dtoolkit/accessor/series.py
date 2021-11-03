@@ -245,13 +245,13 @@ def top_n(
     >>> from dtoolkit.accessor.series import expand
     >>> import pandas as pd
 
-    Expand the *list-like* element.
+    Expand *sub-element* type is list-like.
 
-    >>> s = pd.Series([("a", 1), ["b", [2, 3]]], name="item")
+    >>> s = pd.Series([("a", "b"), [1, [2, 3]]], name="item")
     >>> s.expand(flatten=True)
        item_0  item_1  item_2
-    0       a       1     NaN
-    1       b       2     3.0
+    0       a       b     NaN
+    1       1       2     3.0
 
     Set the columns of name.
 
