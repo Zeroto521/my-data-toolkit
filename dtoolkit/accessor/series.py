@@ -7,6 +7,7 @@ from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
 
@@ -276,6 +277,7 @@ def expand(
     s: pd.Series,
     suffix: list | None = None,
     delimiter: str = "_",
+    flatten: bool = False,
 ) -> pd.DataFrame:
     """
     Transform each element of a list-like to a **column**.
@@ -291,6 +293,9 @@ def expand(
 
     delimiter : str, default "_"
         The delimiter between :attr:`~pandas.Series.name` and `suffix`.
+
+    flatten : bool, default False
+        Flatten all like-list elements or not. It would cost more time.
 
     Returns
     -------
@@ -321,8 +326,9 @@ def expand(
     iters = suffix or range(max_len)
     columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
 
+    result = s.apply(lambda x: list(collapse(x))) if flatten else s
     return pd.DataFrame(
-        s.tolist(),
+        result.tolist(),
         index=s.index,
         columns=columns,
     )
