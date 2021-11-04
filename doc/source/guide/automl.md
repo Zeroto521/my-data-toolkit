@@ -4,8 +4,6 @@
 `AutoML` is an idea at present.
 :::
 
-It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
-
 `AutoML` (*Automated Machine Learning*) tries to let automatically finish the following tasks:
 
 - `Data Cleaning`
@@ -17,6 +15,8 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 ## What Could AutoML Do Now?
 
 {math}`AutoML \xleftarrow{OptimizationAlgorithm} Feature Engineering Pipeline + ML Pipeline`
+
+It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
 
 - Part of `Feature Engneering`
 - `Algorithm Selection`
