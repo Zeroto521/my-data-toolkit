@@ -37,6 +37,11 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 
 ## What Would AutoML Do via Pipeline?
 
+The time cost of the modeling procedure is like an inverted pyramid.
+`Data Preprocessing` would spend double or more times of `Feature Engineering` and `Machine Learning`.
+
+![Time cost](../_static/time-cost.svg)
+
 Base the idea of {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
 So in this way, data processing could also be automated.
