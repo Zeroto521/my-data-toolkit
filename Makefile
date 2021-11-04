@@ -1,3 +1,5 @@
+.PHONY : help clean lint test doctest dist info html
+
 pkg = dtoolkit
 
 help:
