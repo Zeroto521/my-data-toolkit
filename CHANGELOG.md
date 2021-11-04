@@ -30,7 +30,7 @@ Documentation:
 - Drop python module index html page ({pr}`256`).
 - Fix these doc doesn't exist in dtoolkit ({pr}`244`).
 - Fix documentation building environment ({pr}`243`).
-- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`).
+- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 
 ## [Version 0.0.3] (2021-10-21)
 
