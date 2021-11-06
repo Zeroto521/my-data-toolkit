@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.4] (2021-??-??)
+## [Version 0.0.4] (2021-11-8)
 
 Highlights of this release:
 
