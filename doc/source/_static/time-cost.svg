@@ -1,0 +1,28 @@
+<svg width="1973" height="1268" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  overflow="hidden">
+  <defs>
+    <clipPath id="clip0">
+      <rect x="997" y="518" width="1973" height="1268" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip0)" transform="translate(-997 -518)">
+    <path
+      d="M1725.71 1280 2242.29 1280 1984 1758.5ZM1535.11 926.92 2432.89 926.92 2253.61 1259.04 1714.39 1259.04ZM1319.5 527.5 2648.5 527.5 2444.21 905.953 1523.79 905.953Z"
+      stroke="#63A6D6" stroke-width="4.58333" stroke-miterlimit="8" fill="#E1F0D9" fill-rule="evenodd" /><text
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="700" font-size="55"
+      transform="matrix(1 0 0 1 1891.44 1079)">Feature <tspan font-size="55" x="-51.8375" y="80">Engineering</tspan>
+      <tspan font-size="55" x="-10.5763" y="370">Machine </tspan>
+      <tspan font-size="55" x="-16.6034" y="450">Learning</tspan>
+      <tspan font-size="55" x="35.5324" y="-371">Data </tspan>
+      <tspan font-size="55" x="-73.3218" y="-291">Preprocessing</tspan>
+    </text>
+    <path
+      d="M1161.94 719.5 1161.94 1735.21 1155.06 1735.21 1155.06 719.5ZM1172.25 1730.63 1158.5 1758.13 1144.75 1730.63Z"
+      fill="#63A6D6" /><text font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400"
+      font-size="83" transform="matrix(1 0 0 1 1070.51 623)">Time</text>
+    <path
+      d="M2812.94 719.5 2812.94 1735.21 2806.06 1735.21 2806.06 719.5ZM2823.25 1730.63 2809.5 1758.13 2795.75 1730.63Z"
+      fill="#63A6D6" /><text font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400"
+      font-size="83" transform="matrix(1 0 0 1 2729.01 623)">Task</text>
+  </g>
+</svg>

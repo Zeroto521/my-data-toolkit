@@ -4,8 +4,6 @@
 `AutoML` is an idea at present.
 :::
 
-It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
-
 `AutoML` (*Automated Machine Learning*) tries to let automatically finish the following tasks:
 
 - `Data Cleaning`
@@ -17,6 +15,8 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 ## What Could AutoML Do Now?
 
 {math}`AutoML \xleftarrow{OptimizationAlgorithm} Feature Engineering Pipeline + ML Pipeline`
+
+It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
 
 - Part of `Feature Engneering`
 - `Algorithm Selection`
@@ -36,6 +36,11 @@ As for `Feature Engineering`, part of them could be automated. `Feature Engineer
 ![Basic AutoML workflow](../_static/basic-automl-workflow.svg)
 
 ## What Would AutoML Do via Pipeline?
+
+The time cost of the modeling procedure is like an inverted pyramid.
+`Data Preprocessing` would spend double or more times of `Feature Engineering` and `Machine Learning`.
+
+![Time cost](../_static/time-cost.svg)
 
 Base the idea of {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
