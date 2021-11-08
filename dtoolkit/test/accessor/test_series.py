@@ -180,7 +180,7 @@ class TestTopN:
 
 class TestExpand:
     @pytest.mark.parametrize(
-        "suffix, delimiter, data, name, excepted",
+        "suffix, delimiter, data, name, flatten, excepted",
         [
             # test default parameters
             (
@@ -188,6 +188,7 @@ class TestExpand:
                 "_",
                 [(1, 2), (3, 4)],
                 "item",
+                False,
                 {
                     "item_0": [1, 3],
                     "item_1": [2, 4],
@@ -199,6 +200,7 @@ class TestExpand:
                 "-",
                 [(1, 2), (3, 4)],
                 "item",
+                False,
                 {
                     "item-0": [1, 3],
                     "item-1": [2, 4],
@@ -210,6 +212,7 @@ class TestExpand:
                 "_",
                 [(1, 2), (3, 4)],
                 "item",
+                False,
                 {
                     "item_a": [1, 3],
                     "item_b": [2, 4],
@@ -221,6 +224,7 @@ class TestExpand:
                 "_",
                 [(1, 2), (3, 4)],
                 "item",
+                False,
                 {
                     "item_a": [1, 3],
                     "item_b": [2, 4],
@@ -232,6 +236,7 @@ class TestExpand:
                 "_",
                 [(1, 2), (3, 4, 5)],
                 "item",
+                False,
                 {
                     "item_0": [1, 3],
                     "item_1": [2, 4],
@@ -244,19 +249,37 @@ class TestExpand:
                 "_",
                 [(1, 2), (3, 4, 5)],
                 "item",
+                False,
                 {
                     "item_a": [1, 3],
                     "item_b": [2, 4],
                     "item_c": [np.nan, 5],
                 },
             ),
+            # test sub-element type is list-like
+            (
+                None,
+                "_",
+                [(1, 2), (3, [4, 5]), [[6]]],
+                "item",
+                True,
+                {
+                    "item_0": [1, 3, 6],
+                    "item_1": [2, 4, np.nan],
+                    "item_2": [np.nan, 5, np.nan],
+                },
+            ),
         ],
     )
-    def test_work(self, suffix, delimiter, data, name, excepted):
+    def test_work(self, suffix, delimiter, flatten, data, name, excepted):
         s = pd.Series(data, name=name)
         excepted = pd.DataFrame(excepted)
 
-        result = s.expand(suffix=suffix, delimiter=delimiter)
+        result = s.expand(
+            suffix=suffix,
+            delimiter=delimiter,
+            flatten=flatten,
+        )
 
         assert result.equals(excepted)
 
@@ -277,13 +300,6 @@ class TestExpand:
                 None,
                 ValueError,
             ),
-            # some elements is not list-liek type
-            (
-                None,
-                [(1, 2), 1],
-                None,
-                ValueError,
-            ),
         ],
     )
     def test_error(self, suffix, data, name, error):
@@ -291,3 +307,9 @@ class TestExpand:
 
         with pytest.raises(error):
             s.expand(suffix=suffix)
+
+    def test_not_list_like_type(self):
+        s = pd.Series([1, 2, 3])
+        result = s.expand()
+
+        assert s is result
