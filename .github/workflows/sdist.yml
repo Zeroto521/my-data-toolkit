@@ -9,7 +9,7 @@ on:
       - "doc/**"
 
 jobs:
-  build:
+  sdist:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -52,23 +52,6 @@ jobs:
           cd ..
           conda list
           python -c "import dtoolkit; print(dtoolkit.__version__);"
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: release
-          path: dist/
-
-  publish-to-testpypi:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: release
-          path: dist/
 
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
