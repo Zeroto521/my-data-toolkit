@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Iterable
 from textwrap import dedent
 
 import pandas as pd
@@ -7,6 +8,7 @@ from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
 
@@ -245,14 +247,25 @@ def top_n(
 
     Expand the *list-like* element.
 
-    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
+    >>> s = pd.Series([[1, 2, 3], 'foo', [], [3, 4]], name="item")
     >>> s.expand()
-       item_0  item_1
-    0       a       1
-    1       b       2
+       item_0  item_1  item_2
+    0       1     2.0     3.0
+    1     foo     NaN     NaN
+    2    None     NaN     NaN
+    3       3     4.0     NaN
+
+    Expand *sub-element* type is list-like.
+
+    >>> s = pd.Series([("a", "b"), [1, [2, 3]]], name="item")
+    >>> s.expand(flatten=True)
+       item_0  item_1  item_2
+    0       a       b     NaN
+    1       1       2     3.0
 
     Set the columns of name.
 
+    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
     >>> s.expand(suffix=["index", "value"], delimiter="-")
        item-index  item-value
     0           a           1
@@ -276,6 +289,7 @@ def expand(
     s: pd.Series,
     suffix: list | None = None,
     delimiter: str = "_",
+    flatten: bool = False,
 ) -> pd.DataFrame:
     """
     Transform each element of a list-like to a **column**.
@@ -292,6 +306,9 @@ def expand(
     delimiter : str, default "_"
         The delimiter between :attr:`~pandas.Series.name` and `suffix`.
 
+    flatten : bool, default False
+        Flatten all like-list elements or not. It would cost more time.
+
     Returns
     -------
     DataFrame
@@ -300,29 +317,61 @@ def expand(
     {examples}
     """
 
-    bools = s.apply(is_list_like).values
-    if False in bools:
-        # Both False and True exist
-        if True in bools:
-            raise ValueError("all elements should be list-like.")
-        # All False
-        else:
-            return s
+    def wrap_collapse(x):
+        if is_list_like(x):
+            if flatten:
+                return list(collapse(x))
+            return x
+        return [x]
 
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
+    s_list = s.apply(wrap_collapse)
+    s_len = s_list.lens()
+    if all(s_len == 1):
+        return s
 
-    max_len = s.apply(len).max()
+    max_len = s_len.max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
 
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
+
     iters = suffix or range(max_len)
     columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
 
     return pd.DataFrame(
-        s.tolist(),
+        s_list.tolist(),
         index=s.index,
         columns=columns,
     )
+
+
+@register_series_method
+def lens(s: pd.Series) -> pd.Series:
+    """
+    Return the length of each element in the series.
+
+    Equals to::
+
+        s.apply(len)
+
+    Returns
+    -------
+    Series
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.series import lens
+    >>> import pandas as pd
+    >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
+    >>> s.lens()
+    0    6
+    1    1
+    2    1
+    3    1
+    dtype: int64
+    """
+
+    return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
