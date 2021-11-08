@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Iterable
 from textwrap import dedent
 
 import pandas as pd
@@ -312,7 +313,7 @@ def expand(
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    max_len = s.apply(len).max()
+    max_len = s.lens().max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
@@ -326,3 +327,32 @@ def expand(
         index=s.index,
         columns=columns,
     )
+
+
+@register_series_method
+def lens(s: pd.Series) -> pd.Series:
+    """
+    Return the length of each element in the series.
+
+    Equals to::
+
+        s.apply(len)
+
+    Returns
+    -------
+    Series
+
+    Examples
+    --------
+    >>> from dtoolkit.accessor.series import lens
+    >>> import pandas as pd
+    >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
+    >>> s.lens()
+    0    6
+    1    1
+    2    1
+    3    1
+    dtype: int64
+    """
+
+    return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
