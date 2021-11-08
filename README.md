@@ -17,7 +17,6 @@ DToolKit depends on the following packages:
   - Pandas (>= 1.1.3)
 - Optionals
   - Scikit-learn (>= 0.24.0)
-  - More-Itertools (>=7.1.0)
   - GeoPandas (>= 0.9.0)
   - PyGEOS (>= 0.8)
 
