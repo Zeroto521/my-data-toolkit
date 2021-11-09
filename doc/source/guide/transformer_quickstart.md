@@ -69,7 +69,6 @@ First of all, we should know there are three types of features ( {math}`X`) and 
 Our mission is to find some relationships between these features and label.
 :::
 
-(the-pandas-way)=
 ## The Pandas Way
 
 :::{tip}
@@ -87,7 +86,7 @@ features = features_category + features_number
 label = ["sale"]
 ```
 
-### Process `X` and `y`
+### Process X and y
 
 ```{code-block} python
 # Filter opendays' store less than 30 days.
@@ -108,8 +107,7 @@ df_x = df[features]
 y = df[label]
 ```
 
-(process-y)=
-### Process `y`
+### Process y
 
 ```{code-block} python
 # Scale `y`.
@@ -133,8 +131,7 @@ Output `y`
 [0.38596491 1.         0.        ]
 ```
 
-(process-X)=
-### Process `X`
+### Process X
 
 ```{code-block} python
 # Replace store types to ranking numbers.
@@ -170,19 +167,18 @@ Output `X`
 
 ## The Pipeline Way
 
-From {ref}`the-pandas-way` section, we can see that:
+From {ref}`the pandas way` section, we can see that:
 
 - The intermediate variables are full of steps. We don't care about them atthe most time except debugging and reviewing.
 - Data workflow is messy. Hard to separate data and operations.
 - The outputting datastruct is not comfortable. The inputting type is {obj}`~pandas.DataFrame` but the outputting type is {obj}`~numpy.ndarray`.
 - Hard to apply in prediction data.
 
-(further-one-step-to-pipeline)=
 ### Further One Step to Pipeline
 
 {obj}`~sklearn.pipeline.Pipeline` is a good frame to fix these problems.
 
-Transform {ref}`process-x` and {ref}`process-y` section codes to pipeline codees.
+Transform {ref}`process x` and {ref}`process y` section codes to pipeline codees.
 
 But actually, these things are hard to transform to pipeline.
 Most are pandas methods, only OneHotEncoder and MinMaxScaler is could be added
@@ -190,16 +186,15 @@ into {obj}`~sklearn.pipeline.Pipeline`.
 
 The codes are still messy on **typing** and **applying** two ways.
 
-## The {ref}`dtoolkit.transformer <transformer>` Way
+## The dtoolkit.transformer Way
 
-Frame is good, but from {ref}`further-one-step-to-pipeline` section we could
+Frame is good, but from {ref}`further one step to pipeline` section we could
 see that the core problem is **missing transformer**.
 
 - Pandas's methods couldn't be used as a transformer.
 - Numpy's methods couldn't be used as a transformer.
 - Sklearn's transformers can't pandas in and pandas out.
 
-(further-more-steps-to-pipeline)=
 ### Further More Steps to Pipeline
 
 :::{tip}
@@ -292,9 +287,9 @@ But they are:
 
 ## What's Next - Learn or Build Transformers
 
-In this tutorial we've a quickly glance about {ref}`dtoolkit.transformer <transformer>`.
+In this tutorial we've a quickly glance about {mod}`dtoolkit.transformer`.
 
 And the next steps, should learn about other transformers,
 see documentation on {ref}`Transformer API <transformer>`.
 If those transformers don't meet your requirements, you could build your own
-transformer, follow the documentation on {ref}`how-to-build-transformer`.
+transformer, follow the documentation on {ref}`how to build transformer`.

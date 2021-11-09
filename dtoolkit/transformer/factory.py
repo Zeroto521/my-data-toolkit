@@ -24,8 +24,7 @@ def methodtf_factory(
 
     Examples
     --------
-
-    .. code-block:: python
+    In your library code::
 
         from __future__ import annotations
 
@@ -52,14 +51,23 @@ def methodtf_factory(
         PlusTF = methodtf_factory(plus_constant, minus_constant)
 
 
-        # Use this transformer:
+    Back in an interactive IPython session, use this transformer:
 
-        a = np.array([1, 2, 3])
-        tf = PlusTF(1).update_invargs(1)
-        tf.transform(a)
-        # [2 3 4]
-        tf.inverse_transform(a)
-        # [0 1 2]
+    .. code-block:: ipython
+
+        In [1]: import numpy as np
+
+        In [2]: a = np.array([1, 2, 3])
+
+        In [3]: tf = PlusTF(1).update_invargs(1)
+
+        In [4]: tf.transform(a)
+        Out[4]:
+        [2 3 4]
+
+        In [5]: tf.inverse_transform(a)
+        Out[5]:
+        [0 1 2]
     """
 
     if not isfunction(transform_method):

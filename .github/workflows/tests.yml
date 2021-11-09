@@ -5,9 +5,6 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-  schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch:
 
 jobs:
   tests:
@@ -21,9 +18,9 @@ jobs:
         os: [macos-latest, windows-latest]
         dev: [false]
         env:
-          - ci/envs/37.yaml
-          - ci/envs/38.yaml
-          - ci/envs/39.yaml
+          - ci/envs/37-latest.yaml
+          - ci/envs/38-latest.yaml
+          - ci/envs/39-latest.yaml
           - ci/envs/310.yaml
         include:
           - env: ci/envs/37-minimal.yaml
@@ -32,12 +29,9 @@ jobs:
           - env: ci/envs/38-minimal.yaml
             os: ubuntu-latest
             dev: false
-          - env: ci/envs/38.yaml
+          - env: ci/envs/38-latest.yaml
             os: ubuntu-latest
             dev: false
-          - env: ci/envs/38-dev.yaml
-            os: ubuntu-latest
-            dev: true
           - env: ci/envs/39-minimal.yaml
             os: ubuntu-latest
             dev: false
@@ -57,7 +51,7 @@ jobs:
         run: make test
 
       - name: Test Docstrings
-        if: contains(matrix.env, '38.yaml') && contains(matrix.os, 'ubuntu')
+        if: contains(matrix.env, '38-latest.yaml') && contains(matrix.os, 'ubuntu')
         run: make doctest
 
       - name: Code Coverage

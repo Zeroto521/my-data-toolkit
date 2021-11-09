@@ -1,11 +1,10 @@
-(workflow)=
-# Data Visual Modeling: `Workflow`
+# Data Visual Modeling: Workflow
 
 :::{note}
 `Workflow` is an idea at present.
 :::
 
-## What is the `Workflow`?
+## What is the Workflow?
 
 `Workflow` is the visual programming, it can help us change the way of work from writing code to dragging components. The following graphs show some software I have met. And each of them is facing a specific field.
 
@@ -44,11 +43,11 @@ If you know about them, you would get the programming experience is totally diff
 
 ## Question & Answer
 
-### How Do `Pipeline` with `Workflow`?
+### How Do Pipeline with Workflow?
 
 The `Pipeline` could be the engine of `Workflow`, and `Workflow` is the `UI` of `Pipeline`.
 
-### How Do `Workflow` with `AutoML`?
+### How Do Workflow with AutoML?
 
 `Workflow` is the human intelligence, `AutoML` is the machine intelligence.
 
@@ -70,11 +69,11 @@ There are a lot of `Data Analysis` tools could do `Data Visualization`, `Data An
 
 But `Data Preprocessing` still needs to write code.
 
-## A Example of `Workflow`
+## A Example of Workflow
 
-![Store data pipeline](../_static/store-data-pipeline.png)
+![Store data pipeline](../_static/store-data-pipeline.svg)
 
-This is a store data complete pipeline what we have seen at {ref}`Transformer and Pipeline Quickstart <further-more-steps-to-pipeline>`.
+This is a store data complete pipeline what we have seen at {ref}`further more steps to pipeline`.
 
 All jobs in `Pipeline`, from `Data Cleaning` to `Data Preprocessing`, from `Feature Engineering` to `Regression`.
 

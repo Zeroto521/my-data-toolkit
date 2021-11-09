@@ -1,5 +1,37 @@
 # Changelog
 
+## [Version 0.0.4] (2021-11-8)
+
+Highlights of this release:
+
+- Let GeoPandas also has Pandas accessor function ({pr}`261`, {pr}`265`, {pr}`266`, {pr}`268`, {pr}`271`, {pr}`273`, {pr}`275`, {pr}`276`, {pr}`280`, {pr}`281`).
+- DToolKit requires Pandas >= 1.1.3 to support Python 3.9 ({pr}`254`).
+
+New features and improvements:
+
+- New accessor {meth}`dtoolkit.accessor.series.expand` and {meth}`dtoolkit.accessor.dataframe.expand` ({pr}`252`, {pr}`279`).
+- Add a new option `element` for {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
+- Let {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
+
+API changes:
+
+- Keep snake name style, `dropinf` -> `drop_inf` and `filterin` -> `filter_in` ({pr}`249`, {pr}`253`).
+- Add {keyword}`DeprecationWarning` for {mod}`toolkit.geogarphy` ({pr}`274`).
+
+Maintenance development:
+
+- Only publish `.tar` file ({pr}`246`).
+- Use `artifact` to save sdist to fix different CI jobs that can't exchange data problems ({pr}`242`).
+
+Documentation:
+
+- Use `sphinx.ext.autosectionlabel` to add anchor ({pr}`272`).
+- Start to use IPython Sphinx Directive ({pr}`258`, {pr}`259`, {pr}`260`).
+- Drop python module index html page ({pr}`256`).
+- Fix these doc doesn't exist in dtoolkit ({pr}`244`).
+- Fix documentation building environment ({pr}`243`).
+- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
+
 ## [Version 0.0.3] (2021-10-21)
 
 New features and improvements:
@@ -9,12 +41,12 @@ New features and improvements:
 
 Documentation:
 
-- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/latest/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
-- Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/latest/guide/automl.html) ({pr}`236`, {pr}`237`).
+- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
+- Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/automl.html) ({pr}`236`, {pr}`237`).
 - Update the description of dtoolkit ({pr}`234`, {pr}`241`).
 - Add an introduction for {meth}`~dtoolkit.transformer` ({pr}`232`, {pr}`233`).
-- Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/latest/py-modindex.html) ({pr}`231`).
-- Add an introduction for {meth}`~dtoolkit.geography.geographic_buffer`, see [What is the Geographic Buffer?](https://my-data-toolkit.readthedocs.io/en/latest/guide/geographic_buffer.html) ({pr}`229`).
+- Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/v0.0.3/py-modindex.html) ({pr}`231`).
+- Add an introduction for {meth}`~dtoolkit.geography.geographic_buffer`, see [What is the Geographic Buffer?](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/geographic_buffer.html) ({pr}`229`).
 - Let class method doc could show ({pr}`226`).
 - Add `CHANGELOG.md` file ({pr}`222`).
 - Change API URL, from `reference/api/geography/dtoolkit.geography.geographic_buffer.html` to `reference/api/dtoolkit.geography.geographic_buffer.html` ({pr}`225`).
@@ -72,5 +104,6 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.4]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.3...v0.0.4
 [Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
 [Version 0.0.2]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.1...v0.0.2

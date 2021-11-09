@@ -13,7 +13,7 @@ from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as series_cols
-from dtoolkit.accessor.series import expand as series_expand  # noqa
+from dtoolkit.accessor.series import expand as series_expand
 from dtoolkit.accessor.series import top_n as series_top_n
 
 
@@ -80,8 +80,8 @@ def drop_inf(
 
     See Also
     --------
-    dtoolkit.accessor.series.drop_inf : :obj:`~pandas.Series` drops ``inf``
-        values.
+    dtoolkit.accessor.series.drop_inf
+        :obj:`~pandas.Series` drops ``inf`` values.
 
     Examples
     --------
@@ -222,10 +222,11 @@ def filter_in(
 
     See Also
     --------
-    pandas.DataFrame.isin : Whether each element in the DataFrame is contained
-        in values.
-    pandas.DataFrame.filter : Subset the dataframe rows or columns according
-        to the specified index labels.
+    pandas.DataFrame.isin
+        Whether each element in the DataFrame is contained in values.
+    pandas.DataFrame.filter
+        Subset the dataframe rows or columns according to the specified index
+        labels.
 
     Examples
     --------
@@ -448,8 +449,8 @@ def top_n(
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
-        a column.
+    dtoolkit.accessor.dataframe.expand
+        Transform each element of a list-like to a column.
 
     Notes
     -----
@@ -532,51 +533,49 @@ def top_n(
 
 
 @register_dataframe_method
-def expand(
-    df: pd.DataFrame,
-    suffix: list | None = None,
-    delimiter: str = "_",
-) -> pd.DataFrame:
-    """
-    Transform each element of a list-like to a **column**.
-
-    .. image:: ../../../../_static/expand-vs-explode.svg
-        :width: 80%
-        :align: center
-
-    Parameters
-    ----------
-    suffix : list of str, default None
-        New columns of return :class:`~pandas.DataFrame`.
-
-    delimiter : str, default "_"
-        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
-
-    Returns
-    -------
-    DataFrame
-        The structure of new column name is ``{column name}{delimiter}{suffix}``.
-
+@doc(
+    series_expand,
+    see_also=dedent(
+        """
     See Also
     --------
-    dtoolkit.accessor.series.expand : Transform each element of a list-like to a column.
-    pandas.DataFrame.explode : Transform each element of a list-like to a row.
-
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+    pandas.DataFrame.explode
+        Transform each element of a list-like to a row.
+    """,
+    ),
+    examples=dedent(
+        """
     Examples
     --------
     >>> from dtoolkit.accessor.dataframe import expand
     >>> import pandas as pd
+    >>> import numpy as np
 
     Expand the *list-like* element.
 
-    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", 3), ("b", 4)]})
+    >>> df = pd.DataFrame({'A': [[0, 1, 2], 'foo', [], [3, 4]],
+    ...                    'B': 1,
+    ...                    'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']]})
     >>> df.expand()
-       col1  col2_0  col2_1
-    0     1       a       3
-    1     2       b       4
+        A_0  A_1  A_2  B   C_0   C_1   C_2
+    0     0  1.0  2.0  1     a     b     c
+    1   foo  NaN  NaN  1   NaN  None  None
+    2  None  NaN  NaN  1  None  None  None
+    3     3  4.0  NaN  1     d     e  None
+
+    Expand *sub-element* type is list-like.
+
+    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", "b"), (3, (5, 6))]})
+    >>> df.expand(flatten=True)
+       col1 col2_0 col2_1  col2_2
+    0     1      a      b     NaN
+    1     2      3      5     6.0
 
     Set the columns of name.
 
+    >>> df = pd.DataFrame({"col1": [1, 2], "col2": [("a", 3), ("b", 4)]})
     >>> df.expand(suffix=["index", "value"], delimiter="-")
        col1  col2-index  col2-value
     0     1           a           3
@@ -593,12 +592,21 @@ def expand(
        col1  col2_a  col2_b  col2_c
     0     1       3       4     NaN
     1     2       5       6     7.0
-    """
+    """,
+    ),
+)
+def expand(
+    df: pd.DataFrame,
+    suffix: list | None = None,
+    delimiter: str = "_",
+    flatten: bool = False,
+) -> pd.DataFrame:
 
     result = (
         df.get(column).expand(
             suffix=suffix,
             delimiter=delimiter,
+            flatten=flatten,
         )
         for column in df.columns
     )

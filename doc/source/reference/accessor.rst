@@ -10,10 +10,11 @@ Series Accessor
     :toctree: api/
 
     cols
-    drop_inf
+    lens
     bin
-    top_n
     expand
+    drop_inf
+    top_n
 
 
 DataFrame Accessor
@@ -23,15 +24,15 @@ DataFrame Accessor
     :toctree: api/
 
     cols
+    expand
     drop_inf
     filter_in
     repeat
     top_n
-    expand
 
 
-Register
---------
+Pandas Method Register
+----------------------
 .. currentmodule:: dtoolkit.accessor.register
 .. autosummary::
     :toctree: api/

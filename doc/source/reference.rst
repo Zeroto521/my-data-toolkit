@@ -10,5 +10,5 @@ functions and methods implemented in DToolKit.
 
     Accessor <reference/accessor>
     Transformer <reference/transformer>
-    Geography <reference/geography>
+    GeoAccessor <reference/geoaccessor>
     Utility <reference/utility>

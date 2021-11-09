@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+from itertools import chain
 from textwrap import dedent
 
 import numpy as np
 import pandas as pd
-from more_itertools import flatten
 from pandas.util._decorators import doc
 from scipy.sparse import csr_matrix
 from sklearn.pipeline import _name_estimators
@@ -27,8 +27,8 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
     See Also
     --------
-    make_union : Convenience function for simplified feature union
-        construction.
+    make_union
+        Convenience function for simplified feature union construction.
 
     Notes
     -----
@@ -66,8 +66,8 @@ def make_union(
 
     See Also
     --------
-    FeatureUnion : Class for concatenating the results of multiple transformer
-        objects.
+    FeatureUnion
+        Class for concatenating the results of multiple transformer objects.
 
     Notes
     -----
@@ -269,7 +269,8 @@ class OneHotEncoder(SKOneHotEncoder):
             """
         Notes
         -----
-        This would let :obj:`~pandas.DataFrame` out.""",
+        This would let :obj:`~pandas.DataFrame` out.
+        """,
         ),
     )
     def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:
@@ -279,7 +280,7 @@ class OneHotEncoder(SKOneHotEncoder):
             categories = (
                 self.get_feature_names(X.cols())
                 if self.categories_with_parent
-                else flatten(self.categories_)
+                else chain.from_iterable(self.categories_)
             )
 
             return pd.DataFrame(X_new, columns=categories)

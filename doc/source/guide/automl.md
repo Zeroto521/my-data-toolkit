@@ -1,11 +1,8 @@
-(automl)=
-# Automated `Pipeline`: `AutoML`
+# Automated Pipeline: AutoML
 
 :::{note}
 `AutoML` is an idea at present.
 :::
-
-It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
 
 `AutoML` (*Automated Machine Learning*) tries to let automatically finish the following tasks:
 
@@ -15,9 +12,11 @@ It tries to use `Optimization` algorithms to optimize the selection of `ML` and 
 - `Algorithm Selection`
 - `Hyperparameter Optimization`
 
-## What Could `AutoML` Do Now?
+## What Could AutoML Do Now?
 
 {math}`AutoML \xleftarrow{OptimizationAlgorithm} Feature Engineering Pipeline + ML Pipeline`
+
+It tries to use `Optimization` algorithms to optimize the selection of `ML` and the parameters of `ML`.
 
 - Part of `Feature Engneering`
 - `Algorithm Selection`
@@ -34,9 +33,14 @@ To build the bridge for `GA` (*Genetic Algorithm*), {class}`dtoolkit.transformer
 
 As for `Feature Engineering`, part of them could be automated. `Feature Engineering` will face more problems when it is automated. The big problem is the sequence and the combination of `Feature Engineering` plugins in a pipeline is arbitrary.
 
-![Basic AutoML workflow](../_static/basic-automl-workflow.png)
+![Basic AutoML workflow](../_static/basic-automl-workflow.svg)
 
-## What Would `AutoML` Do via `Pipeline`?
+## What Would AutoML Do via Pipeline?
+
+The time cost of the modeling procedure is like an inverted pyramid.
+`Data Preprocessing` would spend double or more times of `Feature Engineering` and `Machine Learning`.
+
+![Time cost](../_static/time-cost.svg)
 
 Base the idea of {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` we could transform our data preprocessing script into a standard plugin.
 
@@ -56,4 +60,4 @@ For `GA`, just like genes don't always work up alone, they could also work up to
 
 {math}`AutoML \xleftarrow[Strategy]{Optimization Algorithm} Data Preprocessing Pipeline + Feature Engineering Pipeline + ML Pipeline`
 
-![Complete AutoML workflow](../_static/complete-automl-workflow.png)
+![Complete AutoML workflow](../_static/complete-automl-workflow.svg)
