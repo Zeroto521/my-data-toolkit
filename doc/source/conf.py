@@ -19,6 +19,11 @@ import sys
 import dtoolkit
 
 version = release = dtoolkit.__version__
+if "+" in version:
+    version, remainder = release.split("+")
+    if not remainder.startswith("0"):
+        version = version + ".dev+" + remainder.split(".")[0]
+
 
 project = "DToolKit"
 copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
