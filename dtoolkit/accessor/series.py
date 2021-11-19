@@ -38,7 +38,7 @@ def cols(s: pd.Series) -> str:
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import cols
+    >>> import dtoolkit.accessor
     >>> from dtoolkit.accessor.series import cols
     >>> import pandas as pd
 
