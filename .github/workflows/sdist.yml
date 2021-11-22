@@ -48,6 +48,4 @@ jobs:
           python -m pip install dist/*.gz
 
       - name: Import dtoolkit
-        run: |
-          cd ..
-          make info
+        run: make info
