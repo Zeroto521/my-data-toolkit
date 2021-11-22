@@ -12,6 +12,11 @@ from dtoolkit._typing import SeriesOrFrame
 def register_method_factory(register_accessor):
     """
     Decrease the same things via factory pattern.
+
+    See Also
+    --------
+    register_series_method
+    register_dataframe_method
     """
 
     # based on pandas_flavor/register.py

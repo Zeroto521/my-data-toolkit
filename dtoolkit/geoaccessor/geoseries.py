@@ -102,8 +102,8 @@ def geobuffer(
         """
     Examples
     --------
+    >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from dtoolkit.geoaccessor.geoseries import count_coordinates
     >>> s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "LINESTRING (2 2, 4 4)", None])
     >>> s
     0                          POINT (0.00000 0.00000)
@@ -147,8 +147,8 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
         """
     Examples
     --------
+    >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from dtoolkit.geoaccessor.geoseries import get_coordinates
     >>> s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "LINESTRING (2 2, 4 4)", None])
     >>> s
     0                          POINT (0.00000 0.00000)

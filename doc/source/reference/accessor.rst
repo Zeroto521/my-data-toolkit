@@ -37,5 +37,6 @@ Pandas Method Register
 .. autosummary::
     :toctree: api/
 
+    register_method_factory
     register_series_method
     register_dataframe_method

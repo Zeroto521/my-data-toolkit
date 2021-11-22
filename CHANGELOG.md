@@ -16,7 +16,7 @@ New features and improvements:
 API changes:
 
 - Keep snake name style, `dropinf` -> `drop_inf` and `filterin` -> `filter_in` ({pr}`249`, {pr}`253`).
-- Add {keyword}`DeprecationWarning` for {mod}`toolkit.geogarphy` ({pr}`274`).
+- Add `DeprecationWarning` for {mod}`toolkit.geogarphy` ({pr}`274`).
 
 Maintenance development:
 
