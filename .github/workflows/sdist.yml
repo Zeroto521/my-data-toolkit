@@ -50,8 +50,7 @@ jobs:
       - name: Import dtoolkit
         run: |
           cd ..
-          conda list
-          python -c "import dtoolkit; print(dtoolkit.__version__);"
+          make info
 
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@v1.4.1
