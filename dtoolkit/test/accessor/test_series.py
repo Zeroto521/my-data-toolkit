@@ -333,6 +333,19 @@ class TestErrorReport:
                     },
                 ),
             ),
+            # test name
+            (
+                pd.Series([1, 2], name="x"),
+                pd.Series([2, 1], name="y"),
+                pd.DataFrame(
+                    {
+                        "x": [1, 2],
+                        "y": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                ),
+            ),
             # predicted is array-like type
             (
                 pd.Series([1, 2]),
