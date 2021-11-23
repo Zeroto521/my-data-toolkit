@@ -417,7 +417,7 @@ def top_n(
 
     largest : bool, default True
         - True, the top is the largest.
-        - True, the top is the smallest.
+        - False, the top is the smallest.
 
     keep : {"first", "last", "all"}, default "first"
         Where there are duplicate values:
