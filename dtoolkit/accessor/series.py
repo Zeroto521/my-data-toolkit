@@ -207,11 +207,26 @@ def top_n(
     :meth:`~pandas.Series.nlargest` and :meth:`~pandas.Series.nsmallest`
     methods.
 
-    Except `largest` other parameters is same to
-    :meth:`~pandas.Series.nlargest`.
+    Parameters
+    ----------
+    n : int
+        Number of top to return.
 
-    - If `largest` is True, use :meth:`~pandas.Series.nlargest`
-    - If `largest` is False, use :meth:`~pandas.Series.nsmallest`
+    largest : bool, default True
+        - True, the top is the largest.
+        - True, the top is the smallest.
+
+    keep : {"first", "last", "all"}, default "first"
+        Where there are duplicate values:
+
+        - first : prioritize the first occurrence(s).
+        - last : prioritize the last occurrence(s).
+        - all : do not drop any duplicates, even it means selecting more than
+          n items.
+
+    Returns
+    -------
+    Series
 
     See Also
     --------
