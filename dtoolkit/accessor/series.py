@@ -39,7 +39,6 @@ def cols(s: pd.Series) -> str:
     Examples
     --------
     >>> import dtoolkit.accessor
-    >>> from dtoolkit.accessor.series import cols
     >>> import pandas as pd
 
     Get :attr:`~pandas.Series.name`.
@@ -91,7 +90,7 @@ def drop_inf(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import drop_inf
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
     >>> s = pd.Series([1., 2., np.inf])
@@ -150,7 +149,7 @@ def bin(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import bin
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Create **score** samples:
@@ -242,7 +241,7 @@ def top_n(
         """
     Examples
     --------
-    >>> from dtoolkit.accessor.series import expand
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Expand the *list-like* element.
@@ -363,7 +362,7 @@ def lens(s: pd.Series) -> pd.Series:
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import lens
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
     >>> s.lens()
