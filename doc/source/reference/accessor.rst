@@ -15,6 +15,7 @@ Series Accessor
     expand
     drop_inf
     top_n
+    error_report
 
 
 DataFrame Accessor
