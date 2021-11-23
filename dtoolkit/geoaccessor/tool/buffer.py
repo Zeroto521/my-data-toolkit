@@ -36,7 +36,7 @@ def geographic_buffer(
 
     Returns
     -------
-    {klass}
+    Geometry or None
 
     See Also
     --------
