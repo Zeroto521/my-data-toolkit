@@ -38,7 +38,7 @@ def get_config():
     # _version.py
     cfg = VersioneerConfig()
     cfg.VCS = "git"
-    cfg.style = "pep440"
+    cfg.style = "pep440-old"
     cfg.tag_prefix = "v"
     cfg.parentdir_prefix = "dtoolkit-"
     cfg.versionfile_source = "dtoolkit/_version.py"
@@ -356,7 +356,7 @@ def git_pieces_from_vcs(tag_prefix, root, verbose, runner=run_command):
             if verbose:
                 fmt = "tag '%s' doesn't start with prefix '%s'"
                 print(fmt % (full_tag, tag_prefix))
-            pieces["error"] = "tag '{}' doesn't start with prefix '{}'".format(
+            pieces["error"] = "tag '%s' doesn't start with prefix '%s'" % (
                 full_tag,
                 tag_prefix,
             )
