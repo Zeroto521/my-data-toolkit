@@ -1,9 +1,10 @@
-import pandas as pd
-import pytest
-
 from test.transformer import array
 from test.transformer import df_iris
 from test.transformer import s
+
+import pandas as pd
+import pytest
+
 from dtoolkit.transformer import RavelTF
 
 

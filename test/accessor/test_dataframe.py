@@ -3,6 +3,7 @@ from test.accessor import d
 import numpy as np
 import pandas as pd
 import pytest
+
 from dtoolkit.accessor.dataframe import drop_inf  # noqa
 from dtoolkit.accessor.dataframe import filter_in  # noqa
 from dtoolkit.accessor.dataframe import repeat  # noqa

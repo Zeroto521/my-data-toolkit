@@ -1,3 +1,9 @@
+from test.transformer import df_iris
+from test.transformer import df_label
+from test.transformer import df_mixed
+from test.transformer import feature_names
+from test.transformer import s
+
 import joblib
 import pandas as pd
 import pytest
@@ -6,11 +12,6 @@ from sklearn.pipeline import make_pipeline
 
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
-from test.transformer import df_iris
-from test.transformer import df_label
-from test.transformer import df_mixed
-from test.transformer import feature_names
-from test.transformer import s
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
 from dtoolkit.transformer import FeatureUnion
