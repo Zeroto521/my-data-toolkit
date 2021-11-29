@@ -46,7 +46,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
                    where                                           geometry
     0   close to equator  POLYGON ((122.00156 55.00000, 122.00156 54.999...
     1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
-    """
+    """,
     ),
 )
 def geobuffer(
@@ -57,7 +57,7 @@ def geobuffer(
     **kwargs,
 ) -> gpd.GeoDataFrame:
     return df.assign(
-        geometry=df.geometry.geobuffer(distance, crs=crs, epsg=epsg, **kwargs)
+        geometry=df.geometry.geobuffer(distance, crs=crs, epsg=epsg, **kwargs),
     )
 
 

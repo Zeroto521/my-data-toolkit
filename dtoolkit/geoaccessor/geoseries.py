@@ -42,7 +42,7 @@ from dtoolkit.geoaccessor.tool import geographic_buffer
     0    POLYGON ((122.00156 55.00000, 122.00156 54.999...
     1    POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     dtype: geometry
-    """
+    """,
     ),
 )
 def geobuffer(
