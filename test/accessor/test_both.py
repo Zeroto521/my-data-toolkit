@@ -1,9 +1,10 @@
+from test.accessor import d
+from test.accessor import s
+
 import pytest
 
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
-from dtoolkit.test.accessor import d
-from dtoolkit.test.accessor import s
 
 
 @pytest.mark.parametrize(

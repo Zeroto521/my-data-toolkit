@@ -1,7 +1,8 @@
+from test.transformer import array
+from test.transformer import df_iris
+
 import pytest
 
-from dtoolkit.test.transformer import array
-from dtoolkit.test.transformer import df_iris
 from dtoolkit.transformer._util import transform_array_to_frame
 
 

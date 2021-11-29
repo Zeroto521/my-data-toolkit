@@ -3,7 +3,5 @@ include README.md
 include versioneer.py
 include dtoolkit/_version.py
 
-recursive-include test *
-
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
