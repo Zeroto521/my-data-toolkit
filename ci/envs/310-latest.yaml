@@ -5,11 +5,13 @@ dependencies:
   - python=3.10
   # required
   - pandas
-  - geopandas
   - scikit-learn
-  - more-itertools
+  - geopandas
+  - pygeos
   # testing
   - pytest
   - pytest-cov
   - pytest-xdist
   - codecov
+  # doctest testing
+  - pytest-doctestplus
