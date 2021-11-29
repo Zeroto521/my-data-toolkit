@@ -87,6 +87,6 @@ But what if we build a lot of mapping relationships and then combine them togeth
 
 In this way, CRS could totally describe the point in Earth.
 
-That is what the {meth}`dtoolkit.geoaccessor.geobuffer` method does.
+That is what the {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` method does.
 
 What's next? Try to use it.
