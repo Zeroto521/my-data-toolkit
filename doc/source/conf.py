@@ -21,9 +21,10 @@ import dtoolkit
 version = release = dtoolkit.__version__
 
 project = "DToolKit"
-copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
 author = "Zero <@Zeroto521>"
+copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -146,7 +147,7 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     fn = os.path.relpath(fn, start=os.path.dirname(dtoolkit.__file__))
 
     base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
-    if "+" in version:
+    if "post" in version:
         return base_link.format(branch="master")
 
     return base_link.format(branch=f"v{version}")

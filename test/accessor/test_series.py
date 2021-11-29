@@ -1,12 +1,14 @@
+from test.accessor import s
+from test.accessor import s_inf
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from dtoolkit.accessor.series import bin  # noqa
 from dtoolkit.accessor.series import drop_inf  # noqa
+from dtoolkit.accessor.series import error_report  # noqa
 from dtoolkit.accessor.series import top_n  # noqa
-from dtoolkit.test.accessor import s
-from dtoolkit.test.accessor import s_inf
 
 
 class TestDropinf:
@@ -313,3 +315,122 @@ class TestExpand:
         result = s.expand()
 
         assert s is result
+
+
+class TestErrorReport:
+    @pytest.mark.parametrize(
+        "true, predicted, excepted",
+        [
+            # both Series
+            (
+                pd.Series([1, 2]),
+                pd.Series([2, 1]),
+                pd.DataFrame(
+                    {
+                        "true": [1, 2],
+                        "predicted": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                ),
+            ),
+            # test name
+            (
+                pd.Series([1, 2], name="x"),
+                pd.Series([2, 1], name="y"),
+                pd.DataFrame(
+                    {
+                        "x": [1, 2],
+                        "y": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                ),
+            ),
+            # predicted is array-like type
+            (
+                pd.Series([1, 2]),
+                [2, 1],
+                pd.DataFrame(
+                    {
+                        "true": [1, 2],
+                        "predicted": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                ),
+            ),
+            # predicted is array-like type
+            (
+                pd.Series([1, 2]),
+                np.array([2, 1], dtype="int64"),
+                pd.DataFrame(
+                    {
+                        "true": [1, 2],
+                        "predicted": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                ),
+            ),
+            # true has index
+            (
+                pd.Series([1, 2], index=["a", "b"]),
+                pd.Series([2, 1], index=["a", "b"]),
+                pd.DataFrame(
+                    {
+                        "true": [1, 2],
+                        "predicted": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                    index=["a", "b"],
+                ),
+            ),
+            # true has index
+            (
+                pd.Series([1, 2], index=["a", "b"]),
+                [2, 1],
+                pd.DataFrame(
+                    {
+                        "true": [1, 2],
+                        "predicted": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                    index=["a", "b"],
+                ),
+            ),
+            # true has index
+            (
+                pd.Series([1, 2], index=["a", "b"]),
+                np.array([2, 1], dtype="int64"),
+                pd.DataFrame(
+                    {
+                        "true": [1, 2],
+                        "predicted": [2, 1],
+                        "absolute error": [1, 1],
+                        "relative error": [1, 0.5],
+                    },
+                    index=["a", "b"],
+                ),
+            ),
+        ],
+    )
+    def test_work(self, true, predicted, excepted):
+        result = true.error_report(predicted)
+
+        assert result.equals(excepted)
+
+    @pytest.mark.parametrize(
+        "true, predicted, error",
+        [
+            # different lengths
+            (pd.Series([1, 2, 3]), pd.Series([2, 1]), IndexError),
+            # different indexes
+            (pd.Series([1, 2]), pd.Series([2, 1], index=["a", "b"]), IndexError),
+        ],
+    )
+    def test_error(self, true, predicted, error):
+        with pytest.raises(error):
+            true.error_report(predicted)

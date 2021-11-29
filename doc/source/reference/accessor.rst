@@ -15,6 +15,7 @@ Series Accessor
     expand
     drop_inf
     top_n
+    error_report
 
 
 DataFrame Accessor
@@ -37,5 +38,6 @@ Pandas Method Register
 .. autosummary::
     :toctree: api/
 
+    register_method_factory
     register_series_method
     register_dataframe_method

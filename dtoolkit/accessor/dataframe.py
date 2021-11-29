@@ -85,7 +85,7 @@ def drop_inf(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import drop_inf
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
     >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
@@ -230,7 +230,7 @@ def filter_in(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import filter_in
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
     ...                   index=['falcon', 'dog', 'cat'])
@@ -345,7 +345,7 @@ def repeat(
     Examples
     --------
     >>> import pandas as pd
-    >>> from dtoolkit.accessor.dataframe import repeat
+    >>> import dtoolkit.accessor
     >>> df = pd.DataFrame({'a': [1, 2], 'b':[3, 4]})
     >>> df
        a  b
@@ -417,7 +417,7 @@ def top_n(
 
     largest : bool, default True
         - True, the top is the largest.
-        - True, the top is the smallest.
+        - False, the top is the smallest.
 
     keep : {"first", "last", "all"}, default "first"
         Where there are duplicate values:
@@ -463,7 +463,7 @@ def top_n(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import top_n
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {
@@ -549,7 +549,7 @@ def top_n(
         """
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import expand
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
 

@@ -8,6 +8,7 @@ from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
@@ -38,8 +39,7 @@ def cols(s: pd.Series) -> str:
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import cols
-    >>> from dtoolkit.accessor.series import cols
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Get :attr:`~pandas.Series.name`.
@@ -91,7 +91,7 @@ def drop_inf(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import drop_inf
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
     >>> s = pd.Series([1., 2., np.inf])
@@ -150,7 +150,7 @@ def bin(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import bin
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Create **score** samples:
@@ -208,11 +208,26 @@ def top_n(
     :meth:`~pandas.Series.nlargest` and :meth:`~pandas.Series.nsmallest`
     methods.
 
-    Except `largest` other parameters is same to
-    :meth:`~pandas.Series.nlargest`.
+    Parameters
+    ----------
+    n : int
+        Number of top to return.
 
-    - If `largest` is True, use :meth:`~pandas.Series.nlargest`
-    - If `largest` is False, use :meth:`~pandas.Series.nsmallest`
+    largest : bool, default True
+        - True, the top is the largest.
+        - True, the top is the smallest.
+
+    keep : {"first", "last", "all"}, default "first"
+        Where there are duplicate values:
+
+        - first : prioritize the first occurrence(s).
+        - last : prioritize the last occurrence(s).
+        - all : do not drop any duplicates, even it means selecting more than
+          n items.
+
+    Returns
+    -------
+    Series
 
     See Also
     --------
@@ -242,7 +257,7 @@ def top_n(
         """
     Examples
     --------
-    >>> from dtoolkit.accessor.series import expand
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Expand the *list-like* element.
@@ -363,7 +378,7 @@ def lens(s: pd.Series) -> pd.Series:
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import lens
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
     >>> s.lens()
@@ -375,3 +390,60 @@ def lens(s: pd.Series) -> pd.Series:
     """
 
     return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
+
+
+@register_series_method
+def error_report(s: pd.Series, predicted: OneDimArray | list) -> pd.DataFrame:
+    """
+    Calculate absolute error and relative error of two columns.
+
+    Returns
+    -------
+    DataFrame
+        Return four columns and each represents `true value`, `predicted value`,
+        `absolute error`, and `relative error`.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series([1, 2, 3])
+    >>> s.error_report([3, 2, 1])
+       true  predicted  absolute error  relative error
+    0     1          3               2        2.000000
+    1     2          2               0        0.000000
+    2     3          1               2        0.666667
+    """
+
+    if len(s) != len(predicted):
+        raise IndexError(
+            "Length of 'predicted' doesn't match length of 'reference'.",
+        )
+
+    if isinstance(predicted, pd.Series):
+        if not s.index.equals(predicted.index):
+            raise IndexError(
+                "Index values of 'predicted' sequence doesn't "
+                "match index values of 'reference'.",
+            )
+    else:
+        predicted = pd.Series(predicted, index=s.index)
+
+    absolute_error = (predicted - s).abs()
+    relative_error = absolute_error / s
+
+    return pd.concat(
+        [
+            s,
+            predicted,
+            absolute_error,
+            relative_error,
+        ],
+        axis=1,
+        keys=[
+            s.name if s.name else "true",
+            predicted.name if predicted.name else "predicted",
+            "absolute error",
+            "relative error",
+        ],
+    )
