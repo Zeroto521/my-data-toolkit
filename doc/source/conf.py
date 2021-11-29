@@ -21,9 +21,10 @@ import dtoolkit
 version = release = dtoolkit.__version__
 
 project = "DToolKit"
-copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
 author = "Zero <@Zeroto521>"
+copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
+
 
 # -- General configuration ---------------------------------------------------
 
