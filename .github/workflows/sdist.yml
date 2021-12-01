@@ -40,7 +40,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: dtoolkit-sdist
-          python-version: "${{ matrix.python-version }}"
+          python-version: ${{ matrix.python-version }}
 
       - name: Install from sdist
         run: |
