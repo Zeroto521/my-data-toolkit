@@ -34,8 +34,8 @@ jobs:
       - name: Setup Conda and Install Environment
         uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: ${{ matrix.python-version }}
           environment-file: ${{ matrix.env }}
+          python-version: ${{ matrix.python-version }}
 
       - name: Check and Log Environment
         run: make info
