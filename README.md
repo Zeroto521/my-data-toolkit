@@ -10,7 +10,6 @@ See [documentation](https://my-data-toolkit.readthedocs.io/) for more informatio
 
 ## Dependencies
 
-See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
 DToolKit depends on the following packages:
 
 - Requirements
@@ -20,6 +19,8 @@ DToolKit depends on the following packages:
   - Scikit-learn (>= 0.24.0)
   - GeoPandas (>= 0.9.0)
   - PyGEOS (>= 0.8)
+
+See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
 
 ## Note
 
