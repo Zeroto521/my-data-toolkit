@@ -5,11 +5,21 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
-    paths-ignore:
-      - "doc/**"
 
 jobs:
+  skip-check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip-check.outputs.should-skip }}
+    steps:
+      - id: skip-check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          paths_ignore: '["doc/**"]'
+
   sdist:
+    needs: skip-check
+    if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
