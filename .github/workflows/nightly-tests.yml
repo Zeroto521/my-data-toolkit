@@ -22,6 +22,7 @@ jobs:
         env:
           - ci/envs/38-dev.yaml
           - ci/envs/39-dev.yaml
+          - ci/envs/310-dev.yaml
 
     steps:
       - uses: actions/checkout@v2
