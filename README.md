@@ -23,9 +23,3 @@ DToolKit depends on the following packages:
   - PyGEOS (>= 0.8)
 
 See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
-
-## Note
-
-DToolKit is under heavy development.
-While the available functionality should be stable and working correctly,
-it's still possible that APIs change in upcoming releases.
