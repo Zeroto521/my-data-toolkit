@@ -6,6 +6,8 @@
 [![Coverage Status](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/master/graph/badge.svg)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
 [![Documentation Status](https://readthedocs.org/projects/my-data-toolkit/badge/?version=latest)](https://my-data-toolkit.readthedocs.io/en/latest/?badge=latest)
 
+Face the engineering of data preprocessing.
+
 See [documentation](https://my-data-toolkit.readthedocs.io/) for more information.
 
 ## Dependencies
