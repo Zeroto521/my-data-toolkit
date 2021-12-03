@@ -6,11 +6,12 @@
 [![Coverage Status](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/master/graph/badge.svg)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
 [![Documentation Status](https://readthedocs.org/projects/my-data-toolkit/badge/?version=latest)](https://my-data-toolkit.readthedocs.io/en/latest/?badge=latest)
 
+Face the engineering of data preprocessing.
+
 See [documentation](https://my-data-toolkit.readthedocs.io/) for more information.
 
 ## Dependencies
 
-See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
 DToolKit depends on the following packages:
 
 - Requirements
@@ -21,8 +22,4 @@ DToolKit depends on the following packages:
   - GeoPandas (>= 0.9.0)
   - PyGEOS (>= 0.8)
 
-## Note
-
-DToolKit is under heavy development.
-While the available functionality should be stable and working correctly,
-it's still possible that APIs change in upcoming releases.
+See the [installation docs](https://my-data-toolkit.readthedocs.io/en/latest/guide/installation.html) for all details.
