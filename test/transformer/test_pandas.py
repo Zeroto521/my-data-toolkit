@@ -1,16 +1,16 @@
 from functools import partial
+from test.transformer import df_iris
+from test.transformer import df_label
+from test.transformer import df_mixed
+from test.transformer import df_period
+from test.transformer import feature_names
+from test.transformer import s
 
 import pandas as pd
 import pytest
 
 from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa
 from dtoolkit.accessor.series import cols as series_cols  # noqa
-from dtoolkit.test.transformer import df_iris
-from dtoolkit.test.transformer import df_label
-from dtoolkit.test.transformer import df_mixed
-from dtoolkit.test.transformer import df_period
-from dtoolkit.test.transformer import feature_names
-from dtoolkit.test.transformer import s
 from dtoolkit.transformer import AppendTF
 from dtoolkit.transformer import AssignTF
 from dtoolkit.transformer import DropTF

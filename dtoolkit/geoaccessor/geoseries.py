@@ -18,7 +18,33 @@ from dtoolkit.geoaccessor.tool import geographic_buffer
 
 
 @register_geoseries_method
-@doc(klass="GeoSeries", alias="s")
+@doc(
+    klass="GeoSeries",
+    alias="s",
+    examples=dedent(
+        """
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import geopandas as gpd
+    >>> from shapely.geometry import Point
+    >>> s = gpd.GeoSeries(
+    ...     [
+    ...         Point(122, 55),
+    ...         Point(100, 1),
+    ...     ]
+    ... )
+    >>> s
+    0    POINT (122.00000 55.00000)
+    1    POINT (100.00000  1.00000)
+    dtype: geometry
+    >>> s.geobuffer(100)
+    0    POLYGON ((122.00156 55.00000, 122.00156 54.999...
+    1    POLYGON ((100.00090 1.00000, 100.00089 0.99991...
+    dtype: geometry
+    """,
+    ),
+)
 def geobuffer(
     s: gpd.GeoSeries,
     distance: int | float | list | OneDimArray,
@@ -72,6 +98,7 @@ def geobuffer(
         The core algorithm for creating geographic buffer.
     shapely.geometry.base.BaseGeometry.buffer
         https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
+    {examples}
     """
 
     if is_int_or_float(distance):

@@ -42,7 +42,7 @@ lint:
 	pre-commit run -a -v
 
 test:
-	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report term-missing --cov-report xml dtoolkit
+	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report term-missing --cov-report xml test
 
 doctest:
 	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report xml --doctest-only dtoolkit

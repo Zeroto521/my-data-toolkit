@@ -21,9 +21,10 @@ import dtoolkit
 version = release = dtoolkit.__version__
 
 project = "DToolKit"
-copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
 author = "Zero <@Zeroto521>"
+copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -74,6 +75,17 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+
+# Add redirect for previously existing pages, each item is like `(from_old, to_new)`
+
+moved_pages = [
+    ("py-modindex", "reference"),
+]
+
+html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
+
+html_context = {"redirects": {old: new for old, new in moved_pages}}
 
 
 #  --Options for sphinx extensions -----------------------------------------------
@@ -146,7 +158,7 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     fn = os.path.relpath(fn, start=os.path.dirname(dtoolkit.__file__))
 
     base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
-    if "+" in version:
+    if "post" in version:
         return base_link.format(branch="master")
 
     return base_link.format(branch=f"v{version}")
