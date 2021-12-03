@@ -77,6 +77,17 @@ html_theme_options = {
 html_static_path = ["_static"]
 
 
+# Add redirect for previously existing pages, each item is like `(from_old, to_new)`
+
+moved_pages = [
+    ("py-modindex", "reference"),
+]
+
+html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
+
+html_context = {"redirects": {old: new for old, new in moved_pages}}
+
+
 #  --Options for sphinx extensions -----------------------------------------------
 
 # connect docs in other projects
