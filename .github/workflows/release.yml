@@ -11,6 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
+
       - uses: actions/setup-python@v2
 
       - name: Install Dependencies
@@ -48,6 +51,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
 
       - uses: actions/download-artifact@v2
         with:

@@ -1,3 +1,6 @@
+from test.accessor import s
+from test.accessor import s_inf
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -6,8 +9,6 @@ from dtoolkit.accessor.series import bin  # noqa
 from dtoolkit.accessor.series import drop_inf  # noqa
 from dtoolkit.accessor.series import error_report  # noqa
 from dtoolkit.accessor.series import top_n  # noqa
-from dtoolkit.test.accessor import s
-from dtoolkit.test.accessor import s_inf
 
 
 class TestDropinf:
