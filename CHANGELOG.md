@@ -1,5 +1,42 @@
 # Changelog
 
+## [Version 0.0.5] (2021-12-6)
+
+Highlights of this release:
+
+- Simplify methods of {mod}`dtoolkit.accessor` and {mod}`dtoolkit.geoaccessor` ({pr}`294`, {pr}`295`, {pr}`297`, {pr}`303`).
+- Use `TAG[.postDIST[.dev0]]` version style ({pr}`299`, {pr}`300`, {pr}`306`).
+- Remove test from release package ({pr}`307`).
+
+New features and improvements:
+
+- Add new method for Series, {meth}`~dtoolkit.accessor.series.error_reprot` ({pr}`304`).
+- Let {meth}`~dtoolkit.accessor.series.expand` support sub-element type is list-like ({pr}`283`).
+- Add new accessor {meth}`~dtoolkit.accessor.series.lens` ({pr}`282`).
+
+API changes:
+
+- Remove {mod}`toolkit.geogarphy` ({pr}`277`).
+
+Maintenance development:
+
+- Let CI fetch all git history to get correct version ({pr}`312`).
+- Add yaml file checker ({pr}`302`).
+- Update versioneer ({pr}`296`).
+- Bump version of pre-commit repos ({pr}`292`).
+- Publish to TestPyPI ({pr}`291`).
+- Adjust tests CI ({pr}`284`, {pr}`288`, {pr}`290`, {pr}`293`, {pr}`310`, {pr}`311`).
+- Create codeql analysis CI ({pr}`287`).
+- Add `.PHONY` into Makefile to avoid name conflict ({pr}`285`).
+- Gather information into setup.cfg ({pr}`298`).
+
+Documentation:
+
+- Redirect py-modindex.html to reference.html ({pr}`314`).
+- Update Readme file ({pr}`313`).
+- Add documentation for generating geographic buffer methods ({pr}`308`).
+- Complete {meth}`~dtoolkit.accessor.series.top_n`'s documentation ({pr}`305`).
+
 ## [Version 0.0.4] (2021-11-8)
 
 Highlights of this release:
@@ -104,6 +141,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.5]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.4...v0.0.5
 [Version 0.0.4]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.3...v0.0.4
 [Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
 [Version 0.0.2]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.1...v0.0.2
