@@ -20,6 +20,8 @@ jobs:
       - run: versioneer install
       - run: git restore ./dtoolkit/__init__.py
 
+      - uses: pre-commit/action@v2.0.0
+
       - uses: actions/upload-artifact@v2
         with:
           path: versioneer.py
