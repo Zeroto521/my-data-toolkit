@@ -24,6 +24,15 @@ GeoDataFrame Accessor
     geobuffer
 
 
+DataFrame Accessor (to GeoPandas)
+---------------------------------
+.. currentmodule:: dtoolkit.geoaccessor.dataframe
+.. autosummary::
+    :toctree: api/
+
+    points_from_xy
+
+
 GeoPandas Base Accessor
 -----------------------
 .. currentmodule:: dtoolkit.geoaccessor.accessor
