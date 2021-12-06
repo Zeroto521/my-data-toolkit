@@ -73,7 +73,7 @@ def methodtf_factory(
         raise TypeError("'transform_method' must be a function.")
 
     if inverse_transform_method is not None and not isfunction(
-        inverse_transform_method
+        inverse_transform_method,
     ):
         raise TypeError("'inverse_transform_method' must be a function.")
 
