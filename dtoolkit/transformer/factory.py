@@ -72,7 +72,9 @@ def methodtf_factory(
     if not isfunction(transform_method):
         raise TypeError("'transform_method' must be a function.")
 
-    if inverse_transform_method is not None and not isfunction(inverse_transform_method):
+    if inverse_transform_method is not None and not isfunction(
+        inverse_transform_method
+    ):
         raise TypeError("'inverse_transform_method' must be a function.")
 
     classname = snake_to_camel(transform_method.__name__) + "TF"
