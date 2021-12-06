@@ -19,10 +19,8 @@ import sys
 import dtoolkit
 
 version = release = dtoolkit.__version__
-if "+" in version:
-    version, remainder = release.split("+")
-    if not remainder.startswith("0"):
-        version = version + ".dev+" + remainder.split(".")[0]
+version = version.replace(".dev0", "")
+version = version.replace(".post0", "")
 
 
 project = "DToolKit"
