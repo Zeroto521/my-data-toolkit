@@ -10,7 +10,7 @@ Highlights of this release:
 
 New features and improvements:
 
-- Add new method for Series, {meth}`~dtoolkit.accessor.series.error_reprot` ({pr}`304`).
+- Add new method for Series, {meth}`~dtoolkit.accessor.series.error_report` ({pr}`304`).
 - Let {meth}`~dtoolkit.accessor.series.expand` support sub-element type is list-like ({pr}`283`).
 - Add new accessor {meth}`~dtoolkit.accessor.series.lens` ({pr}`282`).
 
