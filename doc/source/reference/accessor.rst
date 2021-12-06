@@ -30,7 +30,6 @@ DataFrame Accessor
     filter_in
     repeat
     top_n
-    from_xy
 
 
 Pandas Method Register
