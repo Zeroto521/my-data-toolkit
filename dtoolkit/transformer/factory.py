@@ -71,18 +71,10 @@ def methodtf_factory(
     """
 
     if not isfunction(transform_method):
-        raise TypeError("transform_method must be a function.")
-    else:
-        transform_method = wraps(transform_method)(
-            staticmethod(transform_method),
-        )
+        raise TypeError("'transform_method' must be a function.")
 
-    if isfunction(inverse_transform_method):
-        inverse_transform_method = wraps(inverse_transform_method)(
-            staticmethod(inverse_transform_method),
-        )
-    elif inverse_transform_method is not None:
-        raise TypeError("inverse_transform_method must be a function.")
+    if not isfunction(inverse_transform_method):
+        raise TypeError("'inverse_transform_method' must be a function.")
 
     classname = snake_to_camel(transform_method.__name__) + "TF"
 
@@ -90,7 +82,7 @@ def methodtf_factory(
         classname,
         (MethodTF,),
         dict(
-            transform_method=transform_method,
-            inverse_transform_method=inverse_transform_method,
+            transform_method=staticmethod(transform_method),
+            inverse_transform_method=staticmethod(inverse_transform_method),
         ),
     )
