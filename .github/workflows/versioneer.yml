@@ -27,6 +27,7 @@ jobs:
       - uses: peter-evans/create-pull-request@v3
         with:
           commit-message: "BOT: versioneer autoupdate"
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: versioneer-update
           delete-branch: true
           base: master
