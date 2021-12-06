@@ -1,9 +1,10 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
-from shapely.geometry import Point
-from dtoolkit.geoaccessor.dataframe import points_from_xy  # noqa
 from pyproj.crs import CRSError
+from shapely.geometry import Point
+
+from dtoolkit.geoaccessor.dataframe import points_from_xy  # noqa
 
 
 class TestPointsFromXY:
@@ -182,7 +183,7 @@ class TestPointsFromXY:
                 "x": [122, 100, 0],
                 "y": [55, 1, 0],
                 "z": [0, 0, 0],
-            }
+            },
         )
 
         with pytest.raises(error):
