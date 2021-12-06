@@ -18,7 +18,7 @@ jobs:
 
       - run: python -m pip install --upgrade pip versioneer
       - run: versioneer install
-      - run: git restore ./dtoolkit/__init__.py
+      - run: git checkout -- dtoolkit/__init__.py
 
       - uses: pre-commit/action@v2.0.0
 
