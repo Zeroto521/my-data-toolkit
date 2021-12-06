@@ -1,0 +1,33 @@
+name: versioneer autoupdate
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *" # 1st day of each month at 00:00 UTC
+  push:
+    paths:
+      - "setup.cfg"
+      - ".github/workflows/versioneer.yml"
+
+jobs:
+  versioneer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+
+      - run: python -m pip install --upgrade pip versioneer
+      - run: versioneer install
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: versioneer.py
+
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: "BOT: versioneer autoupdate"
+          branch: versioneer-update
+          delete-branch: true
+          base: master
+          title: "BOT: versioneer autoupdate"
+          body: New versioneer released, changelogs see [NEWS](https://github.com/python-versioneer/python-versioneer/blob/master/NEWS.md).
