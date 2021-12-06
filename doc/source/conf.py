@@ -19,6 +19,9 @@ import sys
 import dtoolkit
 
 version = release = dtoolkit.__version__
+version = version.replace(".dev0", "")
+version = version.replace(".post0", "")
+
 
 project = "DToolKit"
 author = "Zero <@Zeroto521>"
