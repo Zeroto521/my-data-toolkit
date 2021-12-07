@@ -319,16 +319,17 @@ class TestExpand:
 
 class TestErrorReport:
     @pytest.mark.parametrize(
-        "true, predicted, excepted",
+        "true, predicted, columns, excepted",
         [
             # both Series
             (
                 pd.Series([1, 2]),
                 pd.Series([2, 1]),
+                None,
                 pd.DataFrame(
                     {
-                        "true": [1, 2],
-                        "predicted": [2, 1],
+                        "true value": [1, 2],
+                        "predicted value": [2, 1],
                         "absolute error": [1, 1],
                         "relative error": [1, 0.5],
                     },
@@ -338,6 +339,7 @@ class TestErrorReport:
             (
                 pd.Series([1, 2], name="x"),
                 pd.Series([2, 1], name="y"),
+                None,
                 pd.DataFrame(
                     {
                         "x": [1, 2],
@@ -347,14 +349,29 @@ class TestErrorReport:
                     },
                 ),
             ),
+            # test columns
+            (
+                pd.Series([1, 2], name="x"),
+                pd.Series([2, 1], name="y"),
+                ["a", "b", "c", "d"],
+                pd.DataFrame(
+                    {
+                        "a": [1, 2],
+                        "b": [2, 1],
+                        "c": [1, 1],
+                        "d": [1, 0.5],
+                    },
+                ),
+            ),
             # predicted is array-like type
             (
                 pd.Series([1, 2]),
                 [2, 1],
+                None,
                 pd.DataFrame(
                     {
-                        "true": [1, 2],
-                        "predicted": [2, 1],
+                        "true value": [1, 2],
+                        "predicted value": [2, 1],
                         "absolute error": [1, 1],
                         "relative error": [1, 0.5],
                     },
@@ -364,10 +381,11 @@ class TestErrorReport:
             (
                 pd.Series([1, 2]),
                 np.array([2, 1], dtype="int64"),
+                None,
                 pd.DataFrame(
                     {
-                        "true": [1, 2],
-                        "predicted": [2, 1],
+                        "true value": [1, 2],
+                        "predicted value": [2, 1],
                         "absolute error": [1, 1],
                         "relative error": [1, 0.5],
                     },
@@ -377,10 +395,11 @@ class TestErrorReport:
             (
                 pd.Series([1, 2], index=["a", "b"]),
                 pd.Series([2, 1], index=["a", "b"]),
+                None,
                 pd.DataFrame(
                     {
-                        "true": [1, 2],
-                        "predicted": [2, 1],
+                        "true value": [1, 2],
+                        "predicted value": [2, 1],
                         "absolute error": [1, 1],
                         "relative error": [1, 0.5],
                     },
@@ -391,10 +410,11 @@ class TestErrorReport:
             (
                 pd.Series([1, 2], index=["a", "b"]),
                 [2, 1],
+                None,
                 pd.DataFrame(
                     {
-                        "true": [1, 2],
-                        "predicted": [2, 1],
+                        "true value": [1, 2],
+                        "predicted value": [2, 1],
                         "absolute error": [1, 1],
                         "relative error": [1, 0.5],
                     },
@@ -405,10 +425,11 @@ class TestErrorReport:
             (
                 pd.Series([1, 2], index=["a", "b"]),
                 np.array([2, 1], dtype="int64"),
+                None,
                 pd.DataFrame(
                     {
-                        "true": [1, 2],
-                        "predicted": [2, 1],
+                        "true value": [1, 2],
+                        "predicted value": [2, 1],
                         "absolute error": [1, 1],
                         "relative error": [1, 0.5],
                     },
@@ -417,20 +438,23 @@ class TestErrorReport:
             ),
         ],
     )
-    def test_work(self, true, predicted, excepted):
-        result = true.error_report(predicted)
+    def test_work(self, true, predicted, columns, excepted):
+        result = true.error_report(predicted, columns=columns)
 
         assert result.equals(excepted)
 
     @pytest.mark.parametrize(
-        "true, predicted, error",
+        "true, predicted, columns, error",
         [
             # different lengths
-            (pd.Series([1, 2, 3]), pd.Series([2, 1]), IndexError),
+            (pd.Series([1, 2, 3]), pd.Series([2, 1]), None, IndexError),
             # different indexes
-            (pd.Series([1, 2]), pd.Series([2, 1], index=["a", "b"]), IndexError),
+            (pd.Series([1, 2]), pd.Series([2, 1], index=["a", "b"]), None, IndexError),
+            # test len(columns) != 4
+            (pd.Series([1, 2]), pd.Series([2, 1]), [], IndexError),
+            (pd.Series([1, 2]), pd.Series([2, 1]), range(5), IndexError),
         ],
     )
-    def test_error(self, true, predicted, error):
+    def test_error(self, true, predicted, columns, error):
         with pytest.raises(error):
-            true.error_report(predicted)
+            true.error_report(predicted, columns=columns)
