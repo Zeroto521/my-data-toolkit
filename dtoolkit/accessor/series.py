@@ -471,7 +471,6 @@ def error_report(
     elif len(columns) != 4:
         raise IndexError("The length of 'columns' is not equal to 4.")
 
-
     absolute_error = (predicted - s).abs()
     relative_error = absolute_error / s
 
