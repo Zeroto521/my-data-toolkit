@@ -1,4 +1,8 @@
 ci:
+  autofix_commit_msg: |
+    BOT: auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
   autoupdate_commit_msg: "BOT: pre-commit autoupdate"
 
 repos:
