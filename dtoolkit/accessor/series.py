@@ -393,15 +393,27 @@ def lens(s: pd.Series) -> pd.Series:
 
 
 @register_series_method
-def error_report(s: pd.Series, predicted: OneDimArray | list) -> pd.DataFrame:
+def error_report(
+    s: pd.Series,
+    predicted: OneDimArray | list,
+    columns: list | None = None,
+) -> pd.DataFrame:
     """
-    Calculate absolute error and relative error of two columns.
+    Calculate `absolute error` and `relative error` of two columns.
+
+    Parameters
+    ----------
+    predicted : list, ndarrray, Series
+        A array is compared to ``s``.
+    columns : list of str, default None
+        The columns of returning DataFrame, each represents `true value`,
+        `predicted value`, `absolute error`, and `relative error`.
 
     Returns
     -------
     DataFrame
-        Return four columns and each represents `true value`, `predicted value`,
-        `absolute error`, and `relative error`.
+        Return four columns DataFrame and each represents `true value`,
+        `predicted value`, `absolute error`, and `relative error`.
 
     Examples
     --------
@@ -409,10 +421,30 @@ def error_report(s: pd.Series, predicted: OneDimArray | list) -> pd.DataFrame:
     >>> import pandas as pd
     >>> s = pd.Series([1, 2, 3])
     >>> s.error_report([3, 2, 1])
-       true  predicted  absolute error  relative error
-    0     1          3               2        2.000000
-    1     2          2               0        0.000000
-    2     3          1               2        0.666667
+       true value  predicted value  absolute error  relative error
+    0           1                3               2        2.000000
+    1           2                2               0        0.000000
+    2           3                1               2        0.666667
+
+    If the name of ``s`` or ``predicted`` is not None, the columns of
+    ``error_report`` would use the name of ``s`` and ``predicted``.
+
+    >>> s = pd.Series([1, 2, 3], name="y")
+    >>> predicted = pd.Series([3, 2, 1], name="y predicted")
+    >>> s.error_report(predicted)
+       y  y predicted  absolute error  relative error
+    0  1            3               2        2.000000
+    1  2            2               0        0.000000
+    2  3            1               2        0.666667
+
+    If ``columns`` is not None, the columns of ``error_report`` would use it
+    firstly.
+
+    >>> s.error_report(predicted, columns=["a", "b", "c", "d"])
+       a  b  c         d
+    0  1  3  2  2.000000
+    1  2  2  0  0.000000
+    2  3  1  2  0.666667
     """
 
     if len(s) != len(predicted):
@@ -429,6 +461,17 @@ def error_report(s: pd.Series, predicted: OneDimArray | list) -> pd.DataFrame:
     else:
         predicted = pd.Series(predicted, index=s.index)
 
+    if columns is None:
+        columns = [
+            s.name or "true value",
+            predicted.name or "predicted value",
+            "absolute error",
+            "relative error",
+        ]
+    elif len(columns) != 4:
+        raise IndexError("The length of 'columns' is not equal to 4.")
+
+
     absolute_error = (predicted - s).abs()
     relative_error = absolute_error / s
 
@@ -440,10 +483,5 @@ def error_report(s: pd.Series, predicted: OneDimArray | list) -> pd.DataFrame:
             relative_error,
         ],
         axis=1,
-        keys=[
-            s.name if s.name else "true",
-            predicted.name if predicted.name else "predicted",
-            "absolute error",
-            "relative error",
-        ],
+        keys=columns,
     )
