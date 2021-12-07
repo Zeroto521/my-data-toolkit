@@ -43,8 +43,8 @@ def points_from_xy(
     geopandas.points_from_xy
     geopandas.GeoSeries.from_xy
 
-    Note
-    ----
+    Notes
+    -----
     This method is the accessor of DataFrame, not GeoDataFrame.
 
     Examples
