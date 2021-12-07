@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import Iterable
+from collections.abc import Iterable
 from textwrap import dedent
 
 import pandas as pd
