@@ -37,6 +37,11 @@ Documentation:
 - Add documentation for generating geographic buffer methods ({pr}`308`).
 - Complete {meth}`~dtoolkit.accessor.series.top_n`'s documentation ({pr}`305`).
 
+Contributors:
+
+- {user}`Zeroto521`
+- {user}`pre-commit-ci`
+
 ## [Version 0.0.4] (2021-11-8)
 
 Highlights of this release:
@@ -141,6 +146,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
 [Version 0.0.5]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.4...v0.0.5
 [Version 0.0.4]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.3...v0.0.4
 [Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
