@@ -29,7 +29,7 @@ def points_from_xy(
         ``df``'s column name.
     crs: str, optional
         Coordinate Reference System of the geometry objects. Can be anything
-        accepted by :meth:`~pyproj.CRS.from_user_input`, such as an authority
+        accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326") or a WKT string.
     drop: bool, default False
         Don't contain ``x``, ``y`` and ``z`` anymore.
@@ -43,8 +43,8 @@ def points_from_xy(
     geopandas.points_from_xy
     geopandas.GeoSeries.from_xy
 
-    Note
-    ----
+    Notes
+    -----
     This method is the accessor of DataFrame, not GeoDataFrame.
 
     Examples
