@@ -1,16 +1,16 @@
-# {class}`~dtoolkit.transformer.Transformer` and {class}`~sklearn.pipeline.Pipeline` Brief Description
+# Transformer and Pipeline Brief Description
 
 ![Real world Pipeline](https://cdn.pixabay.com/photo/2015/03/19/17/50/winter-681175_960_720.jpg)
 
 > Image by [Robson Machado](https://pixabay.com/photos/winter-alaska-pipeline-oil-snow-681175/)
 
-## What is {class}`~dtoolkit.transformer.Transformer`?
+## What is Transformer?
 
 The {class}`~dtoolkit.transformer.Transformer` is a protocol that defines the input port and output port.
 
 It is just like a **pipe** in the real world.
 
-![Transformer methods](../_static/transformer-methods.png)
+![Transformer methods](../_static/transformer-methods.svg)
 
 Direction:
 
@@ -22,7 +22,7 @@ Minimal methods require:
 - `transform` and `fit_transform` are necessary methods.
 - `fit` and `inverse_transform` are optional method.
 
-## What is {class}`~sklearn.pipeline.Pipeline`?
+## What is Pipeline?
 
 The {class}`~sklearn.pipeline.Pipeline` combines each port of {class}`~dtoolkit.transformer.Transformer` into a stream.
 
@@ -35,14 +35,14 @@ It is just like a real **pipeline** in the real world.
 
 > From [Python Machine Learning Book Chapter 6](https://nbviewer.org/github/rasbt/python-machine-learning-book/blob/master/code/ch06/ch06.ipynb)
 
-## What {class}`dtoolkit.transformer` does?
+## What transformer does?
 
 {class}`dtoolkit.transformer` does two things:
 
 - Let {class}`~pandas.DataFrame` as the basic data structure of {class}`~dtoolkit.transformer.Transformer`.
 - Transform all methods / algorithms into {class}`~dtoolkit.transformer.Transformer`.
 
-### {class}`~pandas.DataFrame` in and {class}`~pandas.DataFrame` out
+### DataFrame in and DataFrame out
 
 {class}`sklearn.base.TransformerMixin` let `array-like` in `array-like` out.
 
@@ -51,7 +51,7 @@ If we put a {class}`~pandas.DataFrame` into this pipeline and want to debug and 
 
 It is important to keep trace the data changing. So {class}`dtoolkit.transformer` would keep the {class}`~pandas.DataFrame` unchanged in stream, let {class}`~pandas.DataFrame` in and {class}`~pandas.DataFrame` out.
 
-![Transformer architecture](../_static/transformer-architecture.png)
+![Transformer architecture](../_static/transformer-architecture.svg)
 
 ### Engineering of Data Preprocessing
 
@@ -63,11 +63,11 @@ A surprise comes here. It can face to the engineering of data preprocessing.
 - {class}`~dtoolkit.transformer.Transformer` contains the processing or transforming methods.
 - {class}`~sklearn.pipeline.Pipeline` as the manager to control the running.
 
-![DToolKit for transformer](../_static/transformer-with-pipeline.png)
+![DToolKit for transformer](../_static/transformer-with-pipeline.svg)
 
 ## What's Next - Future Features
 
 There are two articles about some future features of `Transformer` and `Pipeline`.
 
-- {ref}`automl`
-- {ref}`workflow`
+- {ref}`Automated Pipeline: AutoML`
+- {ref}`Data Visual Modeling: Workflow`

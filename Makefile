@@ -1,4 +1,4 @@
-pkg = dtoolkit
+.PHONY : help clean lint test doctest dist info html
 
 help:
 	@echo "'clean' - remove all cached files"
@@ -10,7 +10,7 @@ help:
 	@echo "'lint' - lint source codes"
 	@echo "'dist' - build package"
 	@echo "'test' - run tests and check coverage"
-	@echo "'info' - show conda environment and $(pkg) information"
+	@echo "'info' - show conda environment and dtoolkit information"
 	@echo "'html' - build html documentation"
 
 clean-build:
@@ -42,10 +42,10 @@ lint:
 	pre-commit run -a -v
 
 test:
-	pytest -v -r a -n auto --color=yes --cov=$(pkg) --cov-append --cov-report term-missing --cov-report xml $(pkg)
+	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report term-missing --cov-report xml test
 
 doctest:
-	pytest -v -r a -n auto --color=yes --cov=$(pkg) --cov-append --cov-report xml --doctest-only $(pkg)
+	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report xml --doctest-only dtoolkit
 
 dist:
 	python setup.py sdist bdist_wheel
@@ -53,7 +53,7 @@ dist:
 
 info:
 	python -V
-	python -c "import $(pkg); print($(pkg).__version__)"
+	python -c "import pprint; from dtoolkit._version import get_versions; pprint.pprint(get_versions());"
 	conda info
 	conda list
 

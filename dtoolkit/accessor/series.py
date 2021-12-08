@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from textwrap import dedent
 
 import pandas as pd
@@ -7,6 +8,8 @@ from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit._typing import OneDimArray
+from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
 
@@ -36,8 +39,7 @@ def cols(s: pd.Series) -> str:
 
     Examples
     --------
-    >>> from dtoolkit.accessor.dataframe import cols
-    >>> from dtoolkit.accessor.series import cols
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Get :attr:`~pandas.Series.name`.
@@ -83,12 +85,13 @@ def drop_inf(
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.drop_inf : :obj:`~pandas.DataFrame` drops rows
-        or columns which contain ``inf`` values.
+    dtoolkit.accessor.dataframe.drop_inf
+        :obj:`~pandas.DataFrame` drops rows or columns which contain ``inf``
+        values.
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import drop_inf
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
     >>> s = pd.Series([1., 2., np.inf])
@@ -147,7 +150,7 @@ def bin(
 
     Examples
     --------
-    >>> from dtoolkit.accessor.series import bin
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Create **score** samples:
@@ -205,11 +208,26 @@ def top_n(
     :meth:`~pandas.Series.nlargest` and :meth:`~pandas.Series.nsmallest`
     methods.
 
-    Except `largest` other parameters is same to
-    :meth:`~pandas.Series.nlargest`.
+    Parameters
+    ----------
+    n : int
+        Number of top to return.
 
-    - If `largest` is True, use :meth:`~pandas.Series.nlargest`
-    - If `largest` is False, use :meth:`~pandas.Series.nsmallest`
+    largest : bool, default True
+        - True, the top is the largest.
+        - True, the top is the smallest.
+
+    keep : {"first", "last", "all"}, default "first"
+        Where there are duplicate values:
+
+        - first : prioritize the first occurrence(s).
+        - last : prioritize the last occurrence(s).
+        - all : do not drop any duplicates, even it means selecting more than
+          n items.
+
+    Returns
+    -------
+    Series
 
     See Also
     --------
@@ -224,52 +242,45 @@ def top_n(
 
 
 @register_series_method
-def expand(
-    s: pd.Series,
-    suffix: list | None = None,
-    delimiter: str = "_",
-) -> pd.DataFrame:
-    """
-    Transform each element of a list-like to a **column**.
-
-    .. image:: ../../../../_static/expand-vs-explode.svg
-        :width: 80%
-        :align: center
-
-    Parameters
-    ----------
-    suffix : list of str, default None
-        New columns of return :class:`~pandas.DataFrame`.
-
-    delimiter : str, default "_"
-        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
-
-    Returns
-    -------
-    DataFrame
-        The structure of new column name is ``{column name}{delimiter}{suffix}``.
-
+@doc(
+    see_also=dedent(
+        """
     See Also
     --------
-    pandas.Series.explode : Transform each element of a list-like to a row.
-    dtoolkit.accessor.dataframe.expand : Transform each element of a list-like to
-        a column.
-
+    pandas.Series.explode
+        Transform each element of a list-like to a row.
+    dtoolkit.accessor.dataframe.expand
+        Transform each element of a list-like to a column.
+    """,
+    ),
+    examples=dedent(
+        """
     Examples
     --------
-    >>> from dtoolkit.accessor.series import expand
+    >>> import dtoolkit.accessor
     >>> import pandas as pd
 
     Expand the *list-like* element.
 
-    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
+    >>> s = pd.Series([[1, 2, 3], 'foo', [], [3, 4]], name="item")
     >>> s.expand()
-       item_0  item_1
-    0       a       1
-    1       b       2
+       item_0  item_1  item_2
+    0       1     2.0     3.0
+    1     foo     NaN     NaN
+    2    None     NaN     NaN
+    3       3     4.0     NaN
+
+    Expand *sub-element* type is list-like.
+
+    >>> s = pd.Series([("a", "b"), [1, [2, 3]]], name="item")
+    >>> s.expand(flatten=True)
+       item_0  item_1  item_2
+    0       a       b     NaN
+    1       1       2     3.0
 
     Set the columns of name.
 
+    >>> s = pd.Series([("a", 1), ["b", 2]], name="item")
     >>> s.expand(suffix=["index", "value"], delimiter="-")
        item-index  item-value
     0           a           1
@@ -286,30 +297,190 @@ def expand(
        item_a  item_b  item_c
     0       1       2     NaN
     1       1       2     3.0
+    """,
+    ),
+)
+def expand(
+    s: pd.Series,
+    suffix: list | None = None,
+    delimiter: str = "_",
+    flatten: bool = False,
+) -> pd.DataFrame:
+    """
+    Transform each element of a list-like to a **column**.
+
+    .. image:: ../../../../_static/expand-vs-explode.svg
+        :width: 80%
+        :align: center
+
+    Parameters
+    ----------
+    suffix : list of str, default None
+        New columns of return :class:`~pandas.DataFrame`.
+
+    delimiter : str, default "_"
+        The delimiter between :attr:`~pandas.Series.name` and `suffix`.
+
+    flatten : bool, default False
+        Flatten all like-list elements or not. It would cost more time.
+
+    Returns
+    -------
+    DataFrame
+        The structure of new column name is ``{{column name}}{{delimiter}}{{suffix}}``.
+    {see_also}
+    {examples}
     """
 
-    bools = s.apply(is_list_like).values
-    # All False
-    if False in bools and True not in bools:
+    def wrap_collapse(x):
+        if is_list_like(x):
+            if flatten:
+                return list(collapse(x))
+            return x
+        return [x]
+
+    s_list = s.apply(wrap_collapse)
+    s_len = s_list.lens()
+    if all(s_len == 1):
         return s
-    # Both False and True exist
-    elif False in bools:
-        raise ValueError("all elements should be list-like.")
 
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
-
-    max_len = s.apply(len).max()
+    max_len = s_len.max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
 
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
+
     iters = suffix or range(max_len)
     columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
 
     return pd.DataFrame(
-        s.tolist(),
+        s_list.tolist(),
         index=s.index,
         columns=columns,
+    )
+
+
+@register_series_method
+def lens(s: pd.Series) -> pd.Series:
+    """
+    Return the length of each element in the series.
+
+    Equals to::
+
+        s.apply(len)
+
+    Returns
+    -------
+    Series
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
+    >>> s.lens()
+    0    6
+    1    1
+    2    1
+    3    1
+    dtype: int64
+    """
+
+    return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
+
+
+@register_series_method
+def error_report(
+    s: pd.Series,
+    predicted: OneDimArray | list,
+    columns: list | None = None,
+) -> pd.DataFrame:
+    """
+    Calculate `absolute error` and `relative error` of two columns.
+
+    Parameters
+    ----------
+    predicted : list, ndarrray, Series
+        A array is compared to ``s``.
+    columns : list of str, default None
+        The columns of returning DataFrame, each represents `true value`,
+        `predicted value`, `absolute error`, and `relative error`.
+
+    Returns
+    -------
+    DataFrame
+        Return four columns DataFrame and each represents `true value`,
+        `predicted value`, `absolute error`, and `relative error`.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series([1, 2, 3])
+    >>> s.error_report([3, 2, 1])
+       true value  predicted value  absolute error  relative error
+    0           1                3               2        2.000000
+    1           2                2               0        0.000000
+    2           3                1               2        0.666667
+
+    If the name of ``s`` or ``predicted`` is not None, the columns of
+    ``error_report`` would use the name of ``s`` and ``predicted``.
+
+    >>> s = pd.Series([1, 2, 3], name="y")
+    >>> predicted = pd.Series([3, 2, 1], name="y predicted")
+    >>> s.error_report(predicted)
+       y  y predicted  absolute error  relative error
+    0  1            3               2        2.000000
+    1  2            2               0        0.000000
+    2  3            1               2        0.666667
+
+    If ``columns`` is not None, the columns of ``error_report`` would use it
+    firstly.
+
+    >>> s.error_report(predicted, columns=["a", "b", "c", "d"])
+       a  b  c         d
+    0  1  3  2  2.000000
+    1  2  2  0  0.000000
+    2  3  1  2  0.666667
+    """
+
+    if len(s) != len(predicted):
+        raise IndexError(
+            "Length of 'predicted' doesn't match length of 'reference'.",
+        )
+
+    if isinstance(predicted, pd.Series):
+        if not s.index.equals(predicted.index):
+            raise IndexError(
+                "Index values of 'predicted' sequence doesn't "
+                "match index values of 'reference'.",
+            )
+    else:
+        predicted = pd.Series(predicted, index=s.index)
+
+    if columns is None:
+        columns = [
+            s.name or "true value",
+            predicted.name or "predicted value",
+            "absolute error",
+            "relative error",
+        ]
+    elif len(columns) != 4:
+        raise IndexError("The length of 'columns' is not equal to 4.")
+
+    absolute_error = (predicted - s).abs()
+    relative_error = absolute_error / s
+
+    return pd.concat(
+        [
+            s,
+            predicted,
+            absolute_error,
+            relative_error,
+        ],
+        axis=1,
+        keys=columns,
     )

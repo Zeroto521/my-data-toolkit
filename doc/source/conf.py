@@ -19,11 +19,15 @@ import sys
 import dtoolkit
 
 version = release = dtoolkit.__version__
+version = version.replace(".dev0", "")
+version = version.replace(".post0", "")
+
 
 project = "DToolKit"
-copyright = "2021, Zero <@Zeroto521>"  # pylint: disable=redefined-builtin
 author = "Zero <@Zeroto521>"
+copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -35,25 +39,20 @@ extensions = [
     "numpydoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
+    "IPython.sphinxext.ipython_console_highlighting",
+    "IPython.sphinxext.ipython_directive",
 ]
-
-myst_enable_extensions = [
-    "colon_fence",
-]
-
 
 # The suffix of source filenames.
 source_suffix = [".rst", ".md"]
 
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
-
-autosummary_generate = True
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -81,38 +80,29 @@ html_theme_options = {
 html_static_path = ["_static"]
 
 
+# Add redirect for previously existing pages, each item is like `(from_old, to_new)`
+
+moved_pages = [
+    ("py-modindex", "reference"),
+]
+
+html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
+
+html_context = {"redirects": {old: new for old, new in moved_pages}}
+
+
 #  --Options for sphinx extensions -----------------------------------------------
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": (
-        "http://docs.python.org/",
-        "https://docs.python.org/objects.inv",
-    ),
-    "sklearn": (
-        "https://scikit-learn.org/stable/",
-        "https://scikit-learn.org/stable/objects.inv",
-    ),
-    "pandas": (
-        "https://pandas.pydata.org/pandas-docs/stable/",
-        "https://pandas.pydata.org/pandas-docs/stable/objects.inv",
-    ),
-    "numpy": (
-        "https://numpy.org/doc/stable/",
-        "https://numpy.org/doc/stable/objects.inv",
-    ),
-    "geopandas": (
-        "https://geopandas.readthedocs.io/en/stable/",
-        "https://geopandas.readthedocs.io/en/stable/objects.inv",
-    ),
-    "shapely": (
-        "https://shapely.readthedocs.io/en/stable/",
-        "https://shapely.readthedocs.io/en/stable/objects.inv",
-    ),
-    "pyproj": (
-        "https://pyproj4.github.io/pyproj/stable/",
-        "https://pyproj4.github.io/pyproj/stable/objects.inv",
-    ),
+    "python": ("http://docs.python.org/", None),
+    "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "sklearn": ("https://scikit-learn.org/stable/", None),
+    "geopandas": ("https://geopandas.readthedocs.io/en/stable/", None),
+    "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
+    "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
+    "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
 }
 
 # extlinks alias
@@ -121,6 +111,11 @@ extlinks = {
     "pr": (f"{github_url}/issues/%s", "pr#"),
 }
 
+myst_enable_extensions = [
+    "colon_fence",
+]
+
+autosummary_generate = True
 
 # based on pandas doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
@@ -166,7 +161,7 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     fn = os.path.relpath(fn, start=os.path.dirname(dtoolkit.__file__))
 
     base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
-    if "+" in version:
+    if "post" in version:
         return base_link.format(branch="master")
 
     return base_link.format(branch=f"v{version}")

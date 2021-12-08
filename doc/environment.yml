@@ -5,14 +5,15 @@ dependencies:
   - python
   # package dependencies
   - pandas
-  - geopandas
   - scikit-learn
-  - more-itertools
+  - geopandas
+  - pygeos
   # doc dependencies
   - sphinx
   - pydata-sphinx-theme
   - myst-parser
   - numpydoc
+  - ipython
   - pip
   - pip:
       - sphinx-toggleprompt

@@ -1,0 +1,38 @@
+<svg width="2200" height="1427" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  overflow="hidden">
+  <defs>
+    <clipPath id="clip0">
+      <rect x="1100" y="540" width="2200" height="1427" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip0)" transform="translate(-1100 -540)">
+    <rect x="1405" y="752" width="1590" height="1215" fill="#F9F8F8" />
+    <path d="M1219.42 1768.21 3205.41 1768.21 3205.41 1772.79 1219.42 1772.79ZM1224 1784.25 1196.5 1770.5 1224 1756.75Z"
+      fill="#63A6D6" />
+    <path d="M1196.5 940.208 3182.5 940.209 3182.5 944.792 1196.5 944.792ZM3177.91 928.75 3205.41 942.5 3177.91 956.25Z"
+      fill="#63A6D6" />
+    <rect x="1405" y="752" width="1590" height="379" fill="#E1F0D9" />
+    <path
+      d="M1472 856.501C1472 833.028 1491.03 814 1514.5 814L2122.5 814C2145.97 814 2165 833.028 2165 856.501L2165 1026.5C2165 1049.97 2145.97 1069 2122.5 1069L1514.5 1069C1491.03 1069 1472 1049.97 1472 1026.5Z"
+      fill="#FFFFFF" fill-rule="evenodd" /><text font-family="Times New Roman,Times New Roman_MSFontService,sans-serif"
+      font-weight="400" font-size="83" transform="matrix(1 0 0 1 1781.93 972)">fit</text>
+    <path
+      d="M2232 856.501C2232 833.028 2251.03 814 2274.5 814L2881.5 814C2904.97 814 2924 833.028 2924 856.501L2924 1026.5C2924 1049.97 2904.97 1069 2881.5 1069L2274.5 1069C2251.03 1069 2232 1049.97 2232 1026.5Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 2417.77 972)">transform</text>
+    <path
+      d="M1196.5 1354.21 3182.5 1354.21 3182.5 1358.79 1196.5 1358.79ZM3177.91 1342.75 3205.41 1356.5 3177.91 1370.25Z"
+      fill="#63A6D6" />
+    <path
+      d="M1477 1270.67C1477 1247.1 1496.1 1228 1519.67 1228L2880.33 1228C2903.9 1228 2923 1247.1 2923 1270.67L2923 1441.33C2923 1464.9 2903.9 1484 2880.33 1484L1519.67 1484C1496.1 1484 1477 1464.9 1477 1441.33Z"
+      fill="#63A6D6" fill-rule="evenodd" /><text fill="#FFFFFF"
+      font-family="Times New Roman,Times New Roman_MSFontService,sans-serif" font-weight="400" font-size="83"
+      transform="matrix(1 0 0 1 1982.29 1387)">fit_transform</text>
+    <path
+      d="M1477 1685.5C1477 1662.03 1496.03 1643 1519.5 1643L2880.5 1643C2903.97 1643 2923 1662.03 2923 1685.5L2923 1855.5C2923 1878.97 2903.97 1898 2880.5 1898L1519.5 1898C1496.03 1898 1477 1878.97 1477 1855.5Z"
+      fill="#FFFFFF" fill-rule="evenodd" /><text font-family="Times New Roman,Times New Roman_MSFontService,sans-serif"
+      font-weight="400" font-size="83" transform="matrix(1 0 0 1 1899.79 1801)">inverse_transform<tspan
+        font-weight="700" font-size="128" x="-51.1038" y="-1098">Transformer</tspan></text>
+  </g>
+</svg>
