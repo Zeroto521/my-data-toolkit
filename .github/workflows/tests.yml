@@ -37,6 +37,10 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
+          - env: ci/envs/latest.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "pypy-3.7"
 
     steps:
       - uses: actions/checkout@v2
