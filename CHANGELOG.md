@@ -19,7 +19,7 @@ Maintenance development:
 
 - pre-commit autoupdate ({pr}`324`).
 - Update commit message of bot ({pr}`321`).
-- Add workflow to automatically update versioneer ({pr}`319`, {pr}`330`).
+- Add workflow to automatically update versioneer ({pr}`319`, {pr}`333`).
 
 Documentation:
 
