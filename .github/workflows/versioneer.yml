@@ -30,7 +30,7 @@ jobs:
             BOT: versioneer autoupdate
 
             New versioneer released, changelogs see [NEWS](https://github.com/python-versioneer/python-versioneer/blob/master/NEWS.md).
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          author: GitHub <noreply@github.com>
           branch: versioneer-update
           delete-branch: true
           base: master
