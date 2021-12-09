@@ -1,5 +1,35 @@
 # Changelog
 
+## [Version 0.0.6] (2021-12-13)
+
+Highlights of this release:
+
+- Now DToolKit supports python 3.10 ({pr}`228`, {pr}`326`, {pr}`327`, {pr}`330`).
+
+New features and improvements:
+
+- Add `columns` argument for {meth}`~dtoolkit.accessor.series.error_report` ({pr}`328`).
+- New method {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` ({pr}`316`).
+
+Bug fixes:
+
+- Fix version number showing at sphinx home page ({pr}`318`).
+
+Maintenance development:
+
+- pre-commit autoupdate ({pr}`324`).
+- Update commit message of bot ({pr}`321`).
+- Add workflow to automatically update versioneer ({pr}`319`, {pr}`330`).
+
+Documentation:
+
+- Documentation pathch ({pr}`329`).
+
+Contributors:
+
+- {user}`Zeroto521`
+- {user}`pre-commit-ci`
+
 ## [Version 0.0.5] (2021-12-6)
 
 Highlights of this release:
