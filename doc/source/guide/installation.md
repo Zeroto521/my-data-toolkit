@@ -4,18 +4,18 @@
 
 Required Dependencies:
 
-- pandas (1.1.3 or later)
+- pandas (1.3.4 or later)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - scikit-learn (0.24.0 or later)
+  - scikit-learn (1.0 or later)
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
   - geopandas (0.9.0 or later)
-  - pygeos (0.8 or later)
+  - pygeos (0.11.1 or later)
 
 ## Install with Conda
 

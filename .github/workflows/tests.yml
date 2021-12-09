@@ -33,6 +33,10 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.9"
+          - env: ci/envs/310-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.10"
 
     steps:
       - uses: actions/checkout@v2
