@@ -109,6 +109,7 @@ intersphinx_mapping = {
 extlinks = {
     "issue": (f"{github_url}/issues/%s", "issue#"),
     "pr": (f"{github_url}/issues/%s", "pr#"),
+    "user": ("https://github.com/%s", "@"),
 }
 
 myst_enable_extensions = [

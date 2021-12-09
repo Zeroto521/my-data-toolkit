@@ -1,5 +1,35 @@
 # Changelog
 
+## [Version 0.0.6] (2021-12-13)
+
+Highlights of this release:
+
+- Now DToolKit supports python 3.10 ({pr}`228`, {pr}`326`, {pr}`327`, {pr}`330`).
+
+New features and improvements:
+
+- Add `columns` argument for {meth}`~dtoolkit.accessor.series.error_report` ({pr}`328`).
+- New method {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` ({pr}`316`).
+
+Bug fixes:
+
+- Fix version number showing at sphinx home page ({pr}`318`).
+
+Maintenance development:
+
+- pre-commit autoupdate ({pr}`324`).
+- Update commit message of bot ({pr}`321`).
+- Add workflow to automatically update versioneer ({pr}`319`, {pr}`333`).
+
+Documentation:
+
+- Documentation pathch ({pr}`329`).
+
+Contributors:
+
+- {user}`Zeroto521`
+- {user}`pre-commit-ci`
+
 ## [Version 0.0.5] (2021-12-6)
 
 Highlights of this release:
@@ -36,6 +66,11 @@ Documentation:
 - Update Readme file ({pr}`313`).
 - Add documentation for generating geographic buffer methods ({pr}`308`).
 - Complete {meth}`~dtoolkit.accessor.series.top_n`'s documentation ({pr}`305`).
+
+Contributors:
+
+- {user}`Zeroto521`
+- {user}`pre-commit-ci`
 
 ## [Version 0.0.4] (2021-11-8)
 
@@ -141,6 +176,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
 [Version 0.0.5]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.4...v0.0.5
 [Version 0.0.4]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.3...v0.0.4
 [Version 0.0.3]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.2...v0.0.3
