@@ -17,6 +17,7 @@ Bug fixes:
 
 Maintenance development:
 
+- Publish to test.pypi.org only when event is 'push' ({pr}`337`).
 - pre-commit autoupdate ({pr}`324`).
 - Update commit message of bot ({pr}`321`).
 - Add workflow to automatically update versioneer ({pr}`319`, {pr}`333`).
