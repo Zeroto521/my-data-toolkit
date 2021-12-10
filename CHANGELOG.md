@@ -4,7 +4,7 @@
 
 Highlights of this release:
 
-- Now DToolKit supports python 3.10 ({pr}`228`, {pr}`326`, {pr}`327`, {pr}`330`).
+- Now DToolKit supports python 3.10 ({pr}`228`, {pr}`326`, {pr}`327`, {pr}`330`, {pr}`338`).
 
 New features and improvements:
 
