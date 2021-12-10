@@ -3,8 +3,12 @@ channels:
   - conda-forge
 dependencies:
   - cython
+  - numpy
   # geo
   - geos
+  - fiona
+  - pyproj
+  - shapely
   # testing
   - pytest
   - pytest-cov
