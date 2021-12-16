@@ -5,7 +5,7 @@ from shapely import wkt
 from shapely.geometry import Polygon
 from shapely.geometry.base import BaseGeometry
 
-from dtoolkit.geoaccessor.geoseries import geographic_buffer
+from dtoolkit.geoaccessor.tool import geographic_buffer
 
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
