@@ -4,10 +4,8 @@ from textwrap import dedent
 
 import geopandas as gpd
 import pandas as pd
+import pygeos
 from pandas.util._decorators import doc
-from pygeos import count_coordinates as pygeos_count_coordinates
-from pygeos import from_shapely
-from pygeos import get_coordinates as pygeos_get_coordinates
 from pyproj import CRS
 
 from dtoolkit._typing import OneDimArray
@@ -164,7 +162,11 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     {examples}
     """
 
-    return s.apply(lambda x: pygeos_count_coordinates(from_shapely(x)))
+    return s.apply(
+        lambda x: pygeos.count_coordinates(
+            pygeos.from_shapely(x),
+        ),
+    )
 
 
 @register_geoseries_method
@@ -225,8 +227,8 @@ def get_coordinates(
     """
 
     return s.apply(
-        lambda x: pygeos_get_coordinates(
-            from_shapely(x),
+        lambda x: pygeos.get_coordinates(
+            pygeos.from_shapely(x),
             include_z=include_z,
             return_index=return_index,
         ),

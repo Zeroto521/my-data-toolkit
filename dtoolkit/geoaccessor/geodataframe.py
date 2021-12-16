@@ -57,7 +57,12 @@ def geobuffer(
     **kwargs,
 ) -> gpd.GeoDataFrame:
     return df.assign(
-        geometry=df.geometry.geobuffer(distance, crs=crs, epsg=epsg, **kwargs),
+        geometry=df.geometry.geobuffer(
+            distance,
+            crs=crs,
+            epsg=epsg,
+            **kwargs,
+        ),
     )
 
 
