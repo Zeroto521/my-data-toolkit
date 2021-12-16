@@ -23,6 +23,11 @@ def geographic_buffer(
 
     Only support `Point` geometry, at present.
 
+    .. warning::
+        This method is deprecated and will be removed in 0.0.8. Please use
+        :meth:`~dtoolkit.geoaccessor.geoseries.geobuffer` instead. (Warning added
+        DToolKit 0.0.7)
+
     Parameters
     ----------
     geometry : Geometry or None
