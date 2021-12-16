@@ -122,7 +122,7 @@ def geobuffer(
         if not isinstance(geometry, Point):
             return None
 
-        azmed = ProjectedCRS(AzumuthalEquidistantConversion(y, x))
+        azmed = ProjectedCRS(AzumuthalEquidistantConversion(geometry.y, geometry.x))
         project = Transformer.from_crs(azmed, crs, always_xy=True)
 
         coords = pygeos.get_coordinates(buffer)
