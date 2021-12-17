@@ -3,12 +3,12 @@ from __future__ import annotations
 from pyproj import CRS
 from pyproj import Transformer
 from pyproj.crs import ProjectedCRS
+from pandas.api.types import is_number
 from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
 from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from dtoolkit.geoaccessor._util import is_int_or_float
 from dtoolkit.geoaccessor._util import string_or_int_to_crs
 
 
@@ -61,7 +61,7 @@ def geographic_buffer(
         # Only support 'Point' type to generate geographic buffer.
         return geometry
 
-    if not is_int_or_float(distance):
+    if not is_number(distance):
         raise TypeError("The type of 'distance' must be int or float.")
     if distance <= 0:
         raise ValueError("The distance must be greater than 0.")

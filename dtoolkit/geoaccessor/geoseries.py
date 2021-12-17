@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations, division
 
 from textwrap import dedent
 
@@ -14,7 +14,6 @@ from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
 from shapely.geometry import Point
 
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor._util import is_int_or_float
 from dtoolkit.geoaccessor._util import string_or_int_to_crs
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
@@ -107,7 +106,7 @@ def geobuffer(
     {examples}
     """
 
-    if not is_int_or_float(distance):
+    if pd.api.types.is_list_like(distance):
         if len(distance) != len(s):
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
@@ -117,6 +116,8 @@ def geobuffer(
                 "Index values of 'distance' sequence doesn't "
                 f"match index values of the {type(s)!r}",
             )
+    elif not pd.api.types.is_number(distance):
+        raise TypeError("type of 'distance' should be int or float.")
 
     def azmed_to_crs(buffer, geometry, crs):
         if not isinstance(geometry, Point):
