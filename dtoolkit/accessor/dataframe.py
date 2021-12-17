@@ -12,14 +12,14 @@ from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import cols as series_cols
-from dtoolkit.accessor.series import expand as series_expand
-from dtoolkit.accessor.series import top_n as series_top_n
+from dtoolkit.accessor.series import cols as s_cols
+from dtoolkit.accessor.series import expand as s_expand
+from dtoolkit.accessor.series import top_n as s_top_n
 
 
 @register_dataframe_method
 @doc(
-    series_cols,
+    s_cols,
     returns=dedent(
         """
     Returns
@@ -510,8 +510,8 @@ def top_n(
     if element not in ("both", "index", "value"):
         raise ValueError('element must be either "both", "index" or "value"')
 
-    def wrap_series_top_n(*args, **kwargs) -> pd.Series:
-        top = series_top_n(*args, **kwargs)
+    def wrap_s_top_n(*args, **kwargs) -> pd.Series:
+        top = s_top_n(*args, **kwargs)
         index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
 
         if element == "both":
@@ -524,7 +524,7 @@ def top_n(
         return pd.Series(data, index=index)
 
     return df.apply(
-        wrap_series_top_n,
+        wrap_s_top_n,
         axis=1,
         n=n,
         largest=largest,
@@ -534,7 +534,7 @@ def top_n(
 
 @register_dataframe_method
 @doc(
-    series_expand,
+    s_expand,
     see_also=dedent(
         """
     See Also
