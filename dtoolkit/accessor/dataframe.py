@@ -24,12 +24,12 @@ from dtoolkit.accessor.series import top_n as series_top_n
         """
     Returns
     -------
-    list of str
+    list of str or int
         The column names.
     """,
     ),
 )
-def cols(df: pd.DataFrame) -> list[str]:
+def cols(df: pd.DataFrame) -> list[str|int]:
     return df.columns.tolist()
 
 

@@ -20,12 +20,12 @@ from dtoolkit.accessor.register import register_series_method
         """
     Returns
     -------
-    str
+    str or None
         The name of the Series.
     """,
     ),
 )
-def cols(s: pd.Series) -> str:
+def cols(s: pd.Series) -> str | None:
     """
     A API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
