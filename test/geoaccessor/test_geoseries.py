@@ -50,6 +50,7 @@ class TestGeoBuffer:
 
     def test_geometry_is_not_geometry(self):
         from shapely.geometry import Polygon
+
         s = gpd.GeoSeries([Polygon([(0, 0), (1, 1), (1, 0)])], crs="epsg:4326")
         b = s.geobuffer(10)
 

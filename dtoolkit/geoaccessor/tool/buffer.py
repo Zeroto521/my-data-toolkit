@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+from pandas.api.types import is_number
 from pyproj import CRS
 from pyproj import Transformer
 from pyproj.crs import ProjectedCRS
-from pandas.api.types import is_number
 from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
 from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
