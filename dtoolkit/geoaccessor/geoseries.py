@@ -3,18 +3,21 @@ from __future__ import annotations
 from textwrap import dedent
 
 import geopandas as gpd
+import numpy as np
 import pandas as pd
+import pygeos
+from pandas.api.types import is_list_like
+from pandas.api.types import is_number
 from pandas.util._decorators import doc
-from pygeos import count_coordinates as pygeos_count_coordinates
-from pygeos import from_shapely
-from pygeos import get_coordinates as pygeos_get_coordinates
 from pyproj import CRS
+from pyproj import Transformer
+from pyproj.crs import ProjectedCRS
+from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
+from shapely.geometry import Point
 
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor._util import is_int_or_float
 from dtoolkit.geoaccessor._util import string_or_int_to_crs
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.geoaccessor.tool import geographic_buffer
 
 
 @register_geoseries_method
@@ -88,6 +91,10 @@ def geobuffer(
     -------
     {klass}
 
+    Notes
+    -----
+    Only support `Point` geometry, at present.
+
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.geobuffer
@@ -101,9 +108,7 @@ def geobuffer(
     {examples}
     """
 
-    if is_int_or_float(distance):
-        result = (geographic_buffer(g, distance, crs=crs, **kwargs) for g in s)
-    else:
+    if is_list_like(distance):
         if len(distance) != len(s):
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
@@ -113,12 +118,27 @@ def geobuffer(
                 "Index values of 'distance' sequence doesn't "
                 f"match index values of the {type(s)!r}",
             )
+    elif not is_number(distance):
+        raise TypeError("type of 'distance' should be int or float.")
 
-        result = (
-            geographic_buffer(g, d, crs=crs, **kwargs) for g, d in zip(s, distance)
-        )
+    def azmed_to_crs(buffer, geometry, crs):
+        if not isinstance(geometry, Point):
+            return None
+
+        azmed = ProjectedCRS(AzumuthalEquidistantConversion(geometry.y, geometry.x))
+        project = Transformer.from_crs(azmed, crs, always_xy=True)
+
+        coords = pygeos.get_coordinates(buffer)
+        new_coords = np.asarray(project.transform(coords[:, 0], coords[:, 1]))
+
+        return pygeos.set_coordinates(buffer, new_coords.T)
 
     crs: CRS = s.crs or string_or_int_to_crs(crs, epsg)
+
+    zeros = pygeos.points(np.full((len(s), 2), [0, 0]))
+    buffers = gpd._vectorized.buffer(zeros, distance, **kwargs)
+    result = (azmed_to_crs(b, p, crs) for b, p in zip(buffers, s))
+
     return gpd.GeoSeries(result, crs=crs, index=s.index, name=s.name)
 
 
@@ -164,7 +184,11 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     {examples}
     """
 
-    return s.apply(lambda x: pygeos_count_coordinates(from_shapely(x)))
+    return s.apply(
+        lambda x: pygeos.count_coordinates(
+            pygeos.from_shapely(x),
+        ),
+    )
 
 
 @register_geoseries_method
@@ -225,8 +249,8 @@ def get_coordinates(
     """
 
     return s.apply(
-        lambda x: pygeos_get_coordinates(
-            from_shapely(x),
+        lambda x: pygeos.get_coordinates(
+            pygeos.from_shapely(x),
             include_z=include_z,
             return_index=return_index,
         ),

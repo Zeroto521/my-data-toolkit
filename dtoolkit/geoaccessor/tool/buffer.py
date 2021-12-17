@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pandas.api.types import is_number
 from pyproj import CRS
 from pyproj import Transformer
 from pyproj.crs import ProjectedCRS
@@ -8,7 +9,6 @@ from shapely.geometry import Point
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform
 
-from dtoolkit.geoaccessor._util import is_int_or_float
 from dtoolkit.geoaccessor._util import string_or_int_to_crs
 
 
@@ -22,6 +22,11 @@ def geographic_buffer(
     The core algorithm for creating a geographic buffer.
 
     Only support `Point` geometry, at present.
+
+    .. warning::
+        This method is deprecated and will be removed in 0.0.8. Please use
+        :meth:`~dtoolkit.geoaccessor.geoseries.geobuffer` instead. (Warning added
+        DToolKit 0.0.7)
 
     Parameters
     ----------
@@ -56,7 +61,7 @@ def geographic_buffer(
         # Only support 'Point' type to generate geographic buffer.
         return geometry
 
-    if not is_int_or_float(distance):
+    if not is_number(distance):
         raise TypeError("The type of 'distance' must be int or float.")
     if distance <= 0:
         raise ValueError("The distance must be greater than 0.")

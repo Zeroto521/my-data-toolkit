@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from warnings import warn
 
-import numpy as np
 from pyproj import CRS
 
 
@@ -20,11 +19,3 @@ def string_or_int_to_crs(
         UserWarning,
     )
     return CRS.from_epsg(4326)
-
-
-def is_int_or_float(var: int | float) -> bool:
-    return (
-        isinstance(var, (int, float))
-        or np.issubdtype(type(var), int)
-        or np.issubdtype(type(var), float)
-    )
