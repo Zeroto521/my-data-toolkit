@@ -6,6 +6,8 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pygeos
+from pandas.api.types import is_list_like
+from pandas.api.types import is_number
 from pandas.util._decorators import doc
 from pyproj import CRS
 from pyproj import Transformer
@@ -106,7 +108,7 @@ def geobuffer(
     {examples}
     """
 
-    if pd.api.types.is_list_like(distance):
+    if is_list_like(distance):
         if len(distance) != len(s):
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
@@ -116,7 +118,7 @@ def geobuffer(
                 "Index values of 'distance' sequence doesn't "
                 f"match index values of the {type(s)!r}",
             )
-    elif not pd.api.types.is_number(distance):
+    elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
     def azmed_to_crs(buffer, geometry, crs):
