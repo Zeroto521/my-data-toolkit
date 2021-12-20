@@ -27,7 +27,7 @@ from dtoolkit.accessor.series import top_n as series_top_n
     """,
     ),
 )
-def cols(df: pd.DataFrame) -> list[str|int]:
+def cols(df: pd.DataFrame) -> list[str | int]:
     return df.columns.tolist()
 
 
