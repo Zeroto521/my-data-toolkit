@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-from collections.abc import Iterable
 from textwrap import dedent
 
 import pandas as pd
-from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit._typing import OneDimArray
-from dtoolkit.accessor._util import collapse
-from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
 
 
@@ -116,6 +112,7 @@ def drop_inf(
     1    2.0
     dtype: float64
     """
+    from dtoolkit.accessor._util import get_inf_range
 
     inplace = validate_bool_kwarg(inplace, "inplace")
     inf_range = get_inf_range(inf)
@@ -331,6 +328,9 @@ def expand(
     {see_also}
     {examples}
     """
+    from pandas.api.types import is_list_like
+
+    from dtoolkit.accessor._util import collapse
 
     def wrap_collapse(x):
         if is_list_like(x):
@@ -388,6 +388,7 @@ def lens(s: pd.Series) -> pd.Series:
     3    1
     dtype: int64
     """
+    from collections.abc import Iterable
 
     return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
 

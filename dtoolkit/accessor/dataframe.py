@@ -8,9 +8,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor._util import get_mask
-from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as series_cols
 from dtoolkit.accessor.series import expand as series_expand
@@ -141,6 +139,7 @@ def drop_inf(
            name        toy                 born
     1    Batman  Batmobile  1940-04-25 00:00:00
     """
+    from dtoolkit.accessor._util import get_inf_range
 
     inplace = validate_bool_kwarg(inplace, "inplace")
 
@@ -288,6 +287,7 @@ def filter_in(
             num_legs  num_wings
     falcon         2          2
     """
+    from dtoolkit.accessor._util import isin
 
     inplace = validate_bool_kwarg(inplace, "inplace")
     axis = df._get_axis_number(axis)
