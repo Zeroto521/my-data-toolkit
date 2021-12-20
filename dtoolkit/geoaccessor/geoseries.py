@@ -6,17 +6,9 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pygeos
-from pandas.api.types import is_list_like
-from pandas.api.types import is_number
 from pandas.util._decorators import doc
-from pyproj import CRS
-from pyproj import Transformer
-from pyproj.crs import ProjectedCRS
-from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
-from shapely.geometry import Point
 
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor._util import string_or_int_to_crs
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -101,12 +93,20 @@ def geobuffer(
         Creates geographic buffers for GeoSeries.
     dtoolkit.geoaccessor.geodataframe.geobuffer
         Creates geographic buffers for GeoDataFrame.
-    dtoolkit.geoaccessor.tool.geographic_buffer
-        The core algorithm for creating geographic buffer.
     shapely.geometry.base.BaseGeometry.buffer
         https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
     {examples}
     """
+    from pandas.api.types import is_list_like
+    from pandas.api.types import is_number
+
+    from pyproj import CRS
+    from pyproj import Transformer
+    from pyproj.crs import ProjectedCRS
+    from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
+    from shapely.geometry import Point
+
+    from dtoolkit.geoaccessor._util import string_or_int_to_crs
 
     if is_list_like(distance):
         if len(distance) != len(s):
