@@ -11,6 +11,7 @@ GeoSeries Accessor
     count_coordinates
     get_coordinates
     geobuffer
+    utm_crs
 
 
 GeoDataFrame Accessor
@@ -22,6 +23,7 @@ GeoDataFrame Accessor
     count_coordinates
     get_coordinates
     geobuffer
+    utm_crs
 
 
 DataFrame Accessor (to GeoPandas)
