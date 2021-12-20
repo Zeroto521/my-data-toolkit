@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from itertools import chain
 from textwrap import dedent
 
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from scipy.sparse import csr_matrix
-from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
@@ -83,6 +81,8 @@ def make_union(
      FeatureUnion(transformer_list=[('pca', PCA()),
                                    ('truncatedsvd', TruncatedSVD())])
     """
+    from sklearn.pipeline import _name_estimators
+
     return FeatureUnion(
         _name_estimators(transformers),
         n_jobs=n_jobs,
@@ -274,6 +274,8 @@ class OneHotEncoder(SKOneHotEncoder):
         ),
     )
     def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:
+        from itertools import chain
+
         X_new = super().transform(X)
 
         if self.sparse is False:
