@@ -1,3 +1,5 @@
+from geopandas import GeoDataFrame
+from geopandas import GeoSeries
 from pandas.core.accessor import _register_accessor
 from pandas.util._decorators import doc
 
@@ -105,13 +107,11 @@ def register_geoseries_accessor(name: str):
         2    0
         Name: geometry, dtype: int64
     """
-    from geopandas import GeoSeries
 
     return _register_accessor(name, GeoSeries)
 
 
 @doc(register_geoseries_accessor, klass=":class:`geopandas.GeoDataFrame`")
 def register_geodataframe_accessor(name: str):
-    from geopandas import GeoDataFrame
 
     return _register_accessor(name, GeoDataFrame)

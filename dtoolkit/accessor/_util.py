@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from collections import defaultdict
 from typing import Iterable
 
 import numpy as np
@@ -44,6 +43,7 @@ def isin(
     Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
     :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
     """
+    from collections import defaultdict
 
     axis = df._get_axis_number(axis)
 
