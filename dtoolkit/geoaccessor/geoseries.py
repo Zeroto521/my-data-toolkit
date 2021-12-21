@@ -51,10 +51,8 @@ def geobuffer(
     """
     Creates geographic buffers for {klass}.
 
-    Creates a buffer zone of specified size around or inside geometry. It
-    is designed for use with features in Geographic coordinates. Reprojects
-    input features into the DynamicEqual Distance projection, buffers them,
-    then reprojects back into the original Geographic coordinates.
+    Reprojects input features into the *UTM* projection, buffers them,
+    then reprojects back into the original geographic coordinates.
 
     Parameters
     ----------
