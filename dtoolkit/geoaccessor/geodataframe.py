@@ -17,7 +17,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @register_geodataframe_method
 @doc(
     s_geobuffer,
-    klass="GeoDataFrame",
+    klass=":class:`~geopandas.GeoDataFrame`",
     alias="df",
     examples=dedent(
         """
