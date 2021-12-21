@@ -3,6 +3,7 @@ from __future__ import annotations
 from textwrap import dedent
 
 import geopandas as gpd
+import numpy as np
 import pandas as pd
 import pygeos
 from pandas.util._decorators import doc
@@ -80,18 +81,23 @@ def geobuffer(
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
             )
-        if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
-            raise IndexError(
-                "Index values of 'distance' sequence doesn't "
-                f"match index values of the {type(s)!r}",
-            )
+
+        if isinstance(distance, pd.Series):
+            if not s.index.equals(distance.index):
+                raise IndexError(
+                    "Index values of 'distance' sequence doesn't "
+                    f"match index values of the {type(s)!r}",
+                )
+        else:
+            distance = np.asarray(distance)
+
     elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
     utms = (
         s.utm_crs()
         .apply(
-            lambda x: x.code,
+            lambda x: x.code if x else None,
         )
         .to_numpy()
     )
@@ -100,14 +106,18 @@ def geobuffer(
     s = s.reset_index(drop=True)
     return (
         pd.concat(
-            s.loc[utms == utm]
-            .to_crs(epsg=utm)
-            .buffer(
-                distance[utms == utm] if is_list_like(distance) else distance,
-                **kwargs,
+            (
+                s[utms == utm]
+                .to_crs(epsg=utm)
+                .buffer(
+                    distance[utms == utm] if is_list_like(distance) else distance,
+                    **kwargs,
+                )
+                .to_crs(s.crs)
             )
-            .to_crs(s.crs)
-            for utm in pd.unique(utms)
+            if utm is not None
+            else s[utms == utm]
+            for utm in np.unique(utms)
         )
         .sort_index()
         .set_axis(s_index)
@@ -294,6 +304,8 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
                 east_lon_degree=bound["maxx"],
                 north_lat_degree=bound["maxy"],
             ),
-        )[0],
+        )[0]
+        if not bound.isna().all()
+        else None,
         axis=1,
     )
