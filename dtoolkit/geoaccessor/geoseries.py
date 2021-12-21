@@ -46,8 +46,6 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 def geobuffer(
     s: gpd.GeoSeries,
     distance: int | float | list[int | float] | OneDimArray,
-    crs: str | None = None,
-    epsg: int | None = None,
     **kwargs,
 ) -> gpd.GeoSeries:
     """
@@ -64,20 +62,6 @@ def geobuffer(
         The radius of the buffer. If :obj:`~numpy.ndarray` or
         :obj:`~pandas.Series` are used then it must have same length as the
         ``{alias}``.
-
-    crs : str, optional
-        If ``epsg`` is specified, the value can be anything accepted by
-        :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority string
-        (e.g. "EPSG:4326") or a WKT string.
-
-    epsg : int, optional
-
-        * If ``{alias}.crs`` is not None, the result would use the CRS of
-          :obj:`~geopandas.GeoSeries`.
-        * If ``{alias}.crs`` is None, the result would use the CRS from ``crs``
-          or ``epsg``.
-        * If ``crs`` is specified EPSG code specifying output projection.
-        * If ``{alias}.crs`` is ``None``, the result would use `EPSG:4326`
 
     Returns
     -------

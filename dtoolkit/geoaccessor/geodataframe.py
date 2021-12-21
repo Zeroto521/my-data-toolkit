@@ -50,18 +50,9 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 def geobuffer(
     df: gpd.GeoDataFrame,
     distance: int | float | list | OneDimArray,
-    crs: str | None = None,
-    epsg: int | None = None,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-    return df.assign(
-        geometry=df.geometry.geobuffer(
-            distance,
-            crs=crs,
-            epsg=epsg,
-            **kwargs,
-        ),
-    )
+    return df.assign(geometry=df.geometry.geobuffer(distance, **kwargs))
 
 
 @register_geodataframe_method
