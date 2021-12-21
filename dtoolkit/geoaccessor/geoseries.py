@@ -14,7 +14,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 @register_geoseries_method
 @doc(
-    klass="GeoSeries",
+    klass=":class:`~geopandasGeoSeries`",
     alias="s",
     examples=dedent(
         """
@@ -22,124 +22,108 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely.geometry import Point, LineString
     >>> s = gpd.GeoSeries(
     ...     [
     ...         Point(122, 55),
     ...         Point(100, 1),
-    ...     ]
+    ...         LineString([Point(122, 55), Point(100, 1)])
+    ...     ],
+    ...     crs="EPSG:4326",
     ... )
     >>> s
     0    POINT (122.00000 55.00000)
     1    POINT (100.00000  1.00000)
+    2    LINESTRING (122.00000 55.00000, 100.00000 1.00...
     dtype: geometry
     >>> s.geobuffer(100)
-    0    POLYGON ((122.00156 55.00000, 122.00156 54.999...
+    0    POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1    POLYGON ((100.00090 1.00000, 100.00089 0.99991...
+    2    POLYGON ((100.00088 0.99981, 100.00086 0.99972...
     dtype: geometry
     """,
     ),
 )
 def geobuffer(
     s: gpd.GeoSeries,
-    distance: int | float | list | OneDimArray,
-    crs: str | None = None,
-    epsg: int | None = None,
+    distance: int | float | list[int | float] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoSeries:
     """
     Creates geographic buffers for {klass}.
 
-    Creates a buffer zone of specified size around or inside geometry. It
-    is designed for use with features in Geographic coordinates. Reprojects
-    input features into the DynamicEqual Distance projection, buffers them,
-    then reprojects back into the original Geographic coordinates.
+    Reprojects input features into the *UTM* projection, buffers them,
+    then reprojects back into the original geographic coordinates.
 
     Parameters
     ----------
-    {alias} : {klass}
-        Only support `Point` geometry, at present.
-
-    distance : int, float, ndarray or Series, the unit is meter.
-        The radius of the buffer. If :obj:`~numpy.ndarray` or
-        :obj:`~pandas.Series` are used then it must have same length as the
-        ``{alias}``.
-
-    crs : str, optional
-        If ``epsg`` is specified, the value can be anything accepted by
-        :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority string
-        (e.g. "EPSG:4326") or a WKT string.
-
-    epsg : int, optional
-
-        * If ``{alias}.crs`` is not None, the result would use the CRS of
-          :obj:`~geopandas.GeoSeries`.
-        * If ``{alias}.crs`` is None, the result would use the CRS from ``crs``
-          or ``epsg``.
-        * If ``crs`` is specified EPSG code specifying output projection.
-        * If ``{alias}.crs`` is ``None``, the result would use `EPSG:4326`
+    distance : int, float, list-like of int or float, the unit is meter.
+        The radius of the buffer. If :obj:`~numpy.ndarray` or :obj:`~pandas.Series`
+        are used then it must have same length as the ``{alias}``.
 
     Returns
     -------
     {klass}
 
-    Notes
-    -----
-    Only support `Point` geometry, at present.
-
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.geobuffer
-        Creates geographic buffers for GeoSeries.
     dtoolkit.geoaccessor.geodataframe.geobuffer
-        Creates geographic buffers for GeoDataFrame.
-    shapely.geometry.base.BaseGeometry.buffer
-        https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
+    geopandas.GeoSeries.buffer
+
     {examples}
     """
     from pandas.api.types import is_list_like
     from pandas.api.types import is_number
-
-    from pyproj import CRS
-    from pyproj import Transformer
-    from pyproj.crs import ProjectedCRS
-    from pyproj.crs.coordinate_operation import AzumuthalEquidistantConversion
-    from shapely.geometry import Point
-
-    from dtoolkit.geoaccessor._util import string_or_int_to_crs
 
     if is_list_like(distance):
         if len(distance) != len(s):
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
             )
-        if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
-            raise IndexError(
-                "Index values of 'distance' sequence doesn't "
-                f"match index values of the {type(s)!r}",
-            )
+
+        if isinstance(distance, pd.Series):
+            if not s.index.equals(distance.index):
+                raise IndexError(
+                    "Index values of 'distance' sequence doesn't "
+                    f"match index values of the {type(s)!r}",
+                )
+        else:
+            distance = np.asarray(distance)
+
     elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
-    def azmed_to_crs(buffer, geometry, crs):
-        if not isinstance(geometry, Point):
-            return None
+    utms = (
+        s.utm_crs()
+        .apply(
+            lambda x: x.code if x else None,
+        )
+        .to_numpy()
+    )
 
-        azmed = ProjectedCRS(AzumuthalEquidistantConversion(geometry.y, geometry.x))
-        project = Transformer.from_crs(azmed, crs, always_xy=True)
-
-        coords = pygeos.get_coordinates(buffer)
-        new_coords = np.asarray(project.transform(coords[:, 0], coords[:, 1]))
-
-        return pygeos.set_coordinates(buffer, new_coords.T)
-
-    crs: CRS = s.crs or string_or_int_to_crs(crs, epsg)
-
-    zeros = pygeos.points(np.full((len(s), 2), [0, 0]))
-    buffers = gpd._vectorized.buffer(zeros, distance, **kwargs)
-    result = (azmed_to_crs(b, p, crs) for b, p in zip(buffers, s))
-
-    return gpd.GeoSeries(result, crs=crs, index=s.index, name=s.name)
+    s_index = s.index
+    s = s.reset_index(drop=True)
+    return (
+        pd.concat(
+            (
+                s[utms == utm]
+                .to_crs(epsg=utm)
+                .buffer(
+                    distance[utms == utm] if is_list_like(distance) else distance,
+                    **kwargs,
+                )
+                .to_crs(s.crs)
+            )
+            if utm is not None
+            else s[utms == utm]
+            for utm in np.unique(utms)
+        )
+        .sort_index()
+        .set_axis(s_index)
+        .rename(s.name)
+        .set_crs(s.crs)
+    )
 
 
 @register_geoseries_method
@@ -320,6 +304,8 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
                 east_lon_degree=bound["maxx"],
                 north_lat_degree=bound["maxy"],
             ),
-        )[0],
+        )[0]
+        if not bound.isna().all()
+        else None,
         axis=1,
     )

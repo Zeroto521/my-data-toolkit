@@ -17,7 +17,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @register_geodataframe_method
 @doc(
     s_geobuffer,
-    klass="GeoDataFrame",
+    klass=":class:`~geopandas.GeoDataFrame`",
     alias="df",
     examples=dedent(
         """
@@ -33,7 +33,8 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     ...             Point(122, 55),
     ...             Point(100, 1),
     ...         ]
-    ...     }
+    ...     },
+    ...     crs="EPSG:4326",
     ... )
     >>> d
                    where                    geometry
@@ -41,26 +42,17 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     1  away from equator   POINT (100.00000 1.00000)
     >>> d.geobuffer(100)
                    where                                           geometry
-    0   close to equator  POLYGON ((122.00156 55.00000, 122.00156 54.999...
+    0   close to equator  POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     """,
     ),
 )
 def geobuffer(
     df: gpd.GeoDataFrame,
-    distance: int | float | list | OneDimArray,
-    crs: str | None = None,
-    epsg: int | None = None,
+    distance: int | float | list[int | float] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-    return df.assign(
-        geometry=df.geometry.geobuffer(
-            distance,
-            crs=crs,
-            epsg=epsg,
-            **kwargs,
-        ),
-    )
+    return df.assign(geometry=df.geometry.geobuffer(distance, **kwargs))
 
 
 @register_geodataframe_method

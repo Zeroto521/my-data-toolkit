@@ -2,27 +2,29 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pytest
-from pyproj import CRS
 
 from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa
 
 
-my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
-distances = np.asarray(range(1, 1000, 499))
-
-
 class TestGeoBuffer:
     def setup_method(self):
-        self.s = gpd.GeoSeries.from_wkt(my_wkts, crs="epsg:4326")
-        self.crs = CRS.from_user_input("epsg:4326")
+        self.s = gpd.GeoSeries.from_wkt(
+            [
+                "Point(120 50)",
+                "Point(150 -30)",
+                "Point(100 1)",
+            ],
+            crs="epsg:4326",
+        )
 
     @pytest.mark.parametrize(
         "distance",
         [
             1000,
-            list(distances),
-            distances,
-            pd.Series(distances),
+            range(3),
+            [1000] * 3,
+            np.asarray([1000] * 3),
+            pd.Series([1000] * 3),
         ],
     )
     def test_distance_work(self, distance):
@@ -44,14 +46,6 @@ class TestGeoBuffer:
 
     def test_geometry_is_none(self):
         s = gpd.GeoSeries([None], crs="epsg:4326")
-        b = s.geobuffer(10)
-
-        assert b[0] is None
-
-    def test_geometry_is_not_geometry(self):
-        from shapely.geometry import Polygon
-
-        s = gpd.GeoSeries([Polygon([(0, 0), (1, 1), (1, 0)])], crs="epsg:4326")
         b = s.geobuffer(10)
 
         assert b[0] is None
