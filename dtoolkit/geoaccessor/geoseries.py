@@ -70,11 +70,9 @@ def geobuffer(
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.geobuffer
-        Creates geographic buffers for GeoSeries.
     dtoolkit.geoaccessor.geodataframe.geobuffer
-        Creates geographic buffers for GeoDataFrame.
-    shapely.geometry.base.BaseGeometry.buffer
-        https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
+    geopandas.GeoSeries.buffer
+
     {examples}
     """
     from pandas.api.types import is_list_like
