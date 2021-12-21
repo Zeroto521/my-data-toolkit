@@ -42,7 +42,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 )
 def geobuffer(
     s: gpd.GeoSeries,
-    distance: int | float | list | OneDimArray,
+    distance: int | float | list[int | float] | OneDimArray,
     crs: str | None = None,
     epsg: int | None = None,
     **kwargs,
