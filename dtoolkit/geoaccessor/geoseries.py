@@ -58,10 +58,9 @@ def geobuffer(
 
     Parameters
     ----------
-    distance : int, float, ndarray or Series, the unit is meter.
-        The radius of the buffer. If :obj:`~numpy.ndarray` or
-        :obj:`~pandas.Series` are used then it must have same length as the
-        ``{alias}``.
+    distance : int, float, list-like of int or float, the unit is meter.
+        The radius of the buffer. If :obj:`~numpy.ndarray` or :obj:`~pandas.Series`
+        are used then it must have same length as the ``{alias}``.
 
     Returns
     -------
