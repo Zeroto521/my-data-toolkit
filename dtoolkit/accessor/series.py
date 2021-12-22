@@ -172,6 +172,8 @@ def bin(
     dtype: category
     Categories (5, object): ['E', 'D', 'C', 'B', 'A']
     """
+    inplace = validate_bool_kwarg(inplace, "inplace")
+
     result = pd.cut(
         s,
         bins=bins,
@@ -184,7 +186,6 @@ def bin(
         ordered=ordered,
     )
 
-    inplace = validate_bool_kwarg(inplace, "inplace")
     if not inplace:
         return result
 

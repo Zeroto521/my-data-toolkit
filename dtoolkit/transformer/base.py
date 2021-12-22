@@ -182,7 +182,7 @@ class DataFrameTF(MethodTF):
             Transformed data.
 
         Notes
-        -----_
+        -----
         If ``inverse_transform_method`` is None, there would do nothing for
         ``X``.
         """
