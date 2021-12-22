@@ -14,7 +14,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 @register_geoseries_method
 @doc(
-    klass=":class:`~geopandasGeoSeries`",
+    klass=":class:`~geopandas.GeoSeries`",
     alias="s",
     examples=dedent(
         """
