@@ -601,13 +601,14 @@ def expand(
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
-
-    result = (
-        df.get(column).expand(
-            suffix=suffix,
-            delimiter=delimiter,
-            flatten=flatten,
-        )
-        for column in df.columns
+    return pd.concat(
+        (
+            df.get(key=column).expand(
+                suffix=suffix,
+                delimiter=delimiter,
+                flatten=flatten,
+            )
+            for column in df.cols()
+        ),
+        axis=1,
     )
-    return pd.concat(result, axis=1)
