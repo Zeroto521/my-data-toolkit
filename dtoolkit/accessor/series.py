@@ -229,7 +229,10 @@ def top_n(
 
     See Also
     --------
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
     dtoolkit.accessor.dataframe.top_n
+        Returns each row's top n.
     """
 
     if largest:
