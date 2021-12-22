@@ -24,23 +24,27 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     Examples
     --------
     >>> import dtoolkit.geoaccessor
-    >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
-    >>> d = gpd.GeoDataFrame(
-    ...     {
-    ...         "where": ["close to equator", "away from equator"],
-    ...         "geometry": [
-    ...             Point(122, 55),
-    ...             Point(100, 1),
-    ...         ]
-    ...     },
-    ...     crs="EPSG:4326",
+    >>> import pandas as pd
+    >>> df = (
+    ...      pd.DataFrame(
+    ...          {
+    ...              "where": ["close to equator", "away from equator"],
+    ...              "x": [122, 100],
+    ...              "y": [55, 1],
+    ...          },
+    ...      )
+    ...      .points_from_xy(
+    ...          "x",
+    ...          "y",
+    ...          crs=4326,
+    ...          drop=True,
+    ...     )
     ... )
-    >>> d
+    >>> df
                    where                    geometry
     0   close to equator  POINT (122.00000 55.00000)
     1  away from equator   POINT (100.00000 1.00000)
-    >>> d.geobuffer(100)
+    >>> df.geobuffer(100)
                    where                                           geometry
     0   close to equator  POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
