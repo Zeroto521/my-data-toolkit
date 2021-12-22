@@ -47,11 +47,6 @@ Documentation:
 
 - Documentation pathch ({pr}`329`).
 
-Contributors:
-
-- {user}`Zeroto521`
-- {user}`pre-commit-ci`
-
 ## [Version 0.0.5] (2021-12-6)
 
 Highlights of this release:
@@ -89,9 +84,8 @@ Documentation:
 - Add documentation for generating geographic buffer methods ({pr}`308`).
 - Complete {meth}`~dtoolkit.accessor.series.top_n`'s documentation ({pr}`305`).
 
-Contributors:
+New contributors:
 
-- {user}`Zeroto521`
 - {user}`pre-commit-ci`
 
 ## [Version 0.0.4] (2021-11-8)
