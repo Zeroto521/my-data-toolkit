@@ -1,5 +1,26 @@
 # Changelog
 
+## [Version 0.0.7] (2021-12-27)
+
+Highlights of this release:
+
+- `~dtoolkit.geoaccessor.geoseries.geobuffer` at least x1.3 faster than before ({pr}`341`, {pr}`342`, {pr}`347`, {pr}`350`).
+
+New features and improvements:
+
+- New geoaccessor method {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`346`).
+
+Maintenance development:
+
+- Use `add_prefix` to simplify {meth}`~dtoolkit.accessor.series.top_n` ({pr}`351`).
+- Import uncommon packages at inner of method ({pr}`343`, {pr}`344`).
+- Tag event also trigger to release to `test.pypi.org` ({pr}`340`).
+
+Typing annotations:
+
+- Specific the type of `list` element ({pr}`349`).
+- Correct {meth}`~dtoolkit.accessor.series.cols` return type ({pr}`345`).
+
 ## [Version 0.0.6] (2021-12-13)
 
 Highlights of this release:
@@ -177,6 +198,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
 [Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
 [Version 0.0.5]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.4...v0.0.5
 [Version 0.0.4]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.3...v0.0.4
