@@ -10,6 +10,10 @@ New features and improvements:
 
 - New geoaccessor method {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`346`).
 
+API changes:
+
+- Add `DeprecationWarning` for {meth}`~dtoolkit.geoaccessor.tool.geographic_buffer` ({pr}`341`).
+
 Maintenance development:
 
 - Use `add_prefix` to simplify {meth}`~dtoolkit.accessor.series.top_n` ({pr}`351`).
