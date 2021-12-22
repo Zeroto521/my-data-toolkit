@@ -53,12 +53,3 @@ GeoPandas Method Register
 
     register_geoseries_method
     register_geodataframe_method
-
-
-Core Algorithm
---------------
-.. currentmodule:: dtoolkit.geoaccessor.tool
-.. autosummary::
-    :toctree: api/
-
-    geographic_buffer
