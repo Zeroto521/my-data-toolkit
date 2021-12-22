@@ -299,7 +299,7 @@ def top_n(
 )
 def expand(
     s: pd.Series,
-    suffix: list | None = None,
+    suffix: list[str | int] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -312,7 +312,7 @@ def expand(
 
     Parameters
     ----------
-    suffix : list of str, default None
+    suffix : list of str or int, default None
         New columns of return :class:`~pandas.DataFrame`.
 
     delimiter : str, default "_"
@@ -396,17 +396,17 @@ def lens(s: pd.Series) -> pd.Series:
 @register_series_method
 def error_report(
     s: pd.Series,
-    predicted: OneDimArray | list,
-    columns: list | None = None,
+    predicted: OneDimArray | list[int | float],
+    columns: list[str | int] | None = None,
 ) -> pd.DataFrame:
     """
     Calculate `absolute error` and `relative error` of two columns.
 
     Parameters
     ----------
-    predicted : list, ndarrray, Series
+    predicted : list of int or float, ndarrray, Series
         A array is compared to ``s``.
-    columns : list of str, default None
+    columns : list of str or int, default None
         The columns of returning DataFrame, each represents `true value`,
         `predicted value`, `absolute error`, and `relative error`.
 

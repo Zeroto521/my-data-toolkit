@@ -597,7 +597,7 @@ def top_n(
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list | None = None,
+    suffix: list[str | int] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
