@@ -35,9 +35,9 @@ Contributors:
 
 Highlights of this release:
 
-- Simplify methods of importing {mod}`dtoolkit.accessor` and {mod}`dtoolkit.geoaccessor` ({pr}`294`, {pr}`295`, {pr}`297`, {pr}`303`).
-- Use `TAG[.postDIST[.dev0]]` version style ({pr}`299`, {pr}`300`, {pr}`306`).
 - Remove test from release package ({pr}`307`).
+- Use `TAG[.postDIST[.dev0]]` version style ({pr}`299`, {pr}`300`, {pr}`306`).
+- Simplify methods of importing {mod}`dtoolkit.accessor` and {mod}`dtoolkit.geoaccessor` ({pr}`294`, {pr}`295`, {pr}`297`, {pr}`303`).
 
 New features and improvements:
 
@@ -56,10 +56,10 @@ Maintenance development:
 - Update versioneer ({pr}`296`).
 - Bump version of pre-commit repos ({pr}`292`).
 - Publish to TestPyPI ({pr}`291`).
-- Adjust tests CI ({pr}`284`, {pr}`288`, {pr}`290`, {pr}`293`, {pr}`310`, {pr}`311`).
+- Gather information into setup.cfg ({pr}`298`).
 - Create codeql analysis CI ({pr}`287`).
 - Add `.PHONY` into Makefile to avoid name conflict ({pr}`285`).
-- Gather information into setup.cfg ({pr}`298`).
+- Adjust tests CI ({pr}`284`, {pr}`288`, {pr}`290`, {pr}`293`, {pr}`310`, {pr}`311`).
 
 Documentation:
 
@@ -82,14 +82,14 @@ Highlights of this release:
 
 New features and improvements:
 
-- New accessor {meth}`dtoolkit.accessor.series.expand` and {meth}`dtoolkit.accessor.dataframe.expand` ({pr}`252`, {pr}`279`).
-- Add a new option `element` for {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
-- Let {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
+- New accessor {meth}`~dtoolkit.accessor.series.expand` ({pr}`252`, {pr}`279`).
+- Let {meth}`~dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
+- Add a new option `element` for {meth}`~dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
 
 API changes:
 
-- Keep snake name style, `dropinf` -> `drop_inf` and `filterin` -> `filter_in` ({pr}`249`, {pr}`253`).
 - Add `DeprecationWarning` for {mod}`toolkit.geogarphy` ({pr}`274`).
+- Keep snake name style, `dropinf` -> `drop_inf` and `filterin` -> `filter_in` ({pr}`249`, {pr}`253`).
 
 Maintenance development:
 
@@ -101,21 +101,21 @@ Documentation:
 - Use `sphinx.ext.autosectionlabel` to add anchor ({pr}`272`).
 - Start to use IPython Sphinx Directive ({pr}`258`, {pr}`259`, {pr}`260`).
 - Drop python module index html page ({pr}`256`).
+- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 - Fix these doc doesn't exist in dtoolkit ({pr}`244`).
 - Fix documentation building environment ({pr}`243`).
-- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 
 ## [Version 0.0.3] (2021-10-21)
 
 New features and improvements:
 
+- Add new accessor method {meth}`~dtoolkit.accessor.dataframe.top_n` ({pr}`217`, {pr}`218`, {pr}`219`).
 - Add new series accessor method {meth}`~dtoolkit.accessor.series.bin` ({pr}`213`, {pr}`216`).
-- Add new accessor method {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n` ({pr}`217`, {pr}`218`, {pr}`219`).
 
 Documentation:
 
-- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
 - Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/automl.html) ({pr}`236`, {pr}`237`).
+- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
 - Update the description of dtoolkit ({pr}`234`, {pr}`241`).
 - Add an introduction for {meth}`~dtoolkit.transformer` ({pr}`232`, {pr}`233`).
 - Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/v0.0.3/py-modindex.html) ({pr}`231`).

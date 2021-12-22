@@ -229,8 +229,7 @@ def top_n(
 
     See Also
     --------
-    pandas.Series.nlargest : Get the largest `n` elements.
-    pandas.Series.nsmallest : Get the smallest `n` elements.
+    dtoolkit.accessor.dataframe.top_n
     """
 
     if largest:
