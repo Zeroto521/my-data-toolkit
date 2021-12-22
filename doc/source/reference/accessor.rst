@@ -16,6 +16,7 @@ Series Accessor
     drop_inf
     top_n
     error_report
+    get_attr
 
 
 DataFrame Accessor
