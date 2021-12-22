@@ -512,7 +512,6 @@ def top_n(
 
     def wrap_s_top_n(*args, **kwargs) -> pd.Series:
         top = s_top_n(*args, **kwargs)
-        index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
 
         if element == "both":
             data = zip(top.index, top.values)
@@ -521,7 +520,7 @@ def top_n(
         elif element == "value":
             data = top.values
 
-        return pd.Series(data, index=index)
+        return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
 
     return df.apply(
         wrap_s_top_n,
@@ -529,7 +528,7 @@ def top_n(
         n=n,
         largest=largest,
         keep=keep,
-    )
+    ).add_prefix(prefix + delimiter)
 
 
 @register_dataframe_method
