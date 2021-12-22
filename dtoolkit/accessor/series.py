@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.register import register_series_method
+
+if TYPE_CHECKING:
+    from dtoolkit._typing import OneDimArray
 
 
 @register_series_method

@@ -1,7 +1,10 @@
 from __future__ import annotations
 
-from typing import Any
-from typing import Iterable
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+    from typing import Iterable
 
 
 def multi_if_else(

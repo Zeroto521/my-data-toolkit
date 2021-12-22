@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pandas as pd
 
-from dtoolkit._typing import SeriesOrFrame
+if TYPE_CHECKING:
+    from dtoolkit._typing import SeriesOrFrame
 
 
 def require_series_or_frame(X: SeriesOrFrame):
