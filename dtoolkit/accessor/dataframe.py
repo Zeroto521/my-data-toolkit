@@ -8,6 +8,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as s_cols
@@ -611,3 +612,51 @@ def expand(
         ),
         axis=1,
     )
+
+
+@register_dataframe_method
+def to_series(df: pd.DataFrame, name: str | int = None) -> SeriesOrFrame:
+    """
+    Transform one column :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
+
+    Parameters
+    ----------
+    name : str or int, optional
+        The name of returned Series
+
+    Returns
+    -------
+    Series or DataFrame
+        Series if ``df`` is one column else would be DataFrame.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(range(3))
+    >>> df
+       0
+    0  0
+    1  1
+    2  2
+    >>> df.to_series()
+    0    0
+    1    1
+    2    2
+    Name: 0, dtype: int64
+    >>> df = pd.DataFrame({'a': [1, 2]})
+    >>> df
+       a
+    0  1
+    1  2
+    >>> df.to_series()
+    0    1
+    1    2
+    Name: a, dtype: int64
+    """
+
+    if df.shape[1] == 1:  # one column DataFrame
+        column = df.columns[0]
+        return df.get(column).rename(name or column)
+
+    return df
