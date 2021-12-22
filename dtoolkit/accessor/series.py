@@ -491,11 +491,9 @@ def error_report(
 @register_series_method
 def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     def wrap_getattr(x):
-        if hasattr(x, name):
-            attr = getattr(x, name)
-            if callable(attr):
-                return attr(*args, **kwargs)
-            return attr
-        return None
+        attr = getattr(x, name, None)
+        if callable(attr):
+            return attr(*args, **kwargs)
+        return attr
 
     return s.apply(wrap_getattr)
