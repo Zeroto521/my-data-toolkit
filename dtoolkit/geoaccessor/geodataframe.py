@@ -7,20 +7,17 @@ import pandas as pd
 from pandas.util._decorators import doc
 
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor.geoseries import (
-    count_coordinates as geoseries_count_coordinates,
-)
-from dtoolkit.geoaccessor.geoseries import geobuffer as geoseries_geobuffer
-from dtoolkit.geoaccessor.geoseries import (
-    get_coordinates as geoseries_get_coordinates,
-)
+from dtoolkit.geoaccessor.geoseries import count_coordinates as s_count_coordinates
+from dtoolkit.geoaccessor.geoseries import geobuffer as s_geobuffer
+from dtoolkit.geoaccessor.geoseries import get_coordinates as s_get_coordinates
+from dtoolkit.geoaccessor.geoseries import utm_crs as s_utm_crs
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
 @doc(
-    geoseries_geobuffer,
-    klass="GeoDataFrame",
+    s_geobuffer,
+    klass=":class:`~geopandas.GeoDataFrame`",
     alias="df",
     examples=dedent(
         """
@@ -36,7 +33,8 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     ...             Point(122, 55),
     ...             Point(100, 1),
     ...         ]
-    ...     }
+    ...     },
+    ...     crs="EPSG:4326",
     ... )
     >>> d
                    where                    geometry
@@ -44,31 +42,22 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     1  away from equator   POINT (100.00000 1.00000)
     >>> d.geobuffer(100)
                    where                                           geometry
-    0   close to equator  POLYGON ((122.00156 55.00000, 122.00156 54.999...
+    0   close to equator  POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     """,
     ),
 )
 def geobuffer(
     df: gpd.GeoDataFrame,
-    distance: int | float | list | OneDimArray,
-    crs: str | None = None,
-    epsg: int | None = None,
+    distance: int | float | list[int | float] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-    return df.assign(
-        geometry=df.geometry.geobuffer(
-            distance,
-            crs=crs,
-            epsg=epsg,
-            **kwargs,
-        ),
-    )
+    return df.assign(geometry=df.geometry.geobuffer(distance, **kwargs))
 
 
 @register_geodataframe_method
 @doc(
-    geoseries_count_coordinates,
+    s_count_coordinates,
     klass=":class:`~geopandas.GeoDataFrame`",
     examples=dedent(
         """
@@ -97,7 +86,7 @@ def count_coordinates(df: gpd.GeoDataFrame) -> pd.Series:
 
 @register_geodataframe_method
 @doc(
-    geoseries_get_coordinates,
+    s_get_coordinates,
     klass=":class:`~geopandas.GeoDataFrame`",
     examples=dedent(
         """
@@ -130,3 +119,9 @@ def get_coordinates(
         include_z=include_z,
         return_index=return_index,
     )
+
+
+@register_geodataframe_method
+@doc(s_utm_crs)
+def utm_crs(df: gpd.GeoDataFrame, datum_name: str = "WGS 84") -> pd.Series:
+    return df.geometry.utm_crs(datum_name=datum_name)
