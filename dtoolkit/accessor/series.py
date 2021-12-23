@@ -354,14 +354,12 @@ def expand(
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    iters = suffix or range(max_len)
-    columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
-
+    columns = suffix or range(max_len)
     return pd.DataFrame(
         s_list.tolist(),
         index=s.index,
-        columns=columns,
-    )
+        columns=columns[:max_len],
+    ).add_prefix(s.name + delimiter)
 
 
 @register_series_method
