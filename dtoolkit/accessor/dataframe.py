@@ -17,8 +17,6 @@ from dtoolkit.accessor.series import top_n as s_top_n
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import SeriesOrFrame
-
 
 @register_dataframe_method
 @doc(
