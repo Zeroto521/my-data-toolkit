@@ -10,6 +10,8 @@ from pandas.util._validators import validate_bool_kwarg
 from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from dtoolkit._typing import OneDimArray
 
 
@@ -336,7 +338,7 @@ def expand(
 
     from dtoolkit.accessor._util import collapse
 
-    def wrap_collapse(x):
+    def wrap_collapse(x) -> list[Any]:
         if is_list_like(x):
             if flatten:
                 return list(collapse(x))
