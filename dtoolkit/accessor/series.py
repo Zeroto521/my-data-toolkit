@@ -393,11 +393,14 @@ def lens(s: pd.Series) -> pd.Series:
     6    <class 'object'>
     dtype: object
     >>> s.lens()
-    0    6
-    1    1
-    2    1
-    3    1
-    dtype: int64
+    0    1.0
+    1    1.0
+    2    6.0
+    3    1.0
+    4    1.0
+    5    0.0
+    6    NaN
+    dtype: float64
     """
     from pandas.api.types import is_number
 
