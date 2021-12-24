@@ -384,17 +384,35 @@ def lens(s: pd.Series) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
+    >>> s = pd.Series([0, 1, "string", ("tuple",), ["list"], {}, object])
+    >>> s
+    0                   0
+    1                   1
+    2              string
+    3            (tuple,)
+    4              [list]
+    5                  {}
+    6    <class 'object'>
+    dtype: object
     >>> s.lens()
-    0    6
-    1    1
-    2    1
-    3    1
-    dtype: int64
+    0    1.0
+    1    1.0
+    2    6.0
+    3    1.0
+    4    1.0
+    5    0.0
+    6    NaN
+    dtype: float64
     """
-    from collections.abc import Iterable
+    from pandas.api.types import is_number
 
-    return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
+    def wrap_len(x) -> int | None:
+        if hasattr(x, "__len__"):
+            return len(x)
+        elif is_number(x):
+            return 1
+
+    return s.apply(wrap_len)
 
 
 @register_series_method
