@@ -4,10 +4,11 @@
 
 Highlights of this release:
 
-- `~dtoolkit.geoaccessor.geoseries.geobuffer` at least x1.3 faster than before ({pr}`341`, {pr}`342`, {pr}`347`, {pr}`350`).
+- {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` at least x1.3 faster than before ({pr}`341`, {pr}`342`, {pr}`347`, {pr}`350`, {pr}`357`).
 
 New features and improvements:
 
+- Extend {meth}`~dtoolkit.accessor.series.lens` function range ({pr}`356`).
 - New geoaccessor method {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`346`).
 
 API changes:
@@ -16,12 +17,16 @@ API changes:
 
 Maintenance development:
 
+- Simplify {meth}`~dtoolkit.accessor.dataframe.repeat` codes ({pr}`353`).
+- Use `add_prefix` to simplify {meth}`~dtoolkit.accessor.series.expand` ({pr}`352`).
 - Use `add_prefix` to simplify {meth}`~dtoolkit.accessor.series.top_n` ({pr}`351`).
 - Import uncommon packages at inner of method ({pr}`343`, {pr}`344`).
 - Tag event also trigger to release to `test.pypi.org` ({pr}`340`).
 
 Typing annotations:
 
+- Specific `Any` type ({pr}`355`).
+- Use `TYPE_CHECKING` mark ({pr}`354`).
 - Specific the type of `list` element ({pr}`349`).
 - Correct {meth}`~dtoolkit.accessor.series.cols` return type ({pr}`345`).
 
