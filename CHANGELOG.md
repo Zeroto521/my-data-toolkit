@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.7] (2021-12-27)
+## [Version 0.0.7] (2021-12-30)
 
 Highlights of this release:
 
