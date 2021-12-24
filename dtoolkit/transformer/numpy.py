@@ -55,10 +55,7 @@ class RavelTF(NumpyTF):
 
     transform_method = staticmethod(np.ravel)
 
-    def inverse_transform(
-        self,
-        X: np.ndarray | SeriesOrFrame,
-    ) -> pd.Series:
+    def inverse_transform(self, X: np.ndarray | SeriesOrFrame) -> pd.Series:
         """
         Transform ``X`` to a column :class:`~pandas.Series` (1D data).
 
