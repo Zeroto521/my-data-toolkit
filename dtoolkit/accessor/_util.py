@@ -1,14 +1,18 @@
 from __future__ import annotations
 
-from typing import Iterable
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import OneDimArray
-from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
 from dtoolkit.util import multi_if_else
+
+if TYPE_CHECKING:
+    from typing import Iterable
+
+    from dtoolkit._typing import OneDimArray
+    from dtoolkit._typing import SeriesOrFrame
+    from dtoolkit._typing import TwoDimArray
 
 
 def get_inf_range(inf: str = "all") -> list[float]:
