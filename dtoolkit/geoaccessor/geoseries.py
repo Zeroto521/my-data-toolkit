@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import numpy as np
@@ -8,8 +9,10 @@ import pandas as pd
 import pygeos
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor.register import register_geoseries_method
+
+if TYPE_CHECKING:
+    from dtoolkit._typing import OneDimArray
 
 
 @register_geoseries_method
