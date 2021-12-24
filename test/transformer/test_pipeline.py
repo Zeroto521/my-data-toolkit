@@ -70,6 +70,18 @@ def test_pipeline_work(name, data, pipeline):
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
 
 
+def test_inverse_transform_type():
+    pipeline = make_pipeline(
+        GetTF(["target"]),
+        MinMaxScaler(),
+        RavelTF(),
+    )
+    transformed_data = pipeline.fit_transform(pd.DataFrame(s))
+    s_back = pipeline.inverse_transform(transformed_data)
+
+    assert isinstance(s_back, pd.Series)
+
+
 class TestFeatureUnion:
     @pytest.mark.parametrize(
         "pipeline",

@@ -8,6 +8,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
+from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer._validation import require_series_or_frame
 
@@ -171,7 +172,7 @@ class DataFrameTF(MethodTF):
 
         return super().transform(X)
 
-    def inverse_transform(self, X: SeriesOrFrame) -> pd.DataFrame:
+    def inverse_transform(self, X: SeriesOrFrame) -> SeriesOrFrame:
         """
         Undo transform to ``X``.
 
@@ -194,4 +195,4 @@ class DataFrameTF(MethodTF):
         require_series_or_frame(X)
         X = transform_series_to_frame(X)
 
-        return super().inverse_transform(X)
+        return super().inverse_transform(X).to_series()
