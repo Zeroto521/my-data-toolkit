@@ -77,7 +77,7 @@ html_theme_options = {
             "name": "PyPI",
             "url": "https://pypi.org/project/dtoolkit",
             "icon": "fas fa-box",
-        }
+        },
     ],
 }
 
