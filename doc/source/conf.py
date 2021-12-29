@@ -72,6 +72,13 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "search_bar_position": "sidebar",
     "github_url": github_url,
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/dtoolkit",
+            "icon": "fas fa-box",
+        }
+    ],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
