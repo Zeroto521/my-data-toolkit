@@ -1,5 +1,7 @@
 # My Data Toolkit: DToolKit
 
+[![PyPI Project Version](https://img.shields.io/pypi/v/dtoolkit.svg)](https://pypi.org/project/dtoolkit/)
+[![PyPI Python Versions](https://img.shields.io/pypi/pyversions/ansicolortags.svg)](https://pypi.org/project/dtoolkit/)
 [![Tests Status](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/tests.yml)
 [![Nightly Tests Status](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/nightly-tests.yml/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/nightly-tests.yml)
 [![CodeQL Status](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/codeql-analysis.yml)
