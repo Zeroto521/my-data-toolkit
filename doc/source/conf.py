@@ -72,6 +72,7 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "search_bar_position": "sidebar",
     "github_url": github_url,
+    "use_edit_page_button": True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -88,7 +89,13 @@ moved_pages = [
 
 html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
 
-html_context = {"redirects": dict(moved_pages)}
+html_context = {
+    "redirects": dict(moved_pages),
+    "github_user": "zeroto521",
+    "github_repo": "my-data-toolkit",
+    "github_version": "master",
+    "doc_path": "doc",
+}
 
 
 #  --Options for sphinx extensions -----------------------------------------------
