@@ -234,8 +234,10 @@ def top_n(
 
     See Also
     --------
-    pandas.Series.nlargest : Get the largest `n` elements.
-    pandas.Series.nsmallest : Get the smallest `n` elements.
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+    dtoolkit.accessor.dataframe.top_n
+        Returns each row's top n.
     """
 
     if largest:
