@@ -88,7 +88,7 @@ moved_pages = [
 
 html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
 
-html_context = {"redirects": {old: new for old, new in moved_pages}}
+html_context = {"redirects": dict(moved_pages)}
 
 
 #  --Options for sphinx extensions -----------------------------------------------
