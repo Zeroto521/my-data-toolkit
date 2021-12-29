@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Thanks for contributing a pull request!
 
 Please follow these standard acronyms to start the commit message:
