@@ -1,0 +1,19 @@
+name: autoupdate branch
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  autoupdate-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://chinthakagodawita/autoupdate-action:v1
+        id: autoupdate-branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_FILTER: "auto_merge"
+          PR_READY_STATE: "ready_for_review"
+
+      - run: echo 'Merge conflicts found!'
+        if: ${{ steps.autoupdate-branch.outputs.conflicted }}
