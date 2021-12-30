@@ -11,7 +11,7 @@ jobs:
       - uses: docker://chinthakagodawita/autoupdate-action:v1
         id: branch
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSON_GITHUB_TOKEN }}
           PR_FILTER: "auto_merge"
           PR_READY_STATE: "ready_for_review"
 
