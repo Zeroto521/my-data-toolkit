@@ -3,7 +3,7 @@ ci:
     BOT: auto fixes from pre-commit.com hooks
 
     for more information, see https://pre-commit.ci
-  autoupdate_commit_msg: "BOT: pre-commit autoupdate"
+  autoupdate_commit_msg: "BOT: pre-commit hooks autoupdate"
 
 repos:
   # import
