@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 from inspect import isfunction
-from typing import Callable
+from typing import TYPE_CHECKING
 
 from dtoolkit.transformer.base import MethodTF
 from dtoolkit.util.generic import snake_to_camel
+
+if TYPE_CHECKING:
+    from typing import Callable
 
 
 def methodtf_factory(

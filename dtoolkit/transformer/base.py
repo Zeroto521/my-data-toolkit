@@ -1,17 +1,21 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import Any
-from typing import Callable
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer._validation import require_series_or_frame
+
+if TYPE_CHECKING:
+    from typing import Any
+    from typing import Callable
+
+    from dtoolkit._typing import SeriesOrFrame
 
 
 class Transformer(TransformerMixin):
@@ -182,7 +186,7 @@ class DataFrameTF(MethodTF):
             Transformed data.
 
         Notes
-        -----_
+        -----
         If ``inverse_transform_method`` is None, there would do nothing for
         ``X``.
         """

@@ -1,22 +1,26 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
-from scipy.sparse import csr_matrix
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
-from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer.base import Transformer
+
+if TYPE_CHECKING:
+    from scipy.sparse import csr_matrix
+
+    from dtoolkit._typing import SeriesOrFrame
+    from dtoolkit._typing import TwoDimArray
 
 
 class FeatureUnion(SKFeatureUnion, Transformer):
