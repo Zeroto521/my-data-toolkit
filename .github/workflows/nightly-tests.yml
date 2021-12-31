@@ -20,7 +20,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         dev: [true]
-        python-version: ["3.8", "3.9"]
+        python-version: ["3.8", "3.9", "3.10"]
         env:
           - ci/envs/dev.yaml
 
@@ -46,4 +46,4 @@ jobs:
         run: make test
 
       - name: Code Coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2.1.0

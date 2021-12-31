@@ -1,25 +1,23 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
+import numpy as np
 import pandas as pd
+import pygeos
 from pandas.util._decorators import doc
-from pygeos import count_coordinates as pygeos_count_coordinates
-from pygeos import from_shapely
-from pygeos import get_coordinates as pygeos_get_coordinates
-from pyproj import CRS
 
-from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor._util import is_int_or_float
-from dtoolkit.geoaccessor._util import string_or_int_to_crs
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.geoaccessor.tool import geographic_buffer
+
+if TYPE_CHECKING:
+    from dtoolkit._typing import OneDimArray
 
 
 @register_geoseries_method
 @doc(
-    klass="GeoSeries",
+    klass=":class:`~geopandas.GeoSeries`",
     alias="s",
     examples=dedent(
         """
@@ -27,62 +25,44 @@ from dtoolkit.geoaccessor.tool import geographic_buffer
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely.geometry import Point, LineString
     >>> s = gpd.GeoSeries(
     ...     [
     ...         Point(122, 55),
     ...         Point(100, 1),
-    ...     ]
+    ...         LineString([Point(122, 55), Point(100, 1)])
+    ...     ],
+    ...     crs="EPSG:4326",
     ... )
     >>> s
     0    POINT (122.00000 55.00000)
     1    POINT (100.00000  1.00000)
+    2    LINESTRING (122.00000 55.00000, 100.00000 1.00...
     dtype: geometry
     >>> s.geobuffer(100)
-    0    POLYGON ((122.00156 55.00000, 122.00156 54.999...
+    0    POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1    POLYGON ((100.00090 1.00000, 100.00089 0.99991...
+    2    POLYGON ((100.00088 0.99981, 100.00086 0.99972...
     dtype: geometry
     """,
     ),
 )
 def geobuffer(
     s: gpd.GeoSeries,
-    distance: int | float | list | OneDimArray,
-    crs: str | None = None,
-    epsg: int | None = None,
+    distance: int | float | list[int | float] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoSeries:
     """
     Creates geographic buffers for {klass}.
 
-    Creates a buffer zone of specified size around or inside geometry. It
-    is designed for use with features in Geographic coordinates. Reprojects
-    input features into the DynamicEqual Distance projection, buffers them,
-    then reprojects back into the original Geographic coordinates.
+    Reprojects input features into the *UTM* projection, buffers them,
+    then reprojects back into the original geographic coordinates.
 
     Parameters
     ----------
-    {alias} : {klass}
-        Only support `Point` geometry, at present.
-
-    distance : int, float, ndarray or Series, the unit is meter.
-        The radius of the buffer. If :obj:`~numpy.ndarray` or
-        :obj:`~pandas.Series` are used then it must have same length as the
-        ``{alias}``.
-
-    crs : str, optional
-        If ``epsg`` is specified, the value can be anything accepted by
-        :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority string
-        (e.g. "EPSG:4326") or a WKT string.
-
-    epsg : int, optional
-
-        * If ``{alias}.crs`` is not None, the result would use the CRS of
-          :obj:`~geopandas.GeoSeries`.
-        * If ``{alias}.crs`` is None, the result would use the CRS from ``crs``
-          or ``epsg``.
-        * If ``crs`` is specified EPSG code specifying output projection.
-        * If ``{alias}.crs`` is ``None``, the result would use `EPSG:4326`
+    distance : int, float, list-like of int or float, the unit is meter.
+        The radius of the buffer. If :obj:`~numpy.ndarray` or :obj:`~pandas.Series`
+        are used then it must have same length as the ``{alias}``.
 
     Returns
     -------
@@ -91,35 +71,62 @@ def geobuffer(
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.geobuffer
-        Creates geographic buffers for GeoSeries.
     dtoolkit.geoaccessor.geodataframe.geobuffer
-        Creates geographic buffers for GeoDataFrame.
-    dtoolkit.geoaccessor.tool.geographic_buffer
-        The core algorithm for creating geographic buffer.
-    shapely.geometry.base.BaseGeometry.buffer
-        https://shapely.readthedocs.io/en/latest/manual.html#object.buffer
+    geopandas.GeoSeries.buffer
+
     {examples}
     """
+    from pandas.api.types import is_list_like
+    from pandas.api.types import is_number
 
-    if is_int_or_float(distance):
-        result = (geographic_buffer(g, distance, crs=crs, **kwargs) for g in s)
-    else:
+    if is_list_like(distance):
         if len(distance) != len(s):
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
             )
-        if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
-            raise IndexError(
-                "Index values of 'distance' sequence doesn't "
-                f"match index values of the {type(s)!r}",
-            )
 
-        result = (
-            geographic_buffer(g, d, crs=crs, **kwargs) for g, d in zip(s, distance)
+        if isinstance(distance, pd.Series):
+            if not s.index.equals(distance.index):
+                raise IndexError(
+                    "Index values of 'distance' sequence doesn't "
+                    f"match index values of the {type(s)!r}",
+                )
+        else:
+            distance = np.asarray(distance)
+
+    elif not is_number(distance):
+        raise TypeError("type of 'distance' should be int or float.")
+
+    utms = (
+        s.utm_crs()
+        .apply(
+            lambda x: x.code if x else None,
         )
+        .to_numpy()
+    )
 
-    crs: CRS = s.crs or string_or_int_to_crs(crs, epsg)
-    return gpd.GeoSeries(result, crs=crs, index=s.index, name=s.name)
+    s_index = s.index
+    s = s.reset_index(drop=True)
+    return (
+        pd.concat(
+            (
+                s[utms == utm]
+                .to_crs(epsg=utm)
+                .buffer(
+                    distance[utms == utm] if is_list_like(distance) else distance,
+                    **kwargs,
+                )
+                .to_crs(s.crs)
+            )
+            if utm is not None
+            else s[utms == utm]
+            for utm in np.unique(utms)
+        )
+        .sort_index()
+        .set_axis(s_index)
+        .rename(s.name)
+        .set_crs(s.crs)
+    )
 
 
 @register_geoseries_method
@@ -164,7 +171,11 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     {examples}
     """
 
-    return s.apply(lambda x: pygeos_count_coordinates(from_shapely(x)))
+    return s.apply(
+        lambda x: pygeos.count_coordinates(
+            pygeos.from_shapely(x),
+        ),
+    )
 
 
 @register_geoseries_method
@@ -225,9 +236,79 @@ def get_coordinates(
     """
 
     return s.apply(
-        lambda x: pygeos_get_coordinates(
-            from_shapely(x),
+        lambda x: pygeos.get_coordinates(
+            pygeos.from_shapely(x),
             include_z=include_z,
             return_index=return_index,
         ),
+    )
+
+
+@register_geoseries_method
+def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
+    """
+    Returns the estimated UTM CRS based on the bounds of each geometry.
+
+    Parameters
+    ----------
+    datum_name : str, default 'WGS 84'
+        The name of the datum in the CRS name ('NAD27', 'NAD83', 'WGS 84', …).
+
+    Returns
+    -------
+    Series
+        The element type is :class:`~pyproj.database.CRSInfo`.
+
+    See Also
+    --------
+    dtoolkit.geoaccessor.geoseries.utm_crs
+        Returns the estimated UTM CRS based on the bounds of each geometry.
+    dtoolkit.geoaccessor.geodataframe.utm_crs
+        Returns the estimated UTM CRS based on the bounds of each geometry.
+    geopandas.GeoSeries.estimate_utm_crs
+        Returns the estimated UTM CRS based on the bounds of the dataset.
+    geopandas.GeoDataFrame.estimate_utm_crs
+        Returns the estimated UTM CRS based on the bounds of the dataset.
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import geopandas as gpd
+    >>> s = gpd.GeoSeries.from_wkt(["Point (120 50)", "Point (100 1)"], crs="epsg:4326")
+    >>> s.utm_crs()
+    0    (EPSG, 32650, WGS 84 / UTM zone 50N, PJType.PR...
+    1    (EPSG, 32647, WGS 84 / UTM zone 47N, PJType.PR...
+    dtype: object
+
+    Same operate for GeoDataFrame.
+
+    >>> s.to_frame("geometry").utm_crs()
+    0    (EPSG, 32650, WGS 84 / UTM zone 50N, PJType.PR...
+    1    (EPSG, 32647, WGS 84 / UTM zone 47N, PJType.PR...
+    dtype: object
+
+    Get the EPSG code.
+
+    >>> s.utm_crs().apply(lambda x: x.code)
+    0    32650
+    1    32647
+    dtype: object
+    """
+
+    from pyproj.aoi import AreaOfInterest
+    from pyproj.database import query_utm_crs_info
+
+    return s.bounds.apply(
+        lambda bound: query_utm_crs_info(
+            datum_name=datum_name,
+            area_of_interest=AreaOfInterest(
+                west_lon_degree=bound["minx"],
+                south_lat_degree=bound["miny"],
+                east_lon_degree=bound["maxx"],
+                north_lat_degree=bound["maxy"],
+            ),
+        )[0]
+        if not bound.isna().all()
+        else None,
+        axis=1,
     )

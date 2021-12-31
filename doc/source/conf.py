@@ -15,6 +15,7 @@ from __future__ import annotations
 import inspect
 import os
 import sys
+from datetime import datetime
 
 import dtoolkit
 
@@ -25,7 +26,7 @@ version = version.replace(".post0", "")
 
 project = "DToolKit"
 author = "Zero <@Zeroto521>"
-copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
+copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
@@ -72,6 +73,13 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "search_bar_position": "sidebar",
     "github_url": github_url,
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/my-data-toolkit",
+            "icon": "fas fa-box",
+        },
+    ],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -109,6 +117,7 @@ intersphinx_mapping = {
 extlinks = {
     "issue": (f"{github_url}/issues/%s", "issue#"),
     "pr": (f"{github_url}/issues/%s", "pr#"),
+    "user": ("https://github.com/%s", "@"),
 }
 
 myst_enable_extensions = [

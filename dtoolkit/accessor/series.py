@@ -1,17 +1,18 @@
 from __future__ import annotations
 
-from collections.abc import Iterable
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import pandas as pd
-from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit._typing import OneDimArray
-from dtoolkit.accessor._util import collapse
-from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from dtoolkit._typing import OneDimArray
 
 
 @register_series_method
@@ -20,12 +21,12 @@ from dtoolkit.accessor.register import register_series_method
         """
     Returns
     -------
-    str
+    str or None
         The name of the Series.
     """,
     ),
 )
-def cols(s: pd.Series) -> str:
+def cols(s: pd.Series) -> str | None:
     """
     A API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
@@ -116,6 +117,7 @@ def drop_inf(
     1    2.0
     dtype: float64
     """
+    from dtoolkit.accessor._util import get_inf_range
 
     inplace = validate_bool_kwarg(inplace, "inplace")
     inf_range = get_inf_range(inf)
@@ -175,6 +177,8 @@ def bin(
     dtype: category
     Categories (5, object): ['E', 'D', 'C', 'B', 'A']
     """
+    inplace = validate_bool_kwarg(inplace, "inplace")
+
     result = pd.cut(
         s,
         bins=bins,
@@ -187,7 +191,6 @@ def bin(
         ordered=ordered,
     )
 
-    inplace = validate_bool_kwarg(inplace, "inplace")
     if not inplace:
         return result
 
@@ -231,8 +234,10 @@ def top_n(
 
     See Also
     --------
-    pandas.Series.nlargest : Get the largest `n` elements.
-    pandas.Series.nsmallest : Get the smallest `n` elements.
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+    dtoolkit.accessor.dataframe.top_n
+        Returns each row's top n.
     """
 
     if largest:
@@ -302,7 +307,7 @@ def top_n(
 )
 def expand(
     s: pd.Series,
-    suffix: list | None = None,
+    suffix: list[str | int] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -315,7 +320,7 @@ def expand(
 
     Parameters
     ----------
-    suffix : list of str, default None
+    suffix : list of str or int, default None
         New columns of return :class:`~pandas.DataFrame`.
 
     delimiter : str, default "_"
@@ -331,8 +336,11 @@ def expand(
     {see_also}
     {examples}
     """
+    from pandas.api.types import is_list_like
 
-    def wrap_collapse(x):
+    from dtoolkit.accessor._util import collapse
+
+    def wrap_collapse(x) -> list[Any]:
         if is_list_like(x):
             if flatten:
                 return list(collapse(x))
@@ -353,14 +361,12 @@ def expand(
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    iters = suffix or range(max_len)
-    columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
-
+    columns = suffix or range(max_len)
     return pd.DataFrame(
         s_list.tolist(),
         index=s.index,
-        columns=columns,
-    )
+        columns=columns[:max_len],
+    ).add_prefix(s.name + delimiter)
 
 
 @register_series_method
@@ -380,32 +386,51 @@ def lens(s: pd.Series) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
+    >>> s = pd.Series([0, 1, "string", ("tuple",), ["list"], {}, object])
+    >>> s
+    0                   0
+    1                   1
+    2              string
+    3            (tuple,)
+    4              [list]
+    5                  {}
+    6    <class 'object'>
+    dtype: object
     >>> s.lens()
-    0    6
-    1    1
-    2    1
-    3    1
-    dtype: int64
+    0    1.0
+    1    1.0
+    2    6.0
+    3    1.0
+    4    1.0
+    5    0.0
+    6    NaN
+    dtype: float64
     """
+    from pandas.api.types import is_number
 
-    return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
+    def wrap_len(x) -> int | None:
+        if hasattr(x, "__len__"):
+            return len(x)
+        elif is_number(x):
+            return 1
+
+    return s.apply(wrap_len)
 
 
 @register_series_method
 def error_report(
     s: pd.Series,
-    predicted: OneDimArray | list,
-    columns: list | None = None,
+    predicted: OneDimArray | list[int | float],
+    columns: list[str | int] | None = None,
 ) -> pd.DataFrame:
     """
     Calculate `absolute error` and `relative error` of two columns.
 
     Parameters
     ----------
-    predicted : list, ndarrray, Series
+    predicted : list of int or float, ndarrray, Series
         A array is compared to ``s``.
-    columns : list of str, default None
+    columns : list of str or int, default None
         The columns of returning DataFrame, each represents `true value`,
         `predicted value`, `absolute error`, and `relative error`.
 

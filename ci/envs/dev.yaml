@@ -3,8 +3,12 @@ channels:
   - conda-forge
 dependencies:
   - cython
+  - numpy
   # geo
   - geos
+  - fiona
+  - pyproj
+  - shapely
   # testing
   - pytest
   - pytest-cov
@@ -13,7 +17,7 @@ dependencies:
   # dev versions of packages
   - pip
   - pip:
-    - git+https://github.com/pydata/pandas@master
-    - git+https://github.com/scikit-learn/scikit-learn@main
-    - git+https://github.com/geopandas/geopandas@master
-    - git+https://github.com/pygeos/pygeos@master
+    - git+https://github.com/pydata/pandas
+    - git+https://github.com/scikit-learn/scikit-learn
+    - git+https://github.com/geopandas/geopandas
+    - git+https://github.com/pygeos/pygeos
