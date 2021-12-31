@@ -1,5 +1,34 @@
 # Changelog
 
+## [Version 0.0.8] (2022-1-1)
+
+Highlights of this release:
+
+- Publish to PyPI ({pr}`363`).
+
+API changes:
+
+- Remove {meth}`~dtoolkit.geoaccessor.tool.geographic_buffer` ({pr}`348`).
+
+Maintenance development:
+
+- Update pre-commit commit message ({pr}`371`).
+- Enable labeled 'auto-merged' PR could merge master brach into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
+- Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`).
+- Auto update github action runner ({pr}`360`, {pr}`364`).
+- Pre-commit hooks auto update ({pr}`359`).
+- Let git choose the default branch ({pr}`376`, ).
+
+Documentation:
+
+- Correct package name, `MinMaxScaler` -> `OneHotEncoder` ({pr}`374`).
+- Shorten package path, `dtoolkit.accessor.register` -> `dtoolkit.accessor` ({pr}`373`).
+
+New contributors:
+
+- {user}`dependabot`
+- {user}`web-flow`
+
 ## [Version 0.0.7] (2021-12-30)
 
 Highlights of this release:
@@ -201,6 +230,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8
 [Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
 [Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
 [Version 0.0.5]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.4...v0.0.5
