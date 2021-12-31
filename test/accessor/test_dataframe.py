@@ -1,5 +1,6 @@
 from test.accessor import d
 
+import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pytest
@@ -7,6 +8,7 @@ import pytest
 from dtoolkit.accessor.dataframe import drop_inf  # noqa
 from dtoolkit.accessor.dataframe import filter_in  # noqa
 from dtoolkit.accessor.dataframe import repeat  # noqa
+from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.dataframe import top_n  # noqa
 
 
@@ -428,3 +430,134 @@ class TestTopN:
 
         with pytest.raises(ValueError):
             df.top_n(1, element="whatever")
+
+
+class TestToSeries:
+    @pytest.mark.parametrize(
+        "df, name, excepted",
+        [
+            (
+                pd.DataFrame({"a": [1, 2]}),
+                None,
+                pd.Series([1, 2], name="a"),
+            ),
+            # dataframe -> dataframe
+            (
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+            ),
+            # name is not None
+            (
+                pd.DataFrame({"a": [1, 2]}),
+                "b",
+                pd.Series([1, 2], name="b"),
+            ),
+            # the columns of df are default
+            (
+                pd.DataFrame([1, 2]),
+                None,
+                pd.Series([1, 2], name=0),
+            ),
+            # geodataframe -> geodataframe
+            (
+                gpd.GeoDataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                gpd.GeoDataFrame({"a": [1, 2], "b": [3, 4]}),
+            ),
+            # geodataframe -> geodataframe
+            (
+                gpd.GeoDataFrame.from_features(
+                    {
+                        "type": "FeatureCollection",
+                        "features": [
+                            {
+                                "type": "Feature",
+                                "properties": {"col1": "name1"},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": (1.0, 2.0),
+                                },
+                            },
+                            {
+                                "type": "Feature",
+                                "properties": {"col1": "name2"},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": (2.0, 1.0),
+                                },
+                            },
+                        ],
+                    }
+                ),
+                None,
+                gpd.GeoDataFrame.from_features(
+                    {
+                        "type": "FeatureCollection",
+                        "features": [
+                            {
+                                "type": "Feature",
+                                "properties": {"col1": "name1"},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": (1.0, 2.0),
+                                },
+                            },
+                            {
+                                "type": "Feature",
+                                "properties": {"col1": "name2"},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": (2.0, 1.0),
+                                },
+                            },
+                        ],
+                    }
+                ),
+            ),
+            # geodataframe -> geoseries
+            (
+                gpd.GeoDataFrame({"a": [1, 2]}),
+                None,
+                gpd.GeoSeries([1, 2], name="a"),
+            ),
+            # geodataframe -> geoseries
+            (
+                gpd.GeoDataFrame.from_features(
+                    {
+                        "type": "FeatureCollection",
+                        "features": [
+                            {
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": (1.0, 2.0),
+                                },
+                            },
+                            {
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": (2.0, 1.0),
+                                },
+                            },
+                        ],
+                    }
+                ),
+                None,
+                gpd.GeoSeries.from_wkt(
+                    [
+                        "POINT (1 2)",
+                        "POINT (2 1)",
+                    ],
+                    name="geometry",
+                ),
+            ),
+        ],
+    )
+    def test_work(self, df, name, excepted):
+        result = df.to_series(name)
+
+        assert result.equals(excepted)
