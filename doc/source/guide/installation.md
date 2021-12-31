@@ -39,7 +39,7 @@ conda activate dtoolkit_env
 conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
 conda install python=3 pandas scikit-learn geopandas pygeos
-pip install dtoolkit
+pip install my-data-toolkit
 ```
 
 ### From YAML
@@ -58,7 +58,7 @@ dependencies:
   - pygeos
   - pip
   - pip:
-      - dtoolkit
+      - my-data-toolkit
 ```
 
 Create the environment from YAML.
@@ -70,7 +70,7 @@ conda env create -f dtoolkit_env.yaml
 ## Install from PyPI
 
 ```bash
-pip install dtoolkit
+pip install my-data-toolkit
 ```
 
 ## Install from Source
