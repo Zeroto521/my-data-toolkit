@@ -37,7 +37,7 @@ DataFrame Accessor (to GeoPandas)
 
 GeoPandas Base Accessor
 -----------------------
-.. currentmodule:: dtoolkit.geoaccessor.accessor
+.. currentmodule:: dtoolkit.geoaccessor
 .. autosummary::
     :toctree: api/
 
@@ -47,18 +47,9 @@ GeoPandas Base Accessor
 
 GeoPandas Method Register
 -------------------------
-.. currentmodule:: dtoolkit.geoaccessor.register
+.. currentmodule:: dtoolkit.geoaccessor
 .. autosummary::
     :toctree: api/
 
     register_geoseries_method
     register_geodataframe_method
-
-
-Core Algorithm
---------------
-.. currentmodule:: dtoolkit.geoaccessor.tool
-.. autosummary::
-    :toctree: api/
-
-    geographic_buffer
