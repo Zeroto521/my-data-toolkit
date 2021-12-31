@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import Iterable
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
@@ -13,6 +13,9 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as s_cols
 from dtoolkit.accessor.series import expand as s_expand
 from dtoolkit.accessor.series import top_n as s_top_n
+
+if TYPE_CHECKING:
+    from typing import Iterable
 
 
 @register_dataframe_method
@@ -376,24 +379,15 @@ def repeat(
     1  2  4  4
     """
 
-    new_index = df.index.copy()
-    new_column = df.columns.copy()
-
     axis = df._get_axis_number(axis)
-    if axis == 0:
-        new_index = new_index.repeat(repeats)
-    elif axis == 1:
-        new_column = new_column.repeat(repeats)
-
-    new_values = np.repeat(
-        df._values,
-        repeats,
-        axis=axis,
-    )
     return pd.DataFrame(
-        new_values,
-        index=new_index,
-        columns=new_column,
+        np.repeat(
+            df._values,
+            repeats,
+            axis=axis,
+        ),
+        index=df.index.repeat(repeats) if axis == 0 else df.index,
+        columns=df.columns.repeat(repeats) if axis == 1 else df.columns,
     )
 
 

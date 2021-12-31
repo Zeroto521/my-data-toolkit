@@ -35,7 +35,7 @@ DataFrame Accessor
 
 Pandas Method Register
 ----------------------
-.. currentmodule:: dtoolkit.accessor.register
+.. currentmodule:: dtoolkit.accessor
 .. autosummary::
     :toctree: api/
 
