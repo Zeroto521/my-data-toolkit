@@ -488,7 +488,7 @@ class TestToSeries:
                                 },
                             },
                         ],
-                    }
+                    },
                 ),
                 None,
                 gpd.GeoDataFrame.from_features(
@@ -512,7 +512,7 @@ class TestToSeries:
                                 },
                             },
                         ],
-                    }
+                    },
                 ),
             ),
             # geodataframe -> geoseries
@@ -544,7 +544,7 @@ class TestToSeries:
                                 },
                             },
                         ],
-                    }
+                    },
                 ),
                 None,
                 gpd.GeoSeries.from_wkt(
