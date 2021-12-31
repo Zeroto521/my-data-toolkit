@@ -66,3 +66,27 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: dist/${{ needs.build.outputs.tar }}
+
+  publish-to-pypi:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: release
+          path: dist/
+
+      - name: List dist/ Folder
+        run: ls dist/ -l
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.4.1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          verbose: true
