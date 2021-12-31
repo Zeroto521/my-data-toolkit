@@ -9,8 +9,8 @@ import pandas as pd
 import pygeos
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.accessor.series import get_attr  # noqa
+from dtoolkit.geoaccessor.register import register_geoseries_method
 
 if TYPE_CHECKING:
     from dtoolkit._typing import OneDimArray
