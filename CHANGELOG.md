@@ -5,6 +5,7 @@
 Highlights of this release:
 
 - Publish to PyPI ({pr}`363`).
+- Change PyPI project name from `dtoolkit` to `my-data-toolkit` ({pr}`382`).
 
 API changes:
 
