@@ -15,7 +15,7 @@ Maintenance development:
 
 - Update pre-commit commit message ({pr}`371`).
 - Enable labeled 'auto-merged' PR could merge master brach into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
-- Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`).
+- Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`, {pr}`383`).
 - Auto update github action runner ({pr}`360`, {pr}`364`).
 - Pre-commit hooks auto update ({pr}`359`).
 - Let git choose the default branch ({pr}`376`, ).
