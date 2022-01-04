@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
+if TYPE_CHECKING:
+    from dtoolkit._typing import SeriesOrFrame
+    from dtoolkit._typing import TwoDimArray
 
 
 def transform_array_to_frame(

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import numpy as np
@@ -8,8 +9,11 @@ import pandas as pd
 import pygeos
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import OneDimArray
+from dtoolkit.accessor.series import get_attr  # noqa
 from dtoolkit.geoaccessor.register import register_geoseries_method
+
+if TYPE_CHECKING:
+    from dtoolkit._typing import OneDimArray
 
 
 @register_geoseries_method
@@ -94,13 +98,7 @@ def geobuffer(
     elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
-    utms = (
-        s.utm_crs()
-        .apply(
-            lambda x: x.code if x else None,
-        )
-        .to_numpy()
-    )
+    utms = s.utm_crs().get_attr("code").to_numpy()
 
     s_index = s.index
     s = s.reset_index(drop=True)
@@ -269,6 +267,7 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
 
     Examples
     --------
+    >>> import dtoolkit.accessor
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
     >>> s = gpd.GeoSeries.from_wkt(["Point (120 50)", "Point (100 1)"], crs="epsg:4326")
@@ -286,7 +285,7 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
 
     Get the EPSG code.
 
-    >>> s.utm_crs().apply(lambda x: x.code)
+    >>> s.utm_crs().get_attr("code")
     0    32650
     1    32647
     dtype: object

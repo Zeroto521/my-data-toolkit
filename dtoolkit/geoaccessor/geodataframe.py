@@ -1,17 +1,20 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor.geoseries import count_coordinates as s_count_coordinates
 from dtoolkit.geoaccessor.geoseries import geobuffer as s_geobuffer
 from dtoolkit.geoaccessor.geoseries import get_coordinates as s_get_coordinates
 from dtoolkit.geoaccessor.geoseries import utm_crs as s_utm_crs
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+
+if TYPE_CHECKING:
+    from dtoolkit._typing import OneDimArray
 
 
 @register_geodataframe_method

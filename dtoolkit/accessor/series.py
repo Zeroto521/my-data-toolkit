@@ -1,13 +1,18 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.register import register_series_method
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from dtoolkit._typing import OneDimArray
 
 
 @register_series_method
@@ -229,8 +234,10 @@ def top_n(
 
     See Also
     --------
-    pandas.Series.nlargest : Get the largest `n` elements.
-    pandas.Series.nsmallest : Get the smallest `n` elements.
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+    dtoolkit.accessor.dataframe.top_n
+        Returns each row's top n.
     """
 
     if largest:
@@ -333,7 +340,7 @@ def expand(
 
     from dtoolkit.accessor._util import collapse
 
-    def wrap_collapse(x):
+    def wrap_collapse(x) -> list[Any]:
         if is_list_like(x):
             if flatten:
                 return list(collapse(x))
@@ -354,14 +361,12 @@ def expand(
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    iters = suffix or range(max_len)
-    columns = [s.name + delimiter + str(i) for i in iters[:max_len]]
-
+    columns = suffix or range(max_len)
     return pd.DataFrame(
         s_list.tolist(),
         index=s.index,
-        columns=columns,
-    )
+        columns=columns[:max_len],
+    ).add_prefix(s.name + delimiter)
 
 
 @register_series_method
@@ -381,17 +386,35 @@ def lens(s: pd.Series) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> s = pd.Series(["string", ("tuple",), ["list"], 0])
+    >>> s = pd.Series([0, 1, "string", ("tuple",), ["list"], {}, object])
+    >>> s
+    0                   0
+    1                   1
+    2              string
+    3            (tuple,)
+    4              [list]
+    5                  {}
+    6    <class 'object'>
+    dtype: object
     >>> s.lens()
-    0    6
-    1    1
-    2    1
-    3    1
-    dtype: int64
+    0    1.0
+    1    1.0
+    2    6.0
+    3    1.0
+    4    1.0
+    5    0.0
+    6    NaN
+    dtype: float64
     """
-    from collections.abc import Iterable
+    from pandas.api.types import is_number
 
-    return s.apply(lambda x: len(x) if isinstance(x, Iterable) else 1)
+    def wrap_len(x) -> int | None:
+        if hasattr(x, "__len__"):
+            return len(x)
+        elif is_number(x):
+            return 1
+
+    return s.apply(wrap_len)
 
 
 @register_series_method
@@ -486,3 +509,63 @@ def error_report(
         axis=1,
         keys=columns,
     )
+
+
+@register_series_method
+def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
+    """
+    Return the value of the named attribute of Series element.
+
+    The back core logical is :func:`getattr`.
+
+    Parameters
+    ----------
+    name : str
+        The name of one of the Series element's attributes. If the named attribute
+        does not exist, None is returned.
+    args, kwargs
+        The arguments of the function type attribute.
+
+    Returns
+    -------
+    Series
+
+    See Also
+    --------
+    getattr
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series(["hello", "world"])
+
+    Get a attribute.
+
+    >>> s.get_attr("__doc__")
+    0    str(object='') -> str\\nstr(bytes_or_buffer[, e...
+    1    str(object='') -> str\\nstr(bytes_or_buffer[, e...
+    dtype: object
+
+    Get a don't exist attribute.
+
+    >>> s.get_attr("whatever")
+    0    None
+    1    None
+    dtype: object
+
+    Get a method attribute and call it.
+
+    >>> s.get_attr("count", "l")
+    0    2
+    1    1
+    dtype: int64
+    """
+
+    def wrap_getattr(x):
+        attr = getattr(x, name, None)
+        if callable(attr):
+            return attr(*args, **kwargs)
+        return attr
+
+    return s.apply(wrap_getattr)

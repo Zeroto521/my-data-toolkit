@@ -34,8 +34,8 @@ Simply say CRS shows a mapping relationship between 3D ellipsoid Earth and 2D pl
 
 Some CRSs we have already met, the GPS coordniate references, used in online map:
 
-- `EPSG:4326`: {math}`(120°, 50°)`, sphere reference
-- `EPSG:3857`: {math}`(13358338.90m, 6446275.84m)`, surface reference
+- `EPSG:4326`: {math}`(120°, 50°)`, spherical reference
+- `EPSG:3857`: {math}`(13358338.90m, 6446275.84m)`, projection plane reference
 
 ## Non Geographic Buffer
 
@@ -52,9 +52,9 @@ Then let us generate {math}`500km` buffers for those two points.
 
 With the following steps:
 
-1. Transform points from `EPSG:4326` to `EPSG:3857`.
+1. Transform spherical coordinates to projection plane coordinates from `EPSG:4326` to `EPSG:3857`.
 2. Generate {math}`500km` buffer via {meth}`~geopandas.GeoSeries.buffer`.
-3. Transform points from `EPSG:3857` to `EPSG:4326`.
+3. Transform CRS back from `EPSG:3857` to `EPSG:4326`.
 4. Display on the map.
 
 ![Points buffer](../_static/points-buffer.png)
@@ -71,21 +71,41 @@ The following GIF could tell us why the green one is smaller than the blue one.
 
 > From [WikiPedia Mercator Projection](https://en.wikipedia.orgwiki/Mercator_projection)
 
-The `EPSG:3857` is a cylindrical map projection, that cause the area which closes to the equator is the same as real.
+The [EPSG:3857](https://proj.org/operations/projections/merc.html) is a cylindrical map projection, that cause the area which closes to the equator is the same as real.
 
 ## Geographic Buffer
 
-A idea to fix this is to use local CRS.
-Local CRS means build CRS for each point.
+### Use Local Projection CRS
+
+A idea to fix this is to use local projection CRS.
+Local projection CRS means build projection CRS for each point.
+
+The Steps to generate buffer would be following.
+
+1. Transform each point of these geometries from default CRS to local projection CRS.
+2. Transform them back to default CRS.
+3. Do dissolve operation for generated buffers from geometry points.
+
+In this way, it could totally describe the all points in Earth.
+
+However, it would be so **slow** to get such great **precision**. And hard to vectorize this algorithm, because of different local projection CRS.
 
 ![Azimuthal Equidistant projection](https://proj.org/_images/aeqd.png)
 
 > From [PROJ Coordinate operations](https://proj.org/operations/projections/aeqd.html)
 
-All most single mapping relationships are good for a piece of small areas.
-But what if we build a lot of mapping relationships and then combine them together, this new mapping relationship could represent all areas.
+### Use UTM CRS
 
-In this way, CRS could totally describe the point in Earth.
+Another idea to fix this is to use Universal Transerse Mercator (UTM) projection CRS.
+
+One projection would lose precision, much would slow down. The UTM CRS is a good balance between precision and speed.
+
+It divides into sixty zones across the globe. The speed depends on the geometries where they are.
+It would be as quick as a normal speed if the zone of geometries is the same.
+
+![Universal Transerse Mercator](https://proj.org/_images/utm_zones.png)
+
+> From [PROJ Coordinate operations](https://proj.org/operations/projections/utm.html)
 
 That is what the {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` method does.
 
