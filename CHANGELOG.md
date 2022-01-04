@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+
+- Use `squash and merge` function to simplify git commit history, since v0.0.8 started.
+
 ## [Version 0.0.8] (2022-1-1)
 
 Highlights of this release:
@@ -231,6 +235,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Unreleased]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...master
 [Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8
 [Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
 [Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
