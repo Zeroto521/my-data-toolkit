@@ -20,7 +20,7 @@ Useful Links
 
 `Binary Installers (PyPI)`_ | `Source Repository (GitHub)`_ | `Issues & Ideas`_
 
-.. _Binary Installers (PyPI): https://pypi.org/project/dtoolkit
+.. _Binary Installers (PyPI): https://pypi.org/project/my-data-toolkit
 .. _Source Repository (GitHub): https://github.com/Zeroto521/my-data-toolkit
 .. _Issues & Ideas: https://github.com/Zeroto521/my-data-toolkit/issues
 
