@@ -18,7 +18,7 @@ Maintenance development:
 - Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`).
 - Auto update github action runner ({pr}`360`, {pr}`364`).
 - Pre-commit hooks auto update ({pr}`359`).
-- Let git choose the default branch ({pr}`376`, ).
+- Let git choose the default branch ({pr}`376`).
 
 Documentation:
 
