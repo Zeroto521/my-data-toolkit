@@ -8,7 +8,7 @@ from dtoolkit.accessor.register import register_series_method
 @register_series_method
 def names(pd_obj):
     """
-    A API to gather :attr:`~pandas.Series.name` and
+    An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     """
     if isinstance(pd_obj, pd.Series):
