@@ -132,7 +132,7 @@ class TestPointsFromXY:
                         Point(100, 1, 0),
                         Point(0, 0, 0),
                     ],
-                    name="Geometry"
+                    name="Geometry",
                 ),
             ),
             # test drop is True
