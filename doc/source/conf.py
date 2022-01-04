@@ -76,7 +76,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "PyPI",
-            "url": "https://pypi.org/project/dtoolkit",
+            "url": "https://pypi.org/project/my-data-toolkit",
             "icon": "fas fa-box",
         },
     ],
