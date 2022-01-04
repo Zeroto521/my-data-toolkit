@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-- Use `squash and merge` function to simplify git commit history, since v0.0.8 started.
+- Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
 
 ## [Version 0.0.8] (2022-1-1)
 
