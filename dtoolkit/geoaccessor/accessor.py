@@ -31,8 +31,8 @@ def register_geoseries_accessor(name: str):
     --------
     register_geoseries_accessor
     register_geodataframe_accessor
-    dtoolkit.geoaccessor.register.register_geoseries_method
-    dtoolkit.geoaccessor.register.register_geodataframe_method
+    dtoolkit.geoaccessor.register_geoseries_method
+    dtoolkit.geoaccessor.register_geodataframe_method
 
     Notes
     -----

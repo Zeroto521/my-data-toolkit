@@ -15,8 +15,8 @@ def register_geoseries_method(method):
 
     See Also
     --------
-    dtoolkit.geoaccessor.accessor.register_geoseries_accessor
-    dtoolkit.geoaccessor.accessor.register_geodataframe_accessor
+    dtoolkit.geoaccessor.register_geoseries_accessor
+    dtoolkit.geoaccessor.register_geodataframe_accessor
     register_geoseries_method
     register_geodataframe_method
 
