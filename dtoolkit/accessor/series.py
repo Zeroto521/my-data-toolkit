@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 )
 def cols(s: pd.Series) -> str | None:
     """
-    A API to gather :attr:`~pandas.Series.name` and
+    An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     {returns}
     See Also

@@ -126,14 +126,13 @@ class TestPointsFromXY:
                 "z",
                 None,
                 True,
-                gpd.GeoDataFrame(
-                    {
-                        "geometry": [
-                            Point(122, 55, 0),
-                            Point(100, 1, 0),
-                            Point(0, 0, 0),
-                        ],
-                    },
+                gpd.GeoSeries(
+                    [
+                        Point(122, 55, 0),
+                        Point(100, 1, 0),
+                        Point(0, 0, 0),
+                    ],
+                    name="Geometry",
                 ),
             ),
             # test drop is True
@@ -162,9 +161,7 @@ class TestPointsFromXY:
         ],
     )
     def test_work(self, data, x, y, z, crs, drop, excepted):
-        df = pd.DataFrame(data)
-
-        result = df.points_from_xy(x, y, z, crs, drop)
+        result = pd.DataFrame(data).points_from_xy(x, y, z, crs, drop)
 
         assert result.equals(excepted)
 
