@@ -1,8 +1,23 @@
 # Changelog
 
-## [Unreleased]
+## [Version 0.0.9] (2022-1-7)
 
-- Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
+Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
+
+New features and improvements:
+
+- {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` would return `GeoSeries` if df only has one column ({pr}`385`).
+- New accessor method {meth}`~dtoolkit.accessor.dataframe.to_series` ({pr}`380`).
+- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`).
+
+Maintenance development:
+
+- Fix words, a -> an ({pr}`387`).
+- Pre-commit hooks autoupdate ({pr}`384`).
+
+Contribuing development:
+
+- Add pull request template ({pr}`361`).
 
 ## [Version 0.0.8] (2022-1-1)
 
@@ -235,7 +250,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
-[Unreleased]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...master
+[Version 0.0.9]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...v0.0.9
 [Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8
 [Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
 [Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
