@@ -16,6 +16,7 @@ Series Accessor
     drop_inf
     top_n
     error_report
+    get_attr
 
 
 DataFrame Accessor
@@ -30,11 +31,12 @@ DataFrame Accessor
     filter_in
     repeat
     top_n
+    to_series
 
 
 Pandas Method Register
 ----------------------
-.. currentmodule:: dtoolkit.accessor.register
+.. currentmodule:: dtoolkit.accessor
 .. autosummary::
     :toctree: api/
 

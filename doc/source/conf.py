@@ -15,6 +15,7 @@ from __future__ import annotations
 import inspect
 import os
 import sys
+from datetime import datetime
 
 import dtoolkit
 
@@ -25,7 +26,7 @@ version = version.replace(".post0", "")
 
 project = "DToolKit"
 author = "Zero <@Zeroto521>"
-copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
+copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
@@ -72,6 +73,14 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "search_bar_position": "sidebar",
     "github_url": github_url,
+    "use_edit_page_button": True,
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/my-data-toolkit",
+            "icon": "fas fa-box",
+        },
+    ],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -88,7 +97,13 @@ moved_pages = [
 
 html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
 
-html_context = {"redirects": {old: new for old, new in moved_pages}}
+html_context = {
+    "redirects": dict(moved_pages),
+    "github_user": "zeroto521",
+    "github_repo": "my-data-toolkit",
+    "github_version": "master",
+    "doc_path": "doc",
+}
 
 
 #  --Options for sphinx extensions -----------------------------------------------
