@@ -16,6 +16,9 @@ Please follow these standard acronyms to start the commit message:
 - DEV: development tool or utility
 - REV: revert an earlier commit
 - PERF: performance improvement
+- BOT: always commit via a bot
+- CI: related to CI or CD
+- CLN: Code cleanup
 -->
 
 - [ ] closes #xxxx
