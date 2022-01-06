@@ -61,11 +61,16 @@ def register_method_factory(register_accessor):
 
 @register_method_factory
 @doc(klass=":class:`pandas.Series`")
-def register_series_method(method):
+def register_series_method(name: str | None = None):
     """
     {klass} register accessor for human.
 
     Write method normally, use method naturally.
+
+    Parameters
+    ----------
+    name : str, optional
+        Use the ``method`` name as the default accessor entrance if ``name`` is None.
 
     See Also
     --------
@@ -108,10 +113,10 @@ def register_series_method(method):
         Out[4]:
         'a'
     """
-    return register_series_accessor(method)
+    return register_series_accessor(name)
 
 
 @register_method_factory
 @doc(register_series_method, klass=":class:`pandas.DataFrame`")
-def register_dataframe_method(method):
-    return register_dataframe_accessor(method)
+def register_dataframe_method(name: str | None = None):
+    return register_dataframe_accessor(name)
