@@ -8,6 +8,8 @@ from pandas.api.extensions import register_series_accessor
 from pandas.util._decorators import doc
 
 if TYPE_CHECKING:
+    from typing import Callable
+
     from dtoolkit._typing import SeriesOrFrame
 
 
@@ -23,7 +25,7 @@ def register_method_factory(register_accessor):
 
     # based on pandas_flavor/register.py
     @wraps(register_accessor)
-    def register_accessor_method(method):
+    def register_accessor_method(method: Callable, name: str):
         @wraps(method)
         def method_accessor(pd_obj: SeriesOrFrame):
             @wraps(method)
@@ -32,12 +34,29 @@ def register_method_factory(register_accessor):
 
             return wrapper
 
-        register_accessor(method.__name__)(method_accessor)
+        # Register method as pandas object inner method.
+        register_accessor(name)(method_accessor)
 
         # Must return method itself, otherwise would get None.
         return method
 
-    return register_accessor_method
+    @wraps(register_accessor)
+    def register_accessor_alias(name: str | None = None):
+        @wraps(register_accessor)
+        def wrapper(method):
+            return register_accessor_method(method, name or method.__name__)
+
+        return wrapper
+
+    @wraps(register_accessor)
+    def decorator(name: Callable | str | None = None):
+        if callable(name):
+            method = name  # This 'name' variable actually is a function.
+            return register_accessor_method(method, method.__name__)
+
+        return register_accessor_alias(name)
+
+    return decorator
 
 
 @register_method_factory
