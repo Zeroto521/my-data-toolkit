@@ -19,6 +19,10 @@ Contribuing development:
 
 - Add pull request template ({pr}`361`).
 
+Documentation:
+
+- Correct sphinx method link ({pr}`390`).
+
 ## [Version 0.0.8] (2022-1-1)
 
 Highlights of this release:
