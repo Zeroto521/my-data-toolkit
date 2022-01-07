@@ -19,7 +19,7 @@ def multi_if_else(
     if_condition_return : list[tuple(bool, Any)]
         Array of tuple contains the condition and result. if the return is
         :obj:`Exception` would raise a error.
-    else_return : Any, default is None
+    else_return : Any, default None
         The final returning result, if the result is :obj:`Exception` would
         raise an error.
 
