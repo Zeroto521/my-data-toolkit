@@ -88,8 +88,10 @@ def register_series_method(name: str | None = None):
 
         import pandas as pd
 
+        @register_dataframe_method(name="col")
+        @register_series_method(name="col")  # Support alias name also.
         @register_dataframe_method
-        @register_series_method
+        @register_series_method  # Use accessor method `__name__` as the entrance.
         def cols(pd_obj):
             '''
             An API to gather :attr:`~pandas.Series.name` and
@@ -114,6 +116,14 @@ def register_series_method(name: str | None = None):
 
         In [4]: df.a.cols()
         Out[4]:
+        'a'
+
+        In [5]: df.col()
+        Out[5]:
+        ['a', 'b']
+
+        In [6]: df.a.col()
+        Out[6]:
         'a'
     """
     return register_series_accessor(name)

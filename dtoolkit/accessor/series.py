@@ -320,7 +320,7 @@ def expand(
 
     Parameters
     ----------
-    suffix : list of str or int, default None
+    suffix : list of str or int, optional
         New columns of return :class:`~pandas.DataFrame`.
 
     delimiter : str, default "_"
@@ -451,7 +451,7 @@ def error_report(
     ----------
     predicted : list of int or float, ndarrray, Series
         A array is compared to ``s``.
-    columns : list of str or int, default None
+    columns : list of str or int, optional
         The columns of returning DataFrame, each represents `true value`,
         `predicted value`, `absolute error`, and `relative error`.
 
