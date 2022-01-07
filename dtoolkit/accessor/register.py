@@ -21,6 +21,8 @@ def register_method_factory(register_accessor):
     --------
     register_series_method
     register_dataframe_method
+    dtoolkit.geoaccessor.register_geoseries_method
+    dtoolkit.geoaccessor.register_geodataframe_method
     """
 
     # based on pandas_flavor/register.py
