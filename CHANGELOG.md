@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.9] (2022-1-7)
+## [Version 0.0.9] (2022-1-10)
 
 Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
 
