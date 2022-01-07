@@ -49,15 +49,13 @@ def register_method_factory(register_accessor):
         return wrapper
 
     @wraps(register_accessor)
-    def decorator(method_or_name: Callable | str | None = None):
-        if callable(method_or_name):  # Supports `@register_*_method` using.
-            return register_accessor_method(
-                method_or_name,
-                method_or_name.__name__,
-            )
+    def decorator(name: Callable | str | None = None):
+        if callable(name):  # Supports `@register_*_method` using.
+            method = name  # This 'name' variable actually is a function.
+            return register_accessor_method(method, method.__name__)
 
         # Supports `@register_*_method()` and `@register_*_method(name="")` using.
-        return register_accessor_alias(method_or_name)
+        return register_accessor_alias(name)
 
     return decorator
 

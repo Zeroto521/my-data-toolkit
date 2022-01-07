@@ -54,8 +54,8 @@ df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
         (df.a, "names"),
         (df, "names_1"),
         (df.a, "names_1"),
-        # (df, "name_or_columns"),
-        # (df.a, "name_or_columns"),
+        (df, "name_or_columns"),
+        (df.a, "name_or_columns"),
     ],
 )
 def test_method_hooked_exist(data, name):
