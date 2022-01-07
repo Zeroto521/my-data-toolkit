@@ -63,7 +63,7 @@ def register_method_factory(register_accessor):
 
 
 @register_method_factory
-@doc(klass=":class:`pandas.Series`")
+@doc(klass=":class:`~pandas.Series`")
 def register_series_method(name: str | None = None):
     """
     {klass} register accessor for human.
@@ -120,6 +120,6 @@ def register_series_method(name: str | None = None):
 
 
 @register_method_factory
-@doc(register_series_method, klass=":class:`pandas.DataFrame`")
+@doc(register_series_method, klass=":class:`~pandas.DataFrame`")
 def register_dataframe_method(name: str | None = None):
     return register_dataframe_accessor(name)
