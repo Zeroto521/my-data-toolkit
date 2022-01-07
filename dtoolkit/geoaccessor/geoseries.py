@@ -98,7 +98,7 @@ def geobuffer(
     elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
-    utms = s.utm_crs().get_attr("code").to_numpy()
+    utms = s.utm_crs().getattr("code").to_numpy()
 
     s_index = s.index
     s = s.reset_index(drop=True)
@@ -285,7 +285,7 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
 
     Get the EPSG code.
 
-    >>> s.utm_crs().get_attr("code")
+    >>> s.utm_crs().getattr("code")
     0    32650
     1    32647
     dtype: object
