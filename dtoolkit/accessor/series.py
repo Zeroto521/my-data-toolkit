@@ -375,9 +375,8 @@ def lens(s: pd.Series) -> pd.Series:
     """
     .. warning::
 
-        :meth:`dtoolkit.accessor.series.lens` is deprecated and will be removed in
-        **0.0.10**. Please use :meth:`dtoolkit.accessor.series.len` instead.
-        (Warning added DToolKit **0.0.9**)
+        Call this method via ``Series.lens()`` is deprecated and will be removed
+        in **0.0.10**. Please call it via ``Series.len()`` instead.
 
     Return the length of each element in the series.
 
@@ -421,9 +420,9 @@ def lens(s: pd.Series) -> pd.Series:
     from warnings import warn
 
     warn(
-        "Method 'dtoolkit.accessor.series.lens' is deprecated "
-        "and will be removed in 0.0.10. Please use "
-        "'dtoolkit.accessor.series.len' instead. "
+        "Call 'dtoolkit.accessor.series.lens' method via `Series.lens()` "
+        "is deprecated and will be removed in 0.0.10. Please call it via "
+        "'Series.len()' instead. "
         "(Warning added DToolKit 0.0.9)",
         DeprecationWarning,
     )
