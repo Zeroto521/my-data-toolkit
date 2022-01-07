@@ -426,6 +426,18 @@ def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.S
     5    0.0
     6    NaN
     dtype: float64
+
+    Set `number` and `other` default return.
+
+    >>> s.len(number=0, other=0)
+    0    0
+    1    0
+    2    6
+    3    1
+    4    1
+    5    0
+    6    0
+    dtype: int64
     """
     from warnings import warn
 
