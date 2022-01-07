@@ -80,7 +80,7 @@ def register_geoseries_method(name: str | None = None):
         1    1
         2    0
         Name: geometry, dtype: int64
-        
+
         In [7]: s.count_it()
         Out[7]:
         0    1
