@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_method_factory
@@ -6,12 +8,17 @@ from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
 
 
 @register_method_factory
-@doc(klass=":class:`geopandas.GeoSeries`")
-def register_geoseries_method(method):
+@doc(klass=":class:`~geopandas.GeoSeries`")
+def register_geoseries_method(name: str | None = None):
     """
     {klass} register accessor for human.
 
     Write method normally, use method naturally.
+
+    Parameters
+    ----------
+    name : str, optional
+        Use the ``method`` name as the default accessor entrance if ``name`` is None.
 
     See Also
     --------
@@ -72,10 +79,10 @@ def register_geoseries_method(method):
         2    0
         Name: geometry, dtype: int64
     """
-    return register_geoseries_accessor(method)
+    return register_geoseries_accessor(name)
 
 
 @register_method_factory
-@doc(register_geoseries_method, klass=":class:`geopandas.GeoDataFrame`")
-def register_geodataframe_method(method):
-    return register_geodataframe_accessor(method)
+@doc(register_geoseries_method, klass=":class:`~geopandas.GeoDataFrame`")
+def register_geodataframe_method(name: str | None = None):
+    return register_geodataframe_accessor(name)
