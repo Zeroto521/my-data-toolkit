@@ -20,6 +20,7 @@ API changes:
 
 Maintenance development:
 
+- Draft github-action release then add changelog by manually ({pr}`396`).
 - Fix words, a -> an ({pr}`387`).
 - Pre-commit hooks autoupdate ({pr}`384`).
 
