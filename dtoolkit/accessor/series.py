@@ -377,6 +377,7 @@ def lens(s: pd.Series) -> pd.Series:
 
         Call this method via ``Series.lens()`` is deprecated and will be removed
         in **0.0.10**. Please call it via ``Series.len()`` instead.
+        (Warning added DToolKit **0.0.9**)
 
     Return the length of each element in the series.
 

@@ -1,14 +1,22 @@
 # Changelog
 
-## [Version 0.0.9] (2022-1-7)
+## [Version 0.0.9] (2022-1-10)
 
 Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
+
+Highlights of this release:
+
+- {meth}`~dtoolkit.accessor.register_series_method` and {meth}`~dtoolkit.accessor.register_dataframe_method` support alias ({pr}`392`).
 
 New features and improvements:
 
 - {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` would return `GeoSeries` if df only has one column ({pr}`385`).
 - New accessor method {meth}`~dtoolkit.accessor.dataframe.to_series` ({pr}`380`).
-- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`).
+- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`, {pr}`394`).
+
+API changes:
+
+- Call {meth}`~dtoolkit.accessor.series.lens` via `Series.len` ({pr}`394`).
 
 Maintenance development:
 
