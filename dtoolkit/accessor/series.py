@@ -511,7 +511,7 @@ def error_report(
     )
 
 
-@register_series_method
+@register_series_method(name="getattr")
 def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
@@ -534,6 +534,11 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     --------
     getattr
 
+    Notes
+    -----
+    To keep the Python naming style, so use this accessor via
+    ``Series.getattr`` not ``Series.get_attr``.
+
     Examples
     --------
     >>> import dtoolkit.accessor
@@ -542,21 +547,21 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
 
     Get a attribute.
 
-    >>> s.get_attr("__doc__")
+    >>> s.getattr("__doc__")
     0    str(object='') -> str\\nstr(bytes_or_buffer[, e...
     1    str(object='') -> str\\nstr(bytes_or_buffer[, e...
     dtype: object
 
     Get a don't exist attribute.
 
-    >>> s.get_attr("whatever")
+    >>> s.getattr("whatever")
     0    None
     1    None
     dtype: object
 
     Get a method attribute and call it.
 
-    >>> s.get_attr("count", "l")
+    >>> s.getattr("count", "l")
     0    2
     1    1
     dtype: int64
