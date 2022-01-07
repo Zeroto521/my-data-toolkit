@@ -348,7 +348,7 @@ def expand(
         return [x]
 
     s_list = s.apply(wrap_collapse)
-    s_len = s_list.lens()
+    s_len = s_list.len()
     if all(s_len == 1):
         return s
 
@@ -369,9 +369,16 @@ def expand(
     ).add_prefix(s.name + delimiter)
 
 
+@register_series_method(name="len")
 @register_series_method
 def lens(s: pd.Series) -> pd.Series:
     """
+    .. warning::
+
+        :meth:`dtoolkit.accessor.series.lens` is deprecated and will be removed in
+        **0.0.10**. Please use :meth:`dtoolkit.accessor.series.len` instead.
+        (Warning added DToolKit **0.0.9**)
+
     Return the length of each element in the series.
 
     Equals to::
@@ -381,6 +388,11 @@ def lens(s: pd.Series) -> pd.Series:
     Returns
     -------
     Series
+
+    Notes
+    -----
+    To keep the Python naming style, so use this accessor via
+    ``Series.len`` not ``Series.lens``.
 
     Examples
     --------
@@ -396,7 +408,7 @@ def lens(s: pd.Series) -> pd.Series:
     5                  {}
     6    <class 'object'>
     dtype: object
-    >>> s.lens()
+    >>> s.len()
     0    1.0
     1    1.0
     2    6.0
@@ -406,6 +418,16 @@ def lens(s: pd.Series) -> pd.Series:
     6    NaN
     dtype: float64
     """
+    from warnings import warn
+
+    warn(
+        "Method 'dtoolkit.accessor.series.lens' is deprecated "
+        "and will be removed in 0.0.10. Please use "
+        "'dtoolkit.accessor.series.len' instead. "
+        "(Warning added DToolKit 0.0.9)",
+        DeprecationWarning,
+    )
+
     from pandas.api.types import is_number
 
     def wrap_len(x) -> int | None:
