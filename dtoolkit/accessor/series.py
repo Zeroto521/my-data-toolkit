@@ -371,7 +371,7 @@ def expand(
 
 @register_series_method(name="len")
 @register_series_method
-def lens(s: pd.Series) -> pd.Series:
+def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.Series:
     """
     .. warning::
 
@@ -381,9 +381,15 @@ def lens(s: pd.Series) -> pd.Series:
 
     Return the length of each element in the series.
 
-    Equals to::
+    Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
+    the length of other types will as ``NaN``.
 
-        s.apply(len)
+    Parameters
+    ----------
+    number : int or None, default '1'
+        The default length of `number` type. 
+    other : int or None, default None
+        The default length of `other` type. 
 
     Returns
     -------
@@ -391,8 +397,11 @@ def lens(s: pd.Series) -> pd.Series:
 
     Notes
     -----
-    To keep the Python naming style, so use this accessor via
-    ``Series.len`` not ``Series.lens``.
+    - To keep the Python naming style, so use this accessor via
+      ``Series.len`` not ``Series.lens``.
+
+    - Different to :meth:`pandas.Series.str.len`. It only returns
+      :class:`collections.abc.Iterable` type length. Other type will return `NaN`.
 
     Examples
     --------
@@ -434,7 +443,9 @@ def lens(s: pd.Series) -> pd.Series:
         if hasattr(x, "__len__"):
             return len(x)
         elif is_number(x):
-            return 1
+            return number
+        else:
+            return other
 
     return s.apply(wrap_len)
 
