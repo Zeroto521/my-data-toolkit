@@ -24,10 +24,8 @@ jobs:
 
       - name: Undo changes to __init__.py & setup.py
         run: |
-          git reset dtoolkit/__init__.py
-          git reset setup.py
-          git checkout -- dtoolkit/__init__.py
-          git checkout -- dtoolkit/setup.py
+          git reset -- setup.py dtoolkit/__init__.py
+          git checkout -- setup.py dtoolkit/__init__.py
 
       - uses: actions/upload-artifact@v2
         with:
