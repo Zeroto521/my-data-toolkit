@@ -16,10 +16,17 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
 
-      - run: python -m pip install --upgrade pip versioneer
-      - run: versioneer install
-      - run: git reset dtoolkit/__init__.py
-      - run: git checkout -- dtoolkit/__init__.py
+      - name: Update versioneer
+        run: |
+          python -m pip install --upgrade pip versioneer
+          versioneer install
+
+      - name: Undo changes to __init__.py & setup.py
+        run: |
+          git reset dtoolkit/__init__.py
+          git reset setup.py
+          git checkout -- dtoolkit/__init__.py
+          git checkout -- dtoolkit/setup.py
 
       - uses: actions/upload-artifact@v2
         with:
