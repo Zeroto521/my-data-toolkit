@@ -6,8 +6,9 @@ on:
     - cron: "0 0 1 * *" # 1st day of each month at 00:00 UTC
   push:
     paths:
-      - "setup.cfg"
-      - ".github/workflows/versioneer.yml"
+      - setup.cfg
+      - setup.py
+      - .github/workflows/versioneer.yml
 
 jobs:
   versioneer:
