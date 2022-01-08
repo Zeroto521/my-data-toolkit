@@ -373,12 +373,6 @@ def expand(
 @register_series_method
 def lens(s: pd.Series) -> pd.Series:
     """
-    .. warning::
-
-        Call this method via ``Series.lens()`` is deprecated and will be removed
-        in **0.0.10**. Please call it via ``Series.len()`` instead.
-        (Warning added DToolKit **0.0.9**)
-
     Return the length of each element in the series.
 
     Equals to::
@@ -418,16 +412,6 @@ def lens(s: pd.Series) -> pd.Series:
     6    NaN
     dtype: float64
     """
-    from warnings import warn
-
-    warn(
-        "Call 'dtoolkit.accessor.series.lens' method via `Series.lens()` "
-        "is deprecated and will be removed in 0.0.10. Please call it via "
-        "'Series.len()' instead. "
-        "(Warning added DToolKit 0.0.9)",
-        DeprecationWarning,
-    )
-
     from pandas.api.types import is_number
 
     def wrap_len(x) -> int | None:
