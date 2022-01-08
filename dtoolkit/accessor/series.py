@@ -392,7 +392,7 @@ def lens(s: pd.Series) -> pd.Series:
     Notes
     -----
     To keep the Python naming style, so use this accessor via
-    ``Series.len`` not ``Series.lens``.
+    ``Series.len`` rather than ``Series.lens``.
 
     Examples
     --------
@@ -560,7 +560,7 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     Notes
     -----
     To keep the Python naming style, so use this accessor via
-    ``Series.getattr`` not ``Series.get_attr``.
+    ``Series.getattr`` rather than ``Series.get_attr``.
 
     Examples
     --------
