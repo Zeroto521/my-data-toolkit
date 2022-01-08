@@ -3,7 +3,7 @@ name: versioneer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 1 * *" # 1st day of each month at 00:00 UTC
+    - cron: "0 0 * * 0"
   push:
     paths:
       - setup.cfg
