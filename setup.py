@@ -1,8 +1,8 @@
 from setuptools import setup
 
-import versioneer
+from versioneer import get_version, get_cmdclass
 
 setup(
-    version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    version=get_version(),
+    cmdclass=get_cmdclass(),
 )
