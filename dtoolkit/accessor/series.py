@@ -392,7 +392,7 @@ def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.S
     Notes
     -----
     - To keep the Python naming style, so use this accessor via
-      ``Series.len`` not ``Series.lens``.
+      ``Series.len`` rather than ``Series.lens``.
 
     - Different to :meth:`pandas.Series.str.len`. It only returns
       :class:`collections.abc.Iterable` type length. Other type will return `NaN`.
