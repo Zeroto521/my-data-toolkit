@@ -21,7 +21,7 @@ repos:
     rev: v2.31.0
     hooks:
       - id: pyupgrade
-  # file
+  # text
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.2.1
     hooks:
@@ -39,7 +39,7 @@ repos:
       - id: check-merge-conflict
       # yaml
       - id: check-yaml
-      # file
+      # text
       - id: end-of-file-fixer
       - id: trailing-whitespace
   # code style
