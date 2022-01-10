@@ -557,6 +557,7 @@ def error_report(
 
 
 @register_series_method(name="getattr")
+@register_series_method
 def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
@@ -582,7 +583,7 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     Notes
     -----
     To keep the Python naming style, so use this accessor via
-    ``Series.getattr`` not ``Series.get_attr``.
+    ``Series.getattr`` rather than ``Series.get_attr``.
 
     Examples
     --------
