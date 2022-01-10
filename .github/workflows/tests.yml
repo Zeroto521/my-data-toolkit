@@ -19,21 +19,21 @@ jobs:
         dev: [false]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
         env:
-          - ci/envs/latest.yaml
+          - ci/env/latest.yaml
         include:
-          - env: ci/envs/37-minimal.yaml
+          - env: ci/env/37-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.7"
-          - env: ci/envs/38-minimal.yaml
+          - env: ci/env/38-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.8"
-          - env: ci/envs/39-minimal.yaml
+          - env: ci/env/39-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.9"
-          - env: ci/envs/310-minimal.yaml
+          - env: ci/env/310-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
