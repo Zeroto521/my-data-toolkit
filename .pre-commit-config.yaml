@@ -37,9 +37,9 @@ repos:
       # commit
       - id: check-case-conflict
       - id: check-merge-conflict
-      # file
+      # yaml
       - id: check-yaml
-      - id: sort-simple-yaml
+      # file
       - id: end-of-file-fixer
       - id: trailing-whitespace
   # code style
