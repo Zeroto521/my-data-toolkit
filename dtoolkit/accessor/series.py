@@ -548,6 +548,10 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
 
     The back core logical is :func:`getattr`.
 
+    Read more in the `User Guide`_.
+
+    .. _User Guide: ../../guide/tips_about_getattr.ipynb
+
     Parameters
     ----------
     name : str
