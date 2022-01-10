@@ -53,6 +53,12 @@ repos:
       - id: flake8
         exclude: ^(example|doc)/
   # doc
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0 # Use the ref you want to point at
+    hooks:
+      - id: rst-backticks
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
   - repo: https://github.com/codespell-project/codespell
     rev: v2.1.0
     hooks:
