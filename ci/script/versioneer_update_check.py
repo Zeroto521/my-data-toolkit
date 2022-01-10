@@ -4,7 +4,7 @@ import sys
 try:
     sys.path = sys.path[1:]  # import from the system instead of local
     from versioneer import newver
-except:
+except ImportError:
     sys.exit()
 
 
