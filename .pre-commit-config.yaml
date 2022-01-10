@@ -15,7 +15,7 @@ repos:
     rev: v2.6.0
     hooks:
       - id: reorder-python-imports
-        files: ^(dtoolkit|test)/
+        exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.31.0
@@ -41,4 +41,4 @@ repos:
     rev: 4.0.1
     hooks:
       - id: flake8
-        files: ^dtoolkit/
+        exclude: ^(example|doc)/
