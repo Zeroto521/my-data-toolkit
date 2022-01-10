@@ -14,7 +14,9 @@ dependencies:
   - myst-parser
   - numpydoc
   - ipython
+  # jupyter
   - nbsphinx
+  - ipykernel
   - pip
   - pip:
       - sphinx-toggleprompt
