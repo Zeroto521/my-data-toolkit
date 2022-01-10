@@ -1,5 +1,4 @@
 # Version: 0.21
-
 """The Versioneer - like a rocketeer, but for versions.
 
 The Versioneer
@@ -278,7 +277,6 @@ https://img.shields.io/travis/com/python-versioneer/python-versioneer.svg
 # pylint:disable=raise-missing-from,too-many-lines,too-many-locals,import-error
 # pylint:disable=too-few-public-methods,redefined-outer-name,consider-using-with
 # pylint:disable=attribute-defined-outside-init,too-many-arguments
-
 import configparser
 import errno
 import json
@@ -286,7 +284,8 @@ import os
 import re
 import subprocess
 import sys
-from typing import Callable, Dict
+from typing import Callable
+from typing import Dict
 
 
 class VersioneerConfig:
