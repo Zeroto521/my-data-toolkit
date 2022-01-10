@@ -46,7 +46,7 @@ API changes:
 Maintenance development:
 
 - Update pre-commit commit message ({pr}`371`).
-- Enable labeled 'auto-merged' PR could merge master brach into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
+- Enable labeled 'auto-merged' PR could merge master branch into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
 - Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`, {pr}`383`).
 - Auto update github action runner ({pr}`360`, {pr}`364`).
 - Pre-commit hooks auto update ({pr}`359`).
@@ -170,7 +170,7 @@ New features and improvements:
 
 - New accessor {meth}`~dtoolkit.accessor.series.expand` ({pr}`252`, {pr}`279`).
 - Let {meth}`~dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
-- Add a new option `element` for {meth}`~dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
+- Add a new option `element` for {meth}`~dtoolkit.accessor.dataframe.top_n`, now support to control return data structure ({pr}`247`).
 
 API changes:
 
@@ -187,7 +187,7 @@ Documentation:
 - Use `sphinx.ext.autosectionlabel` to add anchor ({pr}`272`).
 - Start to use IPython Sphinx Directive ({pr}`258`, {pr}`259`, {pr}`260`).
 - Drop python module index html page ({pr}`256`).
-- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
+- Small patches to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 - Fix these doc doesn't exist in dtoolkit ({pr}`244`).
 - Fix documentation building environment ({pr}`243`).
 

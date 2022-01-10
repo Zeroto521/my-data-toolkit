@@ -440,7 +440,7 @@ def top_n(
     DataFrame
         - The structure of column name is ``{prefix}{delimiter}{number}``.
         - The default structure of value is ``{column index}`` and could be
-          controled via ``element``.
+          controlled via ``element``.
 
     See Also
     --------
