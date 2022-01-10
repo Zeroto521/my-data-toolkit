@@ -535,6 +535,6 @@ class TestGetAttr:
         ],
     )
     def test_attr_work(self, s, name, args, kwargs, excepted):
-        result = s.get_attr(name, *args, **kwargs)
+        result = s.getattr(name, *args, **kwargs)
 
         assert result.equals(excepted)
