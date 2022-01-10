@@ -47,6 +47,7 @@ extensions = [
     "sphinx_toggleprompt",
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
+    "nbsphinx",
 ]
 
 # The suffix of source filenames.
@@ -99,6 +100,17 @@ html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
 html_context = {"redirects": dict(moved_pages)}
 
 
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base=None) %}
+
+.. tip::
+
+    This page was generated from `{{ docname }}`__.
+
+    __ https://github.com/zeroto521/my-data-toolkit/blob/master/doc/source/{{ docname }}
+"""
+
+
 #  --Options for sphinx extensions -----------------------------------------------
 
 # connect docs in other projects
@@ -125,6 +137,10 @@ myst_enable_extensions = [
 ]
 
 autosummary_generate = True
+
+nbsphinx_execute = "always"
+nbsphinx_allow_errors = True
+
 
 # based on pandas doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
