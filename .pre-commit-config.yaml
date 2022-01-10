@@ -29,7 +29,18 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
     hooks:
+      # python
+      - id: check-ast
+      - id: check-builtin-literals
+      # doc
+      - id: check-docstring-first
+      # commit
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      # file
       - id: check-yaml
+      - id: sort-simple-yaml
+      - id: double-quote-string-fixer
       - id: end-of-file-fixer
       - id: trailing-whitespace
   # code style
