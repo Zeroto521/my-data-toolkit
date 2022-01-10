@@ -12,7 +12,7 @@ New features and improvements:
 
 - {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` would return `GeoSeries` if df only has one column ({pr}`385`).
 - New accessor method {meth}`~dtoolkit.accessor.dataframe.to_series` ({pr}`380`).
-- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`, {pr}`394`).
+- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`, {pr}`394`, {pr}`398`).
 
 API changes:
 
@@ -20,6 +20,7 @@ API changes:
 
 Maintenance development:
 
+- Draft github-action release then add changelog by manually ({pr}`396`).
 - Fix words, a -> an ({pr}`387`).
 - Pre-commit hooks autoupdate ({pr}`384`).
 

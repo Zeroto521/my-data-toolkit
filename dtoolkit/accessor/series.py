@@ -373,12 +373,6 @@ def expand(
 @register_series_method
 def lens(s: pd.Series) -> pd.Series:
     """
-    .. warning::
-
-        Call this method via ``Series.lens()`` is deprecated and will be removed
-        in **0.0.10**. Please call it via ``Series.len()`` instead.
-        (Warning added DToolKit **0.0.9**)
-
     Return the length of each element in the series.
 
     Equals to::
@@ -392,7 +386,7 @@ def lens(s: pd.Series) -> pd.Series:
     Notes
     -----
     To keep the Python naming style, so use this accessor via
-    ``Series.len`` not ``Series.lens``.
+    ``Series.len`` rather than ``Series.lens``.
 
     Examples
     --------
@@ -418,16 +412,6 @@ def lens(s: pd.Series) -> pd.Series:
     6    NaN
     dtype: float64
     """
-    from warnings import warn
-
-    warn(
-        "Call 'dtoolkit.accessor.series.lens' method via `Series.lens()` "
-        "is deprecated and will be removed in 0.0.10. Please call it via "
-        "'Series.len()' instead. "
-        "(Warning added DToolKit 0.0.9)",
-        DeprecationWarning,
-    )
-
     from pandas.api.types import is_number
 
     def wrap_len(x) -> int | None:
@@ -534,6 +518,7 @@ def error_report(
 
 
 @register_series_method(name="getattr")
+@register_series_method
 def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
@@ -559,7 +544,7 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     Notes
     -----
     To keep the Python naming style, so use this accessor via
-    ``Series.getattr`` not ``Series.get_attr``.
+    ``Series.getattr`` rather than ``Series.get_attr``.
 
     Examples
     --------

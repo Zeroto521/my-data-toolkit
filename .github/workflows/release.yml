@@ -65,6 +65,8 @@ jobs:
       - name: Upload Release Asset to GitHub
         uses: softprops/action-gh-release@v1
         with:
+          draft: true
+          prerelease: ${{ contains(github.ref, 'rc')  }}
           files: dist/${{ needs.build.outputs.tar }}
 
   publish-to-pypi:
