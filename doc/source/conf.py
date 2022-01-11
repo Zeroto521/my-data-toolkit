@@ -107,7 +107,7 @@ nbsphinx_prolog = r"""
 
     This page was generated from `{{ docname }}`__.
 
-    __ https://github.com/zeroto521/my-data-toolkit/blob/master/doc/source/{{ docname }}
+    __ https://github.com/zeroto521/my-data-toolkit/blob/main/doc/source/{{ docname }}
 """
 
 
@@ -187,6 +187,6 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
 
     base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
     if "post" in version:
-        return base_link.format(branch="master")
+        return base_link.format(branch="main")
 
     return base_link.format(branch=f"v{version}")

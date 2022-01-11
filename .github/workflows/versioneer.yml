@@ -49,6 +49,6 @@ jobs:
           author: GitHub <noreply@github.com>
           branch: versioneer-update
           delete-branch: true
-          base: master
+          base: main
           title: "BOT: versioneer autoupdate"
           body: New versioneer released, changelogs see [NEWS](https://github.com/python-versioneer/python-versioneer/blob/master/NEWS.md).
