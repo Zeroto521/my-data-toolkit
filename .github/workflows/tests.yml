@@ -47,8 +47,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Setup Conda and Install Environment
-        uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
@@ -63,5 +62,4 @@ jobs:
         if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
         run: make doctest
 
-      - name: Code Coverage
-        uses: codecov/codecov-action@v2.1.0
+      - uses: codecov/codecov-action@v2.1.0
