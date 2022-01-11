@@ -62,7 +62,7 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - name: Upload Release Asset to GitHub
+      - name: Publish to GitHub
         uses: softprops/action-gh-release@v1
         with:
           draft: true
