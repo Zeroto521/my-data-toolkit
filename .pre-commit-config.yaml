@@ -21,7 +21,7 @@ repos:
     rev: v2.31.0
     hooks:
       - id: pyupgrade
-  # file
+  # text
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.2.1
     hooks:
@@ -29,7 +29,17 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.1.0
     hooks:
+      # python
+      - id: check-ast
+      - id: check-builtin-literals
+      # doc
+      - id: check-docstring-first
+      # commit
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      # yaml
       - id: check-yaml
+      # text
       - id: end-of-file-fixer
       - id: trailing-whitespace
   # code style
@@ -37,8 +47,25 @@ repos:
     rev: 21.12b0
     hooks:
       - id: black
+      - id: black-jupyter
   - repo: https://github.com/PyCQA/flake8
     rev: 4.0.1
     hooks:
       - id: flake8
         exclude: ^(example|doc)/
+  # jupyter
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.5.0
+    hooks:
+      - id: nbstripout
+  # doc
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: rst-backticks
+      - id: rst-directive-colons
+      - id: rst-inline-touching-normal
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.1.0
+    hooks:
+      - id: codespell

@@ -371,13 +371,19 @@ def expand(
 
 @register_series_method(name="len")
 @register_series_method
-def lens(s: pd.Series) -> pd.Series:
+def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
-    Equals to::
+    Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
+    the length of other types will as ``NaN``.
 
-        s.apply(len)
+    Parameters
+    ----------
+    number : int or None, default '1'
+        The default length of `number` type.
+    other : int or None, default None
+        The default length of `other` type.
 
     Returns
     -------
@@ -385,8 +391,11 @@ def lens(s: pd.Series) -> pd.Series:
 
     Notes
     -----
-    To keep the Python naming style, so use this accessor via
-    ``Series.len`` rather than ``Series.lens``.
+    - To keep the Python naming style, so use this accessor via
+      ``Series.len`` rather than ``Series.lens``.
+
+    - Different to :meth:`pandas.Series.str.len`. It only returns
+      :class:`collections.abc.Iterable` type length. Other type will return `NaN`.
 
     Examples
     --------
@@ -411,6 +420,18 @@ def lens(s: pd.Series) -> pd.Series:
     5    0.0
     6    NaN
     dtype: float64
+
+    Set `number` and `other` default return.
+
+    >>> s.len(number=0, other=0)
+    0    0
+    1    0
+    2    6
+    3    1
+    4    1
+    5    0
+    6    0
+    dtype: int64
     """
     from pandas.api.types import is_number
 
@@ -418,7 +439,9 @@ def lens(s: pd.Series) -> pd.Series:
         if hasattr(x, "__len__"):
             return len(x)
         elif is_number(x):
-            return 1
+            return number
+        else:
+            return other
 
     return s.apply(wrap_len)
 
@@ -524,6 +547,10 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     Return the value of the named attribute of Series element.
 
     The back core logical is :func:`getattr`.
+
+    Read more in the `User Guide`_.
+
+    .. _User Guide: ../../guide/tips_about_getattr.ipynb
 
     Parameters
     ----------

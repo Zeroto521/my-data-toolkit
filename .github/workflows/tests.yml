@@ -2,9 +2,9 @@ name: tests
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   tests:
@@ -19,21 +19,21 @@ jobs:
         dev: [false]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
         env:
-          - ci/envs/latest.yaml
+          - ci/env/latest.yaml
         include:
-          - env: ci/envs/37-minimal.yaml
+          - env: ci/env/37-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.7"
-          - env: ci/envs/38-minimal.yaml
+          - env: ci/env/38-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.8"
-          - env: ci/envs/39-minimal.yaml
+          - env: ci/env/39-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.9"
-          - env: ci/envs/310-minimal.yaml
+          - env: ci/env/310-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
@@ -47,8 +47,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Setup Conda and Install Environment
-        uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v2
         with:
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
@@ -63,5 +62,4 @@ jobs:
         if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
         run: make doctest
 
-      - name: Code Coverage
-        uses: codecov/codecov-action@v2.1.0
+      - uses: codecov/codecov-action@v2.1.0
