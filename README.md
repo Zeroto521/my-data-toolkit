@@ -5,7 +5,7 @@
 [![Tests Status](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/tests.yml)
 [![Nightly Tests Status](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/nightly-tests.yml/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/nightly-tests.yml)
 [![CodeQL Status](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Zeroto521/my-data-toolkit/actions/workflows/codeql-analysis.yml)
-[![Coverage Status](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/master/graph/badge.svg)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
+[![Coverage Status](https://codecov.io/gh/Zeroto521/my-data-toolkit/branch/main/graph/badge.svg)](https://codecov.io/gh/Zeroto521/my-data-toolkit)
 [![Documentation Status](https://readthedocs.org/projects/my-data-toolkit/badge/?version=latest)](https://my-data-toolkit.readthedocs.io/en/latest/?badge=latest)
 
 Face the engineering of data preprocessing.
