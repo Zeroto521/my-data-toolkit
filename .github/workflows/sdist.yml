@@ -17,7 +17,7 @@ jobs:
       should_skip: ${{ steps.skip-check.outputs.should-skip }}
     steps:
       - id: skip-check
-        uses: fkirc/skip-duplicate-actions@master
+        uses: fkirc/skip-duplicate-actions@v3.4.1
         with:
           paths_ignore: '["doc/**"]'
 
