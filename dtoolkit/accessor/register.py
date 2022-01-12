@@ -17,6 +17,10 @@ def register_method_factory(register_accessor):
     """
     Decrease the same things via factory pattern.
 
+    Read more in the `User Guide`_.
+
+    .. _User Guide: ../../guide/tips_about_accessor.ipynb#Extend-Ability-to-Pandas-like-Object
+
     See Also
     --------
     register_series_method
@@ -69,6 +73,10 @@ def register_series_method(name: str | None = None):
     {klass} register accessor for human.
 
     Write method normally, use method naturally.
+
+    Read more in the `User Guide`_.
+
+    .. _User Guide: ../../guide/tips_about_accessor.ipynb
 
     Parameters
     ----------
