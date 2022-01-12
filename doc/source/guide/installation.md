@@ -2,20 +2,34 @@
 
 ## Dependencies
 
+### All Python Version Minimal Dependencies
+
 Required Dependencies:
 
-- pandas (1.3.4 or later)
+- Python (>= 3.7)
+- Pandas (>= 1.3.4)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - scikit-learn (1.0 or later)
+  - Scikit-learn (>= 1.0 )
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
-  - geopandas (0.9.0 or later)
-  - pygeos (0.11.1 or later)
+  - GeoPandas (>= 0.9.0)
+  - PyGEOS (>= 0.11.1)
+
+### Different Python Version Minimal Dependencies
+
+Dtoolkit support Python version from 3.7 to 3.10.
+Therefore each version supports minimal dependencies is different.
+You could check the dependencies list from following.
+
+- [Python 3.7 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/37-minimal.yaml)
+- [Python 3.8 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/38-minimal.yaml)
+- [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/39-minimal.yaml)
+- [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/310-minimal.yaml)
 
 ## Install with Conda
 
