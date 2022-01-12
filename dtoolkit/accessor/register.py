@@ -26,35 +26,40 @@ def register_method_factory(register_accessor):
     """
 
     # based on pandas_flavor/register.py
-    @wraps(register_accessor)
-    def register_accessor_method(method: Callable, name: str):
-        @wraps(method)
-        def method_accessor(pd_obj: SeriesOrFrame):
-            @wraps(method)
-            def wrapper(*args, **kwargs):
-                return method(pd_obj, *args, **kwargs)
+    def register_accessor_attr(attr: Callable | type, name: str):
+        hooked_attr = attr
 
-            return wrapper
+        if not isinstance(attr, type):  # function type
 
-        # Register method as pandas object inner method.
-        register_accessor(name)(method_accessor)
+            @wraps(attr)
+            def hooked_attr(pd_obj: SeriesOrFrame):
+                @wraps(attr)
+                def wrapper(*args, **kwargs):
+                    return attr(pd_obj, *args, **kwargs)
 
-        # Must return method itself, otherwise would get None.
-        return method
+                return wrapper
+
+        # Register attr as pandas object inner attr.
+        register_accessor(name)(hooked_attr)
+
+        # Must return attr itself, otherwise would get None.
+        return attr
 
     @wraps(register_accessor)
     def register_accessor_alias(name: str | None = None):
         @wraps(register_accessor)
-        def wrapper(method: Callable):
-            return register_accessor_method(method, name or method.__name__)
+        def wrapper(attr: Callable):
+            return register_accessor_attr(attr, name or attr.__name__)
 
         return wrapper
 
     @wraps(register_accessor)
-    def decorator(name: Callable | str | None = None):
-        if callable(name):  # Supports `@register_*_method` using.
-            method = name  # This 'name' variable actually is a function.
-            return register_accessor_method(method, method.__name__)
+    def decorator(name: Callable | type | str | None = None):
+
+        # Supports `@register_*_method` using.
+        if callable(name) or isinstance(name, type):
+            attr = name  # This 'name' variable actually is a function or class.
+            return register_accessor_attr(attr, attr.__name__)
 
         # Supports `@register_*_method()` and `@register_*_method(name="")` using.
         return register_accessor_alias(name)
