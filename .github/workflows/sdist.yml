@@ -20,6 +20,7 @@ jobs:
         id: skip-check
         with:
           paths_ignore: '["doc/**", "ci/**", "test/**"]'
+          do_not_skip: '["push"]'
 
   sdist:
     needs: skip-check
