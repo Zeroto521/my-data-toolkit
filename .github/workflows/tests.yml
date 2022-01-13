@@ -52,7 +52,7 @@ jobs:
           - env: ci/envs/latest.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "pypy-3.7"
+            python-version: "pypy3"
 
     steps:
       - uses: actions/checkout@v2
@@ -60,10 +60,18 @@ jobs:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
       - uses: conda-incubator/setup-miniconda@v2
+        if: ${{ ! contains(matrix.python-version, 'pypy') }}
         with:
           miniforge-variant: Mambaforge
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
+          use-mamba: true
+
+      - uses: conda-incubator/setup-miniconda@v2
+        if: ${{ contains(matrix.python-version, 'pypy') }}
+        with:
+          miniforge-variant: Miniforge-pypy3
+          environment-file: ${{ matrix.env }}
           use-mamba: true
 
       - name: Check and Log Environment
