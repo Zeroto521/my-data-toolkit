@@ -7,7 +7,19 @@ on:
     branches: [main]
 
 jobs:
+  skip-check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip-check.outputs.should-skip }}
+    steps:
+      - uses: fkirc/skip-duplicate-actions@v3.4.1
+        id: skip-check
+        with:
+          paths_ignore: '["test/**", "ci/**"]'
+
   sphinx:
+    needs: skip-check
+    if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:

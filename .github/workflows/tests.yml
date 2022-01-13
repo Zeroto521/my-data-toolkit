@@ -7,7 +7,19 @@ on:
     branches: [main]
 
 jobs:
+  skip-check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip-check.outputs.should-skip }}
+    steps:
+      - uses: fkirc/skip-duplicate-actions@v3.4.1
+        id: skip-check
+        with:
+          paths_ignore: '["doc/**"]'
+
   tests:
+    needs: skip-check
+    if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}
     runs-on: ${{ matrix.os }}
     defaults:
