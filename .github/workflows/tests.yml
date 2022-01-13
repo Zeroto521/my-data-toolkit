@@ -72,7 +72,7 @@ jobs:
         name: Setup PyPy Environment
         if: ${{ contains(matrix.python-version, 'pypy') }}
         with:
-          miniforge-variant: Miniforge-pypy3
+          miniforge-variant: Mambaforge-pypy3
           environment-file: ${{ matrix.env }}
           use-mamba: true
 
