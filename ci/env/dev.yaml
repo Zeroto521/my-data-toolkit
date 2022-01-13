@@ -17,7 +17,7 @@ dependencies:
   # dev versions of packages
   - pip
   - pip:
-    - git+https://github.com/pydata/pandas
-    - git+https://github.com/scikit-learn/scikit-learn
+    - --pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple pandas
+    - --pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple scikit-learn
     - git+https://github.com/geopandas/geopandas
     - git+https://github.com/pygeos/pygeos
