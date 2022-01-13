@@ -61,6 +61,7 @@ jobs:
 
       - uses: conda-incubator/setup-miniconda@v2
         with:
+          miniforge-variant: Mambaforge
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
           use-mamba: true
