@@ -59,6 +59,7 @@ jobs:
         with:
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
+          use-mamba: true
 
       - name: Check and Log Environment
         run: make info

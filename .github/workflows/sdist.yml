@@ -44,6 +44,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           add-pip-as-python-dependency: true
+          use-mamba: true
 
       - name: Build sdist
         run: make dist

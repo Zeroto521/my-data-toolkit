@@ -34,6 +34,7 @@ jobs:
         with:
           activate-environment: dtoolkit_doc
           environment-file: doc/environment.yml
+          use-mamba: true
           add-pip-as-python-dependency: true
 
       - name: Install DToolKit
