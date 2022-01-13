@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - cython
-  # the dependencies of dependencies 
+  # the dependencies of dependencies
   # computing
   - numpy
   - scipy
