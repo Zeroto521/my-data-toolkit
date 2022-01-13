@@ -3,7 +3,15 @@ channels:
   - conda-forge
 dependencies:
   - cython
+  # the dependencies of dependencies 
+  # computing
   - numpy
+  - scipy
+  - joblib
+  - threadpoolctl
+  # time
+  - python-dateutil
+  - pytz
   # geo
   - geos
   - fiona
