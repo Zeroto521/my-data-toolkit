@@ -60,6 +60,7 @@ jobs:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
       - uses: conda-incubator/setup-miniconda@v2
+        name: Setup CPython Environment
         if: ${{ ! contains(matrix.python-version, 'pypy') }}
         with:
           miniforge-variant: Mambaforge
@@ -68,6 +69,7 @@ jobs:
           use-mamba: true
 
       - uses: conda-incubator/setup-miniconda@v2
+        name: Setup PyPy Environment
         if: ${{ contains(matrix.python-version, 'pypy') }}
         with:
           miniforge-variant: Miniforge-pypy3
