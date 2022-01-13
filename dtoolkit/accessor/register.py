@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 from functools import wraps
+from typing import TYPE_CHECKING
 
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_series_accessor
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import SeriesOrFrame
+if TYPE_CHECKING:
+    from typing import Callable
+
+    from dtoolkit._typing import SeriesOrFrame
 
 
 def register_method_factory(register_accessor):
@@ -17,11 +21,13 @@ def register_method_factory(register_accessor):
     --------
     register_series_method
     register_dataframe_method
+    dtoolkit.geoaccessor.register_geoseries_method
+    dtoolkit.geoaccessor.register_geodataframe_method
     """
 
     # based on pandas_flavor/register.py
     @wraps(register_accessor)
-    def register_accessor_method(method):
+    def register_accessor_method(method: Callable, name: str):
         @wraps(method)
         def method_accessor(pd_obj: SeriesOrFrame):
             @wraps(method)
@@ -30,21 +36,44 @@ def register_method_factory(register_accessor):
 
             return wrapper
 
-        register_accessor(method.__name__)(method_accessor)
+        # Register method as pandas object inner method.
+        register_accessor(name)(method_accessor)
 
         # Must return method itself, otherwise would get None.
         return method
 
-    return register_accessor_method
+    @wraps(register_accessor)
+    def register_accessor_alias(name: str | None = None):
+        @wraps(register_accessor)
+        def wrapper(method: Callable):
+            return register_accessor_method(method, name or method.__name__)
+
+        return wrapper
+
+    @wraps(register_accessor)
+    def decorator(name: Callable | str | None = None):
+        if callable(name):  # Supports `@register_*_method` using.
+            method = name  # This 'name' variable actually is a function.
+            return register_accessor_method(method, method.__name__)
+
+        # Supports `@register_*_method()` and `@register_*_method(name="")` using.
+        return register_accessor_alias(name)
+
+    return decorator
 
 
 @register_method_factory
-@doc(klass=":class:`pandas.Series`")
-def register_series_method(method):
+@doc(klass=":class:`~pandas.Series`")
+def register_series_method(name: str | None = None):
     """
     {klass} register accessor for human.
 
     Write method normally, use method naturally.
+
+    Parameters
+    ----------
+    name : str, optional
+        Use the ``method`` name as the default accessor entrance if ``name`` is None.
 
     See Also
     --------
@@ -59,11 +88,13 @@ def register_series_method(method):
 
         import pandas as pd
 
+        @register_dataframe_method(name="col")
+        @register_series_method(name="col")  # Support alias name also.
         @register_dataframe_method
-        @register_series_method
+        @register_series_method  # Use accessor method `__name__` as the entrance.
         def cols(pd_obj):
             '''
-            A API to gather :attr:`~pandas.Series.name` and
+            An API to gather :attr:`~pandas.Series.name` and
             :attr:`~pandas.DataFrame.columns` to one.
             '''
             if isinstance(pd_obj, pd.Series):
@@ -86,11 +117,19 @@ def register_series_method(method):
         In [4]: df.a.cols()
         Out[4]:
         'a'
+
+        In [5]: df.col()
+        Out[5]:
+        ['a', 'b']
+
+        In [6]: df.a.col()
+        Out[6]:
+        'a'
     """
-    return register_series_accessor(method)
+    return register_series_accessor(name)
 
 
 @register_method_factory
-@doc(register_series_method, klass=":class:`pandas.DataFrame`")
-def register_dataframe_method(method):
-    return register_dataframe_accessor(method)
+@doc(register_series_method, klass=":class:`~pandas.DataFrame`")
+def register_dataframe_method(name: str | None = None):
+    return register_dataframe_accessor(name)

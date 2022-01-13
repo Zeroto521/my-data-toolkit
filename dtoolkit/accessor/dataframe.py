@@ -1,35 +1,37 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import Iterable
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor._util import get_mask
-from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import cols as series_cols
-from dtoolkit.accessor.series import expand as series_expand
-from dtoolkit.accessor.series import top_n as series_top_n
+from dtoolkit.accessor.series import cols as s_cols
+from dtoolkit.accessor.series import expand as s_expand
+from dtoolkit.accessor.series import top_n as s_top_n
+
+if TYPE_CHECKING:
+    from typing import Iterable
 
 
 @register_dataframe_method
 @doc(
-    series_cols,
+    s_cols,
     returns=dedent(
         """
     Returns
     -------
-    list of str
+    list of str or int
         The column names.
     """,
     ),
 )
-def cols(df: pd.DataFrame) -> list[str]:
+def cols(df: pd.DataFrame) -> list[str | int]:
     return df.columns.tolist()
 
 
@@ -141,6 +143,7 @@ def drop_inf(
            name        toy                 born
     1    Batman  Batmobile  1940-04-25 00:00:00
     """
+    from dtoolkit.accessor._util import get_inf_range
 
     inplace = validate_bool_kwarg(inplace, "inplace")
 
@@ -288,6 +291,7 @@ def filter_in(
             num_legs  num_wings
     falcon         2          2
     """
+    from dtoolkit.accessor._util import isin
 
     inplace = validate_bool_kwarg(inplace, "inplace")
     axis = df._get_axis_number(axis)
@@ -376,24 +380,15 @@ def repeat(
     1  2  4  4
     """
 
-    new_index = df.index.copy()
-    new_column = df.columns.copy()
-
     axis = df._get_axis_number(axis)
-    if axis == 0:
-        new_index = new_index.repeat(repeats)
-    elif axis == 1:
-        new_column = new_column.repeat(repeats)
-
-    new_values = np.repeat(
-        df._values,
-        repeats,
-        axis=axis,
-    )
     return pd.DataFrame(
-        new_values,
-        index=new_index,
-        columns=new_column,
+        np.repeat(
+            df._values,
+            repeats,
+            axis=axis,
+        ),
+        index=df.index.repeat(repeats) if axis == 0 else df.index,
+        columns=df.columns.repeat(repeats) if axis == 1 else df.columns,
     )
 
 
@@ -445,7 +440,7 @@ def top_n(
     DataFrame
         - The structure of column name is ``{prefix}{delimiter}{number}``.
         - The default structure of value is ``{column index}`` and could be
-          controled via ``element``.
+          controlled via ``element``.
 
     See Also
     --------
@@ -510,9 +505,8 @@ def top_n(
     if element not in ("both", "index", "value"):
         raise ValueError('element must be either "both", "index" or "value"')
 
-    def wrap_series_top_n(*args, **kwargs) -> pd.Series:
-        top = series_top_n(*args, **kwargs)
-        index = [prefix + delimiter + str(i + 1) for i in range(len(top))]
+    def wrap_s_top_n(*args, **kwargs) -> pd.Series:
+        top = s_top_n(*args, **kwargs)
 
         if element == "both":
             data = zip(top.index, top.values)
@@ -521,20 +515,20 @@ def top_n(
         elif element == "value":
             data = top.values
 
-        return pd.Series(data, index=index)
+        return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
 
     return df.apply(
-        wrap_series_top_n,
+        wrap_s_top_n,
         axis=1,
         n=n,
         largest=largest,
         keep=keep,
-    )
+    ).add_prefix(prefix + delimiter)
 
 
 @register_dataframe_method
 @doc(
-    series_expand,
+    s_expand,
     see_also=dedent(
         """
     See Also
@@ -597,17 +591,66 @@ def top_n(
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list | None = None,
+    suffix: list[str | int] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
-
-    result = (
-        df.get(column).expand(
-            suffix=suffix,
-            delimiter=delimiter,
-            flatten=flatten,
-        )
-        for column in df.columns
+    return pd.concat(
+        (
+            df.get(key=column).expand(
+                suffix=suffix,
+                delimiter=delimiter,
+                flatten=flatten,
+            )
+            for column in df.cols()
+        ),
+        axis=1,
     )
-    return pd.concat(result, axis=1)
+
+
+@register_dataframe_method
+def to_series(df: pd.DataFrame, name: str | int = None) -> SeriesOrFrame:
+    """
+    Transform one column :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
+
+    Parameters
+    ----------
+    name : str or int, optional
+        The name of returned Series
+
+    Returns
+    -------
+    Series or DataFrame
+        Series if ``df`` is one column else would be DataFrame.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(range(3))
+    >>> df
+       0
+    0  0
+    1  1
+    2  2
+    >>> df.to_series()
+    0    0
+    1    1
+    2    2
+    Name: 0, dtype: int64
+    >>> df = pd.DataFrame({'a': [1, 2]})
+    >>> df
+       a
+    0  1
+    1  2
+    >>> df.to_series()
+    0    1
+    1    2
+    Name: a, dtype: int64
+    """
+
+    if df.shape[1] == 1:  # one column DataFrame
+        column = df.columns[0]
+        return df.get(column).rename(name or column)
+
+    return df

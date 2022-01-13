@@ -1,6 +1,5 @@
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import filter_in
 from dtoolkit.transformer.base import DataFrameTF
 
 
@@ -393,6 +392,8 @@ class FilterInTF(DataFrameTF):
             num_legs  num_wings
     falcon         2          2
     """
+
+    from dtoolkit.accessor.dataframe import filter_in
 
     transform_method = staticmethod(filter_in)
 

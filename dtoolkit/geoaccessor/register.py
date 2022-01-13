@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_method_factory
@@ -6,17 +8,22 @@ from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
 
 
 @register_method_factory
-@doc(klass=":class:`geopandas.GeoSeries`")
-def register_geoseries_method(method):
+@doc(klass=":class:`~geopandas.GeoSeries`")
+def register_geoseries_method(name: str | None = None):
     """
     {klass} register accessor for human.
 
     Write method normally, use method naturally.
 
+    Parameters
+    ----------
+    name : str, optional
+        Use the ``method`` name as the default accessor entrance if ``name`` is None.
+
     See Also
     --------
-    dtoolkit.geoaccessor.accessor.register_geoseries_accessor
-    dtoolkit.geoaccessor.accessor.register_geodataframe_accessor
+    dtoolkit.geoaccessor.register_geoseries_accessor
+    dtoolkit.geoaccessor.register_geodataframe_accessor
     register_geoseries_method
     register_geodataframe_method
 
@@ -28,8 +35,10 @@ def register_geoseries_method(method):
 
         from pygeos import count_coordinates, from_shapely
 
+        @register_geodataframe_method(name="count_it")
+        @register_geoseries_method(name="count_it")  # Support alias name also.
         @register_geodataframe_method
-        @register_geoseries_method
+        @register_geoseries_method  # Use accessor method `__name__` as the entrance.
         def counts(s: gpd.GeoSeries):
             # Counts the number of coordinate pairs in geometry
 
@@ -71,11 +80,26 @@ def register_geoseries_method(method):
         1    1
         2    0
         Name: geometry, dtype: int64
+
+        In [7]: s.count_it()
+        Out[7]:
+        0    1
+        1    1
+        2    0
+        dtype: int64
+
+        In [8]: d.count_it()
+        Out[8]:
+        0    1
+        1    1
+        2    0
+        Name: geometry, dtype: int64
+
     """
-    return register_geoseries_accessor(method)
+    return register_geoseries_accessor(name)
 
 
 @register_method_factory
-@doc(register_geoseries_method, klass=":class:`geopandas.GeoDataFrame`")
-def register_geodataframe_method(method):
-    return register_geodataframe_accessor(method)
+@doc(register_geoseries_method, klass=":class:`~geopandas.GeoDataFrame`")
+def register_geodataframe_method(name: str | None = None):
+    return register_geodataframe_accessor(name)

@@ -1,24 +1,26 @@
 from __future__ import annotations
 
-from itertools import chain
 from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
-from scipy.sparse import csr_matrix
-from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
-from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer.base import Transformer
+
+if TYPE_CHECKING:
+    from scipy.sparse import csr_matrix
+
+    from dtoolkit._typing import SeriesOrFrame
+    from dtoolkit._typing import TwoDimArray
 
 
 class FeatureUnion(SKFeatureUnion, Transformer):
@@ -83,6 +85,8 @@ def make_union(
      FeatureUnion(transformer_list=[('pca', PCA()),
                                    ('truncatedsvd', TruncatedSVD())])
     """
+    from sklearn.pipeline import _name_estimators
+
     return FeatureUnion(
         _name_estimators(transformers),
         n_jobs=n_jobs,
@@ -181,7 +185,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
     Notes
     -----
-    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
+    Different to :obj:`sklearn.preprocessing.OneHotEncoder`.
     The result would return a :obj:`~pandas.DataFrame` which uses categories
     as columns.
 
@@ -274,6 +278,8 @@ class OneHotEncoder(SKOneHotEncoder):
         ),
     )
     def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:
+        from itertools import chain
+
         X_new = super().transform(X)
 
         if self.sparse is False:

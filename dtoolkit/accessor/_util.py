@@ -1,15 +1,18 @@
 from __future__ import annotations
 
-from collections import defaultdict
-from typing import Iterable
+from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import OneDimArray
-from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
 from dtoolkit.util import multi_if_else
+
+if TYPE_CHECKING:
+    from typing import Iterable
+
+    from dtoolkit._typing import OneDimArray
+    from dtoolkit._typing import SeriesOrFrame
+    from dtoolkit._typing import TwoDimArray
 
 
 def get_inf_range(inf: str = "all") -> list[float]:
@@ -44,6 +47,7 @@ def isin(
     Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
     :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
     """
+    from collections import defaultdict
 
     axis = df._get_axis_number(axis)
 

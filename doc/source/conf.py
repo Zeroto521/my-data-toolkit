@@ -15,6 +15,7 @@ from __future__ import annotations
 import inspect
 import os
 import sys
+from datetime import datetime
 
 import dtoolkit
 
@@ -25,7 +26,7 @@ version = version.replace(".post0", "")
 
 project = "DToolKit"
 author = "Zero <@Zeroto521>"
-copyright = f"2021, {author}"  # pylint: disable=redefined-builtin
+copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
@@ -46,6 +47,7 @@ extensions = [
     "sphinx_toggleprompt",
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
+    "nbsphinx",
 ]
 
 # The suffix of source filenames.
@@ -72,6 +74,13 @@ html_theme = "pydata_sphinx_theme"
 html_theme_options = {
     "search_bar_position": "sidebar",
     "github_url": github_url,
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/my-data-toolkit",
+            "icon": "fas fa-box",
+        },
+    ],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -88,7 +97,18 @@ moved_pages = [
 
 html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
 
-html_context = {"redirects": {old: new for old, new in moved_pages}}
+html_context = {"redirects": dict(moved_pages)}
+
+
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base=None) %}
+
+.. tip::
+
+    This page was generated from `{{ docname }}`__.
+
+    __ https://github.com/zeroto521/my-data-toolkit/blob/main/doc/source/{{ docname }}
+"""
 
 
 #  --Options for sphinx extensions -----------------------------------------------
@@ -109,6 +129,7 @@ intersphinx_mapping = {
 extlinks = {
     "issue": (f"{github_url}/issues/%s", "issue#"),
     "pr": (f"{github_url}/issues/%s", "pr#"),
+    "user": ("https://github.com/%s", "@"),
 }
 
 myst_enable_extensions = [
@@ -116,6 +137,10 @@ myst_enable_extensions = [
 ]
 
 autosummary_generate = True
+
+nbsphinx_execute = "always"
+nbsphinx_allow_errors = True
+
 
 # based on pandas doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
@@ -162,6 +187,6 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
 
     base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
     if "post" in version:
-        return base_link.format(branch="master")
+        return base_link.format(branch="main")
 
     return base_link.format(branch=f"v{version}")
