@@ -8,5 +8,5 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: styfle/cancel-workflow-action@0.9.1
-        with: 
+        with:
           workflow_id: ".github/workflows/tests.yml, .github/workflows/nightly-tests.yml, .github/workflows/sphinx.yml"
