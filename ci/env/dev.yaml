@@ -1,0 +1,31 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - cython
+  # the dependencies of dependencies
+  # computing
+  - numpy
+  - scipy
+  - joblib
+  - threadpoolctl
+  # time
+  - python-dateutil
+  - pytz
+  # geo
+  - geos
+  - fiona
+  - pyproj
+  - shapely
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov
+  # dev versions of packages
+  - pip
+  - pip:
+    - git+https://github.com/pydata/pandas
+    - git+https://github.com/scikit-learn/scikit-learn
+    - git+https://github.com/geopandas/geopandas
+    - git+https://github.com/pygeos/pygeos

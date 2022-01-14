@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 )
 def cols(s: pd.Series) -> str | None:
     """
-    A API to gather :attr:`~pandas.Series.name` and
+    An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     {returns}
     See Also
@@ -234,8 +234,10 @@ def top_n(
 
     See Also
     --------
-    pandas.Series.nlargest : Get the largest `n` elements.
-    pandas.Series.nsmallest : Get the smallest `n` elements.
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+    dtoolkit.accessor.dataframe.top_n
+        Returns each row's top n.
     """
 
     if largest:
@@ -318,7 +320,7 @@ def expand(
 
     Parameters
     ----------
-    suffix : list of str or int, default None
+    suffix : list of str or int, optional
         New columns of return :class:`~pandas.DataFrame`.
 
     delimiter : str, default "_"
@@ -346,7 +348,7 @@ def expand(
         return [x]
 
     s_list = s.apply(wrap_collapse)
-    s_len = s_list.lens()
+    s_len = s_list.len()
     if all(s_len == 1):
         return s
 
@@ -367,18 +369,33 @@ def expand(
     ).add_prefix(s.name + delimiter)
 
 
+@register_series_method(name="len")
 @register_series_method
-def lens(s: pd.Series) -> pd.Series:
+def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
-    Equals to::
+    Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
+    the length of other types will as ``NaN``.
 
-        s.apply(len)
+    Parameters
+    ----------
+    number : int or None, default '1'
+        The default length of `number` type.
+    other : int or None, default None
+        The default length of `other` type.
 
     Returns
     -------
     Series
+
+    Notes
+    -----
+    - To keep the Python naming style, so use this accessor via
+      ``Series.len`` rather than ``Series.lens``.
+
+    - Different to :meth:`pandas.Series.str.len`. It only returns
+      :class:`collections.abc.Iterable` type length. Other type will return `NaN`.
 
     Examples
     --------
@@ -394,7 +411,7 @@ def lens(s: pd.Series) -> pd.Series:
     5                  {}
     6    <class 'object'>
     dtype: object
-    >>> s.lens()
+    >>> s.len()
     0    1.0
     1    1.0
     2    6.0
@@ -403,6 +420,18 @@ def lens(s: pd.Series) -> pd.Series:
     5    0.0
     6    NaN
     dtype: float64
+
+    Set `number` and `other` default return.
+
+    >>> s.len(number=0, other=0)
+    0    0
+    1    0
+    2    6
+    3    1
+    4    1
+    5    0
+    6    0
+    dtype: int64
     """
     from pandas.api.types import is_number
 
@@ -410,7 +439,9 @@ def lens(s: pd.Series) -> pd.Series:
         if hasattr(x, "__len__"):
             return len(x)
         elif is_number(x):
-            return 1
+            return number
+        else:
+            return other
 
     return s.apply(wrap_len)
 
@@ -428,7 +459,7 @@ def error_report(
     ----------
     predicted : list of int or float, ndarrray, Series
         A array is compared to ``s``.
-    columns : list of str or int, default None
+    columns : list of str or int, optional
         The columns of returning DataFrame, each represents `true value`,
         `predicted value`, `absolute error`, and `relative error`.
 
@@ -507,3 +538,73 @@ def error_report(
         axis=1,
         keys=columns,
     )
+
+
+@register_series_method(name="getattr")
+@register_series_method
+def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
+    """
+    Return the value of the named attribute of Series element.
+
+    The back core logical is :func:`getattr`.
+
+    Read more in the `User Guide`_.
+
+    .. _User Guide: ../../guide/tips_about_getattr.ipynb
+
+    Parameters
+    ----------
+    name : str
+        The name of one of the Series element's attributes. If the named attribute
+        does not exist, None is returned.
+    args, kwargs
+        The arguments of the function type attribute.
+
+    Returns
+    -------
+    Series
+
+    See Also
+    --------
+    getattr
+
+    Notes
+    -----
+    To keep the Python naming style, so use this accessor via
+    ``Series.getattr`` rather than ``Series.get_attr``.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series(["hello", "world"])
+
+    Get a attribute.
+
+    >>> s.getattr("__doc__")
+    0    str(object='') -> str\\nstr(bytes_or_buffer[, e...
+    1    str(object='') -> str\\nstr(bytes_or_buffer[, e...
+    dtype: object
+
+    Get a don't exist attribute.
+
+    >>> s.getattr("whatever")
+    0    None
+    1    None
+    dtype: object
+
+    Get a method attribute and call it.
+
+    >>> s.getattr("count", "l")
+    0    2
+    1    1
+    dtype: int64
+    """
+
+    def wrap_getattr(x):
+        attr = getattr(x, name, None)
+        if callable(attr):
+            return attr(*args, **kwargs)
+        return attr
+
+    return s.apply(wrap_getattr)

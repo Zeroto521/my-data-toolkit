@@ -185,7 +185,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
     Notes
     -----
-    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
+    Different to :obj:`sklearn.preprocessing.OneHotEncoder`.
     The result would return a :obj:`~pandas.DataFrame` which uses categories
     as columns.
 

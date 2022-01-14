@@ -1,5 +1,97 @@
 # Changelog
 
+## [Version 0.0.9] (2022-1-10)
+
+Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
+
+Highlights of this release:
+
+- {meth}`~dtoolkit.accessor.register_series_method` and {meth}`~dtoolkit.accessor.register_dataframe_method` support alias ({pr}`392`).
+
+New features and improvements:
+
+- {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` would return `GeoSeries` if df only has one column ({pr}`385`).
+- New accessor method {meth}`~dtoolkit.accessor.dataframe.to_series` ({pr}`380`).
+- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`, {pr}`394`, {pr}`398`).
+
+API changes:
+
+- Call {meth}`~dtoolkit.accessor.series.lens` via `Series.len` ({pr}`394`).
+
+Maintenance development:
+
+- Draft github-action release then add changelog by manually ({pr}`396`).
+- Fix words, a -> an ({pr}`387`).
+- Pre-commit hooks autoupdate ({pr}`384`).
+
+Contribuing development:
+
+- Add pull request template ({pr}`361`).
+
+Documentation:
+
+- Correct sphinx method link ({pr}`390`).
+
+## [Version 0.0.8] (2022-1-1)
+
+Highlights of this release:
+
+- Publish to PyPI ({pr}`363`).
+- Change PyPI project name from `dtoolkit` to `my-data-toolkit` ({pr}`382`).
+
+API changes:
+
+- Remove {meth}`~dtoolkit.geoaccessor.tool.geographic_buffer` ({pr}`348`).
+
+Maintenance development:
+
+- Update pre-commit commit message ({pr}`371`).
+- Enable labeled 'auto-merged' PR could merge master branch into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
+- Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`, {pr}`383`).
+- Auto update github action runner ({pr}`360`, {pr}`364`).
+- Pre-commit hooks auto update ({pr}`359`).
+- Let git choose the default branch ({pr}`376`).
+
+Documentation:
+
+- Correct package name, `MinMaxScaler` -> `OneHotEncoder` ({pr}`374`).
+- Shorten package path, `dtoolkit.accessor.register` -> `dtoolkit.accessor` ({pr}`373`).
+
+New contributors:
+
+- {user}`dependabot`
+- {user}`web-flow`
+
+## [Version 0.0.7] (2021-12-30)
+
+Highlights of this release:
+
+- {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` at least x1.3 faster than before ({pr}`341`, {pr}`342`, {pr}`347`, {pr}`350`, {pr}`357`).
+
+New features and improvements:
+
+- Extend {meth}`~dtoolkit.accessor.series.lens` function range ({pr}`356`).
+- New geoaccessor method {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`346`).
+
+API changes:
+
+- Add `DeprecationWarning` for {meth}`~dtoolkit.geoaccessor.tool.geographic_buffer` ({pr}`341`).
+
+Maintenance development:
+
+- Simplify {meth}`~dtoolkit.accessor.dataframe.repeat` codes ({pr}`353`).
+- Use `add_prefix` to simplify {meth}`~dtoolkit.accessor.series.expand` ({pr}`352`).
+- Use `add_prefix` to simplify {meth}`~dtoolkit.accessor.series.top_n` ({pr}`351`).
+- Import uncommon packages at inner of method ({pr}`343`, {pr}`344`).
+- Tag event also trigger to release to `test.pypi.org` ({pr}`340`).
+
+Typing annotations:
+
+- Specific `Any` type ({pr}`355`).
+- Use `TYPE_CHECKING` mark ({pr}`354`).
+- Specific the type of `list` element ({pr}`349`).
+- Correct {meth}`~dtoolkit.accessor.series.cols` return type ({pr}`345`).
+
 ## [Version 0.0.6] (2021-12-13)
 
 Highlights of this release:
@@ -26,18 +118,13 @@ Documentation:
 
 - Documentation pathch ({pr}`329`).
 
-Contributors:
-
-- {user}`Zeroto521`
-- {user}`pre-commit-ci`
-
 ## [Version 0.0.5] (2021-12-6)
 
 Highlights of this release:
 
-- Simplify methods of importing {mod}`dtoolkit.accessor` and {mod}`dtoolkit.geoaccessor` ({pr}`294`, {pr}`295`, {pr}`297`, {pr}`303`).
-- Use `TAG[.postDIST[.dev0]]` version style ({pr}`299`, {pr}`300`, {pr}`306`).
 - Remove test from release package ({pr}`307`).
+- Use `TAG[.postDIST[.dev0]]` version style ({pr}`299`, {pr}`300`, {pr}`306`).
+- Simplify methods of importing {mod}`dtoolkit.accessor` and {mod}`dtoolkit.geoaccessor` ({pr}`294`, {pr}`295`, {pr}`297`, {pr}`303`).
 
 New features and improvements:
 
@@ -56,10 +143,10 @@ Maintenance development:
 - Update versioneer ({pr}`296`).
 - Bump version of pre-commit repos ({pr}`292`).
 - Publish to TestPyPI ({pr}`291`).
-- Adjust tests CI ({pr}`284`, {pr}`288`, {pr}`290`, {pr}`293`, {pr}`310`, {pr}`311`).
+- Gather information into setup.cfg ({pr}`298`).
 - Create codeql analysis CI ({pr}`287`).
 - Add `.PHONY` into Makefile to avoid name conflict ({pr}`285`).
-- Gather information into setup.cfg ({pr}`298`).
+- Adjust tests CI ({pr}`284`, {pr}`288`, {pr}`290`, {pr}`293`, {pr}`310`, {pr}`311`).
 
 Documentation:
 
@@ -68,9 +155,8 @@ Documentation:
 - Add documentation for generating geographic buffer methods ({pr}`308`).
 - Complete {meth}`~dtoolkit.accessor.series.top_n`'s documentation ({pr}`305`).
 
-Contributors:
+New contributors:
 
-- {user}`Zeroto521`
 - {user}`pre-commit-ci`
 
 ## [Version 0.0.4] (2021-11-8)
@@ -82,14 +168,14 @@ Highlights of this release:
 
 New features and improvements:
 
-- New accessor {meth}`dtoolkit.accessor.series.expand` and {meth}`dtoolkit.accessor.dataframe.expand` ({pr}`252`, {pr}`279`).
-- Add a new option `element` for {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
-- Let {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
+- New accessor {meth}`~dtoolkit.accessor.series.expand` ({pr}`252`, {pr}`279`).
+- Let {meth}`~dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
+- Add a new option `element` for {meth}`~dtoolkit.accessor.dataframe.top_n`, now support to control return data structure ({pr}`247`).
 
 API changes:
 
-- Keep snake name style, `dropinf` -> `drop_inf` and `filterin` -> `filter_in` ({pr}`249`, {pr}`253`).
 - Add `DeprecationWarning` for {mod}`toolkit.geogarphy` ({pr}`274`).
+- Keep snake name style, `dropinf` -> `drop_inf` and `filterin` -> `filter_in` ({pr}`249`, {pr}`253`).
 
 Maintenance development:
 
@@ -101,21 +187,21 @@ Documentation:
 - Use `sphinx.ext.autosectionlabel` to add anchor ({pr}`272`).
 - Start to use IPython Sphinx Directive ({pr}`258`, {pr}`259`, {pr}`260`).
 - Drop python module index html page ({pr}`256`).
+- Small patches to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 - Fix these doc doesn't exist in dtoolkit ({pr}`244`).
 - Fix documentation building environment ({pr}`243`).
-- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 
 ## [Version 0.0.3] (2021-10-21)
 
 New features and improvements:
 
+- Add new accessor method {meth}`~dtoolkit.accessor.dataframe.top_n` ({pr}`217`, {pr}`218`, {pr}`219`).
 - Add new series accessor method {meth}`~dtoolkit.accessor.series.bin` ({pr}`213`, {pr}`216`).
-- Add new accessor method {meth}`dtoolkit.accessor.series.top_n` and {meth}`dtoolkit.accessor.dataframe.top_n` ({pr}`217`, {pr}`218`, {pr}`219`).
 
 Documentation:
 
-- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
 - Add a new documentation about `Workflow`, see [Automated `Pipeline`: `AutoML`](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/automl.html) ({pr}`236`, {pr}`237`).
+- Add a new documentation about `AutoML`, see [`Transformer` and `Pipeline` Brief Description](https://my-data-toolkit.readthedocs.io/en/v0.0.3/guide/transformer_description.html) ({pr}`235`, {pr}`237`).
 - Update the description of dtoolkit ({pr}`234`, {pr}`241`).
 - Add an introduction for {meth}`~dtoolkit.transformer` ({pr}`232`, {pr}`233`).
 - Generate sphinx python model index, see [py-modindex](https://my-data-toolkit.readthedocs.io/en/v0.0.3/py-modindex.html) ({pr}`231`).
@@ -177,6 +263,9 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.9]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...v0.0.9
+[Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8
+[Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
 [Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6
 [Version 0.0.5]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.4...v0.0.5
 [Version 0.0.4]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.3...v0.0.4

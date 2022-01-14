@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from inspect import isfunction
 from typing import TYPE_CHECKING
 
 from dtoolkit.transformer.base import MethodTF
@@ -72,11 +71,11 @@ def methodtf_factory(
         [0 1 2]
     """
 
-    if not isfunction(transform_method):
+    if not callable(transform_method):
         raise TypeError("'transform_method' must be a function.")
 
     if (inverse_transform_method is not None) and (
-        not isfunction(inverse_transform_method)
+        not callable(inverse_transform_method)
     ):
         raise TypeError("'inverse_transform_method' must be a function.")
 

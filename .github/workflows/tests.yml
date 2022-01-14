@@ -2,12 +2,24 @@ name: tests
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
+  skip-check:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip-check.outputs.should-skip }}
+    steps:
+      - uses: fkirc/skip-duplicate-actions@v3.4.1
+        id: skip-check
+        with:
+          paths_ignore: '["doc/**"]'
+
   tests:
+    needs: skip-check
+    if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}
     runs-on: ${{ matrix.os }}
     defaults:
@@ -19,21 +31,21 @@ jobs:
         dev: [false]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
         env:
-          - ci/envs/latest.yaml
+          - ci/env/latest.yaml
         include:
-          - env: ci/envs/37-minimal.yaml
+          - env: ci/env/37-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.7"
-          - env: ci/envs/38-minimal.yaml
+          - env: ci/env/38-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.8"
-          - env: ci/envs/39-minimal.yaml
+          - env: ci/env/39-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.9"
-          - env: ci/envs/310-minimal.yaml
+          - env: ci/env/310-minimal.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
@@ -43,15 +55,12 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Setup Conda and Install Environment
-        uses: conda-incubator/setup-miniconda@v2
-        with:
+          miniforge-variant: Mambaforge
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
+          use-mamba: true
 
       - name: Check and Log Environment
         run: make info
@@ -63,5 +72,4 @@ jobs:
         if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
         run: make doctest
 
-      - name: Code Coverage
-        uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v2.1.0
