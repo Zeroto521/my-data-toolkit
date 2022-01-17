@@ -8,7 +8,6 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
-from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer._validation import require_series_or_frame
