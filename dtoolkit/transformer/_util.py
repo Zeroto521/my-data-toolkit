@@ -7,6 +7,7 @@ import pandas as pd
 
 if TYPE_CHECKING:
     from dtoolkit._typing import SeriesOrFrame
+    from dtoolkit._typing import OneDimArray
     from dtoolkit._typing import TwoDimArray
 
 
@@ -55,5 +56,24 @@ def transform_series_to_frame(X: np.ndarray | SeriesOrFrame) -> TwoDimArray:
 
     if isinstance(X, pd.Series):
         return X.to_frame()
+
+    return X
+
+
+def transform_frame_to_series(X: np.ndarray | SeriesOrFrame) -> OneDimArray:
+    """
+    Transform ``X`` to Series if ``X`` is one column DataFrame.
+
+    Parameters
+    ----------
+    X : ndarray, Series or DataFrame
+
+    Returns
+    -------
+    Series or ndarray
+    """
+
+    if isinstance(X, pd.DataFrame):
+        return X.to_series()
 
     return X

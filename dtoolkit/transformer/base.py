@@ -9,6 +9,7 @@ from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
 from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer._validation import require_series_or_frame
 
@@ -90,7 +91,10 @@ class MethodTF(Transformer):
             A new X was transformed.
         """
 
-        return self.transform_method(X, *self.args, **self.kwargs)
+        X = transform_series_to_frame(X)
+
+        X_new = self.transform_method(X, *self.args, **self.kwargs)
+        return transform_frame_to_series(X_new)
 
     def inverse_transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -113,11 +117,12 @@ class MethodTF(Transformer):
         """
 
         if self.inverse_transform_method:
-            return self.inverse_transform_method(
-                X,
+            X_new = self.inverse_transform_method(
+                transform_series_to_frame(X),
                 *self.inverse_args,
                 **self.inverse_kwargs,
             )
+            return transform_frame_to_series(X_new)
 
         return super().inverse_transform(X)
 
@@ -168,7 +173,6 @@ class DataFrameTF(MethodTF):
         """
 
         require_series_or_frame(X)
-        X = transform_series_to_frame(X)
 
         return super().transform(X)
 
@@ -193,6 +197,5 @@ class DataFrameTF(MethodTF):
         """
 
         require_series_or_frame(X)
-        X = transform_series_to_frame(X)
 
-        return super().inverse_transform(X).to_series()
+        return super().inverse_transform(X)

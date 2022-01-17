@@ -13,6 +13,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 from dtoolkit.transformer._util import transform_array_to_frame
+from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer.base import Transformer
 
@@ -129,6 +130,12 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
+    @doc(SKMinMaxScaler.fit)
+    def fit(self, X, y=None):
+        X = transform_series_to_frame(X)
+
+        return super().fit(X, y)
+
     def transform(self, X: TwoDimArray) -> TwoDimArray:
         """
         Scale features of X according to feature_range.
@@ -149,9 +156,11 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.
         """
 
+        X = transform_series_to_frame(X)
         X_new = super().transform(X)
+        X_new = transform_array_to_frame(X_new, X)
 
-        return transform_array_to_frame(X_new, X)
+        return transform_frame_to_series(X)
 
     def inverse_transform(self, X: SeriesOrFrame | np.ndarray) -> TwoDimArray:
         """
@@ -175,8 +184,9 @@ class MinMaxScaler(SKMinMaxScaler):
 
         X = transform_series_to_frame(X)
         X_new = super().inverse_transform(X)
+        X_new = transform_array_to_frame(X_new, X)
 
-        return transform_array_to_frame(X_new, X)
+        return transform_frame_to_series(X_new)
 
 
 class OneHotEncoder(SKOneHotEncoder):
