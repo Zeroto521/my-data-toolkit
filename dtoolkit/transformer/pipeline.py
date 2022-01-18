@@ -8,7 +8,6 @@ from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.pipeline import Pipeline as SKPipeline
 from sklearn.utils import _print_elapsed_time
-from sklearn.utils.metaestimators import available_if
 from sklearn.utils.validation import check_memory
 
 from dtoolkit.transformer._util import transform_array_to_frame
@@ -68,11 +67,6 @@ class Pipeline(SKPipeline):
 
         return transform_frame_to_series(X)
 
-    @doc(SKPipeline._can_transform)
-    def _can_transform(self):
-        return super()._can_transform()
-
-    @available_if(_can_transform)
     @doc(SKPipeline.transform)
     def transform(self, X):
         Xt = X
@@ -102,11 +96,6 @@ class Pipeline(SKPipeline):
 
             return transform_array_to_frame(Xt, X)
 
-    @doc(SKPipeline._can_inverse_transform)
-    def _can_inverse_transform(self):
-        return super()._can_inverse_transform()
-
-    @available_if(_can_inverse_transform)
     @doc(SKPipeline.inverse_transform)
     def inverse_transform(self, Xt):
         reverse_iter = reversed(list(self._iter()))
