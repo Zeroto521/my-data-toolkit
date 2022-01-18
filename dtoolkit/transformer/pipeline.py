@@ -1,21 +1,20 @@
 from __future__ import annotations
 
-from dtoolkit.transformer._util import (
-    transform_array_to_frame,
-    transform_frame_to_series,
-    transform_series_to_frame,
-)
-from dtoolkit.transformer.base import Transformer
-
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import clone
+from sklearn.pipeline import _fit_transform_one
+from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.pipeline import Pipeline as SKPipeline
-from sklearn.pipeline import _fit_transform_one, _name_estimators
 from sklearn.utils import _print_elapsed_time
 from sklearn.utils.metaestimators import available_if
 from sklearn.utils.validation import check_memory
+
+from dtoolkit.transformer._util import transform_array_to_frame
+from dtoolkit.transformer._util import transform_frame_to_series
+from dtoolkit.transformer._util import transform_series_to_frame
+from dtoolkit.transformer.base import Transformer
 
 
 class Pipeline(SKPipeline):
@@ -30,7 +29,8 @@ class Pipeline(SKPipeline):
         fit_transform_one_cached = memory.cache(_fit_transform_one)
 
         for step_idx, name, transformer in self._iter(
-            with_final=False, filter_passthrough=False
+            with_final=False,
+            filter_passthrough=False,
         ):
             if transformer is None or transformer == "passthrough":
                 with _print_elapsed_time("Pipeline", self._log_message(step_idx)):

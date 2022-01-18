@@ -16,8 +16,8 @@ from dtoolkit.transformer.pandas import QueryTF  # noqa
 from dtoolkit.transformer.pandas import ReplaceTF  # noqa
 from dtoolkit.transformer.pandas import SelectDtypesTF  # noqa
 from dtoolkit.transformer.pipeline import FeatureUnion  # noqa
+from dtoolkit.transformer.pipeline import make_pipeline  # noqa
 from dtoolkit.transformer.pipeline import make_union  # noqa
+from dtoolkit.transformer.pipeline import Pipeline  # noqa
 from dtoolkit.transformer.sklearn import MinMaxScaler  # noqa
 from dtoolkit.transformer.sklearn import OneHotEncoder  # noqa
-from dtoolkit.transformer.pipeline import Pipeline  # noqa
-from dtoolkit.transformer.pipeline import make_pipeline  # noqa
