@@ -1,9 +1,147 @@
 from __future__ import annotations
 
-import pandas as pd
-from sklearn.pipeline import FeatureUnion as SKFeatureUnion
-
+from dtoolkit.transformer._util import (
+    transform_array_to_frame,
+    transform_frame_to_series,
+    transform_series_to_frame,
+)
 from dtoolkit.transformer.base import Transformer
+
+import pandas as pd
+from pandas.util._decorators import doc
+from sklearn.base import clone
+from sklearn.pipeline import FeatureUnion as SKFeatureUnion
+from sklearn.pipeline import Pipeline as SKPipeline
+from sklearn.pipeline import _fit_transform_one, _name_estimators
+from sklearn.utils import _print_elapsed_time
+from sklearn.utils.metaestimators import available_if
+from sklearn.utils.validation import check_memory
+
+
+class Pipeline(SKPipeline):
+    @doc(SKPipeline._fit)
+    def _fit(self, X, y=None, **fit_params_steps):
+        # shallow copy of steps - this should really be steps_
+        self.steps = list(self.steps)
+        self._validate_steps()
+
+        # Setup the memory
+        memory = check_memory(self.memory)
+        fit_transform_one_cached = memory.cache(_fit_transform_one)
+
+        for step_idx, name, transformer in self._iter(
+            with_final=False, filter_passthrough=False
+        ):
+            if transformer is None or transformer == "passthrough":
+                with _print_elapsed_time("Pipeline", self._log_message(step_idx)):
+                    continue
+
+            if (
+                hasattr(memory, "location")
+                and memory.location is None
+                or not hasattr(memory, "location")
+                and hasattr(memory, "cachedir")
+                and memory.cachedir is None
+            ):
+                # we do not clone when caching is disabled to
+                # preserve backward compatibility
+                cloned_transformer = transformer
+            else:
+                cloned_transformer = clone(transformer)
+
+            # Fit or load from cache the current transformer
+            Xt, fitted_transformer = fit_transform_one_cached(
+                cloned_transformer,
+                transform_series_to_frame(X),
+                y,
+                None,
+                message_clsname="Pipeline",
+                message=self._log_message(step_idx),
+                **fit_params_steps[name],
+            )
+            X = transform_array_to_frame(Xt, X)
+
+            # Replace the transformer of the step with the fitted
+            # transformer. This is necessary when loading the transformer
+            # from the cache.
+            self.steps[step_idx] = (name, fitted_transformer)
+
+        return transform_frame_to_series(X)
+
+    @doc(SKPipeline._can_transform)
+    def _can_transform(self):
+        return super()._can_transform()
+
+    @available_if(_can_transform)
+    @doc(SKPipeline.transform)
+    def transform(self, X):
+        Xt = X
+        for _, _, transformer in self._iter():
+            Xt = transform_series_to_frame(Xt)
+            Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
+
+        return transform_frame_to_series(Xt)
+
+    @doc(SKPipeline.fit_transform)
+    def fit_transform(self, X, y=None, **fit_params):
+        fit_params_steps = self._check_fit_params(**fit_params)
+
+        X = transform_series_to_frame(X)
+        X = self._fit(X, y, **fit_params_steps)
+
+        last_step = self._final_estimator
+        with _print_elapsed_time("Pipeline", self._log_message(len(self.steps) - 1)):
+            if last_step == "passthrough":
+                return X
+
+            fit_params_last_step = fit_params_steps[self.steps[-1][0]]
+            if hasattr(last_step, "fit_transform"):
+                Xt = last_step.fit_transform(X, y, **fit_params_last_step)
+            else:
+                Xt = last_step.fit(X, y, **fit_params_last_step).transform(X)
+
+            return transform_array_to_frame(Xt, X)
+
+    @doc(SKPipeline._can_inverse_transform)
+    def _can_inverse_transform(self):
+        return super()._can_inverse_transform()
+
+    @available_if(_can_inverse_transform)
+    @doc(SKPipeline.inverse_transform)
+    def inverse_transform(self, Xt):
+        reverse_iter = reversed(list(self._iter()))
+
+        for _, _, transformer in reverse_iter:
+            Xt = transform_series_to_frame(Xt)
+            Xt = transform_array_to_frame(transformer.inverse_transform(Xt), Xt)
+
+        return transform_frame_to_series(Xt)
+
+
+def make_pipeline(*steps, memory=None, verbose=False):
+    """
+    Construct a :class:`Pipeline` from the given estimators.
+
+    This is a shorthand for the :class:`Pipeline` constructor; it does not
+    require, and does not permit, naming the estimators. Instead, their names
+    will be set to the lowercase of their types automatically.
+
+    See Also
+    --------
+    Pipeline : Class for creating a pipeline of transforms with a final
+        estimator.
+
+    Examples
+    --------
+    >>> from sklearn.naive_bayes import GaussianNB
+    >>> from sklearn.preprocessing import StandardScaler
+    >>> from dtoolkit.transformer import make_pipeline
+    >>> make_pipeline(StandardScaler(), GaussianNB(priors=None))
+    Pipeline(steps=[('standardscaler', StandardScaler()),
+                    ('gaussiannb', GaussianNB())])
+    """
+
+    return Pipeline(_name_estimators(steps), memory=memory, verbose=verbose)
 
 
 class FeatureUnion(SKFeatureUnion, Transformer):
@@ -35,6 +173,7 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
     def _hstack(self, Xs):
         if all(isinstance(i, (pd.Series, pd.DataFrame)) for i in Xs):
+            # TODO: should keep the indexes are same
             Xs = (i.reset_index(drop=True) for i in Xs)
             return pd.concat(Xs, axis=1)
 
@@ -68,7 +207,6 @@ def make_union(
      FeatureUnion(transformer_list=[('pca', PCA()),
                                    ('truncatedsvd', TruncatedSVD())])
     """
-    from sklearn.pipeline import _name_estimators
 
     return FeatureUnion(
         _name_estimators(transformers),

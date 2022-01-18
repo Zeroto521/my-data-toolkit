@@ -8,7 +8,7 @@ import joblib
 import pandas as pd
 import pytest
 from scipy import sparse
-from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
@@ -17,8 +17,8 @@ from dtoolkit.transformer import EvalTF
 from dtoolkit.transformer import FeatureUnion
 from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import GetTF
+from dtoolkit.transformer import make_pipeline
 from dtoolkit.transformer import make_union
-from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
