@@ -117,9 +117,9 @@ class TestFeatureUnion:
         ],
     )
     def test_work(self, pipeline):
-        res = pipeline.fit_transform(df_mixed)
+        result = pipeline.fit_transform(df_mixed)
 
-        assert isinstance(res, pd.DataFrame)
+        assert isinstance(result, pd.DataFrame)
 
     def test_ndarray_hstack(self):
         pipeline = make_union(
@@ -133,9 +133,9 @@ class TestFeatureUnion:
             ),
         )
 
-        res = pipeline.fit_transform(df_mixed)
+        result = pipeline.fit_transform(df_mixed)
 
-        assert sparse.isspmatrix(res)
+        assert sparse.isspmatrix(result)
 
 
 def test_issue_87():
@@ -150,7 +150,7 @@ def test_issue_87():
         ),
     )
 
-    res = tf.fit_transform(
+    result = tf.fit_transform(
         pd.DataFrame(
             {
                 "a": [0, 1, 0],
@@ -159,4 +159,4 @@ def test_issue_87():
         ),
     )
 
-    assert res.notnull().all(axis=None)
+    assert result.notnull().all(axis=None)
