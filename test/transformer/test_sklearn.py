@@ -22,27 +22,27 @@ class TestMinMaxscaler:
     def test_series_in_dataframe_out(self):
         tf = MinMaxScaler()
         tf.fit(s.to_frame())
-        res = tf.inverse_transform(s)
+        result = tf.inverse_transform(s)
 
         assert isinstance(s, pd.Series)
-        assert isinstance(res, pd.DataFrame)
+        assert isinstance(result, pd.DataFrame)
 
 
 class TestOneHotEncoder:
     def test_dataframe_in_dataframe_out(self):
         tf = OneHotEncoder()
-        res = tf.fit_transform(df_label)
+        result = tf.fit_transform(df_label)
 
-        assert isinstance(res, pd.DataFrame)
+        assert isinstance(result, pd.DataFrame)
 
     def test_return_dataframe_columns(self):
         tf = OneHotEncoder(categories_with_parent=True)
-        res = tf.fit_transform(df_label)
+        result = tf.fit_transform(df_label)
 
-        assert all("_" in column for column in res.columns)
+        assert all("_" in column for column in result.columns)
 
     def test_sparse_is_ture(self):
         tf = OneHotEncoder(sparse=True)
-        res = tf.fit_transform(df_label)
+        result = tf.fit_transform(df_label)
 
-        assert sparse.isspmatrix(res)
+        assert sparse.isspmatrix(result)
