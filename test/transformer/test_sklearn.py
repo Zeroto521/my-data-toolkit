@@ -19,13 +19,13 @@ class TestMinMaxscaler:
 
         assert df_iris.equals(data)
 
-    def test_series_in_dataframe_out(self):
+    def test_series_in_series_out(self):
         tf = MinMaxScaler()
         tf.fit(s.to_frame())
         result = tf.inverse_transform(s)
 
         assert isinstance(s, pd.Series)
-        assert isinstance(result, pd.DataFrame)
+        assert isinstance(result, pd.Series)
 
 
 class TestOneHotEncoder:
