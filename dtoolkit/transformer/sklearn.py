@@ -85,10 +85,10 @@ class MinMaxScaler(SKMinMaxScaler):
         """
 
         X = transform_series_to_frame(X)
-        X_new = super().transform(X)
-        X_new = transform_array_to_frame(X_new, X)
+        Xt = super().transform(X)
+        Xt = transform_array_to_frame(Xt, X)
 
-        return transform_frame_to_series(X)
+        return transform_frame_to_series(Xt)
 
     def inverse_transform(self, X: SeriesOrFrame | np.ndarray) -> TwoDimArray:
         """
@@ -111,10 +111,10 @@ class MinMaxScaler(SKMinMaxScaler):
         """
 
         X = transform_series_to_frame(X)
-        X_new = super().inverse_transform(X)
-        X_new = transform_array_to_frame(X_new, X)
+        Xt = super().inverse_transform(X)
+        Xt = transform_array_to_frame(Xt, X)
 
-        return transform_frame_to_series(X_new)
+        return transform_frame_to_series(Xt)
 
 
 class OneHotEncoder(SKOneHotEncoder):
@@ -218,7 +218,7 @@ class OneHotEncoder(SKOneHotEncoder):
     def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:
         from itertools import chain
 
-        X_new = super().transform(X)
+        Xt = super().transform(X)
 
         if self.sparse is False:
             categories = (
@@ -227,6 +227,6 @@ class OneHotEncoder(SKOneHotEncoder):
                 else chain.from_iterable(self.categories_)
             )
 
-            return pd.DataFrame(X_new, columns=categories)
+            return pd.DataFrame(Xt, columns=categories)
 
-        return X_new
+        return Xt

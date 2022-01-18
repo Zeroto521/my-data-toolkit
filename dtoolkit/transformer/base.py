@@ -92,8 +92,8 @@ class MethodTF(Transformer):
 
         X = transform_series_to_frame(X)
 
-        X_new = self.transform_method(X, *self.args, **self.kwargs)
-        return transform_frame_to_series(X_new)
+        Xt = self.transform_method(X, *self.args, **self.kwargs)
+        return transform_frame_to_series(Xt)
 
     def inverse_transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -116,12 +116,12 @@ class MethodTF(Transformer):
         """
 
         if self.inverse_transform_method:
-            X_new = self.inverse_transform_method(
+            Xt = self.inverse_transform_method(
                 transform_series_to_frame(X),
                 *self.inverse_args,
                 **self.inverse_kwargs,
             )
-            return transform_frame_to_series(X_new)
+            return transform_frame_to_series(Xt)
 
         return super().inverse_transform(X)
 
