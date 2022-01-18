@@ -16,7 +16,7 @@ def transform_array_to_frame(
     frame: pd.DataFrame,
 ) -> TwoDimArray:
     """
-    Transform ``array``'s :obj:`type` (:obj:`~numpy.ndarray`) to 
+    Transform ``array``'s :obj:`type` (:obj:`~numpy.ndarray`) to
     :obj:`type` (:obj:`~pandas.DataFrame`).
 
     Parameters
@@ -53,10 +53,7 @@ def transform_series_to_frame(X: np.ndarray | SeriesOrFrame) -> TwoDimArray:
     DataFrame or ndarray
     """
 
-    if isinstance(X, pd.Series):
-        return X.to_frame()
-
-    return X
+    return X.to_frame() if isinstance(X, pd.Series) else X
 
 
 def transform_frame_to_series(X: np.ndarray | SeriesOrFrame) -> OneDimArray:
@@ -72,7 +69,4 @@ def transform_frame_to_series(X: np.ndarray | SeriesOrFrame) -> OneDimArray:
     Series or ndarray
     """
 
-    if isinstance(X, pd.DataFrame):
-        return X.to_series()
-
-    return X
+    return X.to_series() if isinstance(X, pd.DataFrame) else X
