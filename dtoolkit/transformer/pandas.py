@@ -149,13 +149,13 @@ class DropTF(DataFrameTF):
 
     >>> tf = DropTF(index='cow', columns='small')
     >>> tf.transform(df)
-                    big
-    lama    speed   45.0
-            weight  200.0
-            length  1.5
-    falcon  speed   320.0
-            weight  1.0
-            length  0.3
+    lama    speed      45.0
+            weight    200.0
+            length      1.5
+    falcon  speed     320.0
+            weight      1.0
+            length      0.3
+    Name: big, dtype: float64
 
     >>> tf = DropTF(index='length', level=1)
     >>> tf.transform(df)
@@ -365,10 +365,10 @@ class FilterInTF(DataFrameTF):
 
     >>> tf = FilterInTF([0, 2], axis=1)
     >>> tf.transform(df)
-                num_wings
-    falcon          2
-    dog             0
-    cat             0
+    falcon    2
+    dog       0
+    cat       0
+    Name: num_wings, dtype: int64
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately:
@@ -669,23 +669,23 @@ class SelectDtypesTF(DataFrameTF):
 
     >>> tf = SelectDtypesTF(include='bool')
     >>> tf.transform(df)
-        b
-    0  True
-    1  False
-    2  True
-    3  False
-    4  True
-    5  False
+    0     True
+    1    False
+    2     True
+    3    False
+    4     True
+    5    False
+    Name: b, dtype: bool
 
     >>> tf = SelectDtypesTF(include=['float64'])
     >>> tf.transform(df)
-        c
-    0  1.0
-    1  2.0
-    2  1.0
-    3  2.0
-    4  1.0
-    5  2.0
+    0    1.0
+    1    2.0
+    2    1.0
+    3    2.0
+    4    1.0
+    5    2.0
+    Name: c, dtype: float64
 
     >>> tf = SelectDtypesTF(exclude=['int64'])
     >>> tf.transform(df)
