@@ -5,7 +5,6 @@ from test.transformer import df_mixed
 from test.transformer import df_period
 from test.transformer import feature_names
 from test.transformer import s
-from unittest import result
 
 import pandas as pd
 import pytest
