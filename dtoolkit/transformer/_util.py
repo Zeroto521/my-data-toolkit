@@ -16,8 +16,7 @@ def transform_array_to_frame(
     frame: pd.DataFrame,
 ) -> TwoDimArray:
     """
-    Transform ``array``'s :obj:`type` (:obj:`~numpy.ndarray`) to
-    `
+    Transform ``array``'s :obj:`type` (:obj:`~numpy.ndarray`) to 
     :obj:`type` (:obj:`~pandas.DataFrame`).
 
     Parameters
@@ -31,7 +30,7 @@ def transform_array_to_frame(
         DataFrame if ``frame`` is DataFrame else ndarray.
     """
 
-    if isinstance(frame, pd.DataFrame):
+    if isinstance(frame, pd.DataFrame) and np.shape(array) == np.shape(frame):
         return pd.DataFrame(
             array,
             columns=frame.columns,
