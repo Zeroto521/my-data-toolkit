@@ -22,7 +22,6 @@ if TYPE_CHECKING:
     from dtoolkit._typing import TwoDimArray
 
 
-
 class MinMaxScaler(SKMinMaxScaler):
     """
     Transform features by scaling each feature to a given range.

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
+
 from dtoolkit.transformer.base import Transformer
 
 
