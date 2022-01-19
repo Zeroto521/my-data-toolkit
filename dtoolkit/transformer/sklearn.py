@@ -224,22 +224,8 @@ class OneHotEncoder(SKOneHotEncoder):
     """
 
     @doc(SKOneHotEncoder.__init__)
-    def __init__(
-        self,
-        categories="auto",
-        categories_with_parent=False,
-        drop=None,
-        sparse=False,
-        dtype=np.float64,
-        handle_unknown="error",
-    ):
-        super().__init__(
-            categories=categories,
-            drop=drop,
-            sparse=sparse,
-            dtype=dtype,
-            handle_unknown=handle_unknown,
-        )
+    def __init__(self, categories_with_parent: bool = False, **kwargs):
+        super().__init__(**kwargs)
         self.categories_with_parent = categories_with_parent
 
     @doc(
