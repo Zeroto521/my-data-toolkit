@@ -52,8 +52,8 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
     def _hstack(self, Xs):
         if all(isinstance(i, (pd.Series, pd.DataFrame)) for i in Xs):
-            Xs = (i.reset_index(drop=True) for i in Xs)
-            return pd.concat(Xs, axis=1)
+            # merge all into one DataFrame and the index would use the common part
+            return pd.concat(Xs, axis=1, join="inner")
 
         return super()._hstack(Xs)
 
