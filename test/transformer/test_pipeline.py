@@ -64,7 +64,7 @@ from dtoolkit.transformer import RavelTF
     ],
 )
 def test_pipeline_work(name, data, pipeline):
-    transformed_data = pipeline.fit_transform(data)
+    transformed_data = pipeline.fit(data).transform(data)
     pipeline.inverse_transform(transformed_data)
 
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
