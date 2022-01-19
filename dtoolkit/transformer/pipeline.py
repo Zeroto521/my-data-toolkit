@@ -107,7 +107,11 @@ class Pipeline(SKPipeline):
         return transform_frame_to_series(Xt)
 
 
-def make_pipeline(*steps, memory=None, verbose=False):
+def make_pipeline(
+    *steps: list[Transformer],
+    memory=None,
+    verbose: bool = False,
+) -> Pipeline:
     """
     Construct a :class:`Pipeline` from the given estimators.
 
