@@ -183,6 +183,14 @@ class OneHotEncoder(SKOneHotEncoder):
     """
     Encode categorical features as a one-hot numeric array.
 
+    Parameters
+    ----------
+    categories_with_parent : bool, default False
+        Returned column would hook parent labels if ``True`` else
+        would be ``categories``.
+    kwargs
+        See :obj:`sklearn.preprocessing.OneHotEncoder`.
+
     Notes
     -----
     Different to :obj:`sklearn.preprocessing.OneHotEncoder`.
