@@ -1,10 +1,9 @@
-from geopandas import GeoDataFrame
-from geopandas import GeoSeries
+import geopandas as gpd
 from pandas.core.accessor import _register_accessor
 from pandas.util._decorators import doc
 
 
-@doc(klass=":class:`geopandas.GeoSeries`")
+@doc(klass=":class:`~geopandas.GeoSeries`")
 def register_geoseries_accessor(name: str):
     """
     Register a custom accessor on {klass} objects.
@@ -31,8 +30,8 @@ def register_geoseries_accessor(name: str):
     --------
     register_geoseries_accessor
     register_geodataframe_accessor
-    dtoolkit.geoaccessor.register.register_geoseries_method
-    dtoolkit.geoaccessor.register.register_geodataframe_method
+    dtoolkit.geoaccessor.register_geoseries_method
+    dtoolkit.geoaccessor.register_geodataframe_method
 
     Notes
     -----
@@ -108,10 +107,10 @@ def register_geoseries_accessor(name: str):
         Name: geometry, dtype: int64
     """
 
-    return _register_accessor(name, GeoSeries)
+    return _register_accessor(name, gpd.GeoSeries)
 
 
-@doc(register_geoseries_accessor, klass=":class:`geopandas.GeoDataFrame`")
+@doc(register_geoseries_accessor, klass=":class:`~geopandas.GeoDataFrame`")
 def register_geodataframe_accessor(name: str):
 
-    return _register_accessor(name, GeoDataFrame)
+    return _register_accessor(name, gpd.GeoDataFrame)

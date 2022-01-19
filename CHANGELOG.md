@@ -1,5 +1,64 @@
 # Changelog
 
+## [Version 0.0.10] (2022-1-21)
+
+Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
+
+New features and improvements:
+
+- Add `number` and `other` option for {meth}`~dtoolkit.accessor.series.lens` ({pr}`406`).
+
+Documentation:
+
+- Update installation documentation ({pr}`419`).
+- New documentation, [Tips About Accessing Element Attributes of `Series`](https://my-data-toolkit.readthedocs.io/en/v0.0.10/guide/tips_about_getattr.html) ({pr}`408`).
+- Use jupyter replace markdown ({pr}`405`, {pr}`409`, {pr}`410`, {pr}`414`).
+- Remove warning for `Series.lens` ({pr}`399`).
+
+Maintenance development:
+
+- Cancel any previous runs that are not completed ({pr}`426`).
+- Add skip check job ({pr}`425`).
+- Use mamba to speed up building env ({pr}`422`, {pr}`427`).
+- Test `register_*_method` positional arguments ({pr}`420`).
+- Simplify CI jobs ({pr}`416`, {pr}`423`, {pr}`424`)
+- Add some new pre-commit hooks ({pr}`407`).
+- Contained 'rc' tag would be as 'pre-release' ({pr}`404`).
+- Rename `ci/envs/*` to `ci/env/*` ({pr}`403`).
+- Add skip check avoid frequently creating versioneer's autoupdating PR ({pr}`397`).
+
+## [Version 0.0.9] (2022-1-10)
+
+Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
+
+Highlights of this release:
+
+- {meth}`~dtoolkit.accessor.register_series_method` and {meth}`~dtoolkit.accessor.register_dataframe_method` support alias ({pr}`392`).
+
+New features and improvements:
+
+- {meth}`~dtoolkit.geoaccessor.dataframe.points_from_xy` would return `GeoSeries` if df only has one column ({pr}`385`).
+- New accessor method {meth}`~dtoolkit.accessor.dataframe.to_series` ({pr}`380`).
+- New accessor method {meth}`~dtoolkit.accessor.series.get_attr` ({pr}`379`, {pr}`394`, {pr}`398`).
+
+API changes:
+
+- Call {meth}`~dtoolkit.accessor.series.lens` via `Series.len` ({pr}`394`).
+
+Maintenance development:
+
+- Draft github-action release then add changelog by manually ({pr}`396`).
+- Fix words, a -> an ({pr}`387`).
+- Pre-commit hooks autoupdate ({pr}`384`).
+
+Contribuing development:
+
+- Add pull request template ({pr}`361`).
+
+Documentation:
+
+- Correct sphinx method link ({pr}`390`).
+
 ## [Version 0.0.8] (2022-1-1)
 
 Highlights of this release:
@@ -14,11 +73,11 @@ API changes:
 Maintenance development:
 
 - Update pre-commit commit message ({pr}`371`).
-- Enable labeled 'auto-merged' PR could merge master brach into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
-- Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`).
+- Enable labeled 'auto-merged' PR could merge master branch into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
+- Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`, {pr}`383`).
 - Auto update github action runner ({pr}`360`, {pr}`364`).
 - Pre-commit hooks auto update ({pr}`359`).
-- Let git choose the default branch ({pr}`376`, ).
+- Let git choose the default branch ({pr}`376`).
 
 Documentation:
 
@@ -138,7 +197,7 @@ New features and improvements:
 
 - New accessor {meth}`~dtoolkit.accessor.series.expand` ({pr}`252`, {pr}`279`).
 - Let {meth}`~dtoolkit.accessor.dataframe.top_n` default return is index not tuple ({pr}`248`).
-- Add a new option `element` for {meth}`~dtoolkit.accessor.dataframe.top_n`, now suport to control return data structure ({pr}`247`).
+- Add a new option `element` for {meth}`~dtoolkit.accessor.dataframe.top_n`, now support to control return data structure ({pr}`247`).
 
 API changes:
 
@@ -155,7 +214,7 @@ Documentation:
 - Use `sphinx.ext.autosectionlabel` to add anchor ({pr}`272`).
 - Start to use IPython Sphinx Directive ({pr}`258`, {pr}`259`, {pr}`260`).
 - Drop python module index html page ({pr}`256`).
-- Small patchs to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
+- Small patches to documentation ({pr}`245`, {pr}`251`, {pr}`255`, {pr}`257`, {pr}`262`, {pr}`263`, {pr}`267`, {pr}`286`).
 - Fix these doc doesn't exist in dtoolkit ({pr}`244`).
 - Fix documentation building environment ({pr}`243`).
 
@@ -231,6 +290,8 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.10]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.9...v0.0.10
+[Version 0.0.9]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...v0.0.9
 [Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8
 [Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
 [Version 0.0.6]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.5...v0.0.6

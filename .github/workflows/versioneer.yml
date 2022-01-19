@@ -3,11 +3,12 @@ name: versioneer
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 1 * *" # 1st day of each month at 00:00 UTC
+    - cron: "0 0 * * 0"
   push:
     paths:
-      - "setup.cfg"
-      - ".github/workflows/versioneer.yml"
+      - setup.cfg
+      - setup.py
+      - .github/workflows/versioneer.yml
 
 jobs:
   versioneer:
@@ -16,16 +17,30 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
 
-      - run: python -m pip install --upgrade pip versioneer
+      - name: Update versioneer
+        run: python -m pip install --upgrade pip versioneer
+
+      - name: Skip check
+        id: skip-check
+        run: |
+          output=$(python ci/script/versioneer_update_check.py)
+          echo "::set-output name=should-skip::$output"
+
       - run: versioneer install
-      - run: git reset dtoolkit/__init__.py
-      - run: git checkout -- dtoolkit/__init__.py
+        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
+
+      - name: Undo changes to __init__.py & setup.py
+        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
+        run: |
+          git reset -- setup.py dtoolkit/__init__.py
+          git checkout -- setup.py dtoolkit/__init__.py
 
       - uses: actions/upload-artifact@v2
         with:
           path: versioneer.py
 
       - uses: peter-evans/create-pull-request@v3
+        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
         with:
           commit-message: |
             BOT: versioneer autoupdate
@@ -34,6 +49,6 @@ jobs:
           author: GitHub <noreply@github.com>
           branch: versioneer-update
           delete-branch: true
-          base: master
+          base: main
           title: "BOT: versioneer autoupdate"
           body: New versioneer released, changelogs see [NEWS](https://github.com/python-versioneer/python-versioneer/blob/master/NEWS.md).

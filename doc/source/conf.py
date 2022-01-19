@@ -47,6 +47,7 @@ extensions = [
     "sphinx_toggleprompt",
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
+    "nbsphinx",
 ]
 
 # The suffix of source filenames.
@@ -96,7 +97,18 @@ moved_pages = [
 
 html_additional_pages = {page[0]: "redirect.html" for page in moved_pages}
 
-html_context = {"redirects": {old: new for old, new in moved_pages}}
+html_context = {"redirects": dict(moved_pages)}
+
+
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base=None) %}
+
+.. tip::
+
+    This page was generated from `{{ docname }}`__.
+
+    __ https://github.com/zeroto521/my-data-toolkit/blob/main/doc/source/{{ docname }}
+"""
 
 
 #  --Options for sphinx extensions -----------------------------------------------
@@ -125,6 +137,10 @@ myst_enable_extensions = [
 ]
 
 autosummary_generate = True
+
+nbsphinx_execute = "always"
+nbsphinx_allow_errors = True
+
 
 # based on pandas doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
@@ -171,6 +187,6 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
 
     base_link = f"{github_url}/blob/" + "{branch}" + f"/dtoolkit/{fn}{linespec}"
     if "post" in version:
-        return base_link.format(branch="master")
+        return base_link.format(branch="main")
 
     return base_link.format(branch=f"v{version}")

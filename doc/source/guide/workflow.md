@@ -73,7 +73,7 @@ But `Data Preprocessing` still needs to write code.
 
 ![Store data pipeline](../_static/store-data-pipeline.svg)
 
-This is a store data complete pipeline what we have seen at {ref}`further more steps to pipeline`.
+This is a store data complete pipeline what we have seen at [Transformer and Pipeline Quickstart](transformer_quickstart.ipynb#The-dtoolkit.transformer-Way).
 
 All jobs in `Pipeline`, from `Data Cleaning` to `Data Preprocessing`, from `Feature Engineering` to `Regression`.
 
