@@ -194,55 +194,30 @@ class OneHotEncoder(SKOneHotEncoder):
     Given a dataset with two features, we let the encoder find the unique
     values per feature and transform the data to a binary one-hot encoding.
 
-    >>> from dtoolkit.transformer import OneHotEncoder
-
-    One can discard categories not seen during `fit`:
-
-    >>> enc = OneHotEncoder(sparse=True, handle_unknown='ignore')
-    >>> X = [['Male', 1], ['Female', 3], ['Female', 2]]
-    >>> enc.fit(X)
-    OneHotEncoder(handle_unknown='ignore', sparse=True)
-    >>> enc.categories_
-    [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
-    >>> enc.transform([['Female', 1], ['Male', 4]]).toarray()
-    array([[1., 0., 1., 0., 0.],
-           [0., 1., 0., 0., 0.]])
-    >>> enc.inverse_transform([[0, 1, 1, 0, 0], [0, 0, 0, 1, 0]])
-    array([['Male', 1],
-           [None, 2]], dtype=object)
-    >>> enc.get_feature_names(['gender', 'group'])
-    array(['gender_Female', 'gender_Male', 'group_1', 'group_2', 'group_3'],
-      dtype=object)
-
-    One can always drop the first column for each feature:
-
-    >>> drop_enc = OneHotEncoder(sparse=True, drop='first').fit(X)
-    >>> drop_enc.categories_
-    [array(['Female', 'Male'], dtype=object), array([1, 2, 3], dtype=object)]
-    >>> drop_enc.transform([['Female', 1], ['Male', 2]]).toarray()
-    array([[0., 0., 0.],
-           [1., 1., 0.]])
-
-    Or drop a column for feature only having 2 categories:
-
-    >>> drop_binary_enc = OneHotEncoder(sparse=True, drop='if_binary').fit(X)
-    >>> drop_binary_enc.transform([['Female', 1], ['Male', 2]]).toarray()
-    array([[0., 1., 0., 0.],
-           [1., 0., 1., 0.]])
-
     :obj:`~pandas.DataFrame` in, :obj:`~pandas.DataFrame` out with categories
     as columns.
 
+    >>> from dtoolkit.transformer import OneHotEncoder
     >>> import pandas as pd
+    >>> X = [['Male', 1], ['Female', 3], ['Female', 2]]
     >>> df = pd.DataFrame(X, columns=['gender', 'number'])
     >>> df
         gender  number
     0    Male       1
     1  Female       3
     2  Female       2
+    >>> enc = OneHotEncoder()
+    >>> enc.fit_transform(df)
+       Female  Male    1    2    3
+    0     0.0   1.0  1.0  0.0  0.0
+    1     1.0   0.0  0.0  0.0  1.0
+    2     1.0   0.0  0.0  1.0  0.0
+
+    The encoded data also could hook parent labels.
+
     >>> enc = OneHotEncoder(categories_with_parent=True)
     >>> enc.fit_transform(df)
-    gender_Female  gender_Male  number_1  number_2  number_3
+       gender_Female  gender_Male  number_1  number_2  number_3
     0            0.0          1.0       1.0       0.0       0.0
     1            1.0          0.0       0.0       0.0       1.0
     2            1.0          0.0       0.0       1.0       0.0
