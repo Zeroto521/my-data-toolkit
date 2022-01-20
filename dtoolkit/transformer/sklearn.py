@@ -188,6 +188,10 @@ class OneHotEncoder(SKOneHotEncoder):
     categories_with_parent : bool, default False
         Returned column would hook parent labels if ``True`` else
         would be ``categories``.
+
+    sparse : bool, default False
+        Will return sparse matrix if ``True`` else will return an array.
+
     kwargs
         See :obj:`sklearn.preprocessing.OneHotEncoder`.
 
@@ -232,8 +236,13 @@ class OneHotEncoder(SKOneHotEncoder):
     """
 
     @doc(SKOneHotEncoder.__init__)
-    def __init__(self, categories_with_parent: bool = False, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(
+        self,
+        categories_with_parent: bool = False,
+        sparse: bool = False,
+        **kwargs,
+    ):
+        super().__init__(sparse=sparse, **kwargs)
         self.categories_with_parent = categories_with_parent
 
     @doc(
