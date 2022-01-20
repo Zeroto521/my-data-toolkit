@@ -369,7 +369,7 @@ def expand(
     ).add_prefix(s.name + delimiter)
 
 
-@register_series_method(name="len")
+@register_series_method("len")
 @register_series_method
 def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.Series:
     """
@@ -540,7 +540,7 @@ def error_report(
     )
 
 
-@register_series_method(name="getattr")
+@register_series_method("getattr")
 @register_series_method
 def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """

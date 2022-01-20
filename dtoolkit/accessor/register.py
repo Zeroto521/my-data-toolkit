@@ -51,13 +51,12 @@ def register_method_factory(register_accessor):
         return wrapper
 
     @wraps(register_accessor)
-    def decorator(name: Callable | str | None = None):
-        if callable(name):  # Supports `@register_*_method` using.
-            method = name  # This 'name' variable actually is a function.
-            return register_accessor_method(method, method.__name__)
+    def decorator(name_or_method: Callable | str | None = None, /):
+        if callable(name_or_method):  # Supports `@register_*_method` using.
+            return register_accessor_method(name_or_method, name_or_method.__name__)
 
-        # Supports `@register_*_method()` and `@register_*_method(name="")` using.
-        return register_accessor_alias(name)
+        # Supports `@register_*_method("name")` using.
+        return register_accessor_alias(name_or_method)
 
     return decorator
 
@@ -88,8 +87,8 @@ def register_series_method(name: str | None = None):
 
         import pandas as pd
 
-        @register_dataframe_method(name="col")
-        @register_series_method(name="col")  # Support alias name also.
+        @register_dataframe_method("col")  # Support alias name also.
+        @register_series_method("col")  # Only receive positional-only argument.
         @register_dataframe_method
         @register_series_method  # Use accessor method `__name__` as the entrance.
         def cols(pd_obj):

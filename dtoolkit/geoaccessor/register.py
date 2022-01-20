@@ -35,8 +35,8 @@ def register_geoseries_method(name: str | None = None):
 
         from pygeos import count_coordinates, from_shapely
 
-        @register_geodataframe_method(name="count_it")
-        @register_geoseries_method(name="count_it")  # Support alias name also.
+        @register_geodataframe_method("count_it")  # Support alias name also.
+        @register_geoseries_method("count_it")  # Only receive positional-only argument.
         @register_geodataframe_method
         @register_geoseries_method  # Use accessor method `__name__` as the entrance.
         def counts(s: gpd.GeoSeries):
