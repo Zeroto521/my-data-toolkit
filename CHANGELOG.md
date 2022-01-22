@@ -10,6 +10,7 @@ New features and improvements:
 
 Documentation:
 
+- Fix Readthedocs running excessive memory consumption ({pr}`436`).
 - Update installation documentation ({pr}`419`).
 - New documentation, [Tips About Accessing Element Attributes of `Series`](https://my-data-toolkit.readthedocs.io/en/v0.0.10/guide/tips_about_getattr.html) ({pr}`408`).
 - Use jupyter replace markdown ({pr}`405`, {pr}`409`, {pr}`410`, {pr}`414`).
@@ -19,7 +20,7 @@ Maintenance development:
 
 - Cancel any previous runs that are not completed ({pr}`426`).
 - Add skip check job ({pr}`425`).
-- Use mamba to speed up building env ({pr}`422`, {pr}`427`).
+- Use mamba to speed up building env ({pr}`422`, {pr}`427`, {pr}`436`).
 - Test `register_*_method` positional arguments ({pr}`420`).
 - Simplify CI jobs ({pr}`416`, {pr}`423`, {pr}`424`)
 - Add some new pre-commit hooks ({pr}`407`).
