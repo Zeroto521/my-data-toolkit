@@ -2,8 +2,9 @@ name: dtoolkit_doc
 channels:
   - conda-forge
 dependencies:
-  - python==3.8
+  - python>=3.7
   # package dependencies
+  - numpy
   - pandas
   - scikit-learn
   - geopandas
