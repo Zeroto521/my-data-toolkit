@@ -107,7 +107,7 @@ nbsphinx_prolog = r"""
 
     This page was generated from `{{ docname }}`__.
 
-    __ https://github.com/zeroto521/my-data-toolkit/blob/main/doc/source/{{ docname }}
+    __ :ghlink:`my-data-toolkit/blob/main/doc/source/{{ docname }}`
 """
 
 
@@ -129,7 +129,9 @@ intersphinx_mapping = {
 extlinks = {
     "issue": (f"{github_url}/issues/%s", "issue#"),
     "pr": (f"{github_url}/issues/%s", "pr#"),
-    "user": ("https://github.com/%s", "@"),
+    "user": (r"https://github.com/%s", "@"),
+    # github's link
+    "ghlink": (r"https://github.com/%s", None),
 }
 
 myst_enable_extensions = [
