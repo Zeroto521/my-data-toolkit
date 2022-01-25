@@ -4,7 +4,7 @@
 
 Small bug-fix:
 
-- Fix jupyer notebook can't render ({pr}`438`).
+- Fix jupyter notebook can't render ({pr}`438`).
 
 New features and improvements:
 

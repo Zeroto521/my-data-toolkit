@@ -13,7 +13,7 @@ def register_geoseries_accessor(name: str):
     If `geopandas#1952`_ done, it would be removed from
     :mod:`dtoolkit.geoaccessor`.
 
-    .. _geopandas#1952: :ghlink:`geopandas/geopandas/pull/1952`
+    .. _geopandas#1952: https://github.com/geopandas/geopandas/pull/1952
 
     Parameters
     ----------
