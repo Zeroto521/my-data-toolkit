@@ -159,4 +159,6 @@ def test_issue_87():
         ),
     )
 
+    assert isinstance(result, pd.DataFrame)
+    assert len(result) == 1
     assert result.notnull().all(axis=None)
