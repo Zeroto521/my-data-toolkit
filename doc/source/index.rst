@@ -4,6 +4,12 @@ DToolKit |version|
 
 Face the engineering of data preprocessing.
 
+Features
+--------
+
+- Make the data of the pipeline transparent
+- Extend the attribute of the pandas-like object
+
 Routes
 ------
 .. toctree::
