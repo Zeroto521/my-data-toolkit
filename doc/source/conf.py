@@ -107,7 +107,7 @@ nbsphinx_prolog = r"""
 
     This page was generated from `{{ docname }}`__.
 
-    __ :ghlink:`my-data-toolkit/blob/main/doc/source/{{ docname }}`
+    __ https://github.com/zeroto521/my-data-toolkit/blob/main/doc/source/{{ docname }}
 """
 
 
