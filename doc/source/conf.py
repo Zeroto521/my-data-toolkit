@@ -130,8 +130,6 @@ extlinks = {
     "issue": (f"{github_url}/issues/%s", "issue#"),
     "pr": (f"{github_url}/issues/%s", "pr#"),
     "user": (r"https://github.com/%s", "@"),
-    # github's link
-    "ghlink": (r"https://github.com/%s", None),
 }
 
 myst_enable_extensions = [
