@@ -73,8 +73,11 @@ jobs:
         if: ${{ contains(matrix.python-version, 'pypy') }}
         with:
           miniforge-variant: Mambaforge-pypy3
-          environment-file: ${{ matrix.env }}
           use-mamba: true
+
+      - name: Install Dependencies from PyPI for PyPy
+        if: ${{ contains(matrix.python-version, 'pypy') }}
+        run: pip install .[opt,test]
 
       - name: Check and Log Environment
         run: make info
@@ -83,7 +86,7 @@ jobs:
         run: make test
 
       - name: Test Docstrings
-        if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
+        if: ${{ contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu') && ! contains(matrix.python-version, 'pypy') }}
         run: make doctest
 
       - uses: codecov/codecov-action@v2.1.0
