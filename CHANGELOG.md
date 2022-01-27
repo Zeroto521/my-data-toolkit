@@ -1,5 +1,48 @@
 # Changelog
 
+## [Version 0.0.11] (2022-1-25)
+
+Small bug-fix:
+
+- Fix jupyter notebook can't render ({pr}`438`).
+
+New features and improvements:
+
+- Simplify `OneHotEncoder` examples and inputs ({pr}`434`).
+- `FeatureUnion` would merge all into one DataFrame and the index would use the common part ({pr}`433`).
+
+Maintenance development:
+
+- Simplify linting workflow ({pr}`437`).
+
+## [Version 0.0.10] (2022-1-21)
+
+Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
+
+New features and improvements:
+
+- Add `number` and `other` option for {meth}`~dtoolkit.accessor.series.lens` ({pr}`406`).
+
+Documentation:
+
+- Fix Readthedocs running excessive memory consumption ({pr}`436`).
+- Update installation documentation ({pr}`419`).
+- New documentation, [Tips About Accessing Element Attributes of `Series`](https://my-data-toolkit.readthedocs.io/en/v0.0.11/guide/tips_about_getattr.html) ({pr}`408`).
+- Use jupyter replace markdown ({pr}`405`, {pr}`409`, {pr}`410`, {pr}`414`).
+- Remove warning for `Series.lens` ({pr}`399`).
+
+Maintenance development:
+
+- Cancel any previous runs that are not completed ({pr}`426`).
+- Add skip check job ({pr}`425`).
+- Use mamba to speed up building env ({pr}`422`, {pr}`427`, {pr}`436`).
+- Test `register_*_method` positional arguments ({pr}`420`).
+- Simplify CI jobs ({pr}`416`, {pr}`423`, {pr}`424`)
+- Add some new pre-commit hooks ({pr}`407`).
+- Contained 'rc' tag would be as 'pre-release' ({pr}`404`).
+- Rename `ci/envs/*` to `ci/env/*` ({pr}`403`).
+- Add skip check avoid frequently creating versioneer's autoupdating PR ({pr}`397`).
+
 ## [Version 0.0.9] (2022-1-10)
 
 Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
@@ -263,6 +306,8 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.11]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.10...v0.0.11
+[Version 0.0.10]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.9...v0.0.10
 [Version 0.0.9]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...v0.0.9
 [Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8
 [Version 0.0.7]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.6...v0.0.7
