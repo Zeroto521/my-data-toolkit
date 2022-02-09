@@ -19,7 +19,7 @@ def register_method_factory(register_accessor):
 
     Read more in the `User Guide`_.
 
-    .. _User Guide: ../../guide/tips_about_accessor.ipynb#Extend-Ability-to-Pandas-like-Object
+    .. _User Guide: ../../guide/tips_about_accessor.ipynb#Extend-to-Pandas-like-Object
 
     See Also
     --------
