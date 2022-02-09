@@ -64,7 +64,7 @@ class MinMaxScaler(SKMinMaxScaler):
     """
 
     @doc(SKMinMaxScaler.__init__)
-    def __init__(self, *args, **kwargs):
+    def __init__(self, feature_range=(0, 1), *, copy=True, clip=False):
         from warnings import warn
 
         warn(
@@ -75,7 +75,11 @@ class MinMaxScaler(SKMinMaxScaler):
             DeprecationWarning,
         )
 
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            feature_range=feature_range,
+            copy=copy,
+            clip=clip,
+        )
 
     @doc(SKMinMaxScaler.fit)
     def fit(self, X, y=None):
