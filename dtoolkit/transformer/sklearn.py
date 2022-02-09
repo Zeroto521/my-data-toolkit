@@ -3,142 +3,17 @@ from __future__ import annotations
 from textwrap import dedent
 from typing import TYPE_CHECKING
 
-import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
-from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
-from dtoolkit.transformer._util import transform_array_to_frame
-from dtoolkit.transformer._util import transform_frame_to_series
-from dtoolkit.transformer._util import transform_series_to_frame
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
 
-    from dtoolkit._typing import SeriesOrFrame
     from dtoolkit._typing import TwoDimArray
-
-
-class MinMaxScaler(SKMinMaxScaler):
-    """
-    Transform features by scaling each feature to a given range.
-
-    .. warning::
-        Transformer :class:`dtoolkit.transformer.MinMaxScaler` is deprecated and
-        will be removed in 0.0.13.
-        Please use :class:`sklearn.preprocessing.MinMaxScaler` instead.
-        (Warning added DToolKit 0.0.12)
-
-    The transformation is given by::
-
-        X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
-        X_scaled = X_std * (max - min) + min
-
-    where :exc:`min, max = feature_range`.
-
-    Examples
-    --------
-    >>> from dtoolkit.transformer import MinMaxScaler
-    >>> data = [[-1, 2], [-0.5, 6], [0, 10], [1, 18]]
-    >>> scaler = MinMaxScaler()
-    >>> scaler.fit(data)
-    MinMaxScaler()
-    >>> scaler.data_max_
-    array([ 1., 18.])
-    >>> scaler.transform(data)
-    array([[0.  , 0.  ],
-           [0.25, 0.25],
-           [0.5 , 0.5 ],
-           [1.  , 1.  ]])
-    >>> scaler.transform([[2, 2]])
-    array([[1.5, 0. ]])
-
-    Notes
-    -----
-    Different to :obj:`sklearn.preprocessing.MinMaxScaler`.
-    This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.
-    """
-
-    @doc(SKMinMaxScaler.__init__)
-    def __init__(self, feature_range=(0, 1), *, copy=True, clip=False):
-        from warnings import warn
-
-        warn(
-            "Transformer 'dtoolkit.transformer.MinMaxScaler' is deprecated and "
-            "will be removed in 0.0.13. "
-            "Please use 'sklearn.preprocessing.MinMaxScaler' instead. "
-            "(Warning added DToolKit 0.0.12)",
-            DeprecationWarning,
-        )
-
-        super().__init__(
-            feature_range=feature_range,
-            copy=copy,
-            clip=clip,
-        )
-
-    @doc(SKMinMaxScaler.fit)
-    def fit(self, X, y=None):
-        X = transform_series_to_frame(X)
-
-        return super().fit(X, y)
-
-    def transform(self, X: TwoDimArray) -> TwoDimArray:
-        """
-        Scale features of X according to feature_range.
-
-        Parameters
-        ----------
-        X : DataFrame or array-like of shape `(n_samples, n_features)`
-            Input data that will be transformed.
-
-        Returns
-        -------
-        DataFrame or ndarray of shape `(n_samples, n_features)`
-            Transformed data.
-
-        Notes
-        -----
-        This would let :obj:`~pandas.DataFrame` in and
-        :obj:`~pandas.DataFrame` out.
-        """
-
-        X = transform_series_to_frame(X)
-        Xt = super().transform(X)
-        Xt = transform_array_to_frame(Xt, X)
-
-        return transform_frame_to_series(Xt)
-
-    def inverse_transform(self, X: SeriesOrFrame | np.ndarray) -> TwoDimArray:
-        """
-        Undo the scaling of X according to feature_range.
-
-        Parameters
-        ----------
-        X : Series, DataFrame or array-like of shape `(n_samples, n_features)`
-            Input data that will be transformed. It cannot be sparse.
-
-        Returns
-        -------
-        DataFrame or ndarray of shape (n_samples, n_features)
-            Transformed data.
-
-        Notes
-        -----
-        This would let :obj:`~pandas.DataFrame` in and
-        :obj:`~pandas.DataFrame` out.
-        """
-
-        X = transform_series_to_frame(X)
-        Xt = super().inverse_transform(X)
-        Xt = transform_array_to_frame(Xt, X)
-
-        return transform_frame_to_series(Xt)
-
 
 class OneHotEncoder(SKOneHotEncoder):
     """
