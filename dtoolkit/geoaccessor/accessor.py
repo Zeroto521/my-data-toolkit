@@ -68,7 +68,8 @@ def register_geoseries_accessor(name: str):
             def count_coordinates(self):
                 # Counts the number of coordinate pairs in geometry
 
-                return self.geometry.apply(count_coordinates(from_shapely(x)))
+                foo = lambda x: count_coordinates(from_shapely(x))
+                return self.geometry.apply(foo)
 
     Back in an interactive IPython session:
 
