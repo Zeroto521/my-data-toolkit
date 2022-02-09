@@ -26,6 +26,12 @@ class MinMaxScaler(SKMinMaxScaler):
     """
     Transform features by scaling each feature to a given range.
 
+    .. warning::
+        Transformer :class:`dtoolkit.transformer.MinMaxScaler` is deprecated and
+        will be removed in 0.0.13.
+        Please use :class:`sklearn.preprocessing.MinMaxScaler` instead.
+        (Warning added DToolKit 0.0.12)
+
     The transformation is given by::
 
         X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
@@ -56,6 +62,20 @@ class MinMaxScaler(SKMinMaxScaler):
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
     """
+
+    @doc(SKMinMaxScaler.__init__)
+    def __init__(self, *args, **kwargs):
+        from warnings import warn
+
+        warn(
+            "Transformer 'dtoolkit.transformer.MinMaxScaler' is deprecated and "
+            "will be removed in 0.0.13. "
+            "Please use 'sklearn.preprocessing.MinMaxScaler' instead. "
+            "(Warning added DToolKit 0.0.12)",
+            DeprecationWarning,
+        )
+
+        super().__init__(*args, **kwargs)
 
     @doc(SKMinMaxScaler.fit)
     def fit(self, X, y=None):
