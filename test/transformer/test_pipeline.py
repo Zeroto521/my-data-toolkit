@@ -162,3 +162,37 @@ def test_issue_87():
     assert isinstance(result, pd.DataFrame)
     assert len(result) == 1
     assert result.notnull().all(axis=None)
+
+
+@pytest.mark.parametrize(
+    "pipeline, data, excepted",
+    [
+        (
+            make_pipeline("passthrough"),
+            df_iris,
+            df_iris,
+        ),
+        (
+            make_pipeline(None),
+            df_iris,
+            df_iris,
+        ),
+        (
+            make_pipeline(None, "passthrough"),
+            df_iris,
+            df_iris,
+        ),
+        (
+            make_pipeline(
+                GetTF(feature_names[:2]),
+                None,
+            ),
+            df_iris,
+            df_iris.get(feature_names[:2]),
+        ),
+    ],
+)
+def test_passthrough(pipeline, data, excepted):
+    result = pipeline.fit_transform(data)
+
+    assert result.equals(excepted)
