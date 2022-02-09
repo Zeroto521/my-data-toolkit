@@ -196,3 +196,17 @@ def test_passthrough(pipeline, data, excepted):
     result = pipeline.fit_transform(data)
 
     assert result.equals(excepted)
+
+
+def test_transformer_without_fit_transform():
+    class no_fit_transform_method:
+        def fit(self, *_):
+            return self
+
+        def transform(self, X):
+            return X
+
+    pipeline = make_pipeline(no_fit_transform_method(), None)
+    result = pipeline.fit_transform(s)
+
+    assert result.equals(s)
