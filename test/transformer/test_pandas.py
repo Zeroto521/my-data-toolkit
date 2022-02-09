@@ -36,19 +36,19 @@ def test_assigntf():
     }
 
     tf = AssignTF(**names_regexs_dict)
-    res = tf.fit_transform(df_period)
+    result = tf.fit_transform(df_period)
 
     for key in names:
-        assert (res[key] > 0).any()
+        assert (result[key] > 0).any()
 
 
 def test_appendtf():
     tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
 
-    res = tf.fit_transform(pd.DataFrame(dict(a=[0])))
-    expt = pd.DataFrame(dict(a=range(9)))
+    result = tf.fit_transform(pd.DataFrame(dict(a=[0])))
+    excepted = pd.Series(range(9), name="a")
 
-    assert res.equals(expt)
+    assert result.equals(excepted)
 
 
 class TestDropTF:
@@ -57,17 +57,17 @@ class TestDropTF:
 
     def test_work(self):
         tf = DropTF(columns=[feature_names[0]])
-        res = tf.fit_transform(self.df_iris)
+        result = tf.fit_transform(self.df_iris)
 
-        assert feature_names[0] not in res.cols()
+        assert feature_names[0] not in result.cols()
 
     def test_inplace(self):
         tf = DropTF(columns=[feature_names[0]], inplace=True)
 
-        res = tf.fit_transform(self.df_iris)
+        result = tf.fit_transform(self.df_iris)
 
-        assert res is not None
-        assert feature_names[0] not in res.cols()
+        assert result is not None
+        assert feature_names[0] not in result.cols()
         assert self.df_iris.equals(df_iris)
 
     def test_input_is_not_series_or_dataframe(self):
@@ -77,17 +77,17 @@ class TestDropTF:
 
     def test_input_is_series(self):
         tf = DropTF(columns=s.name)
-        res = tf.transform(s)
+        result = tf.transform(s)
 
-        assert len(res.columns) == 0
+        assert len(result.columns) == 0
 
 
 def test_evaltf():
     new_column = "double_value"
     tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
-    res = tf.fit_transform(df_iris)
+    result = tf.fit_transform(df_iris)
 
-    assert res[new_column].equals(df_iris[feature_names[0]] * 2)
+    assert result[new_column].equals(df_iris[feature_names[0]] * 2)
 
 
 class TestFillnaTF:
@@ -96,75 +96,75 @@ class TestFillnaTF:
 
     def test_fill0(self):
         tf = FillnaTF(0)
-        res = tf.fit_transform(self.df)
+        result = tf.fit_transform(self.df)
 
-        assert None not in res
+        assert None not in result
 
 
 def test_filterintf():
     tf = FilterInTF({"a": [0]})
 
-    res = tf.fit_transform(df_label)
+    result = tf.fit_transform(df_label)
 
-    assert (~res["a"].isin([1, 2])).all()  # 1 and 2 not in a
+    assert (~result["a"].isin([1, 2])).all()  # 1 and 2 not in a
 
 
 def test_filtertf():
     tf = FilterTF(regex=r"^\w+?_(1[8-9]|2[0-2])$", axis=1)
 
-    res = tf.fit_transform(df_period)
+    result = tf.fit_transform(df_period)
 
-    assert len(res.cols()) == 5
+    assert len(result.cols()) == 5
 
 
 @pytest.mark.parametrize("cols", [feature_names[0], feature_names])
 def test_gettf(cols):
     tf = GetTF(cols)
 
-    res = tf.fit_transform(df_iris)
-    expt = df_iris[cols]
+    result = tf.fit_transform(df_iris)
+    excepted = df_iris[cols]
 
-    assert res.equals(expt)
+    assert result.equals(excepted)
 
 
 class TestQueryTF:
     def test_greater_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` > 0")
-        res = tf.fit_transform(df_iris)
+        result = tf.fit_transform(df_iris)
 
-        assert res.equals(df_iris)
+        assert result.equals(df_iris)
 
     def test_plus_symbol(self):
         tf = QueryTF(f"`{'`+`'.join(feature_names)}` < 100")
-        res = tf.fit_transform(df_iris)
+        result = tf.fit_transform(df_iris)
 
-        assert res.equals(df_iris)
+        assert result.equals(df_iris)
 
     def test_divide_symbol(self):
         tf = QueryTF(f"`{feature_names[0]}` / 100 > 1")
-        res = tf.fit_transform(df_iris)
+        result = tf.fit_transform(df_iris)
 
-        assert len(res) == 0
+        assert len(result) == 0
 
 
 def test_replacetf():
     tf = ReplaceTF({1: "a"})
 
-    res = tf.fit_transform(df_label)
+    result = tf.fit_transform(df_label)
 
-    assert res.isin(["a"]).any(axis=None)
+    assert result.isin(["a"]).any(axis=None)
 
 
 @pytest.mark.parametrize(
-    "types, expt",
+    "types, excepted",
     [
         [float, df_iris],
         [int, df_label],
     ],
 )
-def test_select_dtypes(types, expt):
+def test_select_dtypes(types, excepted):
     tf = SelectDtypesTF(include=types)
 
-    res = tf.fit_transform(df_mixed)
+    result = tf.fit_transform(df_mixed)
 
-    assert res.equals(expt)
+    assert result.equals(excepted)
