@@ -1,5 +1,29 @@
 # Changelog
 
+## [Version 0.0.12] (2022-2-11)
+
+Specific pandas minimal version to each python version ({pr}`440`).
+
+Highlights of this release:
+
+- One column data pipeline supports return `Series` ({pr}`431`).
+
+Documentation:
+
+- Add documentation about `register_*_method` ({pr}`445`).
+- Correct jupyter link ({pr}`444`).
+
+API changes:
+
+- Add `DeprecationWarning` for {class}`dtoolkit.transformer.MinMaxScaler` ({pr}`449`).
+
+Maintenance development:
+
+- Add `extras_require` ({pr}`446`).
+- Update pre-commit hooks ({pr}`442`, {pr}`448`).
+- Set `setup.cfg` version attribute ({pr}`441`).
+- Compat sklearn 1.0 ({pr}`250`).
+
 ## [Version 0.0.11] (2022-1-25)
 
 Small bug-fix:
