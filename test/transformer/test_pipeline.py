@@ -206,7 +206,7 @@ def test_transformer_without_fit_transform():
         def transform(self, X):
             return X
 
-    pipeline = make_pipeline(no_fit_transform_method(), None)
+    pipeline = make_pipeline(no_fit_transform_method())
     result = pipeline.fit_transform(s)
 
     assert result.equals(s)
