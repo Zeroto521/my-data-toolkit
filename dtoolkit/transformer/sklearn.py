@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
     from dtoolkit._typing import TwoDimArray
 
+
 class OneHotEncoder(SKOneHotEncoder):
     """
     Encode categorical features as a one-hot numeric array.
