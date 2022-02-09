@@ -16,7 +16,7 @@ def minus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
 
 class TestMethodtfFactory:
     @pytest.mark.parametrize(
-        "data, method, inv_method, kwargs, inv_kwargs, expt, inv_expt",
+        "data, method, inv_method, kwargs, inv_kwargs, excepted, inv_expt",
         [
             (
                 # test transform method and inverse transfor method both have
@@ -47,7 +47,7 @@ class TestMethodtfFactory:
         inv_method,
         kwargs,
         inv_kwargs,
-        expt,
+        excepted,
         inv_expt,
     ):
         TF = methodtf_factory(method, inv_method)
@@ -57,7 +57,7 @@ class TestMethodtfFactory:
         inverse_data = tf.inverse_transform(transformed_data)
 
         assert "TF" in TF.__name__
-        assert np.all(transformed_data == expt)
+        assert np.all(transformed_data == excepted)
         assert np.all(inverse_data == inv_expt)
 
     @pytest.mark.parametrize(

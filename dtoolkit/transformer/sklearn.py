@@ -6,92 +6,20 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
-from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.preprocessing import MinMaxScaler as SKMinMaxScaler
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 from dtoolkit.transformer._util import transform_array_to_frame
+from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
-from dtoolkit.transformer.base import Transformer
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
 
     from dtoolkit._typing import SeriesOrFrame
     from dtoolkit._typing import TwoDimArray
-
-
-class FeatureUnion(SKFeatureUnion, Transformer):
-    """
-    Concatenates results of multiple transformer objects.
-
-    See Also
-    --------
-    make_union
-        Convenience function for simplified feature union construction.
-
-    Notes
-    -----
-    Different to :obj:`sklearn.pipeline.FeatureUnion`.
-    This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.
-
-    Examples
-    --------
-    >>> from dtoolkit.transformer import FeatureUnion
-    >>> from sklearn.decomposition import PCA, TruncatedSVD
-    >>> union = FeatureUnion([("pca", PCA(n_components=1)),
-    ...                       ("svd", TruncatedSVD(n_components=2))])
-    >>> X = [[0., 1., 3], [2., 2., 5]]
-    >>> union.fit_transform(X)
-    array([[ 1.5       ,  3.0...,  0.8...],
-           [-1.5       ,  5.7..., -0.4...]])
-    """
-
-    def _hstack(self, Xs):
-        if all(isinstance(i, (pd.Series, pd.DataFrame)) for i in Xs):
-            # merge all into one DataFrame and the index would use the common part
-            return pd.concat(Xs, axis=1, join="inner")
-
-        return super()._hstack(Xs)
-
-
-def make_union(
-    *transformers: list[Transformer],
-    n_jobs: int | None = None,
-    verbose: bool = False,
-) -> FeatureUnion:
-    """
-    Construct a FeatureUnion from the given transformers.
-
-    See Also
-    --------
-    FeatureUnion
-        Class for concatenating the results of multiple transformer objects.
-
-    Notes
-    -----
-    Different to :obj:`sklearn.pipeline.make_union`.
-    This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.
-
-    Examples
-    --------
-    >>> from sklearn.decomposition import PCA, TruncatedSVD
-    >>> from dtoolkit.transformer import make_union
-    >>> make_union(PCA(), TruncatedSVD())
-     FeatureUnion(transformer_list=[('pca', PCA()),
-                                   ('truncatedsvd', TruncatedSVD())])
-    """
-    from sklearn.pipeline import _name_estimators
-
-    return FeatureUnion(
-        _name_estimators(transformers),
-        n_jobs=n_jobs,
-        verbose=verbose,
-    )
 
 
 class MinMaxScaler(SKMinMaxScaler):
@@ -129,6 +57,12 @@ class MinMaxScaler(SKMinMaxScaler):
     :obj:`~pandas.DataFrame` out.
     """
 
+    @doc(SKMinMaxScaler.fit)
+    def fit(self, X, y=None):
+        X = transform_series_to_frame(X)
+
+        return super().fit(X, y)
+
     def transform(self, X: TwoDimArray) -> TwoDimArray:
         """
         Scale features of X according to feature_range.
@@ -149,9 +83,11 @@ class MinMaxScaler(SKMinMaxScaler):
         :obj:`~pandas.DataFrame` out.
         """
 
-        X_new = super().transform(X)
+        X = transform_series_to_frame(X)
+        Xt = super().transform(X)
+        Xt = transform_array_to_frame(Xt, X)
 
-        return transform_array_to_frame(X_new, X)
+        return transform_frame_to_series(Xt)
 
     def inverse_transform(self, X: SeriesOrFrame | np.ndarray) -> TwoDimArray:
         """
@@ -174,9 +110,10 @@ class MinMaxScaler(SKMinMaxScaler):
         """
 
         X = transform_series_to_frame(X)
-        X_new = super().inverse_transform(X)
+        Xt = super().inverse_transform(X)
+        Xt = transform_array_to_frame(Xt, X)
 
-        return transform_array_to_frame(X_new, X)
+        return transform_frame_to_series(Xt)
 
 
 class OneHotEncoder(SKOneHotEncoder):
@@ -258,7 +195,7 @@ class OneHotEncoder(SKOneHotEncoder):
     def transform(self, X: TwoDimArray) -> TwoDimArray | csr_matrix:
         from itertools import chain
 
-        X_new = super().transform(X)
+        Xt = super().transform(X)
 
         if self.sparse is False:
             categories = (
@@ -267,6 +204,6 @@ class OneHotEncoder(SKOneHotEncoder):
                 else chain.from_iterable(self.categories_)
             )
 
-            return pd.DataFrame(X_new, columns=categories)
+            return pd.DataFrame(Xt, columns=categories)
 
-        return X_new
+        return Xt
