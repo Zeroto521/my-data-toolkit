@@ -199,7 +199,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
         if self.sparse is False:
             categories = (
-                self.get_feature_names(X.cols())
+                self.get_feature_names_out(X.cols())
                 if self.categories_with_parent
                 else chain.from_iterable(self.categories_)
             )
