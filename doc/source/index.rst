@@ -7,8 +7,8 @@ Face the engineering of data preprocessing.
 Features
 --------
 
-- Make the data of the pipeline transparent
-- Extend the attribute of the pandas-like object
+- Make the data of the Pipeline transparent: the Pandas-like object in and the Pandas-like object out
+- Use the custom method for the Pandas-like object like calling the native attribute
 
 Routes
 ------
