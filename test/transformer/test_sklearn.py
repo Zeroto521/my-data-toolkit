@@ -1,31 +1,9 @@
-from test.transformer.conftest import df_iris
 from test.transformer.conftest import df_label
-from test.transformer.conftest import s
 
 import pandas as pd
 from scipy import sparse
 
-from dtoolkit.transformer import MinMaxScaler
 from dtoolkit.transformer import OneHotEncoder
-
-
-class TestMinMaxscaler:
-    def test_work(self):
-        tf = MinMaxScaler().fit(df_iris)
-
-        data_transformed = tf.transform(df_iris)
-        data = tf.inverse_transform(data_transformed)
-        data = data.round(2)
-
-        assert df_iris.equals(data)
-
-    def test_series_in_series_out(self):
-        tf = MinMaxScaler()
-        tf.fit(s.to_frame())
-        result = tf.inverse_transform(s)
-
-        assert isinstance(s, pd.Series)
-        assert isinstance(result, pd.Series)
 
 
 class TestOneHotEncoder:
