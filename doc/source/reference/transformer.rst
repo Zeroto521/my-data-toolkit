@@ -19,15 +19,23 @@ Base transformer class for all transformers.
     methodtf_factory
 
 
+Pipeline
+-------------------
+.. autosummary::
+    :toctree: api/
+
+    Pipeline
+    make_pipeline
+    FeatureUnion
+    make_union
+
+
 Sklearn Transformer
 -------------------
 .. autosummary::
     :toctree: api/
 
     OneHotEncoder
-    MinMaxScaler
-    FeatureUnion
-    make_union
 
 
 Pandas Transformer
