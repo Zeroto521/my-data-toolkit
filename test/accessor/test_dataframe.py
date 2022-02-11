@@ -519,7 +519,7 @@ class TestToSeries:
             (
                 gpd.GeoDataFrame({"a": [1, 2]}),
                 None,
-                gpd.GeoSeries([1, 2], name="a"),
+                pd.Series([1, 2], name="a"),
             ),
             # geodataframe -> geoseries
             (
