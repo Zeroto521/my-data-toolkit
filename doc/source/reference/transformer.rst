@@ -36,7 +36,6 @@ Sklearn Transformer
     :toctree: api/
 
     OneHotEncoder
-    MinMaxScaler
 
 
 Pandas Transformer
