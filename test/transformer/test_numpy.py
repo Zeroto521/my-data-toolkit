@@ -1,6 +1,6 @@
-from test.transformer import array
-from test.transformer import df_iris
-from test.transformer import s
+from test.transformer.conftest import array
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import s
 
 import pandas as pd
 import pytest

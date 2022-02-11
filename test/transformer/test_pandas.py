@@ -1,10 +1,10 @@
 from functools import partial
-from test.transformer import df_iris
-from test.transformer import df_label
-from test.transformer import df_mixed
-from test.transformer import df_period
-from test.transformer import feature_names
-from test.transformer import s
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import df_label
+from test.transformer.conftest import df_mixed
+from test.transformer.conftest import df_period
+from test.transformer.conftest import feature_names
+from test.transformer.conftest import s
 
 import pandas as pd
 import pytest

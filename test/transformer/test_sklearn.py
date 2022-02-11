@@ -1,4 +1,4 @@
-from test.transformer import df_label
+from test.transformer.conftest import df_label
 
 import pandas as pd
 from scipy import sparse

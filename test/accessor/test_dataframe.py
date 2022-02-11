@@ -1,4 +1,4 @@
-from test.accessor import d
+from test.accessor.conftest import d
 
 import geopandas as gpd
 import numpy as np

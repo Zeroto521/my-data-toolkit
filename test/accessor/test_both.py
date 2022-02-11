@@ -1,5 +1,5 @@
-from test.accessor import d
-from test.accessor import s
+from test.accessor.conftest import d
+from test.accessor.conftest import s
 
 import pytest
 

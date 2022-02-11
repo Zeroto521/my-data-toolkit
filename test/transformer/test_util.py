@@ -1,5 +1,5 @@
-from test.transformer import array
-from test.transformer import df_iris
+from test.transformer.conftest import array
+from test.transformer.conftest import df_iris
 
 import pytest
 
