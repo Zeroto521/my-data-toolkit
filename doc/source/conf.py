@@ -24,7 +24,7 @@ version = version.replace(".dev0", "")
 version = version.replace(".post0", "")
 
 
-project = "DToolKit"
+project = "My Data Toolkit"
 author = "Zero <@Zeroto521>"
 copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
@@ -174,7 +174,7 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
         return None
 
     # to fix these doc doesn't exist in dtoolkit
-    if project.lower() not in fn:
+    if "dtoolkit" not in fn:
         return None
 
     try:
