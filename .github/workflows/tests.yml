@@ -49,10 +49,14 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
-          - env: ci/env/latest.yaml
+          - env: latest
             os: ubuntu-latest
             dev: false
-            python-version: "pypy3"
+            python-version: "pypy-3.7"
+          - env: latest
+            os: ubuntu-latest
+            dev: false
+            python-version: "pypy-3.8"
 
     steps:
       - uses: actions/checkout@v2
@@ -68,16 +72,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
           use-mamba: true
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/setup-python@v2
         name: Setup PyPy Environment
         if: ${{ contains(matrix.python-version, 'pypy') }}
         with:
-          miniforge-variant: Mambaforge-pypy3
-          use-mamba: true
+          python-version: ${{ matrix.python-version }}
 
       - name: Install Dependencies from PyPI for PyPy
         if: ${{ contains(matrix.python-version, 'pypy') }}
-        run: pip install .[opt,test]
+        run: pip install .[opt,test] conda
 
       - name: Check and Log Environment
         run: make info
