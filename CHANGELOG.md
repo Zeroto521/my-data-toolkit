@@ -1,5 +1,29 @@
 # Changelog
 
+## [Version 0.0.12] (2022-2-11)
+
+Specific pandas minimal version to each python version ({pr}`440`).
+
+Highlights of this release:
+
+- One column data pipeline supports return `Series` ({pr}`431`).
+
+Documentation:
+
+- New documentation, [Register a Method as the Original Attribute of Pandas Object](https://my-data-toolkit.readthedocs.io/en/v0.0.12/guide/tips_about_accessor.html) ({pr}`445`).
+- Correct jupyter link ({pr}`444`).
+
+API changes:
+
+- Add `DeprecationWarning` for {class}`dtoolkit.transformer.MinMaxScaler` ({pr}`449`).
+
+Maintenance development:
+
+- Add `extras_require` ({pr}`446`).
+- Update pre-commit hooks ({pr}`442`, {pr}`448`).
+- Set `setup.cfg` version attribute ({pr}`441`).
+- Compat sklearn 1.0 ({pr}`250`).
+
 ## [Version 0.0.11] (2022-1-25)
 
 Small bug-fix:
@@ -306,6 +330,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.12]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.11...v0.0.12
 [Version 0.0.11]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.10...v0.0.11
 [Version 0.0.10]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.9...v0.0.10
 [Version 0.0.9]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...v0.0.9
