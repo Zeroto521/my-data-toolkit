@@ -43,4 +43,4 @@ class TestOneHotEncoder:
         ]
         result = tf.fit_transform(data)
 
-        assert instance(result, np.ndarray)
+        assert isinstance(result, np.ndarray)
