@@ -86,8 +86,9 @@ class Pipeline(SKPipeline):
     def fit_transform(self, X, y=None, **fit_params):
         fit_params_steps = self._check_fit_params(**fit_params)
 
-        X = transform_series_to_frame(X)
+        X = transform_series_to_frame(X)  # transform fit's input to DataFrame
         X = self._fit(X, y, **fit_params_steps)
+        X = transform_series_to_frame(X)  # transofrm fit's output to DataFrame
 
         last_step = self._final_estimator
         with _print_elapsed_time("Pipeline", self._log_message(len(self.steps) - 1)):
