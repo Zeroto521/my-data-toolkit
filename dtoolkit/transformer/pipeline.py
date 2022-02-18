@@ -101,7 +101,8 @@ class Pipeline(SKPipeline):
             else:
                 Xt = last_step.fit(X, y, **fit_params_last_step).transform(X)
 
-            return transform_array_to_frame(Xt, X)
+            Xt = transform_array_to_frame(Xt, X)
+            return transform_frame_to_series(Xt)
 
     @doc(SKPipeline._can_inverse_transform)
     def _can_inverse_transform(self):
