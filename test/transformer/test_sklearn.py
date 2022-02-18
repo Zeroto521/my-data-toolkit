@@ -1,3 +1,4 @@
+from tkinter import ON
 from test.transformer.conftest import df_label
 
 import pandas as pd
@@ -24,3 +25,12 @@ class TestOneHotEncoder:
         result = tf.fit_transform(df_label)
 
         assert sparse.isspmatrix(result)
+
+    def test_index(self):
+        from dtoolkit.transformer import make_pipeline
+
+        tf = make_pipeline(OneHotEncoder())
+        data = pd.DataFrame(["a", "b", "c"], index=[0, 1, 3])
+        result = tf.fit_transform(data)
+
+        assert result.index.equals(data.index)
