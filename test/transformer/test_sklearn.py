@@ -1,8 +1,8 @@
-from tkinter import ON
 from test.transformer.conftest import df_label
 
 import pandas as pd
 from scipy import sparse
+from tkinter import ON
 
 from dtoolkit.transformer import OneHotEncoder
 
