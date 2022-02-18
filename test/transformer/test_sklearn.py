@@ -1,5 +1,6 @@
 from test.transformer.conftest import df_label
 
+import numpy as np
 import pandas as pd
 from scipy import sparse
 
@@ -33,3 +34,13 @@ class TestOneHotEncoder:
         result = tf.fit_transform(data)
 
         assert result.index.equals(data.index)
+
+    def test_array_in_array_out(self):
+        tf = OneHotEncoder()
+        data = [
+            [1],
+            [2],
+        ]
+        result = tf.fit_transform(data)
+
+        assert instance(result, np.ndarray)
