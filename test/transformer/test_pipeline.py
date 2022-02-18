@@ -70,6 +70,15 @@ def test_pipeline_work(name, data, pipeline):
     joblib.dump(pipeline, f"{name}.pipeline.joblib")
 
 
+def test_series_input_and_series_output():
+    pipeline = make_pipeline(
+        MinMaxScaler(),
+    )
+    result = pipeline.fit_transform(s)
+
+    assert isinstance(result, pd.Series)
+
+
 def test_inverse_transform_type():
     pipeline = make_pipeline(
         GetTF(["target"]),
