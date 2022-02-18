@@ -80,7 +80,9 @@ jobs:
 
       - name: Install Dependencies from PyPI for PyPy
         if: ${{ contains(matrix.python-version, 'pypy') }}
-        run: pip install .[opt,test] conda
+        run: |
+          pip install conda
+          pip install .[opt,test]
 
       - name: Check and Log Environment
         run: make info
