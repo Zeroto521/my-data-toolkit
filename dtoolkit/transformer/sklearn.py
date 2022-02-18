@@ -104,6 +104,6 @@ class OneHotEncoder(SKOneHotEncoder):
                 else chain.from_iterable(self.categories_)
             )
 
-            return pd.DataFrame(Xt, columns=categories)
+            return pd.DataFrame(Xt, columns=categories, index=X.index)
 
         return Xt
