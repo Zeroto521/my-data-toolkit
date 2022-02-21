@@ -24,65 +24,119 @@ from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
 
 
-@pytest.mark.parametrize(
-    "name, data, pipeline",
-    [
-        (
-            "xiris",
-            df_iris,
-            make_pipeline(
-                EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
-                QueryTF("`sum_feature` > 10"),
-                GetTF(feature_names),
-                DropTF(columns=feature_names[:2]),
-                MinMaxScaler(),
-            ),
-        ),
-        (
-            "yiris",
-            pd.DataFrame(s),
-            make_pipeline(
-                GetTF(["target"]),
-                MinMaxScaler(),
-                RavelTF(),
-            ),
-        ),
-        (
-            "mixed",
-            df_mixed,
-            make_union(
+class TestPipeline:  # include `make_pipeline`
+    @pytest.mark.parametrize(
+        "name, data, pipeline",
+        [
+            (
+                "xiris",
+                df_iris,
                 make_pipeline(
-                    GetTF(["a"]),
-                    FilterInTF({"a": [0]}),
-                ),
-                make_pipeline(
-                    GetTF(["b"]),
-                    FilterInTF({"b": [1]}),
+                    EvalTF(f"`sum_feature` = `{'` + `'.join(feature_names)}`"),
+                    QueryTF("`sum_feature` > 10"),
+                    GetTF(feature_names),
+                    DropTF(columns=feature_names[:2]),
+                    MinMaxScaler(),
                 ),
             ),
-        ),
-    ],
-)
-def test_pipeline_work(name, data, pipeline):
-    transformed_data = pipeline.fit(data).transform(data)
-    pipeline.inverse_transform(transformed_data)
-
-    joblib.dump(pipeline, f"{name}.pipeline.joblib")
-
-
-def test_inverse_transform_type():
-    pipeline = make_pipeline(
-        GetTF(["target"]),
-        MinMaxScaler(),
-        RavelTF(),
+            (
+                "yiris",
+                pd.DataFrame(s),
+                make_pipeline(
+                    GetTF(["target"]),
+                    MinMaxScaler(),
+                    RavelTF(),
+                ),
+            ),
+            (
+                "mixed",
+                df_mixed,
+                make_union(
+                    make_pipeline(
+                        GetTF(["a"]),
+                        FilterInTF({"a": [0]}),
+                    ),
+                    make_pipeline(
+                        GetTF(["b"]),
+                        FilterInTF({"b": [1]}),
+                    ),
+                ),
+            ),
+        ],
     )
-    transformed_data = pipeline.fit_transform(pd.DataFrame(s))
-    s_back = pipeline.inverse_transform(transformed_data)
+    def test_pipeline_work(self, name, data, pipeline):
+        transformed_data = pipeline.fit(data).transform(data)
+        pipeline.inverse_transform(transformed_data)
 
-    assert isinstance(s_back, pd.Series)
+        joblib.dump(pipeline, f"{name}.pipeline.joblib")
+
+    def test_series_input_and_series_output(self):
+        pipeline = make_pipeline(
+            MinMaxScaler(),
+        )
+        result = pipeline.fit_transform(s)
+
+        assert isinstance(result, pd.Series)
+
+    @pytest.mark.parametrize(
+        "pipeline, data, excepted",
+        [
+            (
+                make_pipeline("passthrough"),
+                df_iris,
+                df_iris,
+            ),
+            (
+                make_pipeline(None),
+                df_iris,
+                df_iris,
+            ),
+            (
+                make_pipeline(None, "passthrough"),
+                df_iris,
+                df_iris,
+            ),
+            (
+                make_pipeline(
+                    GetTF(feature_names[:2]),
+                    None,
+                ),
+                df_iris,
+                df_iris.get(feature_names[:2]),
+            ),
+        ],
+    )
+    def test_passthrough(self, pipeline, data, excepted):
+        result = pipeline.fit_transform(data)
+
+        assert result.equals(excepted)
+
+    def test_inverse_transform_type(self):
+        pipeline = make_pipeline(
+            GetTF(["target"]),
+            MinMaxScaler(),
+            RavelTF(),
+        )
+        transformed_data = pipeline.fit_transform(pd.DataFrame(s))
+        s_back = pipeline.inverse_transform(transformed_data)
+
+        assert isinstance(s_back, pd.Series)
+
+    def test_transformer_without_fit_transform(self):
+        class no_fit_transform_method:
+            def fit(self, *_):
+                return self
+
+            def transform(self, X):
+                return X
+
+        pipeline = make_pipeline(no_fit_transform_method())
+        result = pipeline.fit_transform(s)
+
+        assert result.equals(s)
 
 
-class TestFeatureUnion:
+class TestFeatureUnion:  # include `make_union`
     @pytest.mark.parametrize(
         "pipeline",
         [
@@ -162,51 +216,3 @@ def test_issue_87():
     assert isinstance(result, pd.DataFrame)
     assert len(result) == 1
     assert result.notnull().all(axis=None)
-
-
-@pytest.mark.parametrize(
-    "pipeline, data, excepted",
-    [
-        (
-            make_pipeline("passthrough"),
-            df_iris,
-            df_iris,
-        ),
-        (
-            make_pipeline(None),
-            df_iris,
-            df_iris,
-        ),
-        (
-            make_pipeline(None, "passthrough"),
-            df_iris,
-            df_iris,
-        ),
-        (
-            make_pipeline(
-                GetTF(feature_names[:2]),
-                None,
-            ),
-            df_iris,
-            df_iris.get(feature_names[:2]),
-        ),
-    ],
-)
-def test_passthrough(pipeline, data, excepted):
-    result = pipeline.fit_transform(data)
-
-    assert result.equals(excepted)
-
-
-def test_transformer_without_fit_transform():
-    class no_fit_transform_method:
-        def fit(self, *_):
-            return self
-
-        def transform(self, X):
-            return X
-
-    pipeline = make_pipeline(no_fit_transform_method())
-    result = pipeline.fit_transform(s)
-
-    assert result.equals(s)

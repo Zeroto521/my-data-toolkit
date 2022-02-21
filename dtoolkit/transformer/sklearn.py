@@ -97,13 +97,13 @@ class OneHotEncoder(SKOneHotEncoder):
 
         Xt = super().transform(X)
 
-        if self.sparse is False:
+        if self.sparse is False and isinstance(X, (pd.Series, pd.DataFrame)):
             categories = (
                 self.get_feature_names_out(X.cols())
                 if self.categories_with_parent
                 else chain.from_iterable(self.categories_)
             )
 
-            return pd.DataFrame(Xt, columns=categories)
+            return pd.DataFrame(Xt, columns=categories, index=X.index)
 
         return Xt
