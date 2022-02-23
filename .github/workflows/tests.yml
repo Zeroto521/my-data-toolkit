@@ -81,8 +81,10 @@ jobs:
       - name: Install Dependencies for PyPy
         if: ${{ contains(matrix.python-version, 'pypy') }}
         run: |
+          sudo apt-get update
+          sudo apt-get install gdal-bin libgdal-dev
+
           pip install conda
-          pip install GDAL
           pip install .[opt,test]
 
       - name: Check and Log Environment
