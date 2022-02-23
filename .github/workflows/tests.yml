@@ -33,10 +33,10 @@ jobs:
           - windows-latest
         dev: [false]
         python-version:
-          - 3.7
-          - 3.8
-          - 3.9
-          - 3.10
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
         env: [ci/env/latest.yaml]
         include:
           - env: ci/env/37-minimal.yaml

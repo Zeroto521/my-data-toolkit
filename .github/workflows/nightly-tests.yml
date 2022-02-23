@@ -33,9 +33,9 @@ jobs:
         os: [ubuntu-latest]
         dev: [true]
         python-version:
-          - 3.8
-          - 3.9
-          - 3.10
+          - "3.8"
+          - "3.9"
+          - "3.10"
         env: [ci/env/dev.yaml]
 
     steps:
