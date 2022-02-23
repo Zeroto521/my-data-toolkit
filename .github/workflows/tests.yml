@@ -78,10 +78,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Dependencies from PyPI for PyPy
+      - name: Install Dependencies for PyPy
         if: ${{ contains(matrix.python-version, 'pypy') }}
         run: |
           pip install conda
+          pip install GDAL
           pip install .[opt,test]
 
       - name: Check and Log Environment
