@@ -32,9 +32,11 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         dev: [true]
-        python-version: ["3.8", "3.9", "3.10"]
-        env:
-          - ci/env/dev.yaml
+        python-version:
+          - 3.8
+          - 3.9
+          - 3.10
+        env: [ci/env/dev.yaml]
 
     steps:
       - uses: actions/checkout@v2
