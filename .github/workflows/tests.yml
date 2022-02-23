@@ -30,8 +30,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
         dev: [false]
         python-version: ["3.7", "3.8", "3.9", "3.10"]
-        env:
-          - ci/env/latest.yaml
+        env: [ci/env/latest.yaml]
         include:
           - env: ci/env/37-minimal.yaml
             os: ubuntu-latest
@@ -77,15 +76,13 @@ jobs:
   PyPy:
     needs: skip-check
     if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
-    name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}
+    name: ${{ matrix.os }}, ${{ matrix.python-version }}, latest
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         dev: [false]
         python-version: ["pypy-3.7", "pypy-3.8"]
-        env:
-          - ci/env/latest.yaml
 
     steps:
       - uses: actions/checkout@v2
