@@ -76,13 +76,14 @@ jobs:
   PyPy:
     needs: skip-check
     if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
-    name: ${{ matrix.os }}, ${{ matrix.python-version }}, latest
-    runs-on: ${{ matrix.os }}
+    name: ubuntu-latest, ${{ matrix.python-version }}, latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest]
         dev: [false]
-        python-version: ["pypy-3.7", "pypy-3.8"]
+        python-version:
+          - "pypy-3.7"
+          - "pypy-3.8"
 
     steps:
       - uses: actions/checkout@v2
