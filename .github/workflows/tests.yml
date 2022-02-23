@@ -17,7 +17,7 @@ jobs:
         with:
           paths_ignore: '["doc/**"]'
 
-  tests:
+  CPython:
     needs: skip-check
     if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}
@@ -49,14 +49,6 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
-          - env: ci/env/latest.yaml
-            os: ubuntu-latest
-            dev: false
-            python-version: "pypy-3.7"
-          - env: ci/env/latest.yaml
-            os: ubuntu-latest
-            dev: false
-            python-version: "pypy-3.8"
 
     steps:
       - uses: actions/checkout@v2
@@ -64,28 +56,11 @@ jobs:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
       - uses: conda-incubator/setup-miniconda@v2
-        name: Setup CPython Environment
-        if: ${{ ! contains(matrix.python-version, 'pypy') }}
         with:
           miniforge-variant: Mambaforge
           environment-file: ${{ matrix.env }}
           python-version: ${{ matrix.python-version }}
           use-mamba: true
-
-      - uses: actions/setup-python@v2
-        name: Setup PyPy Environment
-        if: ${{ contains(matrix.python-version, 'pypy') }}
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install Dependencies for PyPy
-        if: ${{ contains(matrix.python-version, 'pypy') }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install gdal-bin libgdal-dev
-
-          pip install wheel conda mamba
-          mamba env update --file ${{ matrix.env }}
 
       - name: Check and Log Environment
         run: make info
@@ -94,7 +69,45 @@ jobs:
         run: make test
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu') && ! contains(matrix.python-version, 'pypy') }}
+        if: ${{ contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu') }}
         run: make doctest
+
+      - uses: codecov/codecov-action@v2.1.0
+
+  PyPy:
+    needs: skip-check
+    if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
+    name: centos, ${{ matrix.python-version }}, ${{ matrix.env }}
+    runs-on: ubuntu-latest
+    container: "centos:latest"
+    strategy:
+      matrix:
+        dev: [false]
+        python-version: ["pypy-3.7", "pypy-3.8"]
+        env:
+          - ci/env/latest.yaml
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Fetch all history for all tags and branches
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install gdal-bin libgdal-dev
+
+          pip install wheel conda
+          conda env update --file ${{ matrix.env }}
+
+      - name: Check and Log Environment
+        run: make info
+
+      - name: Test with Pytest
+        run: make test
 
       - uses: codecov/codecov-action@v2.1.0
