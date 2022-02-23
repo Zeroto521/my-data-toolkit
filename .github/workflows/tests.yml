@@ -83,6 +83,7 @@ jobs:
         os: [ubuntu-latest]
         dev: [false]
         python-version: ["pypy-3.7", "pypy-3.8"]
+        env: [ci/env/latest.yaml]
 
     steps:
       - uses: actions/checkout@v2
@@ -98,7 +99,9 @@ jobs:
           sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
           sudo apt-get update
           sudo apt-get install gdal-bin libgdal-dev
-          pip install conda .[opt,test]
+
+          pip install conda
+          conda env update -f ${{ matrix.env }}
 
       - name: Check and Log Environment
         run: make info
