@@ -77,11 +77,11 @@ jobs:
   PyPy:
     needs: skip-check
     if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
-    name: centos-latest, ${{ matrix.python-version }}, ${{ matrix.env }}
-    runs-on: ubuntu-latest
-    container: "centos:latest"
+    name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest]
         dev: [false]
         python-version: ["pypy-3.7", "pypy-3.8"]
         env:
@@ -98,8 +98,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install conda
-          conda env update --file ${{ matrix.env }}
+          sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
+          sudo apt-get update
+          sudo apt-get install gdal-bin libgdal-dev
+          pip install conda .[opt,test]
 
       - name: Check and Log Environment
         run: make info
