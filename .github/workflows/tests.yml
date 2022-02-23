@@ -100,8 +100,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install gdal-bin libgdal-dev
 
-          pip install conda
-          conda env update -f ${{ matrix.env }}
+          pip install wheel conda mamba
+          mamba env update -f ${{ matrix.env }}
 
       - name: Check and Log Environment
         run: make info
