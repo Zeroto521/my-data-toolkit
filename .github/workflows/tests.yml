@@ -83,7 +83,6 @@ jobs:
         os: [ubuntu-latest]
         dev: [false]
         python-version: ["pypy-3.7", "pypy-3.8"]
-        env: [ci/env/latest.yaml]
 
     steps:
       - uses: actions/checkout@v2
@@ -101,7 +100,7 @@ jobs:
           sudo apt-get install gdal-bin libgdal-dev
 
           pip install wheel conda mamba
-          mamba env update -f ${{ matrix.env }}
+          mamba env update -f ci/env/latest.yaml
 
       - name: Check and Log Environment
         run: make info
