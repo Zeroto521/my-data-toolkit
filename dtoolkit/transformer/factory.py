@@ -8,8 +8,6 @@ from dtoolkit.util.generic import snake_to_camel
 if TYPE_CHECKING:
     from typing import Callable
 
-    from dtoolkit._typing import Number
-
 
 def methodtf_factory(
     transform_method: Callable,
@@ -39,13 +37,13 @@ def methodtf_factory(
         # Generate a plus/minus constant transformer:
 
 
-        def plus_constant(X: np.ndarray, constant: Number) -> np.ndarray:
+        def plus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
             '''Plus constant to each element of ``X``'''
 
             return X + constant
 
 
-        def minus_constant(X: np.ndarray, constant: Number) -> np.ndarray:
+        def minus_constant(X: np.ndarray, constant: int | float) -> np.ndarray:
             '''Minus constant to each element of ``X``'''
 
             return X - constant
