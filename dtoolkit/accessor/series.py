@@ -12,6 +12,7 @@ from dtoolkit.accessor.register import register_series_method
 if TYPE_CHECKING:
     from typing import Any
 
+    from dtoolkit._typing import IntOrStr
     from dtoolkit._typing import OneDimArray
 
 
@@ -307,7 +308,7 @@ def top_n(
 )
 def expand(
     s: pd.Series,
-    suffix: list[str | int] | None = None,
+    suffix: list[IntOrStr] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -450,7 +451,7 @@ def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.S
 def error_report(
     s: pd.Series,
     predicted: OneDimArray | list[int | float],
-    columns: list[str | int] | None = None,
+    columns: list[IntOrStr] | None = None,
 ) -> pd.DataFrame:
     """
     Calculate `absolute error` and `relative error` of two columns.

@@ -7,3 +7,5 @@ SeriesOrFrame = Union[pd.Series, pd.DataFrame]
 
 TwoDimArray = Union[np.ndarray, pd.DataFrame]
 OneDimArray = Union[np.ndarray, pd.Series]
+
+IntOrStr = Union[int, str]

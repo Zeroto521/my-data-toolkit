@@ -18,6 +18,8 @@ from dtoolkit.accessor.series import top_n as s_top_n
 if TYPE_CHECKING:
     from typing import Iterable
 
+    from dtoolkit._typing import IntOrStr
+
 
 @register_dataframe_method
 @doc(
@@ -31,14 +33,14 @@ if TYPE_CHECKING:
     """,
     ),
 )
-def cols(df: pd.DataFrame) -> list[str | int]:
+def cols(df: pd.DataFrame) -> list[IntOrStr]:
     return df.columns.tolist()
 
 
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
-    axis: int | str = 0,
+    axis: IntOrStr = 0,
     how: str = "any",
     inf: str = "all",
     subset: list[str] | None = None,
@@ -175,7 +177,7 @@ def drop_inf(
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: int | str = 0,
+    axis: IntOrStr = 0,
     how: str = "all",
     inplace: bool = False,
 ) -> pd.DataFrame | None:
@@ -316,7 +318,7 @@ def filter_in(
 def repeat(
     df: pd.DataFrame,
     repeats: int | list[int],
-    axis: int | str = 0,
+    axis: IntOrStr = 0,
 ) -> pd.DataFrame | None:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.
@@ -591,7 +593,7 @@ def top_n(
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list[str | int] | None = None,
+    suffix: list[IntOrStr] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -609,7 +611,7 @@ def expand(
 
 
 @register_dataframe_method
-def to_series(df: pd.DataFrame, name: str | int = None) -> SeriesOrFrame:
+def to_series(df: pd.DataFrame, name: IntOrStr = None) -> SeriesOrFrame:
     """
     Transform one column :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
 
