@@ -15,6 +15,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 if TYPE_CHECKING:
     from dtoolkit._typing import OneDimArray
+    from dtoolkit._typing import Number
 
 
 @register_geodataframe_method
@@ -56,7 +57,7 @@ if TYPE_CHECKING:
 )
 def geobuffer(
     df: gpd.GeoDataFrame,
-    distance: int | float | list[int | float] | OneDimArray,
+    distance: Number | list[Number] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoDataFrame:
     return df.assign(geometry=df.geometry.geobuffer(distance, **kwargs))

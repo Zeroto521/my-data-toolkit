@@ -14,6 +14,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 if TYPE_CHECKING:
     from dtoolkit._typing import OneDimArray
+    from dtoolkit._typing import Number
 
 
 @register_geoseries_method
@@ -50,7 +51,7 @@ if TYPE_CHECKING:
 )
 def geobuffer(
     s: gpd.GeoSeries,
-    distance: int | float | list[int | float] | OneDimArray,
+    distance: Number | list[Number] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoSeries:
     """
