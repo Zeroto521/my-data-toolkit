@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     from dtoolkit._typing import Number
 
 
-
 def methodtf_factory(
     transform_method: Callable,
     inverse_transform_method: Callable | None = None,
