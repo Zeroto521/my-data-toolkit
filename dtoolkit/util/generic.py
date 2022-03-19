@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 def multi_if_else(
     if_condition_return: Iterable | list[tuple[bool, Any]],
-    else_return: Any = None,
+    else_return: Any | None = None,
 ) -> Any | None:
     """
     Handle a series of :keyword:`if` or :keyword:`elif`.
