@@ -43,7 +43,7 @@ def drop_inf(
     axis: IntOrStr = 0,
     how: str = "any",
     inf: str = "all",
-    subset: list[str] | None = None,
+    subset: list[str] = None,
     inplace: bool = False,
 ) -> pd.DataFrame | None:
     """
@@ -593,7 +593,7 @@ def top_n(
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list[IntOrStr] | None = None,
+    suffix: list[IntOrStr] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
