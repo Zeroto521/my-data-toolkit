@@ -42,7 +42,7 @@ class MethodTF(Transformer):
     """
 
     transform_method: Callable
-    inverse_transform_method: Callable | None = None
+    inverse_transform_method: Callable = None
 
     def __init__(self, *args, **kwargs):
         """Transform method argument entry."""
