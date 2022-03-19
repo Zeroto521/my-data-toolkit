@@ -19,8 +19,8 @@ def points_from_xy(
     df: pd.DataFrame,
     x: str,
     y: str,
-    z: str | None = None,
-    crs: CRS | IntOrStr | None = None,
+    z: str = None,
+    crs: CRS | IntOrStr = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """

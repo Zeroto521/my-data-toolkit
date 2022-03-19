@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 def methodtf_factory(
     transform_method: Callable,
-    inverse_transform_method: Callable | None = None,
+    inverse_transform_method: Callable = None,
 ) -> MethodTF:
     """
     Quickly generate transformer from methods.

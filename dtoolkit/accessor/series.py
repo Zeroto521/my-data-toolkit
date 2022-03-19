@@ -309,7 +309,7 @@ def top_n(
 )
 def expand(
     s: pd.Series,
-    suffix: list[IntOrStr] | None = None,
+    suffix: list[IntOrStr] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -373,7 +373,7 @@ def expand(
 
 @register_series_method(name="len")
 @register_series_method
-def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.Series:
+def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
@@ -452,7 +452,7 @@ def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.S
 def error_report(
     s: pd.Series,
     predicted: OneDimArray | list[Number],
-    columns: list[IntOrStr] | None = None,
+    columns: list[IntOrStr] = None,
 ) -> pd.DataFrame:
     """
     Calculate `absolute error` and `relative error` of two columns.
