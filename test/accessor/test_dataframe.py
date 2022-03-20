@@ -434,10 +434,12 @@ class TestTopN:
 
 class TestToSeries:
     @pytest.mark.parametrize(
-        "df, name, excepted",
+        "df, name, index_column, value_column, excepted",
         [
             (
                 pd.DataFrame({"a": [1, 2]}),
+                None,
+                None,
                 None,
                 pd.Series([1, 2], name="a"),
             ),
@@ -445,23 +447,31 @@ class TestToSeries:
             (
                 pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
                 None,
+                None,
+                None,
                 pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
             ),
             # name is not None
             (
                 pd.DataFrame({"a": [1, 2]}),
                 "b",
+                None,
+                None,
                 pd.Series([1, 2], name="b"),
             ),
             # the columns of df are default
             (
                 pd.DataFrame([1, 2]),
                 None,
+                None,
+                None,
                 pd.Series([1, 2], name=0),
             ),
             # geodataframe -> geodataframe
             (
                 gpd.GeoDataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                None,
                 None,
                 gpd.GeoDataFrame({"a": [1, 2], "b": [3, 4]}),
             ),
@@ -490,6 +500,8 @@ class TestToSeries:
                         ],
                     },
                 ),
+                None,
+                None,
                 None,
                 gpd.GeoDataFrame.from_features(
                     {
@@ -519,6 +531,8 @@ class TestToSeries:
             (
                 gpd.GeoDataFrame({"a": [1, 2]}),
                 None,
+                None,
+                None,
                 pd.Series([1, 2], name="a"),
             ),
             # geodataframe -> geoseries
@@ -547,6 +561,8 @@ class TestToSeries:
                     },
                 ),
                 None,
+                None,
+                None,
                 gpd.GeoSeries.from_wkt(
                     [
                         "POINT (1 2)",
@@ -555,9 +571,33 @@ class TestToSeries:
                     name="geometry",
                 ),
             ),
+            # two or more columnds dataframe -> series
+            (
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                "b",
+                "a",
+                pd.Series(
+                    [1, 2],
+                    name="a",
+                    index=pd.Index([3, 4], name="b"),
+                ),
+            ),
+            # two or more columnds dataframe -> series
+            (
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+                "new name",
+                "b",
+                "a",
+                pd.Series(
+                    [1, 2],
+                    name="new name",
+                    index=pd.Index([3, 4], name="b"),
+                ),
+            ),
         ],
     )
-    def test_work(self, df, name, excepted):
-        result = df.to_series(name)
+    def test_work(self, df, name, index_column, value_column, excepted):
+        result = df.to_series(name, index_column, value_column)
 
         assert result.equals(excepted)
