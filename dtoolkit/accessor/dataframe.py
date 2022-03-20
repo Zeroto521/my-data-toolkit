@@ -14,6 +14,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as s_cols
 from dtoolkit.accessor.series import expand as s_expand
 from dtoolkit.accessor.series import top_n as s_top_n
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict
+
 
 if TYPE_CHECKING:
     from typing import Iterable
@@ -738,4 +740,38 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
     return df.apply(
         lambda x: len(x.unique()),
         axis=df._get_axis_number(axis),
+    )
+
+
+@register_dataframe_method
+def values_to_dict(df: pd.DataFrame, few_key_first: bool = True) -> dict:
+    if df.shape[1] == 1:  # one column DataFrame
+        return df.to_series().values_to_dict()
+
+    def _dict(df: pd.DataFrame) -> dict:
+        key_column, *value_column = df.columns
+
+        if df.shape[1] == 2:
+            return df.to_series(
+                index_column=key_column,
+                value_column=value_column[0],
+            ).values_to_dict()
+
+        return {
+            key: _dict(
+                df.query(
+                    f"{key_column} == {key}",
+                ).get(value_column)
+            )
+            for key in df.get(key_column).unique()
+        }
+
+    return _dict(
+        df.get(
+            df.unique_counts()
+            .sort_values(
+                ascending=few_key_first,
+            )
+            .index
+        )
     )
