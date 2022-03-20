@@ -32,6 +32,7 @@ DataFrame Accessor
     repeat
     top_n
     to_series
+    unique_counts
 
 
 Pandas Method Register
