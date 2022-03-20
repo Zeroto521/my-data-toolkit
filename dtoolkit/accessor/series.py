@@ -610,3 +610,8 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
         return attr
 
     return s.apply(wrap_getattr)
+
+
+@register_series_method
+def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
+    return {key: s[s.index == key].to_list() for key in s.index.unique()}
