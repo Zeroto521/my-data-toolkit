@@ -637,7 +637,9 @@ def to_series(
     Raises
     ------
     ValueError
-        If ``index_column`` is same to ``value_column``.
+        - If ``index_column`` is same to ``value_column``.
+        - If ``index_column`` is not in the columns.
+        - If ``value_column`` is not in the columns.
 
     Examples
     --------
@@ -690,7 +692,11 @@ def to_series(
     # two and more columns DataFrame
     elif index_column and value_column:
         if index_column == value_column:
-            raise ValueError("`index_column` and `value_column` should be different.")
+            raise ValueError("'index_column' and 'value_column' should be different.")
+        elif index_column not in df.columns:
+            raise ValueError(f"{index_column} is not in the columns.")
+        elif value_column not in df.columns:
+            raise ValueError(f"{value_column} is not in the columns.")
 
         return df.set_index(index_column).get(value_column).rename(name or value_column)
 
