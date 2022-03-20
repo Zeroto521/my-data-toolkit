@@ -601,3 +601,33 @@ class TestToSeries:
         result = df.to_series(name, index_column, value_column)
 
         assert result.equals(excepted)
+
+    @pytest.mark.parametrize(
+        "df, name, index_column, value_column, error",
+        [
+            (
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                "a",
+                "a",
+                ValueError,
+            ),
+            (
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                "a",
+                "c",
+                ValueError,
+            ),
+            (
+                pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+                None,
+                "c",
+                "b",
+                ValueError,
+            ),
+        ],
+    )
+    def test_error(self, df, name, index_column, value_column, error):
+        with pytest.raises(error):
+            df.to_series(name, index_column, value_column)
