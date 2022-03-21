@@ -620,7 +620,8 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
 
     Returns
     -------
-    dict : {index: [values]}
+    dict
+        The datastruct is ``{index: [values]}``.
 
     Notes
     -----
