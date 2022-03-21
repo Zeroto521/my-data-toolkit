@@ -623,6 +623,10 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
     dict
         The datastruct is ``{index: [values]}``.
 
+    See Also
+    --------
+    dtoolkit.accessor.dataframe.values_to_dict
+
     Notes
     -----
     The same key of values would be merged into :class:`list`.
