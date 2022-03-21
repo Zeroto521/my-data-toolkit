@@ -628,6 +628,7 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
 
     Examples
     --------
+    >>> import json
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series(range(4), index=["a", "b", "a", "c"])
@@ -637,7 +638,6 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
     a    2
     c    3
     dtype: int64
-    >>> import json
     >>> print(json.dumps(s.values_to_dict(), indent=4))
     {
         "a": [
