@@ -861,6 +861,6 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
             .sort_values(
                 ascending=few_as_key,
             )
-            .index
-        )
+            .index,
+        ),
     )
