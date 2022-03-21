@@ -790,6 +790,9 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
     2  c  B  3
     3  d  B  3
     4  d  B  4
+
+    Use few unique of column values as key first.
+
     >>> print(json.dumps(df.values_to_dict(), indent=4))
     {
         "A": {
@@ -810,6 +813,9 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
             ]
         }
     }
+
+    Use many unique of column values as key first.
+
     >>> print(json.dumps(df.values_to_dict(few_as_key=False), indent=4))
     {
         "a": {
