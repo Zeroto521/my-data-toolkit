@@ -638,18 +638,18 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
     c    3
     dtype: int64
     >>> import json
-    >>> print(json.dumps(s.values_to_dict(), indent=2))
+    >>> print(json.dumps(s.values_to_dict(), indent=4))
     {
-      "a": [
-        0,
-        2
-      ],
-      "b": [
-        1
-      ],
-      "c": [
-        3
-      ]
+        "a": [
+            0,
+            2
+        ],
+        "b": [
+            1
+        ],
+        "c": [
+            3
+        ]
     }
     """
 
