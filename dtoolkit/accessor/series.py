@@ -614,4 +614,41 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
 
 @register_series_method
 def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
+    """
+    Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
+    :key:`dict`.
+
+    The same key of values would be merged into :key:`list`.
+
+    Returns
+    -------
+    dict : {index: [values]}
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series(range(4), index=["a", "b", "a", "c"])
+    >>> s
+    a    0
+    b    1
+    a    2
+    c    3
+    dtype: int64
+    >>> import json
+    >>> print(json.dumps(s.values_to_dict(), indent=2))
+    {
+      "a": [
+        0,
+        2
+      ],
+      "b": [
+        1
+      ],
+      "c": [
+        3
+      ]
+    }
+    """
+
     return {key: s[s.index == key].to_list() for key in s.index.unique()}
