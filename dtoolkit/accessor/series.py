@@ -616,7 +616,7 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
 def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
-    :key:`dict`.
+    :class:`dict`.
 
     Returns
     -------
@@ -624,7 +624,7 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
 
     Notes
     -----
-    The same key of values would be merged into :key:`list`.
+    The same key of values would be merged into :class:`list`.
 
     Examples
     --------
