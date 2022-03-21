@@ -836,15 +836,36 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
             ]
         }
     }
+
+    Also could convert one column DataFrame.
+
+    >>> print(json.dumps(df[["x"]].values_to_dict(), indent=4))
+    {
+        "0": [
+            "A"
+        ],
+        "1": [
+            "A"
+        ],
+        "2": [
+            "B"
+        ],
+        "3": [
+            "B"
+        ],
+        "4": [
+            "B"
+        ]
+    }
     """
 
-    if df.shape[1] == 1:  # one column DataFrame
+    if df.shape[1] == 1:  # one columns DataFrame
         return df.to_series().values_to_dict()
 
     def _dict(df: pd.DataFrame) -> dict:
         key_column, *value_column = df.columns
 
-        if df.shape[1] == 2:
+        if df.shape[1] == 2:  # two column DataFrame
             return df.to_series(
                 index_column=key_column,
                 value_column=value_column[0],
