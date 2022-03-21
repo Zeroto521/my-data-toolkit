@@ -618,11 +618,13 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :key:`dict`.
 
-    The same key of values would be merged into :key:`list`.
-
     Returns
     -------
     dict : {index: [values]}
+
+    Notes
+    -----
+    The same key of values would be merged into :key:`list`.
 
     Examples
     --------
