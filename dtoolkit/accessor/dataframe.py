@@ -14,7 +14,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import cols as s_cols
 from dtoolkit.accessor.series import expand as s_expand
 from dtoolkit.accessor.series import top_n as s_top_n
-from dtoolkit.accessor.series import values_to_dict as s_values_to_dict
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
 
 
 if TYPE_CHECKING:
