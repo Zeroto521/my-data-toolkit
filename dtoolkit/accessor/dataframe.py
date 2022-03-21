@@ -751,6 +751,93 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
 
 @register_dataframe_method
 def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
+    """
+    Convert :attr:`~pandas.DataFrame.values` to :class:`dict`.
+
+    Parameters
+    ----------
+    few_as_key : bool, default True
+        If True the key would be the few unique of column values first.
+
+    Returns
+    -------
+    dict
+
+    See Also
+    --------
+    dtoolkit.accessor.series.values_to_dict
+
+    Notes
+    -----
+    The same key of values would be merged into :class:`list`.
+
+    Examples
+    --------
+    >>> import json
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "y" : ["a", "b", "c", "d", "d"],
+    ...         "x" : ["A", "A", "B", "B", "B"],
+    ...         "z" : [1, 2, 3, 3, 4],
+    ...     }
+    ... )
+    >>> df
+       y  x  z
+    0  a  A  1
+    1  b  A  2
+    2  c  B  3
+    3  d  B  3
+    4  d  B  4
+    >>> print(json.dumps(df.values_to_dict(), indent=4))
+    {
+        "A": {
+            "a": [
+                1
+            ],
+            "b": [
+                2
+            ]
+        },
+        "B": {
+            "c": [
+                3
+            ],
+            "d": [
+                3,
+                4
+            ]
+        }
+    }
+    >>> print(json.dumps(df.values_to_dict(few_as_key=False), indent=4))
+    {
+        "a": {
+            "1": [
+                "A"
+            ]
+        },
+        "b": {
+            "2": [
+                "A"
+            ]
+        },
+        "c": {
+            "3": [
+                "B"
+            ]
+        },
+        "d": {
+            "3": [
+                "B"
+            ],
+            "4": [
+                "B"
+            ]
+        }
+    }
+    """
+
     if df.shape[1] == 1:  # one column DataFrame
         return df.to_series().values_to_dict()
 
@@ -764,12 +851,8 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
             ).values_to_dict()
 
         return {
-            key: _dict(
-                df.query(
-                    f"{key_column} == {key}",
-                ).get(value_column)
-            )
-            for key in df.get(key_column).unique()
+            key: _dict(df.loc[df[key_column] == key, value_column])
+            for key in df[key_column].unique()
         }
 
     return _dict(
