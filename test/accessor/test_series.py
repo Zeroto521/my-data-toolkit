@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-import dtoolkit.accessor.series # noqa
+import dtoolkit.accessor.series  # noqa
 
 
 class TestDropinf:
