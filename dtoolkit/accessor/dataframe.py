@@ -749,6 +749,7 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
     )
 
 
+
 @register_dataframe_method
 def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
     if df.shape[1] == 1:  # one column DataFrame
