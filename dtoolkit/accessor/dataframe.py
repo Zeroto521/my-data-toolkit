@@ -750,7 +750,7 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
 
 
 @register_dataframe_method
-def values_to_dict(df: pd.DataFrame, few_key_first: bool = True) -> dict:
+def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
     if df.shape[1] == 1:  # one column DataFrame
         return df.to_series().values_to_dict()
 
@@ -776,7 +776,7 @@ def values_to_dict(df: pd.DataFrame, few_key_first: bool = True) -> dict:
         df.get(
             df.unique_counts()
             .sort_values(
-                ascending=few_key_first,
+                ascending=few_as_key,
             )
             .index
         )
