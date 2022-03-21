@@ -700,7 +700,13 @@ def to_series(
         elif value_column not in df.columns:
             raise ValueError(f"{value_column} is not in the columns.")
 
-        return df.set_index(index_column).get(value_column).rename(name or value_column)
+        return (
+            df.set_index(index_column)
+            .get(value_column)
+            .rename(
+                name or value_column,
+            )
+        )
 
     return df
 
