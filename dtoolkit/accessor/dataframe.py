@@ -778,20 +778,21 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {
-    ...         "y" : ["a", "b", "c", "d", "d"],
     ...         "x" : ["A", "A", "B", "B", "B"],
+    ...         "y" : ["a", "b", "c", "d", "d"],
     ...         "z" : [1, 2, 3, 3, 4],
     ...     }
     ... )
     >>> df
-       y  x  z
-    0  a  A  1
-    1  b  A  2
-    2  c  B  3
-    3  d  B  3
-    4  d  B  4
+       x  y  z
+    0  A  a  1
+    1  A  b  2
+    2  B  c  3
+    3  B  d  3
+    4  B  d  4
 
-    Use few unique of column values as key first.
+    Use few unique of column values as key first. The order of column unique values
+    is `x` < `y` < `z`. So the result will be ``{x: {y: [z]} }``.
 
     >>> print(json.dumps(df.values_to_dict(), indent=4))
     {
