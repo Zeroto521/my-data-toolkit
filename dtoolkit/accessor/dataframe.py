@@ -843,7 +843,8 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
         }
     }
 
-    Also could convert one column DataFrame.
+    Also could convert one column DataFrame. But ``few_as_key`` wouldn' work.
+    The result would be ``{index: [values]}``.
 
     >>> print(json.dumps(df[["x"]].values_to_dict(), indent=4))
     {
