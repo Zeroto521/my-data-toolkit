@@ -9,14 +9,14 @@ Series Accessor
 .. autosummary::
     :toctree: api/
 
-    cols
-    lens
     bin
-    expand
+    cols
     drop_inf
-    top_n
     error_report
     get_attr
+    expand
+    lens
+    top_n
 
 
 DataFrame Accessor
@@ -26,12 +26,13 @@ DataFrame Accessor
     :toctree: api/
 
     cols
-    expand
     drop_inf
+    expand
     filter_in
     repeat
     top_n
     to_series
+    unique_counts
 
 
 Pandas Method Register

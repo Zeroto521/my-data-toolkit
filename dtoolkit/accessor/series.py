@@ -12,7 +12,9 @@ from dtoolkit.accessor.register import register_series_method
 if TYPE_CHECKING:
     from typing import Any
 
+    from dtoolkit._typing import IntOrStr
     from dtoolkit._typing import OneDimArray
+    from dtoolkit._typing import Number
 
 
 @register_series_method
@@ -307,7 +309,7 @@ def top_n(
 )
 def expand(
     s: pd.Series,
-    suffix: list[str | int] | None = None,
+    suffix: list[IntOrStr] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -371,7 +373,7 @@ def expand(
 
 @register_series_method(name="len")
 @register_series_method
-def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.Series:
+def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
@@ -380,7 +382,7 @@ def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.S
 
     Parameters
     ----------
-    number : int or None, default '1'
+    number : int, default 1
         The default length of `number` type.
     other : int or None, default None
         The default length of `other` type.
@@ -449,8 +451,8 @@ def lens(s: pd.Series, number: int | None = 1, other: int | None = None) -> pd.S
 @register_series_method
 def error_report(
     s: pd.Series,
-    predicted: OneDimArray | list[int | float],
-    columns: list[str | int] | None = None,
+    predicted: OneDimArray | list[Number],
+    columns: list[IntOrStr] = None,
 ) -> pd.DataFrame:
     """
     Calculate `absolute error` and `relative error` of two columns.

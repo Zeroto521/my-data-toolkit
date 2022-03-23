@@ -11,14 +11,16 @@ from dtoolkit.accessor.register import register_dataframe_method
 if TYPE_CHECKING:
     from pyproj import CRS
 
+    from dtoolkit._typing import IntOrStr
+
 
 @register_dataframe_method
 def points_from_xy(
     df: pd.DataFrame,
     x: str,
     y: str,
-    z: str | None = None,
-    crs: CRS | str | int | None = None,
+    z: str = None,
+    crs: CRS | IntOrStr = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """

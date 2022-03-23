@@ -18,6 +18,8 @@ from dtoolkit.accessor.series import top_n as s_top_n
 if TYPE_CHECKING:
     from typing import Iterable
 
+    from dtoolkit._typing import IntOrStr
+
 
 @register_dataframe_method
 @doc(
@@ -31,17 +33,17 @@ if TYPE_CHECKING:
     """,
     ),
 )
-def cols(df: pd.DataFrame) -> list[str | int]:
+def cols(df: pd.DataFrame) -> list[IntOrStr]:
     return df.columns.tolist()
 
 
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
-    axis: int | str = 0,
+    axis: IntOrStr = 0,
     how: str = "any",
     inf: str = "all",
-    subset: list[str] | None = None,
+    subset: list[str] = None,
     inplace: bool = False,
 ) -> pd.DataFrame | None:
     """
@@ -71,6 +73,7 @@ def drop_inf(
     subset : array-like, optional
         Labels along other axis to consider, e.g. if you are dropping rows
         these would be a list of columns to include.
+
     inplace : bool, default False
         If True, do operation inplace and return None.
 
@@ -175,7 +178,7 @@ def drop_inf(
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: int | str = 0,
+    axis: IntOrStr = 0,
     how: str = "all",
     inplace: bool = False,
 ) -> pd.DataFrame | None:
@@ -316,7 +319,7 @@ def filter_in(
 def repeat(
     df: pd.DataFrame,
     repeats: int | list[int],
-    axis: int | str = 0,
+    axis: IntOrStr = 0,
 ) -> pd.DataFrame | None:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.
@@ -591,7 +594,7 @@ def top_n(
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list[str | int] | None = None,
+    suffix: list[IntOrStr] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -609,48 +612,130 @@ def expand(
 
 
 @register_dataframe_method
-def to_series(df: pd.DataFrame, name: str | int = None) -> SeriesOrFrame:
+def to_series(
+    df: pd.DataFrame,
+    name: IntOrStr = None,
+    index_column: IntOrStr = None,
+    value_column: IntOrStr = None,
+) -> SeriesOrFrame:
     """
-    Transform one column :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
+    Convert :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
 
     Parameters
     ----------
     name : str or int, optional
-        The name of returned Series
+        The name of returned Series.
+    index_column : str or int, optional
+        The Series's index.
+    value_column : str or int, optional
+        The Series's value.
 
     Returns
     -------
     Series or DataFrame
-        Series if ``df`` is one column else would be DataFrame.
+
+    Raises
+    ------
+    ValueError
+        - If ``index_column`` is same to ``value_column``.
+        - If ``index_column`` is not in the columns.
+        - If ``value_column`` is not in the columns.
 
     Examples
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
+
+    Convert one column DataFrame to Series.
+
     >>> df = pd.DataFrame(range(3))
     >>> df
        0
     0  0
     1  1
     2  2
-    >>> df.to_series()
+    >>> df.to_series(name="new name")
     0    0
     1    1
     2    2
-    Name: 0, dtype: int64
-    >>> df = pd.DataFrame({'a': [1, 2]})
+    Name: new name, dtype: int64
+
+    Can't directly convert two or more columns DataFrame
+
+    >>> df = pd.DataFrame({"a": range(3), "b": range(3, 6), "c": range(6, 9)})
     >>> df
-       a
-    0  1
-    1  2
+       a  b  c
+    0  0  3  6
+    1  1  4  7
+    2  2  5  8
     >>> df.to_series()
-    0    1
-    1    2
-    Name: a, dtype: int64
+       a  b  c
+    0  0  3  6
+    1  1  4  7
+    2  2  5  8
+
+    Convert to Series with ``index_column`` and ``value_column`` are **both** set.
+    A sugar syntax for ``df.set_index(index_column).get(value_column)``.
+
+    >>> df.to_series(index_column="b", value_column="c")
+    b
+    3    6
+    4    7
+    5    8
+    Name: c, dtype: int64
     """
 
     if df.shape[1] == 1:  # one column DataFrame
         column = df.columns[0]
         return df.get(column).rename(name or column)
 
+    # two and more columns DataFrame
+    elif index_column and value_column:
+        if index_column == value_column:
+            raise ValueError("'index_column' and 'value_column' should be different.")
+        elif index_column not in df.columns:
+            raise ValueError(f"{index_column} is not in the columns.")
+        elif value_column not in df.columns:
+            raise ValueError(f"{value_column} is not in the columns.")
+
+        return df.set_index(index_column).get(value_column).rename(name or value_column)
+
     return df
+
+
+@register_dataframe_method
+def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
+    """
+    Count unique values for each column or row.
+
+    Parameters
+    ----------
+    axis : {0 or 'index', 1 or 'columns'}, default 0
+        - If 0 or 'index' counts are generated for each column.
+        - If 1 or 'columns' counts are generated for each row.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({"a": [1, 1, 2], "b": [1, 3, 4]})
+    >>> df
+       a  b
+    0  1  1
+    1  1  3
+    2  2  4
+    >>> df.unique_counts()
+    a    2
+    b    3
+    dtype: int64
+    >>> df.unique_counts(1)
+    0    1
+    1    2
+    2    2
+    dtype: int64
+    """
+
+    return df.apply(
+        lambda x: len(x.unique()),
+        axis=df._get_axis_number(axis),
+    )
