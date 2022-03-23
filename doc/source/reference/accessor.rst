@@ -17,6 +17,7 @@ Series Accessor
     expand
     lens
     top_n
+    values_to_dict
 
 
 DataFrame Accessor
@@ -33,6 +34,7 @@ DataFrame Accessor
     top_n
     to_series
     unique_counts
+    values_to_dict
 
 
 Pandas Method Register

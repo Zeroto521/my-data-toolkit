@@ -5,11 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.series import bin  # noqa
-from dtoolkit.accessor.series import drop_inf  # noqa
-from dtoolkit.accessor.series import error_report  # noqa
-from dtoolkit.accessor.series import get_attr  # noqa
-from dtoolkit.accessor.series import top_n  # noqa
+import dtoolkit.accessor.series  # noqa
 
 
 class TestDropinf:
