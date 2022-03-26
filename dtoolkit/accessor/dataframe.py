@@ -447,6 +447,11 @@ def top_n(
         - The default structure of value is ``{column index}`` and could be
           controlled via ``element``.
 
+    Raises
+    ------
+    ValueError
+        If ``element`` isn't "both", "index" or "value".
+
     See Also
     --------
     dtoolkit.accessor.dataframe.expand
