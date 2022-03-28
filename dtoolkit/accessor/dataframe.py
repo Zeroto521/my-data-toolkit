@@ -702,7 +702,7 @@ def to_series(
 
         return (
             df.set_index(index_column)
-            .get(value_column)
+            .loc[:, value_column]
             .rename(
                 name or value_column,
             )
