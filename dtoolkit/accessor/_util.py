@@ -72,8 +72,8 @@ def collapse(iterable: Iterable):
         except TypeError:
             yield node
             return
-        else:
-            for child in tree:
-                yield from walk(child)
+
+        for child in tree:
+            yield from walk(child)
 
     yield from walk(iterable)
