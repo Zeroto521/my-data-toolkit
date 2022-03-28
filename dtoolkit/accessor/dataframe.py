@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from typing import Iterable
 
     from dtoolkit._typing import IntOrStr
+    from sklearn.base import TransformerMixin
 
 
 @register_dataframe_method
@@ -893,3 +894,45 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
             .index,
         ),
     )
+
+
+@register_dataframe_method
+def decompose(
+    df: pd.DataFrmae,
+    method: TransformerMixin,
+    mapper: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr]] | pd.Series,
+    drop: bool = False,
+    inplace: bool = False,
+    **kwargs,
+) -> SeriesOrFrame | None:
+    from dtoolkit.accessor._util import collapse
+
+    if isinstance(mapper, pd.Series):
+        mapper = mapper.values_to_dict()
+
+    result = (
+        pd.DataFrame(
+            np.hstack(
+                [
+                    method(
+                        len(key) if isinstance(key, tuple) else 1,
+                        **kwargs,
+                    ).fit_transform(df[value])
+                    for key, value in mapper.items()
+                ],
+            ),
+            index=df.index,
+            columns=list(collapse(mapper.keys())),
+        )
+        .join(df)
+    )
+
+    if drop:
+        result = result.drop(columns=list(collapse(mapper.values())))
+
+    result = result.to_series()
+
+    if not inplace:
+        return result
+
+    df._update_inplace(result)
