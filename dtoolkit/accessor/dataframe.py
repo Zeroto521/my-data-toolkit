@@ -602,7 +602,7 @@ def expand(
 ) -> pd.DataFrame:
     return pd.concat(
         (
-            df.get(key=column).expand(
+            df.get(column).expand(
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,
