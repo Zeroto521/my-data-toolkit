@@ -900,37 +900,67 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
 def decompose(
     df: pd.DataFrmae,
     method: TransformerMixin,
-    mapper: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr]] | pd.Series,
+    columns: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
+    | list[IntOrStr]
+    | tuple[IntOrStr]
+    | None = None,
     drop: bool = False,
     inplace: bool = False,
     **kwargs,
 ) -> SeriesOrFrame | None:
     from dtoolkit.accessor._util import collapse
 
-    if isinstance(mapper, pd.Series):
-        mapper = mapper.values_to_dict()
+    def drop_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> SeriesOrFrame:
+        return df.drop(**kwargs) if drop else df
 
-    result = (
-        pd.DataFrame(
-            np.hstack(
-                [
-                    method(
-                        len(key) if isinstance(key, tuple) else 1,
-                        **kwargs,
-                    ).fit_transform(df[value])
-                    for key, value in mapper.items()
-                ],
-            ),
+    if columns is None:
+        result = pd.DataFrame(
+            method(*kwargs).fit_transform(df),
             index=df.index,
-            columns=list(collapse(mapper.keys())),
+            columns=df.columns,
+        ).to_series()
+
+    if isinstance(columns, (list, tuple)):
+        result = (
+            pd.DataFrame(
+                method(*kwargs).fit_transform(df[columns]),
+                index=df.index,
+                columns=columns,
+            )
+            .combine_first(
+                df.pipe(
+                    drop_or_not,
+                    drop=drop,
+                    columns=columns,
+                )
+            )
+            .to_series()
         )
-        .join(df)
-    )
 
-    if drop:
-        result = result.drop(columns=list(collapse(mapper.values())))
-
-    result = result.to_series()
+    elif isinstance(columns, dict):
+        result = (
+            pd.DataFrame(
+                np.hstack(
+                    [
+                        method(
+                            len(key) if isinstance(key, tuple) else 1,
+                            **kwargs,
+                        ).fit_transform(df[value])
+                        for key, value in columns.items()
+                    ],
+                ),
+                index=df.index,
+                columns=list(collapse(columns.keys())),
+            )
+            .combine_first(
+                df.pipe(
+                    drop_or_not,
+                    drop=drop,
+                    columns=list(collapse(columns.values())),
+                )
+            )
+            .to_series()
+        )
 
     if not inplace:
         return result
