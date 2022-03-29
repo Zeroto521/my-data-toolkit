@@ -909,6 +909,34 @@ def decompose(
     inplace: bool = False,
     **kwargs,
 ) -> SeriesOrFrame | None:
+    """
+    Decompose DataFrame's columns.
+
+    Parameters
+    ----------
+    method : TransformerMixin
+    columns : dict, Series, list, tuple or None, default None
+    drop : bool, default False
+    inplace : bool, default False
+    **kwargs
+
+    Returns
+    -------
+    Series or DataFrame
+        The decomposed data.
+
+    See Also
+    --------
+    sklearn.decomposition
+        Scikit-learn's matrix decomposition transformer.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> from sklearn import decomposition
+    """
+
     from dtoolkit.accessor._util import collapse
 
     def drop_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> SeriesOrFrame:
