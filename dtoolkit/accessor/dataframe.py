@@ -908,7 +908,7 @@ def decompose(
     drop: bool = False,
     inplace: bool = False,
     **kwargs,
-) -> SeriesOrFrame | None:
+) -> pd.DataFrame | None:
     """
     Decompose DataFrame's columns.
 
@@ -922,8 +922,8 @@ def decompose(
 
     Returns
     -------
-    Series or DataFrame
-        The decomposed data.
+    DataFrame or None
+        If inplace is False will return the decomposed data.
 
     See Also
     --------
@@ -947,7 +947,7 @@ def decompose(
             method(*kwargs).fit_transform(df),
             index=df.index,
             columns=df.columns,
-        ).to_series()
+        )
 
     if isinstance(columns, (list, tuple)):
         result = (
@@ -963,7 +963,6 @@ def decompose(
                     columns=columns,
                 )
             )
-            .to_series()
         )
 
     elif isinstance(columns, (dict, pd.Series)):
@@ -991,7 +990,6 @@ def decompose(
                     columns=list(collapse(columns.values())),
                 )
             )
-            .to_series()
         )
 
     if not inplace:
