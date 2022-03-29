@@ -901,6 +901,7 @@ def decompose(
     df: pd.DataFrmae,
     method: TransformerMixin,
     columns: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
+    | pd.Series
     | list[IntOrStr]
     | tuple[IntOrStr]
     | None = None,
@@ -937,7 +938,10 @@ def decompose(
             .to_series()
         )
 
-    elif isinstance(columns, dict):
+    elif isinstance(columns, (dict, pd.Series)):
+        if isinstance(columns, pd.Series):
+            columns = columns.values_to_dict()
+
         result = (
             pd.DataFrame(
                 np.hstack(
