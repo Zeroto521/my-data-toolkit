@@ -46,14 +46,14 @@ Highlights of this release:
 
 - One column data pipeline supports return `Series` ({pr}`431`).
 
+API changes:
+
+- Add `DeprecationWarning` for {class}`dtoolkit.transformer.MinMaxScaler` ({pr}`449`).
+
 Documentation:
 
 - New documentation, [Register a Method as the Original Attribute of Pandas Object](https://my-data-toolkit.readthedocs.io/en/v0.0.12/guide/tips_about_accessor.html) ({pr}`445`).
 - Correct jupyter link ({pr}`444`).
-
-API changes:
-
-- Add `DeprecationWarning` for {class}`dtoolkit.transformer.MinMaxScaler` ({pr}`449`).
 
 Maintenance development:
 
