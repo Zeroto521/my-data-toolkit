@@ -2,6 +2,7 @@ from test.accessor.conftest import s
 from test.accessor.conftest import s_inf
 
 import numpy as np
+import pandas as pd
 import pytest
 
 import dtoolkit.accessor.series  # noqa
