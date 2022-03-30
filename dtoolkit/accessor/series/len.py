@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pandas as pd
+from pandas.api.types import is_number
 
 from dtoolkit.accessor.register import register_series_method
 
@@ -69,14 +70,14 @@ def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     6    0
     dtype: int64
     """
-    from pandas.api.types import is_number
 
-    def wrap_len(x) -> int | None:
-        if hasattr(x, "__len__"):
-            return len(x)
-        elif is_number(x):
-            return number
+    return s.apply(_wrap_len, number=number, other=other)
 
-        return other
 
-    return s.apply(wrap_len)
+def _wrap_len(x, number: int, other: int | None) -> int | None:
+    if hasattr(x, "__len__"):
+        return len(x)
+    elif is_number(x):
+        return number
+
+    return other

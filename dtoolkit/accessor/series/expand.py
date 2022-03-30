@@ -13,6 +13,10 @@ if TYPE_CHECKING:
 
     from dtoolkit._typing import IntOrStr
 
+from pandas.api.types import is_list_like
+
+from dtoolkit.accessor._util import collapse
+
 
 @register_series_method
 @doc(
@@ -104,18 +108,8 @@ def expand(
     {see_also}
     {examples}
     """
-    from pandas.api.types import is_list_like
 
-    from dtoolkit.accessor._util import collapse
-
-    def wrap_collapse(x) -> list[Any]:
-        if is_list_like(x):
-            if flatten:
-                return list(collapse(x))
-            return x
-        return [x]
-
-    s_list = s.apply(wrap_collapse)
+    s_list = s.apply(_wrap_collapse, flatten=flatten)
     s_len = s_list.len()
     if all(s_len == 1):
         return s
@@ -135,3 +129,9 @@ def expand(
         index=s.index,
         columns=columns[:max_len],
     ).add_prefix(s.name + delimiter)
+
+
+def _wrap_collapse(x, flatten: bool) -> list[Any]:
+    if is_list_like(x):
+        return list(collapse(x)) if flatten else x
+    return [x]

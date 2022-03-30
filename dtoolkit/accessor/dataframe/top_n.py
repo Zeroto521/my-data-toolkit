@@ -116,7 +116,7 @@ def top_n(
     3       a       b       c
     """
 
-    if element not in ("both", "index", "value"):
+    if element not in {"both", "index", "value"}:
         raise ValueError('element must be either "both", "index" or "value"')
 
     def wrap_s_top_n(*args, **kwargs) -> pd.Series:

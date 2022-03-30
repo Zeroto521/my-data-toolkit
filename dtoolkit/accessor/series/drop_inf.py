@@ -4,6 +4,7 @@ import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor._util import get_inf_range
 
 
 @register_series_method
@@ -64,7 +65,6 @@ def drop_inf(
     1    2.0
     dtype: float64
     """
-    from dtoolkit.accessor._util import get_inf_range
 
     inplace = validate_bool_kwarg(inplace, "inplace")
     inf_range = get_inf_range(inf)

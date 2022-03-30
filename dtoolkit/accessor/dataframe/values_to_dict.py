@@ -127,20 +127,6 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
     if df.shape[1] == 1:  # one columns DataFrame
         return df.to_series().values_to_dict()
 
-    def _dict(df: pd.DataFrame) -> dict:
-        key_column, *value_column = df.columns
-
-        if df.shape[1] == 2:  # two column DataFrame
-            return df.to_series(
-                index_column=key_column,
-                value_column=value_column[0],
-            ).values_to_dict()
-
-        return {
-            key: _dict(df.loc[df[key_column] == key, value_column])
-            for key in df[key_column].unique()
-        }
-
     return _dict(
         df.get(
             df.unique_counts()
@@ -150,3 +136,18 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
             .index,
         ),
     )
+
+
+def _dict(df: pd.DataFrame) -> dict:
+    key_column, *value_column = df.columns
+
+    if df.shape[1] == 2:  # two column DataFrame
+        return df.to_series(
+            index_column=key_column,
+            value_column=value_column[0],
+        ).values_to_dict()
+
+    return {
+        key: _dict(df.loc[df[key_column] == key, value_column])
+        for key in df[key_column].unique()
+    }

@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -123,7 +124,6 @@ def drop_inf(
            name        toy                 born
     1    Batman  Batmobile  1940-04-25 00:00:00
     """
-    from dtoolkit.accessor._util import get_inf_range
 
     inplace = validate_bool_kwarg(inplace, "inplace")
 
