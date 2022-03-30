@@ -1015,7 +1015,7 @@ def decompose(
 
     from dtoolkit.accessor._util import collapse
 
-    def drop_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> SeriesOrFrame:
+    def drop_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> pd.DataFrame:
         return df.drop(**kwargs) if drop else df
 
     if columns is None:
