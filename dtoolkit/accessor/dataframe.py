@@ -602,7 +602,7 @@ def expand(
 ) -> pd.DataFrame:
     return pd.concat(
         (
-            df.get(key=column).expand(
+            df.get(column).expand(
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,
@@ -702,7 +702,7 @@ def to_series(
 
         return (
             df.set_index(index_column)
-            .get(value_column)
+            .loc[:, value_column]
             .rename(
                 name or value_column,
             )
