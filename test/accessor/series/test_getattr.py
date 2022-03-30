@@ -1,5 +1,3 @@
-from test.accessor.conftest import s
-
 import pandas as pd
 import pytest
 
