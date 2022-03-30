@@ -116,6 +116,7 @@ def test_single_index_work(
     excepted = pd.DataFrame(excepted)
     assert result.equals(excepted)
 
+
 @pytest.mark.parametrize(
     "n, keep, excepted",
     [
@@ -150,6 +151,7 @@ def test_duplicate_dataframe(n, keep, excepted):
     excepted = pd.DataFrame(excepted)
 
     assert result.equals(excepted)
+
 
 @pytest.mark.parametrize(
     "df, n, excepted",
@@ -195,6 +197,7 @@ def test_multi_index(df, n, excepted):
 
     assert result.equals(excepted)
 
+
 def test_element_error():
     df = pd.DataFrame(
         {
@@ -206,4 +209,3 @@ def test_element_error():
 
     with pytest.raises(ValueError):
         df.top_n(1, element="whatever")
-
