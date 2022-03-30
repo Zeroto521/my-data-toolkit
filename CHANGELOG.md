@@ -1,5 +1,43 @@
 # Changelog
 
+## [Version 0.0.13] (2022-4-2)
+
+New features and improvements:
+
+- New method {meth}`dtoolkit.accessor.dataframe.values_to_dict` ({pr}`470`).
+- New method {meth}`dtoolkit.accessor.dataframe.unique_counts` ({pr}`469`).
+- {meth}`dtoolkit.accessor.dataframe.to_series` could convert two or more columns DataFrame ({pr}`468`).
+
+API changes:
+
+- Array in array out ({pr}`460`).
+- `OneHotEncoder`'s `fit_transform` use inputting's index ({pr}`458`).
+- Let `Pipeline`'s `fit_transform` supports `Series` ({pr}`457`).
+
+Small bug-fix:
+
+- Fix jupyter notebook can't render ({pr}`438`).
+
+Documentation:
+
+- Rename sphinx project name from 'dtoolkit' to 'my data toolkit' ({pr}`454`).
+- Add 'feature' section at documentation homepage ({pr}`452`).
+
+Maintenance development:
+
+- Update versioneer ({pr}`471`).
+- Autoupdate pre-commit hooks ({pr}`464`).
+- Autoupdate actions ({pr}`462`, {pr}`463`, {pr}`472`).
+- Yaml file uses list item replace `[]` ({pr}`461`).
+- Group test suits ({pr}`459`).
+- Move all data to conftest.py ({pr}`453`).
+
+Typing annotations:
+
+- Specific `None` type using ({pr}`467`).
+- Specific `None` type ({pr}`466`).
+- Add `Number` and `IntOrStr` annotation constants ({pr}`465`).
+
 ## [Version 0.0.12] (2022-2-11)
 
 Specific pandas minimal version to each python version ({pr}`440`).
@@ -330,6 +368,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.13]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.12...v0.0.13
 [Version 0.0.12]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.11...v0.0.12
 [Version 0.0.11]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.10...v0.0.11
 [Version 0.0.10]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.9...v0.0.10
