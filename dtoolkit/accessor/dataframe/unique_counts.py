@@ -47,4 +47,3 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
         lambda x: len(x.unique()),
         axis=df._get_axis_number(axis),
     )
-

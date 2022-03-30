@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from dtoolkit._typing import OneDimArray
     from dtoolkit._typing import Number
 
+
 @register_series_method
 def error_report(
     s: pd.Series,

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
     from dtoolkit._typing import IntOrStr
 
+
 @register_series_method
 @doc(
     see_also=dedent(

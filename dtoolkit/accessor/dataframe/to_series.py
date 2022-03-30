@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
 
 
-
 @register_dataframe_method
 def to_series(
     df: pd.DataFrame,
