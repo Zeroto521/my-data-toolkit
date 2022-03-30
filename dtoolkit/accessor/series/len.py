@@ -76,7 +76,7 @@ def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
 
 def _wrap_len(x, number: int, other: int | None) -> int | None:
     if hasattr(x, "__len__"):
-        return len(x)
+        return x.__len__()
     elif is_number(x):
         return number
 
