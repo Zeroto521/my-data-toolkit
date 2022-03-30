@@ -91,7 +91,7 @@ def expand(
                 delimiter=delimiter,
                 flatten=flatten,
             )
-            for column in df.columns
+            for column in df
         ),
         axis=1,
     )
