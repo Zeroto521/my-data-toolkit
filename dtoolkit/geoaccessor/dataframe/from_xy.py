@@ -51,6 +51,7 @@ def from_xy(
     --------
     geopandas.points_from_xy
     geopandas.GeoSeries.from_xy
+    dtoolkit.geoaccessor.datafrme.from_wkt
 
     Notes
     -----
@@ -70,7 +71,7 @@ def from_xy(
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
 
-    Drop original 'x' and 'y'.
+    Drop original 'x' and 'y' columns.
 
     >>> df.points_from_xy("x", "y", drop=True)
     0    POINT (122.00000 55.00000)
