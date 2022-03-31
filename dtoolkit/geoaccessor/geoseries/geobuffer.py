@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-import pygeos
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import get_attr  # noqa
@@ -18,6 +17,7 @@ if TYPE_CHECKING:
 
 from pandas.api.types import is_list_like
 from pandas.api.types import is_number
+
 
 @register_geoseries_method
 @doc(
@@ -123,4 +123,3 @@ def geobuffer(
         .rename(s.name)
         .set_crs(s.crs)
     )
-

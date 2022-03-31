@@ -57,4 +57,3 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
             pygeos.from_shapely(x),
         ),
     )
-

@@ -56,10 +56,10 @@ def geobuffer(
     distance: Number | list[Number] | OneDimArray,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-    
+
     return df.assign(
         geometry=df.geometry.geobuffer(
             distance,
             **kwargs,
-        )
+        ),
     )

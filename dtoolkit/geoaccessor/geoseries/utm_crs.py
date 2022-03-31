@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
+from pyproj.aoi import AreaOfInterest
+from pyproj.database import query_utm_crs_info
 
 from dtoolkit.accessor.series import get_attr  # noqa
 from dtoolkit.geoaccessor.register import register_geoseries_method
-
-from pyproj.aoi import AreaOfInterest
-from pyproj.database import query_utm_crs_info
 
 
 @register_geoseries_method
