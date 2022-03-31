@@ -1,4 +1,6 @@
-from .count_coordinates import count_coordinates  # noqa
-from .geobuffer import geobuffer # noqa
-from .get_coordinates import get_coordinates  # noqa
-from .utm_crs import utm_crs  # noqa
+from dtoolkit.geoaccessor.geodataframe.count_coordinates import (  # noqa
+    count_coordinates,
+)
+from dtoolkit.geoaccessor.geodataframe.geobuffer import geobuffer  # noqa
+from dtoolkit.geoaccessor.geodataframe.get_coordinates import get_coordinates  # noqa
+from dtoolkit.geoaccessor.geodataframe.utm_crs import utm_crs  # noqa
