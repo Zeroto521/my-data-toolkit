@@ -1,7 +1,6 @@
 from test.accessor.conftest import d
 
 import numpy as np
-import pandas as pd
 import pytest
 
 import dtoolkit.accessor.dataframe  # noqa
