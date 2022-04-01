@@ -5,9 +5,9 @@
 New features and improvements:
 
 - Use `.loc[:, wrong_keys]` instead of `.get(wrong_keys)` ({pr}`473`).
-- New method {meth}`dtoolkit.accessor.dataframe.values_to_dict` ({pr}`470`).
-- New method {meth}`dtoolkit.accessor.dataframe.unique_counts` ({pr}`469`).
-- {meth}`dtoolkit.accessor.dataframe.to_series` could convert two or more columns DataFrame ({pr}`468`).
+- New method {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`470`).
+- New method {meth}`~dtoolkit.accessor.dataframe.unique_counts` ({pr}`469`).
+- {meth}`~dtoolkit.accessor.dataframe.to_series` could convert two or more columns DataFrame ({pr}`468`).
 
 API changes:
 
