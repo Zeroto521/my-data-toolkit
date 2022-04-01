@@ -14,6 +14,7 @@ API changes:
 - Array in array out ({pr}`460`).
 - `OneHotEncoder`'s `fit_transform` use inputting's index ({pr}`458`).
 - Let `Pipeline`'s `fit_transform` supports `Series` ({pr}`457`).
+- DEP: drop `dtoolkit.transformer.MinMaxScaler`({pr}`451`).
 
 Small bug-fix:
 
@@ -31,6 +32,7 @@ Maintenance development:
 - Autoupdate actions ({pr}`462`, {pr}`463`, {pr}`472`).
 - Yaml file uses list item replace `[]` ({pr}`461`).
 - Group test suits ({pr}`459`).
+- Handle `GeoSeries` FutureWarning ({pr}`456`).
 - Move all data to conftest.py ({pr}`453`).
 
 Typing annotations:
