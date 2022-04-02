@@ -65,14 +65,14 @@ def from_xy(
          x   y
     0  122  55
     1  100   1
-    >>> df.points_from_xy("x", "y", crs="EPSG:4326")
+    >>> df.from_xy("x", "y", crs="EPSG:4326")
          x   y                    geometry
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
 
     Drop original 'x' and 'y'.
 
-    >>> df.points_from_xy("x", "y", drop=True)
+    >>> df.points_from_xy("x", "y", drop=True, crs=4326)
     0    POINT (122.00000 55.00000)
     1     POINT (100.00000 1.00000)
     Name: geometry, dtype: geometry
