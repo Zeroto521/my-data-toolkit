@@ -7,20 +7,28 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def bin(
-    s: pd.Series,
-    bins,
-    labels=None,
-    right: bool = True,
-    retbins: bool = False,
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: str = "raise",
-    ordered: bool = False,
-    inplace: bool = False,
-) -> pd.Series | None:
+def bin(s: pd.Series, bins, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.
+
+    Parameters
+    ----------
+    bins : int, sequence of scalars, or IntervalIndex
+        The criteria to bin by.
+
+        - int : Defines the number of equal-width bins in the range of x.
+         The range of x is extended by .1% on each side to include the minimum and
+         maximum values of x.
+
+        - sequence of scalars : Defines the bin edges allowing for non-uniform width.
+         No extension of the range of x is done.
+
+        - IntervalIndex : Defines the exact bins to be used. Note that IntervalIndex
+         for bins must be non-overlapping.
+
+    Returns
+    -------
+    Series
 
     See Also
     --------
@@ -43,7 +51,7 @@ def bin(
         - (80, 90] -> B
         - (90, 100] -> A
 
-    >>> s.bin([0, 60, 70, 80, 90, 100], ['E', 'D', 'C', 'B', 'A'], right=True)
+    >>> s.bin([0, 60, 70, 80, 90, 100], labels=['E', 'D', 'C', 'B', 'A'], right=True)
     0    A
     1    E
     2    E
@@ -51,23 +59,7 @@ def bin(
     4    B
     5    E
     dtype: category
-    Categories (5, object): ['E', 'D', 'C', 'B', 'A']
+    Categories (5, object): ['E' < 'D' < 'C' < 'B' < 'A']
     """
-    inplace = validate_bool_kwarg(inplace, "inplace")
 
-    result = pd.cut(
-        s,
-        bins=bins,
-        right=right,
-        labels=labels,
-        retbins=retbins,
-        precision=precision,
-        include_lowest=include_lowest,
-        duplicates=duplicates,
-        ordered=ordered,
-    )
-
-    if not inplace:
-        return result
-
-    s._update_inplace(result)
+    return pd.cut(s, bins, **kwargs)
