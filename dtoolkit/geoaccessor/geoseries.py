@@ -296,7 +296,9 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
     from pyproj.database import query_utm_crs_info
 
     return s.bounds.apply(
-        lambda bound: query_utm_crs_info(
+        lambda bound: None
+        if bound.isna().all()
+        else query_utm_crs_info(
             datum_name=datum_name,
             area_of_interest=AreaOfInterest(
                 west_lon_degree=bound["minx"],
@@ -304,8 +306,6 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
                 east_lon_degree=bound["maxx"],
                 north_lat_degree=bound["maxy"],
             ),
-        )[0]
-        if not bound.isna().all()
-        else None,
+        )[0],
         axis=1,
     )
