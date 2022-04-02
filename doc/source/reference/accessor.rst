@@ -27,6 +27,7 @@ DataFrame Accessor
     :toctree: api/
 
     cols
+    decompose
     drop_inf
     expand
     filter_in
