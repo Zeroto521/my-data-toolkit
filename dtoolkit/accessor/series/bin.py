@@ -26,13 +26,13 @@ def bin(s: pd.Series, bins, **kwargs) -> pd.Series:
         - IntervalIndex : Defines the exact bins to be used. Note that IntervalIndex
          for bins must be non-overlapping.
 
+    **kwargs
+        See the documentation for :meth:`pandas.cut` for complete details on the keyword
+        arguments.
+
     Returns
     -------
     Series
-
-    See Also
-    --------
-    pandas.cut: This accessor's prototype method.
 
     Examples
     --------
