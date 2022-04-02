@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 
 @register_dataframe_method("points_from_xy")
+@register_dataframe_method
 def from_xy(
     df: pd.DataFrame,
     x: str,
