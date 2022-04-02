@@ -29,6 +29,7 @@ DataFrame Accessor
     cols
     decompose
     drop_inf
+    drop_or_not
     expand
     filter_in
     repeat
