@@ -1,4 +1,5 @@
 from dtoolkit.accessor.dataframe.cols import cols  # noqa
+from dtoolkit.accessor.dataframe.decompose import decompose  # noqa
 from dtoolkit.accessor.dataframe.drop_inf import drop_inf  # noqa
 from dtoolkit.accessor.dataframe.expand import expand  # noqa
 from dtoolkit.accessor.dataframe.filter_in import filter_in  # noqa
