@@ -14,9 +14,9 @@ if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
 
 
-@register_dataframe_method("points_from_xy")
+@register_dataframe_method("from_xy")
 @register_dataframe_method
-def from_xy(
+def points_from_xy(
     df: pd.DataFrame,
     x: str,
     y: str,
