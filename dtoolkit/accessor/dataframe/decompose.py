@@ -5,14 +5,14 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
+from dtoolkit.accessor._util import collapse
+from dtoolkit.accessor.drop_or_not import drop_or_not  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
-
 
 if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
     from sklearn.base import TransformerMixin
-
 
 
 @register_dataframe_method
@@ -132,11 +132,6 @@ def decompose(
     5 -3.605304 -3 -2
     """
 
-    from dtoolkit.accessor._util import collapse
-
-    def drop_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> pd.DataFrame:
-        return df.drop(**kwargs) if drop else df
-
     if columns is None:
         result = pd.DataFrame(
             method(*kwargs).fit_transform(df),
@@ -150,11 +145,10 @@ def decompose(
             index=df.index,
             columns=columns,
         ).combine_first(
-            df.pipe(
-                drop_or_not,
+            df.drop_or_not(
                 drop=drop,
                 columns=columns,
-            )
+            ),
         )
 
     elif isinstance(columns, (dict, pd.Series)):
@@ -178,7 +172,7 @@ def decompose(
                 drop_or_not,
                 drop=drop,
                 columns=list(collapse(columns.values())),
-            )
+            ),
         )
 
     if not inplace:
