@@ -27,6 +27,8 @@ def from_xy(
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
 
+    This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
+
     Parameters
     ----------
     x: str
