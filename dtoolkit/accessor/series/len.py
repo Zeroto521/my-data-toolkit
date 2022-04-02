@@ -6,9 +6,8 @@ from pandas.api.types import is_number
 from dtoolkit.accessor.register import register_series_method
 
 
-@register_series_method(name="len")
 @register_series_method
-def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
+def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
