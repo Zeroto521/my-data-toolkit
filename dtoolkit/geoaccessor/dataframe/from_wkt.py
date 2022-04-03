@@ -26,6 +26,8 @@ def from_wkt(
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
 
+    A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkt`.
+
     Parameters
     ----------
     column: str
