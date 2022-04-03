@@ -3,10 +3,18 @@ from __future__ import annotations
 import pandas as pd
 from pandas.api.types import is_number
 
+from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
 
 
+@register_series_method("lens")
 @register_series_method
+@warning(
+    "'dtoolkit.accessor.series.lens' is deprecated and will be removed in 0.0.15. "
+    "Please use 'dtoolkit.accessor.series.len' instead. "
+    "(Warning added DToolKit 0.0.14)",
+    DeprecationWarning,
+)
 def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """
     Return the length of each element in the series.
@@ -18,6 +26,7 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     ----------
     number : int, default 1
         The default length of `number` type.
+
     other : int or None, default None
         The default length of `other` type.
 
