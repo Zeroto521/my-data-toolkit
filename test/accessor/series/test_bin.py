@@ -46,6 +46,7 @@ def test_work(bins, labels, right, excepted):
         bins=bins,
         labels=labels,
         right=right,
+        ordered=False,
     )
     excepted = pd.Series(
         excepted,
@@ -53,15 +54,3 @@ def test_work(bins, labels, right, excepted):
     )
 
     assert res.equals(excepted)
-
-
-def test_inplace_is_true():
-    s = pd.Series([1, 10, 20, 30, 40, 50])
-    res = s.bin([10, 20], ["a"], inplace=True)
-    excepted = pd.Series(
-        [np.nan, np.nan, "a", np.nan, np.nan, np.nan],
-        dtype="category",
-    )
-
-    assert res is None
-    assert s.equals(excepted)
