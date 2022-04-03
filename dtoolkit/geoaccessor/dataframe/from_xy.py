@@ -92,7 +92,7 @@ def from_xy(
     """
 
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=True, columns=[x, y, z] if z is not None else [x, y]),
+        df.drop_or_not(drop=drop, columns=[x, y, z] if z is not None else [x, y]),
         geometry=gpd.points_from_xy(
             df[x],
             df[y],
