@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 def register_method_factory(register_accessor):
     """
-    Decrease the same things via factory pattern.
+    Let pandas-object like accessor which only hooks class also hooks function easily.
 
     Read more in the `User Guide`_.
 
