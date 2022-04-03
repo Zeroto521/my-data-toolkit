@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -86,7 +87,7 @@ def from_wkt(
     """
 
     return gpd.GeoDataFrame(
-        (df.drop(columns=column) if drop else df),
+        df.drop_or_not(drop=drop, columns=column),
         geometry=gpd.GeoSeries.from_wkt(df[column]),
         crs=crs,
     ).to_series()
