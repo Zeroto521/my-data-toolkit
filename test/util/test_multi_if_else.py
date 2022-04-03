@@ -11,7 +11,7 @@ array = np.asarray(
     ],
 )
 mask = array == 0
-if_condition_return_lambda = lambda how: [
+if_condition_return_lambda = lambda how: [  # noqa E731
     (how == "any", mask.any()),
     (how == "all", mask.all()),
     (how is not None, ValueError(f"Invalid how option: {how}")),
