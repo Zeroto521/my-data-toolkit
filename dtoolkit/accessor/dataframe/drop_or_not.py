@@ -8,6 +8,10 @@ def drop_or_not(df: pd.DataFrame, drop: bool = True, **kwargs) -> pd.DataFrame:
     """
     Drop specified labels from rows or columns.
 
+    A sugary syntax wraps :meth:`~pandas.DataFrame.drop`::
+
+        df.drop(**kwargs) if drop else df
+
     Parameters
     ----------
     drop : bool, default True
@@ -16,10 +20,14 @@ def drop_or_not(df: pd.DataFrame, drop: bool = True, **kwargs) -> pd.DataFrame:
         See the documentation for :meth:`~pandas.DataFrame.drop` for complete
         details on the keyword arguments.
 
-    Returns`
+    Returns
     -------
     DataFrame
         If ``drop=True`` will execute else return the original.
+
+    See Also
+    --------
+    pandas.DataFrame.drop
 
     Examples
     --------

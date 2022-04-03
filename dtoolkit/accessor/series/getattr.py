@@ -22,7 +22,8 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     name : str
         The name of one of the Series element's attributes. If the named attribute
         does not exist, None is returned.
-    args, kwargs
+
+    *args, **kwargs
         The arguments of the function type attribute.
 
     Returns

@@ -1,30 +1,41 @@
 from __future__ import annotations
 
 import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def bin(
-    s: pd.Series,
-    bins,
-    labels=None,
-    right: bool = True,
-    retbins: bool = False,
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: str = "raise",
-    ordered: bool = False,
-    inplace: bool = False,
-) -> pd.Series | None:
+@warning(
+    "dtoolkit.accessor.series.bin's parameter 'ordered' default is "
+    "changed from 'False' to 'True'. (Warning added DToolKit 0.0.14)",
+)
+def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.
 
+    A sugary syntax wraps :meth:`~pandas.cut`::
+
+        pd.cut(s, *args, **kwargs)
+
+    .. warning::
+        The parameter ``ordered`` default is changed from 'False' to 'True'.
+        (Warning added DToolKit 0.0.14)
+
+    Parameters
+    ----------
+    *args, **kwargs
+        See the documentation for :meth:`pandas.cut` for complete details on
+        the positional arguments and the keyword arguments.
+
+    Returns
+    -------
+    Series
+
     See Also
     --------
-    pandas.cut: This accessor's prototype method.
+    pandas.cut
 
     Examples
     --------
@@ -43,7 +54,7 @@ def bin(
         - (80, 90] -> B
         - (90, 100] -> A
 
-    >>> s.bin([0, 60, 70, 80, 90, 100], ['E', 'D', 'C', 'B', 'A'], right=True)
+    >>> s.bin([0, 60, 70, 80, 90, 100], labels=['E', 'D', 'C', 'B', 'A'], right=True)
     0    A
     1    E
     2    E
@@ -51,23 +62,7 @@ def bin(
     4    B
     5    E
     dtype: category
-    Categories (5, object): ['E', 'D', 'C', 'B', 'A']
+    Categories (5, object): ['E' < 'D' < 'C' < 'B' < 'A']
     """
-    inplace = validate_bool_kwarg(inplace, "inplace")
 
-    result = pd.cut(
-        s,
-        bins=bins,
-        right=right,
-        labels=labels,
-        retbins=retbins,
-        precision=precision,
-        include_lowest=include_lowest,
-        duplicates=duplicates,
-        ordered=ordered,
-    )
-
-    if not inplace:
-        return result
-
-    s._update_inplace(result)
+    return pd.cut(s, *args, **kwargs)

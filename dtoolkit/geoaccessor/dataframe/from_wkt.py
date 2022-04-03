@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -14,12 +15,10 @@ if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
 
 
-@register_dataframe_method
-def points_from_xy(
+@register_dataframe_method()
+def from_wkt(
     df: pd.DataFrame,
-    x: str,
-    y: str,
-    z: str = None,
+    column: str,
     crs: CRS | IntOrStr = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
@@ -27,18 +26,18 @@ def points_from_xy(
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
 
+    A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkt`.
+
     Parameters
     ----------
-    x: str
-        ``df``'s column name.
-    y: str
-        ``df``'s column name.
-    z: str, optional
-        ``df``'s column name.
+    column: str
+        The name of WKT column.
+
     crs: CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
+
     drop: bool, default False
         Don't contain ``x``, ``y`` and ``z`` anymore.
 
@@ -49,8 +48,8 @@ def points_from_xy(
 
     See Also
     --------
-    geopandas.points_from_xy
-    geopandas.GeoSeries.from_xy
+    geopandas.GeoSeries.from_wkt
+    dtoolkit.geoaccessor.datafrme.from_xy
 
     Notes
     -----
@@ -60,36 +59,37 @@ def points_from_xy(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame({"x": [122, 100], "y":[55, 1]})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "wkt": [
+    ...             "POINT (1 1)",
+    ...             "POINT (2 2)",
+    ...             "POINT (3 3)",
+    ...         ]
+    ...     }
+    ... )
     >>> df
-         x   y
-    0  122  55
-    1  100   1
-    >>> df.points_from_xy("x", "y", crs="EPSG:4326")
-         x   y                    geometry
-    0  122  55  POINT (122.00000 55.00000)
-    1  100   1   POINT (100.00000 1.00000)
+               wkt
+    0  POINT (1 1)
+    1  POINT (2 2)
+    2  POINT (3 3)
+    >>> df.from_wkt("wkt", crs=4326)
+               wkt                 geometry
+    0  POINT (1 1)  POINT (1.00000 1.00000)
+    1  POINT (2 2)  POINT (2.00000 2.00000)
+    2  POINT (3 3)  POINT (3.00000 3.00000)
 
-    Drop original 'x' and 'y'.
+    Drop original 'wkt' column.
 
-    >>> df.points_from_xy("x", "y", drop=True)
-    0    POINT (122.00000 55.00000)
-    1     POINT (100.00000 1.00000)
+    >>> df.from_wkt("wkt", drop=True)
+    0    POINT (1.00000 1.00000)
+    1    POINT (2.00000 2.00000)
+    2    POINT (3.00000 3.00000)
     Name: geometry, dtype: geometry
     """
 
     return gpd.GeoDataFrame(
-        (
-            df.drop(
-                columns=[x, y, z] if z is not None else [x, y],
-            )
-            if drop
-            else df
-        ),
-        geometry=gpd.points_from_xy(
-            df[x],
-            df[y],
-            z=df[z] if z is not None else z,
-        ),
+        df.drop_or_not(drop=drop, columns=column),
+        geometry=gpd.GeoSeries.from_wkt(df[column]),
         crs=crs,
     ).to_series()
