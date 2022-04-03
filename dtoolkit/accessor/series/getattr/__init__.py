@@ -1,1 +1,1 @@
-from .getattr import getattr
+from dtoolkit.accessor.series.getattr.getattr import getattr  # noqa

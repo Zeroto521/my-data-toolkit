@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
-from ._helper import get_attr
+from dtoolkit.accessor.series.getattr._helper import get_attr
 
 
 @register_series_method
