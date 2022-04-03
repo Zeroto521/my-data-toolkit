@@ -49,7 +49,7 @@ def from_wkt(
     See Also
     --------
     geopandas.GeoSeries.from_wkt
-    dtoolkit.geoaccessor.datafrme.from_xy
+    dtoolkit.geoaccessor.dataframe.from_xy
 
     Notes
     -----
