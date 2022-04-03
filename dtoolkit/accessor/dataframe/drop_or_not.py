@@ -21,7 +21,7 @@ def drop_or_not(df: pd.DataFrame, drop: bool = True, **kwargs) -> pd.DataFrame:
         See the documentation for :meth:`~pandas.DataFrame.drop` for complete
         details on the keyword arguments.
 
-    Returns`
+    Returns
     -------
     DataFrame
         If ``drop=True`` will execute else return the original.
