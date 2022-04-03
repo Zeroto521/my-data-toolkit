@@ -23,10 +23,9 @@ def warning(message: str, category: Exception = None):
     --------
     >>> from dtoolkit._decorator import warning
     >>> @warning("This's a warning message.") 
-    ... def func() -> str:
-    ...     return "[Done]."
+    ... def func(*args, **kwargs):
+    ...     ...
     >>> func()
-    '[Done].'
     """
 
     def decorator(func):
