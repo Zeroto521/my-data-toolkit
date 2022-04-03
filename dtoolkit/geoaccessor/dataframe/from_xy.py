@@ -74,7 +74,7 @@ def from_xy(
     --------
     geopandas.points_from_xy
     geopandas.GeoSeries.from_xy
-    dtoolkit.geoaccessor.datafrme.from_wkt
+    dtoolkit.geoaccessor.dataframe.from_wkt
 
     Notes
     -----
