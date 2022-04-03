@@ -1,3 +1,5 @@
+import pandas as pd
+
 from dtoolkit.accessor.register import register_dataframe_method
 
 
