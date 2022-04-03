@@ -15,9 +15,8 @@ def top_n(
     """
     Return the top `n` values.
 
-    This method is the collection of
-    :meth:`~pandas.Series.nlargest` and :meth:`~pandas.Series.nsmallest`
-    methods.
+    A sugary syntax wraps :meth:`~pandas.Series.nlargest` and
+    :meth:`~pandas.Series.nsmallest` methods.
 
     Parameters
     ----------
