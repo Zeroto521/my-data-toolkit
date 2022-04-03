@@ -33,6 +33,10 @@ def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     -------
     Series
 
+    See Also
+    --------
+    pandas.cut
+
     Examples
     --------
     >>> import dtoolkit.accessor
