@@ -33,24 +33,15 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     """,
     ),
 )
-def get_coordinates(
-    s: gpd.GeoSeries,
-    include_z: bool = False,
-    return_index: bool = False,
-) -> pd.Series:
+def get_coordinates(s: gpd.GeoSeries, **kwargs) -> pd.Series:
     """
     Gets coordinates from each geometry of {klass}.
 
     Parameters
     ----------
-    include_zbool: bool, default False
-        If True include the third dimension in the output.
-        If geometry has no third dimension, the z-coordinates will be `NaN`.
-
-    return_index: bool, default False
-        If True also return the index of each returned geometry.
-        For multidimensional, this indexes into the flattened array
-        (in C contiguous order).
+    **kwargs
+        See the documentation for :meth:`pygeos.coordinates.get_coordinates` for
+        complete details on the keyword arguments.
 
     Returns
     -------
@@ -68,9 +59,5 @@ def get_coordinates(
     """
 
     return s.apply(
-        lambda x: pygeos.get_coordinates(
-            pygeos.from_shapely(x),
-            include_z=include_z,
-            return_index=return_index,
-        ),
+        lambda x: pygeos.get_coordinates(pygeos.from_shapely(x), **kwargs),
     )
