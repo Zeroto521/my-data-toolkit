@@ -13,7 +13,7 @@ Series Accessor
     cols
     drop_inf
     error_report
-    get_attr
+    getattr
     expand
     len
     top_n
