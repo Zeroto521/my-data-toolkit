@@ -50,7 +50,8 @@ def decompose(
         If True, do operation inplace and return None.
 
     **kwargs
-        See the documentation for ``method`` for complete details on the keyword arguments.
+        See the documentation for ``method`` for complete details on
+        the keyword arguments.
 
     Returns
     -------
