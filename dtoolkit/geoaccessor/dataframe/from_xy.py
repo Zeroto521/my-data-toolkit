@@ -14,8 +14,9 @@ if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
 
 
-@register_dataframe_method("points_from_xy")
-def from_xy(
+@register_dataframe_method("from_xy")
+@register_dataframe_method
+def points_from_xy(
     df: pd.DataFrame,
     x: str,
     y: str,
@@ -26,6 +27,8 @@ def from_xy(
     """
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
+
+    This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
 
     Parameters
     ----------
@@ -66,14 +69,14 @@ def from_xy(
          x   y
     0  122  55
     1  100   1
-    >>> df.points_from_xy("x", "y", crs="EPSG:4326")
+    >>> df.from_xy("x", "y", crs="EPSG:4326")
          x   y                    geometry
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
 
     Drop original 'x' and 'y' columns.
 
-    >>> df.points_from_xy("x", "y", drop=True)
+    >>> df.points_from_xy("x", "y", drop=True, crs=4326)
     0    POINT (122.00000 55.00000)
     1     POINT (100.00000 1.00000)
     Name: geometry, dtype: geometry
