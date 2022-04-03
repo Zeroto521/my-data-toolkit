@@ -21,6 +21,10 @@ def register_method_factory(register_accessor):
 
     .. _User Guide: ../../guide/tips_about_accessor.ipynb#Extend-to-Pandas-like-Object
 
+    Parameters
+    ----------
+    register_accessor : Pandas-object like accessor
+
     See Also
     --------
     register_series_method
