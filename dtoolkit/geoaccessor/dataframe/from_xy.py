@@ -48,21 +48,21 @@ def from_xy(
 
     Parameters
     ----------
-    x: str
+    x : str
         ``df``'s column name.
 
-    y: str
+    y : str
         ``df``'s column name.
 
-    z: str, optional
+    z : str, optional
         ``df``'s column name.
 
-    crs: CRS, str, int, optional
+    crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
-    drop: bool, default False
+    drop : bool, default False
         Don't contain ``x``, ``y`` and ``z`` anymore.
 
     Returns
