@@ -37,6 +37,8 @@ def get_coordinates(s: gpd.GeoSeries, **kwargs) -> pd.Series:
     """
     Gets coordinates from each geometry of {klass}.
 
+    A sugary syntax wraps :meth:`pygeos.coordinates.get_coordinates`.
+
     Parameters
     ----------
     **kwargs
