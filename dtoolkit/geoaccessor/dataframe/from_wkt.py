@@ -30,15 +30,15 @@ def from_wkt(
 
     Parameters
     ----------
-    column: str
+    column : str
         The name of WKT column.
 
-    crs: CRS, str, int, optional
+    crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
-    drop: bool, default False
+    drop : bool, default False
         Don't contain ``x``, ``y`` and ``z`` anymore.
 
     Returns
@@ -49,7 +49,7 @@ def from_wkt(
     See Also
     --------
     geopandas.GeoSeries.from_wkt
-    dtoolkit.geoaccessor.datafrme.from_xy
+    dtoolkit.geoaccessor.dataframe.from_xy
 
     Notes
     -----

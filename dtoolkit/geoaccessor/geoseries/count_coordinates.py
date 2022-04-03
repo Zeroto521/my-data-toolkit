@@ -37,6 +37,8 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     """
     Counts the number of coordinate pairs in each geometry of {klass}.
 
+    A sugary syntax wraps :meth:`pygeos.coordinates.count_coordinates`.
+
     Returns
     -------
     Series
