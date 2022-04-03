@@ -6,6 +6,7 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit._decorator import warning
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -34,6 +35,8 @@ def from_xy(
     """
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
+
+    A sugary syntax wraps :meth:`geopandas.points_from_xy`.
 
     This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
 
@@ -89,13 +92,7 @@ def from_xy(
     """
 
     return gpd.GeoDataFrame(
-        (
-            df.drop(
-                columns=[x, y, z] if z is not None else [x, y],
-            )
-            if drop
-            else df
-        ),
+        df.drop_or_not(drop=True, columns=[x, y, z] if z is not None else [x, y]),
         geometry=gpd.points_from_xy(
             df[x],
             df[y],
