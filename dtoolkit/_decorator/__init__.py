@@ -1,1 +1,1 @@
-from .warning import warning  # noqa
+from dtoolkit._decorator.warning import warning  # noqa

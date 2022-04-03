@@ -1,0 +1,50 @@
+import numpy as np
+import pytest
+
+from dtoolkit.util import multi_if_else
+
+
+array = np.asarray(
+    [
+        [1, 0],
+        [0, 1],
+    ],
+)
+mask = array == 0
+if_condition_return_lambda = lambda how: [  # noqa E731
+    (how == "any", mask.any()),
+    (how == "all", mask.all()),
+    (how is not None, ValueError(f"Invalid how option: {how}")),
+]
+
+
+@pytest.mark.parametrize(
+    "how, expected",
+    [
+        ("any", True),
+        ("all", False),
+        (None, None),
+    ],
+)
+def test_work(how, expected):
+    if_condition_return = if_condition_return_lambda(how)
+    res = multi_if_else(if_condition_return=if_condition_return)
+
+    assert res == expected
+
+
+@pytest.mark.parametrize(
+    "how, else_return, error",
+    [
+        ("whatevery", None, ValueError),
+        (None, TypeError("Must specify how"), TypeError),
+    ],
+)
+def test_error(how, else_return, error):
+    if_condition_return = if_condition_return_lambda(how)
+
+    with pytest.raises(error):
+        multi_if_else(
+            if_condition_return,
+            else_return,
+        )
