@@ -7,28 +7,15 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def bin(s: pd.Series, bins, **kwargs) -> pd.Series:
+def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.
 
     Parameters
     ----------
-    bins : int, sequence of scalars, or IntervalIndex
-        The criteria to bin by.
-
-        - int : Defines the number of equal-width bins in the range of x.
-         The range of x is extended by .1% on each side to include the minimum and
-         maximum values of x.
-
-        - sequence of scalars : Defines the bin edges allowing for non-uniform width.
-         No extension of the range of x is done.
-
-        - IntervalIndex : Defines the exact bins to be used. Note that IntervalIndex
-         for bins must be non-overlapping.
-
-    **kwargs
-        See the documentation for :meth:`pandas.cut` for complete details on the keyword
-        arguments.
+    *args, **kwargs
+        See the documentation for :meth:`pandas.cut` for complete details on
+        the positional arguments and the keyword arguments.
 
     Returns
     -------
@@ -62,4 +49,4 @@ def bin(s: pd.Series, bins, **kwargs) -> pd.Series:
     Categories (5, object): ['E' < 'D' < 'C' < 'B' < 'A']
     """
 
-    return pd.cut(s, bins, **kwargs)
+    return pd.cut(s, *args, **kwargs)
