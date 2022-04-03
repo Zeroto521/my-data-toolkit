@@ -19,6 +19,7 @@ def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     ----------
     number : int, default 1
         The default length of `number` type.
+
     other : int or None, default None
         The default length of `other` type.
 

@@ -26,8 +26,10 @@ def to_series(
     ----------
     name : str or int, optional
         The name of returned Series.
+
     index_column : str or int, optional
         The Series's index.
+
     value_column : str or int, optional
         The Series's value.
 
