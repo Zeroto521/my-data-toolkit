@@ -40,18 +40,28 @@ def from_xy(
 
     This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
 
+    .. warning::
+        The method ``dtoolkit.geoaccessor.geoseries.points_from_xy`` is renamed to 
+        ``dtoolkit.geoaccessor.geoseries.from_xy`` in 0.0.15. 
+        But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. 
+        (Warning added DToolKit 0.0.14)
+
     Parameters
     ----------
     x: str
         ``df``'s column name.
+
     y: str
         ``df``'s column name.
+
     z: str, optional
         ``df``'s column name.
+
     crs: CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
+
     drop: bool, default False
         Don't contain ``x``, ``y`` and ``z`` anymore.
 

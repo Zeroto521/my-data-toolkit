@@ -22,6 +22,11 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
     the length of other types will as ``NaN``.
 
+    .. warning::
+        ``dtoolkit.accessor.series.lens`` is deprecated and will be removed in 0.0.15.
+        Please use ``dtoolkit.accessor.series.len`` instead.
+        (Warning added DToolKit 0.0.14)
+
     Parameters
     ----------
     number : int, default 1
