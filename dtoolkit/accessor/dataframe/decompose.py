@@ -34,10 +34,23 @@ def decompose(
     Parameters
     ----------
     method : TransformerMixin
+        :class:`sklearn.decomposition`
+
     columns : dict, Series, list, tuple or None, default None
+        Choose columns to decompose.
+
+        - None: Decompose all columns.
+        - list or tuple: Decompose the selected columns.
+        - dict or Series: Decompose and remap columns to a few.
+
     drop : bool, default False
+        If True, drop the used columns.
+
     inplace : bool, default False
+        If True, do operation inplace and return None.
+
     **kwargs
+        See the documentation for ``method`` for complete details on the keyword arguments.
 
     Returns
     -------
@@ -85,7 +98,7 @@ def decompose(
     4 -3.142238  0.355441 -8.495664e-17  1.014514e-17
     5 -5.098670 -0.059742  8.445140e-17 -1.640353e-19
 
-    Decompose partial columns.
+    Decompose the selected columns.
 
     >>> df.decompose(decomposition.PCA, ["a", "b"])
               a         b  c  d
@@ -96,7 +109,7 @@ def decompose(
     4 -2.221898  0.251335 -2 -1
     5 -3.605304 -0.042244 -3 -2
 
-    Decompose columns to a few.
+    Decompose and remap columns to a few.
 
     >>> df.decompose(decomposition.PCA, {"A": ["a", "b"], "B": ["b", "c", "d"]})
               A         B  a  b  c  d
@@ -168,8 +181,7 @@ def decompose(
             index=df.index,
             columns=list(collapse(columns.keys())),
         ).combine_first(
-            df.pipe(
-                drop_or_not,
+            df.drop_or_not(
                 drop=drop,
                 columns=list(collapse(columns.values())),
             ),
