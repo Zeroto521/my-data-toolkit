@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit._decorator import warning
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -14,9 +15,15 @@ if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
 
 
-@register_dataframe_method("from_xy")
+@register_dataframe_method("points_from_xy")
 @register_dataframe_method
-def points_from_xy(
+@warning(
+    "The method 'dtoolkit.geoaccessor.geoseries.points_from_xy' is renamed to "
+    "'dtoolkit.geoaccessor.geoseries.from_xy' in 0.0.15. "
+    "But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. "
+    "(Warning added DToolKit 0.0.14)",
+)
+def from_xy(
     df: pd.DataFrame,
     x: str,
     y: str,

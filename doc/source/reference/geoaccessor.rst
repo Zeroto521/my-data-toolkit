@@ -32,7 +32,7 @@ DataFrame Accessor (to GeoPandas)
 .. autosummary::
     :toctree: api/
 
-    points_from_xy
+    from_xy
 
 
 GeoPandas Base Accessor
