@@ -11,6 +11,10 @@ def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.
 
+    A sugary syntax wraps :meth:`~pandas.cut`::
+
+        pd.cut(s, *args, **kwargs)
+
     Parameters
     ----------
     *args, **kwargs
