@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor.register import register_series_method
 
