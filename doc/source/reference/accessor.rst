@@ -15,7 +15,7 @@ Series Accessor
     error_report
     get_attr
     expand
-    lens
+    len
     top_n
     values_to_dict
 
