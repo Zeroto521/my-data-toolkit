@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from dtoolkit.accessor._util import collapse
-from dtoolkit.accessor.drop_or_not import drop_or_not  # noqa
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
 
