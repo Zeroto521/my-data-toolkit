@@ -41,9 +41,9 @@ def from_xy(
     This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
 
     .. warning::
-        The method ``dtoolkit.geoaccessor.geoseries.points_from_xy`` is renamed to 
-        ``dtoolkit.geoaccessor.geoseries.from_xy`` in 0.0.15. 
-        But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. 
+        The method ``dtoolkit.geoaccessor.geoseries.points_from_xy`` is renamed to
+        ``dtoolkit.geoaccessor.geoseries.from_xy`` in 0.0.15.
+        But call it via 'df.from_xy' or 'df.points_from_xy' both are ok.
         (Warning added DToolKit 0.0.14)
 
     Parameters
