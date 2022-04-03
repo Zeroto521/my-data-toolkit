@@ -14,5 +14,5 @@ from dtoolkit.accessor.series import cols  # noqa
         (d, d.columns.tolist()),
     ],
 )
-def test_column(df, expt):
+def test_work(df, expt):
     assert df.cols() == expt
