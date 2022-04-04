@@ -2,7 +2,7 @@ from functools import wraps
 from warnings import warn
 
 
-def warning(message: str, category: Exception = None):
+def warning(message: str, category: Exception = None, **kwargs):
     """
     A warning decorator.
 
@@ -15,13 +15,17 @@ def warning(message: str, category: Exception = None):
         If given, must be a **warning category class**. it defaults to
         :keyword:`UserWarning`.
 
+    **kwargs
+        See the documentation for :meth:`warnings.warn` for complete details on
+        the keyword arguments.
+
     See Also
     --------
     warnings.warn
 
     Examples
     --------
-    >>> from dtoolkit._decorator import warning
+    >>> from dtoolkit.util._decorator import warning
     >>> @warning("This's a warning message.")
     ... def func(*args, **kwargs):
     ...     ...
@@ -31,7 +35,7 @@ def warning(message: str, category: Exception = None):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            warn(message, category=category)
+            warn(message, category=category, **{"stacklevel":1, **kwargs},)
 
             return func(*args, **kwargs)
 

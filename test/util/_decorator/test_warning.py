@@ -1,6 +1,6 @@
 import pytest
 
-from dtoolkit._decorator import warning
+from dtoolkit.util._decorator import warning
 
 
 @pytest.mark.parametrize(

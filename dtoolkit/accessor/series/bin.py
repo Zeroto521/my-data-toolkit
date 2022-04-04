@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import warning
 
 
 @register_series_method
