@@ -126,9 +126,6 @@ def top_n(
     3       a       b       c
     """
 
-    if element not in {"both", "index", "value"}:
-        raise ValueError('element must be either "both", "index" or "value"')
-
     def wrap_s_top_n(*args, **kwargs) -> pd.Series:
         top = s_top_n(*args, **kwargs)
 
@@ -138,6 +135,8 @@ def top_n(
             data = top.values
         elif element == "both":
             data = zip(top.index, top.values)
+        else:
+            raise ValueError('element must be either "both", "index" or "value"')
 
         return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
 
