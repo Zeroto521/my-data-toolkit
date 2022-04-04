@@ -3,8 +3,8 @@ from __future__ import annotations
 import pandas as pd
 from pandas.api.types import is_number
 
-from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import warning
 
 
 @register_series_method("lens")
@@ -14,6 +14,7 @@ from dtoolkit.accessor.register import register_series_method
     "Please use 'dtoolkit.accessor.series.len' instead. "
     "(Warning added DToolKit 0.0.14)",
     DeprecationWarning,
+    stacklevel=3,
 )
 def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """

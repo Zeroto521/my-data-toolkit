@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.accessor.series._getattr_helper import get_attr
+from dtoolkit.util._decorator import warning
 
 
 @register_series_method("get_attr")
@@ -14,6 +14,7 @@ from dtoolkit.accessor.series._getattr_helper import get_attr
     "Please use 'dtoolkit.accessor.series.getattr' instead. "
     "(Warning added DToolKit 0.0.14)",
     DeprecationWarning,
+    stacklevel=3,
 )
 def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """

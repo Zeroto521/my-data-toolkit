@@ -5,10 +5,10 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._decorator import warning
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     "'dtoolkit.geoaccessor.geoseries.from_xy' in 0.0.15. "
     "But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. "
     "(Warning added DToolKit 0.0.14)",
+    stacklevel=3,
 )
 def from_xy(
     df: pd.DataFrame,
