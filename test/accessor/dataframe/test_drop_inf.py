@@ -198,12 +198,16 @@ def test_error(error, axis, how, subset):
 
 
 def test_inplace_is_true():
-    self_d = d.copy(True)
-    self_d = self_d.append(
-        {
-            "a": np.inf,
-            "b": -np.inf,
-        },
+    self_d = pd.concat(
+        (
+            d,
+            pd.DataFrame(
+                {
+                    "a": [np.inf],
+                    "b": [-np.inf],
+                },
+            ),
+        ),
         ignore_index=True,
     )
     res = self_d.drop_inf(inplace=True)
