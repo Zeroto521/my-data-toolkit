@@ -12,7 +12,7 @@ import dtoolkit.accessor.series  # noqa
     "inf, df, expt",
     [
         ("all", s, s),
-        ("all", s.append(s_inf), s),
+        ("all", pd.concat((s, s_inf)), s),
         ("pos", s_inf, pd.Series([-np.inf], index=[1])),
         ("neg", s_inf, pd.Series([np.inf])),
     ],
@@ -24,7 +24,7 @@ def test_work(inf, df, expt):
 
 
 def test_inplace_is_true():
-    self_s = s.append(s_inf)
+    self_s = pd.concat((s, s_inf))
     res = self_s.drop_inf(inplace=True)
 
     assert res is None

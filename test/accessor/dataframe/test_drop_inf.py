@@ -1,6 +1,7 @@
 from test.accessor.conftest import d
 
 import numpy as np
+import pandas as pd
 import pytest
 
 import dtoolkit.accessor.dataframe  # noqa
@@ -18,7 +19,13 @@ import dtoolkit.accessor.dataframe  # noqa
             d,
         ),
         (
-            d.append({"a": np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"a": [-np.inf]}),
+                ),
+                ignore_index=True,
+            ),
             0,
             "any",
             "all",
@@ -26,23 +33,58 @@ import dtoolkit.accessor.dataframe  # noqa
             d,
         ),
         (
-            d.append({"a": np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"a": [np.inf]}),
+                ),
+                ignore_index=True,
+            ),
             1,
             "any",
             "all",
             None,
-            d.append({"a": np.inf}, ignore_index=True).drop(columns=["a"]),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"a": [np.inf]}),
+                ),
+                ignore_index=True,
+            ).drop(columns=["a"]),
         ),
         (
-            d.append({"a": np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"a": [np.inf]}),
+                ),
+                ignore_index=True,
+            ),
             0,
             "all",
             "all",
             None,
-            d.append({"a": np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"a": [np.inf]}),
+                ),
+                ignore_index=True,
+            ),
         ),
         (
-            d.append({"a": np.inf, "b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame(
+                        {
+                            "a": [np.inf],
+                            "b": [-np.inf],
+                        },
+                    ),
+                ),
+                ignore_index=True,
+            ),
             0,
             "all",
             "all",
@@ -50,7 +92,13 @@ import dtoolkit.accessor.dataframe  # noqa
             d,
         ),
         (
-            d.append({"b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"b": [-np.inf]}),
+                ),
+                ignore_index=True,
+            ),
             0,
             "any",
             "neg",
@@ -58,15 +106,33 @@ import dtoolkit.accessor.dataframe  # noqa
             d,
         ),
         (
-            d.append({"b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"b": [-np.inf]}),
+                ),
+                ignore_index=True,
+            ),
             0,
             "any",
             "pos",
             None,
-            d.append({"b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"b": [-np.inf]}),
+                ),
+                ignore_index=True,
+            ),
         ),
         (
-            d.append({"b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame({"b": [-np.inf]}),
+                ),
+                ignore_index=True,
+            ),
             0,
             "any",
             "all",
@@ -74,7 +140,17 @@ import dtoolkit.accessor.dataframe  # noqa
             d,
         ),
         (
-            d.append({"b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame(
+                        {
+                            "b": [-np.inf],
+                        },
+                    ),
+                ),
+                ignore_index=True,
+            ),
             0,
             "any",
             "all",
@@ -82,7 +158,17 @@ import dtoolkit.accessor.dataframe  # noqa
             d,
         ),
         (
-            d.append({"b": -np.inf}, ignore_index=True),
+            pd.concat(
+                (
+                    d,
+                    pd.DataFrame(
+                        {
+                            "b": [-np.inf],
+                        },
+                    ),
+                ),
+                ignore_index=True,
+            ),
             0,
             "any",
             "all",
