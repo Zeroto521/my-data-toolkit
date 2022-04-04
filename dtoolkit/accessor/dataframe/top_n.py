@@ -88,7 +88,7 @@ def top_n(
     2  2  1  3
     3  1  1  1
 
-    Get each row's largest top **2**.
+    Get each row's largest top **2**, sorts values and returns index.
 
     >>> df.top_n(2)
         top_1   top_2
@@ -97,7 +97,17 @@ def top_n(
     2       c       a
     3       a       b
 
-    Get each row's both **index** and **value** of largest top 2.
+    Get each row's largest top **2**, sorts values and returns values.
+
+    >>> df.top_n(2, element="value")
+       top_1  top_2
+    0      3      2
+    1      3      2
+    2      3      2
+    3      1      1
+
+    Get each row's both **index** and **value** of largest top 2, sorts values
+    and return both index and values.
 
     >>> df.top_n(2, element="both")
         top_1   top_2
