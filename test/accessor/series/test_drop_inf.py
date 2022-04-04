@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-import dtoolkit.accessor.series  # noqa
+from dtoolkit.accessor.series import drop_inf  # noqa
 
 
 @pytest.mark.parametrize(
