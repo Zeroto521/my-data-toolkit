@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor.series import get_attr  # noqa
+from dtoolkit.accessor.series import getattr  # noqa
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 if TYPE_CHECKING:

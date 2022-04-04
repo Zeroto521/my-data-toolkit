@@ -3,17 +3,29 @@ from __future__ import annotations
 import pandas as pd
 from pandas.api.types import is_number
 
+from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
 
 
-@register_series_method(name="len")
+@register_series_method("lens")
 @register_series_method
-def lens(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
+@warning(
+    "'dtoolkit.accessor.series.lens' is deprecated and will be removed in 0.0.15. "
+    "Please use 'dtoolkit.accessor.series.len' instead. "
+    "(Warning added DToolKit 0.0.14)",
+    DeprecationWarning,
+)
+def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
     Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
     the length of other types will as ``NaN``.
+
+    .. warning::
+        ``dtoolkit.accessor.series.lens`` is deprecated and will be removed in 0.0.15.
+        Please use ``dtoolkit.accessor.series.len`` instead.
+        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------

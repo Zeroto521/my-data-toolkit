@@ -2,12 +2,20 @@ from __future__ import annotations
 
 import pandas as pd
 
+from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series._getattr_helper import get_attr
 
 
-@register_series_method(name="getattr")
+@register_series_method("get_attr")
 @register_series_method
-def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
+@warning(
+    "'dtoolkit.accessor.series.get_attr' is deprecated and will be removed in 0.0.15. "
+    "Please use 'dtoolkit.accessor.series.getattr' instead. "
+    "(Warning added DToolKit 0.0.14)",
+    DeprecationWarning,
+)
+def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
 
@@ -16,6 +24,11 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     Read more in the `User Guide`_.
 
     .. _User Guide: ../../guide/tips_about_getattr.ipynb
+
+    .. warning::
+        ``dtoolkit.accessor.series.get_attr`` is deprecated and will be removed
+        in 0.0.15. Please use ``dtoolkit.accessor.series.getattr`` instead.
+        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------
@@ -33,11 +46,6 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     See Also
     --------
     getattr
-
-    Notes
-    -----
-    To keep the Python naming style, so use this accessor via
-    ``Series.getattr`` rather than ``Series.get_attr``.
 
     Examples
     --------
@@ -68,7 +76,7 @@ def get_attr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """
 
     def wrap_getattr(x):
-        attr = getattr(x, name, None)
+        attr = get_attr(x, name, None)
         if callable(attr):
             return attr(*args, **kwargs)
         return attr

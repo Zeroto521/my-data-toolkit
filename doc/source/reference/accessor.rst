@@ -13,9 +13,9 @@ Series Accessor
     cols
     drop_inf
     error_report
-    get_attr
+    getattr
     expand
-    lens
+    len
     top_n
     values_to_dict
 

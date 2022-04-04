@@ -24,6 +24,8 @@ def repeat(
     Returns a new DataFrame where each row/column is repeated
     consecutively a given number of times.
 
+    A sugary syntax wraps :meth:`numpy.repeat`.
+
     Parameters
     ----------
     repeats : int or array of ints

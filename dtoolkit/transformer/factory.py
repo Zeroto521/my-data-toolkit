@@ -20,6 +20,7 @@ def methodtf_factory(
     ----------
     transform_method : Callable
         The back algorithm of the :func:`~MethodTF.transform`.
+
     inverse_transform_method : Callable or None
         The back algorithm of the :func:`~MethodTF.inverse_transform`.
 
