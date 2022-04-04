@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     "'dtoolkit.geoaccessor.geoseries.from_xy' in 0.0.15. "
     "But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. "
     "(Warning added DToolKit 0.0.14)",
+    stacklevel=3,
 )
 def from_xy(
     df: pd.DataFrame,

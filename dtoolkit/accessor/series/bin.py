@@ -10,6 +10,7 @@ from dtoolkit.util._decorator import warning
 @warning(
     "dtoolkit.accessor.series.bin's parameter 'ordered' default is "
     "changed from 'False' to 'True'. (Warning added DToolKit 0.0.14)",
+    stacklevel=3,
 )
 def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     """

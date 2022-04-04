@@ -14,6 +14,7 @@ from dtoolkit.util._decorator import warning
     "Please use 'dtoolkit.accessor.series.getattr' instead. "
     "(Warning added DToolKit 0.0.14)",
     DeprecationWarning,
+    stacklevel=3,
 )
 def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """

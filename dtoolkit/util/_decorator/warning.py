@@ -1,8 +1,15 @@
 from functools import wraps
 from warnings import warn
 
+from dtoolkit.util._exception import find_stack_level
 
-def warning(message: str, category: Exception = None, **kwargs):
+
+def warning(
+    message: str,
+    category: Exception = None,
+    stacklevel: int = find_stack_level(),
+    **kwargs
+):
     """
     A warning decorator.
 
@@ -14,6 +21,9 @@ def warning(message: str, category: Exception = None, **kwargs):
     category : Exception, optional
         If given, must be a **warning category class**. it defaults to
         :keyword:`UserWarning`.
+
+    stacklevel : int
+        Default to find the first place in the stack that is not inside dtoolkit.
 
     **kwargs
         See the documentation for :meth:`warnings.warn` for complete details on
@@ -35,7 +45,7 @@ def warning(message: str, category: Exception = None, **kwargs):
     def decorator(func):
         @wraps(func)
         def wrapper(*func_args, **func_kwargs):
-            warn(message, category=category, **kwargs)
+            warn(message, category=category, stacklevel=stacklevel, **kwargs)
 
             return func(*func_args, **func_kwargs)
 

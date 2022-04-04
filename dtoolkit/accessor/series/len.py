@@ -14,6 +14,7 @@ from dtoolkit.util._decorator import warning
     "Please use 'dtoolkit.accessor.series.len' instead. "
     "(Warning added DToolKit 0.0.14)",
     DeprecationWarning,
+    stacklevel=3,
 )
 def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     """
