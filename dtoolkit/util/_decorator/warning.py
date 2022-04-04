@@ -34,10 +34,10 @@ def warning(message: str, category: Exception = None, **kwargs):
 
     def decorator(func):
         @wraps(func)
-        def wrapper(*args, **kwargs):
-            warn(message, category=category, **{"stacklevel":1, **kwargs},)
+        def wrapper(*func_args, **func_kwargs):
+            warn(message, category=category, **kwargs)
 
-            return func(*args, **kwargs)
+            return func(*func_args, **func_kwargs)
 
         return wrapper
 
