@@ -42,12 +42,12 @@ def top_n(
     delimiter : str, default "_"
         The delimiter between `prefix` and number.
 
-    element : {"both", "index", "value"}, default "index"
+    element : {"index", "value", "both"}, default "index"
         To control the structure of return dataframe value.
 
-        - both: the structure of value is ``({column index}, {value})``.
         - index: the structure of value is only ``{column index}``.
         - value: the structure of value is only ``{value}``.
+        - both: the structure of value is ``({column index}, {value})``.
 
     Returns
     -------
@@ -122,12 +122,12 @@ def top_n(
     def wrap_s_top_n(*args, **kwargs) -> pd.Series:
         top = s_top_n(*args, **kwargs)
 
-        if element == "both":
-            data = zip(top.index, top.values)
-        elif element == "index":
+        if element == "index":
             data = top.index
         elif element == "value":
             data = top.values
+        elif element == "both":
+            data = zip(top.index, top.values)
 
         return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
 
