@@ -79,7 +79,7 @@ class AppendTF(DataFrameTF):
     3  7  8
     """
 
-    transform_method = staticmethod(pd.DataFrame._append)
+    transform_method = staticmethod(pd.DataFrame.append)
 
 
 class DropTF(DataFrameTF):
