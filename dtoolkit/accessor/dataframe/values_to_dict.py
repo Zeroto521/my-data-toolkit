@@ -45,7 +45,7 @@ def values_to_dict(
     ...     {
     ...         "x" : ["A", "A", "B", "B", "B"],
     ...         "y" : ["a", "b", "c", "d", "d"],
-    ...         "z" : [1, 2, 3, 3, 4],
+    ...         "z" : ["1", "2", "3", "3", "4"],
     ...     }
     ... )
     >>> df
@@ -63,19 +63,19 @@ def values_to_dict(
     {
         "A": {
             "a": [
-                1
+                "1"
             ],
             "b": [
-                2
+                "2"
             ]
         },
         "B": {
             "c": [
-                3
+                "3"
             ],
             "d": [
-                3,
-                4
+                "3",
+                "4"
             ]
         }
     }
@@ -116,16 +116,16 @@ def values_to_dict(
     >>> print(json.dumps(df.values_to_dict(order=["x", "z"]), indent=4))
     {
         "A": [
-            1,
-            2
+            "1",
+            "2"
         ],
         "B": [
-            3,
-            3,
-            4
+            "3",
+            "3",
+            "4"
         ]
     }
-    >>> print(json.dumps(df.values_to_dict(order=["z", "y", "x"]), indent=4))
+    >>> print(json.dumps(df.values_to_dict(order=["x", "z", "y"]), indent=4))
     {
         "A": {
             "1": [
