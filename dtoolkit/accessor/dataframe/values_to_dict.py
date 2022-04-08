@@ -17,6 +17,10 @@ def values_to_dict(
 
     Parameters
     ----------
+    order : list or tuple, optional
+        The order of keys via given columns. If ``order`` is set, ``few_as_key``
+        will not work.
+
     few_as_key : bool, default True
         If True the key would be the few unique of column values first.
 
@@ -76,7 +80,8 @@ def values_to_dict(
         }
     }
 
-    Use many unique of column values as key first.
+    Use many unique of column values as key first, the result will be
+    ``{y: {z: [x]} }``.
 
     >>> print(json.dumps(df.values_to_dict(few_as_key=False), indent=4))
     {
@@ -105,7 +110,43 @@ def values_to_dict(
         }
     }
 
-    Also could convert one column DataFrame. But ``few_as_key`` wouldn' work.
+    Output the arbitry order like ``{z: x}  or ``{x: {z: [y]} }``,
+    via ``order`` argument.
+
+    >>> print(json.dumps(df.values_to_dict(order=["x", "z"]), indent=4))
+    {
+        "A": [
+            1,
+            2
+        ],
+        "B": [
+            3,
+            3,
+            4
+        ]
+    }
+    >>> print(json.dumps(df.values_to_dict(order=["z", "y", "x"]), indent=4))
+    {
+        "A": {
+            "1": [
+                "a"
+            ],
+            "2": [
+                "b"
+            ]
+        },
+        "B": {
+            "3": [
+                "c",
+                "d"
+            ],
+            "4": [
+                "d"
+            ]
+        }
+    }
+
+    It also could convert one column DataFrame. But ``few_as_key`` wouldn' work.
     The result would be ``{index: [values]}``.
 
     >>> print(json.dumps(df[["x"]].values_to_dict(), indent=4))
