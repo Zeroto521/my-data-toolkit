@@ -7,7 +7,11 @@ from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
 
 
 @register_dataframe_method
-def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
+def values_to_dict(
+    df: pd.DataFrame,
+    order: list | tuple = None,
+    few_as_key: bool = True,
+) -> dict:
     """
     Convert :attr:`~pandas.DataFrame.values` to :class:`dict`.
 
@@ -127,15 +131,14 @@ def values_to_dict(df: pd.DataFrame, few_as_key: bool = True) -> dict:
     if df.shape[1] == 1:  # one columns DataFrame
         return df.to_series().values_to_dict()
 
-    return _dict(
-        df.get(
-            df.unique_counts()
-            .sort_values(
-                ascending=few_as_key,
-            )
-            .index,
-        ),
+    columns = order or (
+        df.unique_counts()
+        .sort_values(
+            ascending=few_as_key,
+        )
+        .index
     )
+    return _dict(df[columns])
 
 
 def _dict(df: pd.DataFrame) -> dict:
