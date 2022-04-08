@@ -110,7 +110,7 @@ def values_to_dict(
         }
     }
 
-    Output the arbitry order like ``{z: x}  or ``{x: {z: [y]} }``,
+    Output the arbitrary order like ``{z: x}  or ``{x: {z: [y]} }``,
     via ``order`` argument.
 
     >>> print(json.dumps(df.values_to_dict(order=["x", "z"]), indent=4))
