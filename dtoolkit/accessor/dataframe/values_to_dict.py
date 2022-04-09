@@ -4,13 +4,22 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
+from dtoolkit.util._decorator import deprecated_alias
 
 
 @register_dataframe_method
+@deprecated_alias(
+    warning_msg=(
+        "{func_name}'s parameter '{old_alias}' is deprecated and will be removed in "
+        "0.0.15. Please use the parameter '{new_alias}'. "
+        "(Warning added DToolKit 0.0.14)"
+    ),
+    few_as_key="ascending",
+)
 def values_to_dict(
     df: pd.DataFrame,
     order: list | tuple = None,
-    few_as_key: bool = True,
+    ascending: bool = True,
     to_list: bool = True,
 ) -> dict:
     """
@@ -19,11 +28,11 @@ def values_to_dict(
     Parameters
     ----------
     order : list or tuple, optional
-        The order of keys via given columns. If ``order`` is set, ``few_as_key``
+        The order of keys via given columns. If ``order`` is set, ``ascending``
         will not work.
 
-    few_as_key : bool, default True
-        If True the key would be the few unique of column values first.
+    ascending : bool, default True
+        If True the key would use the few unique of column values first.
 
     to_list : bool, default True
         If True one element value will return :keyword:`list`.
@@ -61,7 +70,7 @@ def values_to_dict(
     4  B  d  4
 
     Use few unique of column values as key first. The order of column unique values
-    is `x` < `y` < `z`. So the result will be ``{x: {y: [z]} }``.
+    number is `x` < `y` < `z`. So the result will be ``{x: {y: [z]} }``.
 
     >>> print(json.dumps(df.values_to_dict(), indent=4))
     {
@@ -87,7 +96,7 @@ def values_to_dict(
     Use many unique of column values as key first, the result will be
     ``{y: {z: [x]} }``.
 
-    >>> print(json.dumps(df.values_to_dict(few_as_key=False), indent=4))
+    >>> print(json.dumps(df.values_to_dict(ascending=False), indent=4))
     {
         "a": {
             "1": [
@@ -150,7 +159,7 @@ def values_to_dict(
         }
     }
 
-    It also could convert one column DataFrame. But ``few_as_key`` wouldn' work.
+    It also could convert one column DataFrame. But ``ascending`` wouldn' work.
     The result would be ``{index: [values]}``.
 
     >>> print(json.dumps(df[["x"]].values_to_dict(), indent=4))
@@ -196,7 +205,7 @@ def values_to_dict(
     columns = order or (
         df.unique_counts()
         .sort_values(
-            ascending=few_as_key,
+            ascending=ascending,
         )
         .index
     )
