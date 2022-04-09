@@ -1,7 +1,6 @@
 import pytest
 
 from dtoolkit.util._decorator import deprecated_alias
-from dtoolkit.util._decorator import warning
 
 
 @pytest.mark.parametrize(
