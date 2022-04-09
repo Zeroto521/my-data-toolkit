@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit.util._decorator import deprecated_alias
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
+from dtoolkit.util._decorator import deprecated_alias
 
 
 @register_dataframe_method
