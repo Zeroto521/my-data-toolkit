@@ -85,10 +85,10 @@ def values_to_dict(
     }
 
 
-def unpack_list(l: list, to_list: bool = True) -> list[IntOrStr] | IntOrStr:
+def unpack_list(array: list, to_list: bool = True) -> list[IntOrStr] | IntOrStr:
     # unfold one element list
 
-    if not to_list and len(l) == 1:
-        return l[0]
+    if not to_list and len(array) == 1:
+        return array[0]
 
-    return l
+    return array
