@@ -1,6 +1,8 @@
 from __future__ import annotations
+
 from functools import wraps
 from warnings import warn
+
 from dtoolkit.util._exception import find_stack_level
 
 
@@ -11,7 +13,7 @@ def deprecated_alias(
         "please use the parameter '{new_alias}'"
     ),
     error_msg: str = (
-        "The fucntion '{func_name}' shouldn't received both '{old_alias}' "
+        "The function '{func_name}' shouldn't received both '{old_alias}' "
         "and '{new_alias}' parameters at the same time"
     ),
     **aliases,

@@ -1,8 +1,7 @@
 import pytest
 
-from dtoolkit.util._decorator import warning
-
 from dtoolkit.util._decorator import deprecated_alias
+from dtoolkit.util._decorator import warning
 
 
 @pytest.mark.parametrize(
@@ -50,7 +49,7 @@ def test_warning(args, kwargs, aliases):
             or result["alpha"] == kwargs.get("alpha")
         )
         assert result["beta"] == kwargs.get("beta") or result["beta"] == kwargs.get(
-            new_to_old_alias.get("beta")
+            new_to_old_alias.get("beta"),
         )
 
 
@@ -82,5 +81,5 @@ def test_error(args, kwargs, aliases):
             or result["alpha"] == kwargs.get("alpha")
         )
         assert result["beta"] == kwargs.get("beta") or result["beta"] == kwargs.get(
-            new_to_old_alias.get("beta")
+            new_to_old_alias.get("beta"),
         )
