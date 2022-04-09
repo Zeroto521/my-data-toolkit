@@ -37,7 +37,39 @@ def eval(s: pd.Series, expr: str, inplace: bool = False, **kwargs):
         Evaluates a boolean expression to query Series.
     pandas.eval
         Evaluate a Python expression as a string using various backends.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series([1, 2, 3], index=["a", "b", "c"], name="col")  # 'name' should be set
+    a    1
+    b    2
+    c    3
+    Name: col, dtype: int64
+    >>> s.eval("col - 1")
+    a    0
+    b    1
+    c    2
+    Name: col, dtype: int64
+    >>> s.eval("d = 4")
+    a    1
+    b    2
+    c    3
+    d    4
+    Name: col, dtype: int64
+    >>> s.eval("col == 1")
+    a     True
+    b    False
+    c    False
+    dtype: bool
+    >>> s.eval("index == 'c'")
+    a    False
+    b    False
+    c     True
+    dtype: bool
     """
+
     inplace = validate_bool_kwarg(inplace, "inplace")
 
     index_resolvers = s._get_index_resolvers()
