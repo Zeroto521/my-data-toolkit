@@ -12,7 +12,8 @@ if TYPE_CHECKING:
 
 @register_series_method
 def values_to_dict(
-    s: pd.Series, to_list: bool = True
+    s: pd.Series,
+    to_list: bool = True,
 ) -> dict[IntOrStr, list[IntOrStr] | IntOrStr]:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
