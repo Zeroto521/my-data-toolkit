@@ -13,6 +13,7 @@ Series Accessor
     cols
     drop_inf
     error_report
+    eval
     getattr
     expand
     len
