@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-import dtoolkit.accessor.dataframe  # noqa
+from dtoolkit.accessor.dataframe import top_n  # noqa
 
 
 @pytest.mark.parametrize(
