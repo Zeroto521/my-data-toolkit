@@ -11,10 +11,18 @@ if TYPE_CHECKING:
 
 
 @register_series_method
-def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
+def values_to_dict(
+    s: pd.Series,
+    to_list: bool = True,
+) -> dict[IntOrStr, list[IntOrStr] | IntOrStr]:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :class:`dict`.
+
+    Parameters
+    ----------
+    to_list : bool, default True
+        If True one element value will return :keyword:`list`.
 
     Returns
     -------
@@ -54,6 +62,33 @@ def values_to_dict(s: pd.Series) -> dict[IntOrStr, list[IntOrStr]]:
             3
         ]
     }
+
+    Unpack one element value list.
+
+    >>> print(json.dumps(s.values_to_dict(to_list=False), indent=4))
+    {
+        "a": [
+            0,
+            2
+        ],
+        "b": 1,
+        "c": 3
+    }
     """
 
-    return {key: s[s.index == key].to_list() for key in s.index.unique()}
+    return {
+        key: unpack_list(
+            s[s.index == key].to_list(),
+            to_list=to_list,
+        )
+        for key in s.index.unique()
+    }
+
+
+def unpack_list(array: list, to_list: bool = True) -> list[IntOrStr] | IntOrStr:
+    # unfold one element list
+
+    if not to_list and len(array) == 1:
+        return array[0]
+
+    return array
