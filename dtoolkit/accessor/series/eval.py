@@ -42,7 +42,10 @@ def eval(s: pd.Series, expr: str, inplace: bool = False, **kwargs):
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> s = pd.Series([1, 2, 3], index=["a", "b", "c"], name="col")  # 'name' should be set
+
+    The ``name`` should be set.
+
+    >>> s = pd.Series([1, 2, 3], index=["a", "b", "c"], name="col")
     >>> s
     a    1
     b    2
