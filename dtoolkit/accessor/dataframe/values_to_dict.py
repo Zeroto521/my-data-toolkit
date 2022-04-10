@@ -16,7 +16,7 @@ from dtoolkit.util._decorator import deprecated_alias
     ),
     few_as_key="ascending",
 )
-def values_to_dict(
+def values_to_dict(  # noqa: F811
     df: pd.DataFrame,
     order: list | tuple = None,
     ascending: bool = True,
