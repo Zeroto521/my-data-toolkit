@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
+from dtoolkit.accessor._decorator import warning
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -12,9 +13,21 @@ if TYPE_CHECKING:
 
 
 @register_dataframe_method
+@warning(
+    "'dtoolkit.accessor.dataframe.unique_counts' is deprecated and will be removed in"
+    "0.0.15. Please use 'pd.DataFrame.nunique' instead. "
+    "(Warning added DToolKit 0.0.14)",
+    DeprecationWarning,
+    stacklevel=3,
+)
 def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
     """
     Count unique values for each column or row.
+
+    .. warning::
+        dtoolkit.accessor.dataframe.unique_counts is deprecated and will be removed in
+        0.0.15. Please use :meth:`pandas.DataFrame.nunique` instead.
+        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------
