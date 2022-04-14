@@ -20,7 +20,11 @@ if TYPE_CHECKING:
     DeprecationWarning,
     stacklevel=3,
 )
-def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
+def unique_counts(
+    df: pd.DataFrame,
+    axis: IntOrStr = 0,
+    dropna: bool = True,
+) -> pd.Series:
     """
     Count unique values for each column or row.
 
@@ -34,6 +38,9 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
     axis : {0 or 'index', 1 or 'columns'}, default 0
         - If 0 or 'index' counts are generated for each column.
         - If 1 or 'columns' counts are generated for each row.
+
+    dropna : bool, default True
+        Don't include NaN in the counts.
 
     Examples
     --------
@@ -56,7 +63,4 @@ def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
     dtype: int64
     """
 
-    return df.apply(
-        lambda x: len(x.unique()),
-        axis=df._get_axis_number(axis),
-    )
+    return df.nunique(axis=axis, dropna=dropna)
