@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from dtoolkit.accessor._decorator import warning
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.util._decorator import warning
 
 
 if TYPE_CHECKING:
