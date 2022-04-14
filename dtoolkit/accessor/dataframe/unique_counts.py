@@ -29,8 +29,8 @@ def unique_counts(
     Count unique values for each column or row.
 
     .. warning::
-        dtoolkit.accessor.dataframe.unique_counts is deprecated and will be removed in
-        0.0.15. Please use :meth:`pandas.DataFrame.nunique` instead.
+        ``dtoolkit.accessor.dataframe.unique_counts`` is deprecated and will be removed
+        in 0.0.15. Please use :meth:`pandas.DataFrame.nunique` instead.
         (Warning added DToolKit 0.0.14)
 
     Parameters
