@@ -9,6 +9,7 @@ def to_set(s: pd.Series) -> set:
     Return a :keyword:`set` of the values.
 
     A sugary syntax wraps :keyword:`set`::
+
         set(s)
 
     Different to :meth:`~pandas.Series.unique`, it returns :class:`~numpy.ndarray`.
