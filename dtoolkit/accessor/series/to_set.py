@@ -20,13 +20,13 @@ def to_set(s: pd.Series) -> set:
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series([1, 2, 2])
+    >>> s
+    0    1
+    1    2
+    2    2
+    dtype: int64
     >>> s.to_set()
     {1, 2}
-
-    Different to :meth:`pandas.Series.unique`.
-
-    >>> s.unique()
-    array([1, 2], dtype=int64)
     """
 
     return set(s)
