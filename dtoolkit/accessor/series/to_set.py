@@ -11,6 +11,8 @@ def to_set(s: pd.Series) -> set:
     A sugary syntax wraps :keyword:`set`::
         set(s)
 
+    Different to :meth:`~pandas.Series.unique`, it returns :class:`~numpy.ndarray`.
+
     See Also
     --------
     pandas.Series.unique
