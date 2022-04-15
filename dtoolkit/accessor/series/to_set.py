@@ -14,6 +14,10 @@ def to_set(s: pd.Series) -> set:
 
     Different to :meth:`~pandas.Series.unique`, it returns :class:`~numpy.ndarray`.
 
+    Returns
+    -------
+    set
+
     See Also
     --------
     pandas.Series.unique
