@@ -4,7 +4,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def to_set(s: pd.Series):
+def to_set(s: pd.Series) -> set:
     """
     Return a :keyword:`set` of the values.
 
