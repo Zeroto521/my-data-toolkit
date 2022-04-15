@@ -17,6 +17,7 @@ Series Accessor
     expand
     len
     top_n
+    to_set
     values_to_dict
 
 
