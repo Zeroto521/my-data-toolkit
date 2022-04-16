@@ -1,5 +1,5 @@
-from typing import Union
 from typing import Literal
+from typing import Union
 
 import numpy as np
 import pandas as pd
