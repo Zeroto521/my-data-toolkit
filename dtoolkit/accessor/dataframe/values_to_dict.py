@@ -199,7 +199,7 @@ def values_to_dict(
     }
     """
 
-    if df.shape[1] == 1:  # one columns DataFrame
+    if df.columns.__len__() == 1:  # one columns DataFrame
         return df.to_series().values_to_dict(to_list=to_list)
 
     columns = order or (
@@ -215,7 +215,7 @@ def values_to_dict(
 def _dict(df: pd.DataFrame, to_list: bool) -> dict:
     key_column, *value_column = df.columns
 
-    if df.shape[1] == 2:  # two column DataFrame
+    if df.columns.__len__() == 2:  # two column DataFrame
         return df.to_series(
             index_column=key_column,
             value_column=value_column[0],
