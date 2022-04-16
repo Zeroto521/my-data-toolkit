@@ -12,6 +12,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from dtoolkit._typing import IntOrStr
 
 
@@ -19,8 +21,8 @@ if TYPE_CHECKING:
 def drop_inf(
     df: pd.DataFrame,
     axis: IntOrStr = 0,
-    how: str = "any",
-    inf: str = "all",
+    how: Literal["any", "all"] = "any",
+    inf: Literal["all", "pos", "neg"] = "all",
     subset: list[str] = None,
     inplace: bool = False,
 ) -> pd.DataFrame | None:

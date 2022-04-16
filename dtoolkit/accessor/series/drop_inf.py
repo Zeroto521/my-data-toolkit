@@ -1,16 +1,21 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
 
+if TYPE_CHECKING:
+    from typing import Literal
+
 
 @register_series_method
 def drop_inf(
     s: pd.Series,
-    inf: str = "all",
+    inf: Literal["all", "pos", "neg"] = "all",
     inplace: bool = False,
 ) -> pd.Series | None:
     """
