@@ -14,14 +14,14 @@ if TYPE_CHECKING:
     from typing import Iterable
     from typing import Literal
 
-    from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import Axis
 
 
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: Literal[0, 1, "index", "columns"] = 0,
+    axis: Axis = 0,
     how: Literal["any", "all"] = "all",
     inplace: bool = False,
 ) -> pd.DataFrame | None:

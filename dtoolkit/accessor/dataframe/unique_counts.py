@@ -8,11 +8,14 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import Axis
 
 
 @register_dataframe_method
-def unique_counts(df: pd.DataFrame, axis: IntOrStr = 0) -> pd.Series:
+def unique_counts(
+    df: pd.DataFrame,
+    axis: Axis = 0,
+) -> pd.Series:
     """
     Count unique values for each column or row.
 

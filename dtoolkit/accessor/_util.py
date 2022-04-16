@@ -10,7 +10,7 @@ from dtoolkit.util import multi_if_else
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import Axis
     from dtoolkit._typing import OneDimArray
     from dtoolkit._typing import SeriesOrFrame
     from dtoolkit._typing import TwoDimArray
@@ -42,7 +42,7 @@ def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
 def isin(
     df: pd.DataFrame,
     values: Iterable | SeriesOrFrame | dict[str, list[str]],
-    axis: IntOrStr = 0,
+    axis: Axis = 0,
 ) -> pd.DataFrame:
     """
     Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is

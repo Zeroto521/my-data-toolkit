@@ -9,14 +9,14 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import Axis
 
 
 @register_dataframe_method
 def repeat(
     df: pd.DataFrame,
     repeats: int | list[int],
-    axis: IntOrStr = 0,
+    axis: Axis = 0,
 ) -> pd.DataFrame | None:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.

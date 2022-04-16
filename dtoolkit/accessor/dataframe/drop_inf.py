@@ -12,15 +12,15 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 if TYPE_CHECKING:
-    from typing import Literal
+    from _typing import Literal
 
-    from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import Axis
 
 
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
-    axis: IntOrStr = 0,
+    axis: Axis = 0,
     how: Literal["any", "all"] = "any",
     inf: Literal["all", "pos", "neg"] = "all",
     subset: list[str] = None,
