@@ -12,6 +12,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
     from typing import Iterable
+    from typing import Literal
 
     from dtoolkit._typing import IntOrStr
 
@@ -20,8 +21,8 @@ if TYPE_CHECKING:
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: IntOrStr = 0,
-    how: str = "all",
+    axis: Literal[0, 1, "index", "columns"] = 0,
+    how: Literal["any", "all"] = "all",
     inplace: bool = False,
 ) -> pd.DataFrame | None:
     """
