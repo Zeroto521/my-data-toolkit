@@ -88,7 +88,7 @@ def to_series(
     Name: c, dtype: int64
     """
 
-    if df.shape[1] == 1:  # one column DataFrame
+    if df.columns.__len__() == 1:  # one column DataFrame
         column = df.columns[0]
         return df.get(column).rename(name or column)
 
