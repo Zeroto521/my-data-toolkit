@@ -17,7 +17,7 @@ New features and improvements:
 API changes:
 
 - Drop {meth}`~dtoolkit.accessor.dataframe.unique_counts`, use {meth}`pandas.DataFrame.nunique` instead ({pr}`502`)
-- Rename {meth}`~dtoolkit.accessor.dataframe.values_to_dict`'s arguement from `few_as_key` to `asscending` ({pr}`499`).
+- Rename {meth}`~dtoolkit.accessor.dataframe.values_to_dict`'s argument from `few_as_key` to `asscending` ({pr}`499`).
 - Rename accessor name, `get_attr` -> `getattr`, `lens` -> `len` ({pr}`487`).
 - Simplify {meth}`~dtoolkit.accessor.dataframe.bin`'s parameters via `*args` and `**kwargs` ({pr}`481`).
 
