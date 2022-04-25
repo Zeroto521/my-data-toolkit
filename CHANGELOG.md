@@ -1,5 +1,39 @@
 # Changelog
 
+## [Version 0.0.14] (2022-??-??)
+
+New features and improvements:
+
+- Replace `.shape` with `.__len__`, 1.6x speed up than older method ({pr}`506`).
+- New method {meth}`~dtoolkit.accessor.series.to_set` ({pr}`503`).
+- New option `to_list` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`500`).
+- New decorator `deprecated_alias` ({pr}`498`).
+- New option `order` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`495`).
+- Return the error place is first happening via `stacklevel` option({pr}`490`).
+- New method {meth}`~dtoolkit.geoaccessor.dataframe.from_wkt` ({pr}`486`).
+- New method {meth}`~dtoolkit.accessor.dataframe.drop_or_not` ({pr}`485`).
+- New decorator `warning` ({pr}`484`).
+
+API changes:
+
+- Drop {meth}`~dtoolkit.accessor.dataframe.unique_counts`, use {meth}`pandas.DataFrame.nunique` instead ({pr}`502`)
+- Rename {meth}`~dtoolkit.accessor.dataframe.values_to_dict`'s arguement from `few_as_key` to `asscending` ({pr}`499`).
+- Rename accessor name, `get_attr` -> `getattr`, `lens` -> `len` ({pr}`487`).
+- Simplify {meth}`~dtoolkit.accessor.dataframe.bin`'s parameters via `*args` and `**kwargs` ({pr}`481`).
+
+Documentation:
+
+- Add {meth}`~dtoolkit.accessor.dataframe.top_n`'s new example about returning values ({pr}`489`).
+- Adjust API reference sequences ({pr}`478`).
+
+Maintenance development:
+
+- Autoupdate actions ({pr}`494`, {pr}`496`, {pr}`497`, {pr}`504`).
+- Autoupdate pre-commit hooks ({pr}`493`, {pr}`501`, {pr}`508`).
+- Use `pd.concat` replace `pd.DataFrame.append` ({pr}`491`).
+- Update black version ({pr}`483`).
+- Split package to scripts, `dataframe.py` -> `dataframe/`, `series.py` -> `series/`, `geodataframe.py` -> `geodataframe/`, `geoseries.py` -> `geoseries/`, `generic.py` -> `generic/` ({pr}`475`, {pr}`480`, {pr}`482`).
+
 ## [Version 0.0.13] (2022-4-2)
 
 New features and improvements:
@@ -14,7 +48,7 @@ API changes:
 - Array in array out ({pr}`460`).
 - `OneHotEncoder`'s `fit_transform` use inputting's index ({pr}`458`).
 - Let `Pipeline`'s `fit_transform` supports `Series` ({pr}`457`).
-- DEP: drop `dtoolkit.transformer.MinMaxScaler`({pr}`451`).
+- Drop `dtoolkit.transformer.MinMaxScaler`({pr}`451`).
 
 Small bug-fix:
 
