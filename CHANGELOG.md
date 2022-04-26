@@ -28,7 +28,7 @@ Documentation:
 
 Maintenance development:
 
-- Autoupdate actions ({pr}`494`, {pr}`496`, {pr}`497`, {pr}`504`).
+- Autoupdate actions ({pr}`494`, {pr}`496`, {pr}`497`, {pr}`504`, {pr}`510`).
 - Autoupdate pre-commit hooks ({pr}`493`, {pr}`501`, {pr}`508`).
 - Use `pd.concat` replace `pd.DataFrame.append` ({pr}`491`).
 - Update black version ({pr}`483`).
