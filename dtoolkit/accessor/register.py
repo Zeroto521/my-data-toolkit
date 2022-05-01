@@ -100,7 +100,7 @@ def register_series_method(name: str = None):
     Examples
     --------
     .. ipython:: python
-    
+
         # In your library code::
 
         from __future__ import annotations
