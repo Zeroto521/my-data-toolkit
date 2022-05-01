@@ -99,7 +99,9 @@ def register_series_method(name: str = None):
 
     Examples
     --------
-    In your library code::
+    .. ipython:: python
+    
+        # In your library code::
 
         from __future__ import annotations
 
@@ -122,35 +124,25 @@ def register_series_method(name: str = None):
 
             return pd_obj.columns.tolist()
 
-    Back in an interactive IPython session:
+        # Back in an interactive IPython session:
 
-    .. ipython::
+        df = pd.DataFrame(
+            {{"a": [1, 2], "b": [3, 4]}},
+            index=pd.Index(["x", "y"], name="c"),
+        )
 
-        In [1]: import pandas as pd
+        df
 
-        In [2]: df = pd.DataFrame(
-           ...:     {{"a": [1, 2], "b": [3, 4]}},
-           ...:     index=pd.Index(["x", "y"], name="c"),
-           ...: )
+        # Get the columns of DataFrame via `cols` or `col` method
 
-        In [3]: df
-        Out[3]:
-           a  b
-        c
-        x  1  3
-        y  2  4
+        df.cols()
 
-        In [4]: df.cols()
-        Out[4]:
-        ['a', 'b']
+        # Get name of Series via `cols` or `col` method
 
-        In [5]: df.a.col()
-        Out[5]:
-        'a'
+        df.a.col()
 
-        In [6]: df.index.col()
-        Out[6]:
-        'c'
+        # Get name of Index via `cols` or `col` method
+        df.index.col()
     """
     return register_series_accessor(name)
 
