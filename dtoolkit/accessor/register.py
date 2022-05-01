@@ -129,9 +129,9 @@ def register_series_method(name: str = None):
         In [1]: import pandas as pd
 
         In [2]: df = pd.DataFrame(
-        ...     {{"a": [1, 2], "b": [3, 4]}},
-        ...     index=pd.Index(["x", "y"], name="c"),
-        ... )
+            {{"a": [1, 2], "b": [3, 4]}},
+            index=pd.Index(["x", "y"], name="c"),
+        )
 
         In [3]: df
         Out[3]:
