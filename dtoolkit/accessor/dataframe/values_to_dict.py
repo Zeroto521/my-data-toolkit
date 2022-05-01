@@ -203,7 +203,7 @@ def values_to_dict(
         return df.to_series().values_to_dict(to_list=to_list)
 
     columns = order or (
-        df.unique_counts()
+        df.nunique()
         .sort_values(
             ascending=ascending,
         )
