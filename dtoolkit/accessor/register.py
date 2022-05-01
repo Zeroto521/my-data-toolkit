@@ -128,31 +128,49 @@ def register_series_method(name: str = None):
 
         In [1]: import pandas as pd
 
-        In [2]: df = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+        In [2]: df = pd.DataFrame(
+        ...     {{"a": [1, 2], "b": [3, 4]}},
+        ...     index=pd.Index(["x", "y"], name="c"),
+        ... )
 
-        In [3]: df.cols()
+        In [3]: df
         Out[3]:
-        ['a', 'b']
+           a  b
+        c
+        x  1  3
+        y  2  4
 
-        In [4]: df.col()
+        In [4]: df.cols()
         Out[4]:
         ['a', 'b']
 
-        In [5]: df.a.cols()
+        In [5]: df.col()
         Out[5]:
-        'a'
+        ['a', 'b']
 
-        In [6]: df.a.col()
+        In [6]: df.a.cols()
         Out[6]:
         'a'
 
-        In [7]: df.a.index.cols()
+        In [7]: df.b.col()
         Out[7]:
-        None
+        'b'
 
         In [8]: df.a.index.cols()
         Out[8]:
-        None
+        'c'
+
+        In [9]: df.b.index.cols()
+        Out[9]:
+        'c'
+
+        In [10]: df.index.cols()
+        Out[10]:
+        'c'
+
+        In [10]: df.index.col()
+        Out[10]:
+        'c'
     """
     return register_series_accessor(name)
 
