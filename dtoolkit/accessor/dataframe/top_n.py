@@ -42,12 +42,12 @@ def top_n(
     delimiter : str, default "_"
         The delimiter between `prefix` and number.
 
-    element : {"both", "index", "value"}, default "index"
+    element : {"index", "value", "both"}, default "index"
         To control the structure of return dataframe value.
 
-        - both: the structure of value is ``({column index}, {value})``.
         - index: the structure of value is only ``{column index}``.
         - value: the structure of value is only ``{value}``.
+        - both: the structure of value is ``({column index}, {value})``.
 
     Returns
     -------
@@ -88,7 +88,7 @@ def top_n(
     2  2  1  3
     3  1  1  1
 
-    Get each row's largest top **2**.
+    Get each row's largest top **2**, sorts values and returns index.
 
     >>> df.top_n(2)
         top_1   top_2
@@ -97,7 +97,17 @@ def top_n(
     2       c       a
     3       a       b
 
-    Get each row's both **index** and **value** of largest top 2.
+    Get each row's largest top **2**, sorts values and returns values.
+
+    >>> df.top_n(2, element="value")
+       top_1  top_2
+    0      3      2
+    1      3      2
+    2      3      2
+    3      1      1
+
+    Get each row's both **index** and **value** of largest top 2, sorts values
+    and return both index and values.
 
     >>> df.top_n(2, element="both")
         top_1   top_2
@@ -116,18 +126,17 @@ def top_n(
     3       a       b       c
     """
 
-    if element not in {"both", "index", "value"}:
-        raise ValueError('element must be either "both", "index" or "value"')
-
     def wrap_s_top_n(*args, **kwargs) -> pd.Series:
         top = s_top_n(*args, **kwargs)
 
-        if element == "both":
-            data = zip(top.index, top.values)
-        elif element == "index":
+        if element == "index":
             data = top.index
         elif element == "value":
             data = top.values
+        elif element == "both":
+            data = zip(top.index, top.values)
+        else:
+            raise ValueError('element must be either "both", "index" or "value"')
 
         return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
 

@@ -2,7 +2,7 @@ from test.accessor.conftest import d
 
 import pandas as pd
 
-import dtoolkit.accessor.dataframe  # noqa
+from dtoolkit.accessor.dataframe import filter_in  # noqa
 
 
 def test_work():

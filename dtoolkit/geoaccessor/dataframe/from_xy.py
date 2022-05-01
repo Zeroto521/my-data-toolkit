@@ -5,8 +5,10 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -14,9 +16,16 @@ if TYPE_CHECKING:
     from dtoolkit._typing import IntOrStr
 
 
-@register_dataframe_method("from_xy")
+@register_dataframe_method("points_from_xy")
 @register_dataframe_method
-def points_from_xy(
+@warning(
+    "The method 'dtoolkit.geoaccessor.geoseries.points_from_xy' is renamed to "
+    "'dtoolkit.geoaccessor.geoseries.from_xy' in 0.0.15. "
+    "But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. "
+    "(Warning added DToolKit 0.0.14)",
+    stacklevel=3,
+)
+def from_xy(
     df: pd.DataFrame,
     x: str,
     y: str,
@@ -28,21 +37,33 @@ def points_from_xy(
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
 
+    A sugary syntax wraps :meth:`geopandas.points_from_xy`.
+
     This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
+
+    .. warning::
+        The method ``dtoolkit.geoaccessor.geoseries.points_from_xy`` is renamed to
+        ``dtoolkit.geoaccessor.geoseries.from_xy`` in 0.0.15.
+        But call it via 'df.from_xy' or 'df.points_from_xy' both are ok.
+        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------
-    x: str
+    x : str
         ``df``'s column name.
-    y: str
+
+    y : str
         ``df``'s column name.
-    z: str, optional
+
+    z : str, optional
         ``df``'s column name.
-    crs: CRS, str, int, optional
+
+    crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
-    drop: bool, default False
+
+    drop : bool, default False
         Don't contain ``x``, ``y`` and ``z`` anymore.
 
     Returns
@@ -54,7 +75,7 @@ def points_from_xy(
     --------
     geopandas.points_from_xy
     geopandas.GeoSeries.from_xy
-    dtoolkit.geoaccessor.datafrme.from_wkt
+    dtoolkit.geoaccessor.dataframe.from_wkt
 
     Notes
     -----
@@ -83,13 +104,7 @@ def points_from_xy(
     """
 
     return gpd.GeoDataFrame(
-        (
-            df.drop(
-                columns=[x, y, z] if z is not None else [x, y],
-            )
-            if drop
-            else df
-        ),
+        df.drop_or_not(drop=drop, columns=[x, y, z] if z is not None else [x, y]),
         geometry=gpd.points_from_xy(
             df[x],
             df[y],

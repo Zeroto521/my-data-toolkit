@@ -142,7 +142,7 @@ nbsphinx_execute = "always"
 nbsphinx_allow_errors = True
 
 
-# based on pandas doc/source/conf.py
+# based on pandas/doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     """
     Determine the URL corresponding to Python object
