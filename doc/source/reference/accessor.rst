@@ -35,7 +35,6 @@ DataFrame Accessor
     repeat
     top_n
     to_series
-    unique_counts
     values_to_dict
 
 
