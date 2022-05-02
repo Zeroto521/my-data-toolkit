@@ -4,18 +4,9 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
-from dtoolkit.util._decorator import deprecated_alias
 
 
 @register_dataframe_method
-@deprecated_alias(
-    warning_msg=(
-        "{func_name}'s parameter '{old_alias}' is deprecated and will be removed in "
-        "0.0.15. Please use the parameter '{new_alias}'. "
-        "(Warning added DToolKit 0.0.14)"
-    ),
-    few_as_key="ascending",
-)
 def values_to_dict(
     df: pd.DataFrame,
     order: list | tuple = None,
