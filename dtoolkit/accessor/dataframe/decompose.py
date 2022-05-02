@@ -34,7 +34,7 @@ def decompose(
     Parameters
     ----------
     method : TransformerMixin
-        Decomposition transformer
+        Decomposition transformer.
 
     columns : dict, Series, list, tuple or None, default None
         Choose columns to decompose.
