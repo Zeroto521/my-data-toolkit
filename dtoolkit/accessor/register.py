@@ -28,8 +28,9 @@ def register_method_factory(register_accessor):
 
     See Also
     --------
-    register_series_method
     register_dataframe_method
+    register_series_method
+    register_index_method
     dtoolkit.geoaccessor.register_geoseries_method
     dtoolkit.geoaccessor.register_geodataframe_method
     """
@@ -99,12 +100,13 @@ def register_series_method(name: str = None):
 
     Examples
     --------
-    .. ipython:: python
-
-        # In your library code::
+    In your library code::
 
         from __future__ import annotations
 
+        from dtoolkit.accessor import register_dataframe_method
+        from dtoolkit.accessor import register_series_method
+        from dtoolkit.accessor import register_index_method
         import pandas as pd
 
         @register_index_method("col")  # Support alias name also.
@@ -124,26 +126,46 @@ def register_series_method(name: str = None):
 
             return pd_obj.columns.tolist()
 
-        # Back in an interactive IPython session:
+    Back in an interactive IPython session:
 
-        df = pd.DataFrame(
-            {{"a": [1, 2], "b": [3, 4]}},
-            index=pd.Index(["x", "y"], name="c"),
-        )
+    .. code-block:: ipython
 
-        df
+        In [1]: import pandas as pd
 
-        # Get the columns of DataFrame via `cols` or `col` method
+        In [2]: df = pd.DataFrame(
+           ...:     {{
+           ...:         "a": [1, 2],
+           ...:         "b": [3, 4],
+           ...:     }},
+           ...:     index=pd.Index(
+           ...:         ["x", "y"],
+           ...:         name="c",
+           ...:     ),
+           ...: )
 
-        df.cols()
+        In [3]: df
+        Out[3]:
+           a  b
+        c
+        x  1  3
+        y  2  4
 
-        # Get name of Series via `cols` or `col` method
+        Get the columns of DataFrame via `cols` or `col` method
 
-        df.a.col()
+        In [4]: df.col()
+        Out[4]: ['a', 'b']
 
-        # Get name of Index via `cols` or `col` method
-        df.index.col()
+        Get name of Series via `cols` or `col` method
+
+        In [5]: df.a.col()
+        Out[5]: 'a'
+
+        Get name of Index via `cols` or `col` method
+
+        In [6]: df.index.col()
+        Out[6]: 'c'
     """
+
     return register_series_accessor(name)
 
 
