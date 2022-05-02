@@ -68,7 +68,7 @@ df = pd.DataFrame(
     },
     index=pd.Index(
         ["x", "y"],
-        name="z",
+        name="c",
     ),
 )
 
@@ -99,16 +99,16 @@ def test_method_hooked_exist(data, name):
     [
         (df, "name_or_columns", ["a", "b"]),
         (df.a, "name_or_columns", "a"),
-        (df.a.index, "name_or_columns", "z"),
+        (df.a.index, "name_or_columns", "c"),
         (df, "name_or_columns_1", ["a", "b"]),
         (df.b, "name_or_columns_1", "b"),
-        (df.b.index, "name_or_columns_1", "z"),
+        (df.b.index, "name_or_columns_1", "c"),
         (df, "alias_name_or_columns", ["a", "b"]),
         (df.b, "alias_name_or_columns", "b"),
-        (df.index, "alias_name_or_columns", "z"),
+        (df.index, "alias_name_or_columns", "c"),
         (df, "alias_name_or_columns_1", ["a", "b"]),
         (df.a, "alias_name_or_columns_1", "a"),
-        (df.index, "alias_name_or_columns_1", "z"),
+        (df.index, "alias_name_or_columns_1", "c"),
     ],
 )
 def test_work(data, name, excepted):
