@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-import dtoolkit.accessor.series  # noqa
+from dtoolkit.accessor.series import top_n  # noqa
 
 
 @pytest.mark.parametrize(

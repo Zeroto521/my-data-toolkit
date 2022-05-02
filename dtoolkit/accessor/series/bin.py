@@ -2,15 +2,10 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit._decorator import warning
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-@warning(
-    "dtoolkit.accessor.series.bin's parameter 'ordered' default is "
-    "changed from 'False' to 'True'. (Warning added DToolKit 0.0.14)",
-)
 def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.

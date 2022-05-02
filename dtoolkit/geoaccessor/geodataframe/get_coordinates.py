@@ -35,13 +35,5 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     """,
     ),
 )
-def get_coordinates(
-    df: gpd.GeoDataFrame,
-    include_z: bool = False,
-    return_index: bool = False,
-) -> pd.Series:
-
-    return df.geometry.get_coordinates(
-        include_z=include_z,
-        return_index=return_index,
-    )
+def get_coordinates(df: gpd.GeoDataFrame, **kwargs) -> pd.Series:
+    return df.geometry.get_coordinates(**kwargs)

@@ -115,11 +115,11 @@ nbsphinx_prolog = r"""
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": ("http://docs.python.org/", None),
+    "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "sklearn": ("https://scikit-learn.org/stable/", None),
-    "geopandas": ("https://geopandas.readthedocs.io/en/stable/", None),
+    "geopandas": ("https://geopandas.org/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
@@ -142,7 +142,7 @@ nbsphinx_execute = "always"
 nbsphinx_allow_errors = True
 
 
-# based on pandas doc/source/conf.py
+# based on pandas/doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     """
     Determine the URL corresponding to Python object
