@@ -36,7 +36,6 @@ DataFrame Accessor
     repeat
     top_n
     to_series
-    unique_counts
     values_to_dict
 
 
@@ -47,5 +46,6 @@ Pandas Method Register
     :toctree: api/
 
     register_method_factory
-    register_series_method
     register_dataframe_method
+    register_series_method
+    register_index_method
