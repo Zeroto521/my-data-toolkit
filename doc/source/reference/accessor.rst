@@ -45,5 +45,6 @@ Pandas Method Register
     :toctree: api/
 
     register_method_factory
-    register_series_method
     register_dataframe_method
+    register_series_method
+    register_index_method
