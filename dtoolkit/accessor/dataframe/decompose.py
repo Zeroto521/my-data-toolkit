@@ -159,7 +159,7 @@ def decompose(
             columns=df.columns,
         )
 
-    if isinstance(columns, (list, tuple)):
+    elif isinstance(columns, (list, tuple)):
         result = pd.DataFrame(
             _decompose(method, df[columns], **kwargs),
             index=df.index,
