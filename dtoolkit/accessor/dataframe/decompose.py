@@ -90,7 +90,7 @@ def decompose(
 
     Decompose all columns.
 
-    >>> df.decompose(decomposition.PCA)  # doctest: +SKIP
+    >>> df.decompose(decomposition.PCA)
               a         b             c             d
     0  1.956431  0.415183  9.009015e-17  8.100537e-18
     1  3.142238 -0.355441  8.394617e-17  9.817066e-18
@@ -101,7 +101,7 @@ def decompose(
 
     Decompose the selected columns.
 
-    >>> df.decompose(decomposition.PCA, ["a", "b"])  # doctest: +SKIP
+    >>> df.decompose(decomposition.PCA, ["a", "b"])
               a         b  c  d
     0  1.383406  0.293579  1  1
     1  2.221898 -0.251335  2  1
@@ -114,8 +114,8 @@ def decompose(
 
     >>> df.decompose(
     ...     decomposition.PCA,
-    ...     {"A": ["a", "b"], "B": ["b", "c", "d"]}
-    ... )  # doctest: +SKIP
+    ...     {"A": ["a", "b"], "B": ["b", "c", "d"]},
+    ... )
               A         B  a  b  c  d
     0  1.383406  1.694316 -1 -1  1  1
     1  2.221898  2.428593 -2 -1  2  1
@@ -126,7 +126,7 @@ def decompose(
     >>> df.decompose(
     ...     decomposition.PCA,
     ...     {("A", "B"): ["a", "b", "c"]}
-    ... )  # doctest: +SKIP
+    ... )
               A         B  a  b  c  d
     0  1.702037  0.321045 -1 -1  1  1
     1  2.988071 -0.267273 -2 -1  2  1
@@ -142,7 +142,7 @@ def decompose(
     A    a
     A    b
     dtype: object
-    >>> df.decompose(decomposition.PCA, s, drop=True)  # doctest: +SKIP
+    >>> df.decompose(decomposition.PCA, s, drop=True)
               A  c  d
     0  1.383406  1  1
     1  2.221898  2  1
