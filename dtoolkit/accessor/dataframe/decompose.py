@@ -154,14 +154,14 @@ def decompose(
 
     if columns is None:
         result = pd.DataFrame(
-            method(*kwargs).fit_transform(df),
+            _decompose(method, df, **kwargs),
             index=df.index,
             columns=df.columns,
         )
 
     if isinstance(columns, (list, tuple)):
         result = pd.DataFrame(
-            method(*kwargs).fit_transform(df[columns]),
+            _decompose(method, df[columns], **kwargs),
             index=df.index,
             columns=columns,
         ).combine_first(
@@ -178,10 +178,12 @@ def decompose(
         result = pd.DataFrame(
             np.hstack(
                 [
-                    method(
-                        len(key) if isinstance(key, tuple) else 1,
+                    _decompose(
+                        method,
+                        df[value],
+                        n_components=len(key) if isinstance(key, tuple) else 1,
                         **kwargs,
-                    ).fit_transform(df[value])
+                    )
                     for key, value in columns.items()
                 ],
             ),
@@ -201,3 +203,18 @@ def decompose(
         return result
 
     df._update_inplace(result)
+
+
+def _decompose(
+    method: TransformerMixin,
+    df: pd.DataFrame,
+    n_components=None,
+    **kwargs,
+) -> np.ndarray:
+    if n_components is None and len(df) < len(df.columns):
+        raise ValueError(
+            "Don't support decomposing DataFrame in which "
+            "the number of rows is less than the number of columns",
+        )
+
+    return method(n_components, **kwargs).fit_transform(X)
