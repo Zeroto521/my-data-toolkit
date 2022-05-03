@@ -193,6 +193,8 @@ def decompose(
                 columns=list(collapse(columns.values())),
             ),
         )
+    else:
+        raise ValueError("The type of inputting 'columns' isn't right")
 
     if not inplace:
         return result
