@@ -217,4 +217,4 @@ def _decompose(
             "the number of rows is less than the number of columns",
         )
 
-    return method(n_components, **kwargs).fit_transform(X)
+    return method(n_components, **kwargs).fit_transform(df)
