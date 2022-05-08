@@ -97,9 +97,9 @@ def to_series(
         if index_column == value_column:
             raise ValueError("'index_column' and 'value_column' should be different.")
         elif index_column not in df.columns:
-            raise ValueError(f"{index_column} is not in the columns.")
+            raise ValueError(f"{index_column!r} is not in the columns.")
         elif value_column not in df.columns:
-            raise ValueError(f"{value_column} is not in the columns.")
+            raise ValueError(f"{value_column!r} is not in the columns.")
 
         return (
             df.set_index(index_column)
