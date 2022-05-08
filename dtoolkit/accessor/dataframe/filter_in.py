@@ -19,8 +19,9 @@ if TYPE_CHECKING:
 
 @register_dataframe_method
 @warning(
-    "The 'inplace' option of 'dtoolkit.accessor.dataframe.filter_in' is deprecated "
-    "and will be removed in 0.0.16. (Warning added DToolKit 0.0.15)",
+    "The 'inplace' and 'axis' options of 'dtoolkit.accessor.dataframe.filter_in' "
+    "is deprecated and will be removed in 0.0.16. If want to filter columns "
+    "please use '.T' firstly. (Warning added DToolKit 0.0.15)",
     DeprecationWarning,
     stacklevel=3,
 )
@@ -40,6 +41,11 @@ def filter_in(
     .. warning::
         The ``inplace`` option of ``dtoolkit.accessor.dataframe.filter_in`` is
         deprecated and will be removed in 0.0.16. (Warning added DToolKit 0.0.15)
+
+    .. warning::
+        The ``axis`` option of ``dtoolkit.accessor.dataframe.filter_in`` is deprecated
+        and will be removed in 0.0.16. If want to filter columns please use ``.T``
+        firstly. (Warning added DToolKit 0.0.15)
 
     Parameters
     ----------
@@ -91,8 +97,13 @@ def filter_in(
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
-    ...                   index=['falcon', 'dog', 'cat'])
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'num_legs': [2, 4, 2],
+    ...         'num_wings': [2, 0, 0],
+    ...     },
+    ...     index=['falcon', 'dog', 'cat'],
+    ... )
     >>> df
             num_legs  num_wings
     falcon         2          2
