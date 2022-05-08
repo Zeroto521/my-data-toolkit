@@ -1,6 +1,20 @@
+from dtoolkit.util._decorator import warning
+
+
+@warning(
+    "'dtoolkit.util.generic.snake_to_camel' will be moved into "
+    "'dtoolkit.transformer._util.snake_to_camel' as a inner function in 0.0.16. "
+    "(Warning added DToolKit 0.0.15)",
+    FutureWarning,
+)
 def snake_to_camel(name: str) -> str:
     """
     Change snake style name to camel style name.
+
+    .. warning::
+        ``dtoolkit.util.generic.snake_to_camel`` will be moved into
+        ``dtoolkit.transformer._util.snake_to_camel`` as a inner function in 0.0.16.
+        (Warning added DToolKit 0.0.15)
 
     Parameters
     ----------
