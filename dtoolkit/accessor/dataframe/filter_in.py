@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 @warning(
     "The 'inplace' and 'axis' options of 'dtoolkit.accessor.dataframe.filter_in' "
     "is deprecated and will be removed in 0.0.16. If want to filter columns "
-    "please use `.T` firstly. (Warning added DToolKit 0.0.15)",
+    "please use '.T' firstly. (Warning added DToolKit 0.0.15)",
     DeprecationWarning,
     stacklevel=3,
 )
@@ -43,9 +43,9 @@ def filter_in(
         deprecated and will be removed in 0.0.16. (Warning added DToolKit 0.0.15)
 
     .. warning::
-        "The 'axis' option of 'dtoolkit.accessor.dataframe.filter_in' is deprecated "
-        "and will be removed in 0.0.16. If want to filter columns please use `.T` "
-        "firstly. (Warning added DToolKit 0.0.15)",
+        The ``axis`` option of ``dtoolkit.accessor.dataframe.filter_in`` is deprecated
+        and will be removed in 0.0.16. If want to filter columns please use ``.T``
+        firstly. (Warning added DToolKit 0.0.15)
 
     Parameters
     ----------
