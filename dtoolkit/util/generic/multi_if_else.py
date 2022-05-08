@@ -2,17 +2,28 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from dtoolkit.util._decorator import warning
+
 if TYPE_CHECKING:
     from typing import Any
     from typing import Iterable
 
 
+@warning(
+    "'dtoolkit.util.generic.multi_if_else' is deprecated and will be removed "
+    "in 0.0.16. (Warning added DToolKit 0.0.15)",
+    DeprecationWarning,
+)
 def multi_if_else(
     if_condition_return: Iterable | list[tuple[bool, Any]],
     else_return: Any = None,
 ) -> Any | None:
     """
     Handle a series of :keyword:`if` or :keyword:`elif`.
+
+    .. warning::
+        ``dtoolkit.util.generic.multi_if_else`` is deprecated and will be removed
+        in 0.0.16. (Warning added DToolKit 0.0.15)
 
     Parameters
     ----------
