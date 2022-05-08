@@ -20,6 +20,7 @@ def filter_in(
     df: pd.DataFrame,
     condition: Iterable | SeriesOrFrame | dict[str, list[str]],
     how: str = "all",
+    complement: bool = False,
 ) -> pd.DataFrame:
     """
     Filter :obj:`~pandas.DataFrame` contents.
@@ -46,6 +47,9 @@ def filter_in(
 
         * 'any' : If any values are present, filter that rows.
         * 'all' : If all values are present, filter that rows.
+
+    complement : bool, default is False
+        If True, do operation reversely.
 
     Returns
     -------
