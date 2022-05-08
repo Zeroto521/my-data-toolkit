@@ -97,8 +97,13 @@ def filter_in(
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
-    ...                   index=['falcon', 'dog', 'cat'])
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'num_legs': [2, 4, 2],
+    ...         'num_wings': [2, 0, 0],
+    ...     },
+    ...     index=['falcon', 'dog', 'cat'],
+    ... )
     >>> df
             num_legs  num_wings
     falcon         2          2
