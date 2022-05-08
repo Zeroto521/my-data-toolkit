@@ -91,9 +91,9 @@ def multi_if_else(
     ...     [
     ...         (how == "any", mask.any()),
     ...         (how == "all", mask.all()),
-    ...         (how is not None, ValueError(f"Invalid how option: {how}")),
+    ...         (how is not None, ValueError(f"Invalid how option: {how!r}")),
     ...     ],
-    ...     TypeError("Must specify how"),
+    ...     TypeError("Must specify 'how'"),
     ... )
     >>> mask_lambda("any")
     True
@@ -111,9 +111,9 @@ def multi_if_else(
             elif how == 'all':
                 return mask.all()
             elif how is not None:
-                ValueError(f"Invalid how option: {how}")
+                ValueError(f"Invalid how option: {how!r}")
             else:
-                TypeError("Must specify how")
+                TypeError("Must specify 'how'")
     """
 
     for condition, result in if_condition_return:
