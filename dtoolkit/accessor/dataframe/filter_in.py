@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
