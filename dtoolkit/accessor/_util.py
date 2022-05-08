@@ -39,27 +39,6 @@ def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
     )
 
 
-def isin(
-    df: pd.DataFrame,
-    values: Iterable | SeriesOrFrame | dict[str, list[str]],
-    axis: IntOrStr = 0,
-) -> pd.DataFrame:
-    """
-    Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
-    :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
-    """
-    from collections import defaultdict
-
-    axis = df._get_axis_number(axis)
-
-    if isinstance(values, dict) and axis == 1:
-        values = defaultdict(list, values)
-        result = (df.iloc[[r]].isin(values[i]) for r, i in enumerate(df.index))
-        return pd.concat(result, axis=0)
-
-    return df.isin(values)
-
-
 # based on more_itertools/more.py
 def collapse(iterable: Iterable):
     def walk(node):
