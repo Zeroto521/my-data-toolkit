@@ -14,12 +14,13 @@ if TYPE_CHECKING:
     from typing import Iterable
 
     from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import SeriesOrFrame
 
 
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
-    condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
+    condition: Iterable | SeriesOrFrame | dict[str, list[str]],
     axis: IntOrStr = 0,
     how: str = "all",
     inplace: bool = False,
