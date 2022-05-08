@@ -12,8 +12,9 @@ def snake_to_camel(name: str) -> str:
     Change snake style name to camel style name.
 
     .. warning::
-        ``dtoolkit.util.generic.snake_to_camel`` is deprecated and will be removed
-        in 0.0.16. (Warning added DToolKit 0.0.15)
+        ``dtoolkit.util.generic.snake_to_camel`` will be moved into
+        ``dtoolkit.transformer._util.snake_to_camel`` as a inner function in 0.0.16.
+        (Warning added DToolKit 0.0.15)
 
     Parameters
     ----------
