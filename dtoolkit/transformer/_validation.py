@@ -14,5 +14,5 @@ def require_series_or_frame(X: SeriesOrFrame):
     if not isinstance(X, (pd.Series, pd.DataFrame)):
         raise TypeError(
             f"For argument 'X' expected type 'pandas.Series' or "
-            f"'pandas.DataFrame', received type {type(X).__name__}.",
+            f"'pandas.DataFrame', received type {type(X).__name__!r}.",
         )

@@ -14,14 +14,6 @@ def test_work():
     assert (~res["b"].isin([0, 1])).all()  # 0 and not in a
 
 
-def test_inplace_is_true():
-    df = d.copy(True)
-    res = df.filter_in({"a": [0, 1], "b": [2]}, inplace=True)
-
-    assert res is None
-    assert df.equals(d) is False
-
-
 def test_issue_145():
     # test my-data-toolkit#145
     df = pd.DataFrame(
