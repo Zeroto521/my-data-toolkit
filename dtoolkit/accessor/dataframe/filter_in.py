@@ -123,9 +123,13 @@ def filter_in(
     """
 
     mask = df.isin(condition)
+
     if isinstance(condition, dict):
         # 'how' only works on condition's keys
         mask = mask[condition.keys()]
+
+    if complement:
+        mask = ~mask
 
     mask = get_mask(how, mask, 1)
 
