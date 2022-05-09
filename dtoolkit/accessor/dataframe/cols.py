@@ -12,10 +12,16 @@ if TYPE_CHECKING:
 
 
 @register_dataframe_method
-def cols(df: pd.DataFrame) -> list[IntOrStr]:
+def cols(df: pd.DataFrame, to_list: bool = False) -> list[IntOrStr]:
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
+
+    Parameters
+    ----------
+    to_list : bool, default False
+        This option doesn't work, and it's used to fit
+        :method:`dtoolkit.accessor.series.cols` arguments.
 
     Returns
     -------
