@@ -48,7 +48,7 @@ def cols(df: pd.DataFrame, to_list: bool = False) -> list[IntOrStr]:
 
     Get :attr:`~pandas.DataFrame.columns`.
 
-    >>> d = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+    >>> d = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     >>> d.cols()
     ['a', 'b']
     """

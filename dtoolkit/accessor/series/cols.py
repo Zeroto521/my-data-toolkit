@@ -48,12 +48,11 @@ def cols(
     >>> s.cols()
     'item'
     >>> s.cols(to_list=True)
-    >>>
     ['item']
 
     Get :attr:`~pandas.DataFrame.columns`.
 
-    >>> d = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+    >>> d = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     >>> d.cols()
     ['a', 'b']
     """
