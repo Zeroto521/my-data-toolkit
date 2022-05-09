@@ -103,7 +103,7 @@ def filter_in(
             num_legs  num_wings
     falcon         2          2
 
-    When ``values`` is a Series or DataFrame the index and column must match.
+    When ``values`` is a Series or DataFrame the index and column must be matched.
     Note that 'spider' doesn't match based on the number of legs in ``other``.
 
     >>> other = pd.DataFrame(
