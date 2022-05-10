@@ -25,9 +25,8 @@ def decompose(
     | tuple[IntOrStr]
     | None = None,
     drop: bool = False,
-    inplace: bool = False,
     **kwargs,
-) -> pd.DataFrame | None:
+) -> pd.DataFrame:
     """
     Decompose DataFrame's columns.
 
@@ -46,17 +45,13 @@ def decompose(
     drop : bool, default False
         If True, drop the used columns.
 
-    inplace : bool, default False
-        If True, do operation inplace and return None.
-
     **kwargs
         See the documentation for ``method`` for complete details on
         the keyword arguments.
 
     Returns
     -------
-    DataFrame or None
-        If inplace is False will return the decomposed data.
+    DataFrame
 
     See Also
     --------
@@ -153,14 +148,14 @@ def decompose(
     """
 
     if columns is None:
-        result = pd.DataFrame(
+        return pd.DataFrame(
             _decompose(method, df, **kwargs),
             index=df.index,
             columns=df.columns,
         )
 
     elif isinstance(columns, (list, tuple)):
-        result = pd.DataFrame(
+        return pd.DataFrame(
             _decompose(method, df[columns], **kwargs),
             index=df.index,
             columns=columns,
@@ -175,7 +170,7 @@ def decompose(
         if isinstance(columns, pd.Series):
             columns = columns.values_to_dict()
 
-        result = pd.DataFrame(
+        return pd.DataFrame(
             np.hstack(
                 [
                     _decompose(
@@ -196,13 +191,7 @@ def decompose(
             ),
         )
 
-    else:
-        raise ValueError("The type of inputting 'columns' isn't right")
-
-    if not inplace:
-        return result
-
-    df._update_inplace(result)
+    raise ValueError("The type of inputting 'columns' isn't right")
 
 
 def _decompose(
