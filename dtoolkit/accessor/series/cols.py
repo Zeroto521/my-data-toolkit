@@ -1,29 +1,35 @@
 from __future__ import annotations
 
-from textwrap import dedent
+from typing import TYPE_CHECKING
 
 import pandas as pd
-from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_series_method
 
 
+if TYPE_CHECKING:
+    from dtoolkit._typing import IntOrStr
+
+
 @register_series_method
-@doc(
-    returns=dedent(
-        """
-    Returns
-    -------
-    str or None
-        The name of the Series.
-    """,
-    ),
-)
-def cols(s: pd.Series) -> str | None:
+def cols(
+    s: pd.Series,
+    to_list: bool = False,
+) -> IntOrStr | None | list[IntOrStr | None]:
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
-    {returns}
+
+    Parameters
+    ----------
+    to_list : bool, default False
+        If True, return a list type.
+
+    Returns
+    -------
+    str, int, None or list of them
+        The name of the Series.
+
     See Also
     --------
     pandas.Series.name
@@ -41,12 +47,14 @@ def cols(s: pd.Series) -> str | None:
     >>> s = pd.Series(range(10), name="item")
     >>> s.cols()
     'item'
+    >>> s.cols(to_list=True)
+    ['item']
 
     Get :attr:`~pandas.DataFrame.columns`.
 
-    >>> d = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+    >>> d = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     >>> d.cols()
     ['a', 'b']
     """
 
-    return s.name
+    return [s.name] if to_list else s.name
