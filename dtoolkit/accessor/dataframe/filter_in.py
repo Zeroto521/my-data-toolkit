@@ -130,7 +130,7 @@ def filter_in(
     mask = df.isin(condition)
 
     if isinstance(condition, dict):
-        # 'how' only works on condition's keys
+        # 'how' only works on condition these dictionary's keys
         mask = mask[condition.keys()]
 
     if complement:
