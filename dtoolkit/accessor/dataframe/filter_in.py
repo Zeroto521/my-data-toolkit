@@ -95,6 +95,12 @@ def filter_in(
                falcon  dog  cat
     num_wings       2    0    0
 
+    Filter any row doesn't contain 0 or 2.
+
+    >>> df.filter_in([0, 2], how="any", complement=True)
+            num_legs  num_wings
+    dog            4          0
+
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately.
 
