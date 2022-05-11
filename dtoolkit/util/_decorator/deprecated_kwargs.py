@@ -23,6 +23,11 @@ def deprecated_kwargs(
         string template. If a string template defaults input ``func_name`` and
         ``argument``.
 
+    See Also
+    --------
+    dtoolkit.util._decorator.warning
+    dtoolkit.util._decorator.deprecated_alias
+
     Examples
     --------
     >>> from dtoolkit.util._decorator import deprecated_kwargs
