@@ -21,10 +21,8 @@ def get_inf_range(inf: str = "all") -> list[float]:
         return [np.inf]
     elif inf == "neg":
         return [-np.inf]
-    elif inf is not None:
-        raise ValueError(f"invalid inf option: {inf!r}")
 
-    raise TypeError("must specify inf")
+    raise ValueError(f"invalid inf option: {inf!r}")
 
 
 def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
@@ -32,10 +30,8 @@ def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
         return mask.any(axis=axis)
     elif how == "all":
         return mask.all(axis=axis)
-    elif how is not None:
-        raise ValueError(f"invalid inf option: {how!r}")
 
-    raise TypeError("must specify how")
+    raise ValueError(f"invalid inf option: {how!r}")
 
 
 def isin(
