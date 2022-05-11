@@ -29,7 +29,7 @@ def deprecated_kwargs(
     >>> @deprecated_kwargs('x', 'y')
     ... def plus(a, b, x=0, y=0):
     ...     return a + b
-    >>> plus(1, 2)
+    >>> plus(1, 2, x=1, y=2)
     3
     """
 
