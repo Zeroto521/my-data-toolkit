@@ -40,15 +40,6 @@ def filter_in(
     Similar to :meth:`~pandas.DataFrame.isin`, but the return is value not
     bool.
 
-    .. warning::
-        The ``inplace`` option of ``dtoolkit.accessor.dataframe.filter_in`` is
-        deprecated and will be removed in 0.0.16. (Warning added DToolKit 0.0.15)
-
-    .. warning::
-        The ``axis`` option of ``dtoolkit.accessor.dataframe.filter_in`` is deprecated
-        and will be removed in 0.0.16. If want to filter columns please use ``.T``
-        firstly. (Warning added DToolKit 0.0.15)
-
     Parameters
     ----------
     condition : iterable, Series, DataFrame or dict
@@ -73,6 +64,10 @@ def filter_in(
         * 0, or 'index' : Filter rows which contain value.
         * 1, or 'columns' : Filter columns which contain value.
 
+        .. warning::
+            The ``axis`` is deprecated and will be removed in 0.0.16. If want to
+            filter columns please use ``.T`` firstly. (Warning added DToolKit 0.0.15)
+
     how : {'any', 'all'}, default 'all'
         Determine if row or column is filtered from :obj:`~pandas.DataFrame`,
         when we have at least one value or all value.
@@ -82,6 +77,10 @@ def filter_in(
 
     inplace : bool, default is False
         If True, do operation inplace and return None.
+
+        .. warning::
+            The ``inplace`` is deprecated and will be removed in 0.0.16.
+            (Warning added DToolKit 0.0.15)
 
     Returns
     -------
