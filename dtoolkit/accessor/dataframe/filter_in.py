@@ -8,7 +8,7 @@ from pandas.util._validators import validate_bool_kwarg
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
+from dtoolkit.util._decorator import deprecated_kwargs
 
 
 if TYPE_CHECKING:
@@ -18,12 +18,14 @@ if TYPE_CHECKING:
 
 
 @register_dataframe_method
-@warning(
-    "The 'inplace' and 'axis' options of 'dtoolkit.accessor.dataframe.filter_in' "
-    "is deprecated and will be removed in 0.0.16. If want to filter columns "
-    "please use '.T' firstly. (Warning added DToolKit 0.0.15)",
-    DeprecationWarning,
-    stacklevel=3,
+@deprecated_kwargs(
+    "inplace",
+    "axis",
+    message=(
+        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
+        "be removed in 0.0.16. If want to filter columns please use '.T' firstly. "
+        "(Warning added DToolKit 0.0.15)"
+    ),
 )
 def filter_in(
     df: pd.DataFrame,
