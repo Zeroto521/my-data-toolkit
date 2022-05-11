@@ -10,6 +10,7 @@ New features and improvements:
 
 API changes:
 
+- Add version information for warning ({pr}`528`).
 - Add `DeprecationWarning` for dropping `axis` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`522`).
 - Add `DeprecationWarning` for dropping `generic` package ({pr}`521`).
 - Add `DeprecationWarning` for dropping `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`519`).
