@@ -1,5 +1,28 @@
 # Changelog
 
+## [Version 0.0.15] (2022-??-??)
+
+New features and improvements:
+
+- New decorator {meth}`deprecated_kwargs` ({pr}`525`).
+- Add `to_list` option for {meth}`~dtoolkit.accessor.series.cols` ({pr}`523`).
+- Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`pandas.Index` ({pr}`507`).
+
+API changes:
+
+- Add `DeprecationWarning` for dropping `axis` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`522`).
+- Add `DeprecationWarning` for dropping `generic` package ({pr}`521`).
+- Add `DeprecationWarning` for dropping `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`519`).
+- Drop {meth}`unique_counts` method ({pr}`512`).
+
+Maintenance development:
+
+- Add single quote via `!r` for f-string ({pr}`520`).
+- Add changelog link at PyPI page ({pr}`517`).
+- Use `build` new distuils and add `pyproject.toml` configuration ({pr}`516`).
+- pre-commit hooks autoupdate ({pr}`515`, {pr}`524`).
+- Remove warning message ({pr}`513`, {pr}`514`, {pr}`526`).
+
 ## [Version 0.0.14] (2022-5-1)
 
 New features and improvements:
@@ -405,6 +428,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.15]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.15
 [Version 0.0.14]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.13...v0.0.14
 [Version 0.0.13]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.12...v0.0.13
 [Version 0.0.12]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.11...v0.0.12
