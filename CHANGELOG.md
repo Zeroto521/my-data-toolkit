@@ -6,7 +6,7 @@ New features and improvements:
 
 - New decorator {meth}`deprecated_kwargs` ({pr}`525`).
 - Add `to_list` option for {meth}`~dtoolkit.accessor.series.cols` ({pr}`523`).
-- Add the index register method, support register method into {class}`pandas.Index` ({pr}`507`).
+- Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`pandas.Index` ({pr}`507`).
 
 API changes:
 
