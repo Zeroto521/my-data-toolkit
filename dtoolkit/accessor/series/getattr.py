@@ -17,11 +17,6 @@ def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
 
     .. _User Guide: ../../guide/tips_about_getattr.ipynb
 
-    .. warning::
-        ``dtoolkit.accessor.series.get_attr`` is deprecated and will be removed
-        in 0.0.15. Please use ``dtoolkit.accessor.series.getattr`` instead.
-        (Warning added DToolKit 0.0.14)
-
     Parameters
     ----------
     name : str
