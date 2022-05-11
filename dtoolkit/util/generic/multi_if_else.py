@@ -21,7 +21,7 @@ def multi_if_else(
     """
     Handle a series of :keyword:`if` or :keyword:`elif`.
 
-    .. warning::
+    .. deprecated:: 0.0.15
         ``dtoolkit.util.generic.multi_if_else`` is deprecated and will be removed
         in 0.0.16. (Warning added DToolKit 0.0.15)
 

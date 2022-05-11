@@ -64,7 +64,7 @@ def filter_in(
         * 0, or 'index' : Filter rows which contain value.
         * 1, or 'columns' : Filter columns which contain value.
 
-        .. warning::
+        .. deprecated:: 0.0.15
             The ``axis`` is deprecated and will be removed in 0.0.16. If want to
             filter columns please use ``.T`` firstly. (Warning added DToolKit 0.0.15)
 
@@ -78,7 +78,7 @@ def filter_in(
     inplace : bool, default is False
         If True, do operation inplace and return None.
 
-        .. warning::
+        .. deprecated:: 0.0.15
             The ``inplace`` is deprecated and will be removed in 0.0.16.
             (Warning added DToolKit 0.0.15)
 
