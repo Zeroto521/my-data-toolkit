@@ -5,6 +5,14 @@ Accessor
 
 Series Accessor
 ---------------
+.. currentmodule:: dtoolkit.accessor.index
+.. autosummary::
+    :toctree: api/
+
+    to_set
+
+Series Accessor
+---------------
 .. currentmodule:: dtoolkit.accessor.series
 .. autosummary::
     :toctree: api/
