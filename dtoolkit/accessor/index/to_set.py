@@ -26,11 +26,11 @@ def to_set(index: pd.Index) -> set:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> i = pd.Index(["a", "b", "b"])
+    >>> i = pd.Index([1, 2, 2])
     >>> i
-    Index(['a', 'b', 'b'], dtype='object')
+    Int64Index([1, 2, 2], dtype='int64')
     >>> i.to_set()
-    {'a', 'b'}
+    {1, 2}
     """
 
     return set(index)
