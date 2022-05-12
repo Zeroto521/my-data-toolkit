@@ -3,7 +3,7 @@ Accessor
 ========
 
 
-Series Accessor
+Index Accessor
 ---------------
 .. currentmodule:: dtoolkit.accessor.index
 .. autosummary::
