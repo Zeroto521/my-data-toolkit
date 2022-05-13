@@ -4,7 +4,6 @@ import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_inf_range
-from dtoolkit.accessor.dataframe import boolean
 from dtoolkit.accessor.register import register_series_method
 
 
