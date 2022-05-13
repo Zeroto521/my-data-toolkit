@@ -4,6 +4,7 @@ from functools import wraps
 from typing import TYPE_CHECKING
 
 from pandas.api.extensions import register_dataframe_accessor
+from pandas.api.extensions import register_index_accessor
 from pandas.api.extensions import register_series_accessor
 from pandas.util._decorators import doc
 
@@ -15,16 +16,21 @@ if TYPE_CHECKING:
 
 def register_method_factory(register_accessor):
     """
-    Decrease the same things via factory pattern.
+    Let pandas-object like accessor which only hooks class also hooks function easily.
 
     Read more in the `User Guide`_.
 
     .. _User Guide: ../../guide/tips_about_accessor.ipynb#Extend-to-Pandas-like-Object
 
+    Parameters
+    ----------
+    register_accessor : Pandas-object like accessor
+
     See Also
     --------
-    register_series_method
     register_dataframe_method
+    register_series_method
+    register_index_method
     dtoolkit.geoaccessor.register_geoseries_method
     dtoolkit.geoaccessor.register_geodataframe_method
     """
@@ -85,27 +91,37 @@ def register_series_method(name: str = None):
 
     See Also
     --------
-    register_series_method
     register_dataframe_method
-    pandas.api.extensions.register_series_accessor
+    register_series_method
+    register_index_method
     pandas.api.extensions.register_dataframe_accessor
+    pandas.api.extensions.register_series_accessor
+    pandas.api.extensions.register_index_accessor
 
     Examples
     --------
     In your library code::
 
+        from __future__ import annotations
+
+        from dtoolkit.accessor import register_dataframe_method
+        from dtoolkit.accessor import register_series_method
+        from dtoolkit.accessor import register_index_method
         import pandas as pd
 
+        @register_index_method("col")  # Support alias name also.
+        @register_series_method("col")
         @register_dataframe_method(name="col")
-        @register_series_method(name="col")  # Support alias name also.
+        @register_index_method  # Use accessor method's `__name__` as the entrance.
+        @register_series_method
         @register_dataframe_method
-        @register_series_method  # Use accessor method `__name__` as the entrance.
-        def cols(pd_obj):
+        def cols(pd_obj) -> int | str | list[int | str] | None:
             '''
             An API to gather :attr:`~pandas.Series.name` and
             :attr:`~pandas.DataFrame.columns` to one.
             '''
-            if isinstance(pd_obj, pd.Series):
+
+            if isinstance(pd_obj, (pd.Series, pd.Index)):
                 return pd_obj.name
 
             return pd_obj.columns.tolist()
@@ -116,24 +132,40 @@ def register_series_method(name: str = None):
 
         In [1]: import pandas as pd
 
-        In [2]: df = pd.DataFrame({{"a": [1, 2], "b": [3, 4]}})
+        In [2]: df = pd.DataFrame(
+           ...:     {{
+           ...:         "a": [1, 2],
+           ...:         "b": [3, 4],
+           ...:     }},
+           ...:     index=pd.Index(
+           ...:         ["x", "y"],
+           ...:         name="c",
+           ...:     ),
+           ...: )
 
-        In [3]: df.cols()
+        In [3]: df
         Out[3]:
-        ['a', 'b']
+           a  b
+        c
+        x  1  3
+        y  2  4
 
-        In [4]: df.a.cols()
-        Out[4]:
-        'a'
+        Get the columns of DataFrame via `cols` or `col` method
 
-        In [5]: df.col()
-        Out[5]:
-        ['a', 'b']
+        In [4]: df.col()
+        Out[4]: ['a', 'b']
 
-        In [6]: df.a.col()
-        Out[6]:
-        'a'
+        Get name of Series via `cols` or `col` method
+
+        In [5]: df.a.col()
+        Out[5]: 'a'
+
+        Get name of Index via `cols` or `col` method
+
+        In [6]: df.index.col()
+        Out[6]: 'c'
     """
+
     return register_series_accessor(name)
 
 
@@ -141,3 +173,9 @@ def register_series_method(name: str = None):
 @doc(register_series_method, klass=":class:`~pandas.DataFrame`")
 def register_dataframe_method(name: str = None):
     return register_dataframe_accessor(name)
+
+
+@register_method_factory
+@doc(register_series_method, klass=":class:`~pandas.Index`")
+def register_index_method(name: str = None):
+    return register_index_accessor(name)

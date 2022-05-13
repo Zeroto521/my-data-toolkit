@@ -12,7 +12,7 @@ jobs:
     outputs:
       should_skip: ${{ steps.skip-check.outputs.should-skip }}
     steps:
-      - uses: fkirc/skip-duplicate-actions@v3.4.1
+      - uses: fkirc/skip-duplicate-actions@v4.0.0
         id: skip-check
         with:
           paths_ignore: '["doc/**"]'
@@ -78,4 +78,4 @@ jobs:
         if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
         run: make doctest
 
-      - uses: codecov/codecov-action@v2.1.0
+      - uses: codecov/codecov-action@v3

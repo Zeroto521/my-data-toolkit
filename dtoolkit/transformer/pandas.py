@@ -52,7 +52,7 @@ class AppendTF(DataFrameTF):
     ...     index=["x", "y"],
     ... )
     >>> df
-        A  B
+       A  B
     x  1  2
     y  3  4
     >>> df2 = pd.DataFrame(
@@ -62,7 +62,7 @@ class AppendTF(DataFrameTF):
     ... )
     >>> tf = AppendTF(df2)
     >>> tf.transform(df)
-        A  B
+       A  B
     x  1  2
     y  3  4
     x  5  6
@@ -72,7 +72,7 @@ class AppendTF(DataFrameTF):
 
     >>> tf = AppendTF(df2, ignore_index=True)
     >>> tf.transform(df)
-        A  B
+       A  B
     0  1  2
     1  3  4
     2  5  6
@@ -363,12 +363,10 @@ class FilterInTF(DataFrameTF):
 
     Filter columns.
 
-    >>> tf = FilterInTF([0, 2], axis=1)
-    >>> tf.transform(df)
-    falcon    2
-    dog       0
-    cat       0
-    Name: num_wings, dtype: int64
+    >>> tf = FilterInTF([0, 2])
+    >>> tf.transform(df.T)
+               falcon  dog  cat
+    num_wings       2    0    0
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately:
