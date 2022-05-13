@@ -1,15 +1,20 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
 
+if TYPE_CHECKING:
+    from dtoolkit._typing import IntOrStr
+
 
 @register_dataframe_method
 def values_to_dict(
     df: pd.DataFrame,
-    order: list | tuple = None,
+    order: list[IntOrStr] | pd.Index = None,
     ascending: bool = True,
     to_list: bool = True,
 ) -> dict:
@@ -18,7 +23,7 @@ def values_to_dict(
 
     Parameters
     ----------
-    order : list or tuple, optional
+    order : list of str or int, Index, optional
         The order of keys via given columns. If ``order`` is set, ``ascending``
         will not work.
 
