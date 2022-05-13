@@ -25,12 +25,12 @@ def deprecated_alias(
     Parameters
     -----------
     warning_msg : str
-        The message of :keyword:``DeprecationWarning``. It should be a string or a
+        The message of :exception:``DeprecationWarning``. It should be a string or a
         string template. If a string template defaults input ``func_name``,
         ``old_alias`` and ``new_alias``.
 
     error_msg : str
-        The message of :keyword:``TypeError``. It should be a string or a string
+        The message of :exception:``TypeError``. It should be a string or a string
         template. If a string template defaults input ``func_name``, ``old_alias`` and
         ``new_alias``.
 
