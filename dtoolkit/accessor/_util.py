@@ -7,9 +7,6 @@ import numpy as np
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import TwoDimArray
-
 
 def get_inf_range(inf: str = "all") -> list[float]:
     if inf == "all":
