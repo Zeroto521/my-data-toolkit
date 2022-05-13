@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from dtoolkit.accessor._util import get_mask
+from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -124,5 +124,4 @@ def filter_in(
         # 'how' only works on condition's keys
         mask = mask[condition.keys()]
 
-    mask = get_mask(how, mask, 1)
-    return df[mask]
+    return df[mask.boolean(how=how, axis=1)]

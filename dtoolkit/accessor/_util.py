@@ -24,17 +24,6 @@ def get_inf_range(inf: str = "all") -> list[float]:
     raise TypeError("must specify inf")
 
 
-def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
-    if how == "any":
-        return mask.any(axis=axis)
-    elif how == "all":
-        return mask.all(axis=axis)
-    elif how is not None:
-        raise ValueError(f"invalid inf option: {how!r}")
-
-    raise TypeError("must specify how")
-
-
 # based on more_itertools/more.py
 def collapse(iterable: Iterable):
     def walk(node):
