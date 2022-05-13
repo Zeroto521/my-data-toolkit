@@ -13,7 +13,7 @@ def find_stack_level() -> int:
     Returns
     -------
     int
-        The level of stack.
+        The first place in the stack level.
 
     Examples
     --------
