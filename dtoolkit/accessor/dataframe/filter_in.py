@@ -11,13 +11,14 @@ from dtoolkit.accessor.register import register_dataframe_method
 if TYPE_CHECKING:
     from typing import Iterable
 
+    from dtoolkit._typing import IntOrStr
     from dtoolkit._typing import SeriesOrFrame
 
 
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
-    condition: Iterable | SeriesOrFrame | dict[str, list[str]],
+    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
     how: str = "all",
     complement: bool = False,
 ) -> pd.DataFrame:
@@ -127,13 +128,28 @@ def filter_in(
     falcon         2          2
     """
 
-    mask = df.isin(condition)
+    return df[
+        df.isin(condition)
+        .pipe(
+            select,
+            condition=condition,
+        )
+        .boolean(
+            how=how,
+            axis=1,
+            complement=complement,
+        )
+    ]
+
+
+def select(
+    df: pd.DataFrame,
+    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
+) -> pd.DataFrame:
+    """Select DataFram columns via condition type"""
 
     if isinstance(condition, dict):
         # 'how' only works on condition these dictionary's keys
-        mask = mask[condition.keys()]
+        return df[condition.keys()]
 
-    if complement:
-        mask = ~mask
-
-    return df[mask.boolean(how=how, axis=1)]
+    return df
