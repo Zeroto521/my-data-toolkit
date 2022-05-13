@@ -38,6 +38,14 @@ def deprecated_alias(
         Dictionary of aliases for a function's arguments,
         like ``{old_alias: new_alias}``.
 
+    Raises
+    ------
+    DeprecationWarning
+        If ``old_alias`` is input into the function.
+
+    TypeError
+        If ``old_alias`` and ``new_alias`` are both input into the function.
+
     See Also
     --------
     dtoolkit.util._decorator.warning

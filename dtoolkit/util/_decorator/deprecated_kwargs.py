@@ -23,6 +23,11 @@ def deprecated_kwargs(
         string template. If a string template defaults input ``func_name`` and
         ``argument``.
 
+    Raises
+    ------
+    DeprecationWarning
+        If one of `arguments` is input into the function.
+
     See Also
     --------
     dtoolkit.util._decorator.warning
