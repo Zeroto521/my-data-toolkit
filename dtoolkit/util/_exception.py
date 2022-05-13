@@ -8,7 +8,18 @@ import dtoolkit
 def find_stack_level() -> int:
     """
     Find the first place in the stack that is not inside dtoolkit
-    (tests notwithstanding).
+    (test notwithstanding).
+
+    Returns
+    -------
+    int
+        The first place in the stack level.
+
+    Examples
+    --------
+    >>> from warnings import warn
+    >>> from dtoolkit.util._exception import find_stack_level
+    >>> warn("Blah blah blah", stacklevel=find_stack_level())
     """
 
     pkg_dir = os.path.dirname(dtoolkit.__file__)

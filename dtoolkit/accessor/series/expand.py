@@ -4,18 +4,16 @@ from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pandas as pd
+from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 
+from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
     from typing import Any
 
     from dtoolkit._typing import IntOrStr
-
-from pandas.api.types import is_list_like
-
-from dtoolkit.accessor._util import collapse
 
 
 @register_series_method
