@@ -127,5 +127,4 @@ def filter_in(
         mask = mask[condition.keys()]
 
     mask = get_mask(how, mask, 1)
-
     return df[mask]
