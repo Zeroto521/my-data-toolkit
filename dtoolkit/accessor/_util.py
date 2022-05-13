@@ -3,14 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import numpy as np
-import pandas as pd
 
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import IntOrStr
     from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import SeriesOrFrame
     from dtoolkit._typing import TwoDimArray
 
 
@@ -36,27 +33,6 @@ def get_mask(how: str, mask: TwoDimArray, axis: int) -> OneDimArray:
         raise ValueError(f"invalid inf option: {how!r}")
 
     raise TypeError("must specify how")
-
-
-def isin(
-    df: pd.DataFrame,
-    values: Iterable | SeriesOrFrame | dict[str, list[str]],
-    axis: IntOrStr = 0,
-) -> pd.DataFrame:
-    """
-    Extend :meth:`~pandas.DataFrame.isin` function. When ``values`` is
-    :obj:`dict` and ``axis`` is 1, ``values``' key could be index name.
-    """
-    from collections import defaultdict
-
-    axis = df._get_axis_number(axis)
-
-    if isinstance(values, dict) and axis == 1:
-        values = defaultdict(list, values)
-        result = (df.iloc[[r]].isin(values[i]) for r, i in enumerate(df.index))
-        return pd.concat(result, axis=0)
-
-    return df.isin(values)
 
 
 # based on more_itertools/more.py
