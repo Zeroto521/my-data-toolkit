@@ -2,17 +2,28 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from dtoolkit.util._decorator import warning
+
 if TYPE_CHECKING:
     from typing import Any
     from typing import Iterable
 
 
+@warning(
+    "'dtoolkit.util.generic.multi_if_else' is deprecated and will be removed "
+    "in 0.0.16. (Warning added DToolKit 0.0.15)",
+    DeprecationWarning,
+)
 def multi_if_else(
     if_condition_return: Iterable | list[tuple[bool, Any]],
     else_return: Any = None,
 ) -> Any | None:
     """
     Handle a series of :keyword:`if` or :keyword:`elif`.
+
+    .. deprecated:: 0.0.15
+        ``dtoolkit.util.generic.multi_if_else`` is deprecated and will be removed
+        in 0.0.16. (Warning added DToolKit 0.0.15)
 
     Parameters
     ----------
@@ -91,9 +102,9 @@ def multi_if_else(
     ...     [
     ...         (how == "any", mask.any()),
     ...         (how == "all", mask.all()),
-    ...         (how is not None, ValueError(f"Invalid how option: {how}")),
+    ...         (how is not None, ValueError(f"Invalid how option: {how!r}")),
     ...     ],
-    ...     TypeError("Must specify how"),
+    ...     TypeError("Must specify 'how'"),
     ... )
     >>> mask_lambda("any")
     True
@@ -111,9 +122,9 @@ def multi_if_else(
             elif how == 'all':
                 return mask.all()
             elif how is not None:
-                ValueError(f"Invalid how option: {how}")
+                ValueError(f"Invalid how option: {how!r}")
             else:
-                TypeError("Must specify how")
+                TypeError("Must specify 'how'")
     """
 
     for condition, result in if_condition_return:

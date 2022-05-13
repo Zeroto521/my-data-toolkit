@@ -7,6 +7,7 @@ import pandas as pd
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.util._decorator import deprecated_kwargs
 
 
 if TYPE_CHECKING:
@@ -16,6 +17,14 @@ if TYPE_CHECKING:
 
 
 @register_dataframe_method
+@deprecated_kwargs(
+    "axis",
+    message=(
+        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
+        "be removed in 0.0.16. If want to filter columns please use '.T' firstly. "
+        "(Warning added DToolKit 0.0.15)"
+    ),
+)
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
@@ -52,6 +61,10 @@ def filter_in(
         * 0, or 'index' : Filter rows which contain value.
         * 1, or 'columns' : Filter columns which contain value.
 
+        .. deprecated:: 0.0.15
+            The ``axis`` is deprecated and will be removed in 0.0.16. If want to
+            filter columns please use ``.T`` firstly. (Warning added DToolKit 0.0.15)
+
     how : {'any', 'all'}, default 'all'
         Determine if row or column is filtered from :obj:`~pandas.DataFrame`,
         when we have at least one value or all value.
@@ -75,8 +88,13 @@ def filter_in(
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame({'num_legs': [2, 4, 2], 'num_wings': [2, 0, 0]},
-    ...                   index=['falcon', 'dog', 'cat'])
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'num_legs': [2, 4, 2],
+    ...         'num_wings': [2, 0, 0],
+    ...     },
+    ...     index=['falcon', 'dog', 'cat'],
+    ... )
     >>> df
             num_legs  num_wings
     falcon         2          2

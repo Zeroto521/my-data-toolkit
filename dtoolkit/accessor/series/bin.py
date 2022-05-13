@@ -14,10 +14,6 @@ def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
 
         pd.cut(s, *args, **kwargs)
 
-    .. warning::
-        The parameter ``ordered`` default is changed from 'False' to 'True'.
-        (Warning added DToolKit 0.0.14)
-
     Parameters
     ----------
     *args, **kwargs
