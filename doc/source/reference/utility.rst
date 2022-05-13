@@ -14,7 +14,7 @@ generic
 
 
 .. note::
-    :module:`dtoolkit.util._decorator` and :module:`dtoolkit.util._exception` are dtoolkit's inner packages.
+    :mod:`dtoolkit.util._decorator` and :mod:`dtoolkit.util._exception` are dtoolkit's inner packages.
 
 
 _decorator
