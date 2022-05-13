@@ -363,12 +363,10 @@ class FilterInTF(DataFrameTF):
 
     Filter columns.
 
-    >>> tf = FilterInTF([0, 2], axis=1)
-    >>> tf.transform(df)
-    falcon    2
-    dog       0
-    cat       0
-    Name: num_wings, dtype: int64
+    >>> tf = FilterInTF([0, 2])
+    >>> tf.transform(df.T)
+               falcon  dog  cat
+    num_wings       2    0    0
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately:
