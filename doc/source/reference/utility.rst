@@ -2,17 +2,6 @@
 Utility
 =======
 
-
-generic
--------
-.. currentmodule:: dtoolkit.util
-.. autosummary::
-    :toctree: api/
-
-    multi_if_else
-    snake_to_camel
-
-
 .. note::
     :mod:`dtoolkit.util._decorator` and :mod:`dtoolkit.util._exception` are dtoolkit's inner packages.
 
