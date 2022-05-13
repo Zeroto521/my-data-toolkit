@@ -3,14 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import numpy as np
-import pandas as pd
 
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import IntOrStr
     from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import SeriesOrFrame
     from dtoolkit._typing import TwoDimArray
 
 

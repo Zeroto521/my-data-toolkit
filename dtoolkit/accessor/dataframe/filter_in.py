@@ -11,8 +11,6 @@ from dtoolkit.accessor.register import register_dataframe_method
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import IntOrStr
-
 
 @register_dataframe_method
 def filter_in(
