@@ -3,7 +3,6 @@ import pytest
 from dtoolkit.util._decorator import deprecated_kwargs
 
 
-@pytest.mark.utils
 @pytest.mark.parametrize(
     "arguments, kwargs",
     [
@@ -22,7 +21,6 @@ def test_arguments(arguments, kwargs):
         simple_sum(1, 2, **kwargs)
 
 
-@pytest.mark.utils
 @pytest.mark.parametrize(
     "arguments, args, excepted",
     [
