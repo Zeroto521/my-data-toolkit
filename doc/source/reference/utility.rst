@@ -3,8 +3,8 @@ Utility
 =======
 
 
-_exception
----------------
+generic
+-------
 .. currentmodule:: dtoolkit.util
 .. autosummary::
     :toctree: api/
