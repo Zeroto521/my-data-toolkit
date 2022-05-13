@@ -8,7 +8,6 @@ import pandas as pd
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -18,13 +17,6 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
-@warning(
-    "The method 'dtoolkit.geoaccessor.geoseries.points_from_xy' is renamed to "
-    "'dtoolkit.geoaccessor.geoseries.from_xy' in 0.0.15. "
-    "But call it via 'df.from_xy' or 'df.points_from_xy' both are ok. "
-    "(Warning added DToolKit 0.0.14)",
-    stacklevel=3,
-)
 def from_xy(
     df: pd.DataFrame,
     x: str,
@@ -38,14 +30,6 @@ def from_xy(
     geometries from columns of :obj:`~pandas.DataFrame`.
 
     A sugary syntax wraps :meth:`geopandas.points_from_xy`.
-
-    This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
-
-    .. warning::
-        The method ``dtoolkit.geoaccessor.geoseries.points_from_xy`` is renamed to
-        ``dtoolkit.geoaccessor.geoseries.from_xy`` in 0.0.15.
-        But call it via 'df.from_xy' or 'df.points_from_xy' both are ok.
-        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------
@@ -79,7 +63,8 @@ def from_xy(
 
     Notes
     -----
-    This method is the accessor of DataFrame, not GeoDataFrame.
+    - This method is the accessor of DataFrame, not GeoDataFrame.
+    - This method could be called via ``df.points_from_xy`` or ``df.from_xy``.
 
     Examples
     --------

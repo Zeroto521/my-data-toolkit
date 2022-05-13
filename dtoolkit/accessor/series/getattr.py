@@ -4,18 +4,9 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.accessor.series._getattr_helper import get_attr
-from dtoolkit.util._decorator import warning
 
 
-@register_series_method("get_attr")
 @register_series_method
-@warning(
-    "'dtoolkit.accessor.series.get_attr' is deprecated and will be removed in 0.0.15. "
-    "Please use 'dtoolkit.accessor.series.getattr' instead. "
-    "(Warning added DToolKit 0.0.14)",
-    DeprecationWarning,
-    stacklevel=3,
-)
 def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
@@ -25,11 +16,6 @@ def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
     Read more in the `User Guide`_.
 
     .. _User Guide: ../../guide/tips_about_getattr.ipynb
-
-    .. warning::
-        ``dtoolkit.accessor.series.get_attr`` is deprecated and will be removed
-        in 0.0.15. Please use ``dtoolkit.accessor.series.getattr`` instead.
-        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------

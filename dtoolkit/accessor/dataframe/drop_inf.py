@@ -92,7 +92,7 @@ def drop_inf(
     Drop the columns where at least one element is inf and -inf.
 
     >>> df.drop_inf(axis='columns')
-            name
+           name
     0    Alfred
     1    Batman
     2  Catwoman

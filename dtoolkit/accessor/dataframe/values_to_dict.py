@@ -4,18 +4,9 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
-from dtoolkit.util._decorator import deprecated_alias
 
 
 @register_dataframe_method
-@deprecated_alias(
-    warning_msg=(
-        "{func_name}'s parameter '{old_alias}' is deprecated and will be removed in "
-        "0.0.15. Please use the parameter '{new_alias}'. "
-        "(Warning added DToolKit 0.0.14)"
-    ),
-    few_as_key="ascending",
-)
 def values_to_dict(
     df: pd.DataFrame,
     order: list | tuple = None,
@@ -199,11 +190,11 @@ def values_to_dict(
     }
     """
 
-    if df.shape[1] == 1:  # one columns DataFrame
+    if df.columns.__len__() == 1:  # one columns DataFrame
         return df.to_series().values_to_dict(to_list=to_list)
 
     columns = order or (
-        df.unique_counts()
+        df.nunique()
         .sort_values(
             ascending=ascending,
         )
@@ -215,7 +206,7 @@ def values_to_dict(
 def _dict(df: pd.DataFrame, to_list: bool) -> dict:
     key_column, *value_column = df.columns
 
-    if df.shape[1] == 2:  # two column DataFrame
+    if df.columns.__len__() == 2:  # two column DataFrame
         return df.to_series(
             index_column=key_column,
             value_column=value_column[0],

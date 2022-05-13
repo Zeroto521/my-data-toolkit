@@ -48,7 +48,8 @@ doctest:
 	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report xml --doctest-only dtoolkit
 
 dist:
-	python setup.py sdist bdist_wheel
+	python -m build
+	twine check --strict dist/*
 	ls -l dist
 
 info:

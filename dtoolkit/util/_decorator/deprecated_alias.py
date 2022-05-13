@@ -38,6 +38,11 @@ def deprecated_alias(
         Dictionary of aliases for a function's arguments,
         like ``{old_alias: new_alias}``.
 
+    See Also
+    --------
+    dtoolkit.util._decorator.warning
+    dtoolkit.util._decorator.deprecated_kwargs
+
     Examples
     --------
     >>> from dtoolkit.util._decorator import deprecated_alias

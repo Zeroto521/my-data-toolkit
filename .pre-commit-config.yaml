@@ -12,18 +12,18 @@ repos:
     hooks:
       - id: absolufy-imports
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.0.1
+    rev: v3.1.0
     hooks:
       - id: reorder-python-imports
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.32.0
+    rev: v2.32.1
     hooks:
       - id: pyupgrade
   # text
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.2
+    rev: v2.2.3
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/pre-commit/pre-commit-hooks
