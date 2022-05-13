@@ -19,7 +19,7 @@ def deprecated_kwargs(
         The list of deprecated keyword arguments.
 
     message : str
-        The message of :exception:``DeprecationWarning``. It should be a string or a
+        The message of :exc:``DeprecationWarning``. It should be a string or a
         string template. If a string template defaults input ``func_name`` and
         ``argument``.
 
