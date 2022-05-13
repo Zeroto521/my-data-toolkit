@@ -18,6 +18,7 @@ Series Accessor
     :toctree: api/
 
     bin
+    boolean
     cols
     drop_inf
     error_report
