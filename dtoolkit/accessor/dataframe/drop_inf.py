@@ -7,7 +7,7 @@ import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_inf_range
-from dtoolkit.accessor._util import get_mask
+from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -141,8 +141,7 @@ def drop_inf(
         agg_obj = df.take(indices, axis=agg_axis)
 
     inf_range = get_inf_range(inf)
-    mask = agg_obj.isin(inf_range)
-    mask = get_mask(how, mask, agg_axis)
+    mask = agg_obj.isin(inf_range).boolean(how=how, axis=agg_axis)
     result = df.loc(axis=axis)[~mask]
 
     if not inplace:
