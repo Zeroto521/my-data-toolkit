@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_mask
 from dtoolkit.accessor._util import isin
@@ -19,7 +18,6 @@ if TYPE_CHECKING:
 
 @register_dataframe_method
 @deprecated_kwargs(
-    "inplace",
     "axis",
     message=(
         "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
@@ -32,8 +30,7 @@ def filter_in(
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
     axis: IntOrStr = 0,
     how: str = "all",
-    inplace: bool = False,
-) -> pd.DataFrame | None:
+) -> pd.DataFrame:
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
@@ -74,13 +71,6 @@ def filter_in(
 
         * 'any' : If any values are present, filter that row or column.
         * 'all' : If all values are present, filter that row or column.
-
-    inplace : bool, default is False
-        If True, do operation inplace and return None.
-
-        .. deprecated:: 0.0.15
-            The ``inplace`` is deprecated and will be removed in 0.0.16.
-            (Warning added DToolKit 0.0.15)
 
     Returns
     -------
@@ -160,9 +150,7 @@ def filter_in(
     falcon         2          2
     """
 
-    inplace = validate_bool_kwarg(inplace, "inplace")
     axis = df._get_axis_number(axis)
-
     another_axis = 1 - axis
 
     mask = isin(df, condition, axis)
@@ -172,8 +160,4 @@ def filter_in(
         mask = mask[names] if axis == 0 else mask.loc[names]
     mask = get_mask(how, mask, another_axis)
 
-    result = df.loc(axis=axis)[mask]
-    if not inplace:
-        return result
-
-    df._update_inplace(result)
+    return df.loc(axis=axis)[mask]
