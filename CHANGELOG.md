@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.15] (2022-??-??)
+## [Version 0.0.15] (2022-5-13)
 
 New features and improvements:
 
