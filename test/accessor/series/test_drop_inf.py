@@ -35,7 +35,7 @@ def test_inplace_is_true():
     "error, inf",
     [
         (ValueError, np.inf),
-        (TypeError, None),
+        (ValueError, None),
     ],
 )
 def test_error(error, inf):

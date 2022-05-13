@@ -188,7 +188,7 @@ def test_work(df, axis, how, inf, subset, expt):
     [
         (ValueError, (0, 1), "any", None),
         (ValueError, 0, "whatever", None),
-        (TypeError, 0, None, None),
+        (ValueError, 0, None, None),
         (KeyError, 0, "any", ["c"]),
     ],
 )
