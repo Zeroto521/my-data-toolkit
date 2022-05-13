@@ -23,7 +23,7 @@ def test_issue_145():
         },
         index=["falcon", "dog", "cat"],
     )
-    res = df.filter_in({"legs": [2]})
+    result = df.filter_in({"legs": [2]})
 
     expected = pd.DataFrame(
         {
@@ -33,4 +33,4 @@ def test_issue_145():
         index=["falcon", "cat"],
     )
 
-    assert res.equals(expected)
+    assert result.equals(expected)
