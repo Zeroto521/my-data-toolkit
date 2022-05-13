@@ -5,30 +5,17 @@ from typing import TYPE_CHECKING
 import pandas as pd
 
 from dtoolkit.accessor._util import get_mask
-from dtoolkit.accessor._util import isin
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import deprecated_kwargs
 
 
 if TYPE_CHECKING:
     from typing import Iterable
 
-    from dtoolkit._typing import IntOrStr
-
 
 @register_dataframe_method
-@deprecated_kwargs(
-    "axis",
-    message=(
-        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
-        "be removed in 0.0.16. If want to filter columns please use '.T' firstly. "
-        "(Warning added DToolKit 0.0.15)"
-    ),
-)
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
-    axis: IntOrStr = 0,
     how: str = "all",
 ) -> pd.DataFrame:
     """
@@ -40,37 +27,26 @@ def filter_in(
     Parameters
     ----------
     condition : iterable, Series, DataFrame or dict
-        The result will only be true at a location if all the labels match.
+        The filtered result is based on this specific condition.
 
-        * If ``condition`` is a :obj:`dict`, the keys must be the row/column
-          names, which must match. And ``how`` only works on these gave keys.
-
-            - ``axis`` is 0 or 'index', keys would be recognize as column
-              names.
-            - ``axis`` is 1 or 'columns', keys would be recognize as index
-              names.
+        * If ``condition`` is a :obj:`dict`, the keys must be the column
+          names, which must be matched. And ``how`` only works on these gave keys.
 
         * If ``condition`` is a :obj:`~pandas.Series`, that's the index.
 
         * If ``condition`` is a :obj:`~pandas.DataFrame`, then both the index
-          and column labels must match.
-
-    axis : {0 or 'index', 1 or 'columns'}, default 0
-        Determine if rows or columns which contain value are filtered.
-
-        * 0, or 'index' : Filter rows which contain value.
-        * 1, or 'columns' : Filter columns which contain value.
+          and column labels must be matched.
 
         .. deprecated:: 0.0.15
             The ``axis`` is deprecated and will be removed in 0.0.16. If want to
             filter columns please use ``.T`` firstly. (Warning added DToolKit 0.0.15)
 
     how : {'any', 'all'}, default 'all'
-        Determine if row or column is filtered from :obj:`~pandas.DataFrame`,
-        when we have at least one value or all value.
+        Determine whether the row is filtered from :obj:`~pandas.DataFrame`,
+        when there have at least one value or all value.
 
-        * 'any' : If any values are present, filter that row or column.
-        * 'all' : If all values are present, filter that row or column.
+        * 'any' : If any values are present, filter that rows.
+        * 'all' : If all values are present, filter that rows.
 
     Returns
     -------
@@ -113,34 +89,27 @@ def filter_in(
 
     Filter columns.
 
-    >>> df.filter_in([0, 2], axis=1)
-                num_wings
-    falcon          2
-    dog             0
-    cat             0
+    >>> df.T.filter_in([0, 2])
+               falcon  dog  cat
+    num_wings       2    0    0
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
-    row/column (depend on ``axis``) separately.
-
-    Filter rows, to check under the column (key) whether contains the value.
+    column separately.
 
     >>> df.filter_in({'num_legs': [2], 'num_wings': [2]})
             num_legs  num_wings
     falcon         2          2
 
-    Filter columns, to check under the index (key) whether contains the value.
-
-    >>> df.filter_in({'cat': [2]}, axis=1)
-            num_legs
-    falcon         2
-    dog            4
-    cat            2
-
     When ``values`` is a Series or DataFrame the index and column must match.
     Note that 'spider' doesn't match based on the number of legs in ``other``.
 
-    >>> other = pd.DataFrame({'num_legs': [8, 2], 'num_wings': [0, 2]},
-    ...                      index=['spider', 'falcon'])
+    >>> other = pd.DataFrame(
+    ...     {
+    ...         'num_legs': [8, 2],
+    ...         'num_wings': [0, 2],
+    ...     },
+    ...     index=['spider', 'falcon'],
+    ... )
     >>> other
             num_legs  num_wings
     spider         8          0
@@ -150,14 +119,10 @@ def filter_in(
     falcon         2          2
     """
 
-    axis = df._get_axis_number(axis)
-    another_axis = 1 - axis
-
-    mask = isin(df, condition, axis)
+    mask = df.isin(condition)
     if isinstance(condition, dict):
         # 'how' only works on condition's keys
-        names = condition.keys()
-        mask = mask[names] if axis == 0 else mask.loc[names]
-    mask = get_mask(how, mask, another_axis)
+        mask = mask[condition.keys()]
 
-    return df.loc(axis=axis)[mask]
+    mask = get_mask(how, mask, 1)
+    return df[mask]
