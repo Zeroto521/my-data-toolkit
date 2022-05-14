@@ -3,7 +3,6 @@ from __future__ import annotations
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
 
 
@@ -76,3 +75,20 @@ def drop_inf(
         return result
 
     s._update_inplace(result)
+
+
+def get_inf_range(inf: str = "all") -> list[float]:
+    """Get inf value from string"""
+
+    inf_range = {
+        "all": [np.inf, -np.inf],
+        "pos": [np.inf],
+        "+": [np.inf],
+        "neg": [-np.inf],
+        "-": [-np.inf],
+    }
+
+    if inf in inf_range:
+        return inf_range[inf]
+
+    raise ValueError(f"invalid inf option: {inf!r}")

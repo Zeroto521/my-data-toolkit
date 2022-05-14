@@ -6,9 +6,9 @@ import numpy as np
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series.drop_inf import get_inf_range
 
 
 if TYPE_CHECKING:
