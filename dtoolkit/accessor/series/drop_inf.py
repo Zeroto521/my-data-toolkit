@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
