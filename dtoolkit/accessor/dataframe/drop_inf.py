@@ -6,9 +6,10 @@ import numpy as np
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
-from dtoolkit.accessor._util import get_mask
+from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series.drop_inf import get_inf_range
+from dtoolkit.util._decorator import deprecated_kwargs
 
 
 if TYPE_CHECKING:
@@ -16,6 +17,13 @@ if TYPE_CHECKING:
 
 
 @register_dataframe_method
+@deprecated_kwargs(
+    "inplace",
+    message=(
+        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
+        "be removed in 0.0.17. (Warning added DToolKit 0.0.16)"
+    ),
+)
 def drop_inf(
     df: pd.DataFrame,
     axis: IntOrStr = 0,
@@ -43,10 +51,10 @@ def drop_inf(
         * 'any' : If any ``inf`` values are present, drop that row or column.
         * 'all' : If all values are ``inf``, drop that row or column.
 
-    inf : {'all', 'pos', 'neg'}, default 'all'
+    inf : {'all', 'pos', '+', 'neg', '-'}, default 'all'
         * 'all' : Remove ``inf`` and ``-inf``.
-        * 'pos' : Only remove ``inf``.
-        * 'neg' : Only remove ``-inf``.
+        * 'pos' / '+' : Only remove ``inf``.
+        * 'neg' / '-' : Only remove ``-inf``.
 
     subset : array-like, optional
         Labels along other axis to consider, e.g. if you are dropping rows
@@ -126,7 +134,7 @@ def drop_inf(
     """
 
     inplace = validate_bool_kwarg(inplace, "inplace")
-
+    inf_range = get_inf_range(inf)
     axis = df._get_axis_number(axis)
     agg_axis = 1 - axis
 
@@ -140,9 +148,7 @@ def drop_inf(
 
         agg_obj = df.take(indices, axis=agg_axis)
 
-    inf_range = get_inf_range(inf)
-    mask = agg_obj.isin(inf_range)
-    mask = get_mask(how, mask, agg_axis)
+    mask = agg_obj.isin(inf_range).boolean(how=how, axis=agg_axis)
     result = df.loc(axis=axis)[~mask]
 
     if not inplace:

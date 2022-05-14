@@ -1,13 +1,21 @@
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import deprecated_kwargs
 
 
 @register_series_method
+@deprecated_kwargs(
+    "inplace",
+    message=(
+        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
+        "be removed in 0.0.17. (Warning added DToolKit 0.0.16)"
+    ),
+)
 def drop_inf(
     s: pd.Series,
     inf: str = "all",
@@ -18,11 +26,11 @@ def drop_inf(
 
     Parameters
     ----------
-    inf : {'all', 'pos', 'neg'}, default 'all'
+    inf : {'all', 'pos', '+', 'neg', '-'}, default 'all'
 
         * 'all' : Remove ``inf`` and ``-inf``.
-        * 'pos' : Only remove ``inf``.
-        * 'neg' : Only remove ``-inf``.
+        * 'pos' / '+' : Only remove ``inf``.
+        * 'neg' / '-' : Only remove ``-inf``.
 
     inplace : bool, default False
         If True, do operation inplace and return None.
@@ -76,3 +84,20 @@ def drop_inf(
         return result
 
     s._update_inplace(result)
+
+
+def get_inf_range(inf: str = "all") -> list[float]:
+    """Get inf value from string"""
+
+    inf_range = {
+        "all": [np.inf, -np.inf],
+        "pos": [np.inf],
+        "+": [np.inf],
+        "neg": [-np.inf],
+        "-": [-np.inf],
+    }
+
+    if inf in inf_range:
+        return inf_range[inf]
+
+    raise ValueError(f"invalid inf option: {inf!r}")

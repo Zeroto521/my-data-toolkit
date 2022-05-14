@@ -36,6 +36,7 @@ DataFrame Accessor
     :toctree: api/
 
     cols
+    boolean
     drop_inf
     drop_or_not
     expand
