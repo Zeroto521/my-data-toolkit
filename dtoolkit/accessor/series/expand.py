@@ -10,7 +10,6 @@ from pandas.util._decorators import doc
 from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
-    from typing import Any
     from typing import Iterable
 
     from dtoolkit._typing import IntOrStr
@@ -129,7 +128,7 @@ def expand(
     ).add_prefix(s.name + delimiter)
 
 
-def _wrap_collapse(x, flatten: bool) -> list[Any]:
+def _wrap_collapse(x, flatten: bool) -> list:
     if is_list_like(x):
         return list(collapse(x)) if flatten else x
     return [x]
