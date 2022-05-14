@@ -7,11 +7,11 @@ import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
     from typing import Any
+    from typing import Iterable
 
     from dtoolkit._typing import IntOrStr
 
@@ -133,3 +133,22 @@ def _wrap_collapse(x, flatten: bool) -> list[Any]:
     if is_list_like(x):
         return list(collapse(x)) if flatten else x
     return [x]
+
+
+# based on more_itertools/more.py
+def collapse(iterable: Iterable):
+    def walk(node):
+        if isinstance(node, (str, bytes)):
+            yield node
+            return
+
+        try:
+            tree = iter(node)
+        except TypeError:
+            yield node
+            return
+        else:
+            for child in tree:
+                yield from walk(child)
+
+    yield from walk(iterable)
