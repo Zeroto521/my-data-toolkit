@@ -36,4 +36,4 @@ def to_set(s: pd.Series) -> set:
     {1, 2}
     """
 
-    return set(s)
+    return set(s.unique())
