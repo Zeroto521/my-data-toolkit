@@ -5,9 +5,17 @@ from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit.accessor._util import get_inf_range
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import deprecated_kwargs
 
 
 @register_series_method
+@deprecated_kwargs(
+    "inplace",
+    message=(
+        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
+        "be removed in 0.0.17. (Warning added DToolKit 0.0.16)"
+    ),
+)
 def drop_inf(
     s: pd.Series,
     inf: str = "all",
