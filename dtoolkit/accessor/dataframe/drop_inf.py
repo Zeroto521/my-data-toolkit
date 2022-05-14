@@ -127,6 +127,7 @@ def drop_inf(
 
     inplace = validate_bool_kwarg(inplace, "inplace")
     inf_range = get_inf_range(inf)
+    axis = df._get_axis_number(axis)
     agg_axis = 1 - axis
 
     agg_obj = df
