@@ -9,16 +9,18 @@ if TYPE_CHECKING:
 
 
 def get_inf_range(inf: str = "all") -> list[float]:
-    if inf == "all":
-        return [np.inf, -np.inf]
-    elif inf == "pos":
-        return [np.inf]
-    elif inf == "neg":
-        return [-np.inf]
-    elif inf is not None:
-        raise ValueError(f"invalid inf option: {inf!r}")
+    inf_range = {
+        "all": [np.inf, -np.inf],
+        "pos": [np.inf],
+        "+": [np.inf],
+        "neg": [-np.inf],
+        "-": [-np.inf],
+    }
 
-    raise TypeError("must specify inf")
+    if inf in inf_range:
+        return inf_range[inf]
+
+    raise ValueError(f"invalid inf option: {inf!r}")
 
 
 # based on more_itertools/more.py
