@@ -106,13 +106,13 @@ def expand(
     {examples}
     """
 
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
-
     s_list = s.apply(_wrap_collapse, flatten=flatten)
     s_len = s_list.len()
     if all(s_len == 1):
         return s
+
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
 
     max_len = s_len.max()
     if suffix and len(suffix) < max_len:
