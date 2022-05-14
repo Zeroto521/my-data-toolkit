@@ -1,11 +1,5 @@
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Iterable
-
-
 # based on more_itertools/more.py
-def collapse(iterable: Iterable):
+def collapse(iterable):
     def walk(node):
         if isinstance(node, (str, bytes)):
             yield node
