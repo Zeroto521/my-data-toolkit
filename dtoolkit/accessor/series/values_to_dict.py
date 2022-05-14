@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 @register_series_method
 def values_to_dict(
     s: pd.Series,
+    unique: bool = True,
     to_list: bool = True,
 ) -> dict[IntOrStr, list[IntOrStr] | IntOrStr]:
     """
@@ -21,6 +22,9 @@ def values_to_dict(
 
     Parameters
     ----------
+    unique : bool, default True
+        If True would drop duplicate elements.
+
     to_list : bool, default True
         If True one element value will return :keyword:`list`.
 
@@ -39,7 +43,6 @@ def values_to_dict(
 
     Examples
     --------
-    >>> import json
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series(range(4), index=["a", "b", "a", "c"])
@@ -49,46 +52,36 @@ def values_to_dict(
     a    2
     c    3
     dtype: int64
-    >>> print(json.dumps(s.values_to_dict(), indent=4))
-    {
-        "a": [
-            0,
-            2
-        ],
-        "b": [
-            1
-        ],
-        "c": [
-            3
-        ]
-    }
+    >>> s.values_to_dict()
+    {'a': [0, 2], 'b': [1], 'c': [3]}
 
     Unpack one element value list.
 
-    >>> print(json.dumps(s.values_to_dict(to_list=False), indent=4))
-    {
-        "a": [
-            0,
-            2
-        ],
-        "b": 1,
-        "c": 3
-    }
+    >>> s.values_to_dict(to_list=False)
+    {'a': [0, 2], 'b': 1, 'c': 3}
     """
 
     return {
-        key: unpack_list(
-            s[s.index == key].to_list(),
+        key: s.loc[s.index == key].pipe(
+            handle_element,
+            unique=unique,
             to_list=to_list,
         )
         for key in s.index.unique()
     }
 
 
-def unpack_list(array: list, to_list: bool = True) -> list[IntOrStr] | IntOrStr:
-    # unfold one element list
+def handle_element(
+    s: pd.Series,
+    unique: bool = False,
+    to_list: bool = True,
+) -> list[IntOrStr] | IntOrStr:
 
-    if not to_list and len(array) == 1:
-        return array[0]
+    if unique:
+        s = s.unique()
 
-    return array
+    if not to_list and len(s) == 1:
+        # Unfold one element list-like
+        return s[0]
+
+    return s.tolist()

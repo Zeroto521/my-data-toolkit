@@ -16,6 +16,7 @@ def values_to_dict(
     df: pd.DataFrame,
     order: list[IntOrStr] | pd.Index = None,
     ascending: bool = True,
+    unique: bool = True,
     to_list: bool = True,
 ) -> dict:
     """
@@ -29,6 +30,9 @@ def values_to_dict(
 
     ascending : bool, default True
         If True the key would use the few unique of column values first.
+
+    unique : bool, default True
+        If True would drop duplicate elements.
 
     to_list : bool, default True
         If True one element value will return :keyword:`list`.
@@ -47,7 +51,6 @@ def values_to_dict(
 
     Examples
     --------
-    >>> import json
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> df = pd.DataFrame(
@@ -68,26 +71,9 @@ def values_to_dict(
     Use few unique of column values as key first. The order of column unique values
     number is `x` < `y` < `z`. So the result will be ``{x: {y: [z]} }``.
 
-    >>> print(json.dumps(df.values_to_dict(), indent=4))
-    {
-        "A": {
-            "a": [
-                "1"
-            ],
-            "b": [
-                "2"
-            ]
-        },
-        "B": {
-            "c": [
-                "3"
-            ],
-            "d": [
-                "3",
-                "4"
-            ]
-        }
-    }
+    >>> df.values_to_dict()
+    {"A": {"a": ["1"], "b": ["2"]}, "B": {"c": ["3"], "d": ["3", "4"]}}
+
 
     Use many unique of column values as key first, the result will be
     ``{y: {z: [x]} }``.
@@ -129,7 +115,6 @@ def values_to_dict(
             "2"
         ],
         "B": [
-            "3",
             "3",
             "4"
         ]
@@ -196,7 +181,10 @@ def values_to_dict(
     """
 
     if df.columns.__len__() == 1:  # one columns DataFrame
-        return df.to_series().values_to_dict(to_list=to_list)
+        return df.to_series().values_to_dict(
+            unique=unique,
+            to_list=to_list,
+        )
 
     columns = order or (
         df.nunique()
@@ -205,21 +193,30 @@ def values_to_dict(
         )
         .index
     )
-    return _dict(df[columns], to_list=to_list)
+
+    return df[columns].pipe(
+        to_dict,
+        unique=unique,
+        to_list=to_list,
+    )
 
 
-def _dict(df: pd.DataFrame, to_list: bool) -> dict:
+def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
     key_column, *value_column = df.columns
 
     if df.columns.__len__() == 2:  # two column DataFrame
         return df.to_series(
             index_column=key_column,
             value_column=value_column[0],
-        ).values_to_dict(to_list=to_list)
+        ).values_to_dict(
+            unique=unique,
+            to_list=to_list,
+        )
 
     return {
-        key: _dict(
-            df.loc[df[key_column] == key, value_column],
+        key: df.loc[df[key_column] == key, value_column].pipe(
+            to_dict,
+            unique=unique,
             to_list=to_list,
         )
         for key in df[key_column].unique()
