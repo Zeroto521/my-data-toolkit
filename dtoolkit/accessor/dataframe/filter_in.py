@@ -91,12 +91,6 @@ def filter_in(
     falcon         2          2
     cat            2          0
 
-    Filter columns.
-
-    >>> df.T.filter_in([0, 2])
-               falcon  dog  cat
-    num_wings       2    0    0
-
     Filter any row doesn't contain 0 or 2.
 
     >>> df.filter_in([0, 2], how="any", complement=True)
