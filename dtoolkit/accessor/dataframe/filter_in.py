@@ -132,7 +132,7 @@ def filter_in(
     return df[
         df.isin(condition)
         .pipe(
-            select,
+            select_column,
             condition=condition,
         )
         .boolean(
@@ -143,7 +143,7 @@ def filter_in(
     ]
 
 
-def select(
+def select_column(
     df: pd.DataFrame,
     condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
 ) -> pd.DataFrame:
