@@ -43,10 +43,10 @@ def drop_inf(
         * 'any' : If any ``inf`` values are present, drop that row or column.
         * 'all' : If all values are ``inf``, drop that row or column.
 
-    inf : {'all', 'pos', 'neg'}, default 'all'
+    inf : {'all', 'pos', '+', 'neg', '-'}, default 'all'
         * 'all' : Remove ``inf`` and ``-inf``.
-        * 'pos' : Only remove ``inf``.
-        * 'neg' : Only remove ``-inf``.
+        * 'pos' / '+' : Only remove ``inf``.
+        * 'neg' / '-' : Only remove ``-inf``.
 
     subset : array-like, optional
         Labels along other axis to consider, e.g. if you are dropping rows
@@ -126,8 +126,7 @@ def drop_inf(
     """
 
     inplace = validate_bool_kwarg(inplace, "inplace")
-
-    axis = df._get_axis_number(axis)
+    inf_range = get_inf_range(inf)
     agg_axis = 1 - axis
 
     agg_obj = df
@@ -140,7 +139,6 @@ def drop_inf(
 
         agg_obj = df.take(indices, axis=agg_axis)
 
-    inf_range = get_inf_range(inf)
     mask = agg_obj.isin(inf_range).boolean(how=how, axis=agg_axis)
     result = df.loc(axis=axis)[~mask]
 

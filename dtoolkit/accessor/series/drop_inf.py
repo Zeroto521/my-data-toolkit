@@ -18,11 +18,11 @@ def drop_inf(
 
     Parameters
     ----------
-    inf : {'all', 'pos', 'neg'}, default 'all'
+    inf : {'all', 'pos', '+', 'neg', '-'}, default 'all'
 
         * 'all' : Remove ``inf`` and ``-inf``.
-        * 'pos' : Only remove ``inf``.
-        * 'neg' : Only remove ``-inf``.
+        * 'pos' / '+' : Only remove ``inf``.
+        * 'neg' / '-' : Only remove ``-inf``.
 
     inplace : bool, default False
         If True, do operation inplace and return None.
