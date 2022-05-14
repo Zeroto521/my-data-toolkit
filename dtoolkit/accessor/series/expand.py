@@ -107,6 +107,9 @@ def expand(
     {examples}
     """
 
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
+
     s_list = s.apply(_wrap_collapse, flatten=flatten)
     s_len = s_list.len()
     if all(s_len == 1):
@@ -117,9 +120,6 @@ def expand(
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
-
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
 
     columns = suffix or range(max_len)
     return pd.DataFrame(
