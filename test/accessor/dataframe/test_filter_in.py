@@ -50,7 +50,84 @@ df = pd.DataFrame(
             ),
         ),
         (
+            (0, 2),
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
             [4],
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            [4],
+            dict(how="all", complement=True),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            {"legs": [4]},
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            {"legs": [4]},
+            dict(how="all", complement=True),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            {"legs": [4], "wings": [0]},
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            {"legs": [4], "wings": [0]},
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4, 2],
+                    "wings": [0, 0],
+                },
+                index=["dog", "cat"],
+            ),
+        ),
+        (
+            pd.Series([0], index=["dog"]),
             dict(how="any", complement=False),
             pd.DataFrame(
                 {
