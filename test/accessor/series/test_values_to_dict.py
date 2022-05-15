@@ -1,8 +1,8 @@
+import pandas as pd
 import pytest
 
-import pandas as pd
-
 from dtoolkit.accessor.series import values_to_dict  # noqa
+
 
 @pytest.mark.parametrize(
     "s, kwargs, excepted",
@@ -23,24 +23,24 @@ from dtoolkit.accessor.series import values_to_dict  # noqa
             {"a": 0, "b": 1, "c": 2, "d": 3},
         ),
         (
-            pd.Series([1]*4, index=["a", "b", "c", "d"]),
+            pd.Series([1] * 4, index=["a", "b", "c", "d"]),
             dict(to_list=True),
             {"a": [1], "b": [1], "c": [1], "d": [1]},
         ),
         (
-            pd.Series([1]*4, index=["a", "b", "c", "d"]),
+            pd.Series([1] * 4, index=["a", "b", "c", "d"]),
             dict(to_list=False),
             {"a": 1, "b": 1, "c": 1, "d": 1},
         ),
         (
-            pd.Series(range(4), index=["a"]*4),
+            pd.Series(range(4), index=["a"] * 4),
             dict(to_list=True),
-            {'a': [0, 1, 2, 3]},
+            {"a": [0, 1, 2, 3]},
         ),
         (
-            pd.Series([1]*4, index=["a"]*4),
+            pd.Series([1] * 4, index=["a"] * 4),
             dict(to_list=False),
-            {'a': [1, 1, 1, 1]},
+            {"a": [1, 1, 1, 1]},
         ),
     ],
 )
