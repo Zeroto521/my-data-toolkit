@@ -124,11 +124,11 @@ def filter_in(
     """
 
     return df[
-        df.isin(condition)
-        .pipe(
+        df.pipe(
             select_column,
             condition=condition,
         )
+        .isin(condition)
         .boolean(
             how=how,
             axis=1,
