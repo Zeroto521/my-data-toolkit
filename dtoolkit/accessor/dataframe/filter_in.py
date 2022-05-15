@@ -37,10 +37,6 @@ def filter_in(
         * If ``condition`` is a :obj:`~pandas.DataFrame`, then both the index
           and column labels must be matched.
 
-        .. deprecated:: 0.0.15
-            The ``axis`` is deprecated and will be removed in 0.0.16. If want to
-            filter columns please use ``.T`` firstly. (Warning added DToolKit 0.0.15)
-
     how : {'any', 'all'}, default 'all'
         Determine whether the row is filtered from :obj:`~pandas.DataFrame`,
         when there have at least one value or all value.
