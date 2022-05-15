@@ -11,12 +11,16 @@ from dtoolkit.accessor.register import register_dataframe_method
 if TYPE_CHECKING:
     from typing import Iterable
 
+    from dtoolkit._typing import IntOrStr
+    from dtoolkit._typing import SeriesOrFrame
+
 
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
-    condition: Iterable | pd.Series | pd.DataFrame | dict[str, list[str]],
+    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
     how: str = "all",
+    complement: bool = False,
 ) -> pd.DataFrame:
     """
     Filter :obj:`~pandas.DataFrame` contents.
@@ -37,16 +41,15 @@ def filter_in(
         * If ``condition`` is a :obj:`~pandas.DataFrame`, then both the index
           and column labels must be matched.
 
-        .. deprecated:: 0.0.15
-            The ``axis`` is deprecated and will be removed in 0.0.16. If want to
-            filter columns please use ``.T`` firstly. (Warning added DToolKit 0.0.15)
-
     how : {'any', 'all'}, default 'all'
         Determine whether the row is filtered from :obj:`~pandas.DataFrame`,
         when there have at least one value or all value.
 
         * 'any' : If any values are present, filter that rows.
         * 'all' : If all values are present, filter that rows.
+
+    complement : bool, default is False
+        If True, do operation reversely.
 
     Returns
     -------
@@ -56,6 +59,7 @@ def filter_in(
     --------
     pandas.DataFrame.isin
         Whether each element in the DataFrame is contained in values.
+
     pandas.DataFrame.filter
         Subset the dataframe rows or columns according to the specified index
         labels.
@@ -66,16 +70,16 @@ def filter_in(
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {
-    ...         'num_legs': [2, 4, 2],
-    ...         'num_wings': [2, 0, 0],
+    ...         'legs': [2, 4, 2],
+    ...         'wings': [2, 0, 0],
     ...     },
     ...     index=['falcon', 'dog', 'cat'],
     ... )
     >>> df
-            num_legs  num_wings
-    falcon         2          2
-    dog            4          0
-    cat            2          0
+            legs  wings
+    falcon     2      2
+    dog        4      0
+    cat        2      0
 
     When ``condition`` is a list check whether every value in the DataFrame is
     present in the list (which animals have 0 or 2 legs or wings).
@@ -83,45 +87,64 @@ def filter_in(
     Filter rows.
 
     >>> df.filter_in([0, 2])
-            num_legs  num_wings
-    falcon         2          2
-    cat            2          0
+            legs  wings
+    falcon     2      2
+    cat        2      0
 
-    Filter columns.
+    Filter any row doesn't contain 0 or 2.
 
-    >>> df.T.filter_in([0, 2])
-               falcon  dog  cat
-    num_wings       2    0    0
+    >>> df.filter_in([0, 2], how="any", complement=True)
+            legs  wings
+    dog        4      0
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately.
 
-    >>> df.filter_in({'num_legs': [2], 'num_wings': [2]})
-            num_legs  num_wings
-    falcon         2          2
+    >>> df.filter_in({'legs': [2], 'wings': [2]})
+            legs  wings
+    falcon     2      2
 
-    When ``values`` is a Series or DataFrame the index and column must match.
+    When ``values`` is a Series or DataFrame the index and column must be matched.
     Note that 'spider' doesn't match based on the number of legs in ``other``.
 
     >>> other = pd.DataFrame(
     ...     {
-    ...         'num_legs': [8, 2],
-    ...         'num_wings': [0, 2],
+    ...         'legs': [8, 2],
+    ...         'wings': [0, 2],
     ...     },
     ...     index=['spider', 'falcon'],
     ... )
     >>> other
-            num_legs  num_wings
-    spider         8          0
-    falcon         2          2
+            legs  wings
+    spider     8      0
+    falcon     2      2
     >>> df.filter_in(other)
-            num_legs  num_wings
-    falcon         2          2
+            legs  wings
+    falcon     2      2
     """
 
-    mask = df.isin(condition)
-    if isinstance(condition, dict):
-        # 'how' only works on condition's keys
-        mask = mask[condition.keys()]
+    return df[
+        df.isin(condition)
+        .pipe(
+            select_column,
+            condition=condition,
+        )
+        .boolean(
+            how=how,
+            axis=1,
+            complement=complement,
+        )
+    ]
 
-    return df[mask.boolean(how=how, axis=1)]
+
+def select_column(
+    df: pd.DataFrame,
+    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
+) -> pd.DataFrame:
+    """Select DataFram columns via condition type"""
+
+    if isinstance(condition, dict):
+        # 'how' only works on condition these dictionary's keys
+        return df[condition.keys()]
+
+    return df
