@@ -146,5 +146,8 @@ def select_column(
     if isinstance(condition, dict):
         # 'how' only works on condition these dictionary's keys
         return df[condition.keys()]
+    elif isinstance(condition, pd.DataFrame):
+        # 'how' only works on condition these DataFrame's columns
+        return df[condition.columns]
 
     return df
