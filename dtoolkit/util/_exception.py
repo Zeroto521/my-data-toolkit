@@ -22,16 +22,18 @@ def find_stack_level() -> int:
     >>> warn("Blah blah blah", stacklevel=find_stack_level())
     """
 
-    pkg_dir = os.path.dirname(dtoolkit.__file__)
-    test_dir = os.path.join(pkg_dir, "test")
+    pkg_dir = os.path.abspath(os.path.dirname(dtoolkit.__file__))
+    test_dir = os.path.join(os.path.dirname(pkg_dir), "test")
 
-    stack = inspect.stack()
-    for n in range(len(stack)):
-        fname = stack[n].filename
-
-        if fname.startswith(pkg_dir) and not fname.startswith(test_dir):
-            continue
-        else:
+    # https://stackoverflow.com/questions/17407119/python-inspect-stack-is-slow
+    n = 0
+    frame = inspect.currentframe()
+    while frame:
+        fname = inspect.getfile(frame)
+        if not fname.startswith(pkg_dir) or fname.startswith(test_dir):
             break
+
+        frame = frame.f_back
+        n += 1
 
     return n
