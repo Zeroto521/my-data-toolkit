@@ -70,16 +70,16 @@ def filter_in(
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {
-    ...         'num_legs': [2, 4, 2],
-    ...         'num_wings': [2, 0, 0],
+    ...         'legs': [2, 4, 2],
+    ...         'wings': [2, 0, 0],
     ...     },
     ...     index=['falcon', 'dog', 'cat'],
     ... )
     >>> df
-            num_legs  num_wings
-    falcon         2          2
-    dog            4          0
-    cat            2          0
+            legs  wings
+    falcon     2      2
+    dog        4      0
+    cat        2      0
 
     When ``condition`` is a list check whether every value in the DataFrame is
     present in the list (which animals have 0 or 2 legs or wings).
@@ -87,40 +87,40 @@ def filter_in(
     Filter rows.
 
     >>> df.filter_in([0, 2])
-            num_legs  num_wings
-    falcon         2          2
-    cat            2          0
+            legs  wings
+    falcon     2      2
+    cat        2      0
 
     Filter any row doesn't contain 0 or 2.
 
     >>> df.filter_in([0, 2], how="any", complement=True)
-            num_legs  num_wings
-    dog            4          0
+            legs  wings
+    dog        4      0
 
     When ``condition`` is a :obj:`dict`, we can pass values to check for each
     column separately.
 
-    >>> df.filter_in({'num_legs': [2], 'num_wings': [2]})
-            num_legs  num_wings
-    falcon         2          2
+    >>> df.filter_in({'legs': [2], 'wings': [2]})
+            legs  wings
+    falcon     2      2
 
     When ``values`` is a Series or DataFrame the index and column must be matched.
     Note that 'spider' doesn't match based on the number of legs in ``other``.
 
     >>> other = pd.DataFrame(
     ...     {
-    ...         'num_legs': [8, 2],
-    ...         'num_wings': [0, 2],
+    ...         'legs': [8, 2],
+    ...         'wings': [0, 2],
     ...     },
     ...     index=['spider', 'falcon'],
     ... )
     >>> other
-            num_legs  num_wings
-    spider         8          0
-    falcon         2          2
+            legs  wings
+    spider     8      0
+    falcon     2      2
     >>> df.filter_in(other)
-            num_legs  num_wings
-    falcon         2          2
+            legs  wings
+    falcon     2      2
     """
 
     return df[
