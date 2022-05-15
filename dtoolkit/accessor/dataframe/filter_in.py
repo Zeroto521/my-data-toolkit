@@ -52,6 +52,7 @@ def filter_in(
     --------
     pandas.DataFrame.isin
         Whether each element in the DataFrame is contained in values.
+
     pandas.DataFrame.filter
         Subset the dataframe rows or columns according to the specified index
         labels.
