@@ -1,28 +1,78 @@
-from test.accessor.conftest import d
+import pytest
 
 import pandas as pd
 
 from dtoolkit.accessor.dataframe import filter_in  # noqa
 
+from pandas.testing import assert_frame_equal
 
-def test_work():
-    res = d.filter_in({"a": [0, 1], "b": [2]})
 
-    assert res["a"].isin([0, 1]).any()  # 0 and 1 in a
-    assert (~res["a"].isin([2])).all()  # 2 not in a
-    assert res["b"].isin([2]).any()  # 2 in a
-    assert (~res["b"].isin([0, 1])).all()  # 0 and not in a
+df = pd.DataFrame(
+    {
+        "legs": [2, 4, 2],
+        "wings": [2, 0, 0],
+    },
+    index=["falcon", "dog", "cat"],
+)
+
+
+@pytest.mark.parametrize(
+    "condition, kwargs, excepted",
+    [
+        (
+            [0, 2],
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            [0, 2],
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 4, 2],
+                    "wings": [2, 0, 0],
+                },
+                index=["falcon", "dog", "cat"],
+            ),
+        ),
+        (
+            [0, 2],
+            dict(how="any", complement=True),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            [4],
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+    ],
+)
+def test_work(condition, kwargs, excepted):
+    result = df.filter_in(condition=condition, **kwargs)
+
+    assert result.equals(excepted)
 
 
 def test_issue_145():
     # test my-data-toolkit#145
-    df = pd.DataFrame(
-        {
-            "legs": [2, 4, 2],
-            "wings": [2, 0, 0],
-        },
-        index=["falcon", "dog", "cat"],
-    )
     result = df.filter_in({"legs": [2]})
 
     expected = pd.DataFrame(
