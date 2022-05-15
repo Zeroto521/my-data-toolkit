@@ -33,4 +33,4 @@ def to_set(index: pd.Index) -> set:
     {1, 2}
     """
 
-    return set(index)
+    return set(index.unique())
