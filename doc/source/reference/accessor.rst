@@ -18,7 +18,6 @@ Series Accessor
     :toctree: api/
 
     bin
-    boolean
     cols
     drop_inf
     error_report
@@ -37,6 +36,7 @@ DataFrame Accessor
     :toctree: api/
 
     cols
+    boolean
     drop_inf
     drop_or_not
     expand

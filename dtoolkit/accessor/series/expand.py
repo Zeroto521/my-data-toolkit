@@ -7,11 +7,10 @@ import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
-    from typing import Any
+    from typing import Iterable
 
     from dtoolkit._typing import IntOrStr
 
@@ -112,14 +111,14 @@ def expand(
     if all(s_len == 1):
         return s
 
+    if s.name is None:
+        raise ValueError("the column name should be specified.")
+
     max_len = s_len.max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
-
-    if s.name is None:
-        raise ValueError("the column name should be specified.")
 
     columns = suffix or range(max_len)
     return pd.DataFrame(
@@ -129,7 +128,26 @@ def expand(
     ).add_prefix(s.name + delimiter)
 
 
-def _wrap_collapse(x, flatten: bool) -> list[Any]:
+def _wrap_collapse(x, flatten: bool) -> list:
     if is_list_like(x):
         return list(collapse(x)) if flatten else x
     return [x]
+
+
+# based on more_itertools/more.py
+def collapse(iterable: Iterable):
+    def walk(node):
+        if isinstance(node, (str, bytes)):
+            yield node
+            return
+
+        try:
+            tree = iter(node)
+        except TypeError:
+            yield node
+            return
+        else:
+            for child in tree:
+                yield from walk(child)
+
+    yield from walk(iterable)
