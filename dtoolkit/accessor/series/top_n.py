@@ -43,6 +43,7 @@ def top_n(
     --------
     dtoolkit.accessor.series.expand
         Transform each element of a list-like to a column.
+
     dtoolkit.accessor.dataframe.top_n
         Returns each row's top n.
     """
