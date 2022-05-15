@@ -1,10 +1,7 @@
+import pandas as pd
 import pytest
 
-import pandas as pd
-
 from dtoolkit.accessor.dataframe import filter_in  # noqa
-
-from pandas.testing import assert_frame_equal
 
 
 df = pd.DataFrame(
