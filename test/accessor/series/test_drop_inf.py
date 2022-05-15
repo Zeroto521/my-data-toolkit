@@ -14,7 +14,9 @@ from dtoolkit.accessor.series import drop_inf  # noqa
         ("all", s, s),
         ("all", pd.concat((s, s_inf)), s),
         ("pos", s_inf, pd.Series([-np.inf], index=[1])),
+        ("+", s_inf, pd.Series([-np.inf], index=[1])),
         ("neg", s_inf, pd.Series([np.inf])),
+        ("-", s_inf, pd.Series([np.inf])),
     ],
 )
 def test_work(inf, df, expt):
@@ -35,7 +37,7 @@ def test_inplace_is_true():
     "error, inf",
     [
         (ValueError, np.inf),
-        (TypeError, None),
+        (ValueError, None),
     ],
 )
 def test_error(error, inf):
