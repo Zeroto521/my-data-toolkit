@@ -22,7 +22,7 @@ def test_arguments(arguments, kwargs):
 
 
 @pytest.mark.parametrize(
-    "arguments, args, excepted",
+    "arguments, args, expected",
     [
         (["a"], [0, 0], 0),
         (["b"], [1, 1], 2),
@@ -30,9 +30,9 @@ def test_arguments(arguments, kwargs):
         (["b", "a"], [0, 1], 1),
     ],
 )
-def test_work(arguments, args, excepted):
+def test_work(arguments, args, expected):
     @deprecated_kwargs(*arguments)
     def simple_sum(alpha, beta, a=0, b=0):
         return alpha + beta
 
-    assert simple_sum(*args) == excepted
+    assert simple_sum(*args) == expected

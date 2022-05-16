@@ -6,7 +6,7 @@ from dtoolkit.accessor.dataframe import to_series  # noqa
 
 
 @pytest.mark.parametrize(
-    "df, name, index_column, value_column, excepted",
+    "df, name, index_column, value_column, expected",
     [
         (
             pd.DataFrame({"a": [1, 2]}),
@@ -169,10 +169,10 @@ from dtoolkit.accessor.dataframe import to_series  # noqa
         ),
     ],
 )
-def test_work(df, name, index_column, value_column, excepted):
+def test_work(df, name, index_column, value_column, expected):
     result = df.to_series(name, index_column, value_column)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 @pytest.mark.parametrize(
