@@ -43,6 +43,7 @@ def values_to_dict(
 
     Examples
     --------
+    >>> import json
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series(range(4), index=["a", "b", "a", "c"])
@@ -52,13 +53,31 @@ def values_to_dict(
     a    2
     c    3
     dtype: int64
-    >>> s.values_to_dict()
-    {'a': [0, 2], 'b': [1], 'c': [3]}
+    >>> print(json.dumps(s.values_to_dict(), indent=4))
+    {
+        "a": [
+            0,
+            2
+        ],
+        "b": [
+            1
+        ],
+        "c": [
+            3
+        ]
+    }
 
     Unpack one element value list.
 
-    >>> s.values_to_dict(to_list=False)
-    {'a': [0, 2], 'b': 1, 'c': 3}
+    >>> print(json.dumps(s.values_to_dict(to_list=False), indent=4))
+    {
+        "a": [
+            0,
+            2
+        ],
+        "b": 1,
+        "c": 3
+    }
     """
 
     return {
@@ -80,8 +99,9 @@ def handle_element(
     if unique:
         s = s.unique()
 
+    s = s.tolist()
     if not to_list and len(s) == 1:
         # Unfold one element list-like
         return s[0]
 
-    return s.tolist()
+    return s

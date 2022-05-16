@@ -51,6 +51,7 @@ def values_to_dict(
 
     Examples
     --------
+    >>> import json
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> df = pd.DataFrame(
@@ -71,9 +72,26 @@ def values_to_dict(
     Use few unique of column values as key first. The order of column unique values
     number is `x` < `y` < `z`. So the result will be ``{x: {y: [z]} }``.
 
-    >>> df.values_to_dict()
-    {"A": {"a": ["1"], "b": ["2"]}, "B": {"c": ["3"], "d": ["3", "4"]}}
-
+    >>> print(json.dumps(df.values_to_dict(), indent=4))
+    {
+        "A": {
+            "a": [
+                "1"
+            ],
+            "b": [
+                "2"
+            ]
+        },
+        "B": {
+            "c": [
+                "3"
+            ],
+            "d": [
+                "3",
+                "4"
+            ]
+        }
+    }
 
     Use many unique of column values as key first, the result will be
     ``{y: {z: [x]} }``.
