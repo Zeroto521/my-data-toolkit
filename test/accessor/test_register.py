@@ -95,7 +95,7 @@ def test_method_hooked_exist(data, name):
 
 
 @pytest.mark.parametrize(
-    "data, name, excepted",
+    "data, name, expected",
     [
         (df, "name_or_columns", ["a", "b"]),
         (df.a, "name_or_columns", "a"),
@@ -111,14 +111,14 @@ def test_method_hooked_exist(data, name):
         (df.index, "alias_name_or_columns_1", "c"),
     ],
 )
-def test_work(data, name, excepted):
+def test_work(data, name, expected):
     result = getattr(data, name)()
 
-    assert result == excepted
+    assert result == expected
 
 
 @pytest.mark.parametrize(
-    "data, name, attr, excepted",
+    "data, name, attr, expected",
     [
         (df, "name_or_columns", "__name__", name_or_columns.__name__),
         (df.a, "name_or_columns", "__name__", name_or_columns.__name__),
@@ -140,8 +140,8 @@ def test_work(data, name, excepted):
         (df.index, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
     ],
 )
-def test_method_hooked_attr(data, name, attr, excepted):
+def test_method_hooked_attr(data, name, attr, expected):
     method = getattr(data, name)
     result = getattr(method, attr)
 
-    assert result == excepted
+    assert result == expected
