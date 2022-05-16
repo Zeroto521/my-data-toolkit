@@ -1,21 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
 
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-
 
 @register_series_method
-def values_to_dict(
-    s: pd.Series,
-    unique: bool = True,
-    to_list: bool = True,
-) -> dict[IntOrStr, list[IntOrStr] | IntOrStr]:
+def values_to_dict(s: pd.Series, unique: bool = True, to_list: bool = True) -> dict:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :class:`dict`.
@@ -90,12 +81,7 @@ def values_to_dict(
     }
 
 
-def handle_element(
-    s: pd.Series,
-    unique: bool = False,
-    to_list: bool = True,
-) -> list[IntOrStr] | IntOrStr:
-
+def handle_element(s: pd.Series, unique: bool = False, to_list: bool = True):
     if unique:
         s = s.unique()
 
