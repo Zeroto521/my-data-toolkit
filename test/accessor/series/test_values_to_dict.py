@@ -1,6 +1,5 @@
-import pytest
-
 import pandas as pd
+import pytest
 
 from dtoolkit.accessor.series import values_to_dict  # noqa
 

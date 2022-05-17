@@ -1,6 +1,5 @@
-import pytest
-
 import pandas as pd
+import pytest
 
 from dtoolkit.accessor.dataframe import values_to_dict  # noqa
 
@@ -14,7 +13,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
                     "x": ["A", "A", "B", "B", "B"],
                     "y": ["a", "b", "c", "d", "d"],
                     "z": ["1", "2", "3", "3", "4"],
-                }
+                },
             ),
             dict(order=None, ascending=True, unique=True, to_list=True),
             {
@@ -28,7 +27,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
                     "x": ["A", "A", "B", "B", "B"],
                     "y": ["a", "b", "c", "d", "d"],
                     "z": ["1", "2", "3", "3", "4"],
-                }
+                },
             ),
             dict(order=None, ascending=False, unique=True, to_list=True),
             {
@@ -44,7 +43,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
                     "x": ["A", "A", "B", "B", "B"],
                     "y": ["a", "b", "c", "d", "d"],
                     "z": ["1", "2", "3", "3", "4"],
-                }
+                },
             ),
             dict(order=["y", "z", "x"], ascending=True, unique=True, to_list=True),
             {
@@ -60,7 +59,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
                     "x": ["A", "A", "B", "B", "B"],
                     "y": ["a", "b", "c", "d", "d"],
                     "z": ["1", "2", "3", "3", "4"],
-                }
+                },
             ),
             dict(order=["x", "z"], ascending=True, unique=True, to_list=True),
             {"A": ["1", "2"], "B": ["3", "4"]},
