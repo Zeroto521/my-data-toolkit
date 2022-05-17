@@ -5,46 +5,36 @@ from dtoolkit.accessor.series import values_to_dict  # noqa
 
 
 @pytest.mark.parametrize(
-    "s, kwargs, excepted",
+    "s, kwargs, expected",
     [
         (
             pd.Series(range(4), index=["a", "b", "a", "c"]),
-            dict(to_list=True),
+            dict(unique=True, to_list=True),
             {"a": [0, 2], "b": [1], "c": [3]},
         ),
         (
             pd.Series(range(4), index=["a", "b", "a", "c"]),
-            dict(to_list=False),
+            dict(unique=False, to_list=False),
             {"a": [0, 2], "b": 1, "c": 3},
         ),
         (
-            pd.Series(range(4), index=["a", "b", "c", "d"]),
-            dict(to_list=False),
-            {"a": 0, "b": 1, "c": 2, "d": 3},
+            pd.Series([0] * 4, index=["a", "b", "a", "c"]),
+            dict(unique=True, to_list=False),
+            {"a": 0, "b": 0, "c": 0},
         ),
         (
-            pd.Series([1] * 4, index=["a", "b", "c", "d"]),
-            dict(to_list=True),
-            {"a": [1], "b": [1], "c": [1], "d": [1]},
+            pd.Series([0] * 4, index=["a", "b", "a", "c"]),
+            dict(unique=False, to_list=False),
+            {"a": [0, 0], "b": 0, "c": 0},
         ),
         (
-            pd.Series([1] * 4, index=["a", "b", "c", "d"]),
-            dict(to_list=False),
-            {"a": 1, "b": 1, "c": 1, "d": 1},
-        ),
-        (
-            pd.Series(range(4), index=["a"] * 4),
-            dict(to_list=True),
-            {"a": [0, 1, 2, 3]},
-        ),
-        (
-            pd.Series([1] * 4, index=["a"] * 4),
-            dict(to_list=False),
-            {"a": [1, 1, 1, 1]},
+            pd.Series([0] * 4, index=["a", "b", "a", "c"]),
+            dict(unique=True, to_list=True),
+            {"a": [0], "b": [0], "c": [0]},
         ),
     ],
 )
-def test_work(s, kwargs, excepted):
+def test_work(s, kwargs, expected):
     result = s.values_to_dict(**kwargs)
 
-    assert result == excepted
+    assert result == expected
