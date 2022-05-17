@@ -24,9 +24,9 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
         (
             pd.DataFrame(
                 {
-                    "x": ["A", "A", "B", "B", "B"],
-                    "y": ["a", "b", "c", "d", "d"],
-                    "z": ["1", "2", "3", "3", "4"],
+                    "x": ["A", "A", "B", "B", "B", "B"],
+                    "y": ["a", "b", "c", "d", "d", "e"],
+                    "z": ["1", "2", "3", "3", "4", "4"],
                 },
             ),
             dict(order=None, ascending=False, unique=True, to_list=True),
@@ -35,6 +35,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
                 "b": {"2": ["A"]},
                 "c": {"3": ["B"]},
                 "d": {"3": ["B"], "4": ["B"]},
+                "e": {"4": ["B"]}
             },
         ),
         (
