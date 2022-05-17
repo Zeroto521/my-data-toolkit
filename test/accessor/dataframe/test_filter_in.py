@@ -137,6 +137,17 @@ df = pd.DataFrame(
                 index=["dog"],
             ),
         ),
+        (
+            pd.DataFrame({"legs": [2, 4, 2]}, index=["falcon", "dog", "cat"]),
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 4, 2],
+                    "wings": [2, 0, 0],
+                },
+                index=["falcon", "dog", "cat"],
+            ),
+        ),
     ],
 )
 def test_work(condition, kwargs, excepted):
