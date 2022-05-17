@@ -67,7 +67,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
         (
             pd.DataFrame({"x": ["A", "A", "B", "B", "B"]}),
             dict(order=None, ascending=True, unique=True, to_list=True),
-            {"0": ["A"], "1": ["A"], "2": ["B"], "3": ["B"], "4": ["B"]},
+            {0: ["A"], 1: ["A"], 2: ["B"], 3: ["B"], 4: ["B"]},
         ),
     ],
 )
