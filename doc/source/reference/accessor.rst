@@ -44,6 +44,7 @@ DataFrame Accessor
     repeat
     top_n
     to_series
+    unique
     values_to_dict
 
 
