@@ -2,7 +2,7 @@ import pytest
 
 import pandas as pd
 
-from dtoolkit.accessor.series import values_to_dict
+from dtoolkit.accessor.series import values_to_dict  # noqa
 
 
 @pytest.mark.parametrize(
