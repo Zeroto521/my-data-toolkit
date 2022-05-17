@@ -14,7 +14,7 @@ df = pd.DataFrame(
 
 
 @pytest.mark.parametrize(
-    "condition, kwargs, excepted",
+    "condition, kwargs, expected",
     [
         (
             [0, 2],
@@ -150,10 +150,10 @@ df = pd.DataFrame(
         ),
     ],
 )
-def test_work(condition, kwargs, excepted):
+def test_work(condition, kwargs, expected):
     result = df.filter_in(condition=condition, **kwargs)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 def test_issue_145():

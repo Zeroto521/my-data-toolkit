@@ -5,7 +5,7 @@ from dtoolkit.accessor.series import getattr  # noqa
 
 
 @pytest.mark.parametrize(
-    "s, name, args, kwargs, excepted",
+    "s, name, args, kwargs, expected",
     [
         # test attribute
         (
@@ -76,7 +76,7 @@ from dtoolkit.accessor.series import getattr  # noqa
         ),
     ],
 )
-def test_attr_work(s, name, args, kwargs, excepted):
+def test_attr_work(s, name, args, kwargs, expected):
     result = s.getattr(name, *args, **kwargs)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
