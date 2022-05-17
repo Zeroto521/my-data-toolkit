@@ -35,7 +35,7 @@ from dtoolkit.accessor.dataframe import values_to_dict  # noqa
                 "b": {"2": ["A"]},
                 "c": {"3": ["B"]},
                 "d": {"3": ["B"], "4": ["B"]},
-                "e": {"4": ["B"]}
+                "e": {"4": ["B"]},
             },
         ),
         (
