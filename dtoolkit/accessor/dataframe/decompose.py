@@ -19,8 +19,7 @@ if TYPE_CHECKING:
 def decompose(
     df: pd.DataFrmae,
     method: TransformerMixin,
-    columns: pd.Series
-    | dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
+    columns: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
     | list[IntOrStr]
     | None = None,
     drop: bool = False,
