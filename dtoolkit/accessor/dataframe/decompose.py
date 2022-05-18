@@ -39,7 +39,7 @@ def decompose(
 
         - None : Decompose all columns.
         - list or Index : Decompose the selected columns.
-        - dict : Decompose and remap columns to a few.
+        - dict : Decompose and remap columns to a few, ``{new columns: old columns}``.
 
     drop : bool, default False
         If True, drop the used columns.
