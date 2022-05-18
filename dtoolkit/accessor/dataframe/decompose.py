@@ -41,7 +41,7 @@ def decompose(
         - dict : Decompose and remap columns to a few, ``{new columns: old columns}``.
 
     drop : bool, default False
-        If True, drop the used columns.
+        If True, drop the used columns when ``columns`` is :keyword:`dict`.
 
     **kwargs
         See the documentation for ``method`` for complete details on
@@ -141,12 +141,7 @@ def decompose(
             _decompose(method, df[columns], **kwargs),
             index=df.index,
             columns=columns,
-        ).combine_first(
-            df.drop_or_not(
-                drop=drop,
-                columns=columns,
-            ),
-        )
+        ).combine_first(df)
 
     elif isinstance(columns, dict):
         return pd.DataFrame(
