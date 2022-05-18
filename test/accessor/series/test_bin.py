@@ -42,7 +42,7 @@ from dtoolkit.accessor.series import bin  # noqa
 )
 def test_work(bins, labels, right, expected):
     s = pd.Series([1, 10, 20, 30, 40, 50])
-    res = s.bin(
+    result = s.bin(
         bins=bins,
         labels=labels,
         right=right,
@@ -53,4 +53,4 @@ def test_work(bins, labels, right, expected):
         dtype=pd.CategoricalDtype(categories=labels),
     )
 
-    assert res.equals(expected)
+    assert result.equals(expected)

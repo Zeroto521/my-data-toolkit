@@ -20,16 +20,16 @@ from dtoolkit.accessor.series import drop_inf  # noqa
     ],
 )
 def test_work(inf, df, expt):
-    res = df.drop_inf(inf=inf)
+    result = df.drop_inf(inf=inf)
 
-    assert res.equals(expt)
+    assert result.equals(expt)
 
 
 def test_inplace_is_true():
     self_s = pd.concat((s, s_inf))
-    res = self_s.drop_inf(inplace=True)
+    result = self_s.drop_inf(inplace=True)
 
-    assert res is None
+    assert result is None
     assert self_s.equals(s)
 
 
