@@ -128,22 +128,6 @@ def decompose(
     3 -1.702037 -0.321045  1  1 -1 -1
     4 -2.988071  0.267273  2  1 -2 -1
     5 -4.690108 -0.053773  3  2 -3 -2
-
-    The ``columns`` also accecpt Series.
-
-    >>> s = pd.Series(["a", "b"], index=["A", "A"])
-    >>> s
-    A    a
-    A    b
-    dtype: object
-    >>> df.decompose(decomposition.PCA, s, drop=True)
-              A  c  d
-    0  1.383406  1  1
-    1  2.221898  2  1
-    2  3.605304  3  2
-    3 -1.383406 -1 -1
-    4 -2.221898 -2 -1
-    5 -3.605304 -3 -2
     """
 
     if columns is None:
