@@ -58,7 +58,7 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     5    1.0
     6    0.0
     7    NaN
-    dtype: float6
+    dtype: float64
 
     Set `number` and `other` default return.
 
