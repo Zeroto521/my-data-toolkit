@@ -38,25 +38,27 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> s = pd.Series([0, 1, "string", ("tuple",), ["list"], {}, object])
+    >>> s = pd.Series([0, 1, 1.5, "string", ("tuple",), ["list"], {}, object])
     >>> s
     0                   0
     1                   1
-    2              string
-    3            (tuple,)
-    4              [list]
-    5                  {}
-    6    <class 'object'>
+    2                 1.5
+    3              string
+    4            (tuple,)
+    5              [list]
+    6                  {}
+    7    <class 'object'>
     dtype: object
     >>> s.len()
     0    1.0
     1    1.0
-    2    6.0
-    3    1.0
+    2    1.0
+    3    6.0
     4    1.0
-    5    0.0
-    6    NaN
-    dtype: float64
+    5    1.0
+    6    0.0
+    7    NaN
+    dtype: float6
 
     Set `number` and `other` default return.
 
