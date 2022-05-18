@@ -6,7 +6,7 @@ from dtoolkit.accessor.series import bin  # noqa
 
 
 @pytest.mark.parametrize(
-    "bins, labels, right, excepted",
+    "bins, labels, right, expected",
     [
         (
             [-np.inf, 1, 10, 20, 30, np.inf],
@@ -40,7 +40,7 @@ from dtoolkit.accessor.series import bin  # noqa
         ),
     ],
 )
-def test_work(bins, labels, right, excepted):
+def test_work(bins, labels, right, expected):
     s = pd.Series([1, 10, 20, 30, 40, 50])
     res = s.bin(
         bins=bins,
@@ -48,9 +48,9 @@ def test_work(bins, labels, right, excepted):
         right=right,
         ordered=False,
     )
-    excepted = pd.Series(
-        excepted,
+    expected = pd.Series(
+        expected,
         dtype=pd.CategoricalDtype(categories=labels),
     )
 
-    assert res.equals(excepted)
+    assert res.equals(expected)
