@@ -65,11 +65,12 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     >>> s.len(number=0, other=0)
     0    0
     1    0
-    2    6
-    3    1
+    2    0
+    3    6
     4    1
-    5    0
+    5    1
     6    0
+    7    0
     dtype: int64
     """
 
