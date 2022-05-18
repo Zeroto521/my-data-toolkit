@@ -207,3 +207,40 @@ def test_work(df, method, columns, drop, kwargs, expected):
     result = df.decompose(method, columns, drop=drop, **kwargs)
 
     assert_frame_equal(result, expected, check_dtype=False)
+
+
+@pytest.mark.parametrize(
+    "df, method, columns, drop, kwargs, error",
+    [
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, 1],
+                    [0, 1, 1],
+                    [1, 1, 1],
+                    [0, 1, 1],
+                ],
+                columns=["a", "b", "c"],
+            ),
+            decomposition.PCA,
+            pd.Series(["a", "b"]),
+            False,
+            {},
+            ValueError,
+        ),
+        (
+            pd.DataFrame(
+                [[1, 1, 1]],
+                columns=["a", "b", "c"],
+            ),
+            decomposition.PCA,
+            None,
+            False,
+            {},
+            ValueError,
+        ),
+    ],
+)
+def test_error(df, method, columns, drop, kwargs, error):
+    with pytest.raises(error):
+        df.decompose(method, columns, drop=drop, **kwargs)
