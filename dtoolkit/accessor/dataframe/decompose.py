@@ -18,10 +18,10 @@ if TYPE_CHECKING:
 def decompose(
     df: pd.DataFrmae,
     method: TransformerMixin,
-    columns: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
+    columns: None
+    | dict[IntOrStr | tuple[IntOrStr], IntOrStr | list[IntOrStr] | tuple[IntOrStr]]
     | list[IntOrStr]
-    | pd.Index
-    | None = None,
+    | pd.Index = None,
     drop: bool = False,
     **kwargs,
 ) -> pd.DataFrame:
@@ -180,4 +180,6 @@ def _decompose(
             "the number of rows is less than the number of columns",
         )
 
-    return method(n_components, **kwargs).fit_transform(df)
+    return method(n_components, **kwargs).fit_transform(
+        df.to_frame() if isinstance(df, pd.Series) else df,
+    )
