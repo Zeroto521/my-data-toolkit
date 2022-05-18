@@ -3,6 +3,14 @@ Accessor
 ========
 
 
+Index Accessor
+---------------
+.. currentmodule:: dtoolkit.accessor.index
+.. autosummary::
+    :toctree: api/
+
+    to_set
+
 Series Accessor
 ---------------
 .. currentmodule:: dtoolkit.accessor.series
@@ -28,6 +36,7 @@ DataFrame Accessor
     :toctree: api/
 
     cols
+    boolean
     decompose
     drop_inf
     drop_or_not

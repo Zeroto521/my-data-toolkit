@@ -1,26 +1,21 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import pandas as pd
 
-from dtoolkit.accessor.register import register_series_method
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
+from dtoolkit.accessor.register import register_series_method  # noqa
 
 
 @register_series_method
-def values_to_dict(
-    s: pd.Series,
-    to_list: bool = True,
-) -> dict[IntOrStr, list[IntOrStr] | IntOrStr]:
+def values_to_dict(s: pd.Series, unique: bool = True, to_list: bool = True) -> dict:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :class:`dict`.
 
     Parameters
     ----------
+    unique : bool, default True
+        If True would drop duplicate elements.
+
     to_list : bool, default True
         If True one element value will return :keyword:`list`.
 
@@ -77,18 +72,22 @@ def values_to_dict(
     """
 
     return {
-        key: unpack_list(
-            s[s.index == key].to_list(),
+        key: s.loc[s.index == key].pipe(
+            handle_element,
+            unique=unique,
             to_list=to_list,
         )
         for key in s.index.unique()
     }
 
 
-def unpack_list(array: list, to_list: bool = True) -> list[IntOrStr] | IntOrStr:
-    # unfold one element list
+def handle_element(s: pd.Series, unique: bool = False, to_list: bool = True):
+    if unique:
+        s = s.unique()
 
-    if not to_list and len(array) == 1:
-        return array[0]
+    s = s.tolist()
+    if not to_list and len(s) == 1:
+        # Unfold one element list-like
+        return s[0]
 
-    return array
+    return s

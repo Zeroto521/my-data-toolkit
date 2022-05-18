@@ -1,3 +1,4 @@
+from dtoolkit.accessor.dataframe.boolean import boolean  # noqa
 from dtoolkit.accessor.dataframe.cols import cols  # noqa
 from dtoolkit.accessor.dataframe.decompose import decompose  # noqa
 from dtoolkit.accessor.dataframe.drop_inf import drop_inf  # noqa

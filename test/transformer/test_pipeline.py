@@ -79,7 +79,7 @@ class TestPipeline:  # include `make_pipeline`
         assert isinstance(result, pd.Series)
 
     @pytest.mark.parametrize(
-        "pipeline, data, excepted",
+        "pipeline, data, expected",
         [
             (
                 make_pipeline("passthrough"),
@@ -106,10 +106,10 @@ class TestPipeline:  # include `make_pipeline`
             ),
         ],
     )
-    def test_passthrough(self, pipeline, data, excepted):
+    def test_passthrough(self, pipeline, data, expected):
         result = pipeline.fit_transform(data)
 
-        assert result.equals(excepted)
+        assert result.equals(expected)
 
     def test_inverse_transform_type(self):
         pipeline = make_pipeline(

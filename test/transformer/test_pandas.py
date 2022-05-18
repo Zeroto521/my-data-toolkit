@@ -46,9 +46,9 @@ def test_appendtf():
     tf = AppendTF(other=pd.DataFrame(dict(a=range(1, 9))), ignore_index=True)
 
     result = tf.fit_transform(pd.DataFrame(dict(a=[0])))
-    excepted = pd.Series(range(9), name="a")
+    expected = pd.Series(range(9), name="a")
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 class TestDropTF:
@@ -122,9 +122,9 @@ def test_gettf(cols):
     tf = GetTF(cols)
 
     result = tf.fit_transform(df_iris)
-    excepted = df_iris[cols]
+    expected = df_iris[cols]
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 class TestQueryTF:
@@ -156,15 +156,15 @@ def test_replacetf():
 
 
 @pytest.mark.parametrize(
-    "types, excepted",
+    "types, expected",
     [
         [float, df_iris],
         [int, df_label],
     ],
 )
-def test_select_dtypes(types, excepted):
+def test_select_dtypes(types, expected):
     tf = SelectDtypesTF(include=types)
 
     result = tf.fit_transform(df_mixed)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
