@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from itertools import chain
 from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 
-from dtoolkit.accessor._util import collapse
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -162,11 +162,11 @@ def decompose(
                 ],
             ),
             index=df.index,
-            columns=list(collapse(columns.keys())),
+            columns=chain.from_iterable(columns.keys()),
         ).combine_first(
             df.drop_or_not(
                 drop=drop,
-                columns=list(collapse(columns.values())),
+                columns=chain.from_iterable(columns.values()),
             ),
         )
 
