@@ -21,6 +21,7 @@ def decompose(
     method: TransformerMixin,
     columns: dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
     | list[IntOrStr]
+    | pd.Index
     | None = None,
     drop: bool = False,
     **kwargs,
@@ -152,7 +153,7 @@ def decompose(
             columns=df.columns,
         )
 
-    elif isinstance(columns, list):
+    elif isinstance(columns, (list, pd.Index)):
         return pd.DataFrame(
             _decompose(method, df[columns], **kwargs),
             index=df.index,
