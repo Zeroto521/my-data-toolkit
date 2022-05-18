@@ -86,12 +86,12 @@ def expand(
 
     return pd.concat(
         (
-            df.get(column).expand(
+            s.expand(
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,
             )
-            for column in df
+            for _, s in df.items()
         ),
         axis=1,
     )
