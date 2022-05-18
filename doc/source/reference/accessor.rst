@@ -37,6 +37,7 @@ DataFrame Accessor
 
     cols
     boolean
+    decompose
     drop_inf
     drop_or_not
     expand
