@@ -22,7 +22,6 @@ def decompose(
     columns: pd.Series
     | dict[IntOrStr | tuple[IntOrStr], list[IntOrStr] | tuple[IntOrStr]]
     | list[IntOrStr]
-    | tuple[IntOrStr]
     | None = None,
     drop: bool = False,
     **kwargs,
@@ -38,9 +37,9 @@ def decompose(
     columns : dict, Series, list, tuple or None, default None
         Choose columns to decompose.
 
-        - None: Decompose all columns.
-        - list or tuple: Decompose the selected columns.
-        - dict or Series: Decompose and remap columns to a few.
+        - None : Decompose all columns.
+        - list or Index : Decompose the selected columns.
+        - dict : Decompose and remap columns to a few.
 
     drop : bool, default False
         If True, drop the used columns.
@@ -154,7 +153,7 @@ def decompose(
             columns=df.columns,
         )
 
-    elif isinstance(columns, (list, tuple)):
+    elif isinstance(columns, list):
         return pd.DataFrame(
             _decompose(method, df[columns], **kwargs),
             index=df.index,
@@ -166,10 +165,7 @@ def decompose(
             ),
         )
 
-    elif isinstance(columns, (dict, pd.Series)):
-        if isinstance(columns, pd.Series):
-            columns = columns.values_to_dict()
-
+    elif isinstance(columns, dict):
         return pd.DataFrame(
             np.hstack(
                 [
