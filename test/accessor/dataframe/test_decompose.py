@@ -1,8 +1,9 @@
 import pandas as pd
 import pytest
-from dtoolkit.accessor.dataframe import decompose  # noqa
 from pandas.testing import assert_frame_equal
 from sklearn import decomposition
+
+from dtoolkit.accessor.dataframe import decompose  # noqa
 
 
 @pytest.mark.parametrize(
