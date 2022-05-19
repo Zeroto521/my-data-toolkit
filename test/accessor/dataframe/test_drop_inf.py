@@ -178,9 +178,9 @@ from dtoolkit.accessor.dataframe import drop_inf  # noqa
     ],
 )
 def test_work(df, axis, how, inf, subset, expt):
-    res = df.drop_inf(axis=axis, how=how, inf=inf, subset=subset)
+    result = df.drop_inf(axis=axis, how=how, inf=inf, subset=subset)
 
-    assert res.equals(expt)
+    assert result.equals(expt)
 
 
 @pytest.mark.parametrize(
@@ -210,7 +210,7 @@ def test_inplace_is_true():
         ),
         ignore_index=True,
     )
-    res = self_d.drop_inf(inplace=True)
+    result = self_d.drop_inf(inplace=True)
 
-    assert res is None
+    assert result is None
     assert self_d.equals(d)
