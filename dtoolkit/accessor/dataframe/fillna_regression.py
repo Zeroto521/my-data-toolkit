@@ -68,7 +68,7 @@ def fillna_regression(
     3   2   3  11.0
     4   3   5   NaN
 
-    y = 1 * x_0 + 2 * x_1 + 3
+    .. math:: y = 1 \times x_0 + 2 \times x_1 + 3
 
     >>> df.fillna_regression(LinearRegression, ['x1', 'x2'], 'y')
        x1  x2     y
