@@ -36,9 +36,7 @@ def register_method_factory(register_accessor):
     """
 
     # based on pandas_flavor/register.py
-    @wraps(register_accessor)
     def register_accessor_method(method: Callable, name: str):
-        @wraps(method)
         def method_accessor(pd_obj: SeriesOrFrame):
             @wraps(method)
             def wrapper(*args, **kwargs):
@@ -52,7 +50,6 @@ def register_method_factory(register_accessor):
         # Must return method itself, otherwise would get None.
         return method
 
-    @wraps(register_accessor)
     def register_accessor_alias(name: str = None):
         @wraps(register_accessor)
         def wrapper(method: Callable):
@@ -60,7 +57,6 @@ def register_method_factory(register_accessor):
 
         return wrapper
 
-    @wraps(register_accessor)
     def decorator(name: Callable | str = None):
         if callable(name):  # Supports `@register_*_method` using.
             method = name  # This 'name' variable actually is a function.
