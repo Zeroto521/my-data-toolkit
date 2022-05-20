@@ -17,6 +17,7 @@ from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer.base import Transformer
 
 
+@doc(SKPipeline)
 class Pipeline(SKPipeline):
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps):
