@@ -51,7 +51,6 @@ def register_method_factory(register_accessor):
         return method
 
     def register_accessor_alias(name: str = None):
-        @wraps(register_accessor)
         def wrapper(method: Callable):
             return register_accessor_method(method, name or method.__name__)
 
