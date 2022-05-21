@@ -61,6 +61,9 @@ def fillna_regression(
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> from sklearn.linear_model import LinearRegression
+
+    .. math:: y = 1 \\times x_0 + 2 \\times x_1 + 3
+
     >>> df = pd.DataFrame(
     ...     [
     ...         [1, 1, 6],
@@ -79,7 +82,7 @@ def fillna_regression(
     3   2   3  11.0
     4   3   5   NaN
 
-    .. math:: y = 1 \times x_0 + 2 \times x_1 + 3
+    Use 'x1' and 'x2' columns to fit 'y' column and fill the value.
 
     >>> df.fillna_regression(LinearRegression, ['x1', 'x2'], 'y')
        x1  x2     y
