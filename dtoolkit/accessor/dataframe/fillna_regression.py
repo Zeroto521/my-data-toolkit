@@ -43,6 +43,19 @@ def fillna_regression(
     *args, **kwargs
         The arguments of the ``method``.
 
+    See Also
+    --------
+    sklearn.kernel_ridge
+    sklearn.linear_model
+    sklearn.neighbors.KNeighborsRegressor
+    sklearn.neighbors.RadiusNeighborsRegressor
+    sklearn.neural_network.MLPRegressor
+    sklearn.svm.LinearSVR
+    sklearn.svm.NuSVR
+    sklearn.svm.SVR
+    sklearn.tree.DecisionTreeRegressor
+    sklearn.tree.ExtraTreeRegressor
+
     Examples
     --------
     >>> import dtoolkit.accessor
