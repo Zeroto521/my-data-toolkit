@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import clone
