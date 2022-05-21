@@ -5,7 +5,7 @@ from dtoolkit.accessor.series import top_n  # noqa
 
 
 @pytest.mark.parametrize(
-    "n, largest, keep, excepted",
+    "n, largest, keep, expected",
     [
         (
             4,
@@ -49,7 +49,7 @@ from dtoolkit.accessor.series import top_n  # noqa
         ),
     ],
 )
-def test_work(n, largest, keep, excepted):
+def test_work(n, largest, keep, expected):
     s = pd.Series(
         {
             "Italy": 59000000,
@@ -65,6 +65,6 @@ def test_work(n, largest, keep, excepted):
         },
     )
     result = s.top_n(n, largest, keep=keep)
-    excepted = pd.Series(excepted)
+    expected = pd.Series(expected)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)

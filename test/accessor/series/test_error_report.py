@@ -6,7 +6,7 @@ from dtoolkit.accessor.series import error_report  # noqa
 
 
 @pytest.mark.parametrize(
-    "true, predicted, columns, excepted",
+    "true, predicted, columns, expected",
     [
         # both Series
         (
@@ -125,10 +125,10 @@ from dtoolkit.accessor.series import error_report  # noqa
         ),
     ],
 )
-def test_work(true, predicted, columns, excepted):
+def test_work(true, predicted, columns, expected):
     result = true.error_report(predicted, columns=columns)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 @pytest.mark.parametrize(

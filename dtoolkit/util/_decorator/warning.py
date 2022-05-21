@@ -20,7 +20,7 @@ def warning(
 
     category : Exception, optional
         If given, must be a **warning category class**. it defaults to
-        :keyword:`UserWarning`.
+        :exc:`UserWarning`.
 
     stacklevel : int
         Default to find the first place in the stack that is not inside dtoolkit.

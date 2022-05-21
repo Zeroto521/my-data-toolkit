@@ -6,6 +6,8 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import numpy as np
 import pandas as pd
+from pandas.api.types import is_list_like
+from pandas.api.types import is_number
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import getattr  # noqa
@@ -14,9 +16,6 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 if TYPE_CHECKING:
     from dtoolkit._typing import OneDimArray
     from dtoolkit._typing import Number
-
-from pandas.api.types import is_list_like
-from pandas.api.types import is_number
 
 
 @register_geoseries_method

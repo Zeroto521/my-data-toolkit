@@ -88,7 +88,7 @@ def snake_to_camel(name: str) -> str:
 
     Examples
     --------
-    >>> from dtoolkit.util import snake_to_camel
+    >>> from dtoolkit.transformer._util import snake_to_camel
     >>> snake_to_camel(snake_to_camel.__name__)
     'SnakeToCamel'
     """
