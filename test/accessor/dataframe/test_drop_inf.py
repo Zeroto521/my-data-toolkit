@@ -195,22 +195,3 @@ def test_work(df, axis, how, inf, subset, expt):
 def test_error(error, axis, how, subset):
     with pytest.raises(error):
         d.drop_inf(axis=axis, how=how, subset=subset)
-
-
-def test_inplace_is_true():
-    self_d = pd.concat(
-        (
-            d,
-            pd.DataFrame(
-                {
-                    "a": [np.inf],
-                    "b": [-np.inf],
-                },
-            ),
-        ),
-        ignore_index=True,
-    )
-    result = self_d.drop_inf(inplace=True)
-
-    assert result is None
-    assert self_d.equals(d)
