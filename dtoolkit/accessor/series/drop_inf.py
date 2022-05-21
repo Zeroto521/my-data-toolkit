@@ -19,9 +19,6 @@ def drop_inf(s: pd.Series, inf: str = "all") -> pd.Series:
         * 'pos' / '+' : Only remove ``inf``.
         * 'neg' / '-' : Only remove ``-inf``.
 
-    inplace : bool, default False
-        If True, do operation inplace and return None.
-
     Returns
     -------
     Series
@@ -48,14 +45,6 @@ def drop_inf(s: pd.Series, inf: str = "all") -> pd.Series:
     Drop inf values from a Series.
 
     >>> s.drop_inf()
-    0    1.0
-    1    2.0
-    dtype: float64
-
-    Keep the Series with valid entries in the same variable.
-
-    >>> s.drop_inf(inplace=True)
-    >>> s
     0    1.0
     1    2.0
     dtype: float64
