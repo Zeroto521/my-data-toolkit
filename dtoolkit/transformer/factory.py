@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 from dtoolkit.transformer._util import snake_to_camel
@@ -25,6 +27,8 @@ def methodtf_factory(
     Examples
     --------
     In your library code::
+
+        from __future__ import annotations
 
         import numpy as np
 
