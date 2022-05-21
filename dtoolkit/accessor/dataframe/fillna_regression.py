@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
     from sklearn.base import RegressorMixin
