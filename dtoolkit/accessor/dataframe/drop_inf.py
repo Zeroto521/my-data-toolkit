@@ -13,7 +13,7 @@ from dtoolkit.util._decorator import deprecated_kwargs
 
 
 if TYPE_CHECKING:
-    from _typing import Literal
+    from typing import Literal
 
     from dtoolkit._typing import Axis
 
