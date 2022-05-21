@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 @register_dataframe_method()
 def from_wkt(
     df: pd.DataFrame,
-    column: str,
+    column: IntOrStr,
     crs: CRS | IntOrStr = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
@@ -30,7 +30,7 @@ def from_wkt(
 
     Parameters
     ----------
-    column : str
+    column : str or int
         The name of WKT column.
 
     crs : CRS, str, int, optional
