@@ -1,5 +1,5 @@
-import pytest
 import pandas as pd
+import pytest
 from sklearn import linear_model
 
 from dtoolkit.accessor.dataframe import fillna_regression  # noqa
