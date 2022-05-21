@@ -1,6 +1,6 @@
-import pandas as pd
-
 from typing import TYPE_CHECKING
+
+import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 
