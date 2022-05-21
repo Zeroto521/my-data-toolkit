@@ -91,7 +91,7 @@ def drop_inf(
     s._update_inplace(result)
 
 
-def get_inf_range(inf: str = "all") -> list[float]:
+def get_inf_range(inf: Literal["all", "pos", "neg"] = "all") -> list[float]:
     """Get inf value from string"""
 
     inf_range = {

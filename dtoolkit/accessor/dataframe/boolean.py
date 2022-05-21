@@ -1,12 +1,17 @@
 import pandas as pd
 
+from typing import TYPE_CHECKING
+
 from dtoolkit.accessor.register import register_dataframe_method
+
+if TYPE_CHECKING:
+    from typing import Literal
 
 
 @register_dataframe_method
 def boolean(
     df: pd.DataFrame,
-    how: str = "any",
+    how: Literal["any", "all"] = "any",
     complement: bool = False,
     **kwargs,
 ) -> pd.Series:
