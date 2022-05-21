@@ -1,11 +1,8 @@
-from typing import TYPE_CHECKING
+from typing import Literal
 
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
-
-if TYPE_CHECKING:
-    from typing import Literal
 
 
 @register_dataframe_method

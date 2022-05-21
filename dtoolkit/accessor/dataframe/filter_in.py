@@ -1,19 +1,14 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Iterable
+from typing import Literal
 
 import pandas as pd
 
+from dtoolkit._typing import IntOrStr
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
-
-
-if TYPE_CHECKING:
-    from typing import Iterable
-    from typing import Literal
-
-    from dtoolkit._typing import IntOrStr
-    from dtoolkit._typing import SeriesOrFrame
 
 
 @register_dataframe_method

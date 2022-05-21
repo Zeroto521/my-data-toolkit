@@ -1,17 +1,14 @@
 from __future__ import annotations
 
 from itertools import chain
-from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
+from sklearn.base import TransformerMixin
 
+from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-    from sklearn.base import TransformerMixin
 
 
 @register_dataframe_method

@@ -1,15 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Literal
 
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import top_n as s_top_n
-
-
-if TYPE_CHECKING:
-    from typing import Literal
 
 
 @register_dataframe_method
