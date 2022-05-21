@@ -8,8 +8,6 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.dataframe import to_series  # noqa
 
 if TYPE_CHECKING:
-    from typing import Iterable
-
     from sklearn.base import RegressorMixin
 
     from dtoolkit._typing import IntOrStr
