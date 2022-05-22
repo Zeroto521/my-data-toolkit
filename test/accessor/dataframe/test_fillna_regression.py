@@ -128,6 +128,33 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
                 columns=["x1", "x2", "y"],
             ),
             linear_model.LinearRegression,
+            "x2",
+            "y",
+            "na",
+            {},
+            pd.DataFrame(
+                [
+                    [1, 1, 6],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, 16],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+        ),
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, 6],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, None],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+            linear_model.LinearRegression,
             ["x1"],
             "y",
             "all",
