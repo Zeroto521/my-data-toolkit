@@ -129,10 +129,6 @@ def make_pipeline(
     """
     Construct a :class:`Pipeline` from the given estimators.
 
-    This is a shorthand for the :class:`Pipeline` constructor; it does not
-    require, and does not permit, naming the estimators. Instead, their names
-    will be set to the lowercase of their types automatically.
-
     See Also
     --------
     Pipeline : Class for creating a pipeline of transforms with a final
@@ -143,15 +139,6 @@ def make_pipeline(
     Different to :func:`sklearn.pipeline.make_pipeline`.
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
-
-    Examples
-    --------
-    >>> from sklearn.naive_bayes import GaussianNB
-    >>> from sklearn.preprocessing import StandardScaler
-    >>> from dtoolkit.transformer import make_pipeline
-    >>> make_pipeline(StandardScaler(), GaussianNB(priors=None))
-    Pipeline(steps=[('standardscaler', StandardScaler()),
-                    ('gaussiannb', GaussianNB())])
     """
 
     return Pipeline(_name_estimators(steps), memory=memory, verbose=verbose)
@@ -171,17 +158,6 @@ class FeatureUnion(SKFeatureUnion, Transformer):
     Different to :obj:`sklearn.pipeline.FeatureUnion`.
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
-
-    Examples
-    --------
-    >>> from dtoolkit.transformer import FeatureUnion
-    >>> from sklearn.decomposition import PCA, TruncatedSVD
-    >>> union = FeatureUnion([("pca", PCA(n_components=1)),
-    ...                       ("svd", TruncatedSVD(n_components=2))])
-    >>> X = [[0., 1., 3], [2., 2., 5]]
-    >>> union.fit_transform(X)
-    array([[ 1.5       ,  3.0...,  0.8...],
-           [-1.5       ,  5.7..., -0.4...]])
     """
 
     def _hstack(self, Xs):
@@ -210,14 +186,6 @@ def make_union(
     Different to :obj:`sklearn.pipeline.make_union`.
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
-
-    Examples
-    --------
-    >>> from sklearn.decomposition import PCA, TruncatedSVD
-    >>> from dtoolkit.transformer import make_union
-    >>> make_union(PCA(), TruncatedSVD())
-     FeatureUnion(transformer_list=[('pca', PCA()),
-                                   ('truncatedsvd', TruncatedSVD())])
     """
 
     return FeatureUnion(
