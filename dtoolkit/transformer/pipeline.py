@@ -19,6 +19,21 @@ from dtoolkit.transformer.base import Transformer
 
 @doc(SKPipeline)
 class Pipeline(SKPipeline):
+    """
+    Pipeline of transforms with a final estimator.
+
+    See Also
+    --------
+    sklearn.pipeline.make_pipeline : sklearn's version
+    make_pipeline : DToolKit's version
+
+    Notes
+    -----
+    Different to :func:`sklearn.pipeline.make_pipeline`.
+    This would let :obj:`~pandas.DataFrame` in and
+    :obj:`~pandas.DataFrame` out.
+    """
+
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps):
         # shallow copy of steps - this should really be steps_
