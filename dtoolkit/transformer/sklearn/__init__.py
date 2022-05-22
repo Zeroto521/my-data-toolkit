@@ -1,1 +1,1 @@
-from dtoolkit.transformer.sklearn import OneHotEncoder  # noqa
+from dtoolkit.transformer.sklearn.OneHotEncoder import OneHotEncoder  # noqa
