@@ -35,7 +35,7 @@ class Pipeline(SKPipeline):
 
     Notes
     -----
-    Different to :func:`sklearn.pipeline.make_pipeline`.
+    Different to :class:`sklearn.pipeline.Pipeline`.
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
     """
