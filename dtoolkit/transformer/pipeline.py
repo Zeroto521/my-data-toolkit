@@ -138,6 +138,12 @@ def make_pipeline(
     Pipeline : Class for creating a pipeline of transforms with a final
         estimator.
 
+    Notes
+    -----
+    Different to :func:`sklearn.pipeline.make_pipeline`.
+    This would let :obj:`~pandas.DataFrame` in and
+    :obj:`~pandas.DataFrame` out.
+
     Examples
     --------
     >>> from sklearn.naive_bayes import GaussianNB
