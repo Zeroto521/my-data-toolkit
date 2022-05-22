@@ -1,1 +1,1 @@
-from .RavelTF import RavelTF  # noqa
+from dtoolkit.transformer.numpy.RavelTF import RavelTF  # noqa

@@ -1,8 +1,6 @@
-
 import pandas as pd
 
 from dtoolkit.transformer.base import DataFrameTF
-
 
 
 class ReplaceTF(DataFrameTF):

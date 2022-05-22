@@ -2,7 +2,6 @@ from dtoolkit.accessor.dataframe import filter_in
 from dtoolkit.transformer.base import DataFrameTF
 
 
-
 class FilterInTF(DataFrameTF):
     """
     A transformer could filter :obj:`~pandas.DataFrame` contents.

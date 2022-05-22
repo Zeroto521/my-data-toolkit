@@ -58,5 +58,3 @@ class QueryTF(DataFrameTF):
     """
 
     transform_method = staticmethod(pd.DataFrame.query)
-
-
