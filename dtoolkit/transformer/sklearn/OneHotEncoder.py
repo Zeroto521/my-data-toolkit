@@ -7,13 +7,12 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
+from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
-
-    from dtoolkit._typing import TwoDimArray
 
 
 class OneHotEncoder(SKOneHotEncoder):
