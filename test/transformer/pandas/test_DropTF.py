@@ -1,5 +1,8 @@
 from test.transformer.conftest import df_iris
 from test.transformer.conftest import feature_names
+from test.transformer.conftest import s
+
+import pytest
 
 from dtoolkit.transformer import DropTF
 

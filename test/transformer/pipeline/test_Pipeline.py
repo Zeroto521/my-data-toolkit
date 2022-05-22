@@ -19,6 +19,7 @@ from dtoolkit.transformer import make_union
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
 
+
 # include `make_pipeline`
 @pytest.mark.parametrize(
     "name, data, pipeline",

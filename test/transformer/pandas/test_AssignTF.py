@@ -1,5 +1,5 @@
 from functools import partial
-from test.transformer.conftest import df_mixed
+from test.transformer.conftest import df_period
 
 from dtoolkit.transformer import AssignTF
 
