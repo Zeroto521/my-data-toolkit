@@ -24,8 +24,8 @@ class Pipeline(SKPipeline):
 
     See Also
     --------
-    sklearn.pipeline.make_pipeline : sklearn's version
     make_pipeline : DToolKit's version
+    sklearn.pipeline.make_pipeline : sklearn's version
 
     Notes
     -----
@@ -146,8 +146,8 @@ def make_pipeline(
 
     See Also
     --------
-    Pipeline : Class for creating a pipeline of transforms with a final
-        estimator.
+    Pipeline : DToolKit's version
+    sklearn.pipeline.Pipeline : sklearn's version
 
     Notes
     -----
@@ -165,8 +165,8 @@ class FeatureUnion(SKFeatureUnion, Transformer):
 
     See Also
     --------
-    make_union
-        Convenience function for simplified feature union construction.
+    make_union : DToolKit's version
+    sklearn.pipeline.make_union : sklearn's version
 
     Notes
     -----
@@ -193,8 +193,8 @@ def make_union(
 
     See Also
     --------
-    FeatureUnion
-        Class for concatenating the results of multiple transformer objects.
+    FeatureUnion : DToolKit's version
+    sklearn.pipeline.FeatureUnion : sklearn's version
 
     Notes
     -----
