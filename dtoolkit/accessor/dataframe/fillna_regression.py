@@ -20,7 +20,6 @@ def fillna_regression(
     X: IntOrStr | list[IntOrStr] | pd.Index,
     y: IntOrStr,
     how: str = "na",
-    *args,
     **kwargs,
 ) -> pd.DataFrame:
     """
@@ -40,8 +39,9 @@ def fillna_regression(
     how : {'na', 'all'}, default 'na'
         Only fill na value or apply regression to entire target column.
 
-    *args, **kwargs
-        The arguments of the ``method``.
+    **kwargs
+        See the documentation for ``method`` for complete details on
+        the keyword arguments.
 
     See Also
     --------
@@ -100,7 +100,7 @@ def fillna_regression(
         X = [X]
 
     index_notnull = df[df[y].notnull()].index
-    model = method(*args, **kwargs).fit(
+    model = method(**kwargs).fit(
         df.loc[index_notnull, X],
         df.loc[index_notnull, y],
     )

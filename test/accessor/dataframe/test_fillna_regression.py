@@ -6,7 +6,7 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
 
 
 @pytest.mark.parametrize(
-    "df, method, X, y, how, args, kwargs, expected",
+    "df, method, X, y, how, kwargs, expected",
     [
         (
             pd.DataFrame(
@@ -23,7 +23,33 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
             ["x1", "x2"],
             "y",
             "na",
-            (),
+            {},
+            pd.DataFrame(
+                [
+                    [1, 1, 6],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, 16],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+        ),
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, 6],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, None],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+            linear_model.Ridge,
+            ["x1", "x2"],
+            "y",
+            "na",
             {},
             pd.DataFrame(
                 [
@@ -51,7 +77,6 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
             ["x1", "x2"],
             "y",
             "all",
-            (),
             {},
             pd.DataFrame(
                 [
@@ -79,7 +104,6 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
             "x1",
             "y",
             "na",
-            (),
             {},
             pd.DataFrame(
                 [
@@ -107,7 +131,6 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
             ["x1"],
             "y",
             "all",
-            (),
             {},
             pd.DataFrame(
                 [
@@ -122,8 +145,8 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
         ),
     ],
 )
-def test_work(df, method, X, y, how, args, kwargs, expected):
-    result = df.fillna_regression(method, X, y, how=how, *args, **kwargs)
+def test_work(df, method, X, y, how, kwargs, expected):
+    result = df.fillna_regression(method, X, y, how=how, **kwargs)
 
     assert result.equals(result)
 
