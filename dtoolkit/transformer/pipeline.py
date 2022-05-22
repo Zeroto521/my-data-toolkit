@@ -22,6 +22,12 @@ class Pipeline(SKPipeline):
     """
     Pipeline of transforms with a final estimator.
 
+    Parameters
+    ----------
+    *args, **kwargs
+        See the documentation for :class:`sklearn.pipeline.Pipeline` for complete
+        details on the positional arguments and keyword arguments.
+
     See Also
     --------
     make_pipeline : DToolKit's version
