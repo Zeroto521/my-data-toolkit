@@ -1,6 +1,7 @@
 import pandas as pd
 import pytest
 from sklearn import linear_model
+from sklearn import tree
 
 from dtoolkit.accessor.dataframe import fillna_regression  # noqa
 
@@ -166,6 +167,60 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
                     [2, 2, 10],
                     [2, 3, 10],
                     [3, 5, 13],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+        ),
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, 6],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, None],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+            linear_model.LinearRegression,
+            pd.Index(["x1"]),
+            "y",
+            "all",
+            {},
+            pd.DataFrame(
+                [
+                    [1, 1, 7],
+                    [1, 2, 7],
+                    [2, 2, 10],
+                    [2, 3, 10],
+                    [3, 5, 13],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+        ),
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, None],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, None],
+                ],
+                columns=["x1", "x2", "y"],
+            ),
+            tree.DecisionTreeRegressor,
+            ["x1", "x2"],
+            "y",
+            "na",
+            dict(criterion="friedman_mse", splitter="best"),
+            pd.DataFrame(
+                [
+                    [1, 1, 6],
+                    [1, 2, 8],
+                    [2, 2, 9],
+                    [2, 3, 11],
+                    [3, 5, 11],
                 ],
                 columns=["x1", "x2", "y"],
             ),
