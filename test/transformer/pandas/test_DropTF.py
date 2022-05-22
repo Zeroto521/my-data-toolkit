@@ -1,8 +1,8 @@
+from test.transformer.conftest import df_iris
+
 import pandas as pd
 
 from dtoolkit.transformer import DropTF
-
-from test.transformer.conftest import df_iris
 
 
 def test_work():

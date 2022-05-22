@@ -1,7 +1,7 @@
-import pytest
-
 from test.transformer.conftest import df_iris
 from test.transformer.conftest import feature_names
+
+import pytest
 
 from dtoolkit.transformer import GetTF
 

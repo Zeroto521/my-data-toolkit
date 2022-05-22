@@ -9,4 +9,3 @@ def test_fill0():
     result = tf.fit_transform(df)
 
     assert None not in result
-
