@@ -45,6 +45,18 @@ def fillna_regression(
     --------
     sklearn.kernel_ridge
     sklearn.linear_model
+    sklearn.dummy.DummyRegressor
+    sklearn.ensemble.AdaBoostRegressor
+    sklearn.ensemble.BaggingRegressor
+    sklearn.ensemble.ExtraTreesRegressor
+    sklearn.ensemble.GradientBoostingRegressor
+    sklearn.ensemble.RandomForestRegressor
+    sklearn.ensemble.StackingRegressor
+    sklearn.ensemble.VotingRegressor
+    sklearn.ensemble.HistGradientBoostingRegressor
+    sklearn.gaussian_process.GaussianProcessRegressor
+    sklearn.isotonic.IsotonicRegression
+    sklearn.kernel_ridge.KernelRidge
     sklearn.neighbors.KNeighborsRegressor
     sklearn.neighbors.RadiusNeighborsRegressor
     sklearn.neural_network.MLPRegressor
