@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 from scipy import sparse
 
-from dtoolkit.transformer import OneHotEncoder
 from dtoolkit.transformer import make_pipeline
+from dtoolkit.transformer import OneHotEncoder
 
 
 def test_dataframe_in_dataframe_out():
