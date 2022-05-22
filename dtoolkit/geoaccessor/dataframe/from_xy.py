@@ -13,8 +13,6 @@ from dtoolkit.accessor.register import register_dataframe_method
 if TYPE_CHECKING:
     from pyproj import CRS
 
-    from dtoolkit._typing import IntOrStr
-
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
