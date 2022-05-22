@@ -1,6 +1,8 @@
 from test.transformer.conftest import df_iris
 from test.transformer.conftest import df_label
 
+import pytest
+
 from dtoolkit.transformer import SelectDtypesTF
 
 

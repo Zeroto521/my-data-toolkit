@@ -1,4 +1,5 @@
 from functools import partial
+from test.transformer.conftest import df_mixed
 
 from dtoolkit.transformer import AssignTF
 
