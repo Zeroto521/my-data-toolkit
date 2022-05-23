@@ -8,7 +8,7 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
 
 
 @pytest.mark.parametrize(
-    "data, x, y, z, crs, drop, excepted",
+    "data, x, y, z, crs, drop, expected",
     [
         # normal
         (
@@ -159,10 +159,10 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
         ),
     ],
 )
-def test_work(data, x, y, z, crs, drop, excepted):
+def test_work(data, x, y, z, crs, drop, expected):
     result = pd.DataFrame(data).points_from_xy(x, y, z, crs, drop)
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 @pytest.mark.parametrize(

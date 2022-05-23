@@ -1,7 +1,10 @@
+from dtoolkit.accessor.dataframe.boolean import boolean  # noqa
 from dtoolkit.accessor.dataframe.cols import cols  # noqa
+from dtoolkit.accessor.dataframe.decompose import decompose  # noqa
 from dtoolkit.accessor.dataframe.drop_inf import drop_inf  # noqa
 from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe.expand import expand  # noqa
+from dtoolkit.accessor.dataframe.fillna_regression import fillna_regression  # noqa
 from dtoolkit.accessor.dataframe.filter_in import filter_in  # noqa
 from dtoolkit.accessor.dataframe.repeat import repeat  # noqa
 from dtoolkit.accessor.dataframe.to_series import to_series  # noqa

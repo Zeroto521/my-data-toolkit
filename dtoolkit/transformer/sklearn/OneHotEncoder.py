@@ -7,13 +7,12 @@ import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
+from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
-
-    from dtoolkit._typing import TwoDimArray
 
 
 class OneHotEncoder(SKOneHotEncoder):
@@ -99,7 +98,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
         if self.sparse is False and isinstance(X, (pd.Series, pd.DataFrame)):
             categories = (
-                self.get_feature_names_out(X.cols())
+                self.get_feature_names_out(X.cols(to_list=True))
                 if self.categories_with_parent
                 else chain.from_iterable(self.categories_)
             )

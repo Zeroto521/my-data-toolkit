@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import numpy as np
 import pandas as pd
 
-if TYPE_CHECKING:
-    from dtoolkit._typing import SeriesOrFrame
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import TwoDimArray
+from dtoolkit._typing import OneDimArray
+from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 
 
 def transform_array_to_frame(
@@ -88,7 +85,7 @@ def snake_to_camel(name: str) -> str:
 
     Examples
     --------
-    >>> from dtoolkit.util import snake_to_camel
+    >>> from dtoolkit.transformer._util import snake_to_camel
     >>> snake_to_camel(snake_to_camel.__name__)
     'SnakeToCamel'
     """
