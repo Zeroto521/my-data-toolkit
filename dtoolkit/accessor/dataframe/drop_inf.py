@@ -63,6 +63,10 @@ def drop_inf(
     inplace : bool, default False
         If True, do operation inplace and return None.
 
+        .. deprecated:: 0.0.17
+            'inplace' is deprecated and will be removed in 0.0.17.
+            (Warning added DToolKit 0.0.16)
+
     Returns
     -------
     DataFrame or None
