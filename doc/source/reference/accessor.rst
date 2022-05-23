@@ -41,6 +41,7 @@ DataFrame Accessor
     drop_inf
     drop_or_not
     expand
+    fillna_regression
     filter_in
     repeat
     top_n
