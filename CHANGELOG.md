@@ -17,13 +17,14 @@ New features and improvements:
 
 API changes:
 
+- Add deprecated warning for {mod}`dtoolkit.transformer.pipeline` ({pr}`558`).
+- Split {mod}`dtoolkit.transformer` scripts into sub-pakcages ({pr}`557`).
 - Drop `inplace` for {meth}`~dtoolkit.accessor.dataframe.drop_inf` ({pr}`540`).
 - Drop `generic` package ({pr}`535`).
-- Drop `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`518`, {pr}`531`).
+- Drop `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`518`, {pr}`531`, {pr}`559`).
 
 Maintenance development:
 
-- Split {mod}`dtoolkit.transformer` scripts into sub-pakcages ({pr}`557`).
 - Simplify {meth}`dtoolkit.accessor.register_method_factory` ({pr}`552`).
 - Correct name `excepted` -> `expected` ({pr}`547`).
 - Complete the accessor subpackage test suitcase ({pr}`544`).
