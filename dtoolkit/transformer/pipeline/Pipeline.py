@@ -1,11 +1,6 @@
-from __future__ import annotations
-
-import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import clone
 from sklearn.pipeline import _fit_transform_one
-from sklearn.pipeline import _name_estimators
-from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.pipeline import Pipeline as SKPipeline
 from sklearn.utils import _print_elapsed_time
 from sklearn.utils.metaestimators import available_if
@@ -14,7 +9,6 @@ from sklearn.utils.validation import check_memory
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
-from dtoolkit.transformer.base import Transformer
 
 
 @doc(SKPipeline)
@@ -39,6 +33,9 @@ class Pipeline(SKPipeline):
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
     """
+
+    # TODO: Overwrite `predict` and `fit_predict` method
+    # let Pandas-Object in Pandas-Object out
 
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps):
@@ -140,77 +137,3 @@ class Pipeline(SKPipeline):
             Xt = transform_array_to_frame(transformer.inverse_transform(Xt), Xt)
 
         return transform_frame_to_series(Xt)
-
-
-def make_pipeline(
-    *steps: list[Transformer],
-    memory=None,
-    verbose: bool = False,
-) -> Pipeline:
-    """
-    Construct a :class:`Pipeline` from the given estimators.
-
-    See Also
-    --------
-    Pipeline : DToolKit's version
-    sklearn.pipeline.Pipeline : sklearn's version
-
-    Notes
-    -----
-    Different to :func:`sklearn.pipeline.make_pipeline`.
-    This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.
-    """
-
-    return Pipeline(_name_estimators(steps), memory=memory, verbose=verbose)
-
-
-class FeatureUnion(SKFeatureUnion, Transformer):
-    """
-    Concatenates results of multiple transformer objects.
-
-    See Also
-    --------
-    make_union : DToolKit's version
-    sklearn.pipeline.make_union : sklearn's version
-
-    Notes
-    -----
-    Different to :obj:`sklearn.pipeline.FeatureUnion`.
-    This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.
-    """
-
-    def _hstack(self, Xs):
-        if all(isinstance(i, (pd.Series, pd.DataFrame)) for i in Xs):
-            # merge all into one DataFrame and the index would use the common part
-            return pd.concat(Xs, axis=1, join="inner")
-
-        return super()._hstack(Xs)
-
-
-def make_union(
-    *transformers: list[Transformer],
-    n_jobs: int = None,
-    verbose: bool = False,
-) -> FeatureUnion:
-    """
-    Construct a FeatureUnion from the given transformers.
-
-    See Also
-    --------
-    FeatureUnion : DToolKit's version
-    sklearn.pipeline.FeatureUnion : sklearn's version
-
-    Notes
-    -----
-    Different to :obj:`sklearn.pipeline.make_union`.
-    This would let :obj:`~pandas.DataFrame` in and
-    :obj:`~pandas.DataFrame` out.
-    """
-
-    return FeatureUnion(
-        _name_estimators(transformers),
-        n_jobs=n_jobs,
-        verbose=verbose,
-    )
