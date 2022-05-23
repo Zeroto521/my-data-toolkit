@@ -21,6 +21,11 @@ Base transformer class for all transformers.
 
 Pipeline
 -------------------
+
+.. deprecated:: 0.0.17
+    The :mod:`dtoolkit.transformer.pipeline` package will be moved into
+    :mod:`dtoolkit.pipeline` in 0.0.17. (Warning added DToolKit 0.0.16)
+
 .. autosummary::
     :toctree: api/
 
