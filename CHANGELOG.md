@@ -1,5 +1,37 @@
 # Changelog
 
+## [Version 0.0.16] (2022-5-??)
+
+New features and improvements:
+
+- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regresssion` ({pr}`556`)
+- New `unique` option for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`548`)
+- Speed up `find_stack_level` ({pr}`546`)
+- {meth}`~dtoolkit.accessor.dataframe.filter_in`'s `how` only works on `condition` `DataFrame`'s columns ({pr}`545`)
+- {meth}`~dtoolkit.accessor.series.to_set` speeds up especial to large data ({pr}`542`, {pr}`543`)
+- {meth}`~dtoolkit.accessor.dataframe.drop_inf`'s `inf` option supports `+` and `-` ({pr}`539`)
+- New accessor {meth}`~dtoolkit.accessor.dataframe.boolean` for `DataFrame` ({pr}`537`, {pr}`538`)
+- New `complement` option for {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`533`)
+- New `Index` method {meth}`~dtoolkit.accessor.index.to_set` ({pr}`529`)
+- New method {meth}`~dtoolkit.accessor.dataframe.decompose` for `DataFrame` ({pr}`488`)
+
+API changes:
+
+- Drop `inplace` for {meth}`~dtoolkit.accessor.dataframe.drop_inf` ({pr}`540`)
+- Drop `generic` package ({pr}`535`)
+- Drop `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`518`, {pr}`531`)
+
+Maintenance development:
+
+- Split {mod}`dtoolkit.transformer` scripts into sub-pakcages ({pr}`557`)
+- Simplify {meth}`dtoolkit.accessor.register_method_factory` ({pr}`552`)
+- Correct name `excepted` -> `expected` ({pr}`547`)
+- Complete the accessor subpackage test suitcase ({pr}`544`)
+- Move `collapse` from `_util` into `expand` ({pr}`541`)
+- Lint importing ({pr}`536`)
+- Test `deprecated_kwargs` ({pr}`534`)
+- Index `._decorator` and `_exception` method ({pr}`532`)
+
 ## [Version 0.0.15] (2022-5-13)
 
 New features and improvements:
@@ -429,6 +461,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.16]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.16
 [Version 0.0.15]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.14...v0.0.15
 [Version 0.0.14]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.13...v0.0.14
 [Version 0.0.13]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.12...v0.0.13
