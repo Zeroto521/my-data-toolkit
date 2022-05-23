@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from sklearn.pipeline import _name_estimators
 
-from dtoolkit.transformer import FeatureUnion
-from dtoolkit.transformer.base import Transformer
+from dtoolkit.transformer import Transformer
+from dtoolkit.transformer.pipeline.FeatureUnion import FeatureUnion
 
 
 def make_union(
