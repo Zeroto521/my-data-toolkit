@@ -1,5 +1,5 @@
 from dtoolkit.accessor.dataframe import filter_in
-from dtoolkit.transformer.base import DataFrameTF
+from dtoolkit.transformer import DataFrameTF
 
 
 class FilterInTF(DataFrameTF):

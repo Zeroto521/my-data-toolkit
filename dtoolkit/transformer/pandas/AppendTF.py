@@ -1,6 +1,6 @@
 import pandas as pd
 
-from dtoolkit.transformer.base import DataFrameTF
+from dtoolkit.transformer import DataFrameTF
 
 
 class AppendTF(DataFrameTF):

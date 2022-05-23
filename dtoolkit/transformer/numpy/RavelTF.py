@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
-from dtoolkit.transformer.base import NumpyTF
+from dtoolkit.transformer import NumpyTF
 
 
 class RavelTF(NumpyTF):
