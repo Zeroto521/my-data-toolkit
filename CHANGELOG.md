@@ -4,9 +4,9 @@
 
 New features and improvements:
 
-- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regresssion` ({pr}`556`).
+- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`).
 - New `unique` option for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`548`).
-- Speed up `find_stack_level` ({pr}`546`).
+- Speed up {meth}`~dtoolkit.util._exception.find_stack_level` ({pr}`546`).
 - {meth}`~dtoolkit.accessor.dataframe.filter_in`'s `how` only works on `condition` `DataFrame`'s columns ({pr}`545`).
 - {meth}`~dtoolkit.accessor.series.to_set` speeds up especial to large data ({pr}`542`, {pr}`543`).
 - {meth}`~dtoolkit.accessor.dataframe.drop_inf`'s `inf` option supports `+` and `-` ({pr}`539`).
@@ -25,12 +25,12 @@ API changes:
 
 Maintenance development:
 
-- Simplify {meth}`dtoolkit.accessor.register_method_factory` ({pr}`552`).
+- Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).
 - Correct name `excepted` -> `expected` ({pr}`547`).
 - Complete the accessor subpackage test suitcase ({pr}`544`).
 - Move `collapse` from `_util` into `expand` ({pr}`541`).
 - Lint importing ({pr}`536`).
-- Test `deprecated_kwargs` ({pr}`534`).
+- Test {meth}`~dtoolkit.util._decorator.deprecated_kwargs` ({pr}`534`).
 - Index `._decorator` and `_exception` method ({pr}`532`).
 
 ## [Version 0.0.15] (2022-5-13)
@@ -39,7 +39,7 @@ New features and improvements:
 
 - New decorator {meth}`deprecated_kwargs` ({pr}`525`).
 - Add `to_list` option for {meth}`~dtoolkit.accessor.series.cols` ({pr}`523`).
-- Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`pandas.Index` ({pr}`507`).
+- Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`~pandas.Index` ({pr}`507`).
 
 API changes:
 
