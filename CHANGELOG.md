@@ -30,6 +30,7 @@ Documentation:
 
 Maintenance development:
 
+- Remove `TYPE_CHECKING` blocks ({pr}`566`).
 - Remove `__future__` useless line importing ({pr}`564`).
 - Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).
 - Correct name `excepted` -> `expected` ({pr}`547`).
