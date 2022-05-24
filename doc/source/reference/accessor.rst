@@ -21,11 +21,11 @@ Series Accessor
     cols
     drop_inf
     error_report
-    getattr
     expand
+    getattr
     len
-    top_n
     to_set
+    top_n
     values_to_dict
 
 
@@ -35,8 +35,8 @@ DataFrame Accessor
 .. autosummary::
     :toctree: api/
 
-    cols
     boolean
+    cols
     decompose
     drop_inf
     drop_or_not
@@ -44,8 +44,8 @@ DataFrame Accessor
     fillna_regression
     filter_in
     repeat
-    top_n
     to_series
+    top_n
     values_to_dict
 
 
