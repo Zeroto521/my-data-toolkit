@@ -1,19 +1,14 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import numpy as np
 import pandas as pd
 from pandas.util._validators import validate_bool_kwarg
 
+from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series.drop_inf import get_inf_range
 from dtoolkit.util._decorator import deprecated_kwargs
-
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
 
 
 @register_dataframe_method
