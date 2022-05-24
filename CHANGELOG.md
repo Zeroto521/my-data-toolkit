@@ -25,6 +25,7 @@ API changes:
 
 Maintenance development:
 
+- Remove `__future__` useless line importing ({pr}`564`).
 - Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).
 - Correct name `excepted` -> `expected` ({pr}`547`).
 - Complete the accessor subpackage test suitcase ({pr}`544`).
