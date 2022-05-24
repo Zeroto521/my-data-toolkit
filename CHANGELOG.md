@@ -25,6 +25,7 @@ API changes:
 
 Maintenance development:
 
+- Adjust the sequence of methods ({pr}`565`).
 - Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).
 - Correct name `excepted` -> `expected` ({pr}`547`).
 - Complete the accessor subpackage test suitcase ({pr}`544`).
