@@ -52,8 +52,8 @@ corresponding to relative :class:`pandas.DataFrame`'s method.
 .. autosummary::
     :toctree: api/
 
-    AssignTF
     AppendTF
+    AssignTF
     DropTF
     EvalTF
     FilterInTF
