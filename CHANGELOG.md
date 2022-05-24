@@ -23,16 +23,20 @@ API changes:
 - Drop `generic` package ({pr}`535`).
 - Drop `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`518`, {pr}`531`, {pr}`559`).
 
-Maintenance development:
+Documentation:
 
 - Adjust the sequence of methods ({pr}`565`).
+- Index `._decorator` and `_exception` method ({pr}`532`).
+
+Maintenance development:
+
+- Remove `__future__` useless line importing ({pr}`564`).
 - Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).
 - Correct name `excepted` -> `expected` ({pr}`547`).
 - Complete the accessor subpackage test suitcase ({pr}`544`).
 - Move `collapse` from `_util` into `expand` ({pr}`541`).
 - Lint importing ({pr}`536`).
 - Test {meth}`~dtoolkit.util._decorator.deprecated_kwargs` ({pr}`534`).
-- Index `._decorator` and `_exception` method ({pr}`532`).
 
 ## [Version 0.0.15] (2022-5-13)
 
