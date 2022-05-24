@@ -35,11 +35,11 @@ jobs:
           git reset -- setup.py dtoolkit/__init__.py
           git checkout -- setup.py dtoolkit/__init__.py
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           path: versioneer.py
 
-      - uses: peter-evans/create-pull-request@v3
+      - uses: peter-evans/create-pull-request@v4
         if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
         with:
           commit-message: |

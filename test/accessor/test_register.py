@@ -2,74 +2,92 @@ import pandas as pd
 import pytest
 
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.register import register_index_method
 from dtoolkit.accessor.register import register_series_method
 
 
-def base_names(pd_obj):
-    if isinstance(pd_obj, pd.Series):
+def base_name_or_columns(pd_obj):
+    if isinstance(pd_obj, (pd.Series, pd.Index)):
         return pd_obj.name
 
     return pd_obj.columns.tolist()
 
 
-@register_dataframe_method
+@register_index_method
 @register_series_method
-def names(pd_obj):
+@register_dataframe_method
+def name_or_columns(pd_obj):
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     """
 
-    return base_names(pd_obj)
+    return base_name_or_columns(pd_obj)
 
 
-@register_dataframe_method()
+@register_index_method()
 @register_series_method()
-def names_1(pd_obj):
+@register_dataframe_method()
+def name_or_columns_1(pd_obj):
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     """
 
-    return base_names(pd_obj)
+    return base_name_or_columns(pd_obj)
 
 
-@register_dataframe_method(name="name_or_columns")
-@register_series_method(name="name_or_columns")
-def names_2(pd_obj):
+@register_index_method(name="alias_name_or_columns")
+@register_series_method(name="alias_name_or_columns")
+@register_dataframe_method(name="alias_name_or_columns")
+def name_or_columns_2(pd_obj):
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     """
 
-    return base_names(pd_obj)
+    return base_name_or_columns(pd_obj)
 
 
-@register_dataframe_method("name_or_columns_1")
-@register_series_method("name_or_columns_1")
-def names_3(pd_obj):
+@register_index_method("alias_name_or_columns_1")
+@register_series_method("alias_name_or_columns_1")
+@register_dataframe_method("alias_name_or_columns_1")
+def name_or_columns_3(pd_obj):
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
     """
 
-    return base_names(pd_obj)
+    return base_name_or_columns(pd_obj)
 
 
-df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+df = pd.DataFrame(
+    {
+        "a": [1, 2],
+        "b": [3, 4],
+    },
+    index=pd.Index(
+        ["x", "y"],
+        name="c",
+    ),
+)
 
 
 @pytest.mark.parametrize(
     "data, name",
     [
-        (df, "names"),
-        (df.a, "names"),
-        (df, "names_1"),
-        (df.a, "names_1"),
         (df, "name_or_columns"),
-        (df.a, "name_or_columns"),
         (df, "name_or_columns_1"),
-        (df.a, "name_or_columns_1"),
+        (df, "alias_name_or_columns"),
+        (df, "alias_name_or_columns_1"),
+        (df.a, "name_or_columns"),
+        (df.b, "name_or_columns_1"),
+        (df.a, "alias_name_or_columns"),
+        (df.b, "alias_name_or_columns_1"),
+        (df.index, "name_or_columns"),
+        (df.a.index, "name_or_columns_1"),
+        (df.b.index, "alias_name_or_columns"),
+        (df.index, "alias_name_or_columns_1"),
     ],
 )
 def test_method_hooked_exist(data, name):
@@ -77,43 +95,53 @@ def test_method_hooked_exist(data, name):
 
 
 @pytest.mark.parametrize(
-    "data, name, excepted",
+    "data, name, expected",
     [
-        (df, "names", ["a", "b"]),
-        (df.a, "names", "a"),
-        (df, "names_1", ["a", "b"]),
-        (df.a, "names_1", "a"),
         (df, "name_or_columns", ["a", "b"]),
         (df.a, "name_or_columns", "a"),
+        (df.a.index, "name_or_columns", "c"),
         (df, "name_or_columns_1", ["a", "b"]),
-        (df.a, "name_or_columns_1", "a"),
+        (df.b, "name_or_columns_1", "b"),
+        (df.b.index, "name_or_columns_1", "c"),
+        (df, "alias_name_or_columns", ["a", "b"]),
+        (df.b, "alias_name_or_columns", "b"),
+        (df.index, "alias_name_or_columns", "c"),
+        (df, "alias_name_or_columns_1", ["a", "b"]),
+        (df.a, "alias_name_or_columns_1", "a"),
+        (df.index, "alias_name_or_columns_1", "c"),
     ],
 )
-def test_work(data, name, excepted):
+def test_work(data, name, expected):
     result = getattr(data, name)()
 
-    assert result == excepted
+    assert result == expected
 
 
 @pytest.mark.parametrize(
-    "data, name, attr, excepted",
+    "data, name, attr, expected",
     [
-        (df, "names", "__name__", names.__name__),
-        (df.a, "names", "__name__", names.__name__),
-        (df, "names", "__doc__", names.__doc__),
-        (df.a, "names", "__doc__", names.__doc__),
-        (df, "names_1", "__name__", names_1.__name__),
-        (df.a, "names_1", "__name__", names_1.__name__),
-        (df, "names_1", "__doc__", names_1.__doc__),
-        (df.a, "names_1", "__doc__", names_1.__doc__),
-        (df, "name_or_columns", "__doc__", names_2.__doc__),
-        (df.a, "name_or_columns", "__doc__", names_2.__doc__),
-        (df, "name_or_columns_1", "__doc__", names_2.__doc__),
-        (df.a, "name_or_columns_1", "__doc__", names_2.__doc__),
+        (df, "name_or_columns", "__name__", name_or_columns.__name__),
+        (df.a, "name_or_columns", "__name__", name_or_columns.__name__),
+        (df.index, "name_or_columns", "__name__", name_or_columns.__name__),
+        (df, "name_or_columns", "__doc__", name_or_columns.__doc__),
+        (df.a, "name_or_columns", "__doc__", name_or_columns.__doc__),
+        (df.a.index, "name_or_columns", "__doc__", name_or_columns.__doc__),
+        (df, "name_or_columns_1", "__name__", name_or_columns_1.__name__),
+        (df.b, "name_or_columns_1", "__name__", name_or_columns_1.__name__),
+        (df.b.index, "name_or_columns_1", "__name__", name_or_columns_1.__name__),
+        (df, "name_or_columns_1", "__doc__", name_or_columns_1.__doc__),
+        (df.a, "name_or_columns_1", "__doc__", name_or_columns_1.__doc__),
+        (df.index, "name_or_columns_1", "__doc__", name_or_columns_1.__doc__),
+        (df, "alias_name_or_columns", "__doc__", name_or_columns_2.__doc__),
+        (df.b, "alias_name_or_columns", "__doc__", name_or_columns_2.__doc__),
+        (df.b.index, "alias_name_or_columns", "__doc__", name_or_columns_2.__doc__),
+        (df, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
+        (df.a, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
+        (df.index, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
     ],
 )
-def test_method_hooked_attr(data, name, attr, excepted):
+def test_method_hooked_attr(data, name, attr, expected):
     method = getattr(data, name)
     result = getattr(method, attr)
 
-    assert result == excepted
+    assert result == expected

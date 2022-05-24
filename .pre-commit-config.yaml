@@ -12,22 +12,22 @@ repos:
     hooks:
       - id: absolufy-imports
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.0.1
+    rev: v3.1.0
     hooks:
       - id: reorder-python-imports
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.1
+    rev: v2.32.1
     hooks:
       - id: pyupgrade
   # text
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.1
+    rev: v2.2.3
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       # python
       - id: check-ast
@@ -44,7 +44,7 @@ repos:
       - id: trailing-whitespace
   # code style
   - repo: https://github.com/psf/black
-    rev: 22.1.0
+    rev: 22.3.0
     hooks:
       - id: black
       - id: black-jupyter

@@ -58,7 +58,7 @@ def test_method_hooked_exist(data, attr):
 
 
 @pytest.mark.parametrize(
-    "data, name, excepted",
+    "data, name, expected",
     [
         (s, "counts", pd.Series([1, 1, 0], name="geometry")),
         (d, "counts", pd.Series([1, 1, 0], name="geometry")),
@@ -68,14 +68,14 @@ def test_method_hooked_exist(data, attr):
         (d, "counts_it", pd.Series([1, 1, 0], name="geometry")),
     ],
 )
-def test_work(data, name, excepted):
+def test_work(data, name, expected):
     result = getattr(data, name)()
 
-    assert result.equals(excepted)
+    assert result.equals(expected)
 
 
 @pytest.mark.parametrize(
-    "data, name, attr, excepted",
+    "data, name, attr, expected",
     [
         (s, "counts", "__name__", counts.__name__),
         (s, "counts", "__doc__", counts.__doc__),
@@ -91,8 +91,8 @@ def test_work(data, name, excepted):
         (d, "counts_it", "__doc__", counts_2.__doc__),
     ],
 )
-def test_method_hooked_attr(data, name, attr, excepted):
+def test_method_hooked_attr(data, name, attr, expected):
     method = getattr(data, name)
     result = getattr(method, attr)
 
-    assert result == excepted
+    assert result == expected
