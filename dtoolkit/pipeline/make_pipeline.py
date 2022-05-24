@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from sklearn.pipeline import _name_estimators
 
-from dtoolkit.transformer import Transformer
 from dtoolkit.pipeline.Pipeline import Pipeline
+from dtoolkit.transformer import Transformer
 
 
 def make_pipeline(

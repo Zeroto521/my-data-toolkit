@@ -10,12 +10,12 @@ from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
+from dtoolkit.pipeline import make_pipeline
+from dtoolkit.pipeline import make_union
 from dtoolkit.transformer import DropTF
 from dtoolkit.transformer import EvalTF
 from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import GetTF
-from dtoolkit.pipeline import make_pipeline
-from dtoolkit.pipeline import make_union
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
 

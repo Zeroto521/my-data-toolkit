@@ -10,9 +10,9 @@ from sklearn.preprocessing import MinMaxScaler
 from dtoolkit.accessor.dataframe import cols  # noqa
 from dtoolkit.accessor.series import cols  # noqa
 from dtoolkit.pipeline import FeatureUnion
-from dtoolkit.transformer import GetTF
 from dtoolkit.pipeline import make_pipeline
 from dtoolkit.pipeline import make_union
+from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import OneHotEncoder
 
 
