@@ -1,15 +1,10 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import numpy as np
 import pandas as pd
 
+from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
-
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
 
 
 @register_dataframe_method

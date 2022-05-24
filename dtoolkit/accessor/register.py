@@ -1,17 +1,14 @@
 from __future__ import annotations
 
 from functools import wraps
-from typing import TYPE_CHECKING
+from typing import Callable
 
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_index_accessor
 from pandas.api.extensions import register_series_accessor
 from pandas.util._decorators import doc
 
-if TYPE_CHECKING:
-    from typing import Callable
-
-    from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import SeriesOrFrame
 
 
 def register_method_factory(register_accessor):

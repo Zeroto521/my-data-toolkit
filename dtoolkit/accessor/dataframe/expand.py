@@ -1,17 +1,13 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import TYPE_CHECKING
 
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import expand as s_expand
-
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
 
 
 @register_dataframe_method
