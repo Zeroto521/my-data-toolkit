@@ -30,12 +30,12 @@ def to_geoframe(
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
     geometry : str, int or array, optional
-        If str or int, column to use as geometry. If array, will be set as 'geometry' column
-        on GeoDataFrame.
+        If str or int, column to use as geometry. If array, will be set as 'geometry'
+        column on GeoDataFrame.
 
     **kwargs
-        See the documentation for :class:`~geopandas.GeoDataFrame` and  for complete details
-        on the keyword arguments.
+        See the documentation for :class:`~geopandas.GeoDataFrame` and  for complete
+        details on the keyword arguments.
 
     Returns
     -------
