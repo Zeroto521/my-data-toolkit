@@ -34,6 +34,7 @@ DataFrame Accessor (to GeoPandas)
 
     from_wkt
     from_xy
+    to_geoframe
 
 
 GeoPandas Base Accessor
