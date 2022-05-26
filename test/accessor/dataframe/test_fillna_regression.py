@@ -229,7 +229,7 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
                 columns=["x1", "x2", "y"],
             ),
             tree.DecisionTreeRegressor,
-            {"y": "x2", "y": ["x1"], "y": ["x1", "x2"]},
+            {"y": "x2", "y": ["x1"], "y": ["x1", "x2"]},  # noqa: F601
             "na",
             {},
             pd.DataFrame(
