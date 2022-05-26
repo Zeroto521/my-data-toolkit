@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from pyproj import CRS
 
 
-@register_dataframe_method()
+@register_dataframe_method
 def to_geoframe(
     df: pd.DataFrame,
     crs: CRS | IntOrStr = None,
