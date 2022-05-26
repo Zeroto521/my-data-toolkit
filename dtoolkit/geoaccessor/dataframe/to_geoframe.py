@@ -70,6 +70,7 @@ def to_geoframe(
     <class 'pandas.core.frame.DataFrame'>
 
     >>> df = df.to_geoframe()
+    >>> df
        a  b                    geometry
     0  1  3  POINT (122.00000 55.00000)
     1  2  4   POINT (100.00000 1.00000)
