@@ -38,6 +38,10 @@ def fillna_regression(
         See the documentation for ``method`` for complete details on
         the keyword arguments.
 
+    Returns
+    -------
+    DataFrame
+
     See Also
     --------
     sklearn.kernel_ridge
