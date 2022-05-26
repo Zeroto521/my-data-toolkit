@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 def to_geoframe(
     df: pd.DataFrame,
     crs: CRS | IntOrStr = None,
-    geometry: IntOrStr = None,
+    geometry: IntOrStr | gpd.GeoSeries = None,
     **kwargs,
 ) -> gpd.GeoDataFrame:
     """
@@ -29,7 +29,7 @@ def to_geoframe(
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
-    geometry : str, int or array, optional
+    geometry : str, int or GeoSeries, optional
         If str or int, column to use as geometry. If array, will be set as 'geometry'
         column on GeoDataFrame.
 
