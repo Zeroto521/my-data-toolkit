@@ -4,6 +4,7 @@
 
 New features and improvements:
 
+- `fillna_regression` supports multi-inputting, new option `columns` ({pr}`567`).
 - New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`).
 - New `unique` option for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`548`).
 - Speed up {meth}`~dtoolkit.util._exception.find_stack_level` ({pr}`546`).
