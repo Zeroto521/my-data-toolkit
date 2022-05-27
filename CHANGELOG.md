@@ -4,7 +4,7 @@
 
 New features and improvements:
 
-- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`).
+- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`, {pr}`567`).
 - New `unique` option for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`548`).
 - Speed up {meth}`~dtoolkit.util._exception.find_stack_level` ({pr}`546`).
 - {meth}`~dtoolkit.accessor.dataframe.filter_in`'s `how` only works on `condition` `DataFrame`'s columns ({pr}`545`).
