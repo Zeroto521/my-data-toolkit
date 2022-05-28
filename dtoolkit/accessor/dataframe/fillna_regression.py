@@ -123,7 +123,7 @@ def _fillna_regression(
 ):
     """Fill single na column at once."""
 
-    if isinstance(X, (str, int)):
+    if isinstance(X, str | int):
         X = [X]
 
     index_notnull = df[df[y].notnull()].index

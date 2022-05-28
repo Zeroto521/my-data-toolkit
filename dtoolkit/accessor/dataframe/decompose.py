@@ -136,7 +136,7 @@ def decompose(
             columns=df.columns,
         )
 
-    elif isinstance(columns, (list, pd.Index)):
+    elif isinstance(columns, list | pd.Index):
         return pd.DataFrame(
             _decompose(method, df[columns], **kwargs),
             index=df.index,

@@ -114,7 +114,7 @@ def register_series_method(name: str = None):
             :attr:`~pandas.DataFrame.columns` to one.
             '''
 
-            if isinstance(pd_obj, (pd.Series, pd.Index)):
+            if isinstance(pd_obj, pd.Series | pd.Index):
                 return pd_obj.name
 
             return pd_obj.columns.tolist()
