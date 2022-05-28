@@ -13,7 +13,7 @@ New features and improvements:
 - New accessor {meth}`~dtoolkit.accessor.dataframe.boolean` for `DataFrame` ({pr}`537`, {pr}`538`).
 - New `complement` option for {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`533`).
 - New `Index` method {meth}`~dtoolkit.accessor.index.to_set` ({pr}`529`).
-- New method {meth}`~dtoolkit.accessor.dataframe.decompose` for `DataFrame` ({pr}`488`).
+- New method {meth}`~dtoolkit.accessor.dataframe.decompose` for `DataFrame` ({pr}`488`, {pr}`573`).
 
 API changes:
 
