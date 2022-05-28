@@ -23,8 +23,6 @@ def methodtf_factory(
     --------
     In your library code::
 
-        from __future__ import annotations
-
         import numpy as np
 
         from dtoolkit.transformer.factory import methodtf_factory
