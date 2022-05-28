@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from functools import wraps
 from typing import Callable
 
@@ -92,6 +94,8 @@ def register_series_method(name: str = None):
     Examples
     --------
     In your library code::
+
+        from __future__ import annotations
 
         from dtoolkit.accessor import register_dataframe_method
         from dtoolkit.accessor import register_series_method
