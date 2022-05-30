@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+from functools import wraps
+
 import pandas as pd
+from pandas.util import hash_pandas_object
 
 from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
@@ -215,7 +218,64 @@ def values_to_dict(
     )
 
 
-def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
+def pd_obj_cache(
+    index: bool = True,
+    encoding: str = "utf8",
+    hash_key: str | None = "0123456789123456",
+    categorize: bool = True,
+):
+    """
+    Cache pandas object avoiding duplicate calculation in recursion.
+
+    Parameters
+    ----------
+    index : bool, default True
+        Include the index in the hash (if Series/DataFrame).
+
+    encoding : str, default 'utf8'
+        Encoding for data & key when strings.
+
+    hash_key : str, default _default_hash_key
+        Hash_key for string key to encode.
+
+    categorize : bool, default True
+        Whether to first categorize object arrays before hashing.
+        This is more efficient when the array contains duplicate values.
+
+    Notes
+    -----
+    - Requiring the first positional argument of ``func`` is a pandas object.
+    - The key of cache is calculated by :meth:`~pandas.util.hash_pandas_object`.
+    """
+
+    def decorator(func):
+        cache = {}
+
+        # base on https://stackoverflow.com/a/40655575
+        @wraps(func)
+        def wrapper(pd_obj, *args, **kwargs):
+            # BUG: `hash_pandas_object` problems
+            # 1. this hash method would ignore column names
+            # 2. key is a Series type
+            # 3. transform the Series to the one.
+            # these both methods maybe cause hash collisioney
+            # - via `....sum()`
+            # - via `hashlib.sha256(....values).hexdigest()`
+            key = hash_pandas_object(pd_obj)
+            if args not in cache:
+                cache[key] = func(pd_obj, *args, **kwargs)
+
+            return cache[key]
+
+        return wrapper
+
+    return decorator
+
+
+@pd_obj_cache
+def to_dict(df: pd.DataFrame, unique: bool = True, to_list: bool = True) -> dict:
+    """Get :class:`dict` from each column of DataFrame via recursion."""
+
     key_column, *value_column = df.columns
 
     if len(df.columns) == 2:  # two column DataFrame
