@@ -2,31 +2,21 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
 
 from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series.drop_inf import get_inf_range
-from dtoolkit.util._decorator import deprecated_kwargs
 
 
 @register_dataframe_method
-@deprecated_kwargs(
-    "inplace",
-    message=(
-        "The keyword argument '{argument}' of '{func_name}' is deprecated and will "
-        "be removed in 0.0.17. (Warning added DToolKit 0.0.16)"
-    ),
-)
 def drop_inf(
     df: pd.DataFrame,
     axis: IntOrStr = 0,
     how: str = "any",
     inf: str = "all",
     subset: list[str] = None,
-    inplace: bool = False,
-) -> pd.DataFrame | None:
+) -> pd.DataFrame:
     """
     Remove ``inf`` values.
 
@@ -55,18 +45,10 @@ def drop_inf(
         Labels along other axis to consider, e.g. if you are dropping rows
         these would be a list of columns to include.
 
-    inplace : bool, default False
-        If True, do operation inplace and return None.
-
-        .. deprecated:: 0.0.17
-            'inplace' is deprecated and will be removed in 0.0.17.
-            (Warning added DToolKit 0.0.16)
-
     Returns
     -------
-    DataFrame or None
-        DataFrame with ``inf`` entries dropped from it or None if
-        ``inplace=True``.
+    DataFrame
+        DataFrame with ``inf`` entries dropped from it.
 
     See Also
     --------
@@ -125,14 +107,8 @@ def drop_inf(
     2  Catwoman   Bullwhip                 -inf
 
     Keep the DataFrame with valid entries in the same variable.
-
-    >>> df.drop_inf(inplace=True)
-    >>> df
-           name        toy                 born
-    1    Batman  Batmobile  1940-04-25 00:00:00
     """
 
-    inplace = validate_bool_kwarg(inplace, "inplace")
     inf_range = get_inf_range(inf)
     axis = df._get_axis_number(axis)
     agg_axis = 1 - axis
@@ -148,9 +124,4 @@ def drop_inf(
         agg_obj = df.take(indices, axis=agg_axis)
 
     mask = agg_obj.isin(inf_range).boolean(how=how, axis=agg_axis)
-    result = df.loc(axis=axis)[~mask]
-
-    if not inplace:
-        return result
-
-    df._update_inplace(result)
+    return df.loc(axis=axis)[~mask]
