@@ -19,7 +19,7 @@ jobs:
       - uses: fkirc/skip-duplicate-actions@v4.0.0
         id: skip-check
         with:
-          paths_ignore: '["doc/**", "ci/**", "test/**"]'
+          paths_ignore: '["doc/**", "test/**"]'
           do_not_skip: '["push"]'
 
   sdist:
