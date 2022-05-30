@@ -11,10 +11,9 @@ from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 
 
+# TODO: Overwrite `predict` and `fit_predict` method
+# let Pandas-Object in Pandas-Object out
 class Pipeline(SKPipeline):
-    # TODO: Overwrite `predict` and `fit_predict` method
-    # let Pandas-Object in Pandas-Object out
-
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps):
         # shallow copy of steps - this should really be steps_
