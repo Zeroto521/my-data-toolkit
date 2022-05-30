@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from scipy import sparse
 
-from dtoolkit.transformer import make_pipeline
+from dtoolkit.pipeline import make_pipeline
 from dtoolkit.transformer import OneHotEncoder
 
 
