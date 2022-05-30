@@ -1,10 +1,10 @@
 # Changelog
 
-## [Version 0.0.16] (2022-5-??)
+## [Version 0.0.16] (2022-5-30)
 
 New features and improvements:
 
-- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`).
+- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`, {pr}`567`).
 - New `unique` option for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`548`).
 - Speed up {meth}`~dtoolkit.util._exception.find_stack_level` ({pr}`546`).
 - {meth}`~dtoolkit.accessor.dataframe.filter_in`'s `how` only works on `condition` `DataFrame`'s columns ({pr}`545`).
@@ -13,7 +13,7 @@ New features and improvements:
 - New accessor {meth}`~dtoolkit.accessor.dataframe.boolean` for `DataFrame` ({pr}`537`, {pr}`538`).
 - New `complement` option for {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`533`).
 - New `Index` method {meth}`~dtoolkit.accessor.index.to_set` ({pr}`529`).
-- New method {meth}`~dtoolkit.accessor.dataframe.decompose` for `DataFrame` ({pr}`488`).
+- New method {meth}`~dtoolkit.accessor.dataframe.decompose` for `DataFrame` ({pr}`488`, {pr}`573`).
 
 API changes:
 
@@ -30,6 +30,7 @@ Documentation:
 
 Maintenance development:
 
+- Don't skip dist when `ci/**` path files changing ({pr}`570`).
 - Remove `TYPE_CHECKING` blocks ({pr}`566`).
 - Remove `__future__` useless line importing ({pr}`564`).
 - Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).

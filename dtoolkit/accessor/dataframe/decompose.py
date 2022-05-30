@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 @register_dataframe_method
 def decompose(
-    df: pd.DataFrmae,
+    df: pd.DataFrame,
     method: TransformerMixin,
     columns: None
     | dict[IntOrStr | tuple[IntOrStr], IntOrStr | list[IntOrStr] | tuple[IntOrStr]]
