@@ -12,7 +12,7 @@ def repeat(
     df: pd.DataFrame,
     repeats: int | list[int],
     axis: Axis = 0,
-) -> pd.DataFrame | None:
+) -> pd.DataFrame:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.
 

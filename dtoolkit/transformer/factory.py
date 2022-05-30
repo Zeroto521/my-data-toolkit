@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Callable
 
 from dtoolkit.transformer._util import snake_to_camel

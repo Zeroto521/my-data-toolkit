@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_method_factory
