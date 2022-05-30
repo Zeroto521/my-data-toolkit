@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Iterable
+from typing import Literal
 
 import pandas as pd
 
