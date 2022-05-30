@@ -1,15 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import pandas as pd
 
+from dtoolkit._typing import IntOrStr
+from dtoolkit._typing import Number
+from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.register import register_series_method
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import Number
 
 
 @register_series_method
