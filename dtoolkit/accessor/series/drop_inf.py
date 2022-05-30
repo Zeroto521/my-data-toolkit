@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 
@@ -7,7 +9,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def drop_inf(s: pd.Series, inf: str = "all") -> pd.Series:
+def drop_inf(s: pd.Series, inf: Literal["all", "pos", "neg"] = "all") -> pd.Series:
     """
     Remove ``inf`` values.
 
@@ -56,7 +58,7 @@ def drop_inf(s: pd.Series, inf: str = "all") -> pd.Series:
     return s[~mask]
 
 
-def get_inf_range(inf: str = "all") -> list[float]:
+def get_inf_range(inf: Literal["all", "pos", "neg"] = "all") -> list[float]:
     """Get inf value from string"""
 
     inf_range = {

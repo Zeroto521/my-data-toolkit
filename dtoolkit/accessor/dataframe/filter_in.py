@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Iterable
+from typing import Literal
 
 import pandas as pd
 
@@ -14,7 +15,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
-    how: str = "all",
+    how: Literal["any", "all"] = "all",
     complement: bool = False,
 ) -> pd.DataFrame:
     """

@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Literal
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
@@ -9,10 +13,10 @@ def top_n(
     df: pd.DataFrame,
     n: int,
     largest: bool = True,
-    keep: str = "first",
+    keep: Literal["first", "last", "all"] = "first",
     prefix: str = "top",
     delimiter: str = "_",
-    element: str = "index",
+    element: Literal["index", "value", "both"] = "index",
 ) -> pd.DataFrame:
     """
     Returns each row's top `n`.

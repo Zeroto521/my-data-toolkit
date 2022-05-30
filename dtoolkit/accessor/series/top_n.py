@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Literal
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
@@ -8,7 +12,7 @@ def top_n(
     s: pd.Series,
     n: int,
     largest: bool = True,
-    keep: str = "first",
+    keep: Literal["first", "last", "all"] = "first",
 ) -> pd.Series:
     """
     Return the top `n` values.

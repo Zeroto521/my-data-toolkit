@@ -18,9 +18,9 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def from_xy(
     df: pd.DataFrame,
-    x: str,
-    y: str,
-    z: str = None,
+    x: IntOrStr,
+    y: IntOrStr,
+    z: IntOrStr = None,
     crs: CRS | IntOrStr = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
@@ -32,13 +32,13 @@ def from_xy(
 
     Parameters
     ----------
-    x : str
+    x : str or int
         ``df``'s column name.
 
-    y : str
+    y : str or int
         ``df``'s column name.
 
-    z : str, optional
+    z : str or int, optional
         ``df``'s column name.
 
     crs : CRS, str, int, optional

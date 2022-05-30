@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
+from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -11,7 +11,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 def repeat(
     df: pd.DataFrame,
     repeats: int | list[int],
-    axis: IntOrStr = 0,
+    axis: Axis = 0,
 ) -> pd.DataFrame:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.

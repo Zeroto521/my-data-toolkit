@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
+from dtoolkit._typing import Axis
 from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series.drop_inf import get_inf_range
@@ -12,9 +14,9 @@ from dtoolkit.accessor.series.drop_inf import get_inf_range
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
-    axis: IntOrStr = 0,
-    how: str = "any",
-    inf: str = "all",
+    axis: Axis = 0,
+    how: Literal["any", "all"] = "any",
+    inf: Literal["all", "pos", "neg"] = "all",
     subset: list[str] = None,
 ) -> pd.DataFrame:
     """
