@@ -25,14 +25,6 @@ def test_work(inf, df, expt):
     assert result.equals(expt)
 
 
-def test_inplace_is_true():
-    self_s = pd.concat((s, s_inf))
-    result = self_s.drop_inf(inplace=True)
-
-    assert result is None
-    assert self_s.equals(s)
-
-
 @pytest.mark.parametrize(
     "error, inf",
     [

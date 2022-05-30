@@ -9,8 +9,8 @@ GeoSeries Accessor
     :toctree: api/
 
     count_coordinates
-    get_coordinates
     geobuffer
+    get_coordinates
     utm_crs
 
 
@@ -21,8 +21,8 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
-    get_coordinates
     geobuffer
+    get_coordinates
     utm_crs
 
 
@@ -34,6 +34,7 @@ DataFrame Accessor (to GeoPandas)
 
     from_wkt
     from_xy
+    to_geoframe
 
 
 GeoPandas Base Accessor
