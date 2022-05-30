@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Literal
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
@@ -6,7 +10,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def boolean(
     df: pd.DataFrame,
-    how: str = "any",
+    how: Literal["any", "all"] = "any",
     complement: bool = False,
     **kwargs,
 ) -> pd.Series:
