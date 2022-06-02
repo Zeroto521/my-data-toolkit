@@ -37,7 +37,7 @@ from dtoolkit.accessor.series import expand as s_expand
     ...     {
     ...         'A': [[0, 1, 2], 'foo', [], [3, 4]],
     ...         'B': 1,
-    ...         'C': [['a', 'b', 'c'], pd.NA, [], ['d', 'e']],
+    ...         'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']],
     ...     },
     ... )
     >>> df.expand()
