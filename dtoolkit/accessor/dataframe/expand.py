@@ -33,9 +33,13 @@ from dtoolkit.accessor.series import expand as s_expand
 
     Expand the *list-like* element.
 
-    >>> df = pd.DataFrame({'A': [[0, 1, 2], 'foo', [], [3, 4]],
-    ...                    'B': 1,
-    ...                    'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']]})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'A': [[0, 1, 2], 'foo', [], [3, 4]],
+    ...         'B': 1,
+    ...         'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']],
+    ...     },
+    ... )
     >>> df.expand()
         A_0  A_1  A_2  B   C_0   C_1   C_2
     0     0  1.0  2.0  1     a     b     c

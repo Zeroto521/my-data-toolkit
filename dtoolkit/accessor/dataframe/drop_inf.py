@@ -62,10 +62,13 @@ def drop_inf(
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
-    >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
-    ...                    "toy": [np.inf, 'Batmobile', 'Bullwhip'],
-    ...                    "born": [np.inf, pd.Timestamp("1940-04-25"),
-    ...                             -np.inf]})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "name": ['Alfred', 'Batman', 'Catwoman'],
+    ...         "toy": [np.inf, 'Batmobile', 'Bullwhip'],
+    ...         "born": [np.inf, pd.Timestamp("1940-04-25"), -np.inf],
+    ...     },
+    ... )
     >>> df
            name        toy                 born
     0    Alfred        inf                  inf
