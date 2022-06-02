@@ -87,8 +87,12 @@ class ReplaceTF(DataFrameTF):
 
     Regular expression ``to_replace``
 
-    >>> df = pd.DataFrame({'A': ['bat', 'foo', 'bait'],
-    ...                    'B': ['abc', 'bar', 'xyz']})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'A': ['bat', 'foo', 'bait'],
+    ...         'B': ['abc', 'bar', 'xyz'],
+    ...     },
+    ... )
     >>> tf = ReplaceTF(to_replace=r'^ba.$', value='new', regex=True)
     >>> tf.transform(df)
         A    B
