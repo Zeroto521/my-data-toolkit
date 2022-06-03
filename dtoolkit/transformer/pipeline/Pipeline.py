@@ -65,7 +65,6 @@ class Pipeline(SKPipeline):
 
         return transform_frame_to_series(X)
 
-    @doc(SKPipeline._can_transform)
     def _can_transform(self):
         return super()._can_transform()
 
@@ -101,7 +100,6 @@ class Pipeline(SKPipeline):
             Xt = transform_array_to_frame(Xt, X)
             return transform_frame_to_series(Xt)
 
-    @doc(SKPipeline._can_inverse_transform)
     def _can_inverse_transform(self):
         return super()._can_inverse_transform()
 
