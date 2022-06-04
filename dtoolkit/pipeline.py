@@ -15,7 +15,9 @@ from dtoolkit.transformer import Transformer
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
-
+from dtoolkit._typing import OneDimArray
+from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 
 __all__ = [
     "Pipeline",
@@ -29,7 +31,7 @@ __all__ = [
 # let Pandas-Object in Pandas-Object out
 class Pipeline(SKPipeline):
     @doc(SKPipeline._fit)
-    def _fit(self, X, y=None, **fit_params_steps):
+    def _fit(self, X, y=None, **fit_params_steps) -> np.ndarray | SeriesOrFrame:
         # shallow copy of steps - this should really be steps_
         self.steps = list(self.steps)
         self._validate_steps()
@@ -83,7 +85,7 @@ class Pipeline(SKPipeline):
 
     @available_if(_can_transform)
     @doc(SKPipeline.transform)
-    def transform(self, X):
+    def transform(self, X) -> np.ndarray | SeriesOrFrame:
         Xt = X
         for _, _, transformer in self._iter():
             Xt = transform_series_to_frame(Xt)
@@ -92,7 +94,7 @@ class Pipeline(SKPipeline):
         return transform_frame_to_series(Xt)
 
     @doc(SKPipeline.fit_transform)
-    def fit_transform(self, X, y=None, **fit_params):
+    def fit_transform(self, X, y=None, **fit_params) -> np.ndarray | SeriesOrFrame:
         fit_params_steps = self._check_fit_params(**fit_params)
 
         X = transform_series_to_frame(X)  # transform fit's input to DataFrame
@@ -118,7 +120,7 @@ class Pipeline(SKPipeline):
 
     @available_if(_can_inverse_transform)
     @doc(SKPipeline.inverse_transform)
-    def inverse_transform(self, Xt):
+    def inverse_transform(self, Xt) -> np.ndarray | SeriesOrFrame:
         reverse_iter = reversed(list(self._iter()))
 
         for _, _, transformer in reverse_iter:
