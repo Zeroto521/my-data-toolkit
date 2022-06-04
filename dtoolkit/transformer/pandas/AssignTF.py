@@ -15,8 +15,7 @@ class AssignTF(DataFrameTF):
     --------
     >>> import pandas as pd
     >>> from dtoolkit.transformer import AssignTF
-    >>> df = pd.DataFrame({'temp_c': [17.0, 25.0]},
-    ...                   index=['Portland', 'Berkeley'])
+    >>> df = pd.DataFrame({'temp_c': [17.0, 25.0]}, index=['Portland', 'Berkeley'])
     >>> df
                 temp_c
     Portland    17.0

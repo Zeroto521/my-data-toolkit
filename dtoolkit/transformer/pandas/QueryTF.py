@@ -22,9 +22,13 @@ class QueryTF(DataFrameTF):
     --------
     >>> import pandas as pd
     >>> from dtoolkit.transformer import QueryTF
-    >>> df = pd.DataFrame({'A': range(1, 6),
-    ...                    'B': range(10, 0, -2),
-    ...                    'C C': range(10, 5, -1)})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'A': range(1, 6),
+    ...         'B': range(10, 0, -2),
+    ...         'C C': range(10, 5, -1),
+    ...     },
+    ... )
     >>> df
         A   B  C C
     0  1  10   10

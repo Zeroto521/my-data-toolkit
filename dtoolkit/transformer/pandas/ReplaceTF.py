@@ -24,9 +24,13 @@ class ReplaceTF(DataFrameTF):
 
     >>> import pandas as pd
     >>> from dtoolkit.transformer import ReplaceTF
-    >>> df = pd.DataFrame({'A': [0, 1, 2, 3, 4],
-    ...                    'B': [5, 6, 7, 8, 9],
-    ...                    'C': ['a', 'b', 'c', 'd', 'e']})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'A': [0, 1, 2, 3, 4],
+    ...         'B': [5, 6, 7, 8, 9],
+    ...         'C': ['a', 'b', 'c', 'd', 'e'],
+    ...     },
+    ... )
     >>> tf = ReplaceTF(0, 5)
     >>> tf.transform(df)
     A  B  C
@@ -87,8 +91,12 @@ class ReplaceTF(DataFrameTF):
 
     Regular expression ``to_replace``
 
-    >>> df = pd.DataFrame({'A': ['bat', 'foo', 'bait'],
-    ...                    'B': ['abc', 'bar', 'xyz']})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'A': ['bat', 'foo', 'bait'],
+    ...         'B': ['abc', 'bar', 'xyz'],
+    ...     },
+    ... )
     >>> tf = ReplaceTF(to_replace=r'^ba.$', value='new', regex=True)
     >>> tf.transform(df)
         A    B
