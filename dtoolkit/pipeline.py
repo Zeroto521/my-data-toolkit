@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import clone
@@ -14,7 +15,6 @@ from sklearn.utils.validation import check_memory
 
 from dtoolkit._typing import OneDimArray
 from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
 from dtoolkit.transformer import Transformer
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series

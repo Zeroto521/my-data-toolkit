@@ -3,7 +3,6 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import OneDimArray
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import to_series  # noqa
