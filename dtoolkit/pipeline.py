@@ -131,7 +131,7 @@ class Pipeline(SKPipeline):
 
     @available_if(_final_estimator_has("predict"))
     @doc(SKPipeline.predict)
-    def predict(self, X, **predict_params) -> np.ndarray | SeriesOrFrame:
+    def predict(self, X, **predict_params) -> OneDimArray:
         Xt = X
         for _, name, transformer in self._iter(with_final=False):
             Xt = transform_series_to_frame(Xt)
@@ -146,7 +146,7 @@ class Pipeline(SKPipeline):
 
     @available_if(_final_estimator_has("fit_predict"))
     @doc(SKPipeline.predict)
-    def fit_predict(self, X, y=None, **fit_params) -> np.ndarray | SeriesOrFrame:
+    def fit_predict(self, X, y=None, **fit_params) -> OneDimArray:
         fit_params_steps = self._check_fit_params(**fit_params)
         Xt = self._fit(X, y, **fit_params_steps)
 
