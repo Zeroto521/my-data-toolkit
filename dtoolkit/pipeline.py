@@ -3,6 +3,7 @@ from __future__ import annotations
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import clone
+from sklearn.pipeline import _final_estimator_has
 from sklearn.pipeline import _fit_transform_one
 from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
@@ -11,13 +12,14 @@ from sklearn.utils import _print_elapsed_time
 from sklearn.utils.metaestimators import available_if
 from sklearn.utils.validation import check_memory
 
+from dtoolkit._typing import OneDimArray
+from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 from dtoolkit.transformer import Transformer
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
-from dtoolkit._typing import OneDimArray
-from dtoolkit._typing import SeriesOrFrame
-from dtoolkit._typing import TwoDimArray
+
 
 __all__ = [
     "Pipeline",
@@ -27,8 +29,6 @@ __all__ = [
 ]
 
 
-# TODO: Overwrite `predict` and `fit_predict` method
-# let Pandas-Object in Pandas-Object out
 class Pipeline(SKPipeline):
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps) -> np.ndarray | SeriesOrFrame:
@@ -126,6 +126,38 @@ class Pipeline(SKPipeline):
         for _, _, transformer in reverse_iter:
             Xt = transform_series_to_frame(Xt)
             Xt = transform_array_to_frame(transformer.inverse_transform(Xt), Xt)
+
+        return transform_frame_to_series(Xt)
+
+    @available_if(_final_estimator_has("predict"))
+    @doc(SKPipeline.predict)
+    def predict(self, X, **predict_params) -> np.ndarray | SeriesOrFrame:
+        Xt = X
+        for _, name, transformer in self._iter(with_final=False):
+            Xt = transform_series_to_frame(Xt)
+            Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
+
+        Xt = transform_series_to_frame(Xt)
+        Xt = transform_array_to_frame(
+            self.steps[-1][1].predict(Xt, **predict_params),
+            Xt,
+        )
+        return transform_frame_to_series(Xt, drop_name=True)
+
+    @available_if(_final_estimator_has("fit_predict"))
+    @doc(SKPipeline.predict)
+    def fit_predict(self, X, y=None, **fit_params) -> np.ndarray | SeriesOrFrame:
+        fit_params_steps = self._check_fit_params(**fit_params)
+        Xt = self._fit(X, y, **fit_params_steps)
+
+        fit_params_last_step = fit_params_steps[self.steps[-1][0]]
+        with _print_elapsed_time("Pipeline", self._log_message(len(self.steps) - 1)):
+            y_pred = self.steps[-1][1].fit_predict(
+                transform_series_to_frame(Xt),
+                y,
+                **fit_params_last_step,
+            )
+            y_pred = transform_array_to_frame(y_pred, y)
 
         return transform_frame_to_series(Xt)
 
