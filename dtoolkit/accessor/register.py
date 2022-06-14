@@ -34,6 +34,7 @@ def register_method_factory(register_accessor):
 
     # based on pandas_flavor/register.py
     def register_accessor_method(method: Callable, name: str):
+        @wraps(method)
         def method_accessor(pd_obj: SeriesOrFrame):
             @wraps(method)
             def wrapper(*args, **kwargs):

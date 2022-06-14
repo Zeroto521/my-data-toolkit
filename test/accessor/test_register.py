@@ -120,6 +120,7 @@ def test_work(data, name, expected):
 @pytest.mark.parametrize(
     "data, name, attr, expected",
     [
+        # test instance
         (df, "name_or_columns", "__name__", name_or_columns.__name__),
         (df.a, "name_or_columns", "__name__", name_or_columns.__name__),
         (df.index, "name_or_columns", "__name__", name_or_columns.__name__),
@@ -138,6 +139,11 @@ def test_work(data, name, expected):
         (df, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
         (df.a, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
         (df.index, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
+        # test class
+        (pd.DataFrame, "name_or_columns", "__name__", name_or_columns.__name__),
+        (pd.DataFrame, "name_or_columns_1", "__doc__", name_or_columns_1.__doc__),
+        (pd.DataFrame, "alias_name_or_columns", "__name__", name_or_columns_2.__name__),
+        (pd.DataFrame, "alias_name_or_columns_1", "__doc__", name_or_columns_2.__doc__),
     ],
 )
 def test_method_hooked_attr(data, name, attr, expected):
