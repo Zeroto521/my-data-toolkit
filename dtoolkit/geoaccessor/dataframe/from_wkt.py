@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from pyproj import CRS
 
 
-@register_dataframe_method()
+@register_dataframe_method
 def from_wkt(
     df: pd.DataFrame,
     column: Hashable,
@@ -22,8 +22,8 @@ def from_wkt(
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
-    Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
-    geometries from columns of :obj:`~pandas.DataFrame`.
+    Generate :obj:`~geopandas.GeoDataFrame` of geometries from columns of
+    :obj:`~pandas.DataFrame`.
 
     A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkt`.
 
@@ -49,6 +49,7 @@ def from_wkt(
     --------
     geopandas.GeoSeries.from_wkt
     dtoolkit.geoaccessor.dataframe.from_xy
+    dtoolkit.geoaccessor.dataframe.from_wkb
 
     Notes
     -----
