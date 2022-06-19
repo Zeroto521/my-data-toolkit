@@ -26,7 +26,7 @@ def filter_in(
 
     Parameters
     ----------
-    condition : iterable, Series, DataFrame or dict
+    condition : Iterable, Series, DataFrame or dict
         The filtered result is based on this specific condition.
 
         * If ``condition`` is a :obj:`dict`, the keys must be the column
