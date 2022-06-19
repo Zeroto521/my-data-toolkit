@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from typing import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -15,8 +15,8 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def to_geoframe(
     df: pd.DataFrame,
-    crs: CRS | IntOrStr = None,
-    geometry: IntOrStr | gpd.GeoSeries = None,
+    crs: CRS | str | int = None,
+    geometry: Hashable | gpd.GeoSeries = None,
     **kwargs,
 ) -> gpd.GeoDataFrame:
     """
@@ -29,7 +29,7 @@ def to_geoframe(
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
-    geometry : str, int or GeoSeries, optional
+    geometry : Hashable or GeoSeries, optional
         If str or int, column to use as geometry. If array, will be set as 'geometry'
         column on GeoDataFrame.
 
