@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from typing import Hashable
 
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 def fillna_regression(
     df: pd.DataFrame,
     method: RegressorMixin,
-    columns: dict[IntOrStr, IntOrStr | list[IntOrStr] | pd.Index],
+    columns: dict[Hashable, Hashable | list[Hashable] | pd.Index],
     how: str = "na",
     **kwargs,
 ) -> pd.DataFrame:
@@ -116,8 +116,8 @@ def fillna_regression(
 def _fillna_regression(
     df: pd.DataFrame,
     method: RegressorMixin,
-    y: IntOrStr,
-    X: IntOrStr | list[IntOrStr] | pd.Index,
+    y: Hashable,
+    X: Hashable | list[Hashable] | pd.Index,
     how: str = "na",
     **kwargs,
 ):

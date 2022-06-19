@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from typing import Hashable
+
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
 
@@ -10,7 +11,7 @@ from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
 @register_dataframe_method
 def values_to_dict(
     df: pd.DataFrame,
-    order: list[IntOrStr] | pd.Index = None,
+    order: list[Hashable] | pd.Index = None,
     ascending: bool = True,
     unique: bool = True,
     to_list: bool = True,
@@ -20,7 +21,7 @@ def values_to_dict(
 
     Parameters
     ----------
-    order : list of str or int, Index, optional
+    order : list of Hashable, Index, optional
         The order of keys via given columns. If ``order`` is set, ``ascending``
         will not work.
 

@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from typing import Hashable
 
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
@@ -17,8 +17,8 @@ if TYPE_CHECKING:
 @register_dataframe_method()
 def from_wkt(
     df: pd.DataFrame,
-    column: IntOrStr,
-    crs: CRS | IntOrStr = None,
+    column: Hashable,
+    crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
@@ -29,7 +29,7 @@ def from_wkt(
 
     Parameters
     ----------
-    column : str or int
+    column : Hashable
         The name of WKT column.
 
     crs : CRS, str, int, optional

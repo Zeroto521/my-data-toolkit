@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from textwrap import dedent
 from typing import Iterable
+from typing import Hashable
 
 import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_series_method
 
 
@@ -72,7 +72,7 @@ from dtoolkit.accessor.register import register_series_method
 )
 def expand(
     s: pd.Series,
-    suffix: list[IntOrStr] = None,
+    suffix: list[Hashable] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -85,7 +85,7 @@ def expand(
 
     Parameters
     ----------
-    suffix : list of str or int, optional
+    suffix : list of Hashable, optional
         New columns of return :class:`~pandas.DataFrame`.
 
     delimiter : str, default "_"

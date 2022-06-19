@@ -2,10 +2,11 @@ from __future__ import annotations
 
 from textwrap import dedent
 
+from typing import Hashable
+
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import expand as s_expand
 
@@ -79,7 +80,7 @@ from dtoolkit.accessor.series import expand as s_expand
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list[IntOrStr] = None,
+    suffix: list[Hashable] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
