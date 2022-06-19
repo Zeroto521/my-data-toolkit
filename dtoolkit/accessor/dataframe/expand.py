@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from textwrap import dedent
-
 from typing import Hashable
 
 import pandas as pd

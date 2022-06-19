@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import Iterable
 from typing import Hashable
+from typing import Iterable
 
 import pandas as pd
 from pandas.api.types import is_list_like
