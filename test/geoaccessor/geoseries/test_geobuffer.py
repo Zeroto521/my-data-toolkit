@@ -28,6 +28,7 @@ s = gpd.GeoSeries.from_wkt(
 )
 def test_distance_work(distance):
     b = s.geobuffer(distance)
+
     assert isinstance(b, gpd.GeoSeries)
 
 
