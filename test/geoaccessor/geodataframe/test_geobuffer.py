@@ -26,6 +26,7 @@ crs = CRS.from_user_input("epsg:4326")
 )
 def test_distance_work(distance):
     b = df.geobuffer(distance)
+
     assert isinstance(b, gpd.GeoDataFrame)
 
 
