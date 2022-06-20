@@ -32,11 +32,6 @@ def test_distance_work(distance):
     assert isinstance(b, gpd.GeoSeries)
 
 
-def test_distance_is_pd_series():
-    df_distance = pd.Series(range(1, 1000, 499))
-    s.geobuffer(df_distance)
-
-
 def test_distance_index_is_different_to_data():
     df_distance = pd.Series(range(1, 1000, 499), index=["a", "b", "c"])
     with pytest.raises(IndexError):
