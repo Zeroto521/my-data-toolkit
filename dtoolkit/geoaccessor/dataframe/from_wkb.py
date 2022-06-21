@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 def from_wkb(
     df: pd.DataFrame,
     column: Hashable,
-    crs: CRS | Hashable = None,
+    crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
