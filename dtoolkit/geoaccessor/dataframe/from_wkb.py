@@ -75,7 +75,7 @@ def from_wkb(
     1  POINT (2 2)
     2  POINT (3 3)
     >>> s_wkb = df.from_wkt("wkt", crs=4326, drop=True).to_wkb()
-    >>> s_wkb
+    >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...
     1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...
     2    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...
@@ -83,7 +83,7 @@ def from_wkb(
     >>> type(s_wkb)
     <class 'pandas.core.series.Series'>
     >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326)
-    >>> gdf
+    >>> gdf  # doctest: +SKIP
                                                     wkb                 geometry
     0  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...  POINT (1.00000 1.00000)
     1  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...  POINT (2.00000 2.00000)
