@@ -52,7 +52,9 @@ def from_wkb(
 
     Notes
     -----
-    This method is the accessor of DataFrame, not GeoDataFrame.
+    - This method is the accessor of DataFrame, not GeoDataFrame.
+    - Read from file (such as "CSV" or "EXCEL"), requreis converting "WKB" columns
+      type from ``str`` to ``bytes`` via ``eval``.
 
     Examples
     --------
