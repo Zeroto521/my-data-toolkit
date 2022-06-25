@@ -16,8 +16,6 @@ def to_set(index: pd.Index, level: int | Hashable = None) -> set:
 
         set(index)
 
-    Different to :meth:`~pandas.Index.unique`, it returns :class:`~pandas.Index`.
-
     Returns
     -------
     set
@@ -25,6 +23,10 @@ def to_set(index: pd.Index, level: int | Hashable = None) -> set:
     See Also
     --------
     pandas.Index.unique
+
+    Notes
+    -----
+    Different to :meth:`~pandas.Index.unique`, it returns :class:`~pandas.Index`.
 
     Examples
     --------
