@@ -21,6 +21,7 @@ def to_set(index: pd.Index) -> set:
     See Also
     --------
     pandas.Index.unique
+    dtoolkit.accessor.series.to_set
 
     Examples
     --------
