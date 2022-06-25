@@ -19,6 +19,7 @@ def to_set(s: pd.Series) -> set:
     See Also
     --------
     pandas.Series.unique
+    dtoolkit.accessor.index.to_set
 
     Notes
     -----
@@ -38,4 +39,4 @@ def to_set(s: pd.Series) -> set:
     {1, 2}
     """
 
-    return set(s.unique())
+    return set(s.to_list())
