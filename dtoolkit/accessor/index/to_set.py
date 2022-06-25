@@ -1,10 +1,14 @@
+from __future__ import annotations
+
+from typing import Hashable
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_index_method
 
 
 @register_index_method
-def to_set(index: pd.Index) -> set:
+def to_set(index: pd.Index, level: int | Hashable = None) -> set:
     """
     Return a :keyword:`set` of the values.
 
@@ -33,4 +37,4 @@ def to_set(index: pd.Index) -> set:
     {1, 2}
     """
 
-    return set(index.unique())
+    return set(index.unique(level=level))
