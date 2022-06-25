@@ -16,6 +16,12 @@ def to_set(index: pd.Index, level: int | Hashable = None) -> set:
 
         set(index)
 
+    Parameters
+    ----------
+    level : int or Hashable, optional
+        Only return values from specified level (for :class:`~pandas.MultiIndex`).
+        If int, gets the level by integer position, else by level name.
+
     Returns
     -------
     set
