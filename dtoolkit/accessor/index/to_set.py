@@ -29,6 +29,7 @@ def to_set(index: pd.Index, level: int | Hashable = None) -> set:
     See Also
     --------
     pandas.Index.unique
+    dtoolkit.accessor.series.to_set
 
     Notes
     -----
