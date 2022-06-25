@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from typing import Hashable
 from typing import Iterable
 from typing import Literal
 
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
@@ -14,7 +14,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
-    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
+    condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
     how: Literal["any", "all"] = "all",
     complement: bool = False,
 ) -> pd.DataFrame:
@@ -26,7 +26,7 @@ def filter_in(
 
     Parameters
     ----------
-    condition : iterable, Series, DataFrame or dict
+    condition : Iterable, Series, DataFrame or dict
         The filtered result is based on this specific condition.
 
         * If ``condition`` is a :obj:`dict`, the keys must be the column
@@ -135,7 +135,7 @@ def filter_in(
 
 def select_column(
     df: pd.DataFrame,
-    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
+    condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
 ) -> pd.DataFrame:
     """Select DataFram columns via condition type"""
 

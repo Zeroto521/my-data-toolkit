@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from typing import Hashable
+
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_series_method
 
 
@@ -10,7 +11,7 @@ from dtoolkit.accessor.register import register_series_method
 def cols(
     s: pd.Series,
     to_list: bool = False,
-) -> IntOrStr | None | list[IntOrStr | None]:
+) -> Hashable | None | list[Hashable | None]:
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
@@ -22,7 +23,7 @@ def cols(
 
     Returns
     -------
-    str, int, None or list of them
+    Hashable, None or list of them
         The name of the Series.
 
     See Also

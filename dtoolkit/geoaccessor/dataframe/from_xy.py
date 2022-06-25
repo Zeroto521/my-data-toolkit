@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+from typing import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
@@ -18,10 +18,10 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def from_xy(
     df: pd.DataFrame,
-    x: IntOrStr,
-    y: IntOrStr,
-    z: IntOrStr = None,
-    crs: CRS | IntOrStr = None,
+    x: Hashable,
+    y: Hashable,
+    z: Hashable = None,
+    crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
@@ -32,13 +32,13 @@ def from_xy(
 
     Parameters
     ----------
-    x : str or int
+    x : Hashable
         ``df``'s column name.
 
-    y : str or int
+    y : Hashable
         ``df``'s column name.
 
-    z : str or int, optional
+    z : Hashable, optional
         ``df``'s column name.
 
     crs : CRS, str, int, optional

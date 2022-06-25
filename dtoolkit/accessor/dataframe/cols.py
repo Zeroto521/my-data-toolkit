@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+from typing import Hashable
+
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 
 
 @register_dataframe_method
-def cols(df: pd.DataFrame, to_list: bool = False) -> list[IntOrStr]:
+def cols(df: pd.DataFrame, to_list: bool = False) -> list[Hashable]:
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.
@@ -20,7 +21,7 @@ def cols(df: pd.DataFrame, to_list: bool = False) -> list[IntOrStr]:
 
     Returns
     -------
-    list of str or int
+    list of Hashable
         The column names.
 
     See Also

@@ -12,5 +12,4 @@ OneDimArray = Union[np.ndarray, pd.Series]
 
 Number = Union[int, float]
 
-IntOrStr = Union[int, str]  # for axis or column name
 Axis = Literal[0, 1, "index", "columns"]  # only for dataframe axis
