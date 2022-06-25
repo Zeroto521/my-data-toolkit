@@ -38,10 +38,27 @@ def to_set(index: pd.Index, level: int | Hashable = None) -> set:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> i = pd.Index([1, 2, 2])
-    >>> i
+    >>> index = pd.Index([1, 2, 2])
+    >>> index
     Int64Index([1, 2, 2], dtype='int64')
-    >>> i.to_set()
+    >>> index.to_set()
+    {1, 2}
+    >>> index = pd.MultiIndex.from_arrays(
+    ...     [
+    ...         [1, 1, 2, 2],
+    ...         ['red', 'blue', 'red', 'blue'],
+    ...     ],
+    ...     names=['number', 'color'],
+    ... )
+    >>> index
+    MultiIndex([(1,  'red'),
+                (1, 'blue'),
+                (2,  'red'),
+                (2, 'blue')],
+               names=['number', 'color'])
+    >>> index.to_set(0)
+    {1, 2}
+    >>> index.to_set('number')
     {1, 2}
     """
 
