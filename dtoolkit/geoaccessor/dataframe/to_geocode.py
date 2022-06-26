@@ -1,7 +1,7 @@
 from typing import Hashable
 
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
