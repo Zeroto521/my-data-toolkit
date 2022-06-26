@@ -8,6 +8,7 @@ dependencies:
   - scikit-learn
   - geopandas
   - pygeos
+  - geopy
   # testing
   - pytest
   - pytest-cov

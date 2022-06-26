@@ -17,6 +17,7 @@ dependencies:
   - fiona
   - pyproj
   - shapely
+  - geopy
   # testing
   - pytest
   - pytest-cov
