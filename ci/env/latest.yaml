@@ -4,9 +4,9 @@ channels:
 dependencies:
   # required
   - pandas
+  # optional
   - scikit-learn
   - geopandas
-  # optional
   - pygeos
   # testing
   - pytest
