@@ -6,6 +6,7 @@ dependencies:
   - pandas
   - scikit-learn
   - geopandas
+  # optional
   - pygeos
   # testing
   - pytest
