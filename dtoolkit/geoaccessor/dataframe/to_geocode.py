@@ -15,7 +15,8 @@ def to_geocode(
     **kwargs,
 ) -> gpd.GeoDataFrame:
     """
-    Geocode string type Series and get a GeoDataFrame of the resulting points.
+    Geocode a string type column from a DataFrame and get a GeoDataFrame of the
+    resulting points.
 
     Parameters
     ----------
