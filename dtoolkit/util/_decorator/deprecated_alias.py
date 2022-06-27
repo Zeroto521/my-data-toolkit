@@ -38,10 +38,10 @@ def deprecated_alias(
 
     Raises
     ------
-    DeprecationWarning
+    - DeprecationWarning
         If ``old_alias`` is input into the function.
 
-    TypeError
+    - TypeError
         If ``old_alias`` and ``new_alias`` are both input into the function.
 
     See Also
