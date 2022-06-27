@@ -34,6 +34,11 @@ def to_geocode(
     -------
     GeoDataFrame
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'geopy'.
+
     See Also
     --------
     geopandas.tools.geocode
