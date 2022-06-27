@@ -12,11 +12,12 @@ def to_geocode(
     df: pd.DataFrame,
     column: Hashable,
     drop: bool = False,
+    **kwargs,
 ) -> gpd.GeoDataFrame:
     return pd.concat(
         (
             df.drop_or_not(drop=drop, columns=column),
-            gpd.tools.geocode(df[column]),
+            gpd.tools.geocode(df[column], **kwargs),
         ),
         axis=1,
     )
