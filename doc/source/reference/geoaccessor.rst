@@ -11,6 +11,7 @@ GeoSeries Accessor
     count_coordinates
     geobuffer
     get_coordinates
+    reverse_geocode
     utm_crs
 
 
@@ -23,6 +24,7 @@ GeoDataFrame Accessor
     count_coordinates
     geobuffer
     get_coordinates
+    reverse_geocode
     utm_crs
 
 
