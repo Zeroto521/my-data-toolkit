@@ -8,7 +8,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 @register_dataframe_method
-def to_geocode(
+def geocode(
     df: pd.DataFrame,
     column: Hashable,
     drop: bool = False,
@@ -42,7 +42,7 @@ def to_geocode(
     See Also
     --------
     geopandas.tools.geocode
-    dtoolkit.geoaccessor.series.to_geocode
+    dtoolkit.geoaccessor.series.geocode
 
     Examples
     --------
@@ -60,7 +60,7 @@ def to_geocode(
                                         name
     0                             boston, ma
     1  1600 pennsylvania ave. washington, dc
-    >>> df.to_geocode("name", drop=True)
+    >>> df.geocode("name", drop=True)
                         geometry                                            address
     0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...

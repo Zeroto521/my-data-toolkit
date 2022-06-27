@@ -5,7 +5,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
+def geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     """
     Geocode string type Series and get a GeoDataFrame of the resulting points.
 
@@ -33,7 +33,7 @@ def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     See Also
     --------
     geopandas.tools.geocode
-    dtoolkit.geoaccessor.dataframe.to_geocode
+    dtoolkit.geoaccessor.dataframe.geocode
 
     Examples
     --------
@@ -49,7 +49,7 @@ def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     0                               boston, ma
     1    1600 pennsylvania ave. washington, dc
     dtype: object
-    >>> s.to_geocode(drop=True)
+    >>> s.geocode(drop=True)
                          geometry                                            address
     0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...

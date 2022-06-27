@@ -21,4 +21,4 @@ from dtoolkit.geoaccessor.series import geocode  # noqa
 )
 def test_error(s, drop, error):
     with pytest.raises(error):
-        s.to_geocode(drop=drop)
+        s.geocode(drop=drop)
