@@ -14,6 +14,32 @@ def to_geocode(
     drop: bool = False,
     **kwargs,
 ) -> gpd.GeoDataFrame:
+    """
+    Geocode string type Series and get a GeoDataFrame of the resulting points.
+
+    Parameters
+    ----------
+    column : Hashable
+        The name of the column to geocode.
+
+    drop : bool, default False
+        Don't contain the original data anymore.
+
+    **kwargs
+        See the documentation for :func:`~geopandas.tools.geocode` for complete details
+        on the keyword arguments.
+
+    Returns
+    -------
+    GeoDataFrame
+
+
+    See Also
+    --------
+    geopandas.tools.geocode
+    dtoolkit.geoaccessor.series.to_geocode
+    """
+
     return pd.concat(
         (
             df.drop_or_not(drop=drop, columns=column),
