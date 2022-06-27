@@ -24,10 +24,10 @@ def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
 
     Raises
     ------
-    - ModuleNotFoundError
+    ModuleNotFoundError
         If don't have module named 'geopy'.
 
-    - ValueError
+    ValueError
         If 'drop' is True and the name of Series is empty.
 
     See Also
