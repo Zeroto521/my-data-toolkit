@@ -1,7 +1,7 @@
-from dtoolkit.geoaccessor.series import to_geocode  # noqa
 import pandas as pd
-
 import pytest
+
+from dtoolkit.geoaccessor.series import to_geocode  # noqa
 
 
 @pytest.mark.parametrize(
@@ -12,7 +12,7 @@ import pytest
                 [
                     "boston, ma",
                     "1600 pennsylvania ave. washington, dc",
-                ]
+                ],
             ),
             False,
             ValueError,
