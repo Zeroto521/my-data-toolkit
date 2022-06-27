@@ -3,4 +3,5 @@ from dtoolkit.geoaccessor.geodataframe.count_coordinates import (  # noqa
 )
 from dtoolkit.geoaccessor.geodataframe.geobuffer import geobuffer  # noqa
 from dtoolkit.geoaccessor.geodataframe.get_coordinates import get_coordinates  # noqa
+from dtoolkit.geoaccessor.geodataframe.reverse_geocode import reverse_geocode  # noqa
 from dtoolkit.geoaccessor.geodataframe.utm_crs import utm_crs  # noqa
