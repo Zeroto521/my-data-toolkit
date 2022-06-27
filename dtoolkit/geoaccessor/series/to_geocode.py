@@ -45,6 +45,10 @@ def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     ...         "1600 pennsylvania ave. washington, dc",
     ...     ],
     ... )
+    >>> s
+    0                               boston, ma
+    1    1600 pennsylvania ave. washington, dc
+    dtype: object
     >>> s.to_geocode(drop=True)
                          geometry                                            address
     0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
