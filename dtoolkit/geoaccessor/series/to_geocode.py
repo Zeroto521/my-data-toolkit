@@ -30,6 +30,11 @@ def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     - ValueError
         If 'drop' is True and the name of Series is empty.
 
+    See Also
+    --------
+    geopandas.tools.geocode
+    dtoolkit.geoaccessor.dataframe.to_geocode
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
