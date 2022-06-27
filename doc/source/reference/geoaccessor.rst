@@ -32,7 +32,7 @@ Series Accessor (to GeoPandas)
 .. autosummary::
     :toctree: api/
 
-    to_geocode
+    geocode
 
 
 DataFrame Accessor (to GeoPandas)
@@ -43,7 +43,7 @@ DataFrame Accessor (to GeoPandas)
 
     from_wkt
     from_xy
-    to_geocode
+    geocode
     to_geoframe
 
 
