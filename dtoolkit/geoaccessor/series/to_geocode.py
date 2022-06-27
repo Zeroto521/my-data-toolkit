@@ -51,7 +51,7 @@ def to_geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
     """
 
-    if s.name is None and not drop:
+    if not drop and s.name is None:
         raise ValueError(
             "to keep the original data requires setting the 'name' of "
             f"{s.__class__.__name__!r}",
