@@ -1,5 +1,4 @@
 import geopandas as gpd
-import pandas as pd
 
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 

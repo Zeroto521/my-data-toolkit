@@ -1,7 +1,5 @@
 import geopandas as gpd
-import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
