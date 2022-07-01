@@ -14,8 +14,8 @@ def test_csv():
                     "POINT (1 1)",
                     "POINT (2 2)",
                     "POINT (3 3)",
-                ]
-            }
+                ],
+            },
         )
         .from_wkt("wkt", crs=4326)
         .to_wkb()
@@ -30,4 +30,3 @@ def test_csv():
 
     assert isinstance(df, gpd.GeoDataFrame)
     assert isinstance(df.geometry, gpd.GeoSeries)
-
