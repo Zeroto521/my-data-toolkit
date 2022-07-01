@@ -76,18 +76,18 @@ def from_wkb(
     2  POINT (3 3)
     >>> s_wkb = df.from_wkt("wkt", crs=4326, drop=True).to_wkb()
     >>> s_wkb  # doctest: +SKIP
-    0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...
-    1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...
-    2    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...
+    0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
+    1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
+    2    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     dtype: object
     >>> type(s_wkb)
     <class 'pandas.core.series.Series'>
     >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326)
     >>> gdf  # doctest: +SKIP
                                                     wkb                 geometry
-    0  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...  POINT (1.00000 1.00000)
-    1  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...  POINT (2.00000 2.00000)
-    2  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...  POINT (3.00000 3.00000)
+    0  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (1.00000 1.00000)
+    1  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (2.00000 2.00000)
+    2  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (3.00000 3.00000)
     >>> type(gdf)
     <class 'geopandas.geodataframe.GeoDataFrame'>
 
