@@ -19,10 +19,13 @@ from datetime import datetime
 
 import dtoolkit
 
-version = release = dtoolkit.__version__
-version = version.replace(".dev0", "")
-version = version.replace(".post0", "")
-
+# fmt: off
+version = release = (
+    dtoolkit.__version__
+    .replace(".dev0", "")
+    .replace(".post0", "")
+)
+# fmt: on
 
 project = "My Data Toolkit"
 author = "Zero <@Zeroto521>"
