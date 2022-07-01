@@ -32,6 +32,7 @@ DataFrame Accessor (to GeoPandas)
 .. autosummary::
     :toctree: api/
 
+    from_wkb
     from_wkt
     from_xy
     to_geoframe
