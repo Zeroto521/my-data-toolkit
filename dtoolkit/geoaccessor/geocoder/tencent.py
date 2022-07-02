@@ -109,7 +109,6 @@ class Tencent(Geocoder):
             "address": query,
             **({"region": region} if region else {}),
             "key": self.api_key,
-            "output": "json",
         }
         url = self._construct_url(self.api, params)
 
@@ -148,7 +147,6 @@ class Tencent(Geocoder):
         params = {
             "location": self._coerce_point_to_string(query),
             "key": self.api_key,
-            "output": "json",
         }
         url = self._construct_url(self.reverse_api, params)
 
