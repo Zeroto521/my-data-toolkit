@@ -3,15 +3,15 @@ from __future__ import annotations
 import hashlib
 from functools import partial
 from typing import Callable
-from urllib.parse import quote_plus, urlencode
+from urllib.parse import quote_plus
+from urllib.parse import urlencode
 
-from geopy.exc import (
-    GeocoderAuthenticationFailure,
-    GeocoderQueryError,
-    GeocoderQuotaExceeded,
-    GeocoderServiceError,
-)
-from geopy.geocoders.base import DEFAULT_SENTINEL, Geocoder
+from geopy.exc import GeocoderAuthenticationFailure
+from geopy.exc import GeocoderQueryError
+from geopy.exc import GeocoderQuotaExceeded
+from geopy.exc import GeocoderServiceError
+from geopy.geocoders.base import DEFAULT_SENTINEL
+from geopy.geocoders.base import Geocoder
 from geopy.location import Location
 from geopy.util import logger
 
@@ -39,7 +39,7 @@ class Tencent(Geocoder):
         timeout: int = DEFAULT_SENTINEL,
         proxies: dict = DEFAULT_SENTINEL,
         user_agent: str = None,
-        ssl_context: "ssl.SSLContext" = DEFAULT_SENTINEL,
+        ssl_context: ssl.SSLContext = DEFAULT_SENTINEL,
         adapter_factory: Callable = None,
     ):
         """

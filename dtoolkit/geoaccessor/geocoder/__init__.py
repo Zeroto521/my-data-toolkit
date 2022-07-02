@@ -1,1 +1,1 @@
-from .tencent import Tencent  # noqa
+from dtoolkit.geoaccessor.geocoder.tencent import Tencent  # noqa
