@@ -48,6 +48,15 @@ DataFrame Accessor (to GeoPandas)
     to_geoframe
 
 
+Geocoder
+--------
+.. currentmodule:: dtoolkit.geoaccessor.geocoder
+.. autosummary::
+    :toctree: api/
+
+    Tencent
+
+
 GeoPandas Base Accessor
 -----------------------
 .. currentmodule:: dtoolkit.geoaccessor
