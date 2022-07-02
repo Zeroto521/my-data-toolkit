@@ -28,14 +28,25 @@ GeoDataFrame Accessor
     utm_crs
 
 
+Series Accessor (to GeoPandas)
+---------------
+.. currentmodule:: dtoolkit.geoaccessor.series
+.. autosummary::
+    :toctree: api/
+
+    geocode
+
+
 DataFrame Accessor (to GeoPandas)
 ---------------------------------
 .. currentmodule:: dtoolkit.geoaccessor.dataframe
 .. autosummary::
     :toctree: api/
 
+    from_wkb
     from_wkt
     from_xy
+    geocode
     to_geoframe
 
 

@@ -130,9 +130,9 @@ intersphinx_mapping = {
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#"),
-    "pr": (f"{github_url}/issues/%s", "pr#"),
-    "user": (r"https://github.com/%s", "@"),
+    "issue": (f"{github_url}/issues/%s", "issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "pr#%s"),
+    "user": (r"https://github.com/%s", "@%s"),
 }
 
 myst_enable_extensions = [

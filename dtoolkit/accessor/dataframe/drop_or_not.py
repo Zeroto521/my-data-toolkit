@@ -16,6 +16,7 @@ def drop_or_not(df: pd.DataFrame, drop: bool = True, **kwargs) -> pd.DataFrame:
     ----------
     drop : bool, default True
         Choose to drop or not. If True will drop else don't.
+
     **kwargs
         See the documentation for :meth:`~pandas.DataFrame.drop` for complete
         details on the keyword arguments.
@@ -38,7 +39,7 @@ def drop_or_not(df: pd.DataFrame, drop: bool = True, **kwargs) -> pd.DataFrame:
        a  b
     0  1  3
     1  2  4
-    >>> df.drop_or_not(True, columns=["b"])
+    >>> df.drop_or_not(True, columns="b")
        a
     0  1
     1  2
