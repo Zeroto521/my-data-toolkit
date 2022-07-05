@@ -26,8 +26,8 @@ def reverse_geocode(s: gpd.GeoSeries, **kwargs) -> gpd.GeoDataFrame:
 
     See Also
     --------
+    geopandas.tools.reverse_geocode
     dtoolkit.geoaccessor.series.geocode
-    dtoolkit.geoaccessor.dataframe.geocode
     dtoolkit.geoaccessor.geodataframe.reverse_geocode
     """
 
