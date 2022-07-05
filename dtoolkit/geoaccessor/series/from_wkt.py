@@ -90,7 +90,4 @@ def from_wkt(
         )
 
     geometry = gpd.GeoSeries.from_wkt(s, crs=crs)
-    if drop:
-        return geometry
-
-    return gpd.GeoDataFrame(s, geometry=geometry)
+    return geometry if drop else gpd.GeoDataFrame(s, geometry=geometry)
