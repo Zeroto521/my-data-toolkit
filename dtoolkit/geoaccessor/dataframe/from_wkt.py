@@ -38,7 +38,7 @@ def from_wkt(
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
     drop : bool, default False
-        Don't contain ``x``, ``y`` and ``z`` anymore.
+        Don't contain original 'WKT' column anymore.
 
     Returns
     -------
