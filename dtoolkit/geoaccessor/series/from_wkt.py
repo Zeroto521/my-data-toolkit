@@ -77,9 +77,9 @@ def from_wkt(
     Drop original 'wkt'.
 
     >>> s.from_wkt("wkt", drop=True)
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
+    0    POINT (1.000 1.000)
+    1    POINT (2.000 2.000)
+    2    POINT (3.000 3.000)
     dtype: geometry
     """
 
