@@ -6,9 +6,9 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.accessor import register_dataframe_method
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.dataframe import to_series  # noqa
-from dtoolkit.accessor import register_dataframe_method
 
 if TYPE_CHECKING:
     from pyproj import CRS

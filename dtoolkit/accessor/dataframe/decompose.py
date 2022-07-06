@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor import register_dataframe_method
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 
 if TYPE_CHECKING:
     from sklearn.base import TransformerMixin
