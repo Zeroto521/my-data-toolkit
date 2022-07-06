@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.register import register_sereis_method
+from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
     from pyproj import CRS
