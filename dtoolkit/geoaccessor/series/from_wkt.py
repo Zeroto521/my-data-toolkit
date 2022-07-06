@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from pyproj import CRS
 
 
-@register_sereis_method
+@register_series_method
 def from_wkt(
     s: pd.Series,
     crs: CRS | str | int = None,
