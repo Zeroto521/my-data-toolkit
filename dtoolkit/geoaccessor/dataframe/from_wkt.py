@@ -22,7 +22,7 @@ def from_wkt(
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
-    Generate :obj:`~geopandas.GeoDataFrame` of geometries from columns of
+    Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKT' column of
     :obj:`~pandas.DataFrame`.
 
     A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkt`.
