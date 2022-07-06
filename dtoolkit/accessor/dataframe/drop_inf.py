@@ -7,7 +7,7 @@ import pandas as pd
 
 from dtoolkit._typing import Axis
 from dtoolkit.accessor.dataframe import boolean  # noqa
-from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor import register_dataframe_method
 from dtoolkit.accessor.series.drop_inf import get_inf_range
 
 

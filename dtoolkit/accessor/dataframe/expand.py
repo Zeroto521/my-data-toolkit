@@ -6,7 +6,7 @@ from typing import Hashable
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor import register_dataframe_method
 from dtoolkit.accessor.series import expand as s_expand
 
 

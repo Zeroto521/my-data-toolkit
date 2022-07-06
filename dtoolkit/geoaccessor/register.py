@@ -1,6 +1,6 @@
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor.register import register_method_factory
+from dtoolkit.accessor import register_method_factory
 from dtoolkit.geoaccessor.accessor import register_geodataframe_accessor
 from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
 

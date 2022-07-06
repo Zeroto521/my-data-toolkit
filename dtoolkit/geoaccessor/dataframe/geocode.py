@@ -4,7 +4,7 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor import register_dataframe_method
 
 
 @register_dataframe_method

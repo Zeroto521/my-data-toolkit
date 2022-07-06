@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit.accessor.register import register_series_method  # noqa
+from dtoolkit.accessor import register_series_method  # noqa
 
 
 @register_series_method

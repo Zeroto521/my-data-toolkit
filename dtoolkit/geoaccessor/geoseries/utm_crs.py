@@ -3,7 +3,7 @@ import pandas as pd
 from pyproj.aoi import AreaOfInterest
 from pyproj.database import query_utm_crs_info
 
-from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor import register_geoseries_method
 
 
 @register_geoseries_method

@@ -5,7 +5,7 @@ import pandas as pd
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geoseries import count_coordinates as s_count_coordinates
-from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.geoaccessor import register_geodataframe_method
 
 
 @register_geodataframe_method

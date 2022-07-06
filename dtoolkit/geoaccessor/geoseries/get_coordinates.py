@@ -5,7 +5,7 @@ import pandas as pd
 import pygeos
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor import register_geoseries_method
 
 
 @register_geoseries_method

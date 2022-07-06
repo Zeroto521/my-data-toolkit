@@ -4,7 +4,7 @@ from typing import Hashable
 
 import pandas as pd
 
-from dtoolkit.accessor.register import register_index_method
+from dtoolkit.accessor import register_index_method
 
 
 @register_index_method

@@ -1,7 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor import register_series_method
 
 
 @register_series_method

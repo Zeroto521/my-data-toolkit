@@ -4,8 +4,8 @@ import pytest
 from pygeos import count_coordinates
 from pygeos import from_shapely
 
-from dtoolkit.geoaccessor.register import register_geodataframe_method
-from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor import register_geodataframe_method
+from dtoolkit.geoaccessor import register_geoseries_method
 
 
 @register_geodataframe_method
