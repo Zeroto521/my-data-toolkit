@@ -4,8 +4,8 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.geoseries import utm_crs as s_utm_crs
 from dtoolkit.geoaccessor import register_geodataframe_method
+from dtoolkit.geoaccessor.geoseries import utm_crs as s_utm_crs
 
 
 @register_geodataframe_method

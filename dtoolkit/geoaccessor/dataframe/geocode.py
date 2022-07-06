@@ -3,8 +3,8 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor import register_dataframe_method
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 
 
 @register_dataframe_method

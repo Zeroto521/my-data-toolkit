@@ -7,8 +7,8 @@ from typing import Literal
 import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
-from dtoolkit.accessor.dataframe import boolean  # noqa
 from dtoolkit.accessor import register_dataframe_method
+from dtoolkit.accessor.dataframe import boolean  # noqa
 
 
 @register_dataframe_method
