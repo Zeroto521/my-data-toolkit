@@ -60,21 +60,19 @@ def from_wkb(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame(
-    ...     {
-    ...         "wkt": [
-    ...             "POINT (1 1)",
-    ...             "POINT (2 2)",
-    ...             "POINT (3 3)",
-    ...         ]
-    ...     }
+    >>> s = pd.Series(
+    ...      [
+    ...          "POINT (1 1)",
+    ...          "POINT (2 2)",
+    ...          "POINT (3 3)",
+    ...      ],
     ... )
-    >>> df
-               wkt
-    0  POINT (1 1)
-    1  POINT (2 2)
-    2  POINT (3 3)
-    >>> s_wkb = df.from_wkt("wkt", crs=4326, drop=True).to_wkb()
+    >>> s
+    0    POINT (1 1)
+    1    POINT (2 2)
+    2    POINT (3 3)
+    Name: wkb, dtype: object
+    >>> s_wkb = s.from_wkt(crs=4326).to_wkb()
     >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
@@ -84,14 +82,14 @@ def from_wkb(
     <class 'pandas.core.series.Series'>
     >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326)
     >>> gdf  # doctest: +SKIP
-                                                    wkb                 geometry
+                                                      wkb                 geometry
     0  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (1.00000 1.00000)
     1  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (2.00000 2.00000)
     2  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (3.00000 3.00000)
     >>> type(gdf)
     <class 'geopandas.geodataframe.GeoDataFrame'>
 
-    Drop original 'wkt' column.
+    Drop original 'wkb' column.
 
     >>> gs = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
     >>> gs
