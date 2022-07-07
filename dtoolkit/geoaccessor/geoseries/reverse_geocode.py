@@ -6,14 +6,14 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 @register_geoseries_method
 def reverse_geocode(s: gpd.GeoSeries, **kwargs) -> gpd.GeoDataFrame:
     """
-    Reverse geocode Point type GeoSeries and get a GeoDataFrame of the resulting
-    addresses.
+    Reverse geocode :obj:`~shapely.geometry.Point` type :class:`~geopandas.GeoSeries`
+    and get the corresponding addresses.
 
     Parameters
     ----------
     **kwargs
-        See the documentation for :func:`~geopandas.tools.geocode` for complete details
-        on the keyword arguments.
+        See the documentation for :func:`~geopandas.tools.reverse_geocode` for complete
+        details on the keyword arguments.
 
     Returns
     -------
