@@ -14,7 +14,7 @@ from dtoolkit.geoaccessor.series import from_wkb  # noqa
                     b"\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00@\x00\x00\x00\x00\x00\x00\x00@",
                     b"\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08@\x00\x00\x00\x00\x00\x00\x08@",
                 ],
-            ),
+            ),  # noqa
             False,
             ValueError,
         ),
