@@ -1,60 +1,52 @@
 from __future__ import annotations
 
-from typing import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.dataframe import to_series  # noqa
-from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.register import register_series_method
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
-@register_dataframe_method
+@register_series_method
 def from_wkb(
-    df: pd.DataFrame,
-    column: Hashable,
+    s: pd.Series,
     crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
-    Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKB' column of
-    :obj:`~pandas.DataFrame`.
+    Generate :obj:`~geopandas.GeoDataFrame` of geometries from :obj:`~pandas.Series`.
 
     A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkb`.
 
     Parameters
     ----------
-    column : Hashable
-        The name of WKB column.
-
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
     drop : bool, default False
-        Don't contain ``x``, ``y`` and ``z`` anymore.
+        Don't contain original WKB anymore.
 
     Returns
     -------
     GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+        GeoSeries if `drop` is True else GeoDataFrame.
 
     See Also
     --------
     geopandas.GeoSeries.from_wkb
-    dtoolkit.geoaccessor.series.from_wkb
-    dtoolkit.geoaccessor.dataframe.from_wkt
+    dtoolkit.geoaccessor.series.from_wkt
+    dtoolkit.geoaccessor.dataframe.from_wkb
 
     Notes
     -----
-    - This method is the accessor of DataFrame, not GeoDataFrame.
-    - Read from file (such as "CSV" or "EXCEL"), requreis converting "WKB" columns
+    - This method is the accessor of Series, not GeoSeries.
+    - Read from file (such as "CSV" or "EXCEL"), requreis converting "WKB" column
       type from ``str`` to ``bytes`` via ``eval``.
 
     Examples
@@ -82,7 +74,7 @@ def from_wkb(
     Name: wkb, dtype: object
     >>> type(s_wkb)
     <class 'pandas.core.series.Series'>
-    >>> gdf = s_wkb.to_frame().from_wkb("wkb", crs=4326)
+    >>> gdf = s_wkb.from_wkb(crs=4326)
     >>> gdf  # doctest: +SKIP
                                                       wkb                 geometry
     0  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (1.00000 1.00000)
@@ -93,18 +85,21 @@ def from_wkb(
 
     Drop original 'wkb' column.
 
-    >>> gs = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
+    >>> gs = s_wkb.from_wkb(crs=4326, drop=True)
     >>> gs
     0    POINT (1.00000 1.00000)
     1    POINT (2.00000 2.00000)
     2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
+    dtype: geometry
     >>> type(gs)
     <class 'geopandas.geoseries.GeoSeries'>
     """
 
-    return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=column),
-        geometry=gpd.GeoSeries.from_wkb(df[column]),
-        crs=crs,
-    ).to_series()
+    if not drop and s.name is None:
+        raise ValueError(
+            "to keep the original data requires setting the 'name' of "
+            f"{s.__class__.__name__!r}",
+        )
+
+    geometry = gpd.GeoSeries.from_wkb(s, crs=crs)
+    return geometry if drop else gpd.GeoDataFrame(s, geometry=geometry)
