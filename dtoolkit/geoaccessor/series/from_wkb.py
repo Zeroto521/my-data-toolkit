@@ -66,7 +66,7 @@ def from_wkb(
     1    POINT (2 2)
     2    POINT (3 3)
     Name: wkt, dtype: object
-    >>> s_wkb = s.from_wkt(crs=4326).to_wkb()
+    >>> s_wkb = s.from_wkt(crs=4326, drop=True).to_wkb()
     >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
