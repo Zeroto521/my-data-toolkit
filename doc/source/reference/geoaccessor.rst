@@ -32,6 +32,7 @@ Series Accessor (to GeoPandas)
 .. autosummary::
     :toctree: api/
 
+    from_wkt
     geocode
 
 
