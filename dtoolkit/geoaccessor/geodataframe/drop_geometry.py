@@ -44,6 +44,18 @@ def drop_geometry(df: gpd.GeoDataFrame) -> pd.DataFrame:
          x   y name
     0  122  55    a
     1  100   1    b
+
+    Drop customed geometry column.
+
+    >>> df_new = df.rename_geometry("geom")
+    >>> df_new
+         x   y name                        geom
+    0  122  55    a  POINT (122.00000 55.00000)
+    1  100   1    b   POINT (100.00000 1.00000)
+    >>> df_new.drop_geometry()
+         x   y name
+    0  122  55    a
+    1  100   1    b
     """
 
     return df.drop(columns=df.geometry.name)
