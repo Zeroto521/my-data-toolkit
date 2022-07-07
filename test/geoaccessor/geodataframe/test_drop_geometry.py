@@ -5,7 +5,7 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa
 
 
 @pytest.mark.parametrize(
-    "df, excpected",
+    "df, expected",
     [
         (
             pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy("x", "y"),
@@ -37,7 +37,7 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa
         ),
     ],
 )
-def test_work(df, excpected):
+def test_work(df, expected):
     result = df.drop_geometry()
 
-    assert result.equals(excpected)
+    assert result.equals(expected)
