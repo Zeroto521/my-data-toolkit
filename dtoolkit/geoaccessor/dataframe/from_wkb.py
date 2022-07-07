@@ -48,6 +48,7 @@ def from_wkb(
     See Also
     --------
     geopandas.GeoSeries.from_wkb
+    dtoolkit.geoaccessor.series.from_wkb
     dtoolkit.geoaccessor.dataframe.from_wkt
 
     Notes
