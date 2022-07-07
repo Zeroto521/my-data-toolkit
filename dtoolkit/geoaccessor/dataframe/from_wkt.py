@@ -22,7 +22,7 @@ def from_wkt(
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     """
-    Generate :obj:`~geopandas.GeoDataFrame` of geometries from columns of
+    Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKT' column of
     :obj:`~pandas.DataFrame`.
 
     A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkt`.
@@ -38,7 +38,7 @@ def from_wkt(
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
     drop : bool, default False
-        Don't contain ``x``, ``y`` and ``z`` anymore.
+        Don't contain original 'WKT' column anymore.
 
     Returns
     -------
@@ -48,6 +48,7 @@ def from_wkt(
     See Also
     --------
     geopandas.GeoSeries.from_wkt
+    dtoolkit.geoaccessor.series.from_wkt
     dtoolkit.geoaccessor.dataframe.from_xy
     dtoolkit.geoaccessor.dataframe.from_wkb
 
