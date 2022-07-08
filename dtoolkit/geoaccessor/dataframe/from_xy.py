@@ -92,9 +92,9 @@ def from_xy(
     Drop original 'x' and 'y' columns.
 
     >>> df.points_from_xy("x", "y", drop=True, crs=4326)
-    0    POINT (122.00000 55.00000)
-    1     POINT (100.00000 1.00000)
-    Name: geometry, dtype: geometry
+                         geometry
+    0  POINT (122.00000 55.00000)
+    1   POINT (100.00000 1.00000)
     """
 
     return gpd.GeoDataFrame(

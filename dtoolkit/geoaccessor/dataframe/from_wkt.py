@@ -93,10 +93,10 @@ def from_wkt(
     Drop original 'wkt' column.
 
     >>> df.from_wkt("wkt", drop=True)
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
+                      geometry
+    0  POINT (1.00000 1.00000)
+    1  POINT (2.00000 2.00000)
+    2  POINT (3.00000 3.00000)
     """
 
     return gpd.GeoDataFrame(

@@ -103,14 +103,14 @@ def from_wkb(
 
     Drop original 'wkb' column.
 
-    >>> gs = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
-    >>> gs
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
-    >>> type(gs)
-    <class 'geopandas.geoseries.GeoSeries'>
+    >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
+    >>> gdf
+                      geometry
+    0  POINT (1.00000 1.00000)
+    1  POINT (2.00000 2.00000)
+    2  POINT (3.00000 3.00000)
+    >>> type(gdf)
+    <class 'geopandas.geoseries.GeoDataFrame'>
     """
 
     return gpd.GeoDataFrame(
