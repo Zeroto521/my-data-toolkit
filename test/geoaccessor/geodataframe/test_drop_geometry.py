@@ -1,5 +1,6 @@
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
 from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa
 
@@ -40,4 +41,7 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa
 def test_work(df, expected):
     result = df.drop_geometry()
 
-    assert result.equals(expected)
+    # The return of `.drop(columns='geometry')` is a `GeoDataFrame`
+    # not a `DataFrame`in geopandas 0.9.0.
+    # So there can't use `.equals` to compare the result.
+    assert_frame_equal(result, expected)

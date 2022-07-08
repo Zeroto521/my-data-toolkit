@@ -58,4 +58,11 @@ def drop_geometry(df: gpd.GeoDataFrame) -> pd.DataFrame:
     1  100   1    b
     """
 
-    return df.drop(columns=df.geometry.name)
+    result = df.drop(columns=df.geometry.name)
+
+    # The return of `.drop(columns='geometry')` is a `GeoDataFrame`
+    # not a `DataFrame`in geopandas version from 0.9.0 to 0.10.2.
+    # So there can't return directly.
+    # TODO: Delete this code block when the required minimal version
+    # of geopandas is 0.11.0.
+    return pd.DataFrame(result) if isinstance(result, gpd.GeoDataFrame) else result
