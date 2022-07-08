@@ -53,7 +53,7 @@ def from_wkb(
     GeoDataFrame
         .. deprecated:: 0.0.17
             The result doesn't support returning 'GeoSeries' anymore, even one column
-            'GeoDataFrame'. (Warning added DToolKit 0.0.17)
+            'GeoDataFrame'.
 
     See Also
     --------
