@@ -50,8 +50,10 @@ def from_wkb(
 
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+    GeoDataFrame
+        .. deprecated:: 0.0.17
+            The result doesn't support returning 'GeoSeries' anymore, even one column
+            'GeoDataFrame'. (Warning added DToolKit 0.0.17)
 
     See Also
     --------
