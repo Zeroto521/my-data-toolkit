@@ -12,6 +12,7 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa
             pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy("x", "y"),
             pd.DataFrame({"x": [122, 100], "y": [55, 1]}),
         ),
+        # test non default geometry name
         (
             (
                 pd.DataFrame({"x": [122, 100], "y": [55, 1]})
@@ -28,6 +29,7 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa
             ),
             pd.DataFrame({"x": [122, 100], "y": [55, 1]}),
         ),
+        # test single column dataframe
         (
             (
                 pd.DataFrame({"x": [122, 100], "y": [55, 1]})
