@@ -25,10 +25,13 @@ def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
     --------
     dtoolkit.geoaccessor.geoseries.utm_crs
         Returns the estimated UTM CRS based on the bounds of each geometry.
+
     dtoolkit.geoaccessor.geodataframe.utm_crs
         Returns the estimated UTM CRS based on the bounds of each geometry.
+
     geopandas.GeoSeries.estimate_utm_crs
         Returns the estimated UTM CRS based on the bounds of the dataset.
+
     geopandas.GeoDataFrame.estimate_utm_crs
         Returns the estimated UTM CRS based on the bounds of the dataset.
 
