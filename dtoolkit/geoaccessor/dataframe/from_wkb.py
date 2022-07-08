@@ -8,20 +8,12 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_dataframe_method
-@warning(
-    (
-        "The result doesn't support returning 'GeoSeries' anymore, "
-        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
-    ),
-    stacklevel=3,
-)
 def from_wkb(
     df: pd.DataFrame,
     column: Hashable,
@@ -50,9 +42,6 @@ def from_wkb(
     Returns
     -------
     GeoDataFrame
-        .. deprecated:: 0.0.17
-            The result doesn't support returning 'GeoSeries' anymore, even one column
-            'GeoDataFrame'.
 
     See Also
     --------
