@@ -125,13 +125,12 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
             "z",
             None,
             True,
-            gpd.GeoSeries(
-                [
+            gpd.GeoDataFrame(
+                geometry=[
                     Point(122, 55, 0),
                     Point(100, 1, 0),
                     Point(0, 0, 0),
                 ],
-                name="Geometry",
             ),
         ),
         # test drop is True
