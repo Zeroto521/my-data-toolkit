@@ -109,7 +109,7 @@ def from_wkb(
     1  POINT (2.00000 2.00000)
     2  POINT (3.00000 3.00000)
     >>> type(gdf)
-    <class 'geopandas.geoseries.GeoDataFrame'>
+    <class 'geopandas.geodataframe.GeoDataFrame'>
     """
 
     return gpd.GeoDataFrame(
