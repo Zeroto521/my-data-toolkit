@@ -21,6 +21,7 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
+    drop_geometry
     geobuffer
     get_coordinates
     utm_crs
