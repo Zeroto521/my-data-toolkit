@@ -6,7 +6,7 @@ dependencies:
   # required
   - pandas=1.1.0
   # optional
-  - scikit-learn=1.0
+  - scikit-learn=1.1
   - geopandas=0.9.0
   - pygeos=0.8
   - geopy

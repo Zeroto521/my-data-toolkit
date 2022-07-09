@@ -13,7 +13,7 @@ Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - Scikit-learn (>= 1.0 )
+  - Scikit-learn (>= 1.1)
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
