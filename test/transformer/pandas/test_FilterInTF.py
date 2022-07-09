@@ -1,5 +1,6 @@
-from dtoolkit.transformer import FilterInTF
 from test.transformer.conftest import df_label
+
+from dtoolkit.transformer import FilterInTF
 
 
 def test_work():

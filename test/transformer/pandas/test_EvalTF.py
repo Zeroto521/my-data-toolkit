@@ -1,6 +1,7 @@
-from dtoolkit.transformer import EvalTF
 from test.transformer.conftest import df_iris
 from test.transformer.conftest import feature_names
+
+from dtoolkit.transformer import EvalTF
 
 
 def test_work():

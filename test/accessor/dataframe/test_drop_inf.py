@@ -1,9 +1,10 @@
+from test.accessor.conftest import d
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from dtoolkit.accessor.dataframe import drop_inf  # noqa
-from test.accessor.conftest import d
 
 
 @pytest.mark.parametrize(

@@ -1,7 +1,8 @@
+from test.transformer.conftest import df_period
+
 from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa
 from dtoolkit.accessor.series import cols as series_cols  # noqa
 from dtoolkit.transformer import FilterTF
-from test.transformer.conftest import df_period
 
 
 def test_work():
