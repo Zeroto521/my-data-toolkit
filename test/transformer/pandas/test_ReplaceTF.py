@@ -1,5 +1,6 @@
-from dtoolkit.transformer import ReplaceTF
 from test.transformer.conftest import df_label
+
+from dtoolkit.transformer import ReplaceTF
 
 
 def test_work():

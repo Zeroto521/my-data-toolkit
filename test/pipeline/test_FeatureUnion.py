@@ -1,3 +1,7 @@
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import df_label
+from test.transformer.conftest import df_mixed
+
 import pandas as pd
 import pytest
 from scipy import sparse
@@ -10,9 +14,6 @@ from dtoolkit.pipeline import make_pipeline
 from dtoolkit.pipeline import make_union
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import OneHotEncoder
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_label
-from test.transformer.conftest import df_mixed
 
 
 # include `make_union`
