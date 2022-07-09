@@ -97,9 +97,11 @@ class OneHotEncoder(SKOneHotEncoder):
         )
         self.categories_with_parent = categories_with_parent
 
+        # compat with sklearn lower version
         # `_parameter_constraints` comes out at sklearn 1.2
-        if self._parameter_constraints:  # compat with sklearn lower version
-            self._parameter_constraints.update({"categories_with_parent": ["boolean"]})
+        # TODO: delete this condition when required sklearn version is >= 1.2
+        if hasattr(self, "_parameter_constraints"):
+            self._parameter_constraints["categories_with_parent"] = ["boolean"]
 
     @doc(
         SKOneHotEncoder.transform,
