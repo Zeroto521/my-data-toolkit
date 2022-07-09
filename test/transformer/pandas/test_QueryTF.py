@@ -1,7 +1,6 @@
+from dtoolkit.transformer import QueryTF
 from test.transformer.conftest import df_iris
 from test.transformer.conftest import feature_names
-
-from dtoolkit.transformer import QueryTF
 
 
 def test_greater_symbol():

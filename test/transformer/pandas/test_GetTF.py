@@ -1,9 +1,8 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import feature_names
-
 import pytest
 
 from dtoolkit.transformer import GetTF
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import feature_names
 
 
 @pytest.mark.parametrize("cols", [feature_names[0], feature_names])

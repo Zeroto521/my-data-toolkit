@@ -1,8 +1,3 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_mixed
-from test.transformer.conftest import feature_names
-from test.transformer.conftest import s
-
 import joblib
 import pandas as pd
 import pytest
@@ -18,6 +13,10 @@ from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import df_mixed
+from test.transformer.conftest import feature_names
+from test.transformer.conftest import s
 
 
 # include `make_pipeline`
