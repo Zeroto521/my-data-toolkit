@@ -95,8 +95,11 @@ class OneHotEncoder(SKOneHotEncoder):
             min_frequency=min_frequency,
             max_categories=max_categories,
         )
-        self._parameter_constraints.update({"categories_with_parent": ["boolean"]})
         self.categories_with_parent = categories_with_parent
+
+        # `_parameter_constraints` comes out at sklearn 1.2
+        if self._parameter_constraints:  # compat with sklearn lower version
+            self._parameter_constraints.update({"categories_with_parent": ["boolean"]})
 
     @doc(
         SKOneHotEncoder.transform,
