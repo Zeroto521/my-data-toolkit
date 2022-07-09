@@ -51,8 +51,10 @@ def get_coordinates(s: gpd.GeoSeries, **kwargs) -> pd.Series:
     --------
     dtoolkit.geoaccessor.geoseries.get_coordinates
         Gets coordinates from each geometry of GeoSeries.
+
     dtoolkit.geoaccessor.geodataframe.get_coordinates
         Gets coordinates from each geometry of GeoDataFrame.
+
     pygeos.coordinates.get_coordinates
         The core algorithm of this accessor.
     {examples}

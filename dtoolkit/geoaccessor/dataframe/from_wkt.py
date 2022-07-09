@@ -7,20 +7,27 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_dataframe_method
+@warning(
+    (
+        "The result doesn't support returning 'GeoSeries' anymore, "
+        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
+    ),
+    stacklevel=3,
+)
 def from_wkt(
     df: pd.DataFrame,
     column: Hashable,
     crs: CRS | str | int = None,
     drop: bool = False,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
+) -> gpd.GeoDataFrame:
     """
     Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKT' column of
     :obj:`~pandas.DataFrame`.
@@ -42,8 +49,10 @@ def from_wkt(
 
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+    GeoDataFrame
+        .. deprecated:: 0.0.17
+            The result doesn't support returning 'GeoSeries' anymore, even one column
+            'GeoDataFrame'.
 
     See Also
     --------
@@ -83,14 +92,14 @@ def from_wkt(
     Drop original 'wkt' column.
 
     >>> df.from_wkt("wkt", drop=True)
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
+                      geometry
+    0  POINT (1.00000 1.00000)
+    1  POINT (2.00000 2.00000)
+    2  POINT (3.00000 3.00000)
     """
 
     return gpd.GeoDataFrame(
         df.drop_or_not(drop=drop, columns=column),
         geometry=gpd.GeoSeries.from_wkt(df[column]),
         crs=crs,
-    ).to_series()
+    )

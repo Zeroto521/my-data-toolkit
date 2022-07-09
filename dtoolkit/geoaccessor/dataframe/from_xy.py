@@ -7,8 +7,8 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -16,6 +16,13 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
+@warning(
+    (
+        "The result doesn't support returning 'GeoSeries' anymore, "
+        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
+    ),
+    stacklevel=3,
+)
 def from_xy(
     df: pd.DataFrame,
     x: Hashable,
@@ -23,7 +30,7 @@ def from_xy(
     z: Hashable = None,
     crs: CRS | str | int = None,
     drop: bool = False,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
+) -> gpd.GeoDataFrame:
     """
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
@@ -51,8 +58,10 @@ def from_xy(
 
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+    GeoDataFrame
+        .. deprecated:: 0.0.17
+            The result doesn't support returning 'GeoSeries' anymore, even one column
+            'GeoDataFrame'.
 
     See Also
     --------
@@ -82,9 +91,9 @@ def from_xy(
     Drop original 'x' and 'y' columns.
 
     >>> df.points_from_xy("x", "y", drop=True, crs=4326)
-    0    POINT (122.00000 55.00000)
-    1     POINT (100.00000 1.00000)
-    Name: geometry, dtype: geometry
+                         geometry
+    0  POINT (122.00000 55.00000)
+    1   POINT (100.00000 1.00000)
     """
 
     return gpd.GeoDataFrame(
@@ -95,4 +104,4 @@ def from_xy(
             z=df[z] if z is not None else z,
         ),
         crs=crs,
-    ).to_series()
+    )
