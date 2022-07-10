@@ -64,27 +64,15 @@ pip install my-data-toolkit
 
 ### From YAML
 
-Save the following `dtoolkit_env.yaml` YAML to local.
+Save the following [environment.yaml](../../../environment.yaml) YAML to local.
 
-```yaml
-name: dtoolkit_env
-channels:
-  - conda-forge
-dependencies:
-  - python=3
-  - pandas
-  - scikit-learn
-  - geopandas
-  - pygeos
-  - pip
-  - pip:
-      - my-data-toolkit
+```{include} ../../../environment.yaml
 ```
 
 Create the environment from YAML.
 
 ```bash
-conda env create -f dtoolkit_env.yaml
+conda env create -f environment.yaml
 ```
 
 ## Install from PyPI
