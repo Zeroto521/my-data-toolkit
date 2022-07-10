@@ -8,7 +8,7 @@ on:
     paths:
       - setup.cfg
       - setup.py
-      - .github/workflows/versioneer.yml
+      - .github/workflows/versioneer.yaml
 
 jobs:
   versioneer:
