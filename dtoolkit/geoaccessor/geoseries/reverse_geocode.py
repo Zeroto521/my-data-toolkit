@@ -45,7 +45,7 @@ def reverse_geocode(s: gpd.GeoSeries, **kwargs) -> gpd.GeoDataFrame:
     1    POINT (-77.03653 38.89773)
     dtype: geometry
     >>> s.reverse_geocode()
-                        geometry                                            address
+                         geometry                                            address
     0  POINT (-71.05977 42.35860)  18-32, Tremont Street, 02108, Tremont Street, ...
     1  POINT (-77.03655 38.89772)  Pennsylvania Avenue Northwest, 20500, Pennsylv...
     """
