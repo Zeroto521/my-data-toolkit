@@ -31,6 +31,28 @@ def reverse_geocode(df: gpd.GeoDataFrame, **kwargs) -> gpd.GeoDataFrame:
     geopandas.tools.reverse_geocode
     dtoolkit.geoaccessor.dataframe.geocode
     dtoolkit.geoaccessor.geoseries.reverse_geocode
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "wkt": [
+    ...             "POINT (-71.0594869 42.3584697)",
+    ...             "POINT (-77.0365305 38.8977332)",
+    ...         ],
+    ...         "name": ["a", "b"],
+    ...     },
+    ... ).from_wkt("wkt", drop=True, crs=4326)
+    >>> df
+      name                    geometry
+    0    a  POINT (-71.05949 42.35847)
+    1    b  POINT (-77.03653 38.89773)
+    >>> df.reverse_geocode()
+      name                    geometry                                            address
+    0    a  POINT (-71.05977 42.35860)  18-32, Tremont Street, 02108, Tremont Street, ...
+    1    b  POINT (-77.03655 38.89772)  Pennsylvania Avenue Northwest, 20500, Pennsylv...
     """
 
     return pd.concat(
