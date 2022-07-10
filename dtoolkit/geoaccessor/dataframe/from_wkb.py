@@ -7,7 +7,6 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.dataframe import to_series  # noqa
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -20,7 +19,7 @@ def from_wkb(
     column: Hashable,
     crs: CRS | str | int = None,
     drop: bool = False,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
+) -> gpd.GeoDataFrame:
     """
     Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKB' column of
     :obj:`~pandas.DataFrame`.
@@ -42,8 +41,7 @@ def from_wkb(
 
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+    GeoDataFrame
 
     See Also
     --------
@@ -93,18 +91,18 @@ def from_wkb(
 
     Drop original 'wkb' column.
 
-    >>> gs = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
-    >>> gs
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
-    >>> type(gs)
-    <class 'geopandas.geoseries.GeoSeries'>
+    >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
+    >>> gdf
+                      geometry
+    0  POINT (1.00000 1.00000)
+    1  POINT (2.00000 2.00000)
+    2  POINT (3.00000 3.00000)
+    >>> type(gdf)
+    <class 'geopandas.geodataframe.GeoDataFrame'>
     """
 
     return gpd.GeoDataFrame(
         df.drop_or_not(drop=drop, columns=column),
         geometry=gpd.GeoSeries.from_wkb(df[column]),
         crs=crs,
-    ).to_series()
+    )
