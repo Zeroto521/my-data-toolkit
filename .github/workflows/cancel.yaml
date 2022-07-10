@@ -10,8 +10,8 @@ jobs:
       - uses: styfle/cancel-workflow-action@0.10.0
         with:
           workflow_id: |
-            .github/workflows/tests.yaml,
-            .github/workflows/nightly-tests.yaml,
+            .github/workflows/test.yaml,
+            .github/workflows/nightly-test.yaml,
             .github/workflows/sdist.yaml
             .github/workflows/sphinx.yaml,
             .github/workflows/codeql-analysis.yaml,
