@@ -38,6 +38,12 @@ def to_geoseries(
     GeoSeries or Series
         GeoSeries if the data is an array of shapely scalars.
 
+    Notes
+    -----
+    If both ``crs`` and the CRS of original data are not ``None``, the CRS of
+    original data will be transformed from original CRS to ``crs`` via
+    :func:`geopandas.GeoSeries.to_crs`.
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
