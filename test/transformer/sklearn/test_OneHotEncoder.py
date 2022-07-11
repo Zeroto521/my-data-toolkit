@@ -3,9 +3,11 @@ from test.transformer.conftest import df_label
 import numpy as np
 import pandas as pd
 from scipy import sparse
+from pandas.testing import assert_index_equal
 
 from dtoolkit.pipeline import make_pipeline
 from dtoolkit.transformer import OneHotEncoder
+
 
 
 def test_dataframe_in_dataframe_out():
@@ -34,7 +36,7 @@ def test_index():
     data = pd.DataFrame(["a", "b", "c"], index=[0, 1, 3])
     result = tf.fit_transform(data)
 
-    assert result.index.equals(data.index)
+    assert_index_equal(result.index, data.index)
 
 
 def test_array_in_array_out():
