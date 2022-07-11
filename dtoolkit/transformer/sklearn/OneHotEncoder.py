@@ -11,7 +11,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
-from dtoolkit.accessor.series import cols  # noqa: F401
+from dtoolkit.accessor.series import cols  # noqa: F401, F811
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix

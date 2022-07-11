@@ -8,7 +8,7 @@ from scipy import sparse
 from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
-from dtoolkit.accessor.series import cols  # noqa: F401
+from dtoolkit.accessor.series import cols  # noqa: F401, F811
 from dtoolkit.pipeline import FeatureUnion
 from dtoolkit.pipeline import make_pipeline
 from dtoolkit.pipeline import make_union
