@@ -1,12 +1,11 @@
-from test.accessor.conftest import s
-from test.accessor.conftest import s_inf
-
 import numpy as np
 import pandas as pd
 import pytest
 from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import drop_inf  # noqa: F401
+from test.accessor.conftest import s
+from test.accessor.conftest import s_inf
 
 
 @pytest.mark.parametrize(

@@ -1,11 +1,10 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_label
-from test.transformer.conftest import df_mixed
-
 import pytest
 from pandas.testing import assert_frame_equal
 
 from dtoolkit.transformer import SelectDtypesTF
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import df_label
+from test.transformer.conftest import df_mixed
 
 
 @pytest.mark.parametrize(

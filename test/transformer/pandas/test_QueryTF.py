@@ -1,9 +1,8 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import feature_names
-
 from pandas.testing import assert_frame_equal
 
 from dtoolkit.transformer import QueryTF
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import feature_names
 
 
 def test_greater_symbol():

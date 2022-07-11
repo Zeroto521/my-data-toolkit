@@ -1,9 +1,9 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from geopandas.testing import assert_geodataframe_equal
 from pyproj.crs import CRSError
 from shapely.geometry import Point
-from geopandas.testing import assert_geodataframe_equal
 
 from dtoolkit.geoaccessor.dataframe import from_xy  # noqa: F401
 
