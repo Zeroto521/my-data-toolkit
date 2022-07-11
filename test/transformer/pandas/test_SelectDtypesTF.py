@@ -3,6 +3,7 @@ from test.transformer.conftest import df_label
 from test.transformer.conftest import df_mixed
 
 import pytest
+from pandas.testing import assert_frame_equal
 
 from dtoolkit.transformer import SelectDtypesTF
 
@@ -19,4 +20,4 @@ def test_work(types, expected):
 
     result = tf.fit_transform(df_mixed)
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
