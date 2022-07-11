@@ -38,6 +38,7 @@ Series Accessor (to GeoPandas)
     from_wkb
     from_wkt
     geocode
+    to_geoseries
 
 
 DataFrame Accessor (to GeoPandas)
