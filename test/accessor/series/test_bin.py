@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.series import bin  # noqa
+from dtoolkit.accessor.series import bin  # noqa: F401
 
 
 @pytest.mark.parametrize(

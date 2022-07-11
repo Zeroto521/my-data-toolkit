@@ -1,8 +1,8 @@
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.geoaccessor.dataframe import from_wkb  # noqa
-from dtoolkit.geoaccessor.dataframe import from_wkt  # noqa
+from dtoolkit.geoaccessor.dataframe import from_wkb  # noqa: F401
+from dtoolkit.geoaccessor.dataframe import from_wkt  # noqa: F401
 
 
 def test_csv():

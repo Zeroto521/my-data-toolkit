@@ -1,7 +1,7 @@
 from test.transformer.conftest import df_period
 
-from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa
-from dtoolkit.accessor.series import cols as series_cols  # noqa
+from dtoolkit.accessor.dataframe import cols as dataframe_cols  # noqa: F401
+from dtoolkit.accessor.series import cols as series_cols  # noqa: F401
 from dtoolkit.transformer import FilterTF
 
 

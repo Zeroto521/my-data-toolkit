@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.accessor.dataframe import to_series  # noqa: F401
 
 
 @pytest.mark.parametrize(
