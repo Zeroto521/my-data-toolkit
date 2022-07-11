@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import geopandas as gpd
 import pandas as pd
 from geopandas.base import is_geometry_type
-from pyproj import CRS
 
 from dtoolkit.accessor.register import register_series_method
+
+if TYPE_CHECKING:
+    from pyproj import CRS
 
 
 @register_series_method
@@ -36,13 +40,12 @@ def to_geoseries(
     """
 
     if is_geometry_type(s):
-        crs = CRS.from_user_input(crs)
         # Use `.copy` to avoid mutating the original Series.
         s = gpd.GeoSeries(s.copy(), crs=crs, **kwargs)
 
         # If `s` already has CRS, and it's not the same as `crs`.
         # Then we need to transform it to the CRS the user set.
-        if s.crs != crs:
+        if crs is not None and s.crs != crs:
             s = s.to_crs(crs)
 
     return s
