@@ -21,7 +21,7 @@ def test_inplace():
 
     assert result is not None
     assert feature_names[0] not in result.cols()
-    assert df_iris.equals(df_iris)
+    assert all(feature_names == df_iris.columns)
 
 
 def test_input_is_not_series_or_dataframe():
