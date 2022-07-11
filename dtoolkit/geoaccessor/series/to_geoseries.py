@@ -38,6 +38,10 @@ def to_geoseries(
     GeoSeries or Series
         GeoSeries if the data is an array of shapely scalars.
 
+    See Also
+    --------
+    dtoolkit.geoaccessor.dataframe.to_geoframe
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
