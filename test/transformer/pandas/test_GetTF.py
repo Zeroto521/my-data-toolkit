@@ -1,4 +1,7 @@
+import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
+from pandas.testing import assert_series_equal
 
 from dtoolkit.transformer import GetTF
 from test.transformer.conftest import df_iris
@@ -12,4 +15,7 @@ def test_work(cols):
     result = tf.fit_transform(df_iris)
     expected = df_iris[cols]
 
-    assert result.equals(expected)
+    if isinstance(expected, pd.Series):
+        assert_series_equal(result, expected)
+    else:
+        assert_frame_equal(result, expected)
