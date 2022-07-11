@@ -4,7 +4,7 @@ import pytest
 from pyproj.crs import CRSError
 from shapely.geometry import Point
 
-from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
+from dtoolkit.geoaccessor.dataframe import from_xy  # noqa: F401
 
 
 @pytest.mark.parametrize(

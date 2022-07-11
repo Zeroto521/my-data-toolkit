@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 from pyproj import CRS
 
-from dtoolkit.geoaccessor.geodataframe import geobuffer  # noqa
+from dtoolkit.geoaccessor.geodataframe import geobuffer  # noqa: F401
 
 
 my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]

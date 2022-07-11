@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.dataframe import filter_in  # noqa
+from dtoolkit.accessor.dataframe import filter_in  # noqa: F401
 
 
 df = pd.DataFrame(

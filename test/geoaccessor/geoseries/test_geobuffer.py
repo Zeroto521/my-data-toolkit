@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa
+from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa: F401
 
 
 s = gpd.GeoSeries.from_wkt(

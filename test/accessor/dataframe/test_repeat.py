@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.dataframe import repeat  # noqa
+from dtoolkit.accessor.dataframe import repeat  # noqa: F401
 
 
 @pytest.mark.parametrize(
