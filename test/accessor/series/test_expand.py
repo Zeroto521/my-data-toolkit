@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.series import expand  # noqa: F401
 
@@ -107,7 +108,7 @@ def test_work(suffix, delimiter, flatten, data, name, expected):
         flatten=flatten,
     )
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(
