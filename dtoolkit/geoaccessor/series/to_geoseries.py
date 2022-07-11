@@ -37,6 +37,37 @@ def to_geoseries(
     -------
     GeoSeries or Series
         GeoSeries if the data is an array of shapely scalars.
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
+    >>> s = (
+    ...     pd.Series(
+    ...         [
+    ...             "POINT (1 1)",
+    ...             "POINT (2 2)",
+    ...             "POINT (3 3)",
+    ...         ],
+    ...     )
+    ...     .from_wkt(drop=True, crs=4326)
+    ... )
+    >>> s = pd.Series(s)
+    >>> s
+    0    POINT (1.00000 1.00000)
+    1    POINT (2.00000 2.00000)
+    2    POINT (3.00000 3.00000)
+    dtype: geometry
+    >>> type(s)
+    <class 'pandas.core.series.Series'>
+    >>> gs = s.to_geoseries()
+    >>> gs
+    0    POINT (1.00000 1.00000)
+    1    POINT (2.00000 2.00000)
+    2    POINT (3.00000 3.00000)
+    dtype: geometry
+    >>> type(gs)
+    <class 'geopandas.geoseries.GeoSeries'>
     """
 
     if is_geometry_type(s):
