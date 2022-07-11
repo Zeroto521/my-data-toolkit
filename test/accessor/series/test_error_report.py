@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.series import error_report  # noqa: F401
 
@@ -128,7 +129,7 @@ from dtoolkit.accessor.series import error_report  # noqa: F401
 def test_work(true, predicted, columns, expected):
     result = true.error_report(predicted, columns=columns)
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(

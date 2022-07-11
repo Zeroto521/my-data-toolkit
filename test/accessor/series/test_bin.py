@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import bin  # noqa: F401
 
@@ -53,4 +54,4 @@ def test_work(bins, labels, right, expected):
         dtype=pd.CategoricalDtype(categories=labels),
     )
 
-    assert result.equals(expected)
+    assert_series_equal(result, expected)

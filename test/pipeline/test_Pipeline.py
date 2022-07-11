@@ -1,11 +1,8 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_mixed
-from test.transformer.conftest import feature_names
-from test.transformer.conftest import s
-
 import joblib
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
+from pandas.testing import assert_series_equal
 from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
@@ -18,6 +15,10 @@ from dtoolkit.transformer import FilterInTF
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import QueryTF
 from dtoolkit.transformer import RavelTF
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import df_mixed
+from test.transformer.conftest import feature_names
+from test.transformer.conftest import s
 
 
 # include `make_pipeline`
@@ -107,7 +108,7 @@ def test_series_input_and_series_output():
 def test_passthrough(pipeline, data, expected):
     result = pipeline.fit_transform(data)
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
 
 
 def test_inverse_transform_type():
@@ -133,7 +134,7 @@ def test_transformer_without_fit_transform():
     pipeline = make_pipeline(no_fit_transform_method())
     result = pipeline.fit_transform(s)
 
-    assert result.equals(s)
+    assert_series_equal(result, s)
 
 
 def test_issue_87():

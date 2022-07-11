@@ -1,6 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from geopandas.testing import assert_geodataframe_equal
 from pyproj.crs import CRSError
 from shapely.geometry import Point
 
@@ -161,7 +162,7 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa: F401
 def test_work(data, x, y, z, crs, drop, expected):
     result = pd.DataFrame(data).points_from_xy(x, y, z, crs, drop)
 
-    assert result.equals(expected)
+    assert_geodataframe_equal(result, expected)
 
 
 @pytest.mark.parametrize(
