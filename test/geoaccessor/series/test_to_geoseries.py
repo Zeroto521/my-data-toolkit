@@ -1,8 +1,8 @@
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 import pytest
-from pandas.testing import assert_series_equal
 from geopandas.testing import assert_geoseries_equal
+from pandas.testing import assert_series_equal
 
 from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
 
@@ -37,7 +37,7 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True)
+                ).from_wkt(drop=True),
             ),
             None,
             pd.Series(
@@ -57,7 +57,7 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True)
+                ).from_wkt(drop=True),
             ),
             4326,
             pd.Series(
@@ -76,7 +76,7 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True, crs=4326)
+                ).from_wkt(drop=True, crs=4326),
             ),
             4326,
             (
@@ -86,8 +86,7 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                )
-                .from_wkt(drop=True, crs=4326)
+                ).from_wkt(drop=True, crs=4326)
             ),
         ),
     ],
