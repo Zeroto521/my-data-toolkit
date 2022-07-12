@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.series import geocode  # noqa
+from dtoolkit.geoaccessor.series import geocode  # noqa: F401
 
 
 @pytest.mark.parametrize(

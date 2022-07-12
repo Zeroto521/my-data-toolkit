@@ -43,7 +43,7 @@ def to_geoframe(
 
     See Also
     --------
-    geopandas.GeoDataFrame
+    dtoolkit.geoaccessor.series.to_geoseries
 
     Examples
     --------

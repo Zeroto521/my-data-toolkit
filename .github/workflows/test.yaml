@@ -1,12 +1,10 @@
-name: nightly tests
+name: test
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
   skip-check:
@@ -19,7 +17,7 @@ jobs:
         with:
           paths_ignore: '["doc/**"]'
 
-  nightly-tests:
+  test:
     needs: skip-check
     if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}
@@ -30,13 +28,29 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        dev: [true]
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        dev: [false]
         python-version:
           - "3.8"
           - "3.9"
           - "3.10"
-        env: [ci/env/dev.yaml]
+        env: [ci/env/latest.yaml]
+        include:
+          - env: ci/env/38-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.8"
+          - env: ci/env/39-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.9"
+          - env: ci/env/310-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.10"
 
     steps:
       - uses: actions/checkout@v3
@@ -55,5 +69,9 @@ jobs:
 
       - name: Test with Pytest
         run: make test
+
+      - name: Test Docstrings
+        if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
+        run: make doctest
 
       - uses: codecov/codecov-action@v3

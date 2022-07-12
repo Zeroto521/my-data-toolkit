@@ -7,13 +7,13 @@
 Required Dependencies:
 
 - Python (>= 3.8)
-- Pandas (>= 1.3.4)
+- pandas (>= 1.3.4)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - Scikit-learn (>= 1.0 )
+  - Scikit-learn (>= 1.1)
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 

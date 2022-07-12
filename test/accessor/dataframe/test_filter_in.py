@@ -1,7 +1,8 @@
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import filter_in  # noqa
+from dtoolkit.accessor.dataframe import filter_in  # noqa: F401
 
 
 df = pd.DataFrame(
@@ -153,7 +154,7 @@ df = pd.DataFrame(
 def test_work(condition, kwargs, expected):
     result = df.filter_in(condition=condition, **kwargs)
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
 
 
 def test_issue_145():
@@ -168,4 +169,4 @@ def test_issue_145():
         index=["falcon", "cat"],
     )
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)

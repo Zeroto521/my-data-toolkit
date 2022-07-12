@@ -1,7 +1,8 @@
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 
-from dtoolkit.accessor.series import top_n  # noqa
+from dtoolkit.accessor.series import top_n  # noqa: F401
 
 
 @pytest.mark.parametrize(
@@ -67,4 +68,4 @@ def test_work(n, largest, keep, expected):
     result = s.top_n(n, largest, keep=keep)
     expected = pd.Series(expected)
 
-    assert result.equals(expected)
+    assert_series_equal(result, expected)

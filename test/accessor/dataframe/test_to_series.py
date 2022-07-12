@@ -1,8 +1,10 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
+from pandas.testing import assert_series_equal
 
-from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.accessor.dataframe import to_series  # noqa: F401
 
 
 @pytest.mark.parametrize(
@@ -172,7 +174,10 @@ from dtoolkit.accessor.dataframe import to_series  # noqa
 def test_work(df, name, index_column, value_column, expected):
     result = df.to_series(name, index_column, value_column)
 
-    assert result.equals(expected)
+    if isinstance(expected, pd.Series):
+        assert_series_equal(result, expected)
+    else:
+        assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(

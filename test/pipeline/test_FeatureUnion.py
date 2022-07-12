@@ -1,19 +1,18 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_label
-from test.transformer.conftest import df_mixed
-
 import pandas as pd
 import pytest
 from scipy import sparse
 from sklearn.preprocessing import MinMaxScaler
 
-from dtoolkit.accessor.dataframe import cols  # noqa
-from dtoolkit.accessor.series import cols  # noqa
+from dtoolkit.accessor.dataframe import cols  # noqa: F401
+from dtoolkit.accessor.series import cols  # noqa: F401, F811
 from dtoolkit.pipeline import FeatureUnion
 from dtoolkit.pipeline import make_pipeline
 from dtoolkit.pipeline import make_union
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import OneHotEncoder
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import df_label
+from test.transformer.conftest import df_mixed
 
 
 # include `make_union`

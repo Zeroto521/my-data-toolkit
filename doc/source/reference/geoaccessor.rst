@@ -11,6 +11,7 @@ GeoSeries Accessor
     count_coordinates
     geobuffer
     get_coordinates
+    reverse_geocode
     utm_crs
 
 
@@ -24,6 +25,7 @@ GeoDataFrame Accessor
     drop_geometry
     geobuffer
     get_coordinates
+    reverse_geocode
     utm_crs
 
 
@@ -36,6 +38,7 @@ Series Accessor (to GeoPandas)
     from_wkb
     from_wkt
     geocode
+    to_geoseries
 
 
 DataFrame Accessor (to GeoPandas)
