@@ -10,5 +10,5 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 @register_geodataframe_method
 @doc(s_utm_crs)
-def utm_crs(df: gpd.GeoDataFrame, datum_name: str = "WGS 84", /) -> pd.Series:
+def utm_crs(df: gpd.GeoDataFrame, /, datum_name: str = "WGS 84") -> pd.Series:
     return df.geometry.utm_crs(datum_name=datum_name)
