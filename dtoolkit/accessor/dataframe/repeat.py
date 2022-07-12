@@ -10,8 +10,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def repeat(
     df: pd.DataFrame,
-    /,
     repeat: int | list[int],
+    /,
     axis: Axis = 0,
 ) -> pd.DataFrame:
     """
