@@ -11,6 +11,7 @@ from dtoolkit.accessor.series import top_n as s_top_n
 @register_dataframe_method
 def top_n(
     df: pd.DataFrame,
+    /,
     n: int,
     largest: bool = True,
     keep: Literal["first", "last", "all"] = "first",

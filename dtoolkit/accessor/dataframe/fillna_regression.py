@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
     columns: dict[Hashable, Hashable | list[Hashable] | pd.Index],
     how: str = "na",

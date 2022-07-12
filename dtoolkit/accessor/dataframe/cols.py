@@ -8,7 +8,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 @register_dataframe_method
-def cols(df: pd.DataFrame, to_list: bool = False) -> list[Hashable]:
+def cols(df: pd.DataFrame, /, to_list: bool = False) -> list[Hashable]:
     """
     An API to gather :attr:`~pandas.Series.name` and
     :attr:`~pandas.DataFrame.columns` to one.

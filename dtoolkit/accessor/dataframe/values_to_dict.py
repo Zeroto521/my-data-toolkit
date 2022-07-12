@@ -11,6 +11,7 @@ from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa:
 @register_dataframe_method
 def values_to_dict(
     df: pd.DataFrame,
+    /,
     order: list[Hashable] | pd.Index = None,
     ascending: bool = True,
     unique: bool = True,
