@@ -33,8 +33,6 @@ dependencies:
   # jupyter
   - nbsphinx
   - ipykernel
-
   - pip
   - pip:
-      # doc
       - sphinx-toggleprompt
