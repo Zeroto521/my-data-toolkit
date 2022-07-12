@@ -6,7 +6,7 @@ from dtoolkit.accessor.dataframe import repeat  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "repeats, axis, expected",
+    "repeat, axis, expected",
     [
         (1, 0, pd.DataFrame({"a": [1, 2], "b": [3, 4]})),
         (1, 1, pd.DataFrame({"a": [1, 2], "b": [3, 4]})),
@@ -45,9 +45,9 @@ from dtoolkit.accessor.dataframe import repeat  # noqa: F401
         ),
     ],
 )
-def test_work(repeats, axis, expected):
+def test_work(repeat, axis, expected):
     df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
-    result = df.repeat(repeats, axis=axis)
+    result = df.repeat(repeat, axis=axis)
 
     assert_frame_equal(result, expected)
 
