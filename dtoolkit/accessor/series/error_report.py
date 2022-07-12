@@ -12,8 +12,8 @@ from dtoolkit.accessor.register import register_series_method
 @register_series_method
 def error_report(
     s: pd.Series,
-    /,
     predicted: OneDimArray | list[Number],
+    /,
     columns: list[Hashable] = None,
 ) -> pd.DataFrame:
     """

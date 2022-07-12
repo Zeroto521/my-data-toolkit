@@ -14,8 +14,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
-    /,
     condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
+    /,
     how: Literal["any", "all"] = "all",
     complement: bool = False,
 ) -> pd.DataFrame:
