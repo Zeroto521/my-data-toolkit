@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Hashable
+from typing import Literal
 from typing import TYPE_CHECKING
 
 import pandas as pd
@@ -17,7 +18,7 @@ def fillna_regression(
     /,
     method: RegressorMixin,
     columns: dict[Hashable, Hashable | list[Hashable] | pd.Index],
-    how: str = "na",
+    how: Literal["na", "all"] = "na",
     **kwargs,
 ) -> pd.DataFrame:
     """
