@@ -152,7 +152,7 @@ df = pd.DataFrame(
     ],
 )
 def test_work(condition, kwargs, expected):
-    result = df.filter_in(condition=condition, **kwargs)
+    result = df.filter_in(condition, **kwargs)
 
     assert_frame_equal(result, expected)
 
