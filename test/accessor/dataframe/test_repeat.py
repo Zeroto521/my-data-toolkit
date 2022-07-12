@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import repeat  # noqa: F401
+from dtoolkit.accessor.dataframe import repeat  # noqa: F401, F811
 
 
 @pytest.mark.parametrize(
