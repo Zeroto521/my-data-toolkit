@@ -11,6 +11,7 @@ from dtoolkit.accessor.register import register_series_method
 def top_n(
     s: pd.Series,
     n: int,
+    /,
     largest: bool = True,
     keep: Literal["first", "last", "all"] = "first",
 ) -> pd.Series:
