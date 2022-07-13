@@ -23,9 +23,7 @@ class Tencent(Geocoder):
     """
     Geocoder using the Tencent Maps API.
 
-    See Also
-    --------
-    Documentation of the Tencent Maps API
+    Documentation at:
         https://lbs.qq.com/service/webService/webServiceGuide/webServiceOverview
     """
 
