@@ -1,21 +1,18 @@
-from dtoolkit.transformer.base import DataFrameTF  # noqa
-from dtoolkit.transformer.base import MethodTF  # noqa
-from dtoolkit.transformer.base import NumpyTF  # noqa
-from dtoolkit.transformer.base import Transformer  # noqa
-from dtoolkit.transformer.factory import methodtf_factory  # noqa
-from dtoolkit.transformer.numpy import RavelTF  # noqa
-from dtoolkit.transformer.pandas import AppendTF  # noqa
-from dtoolkit.transformer.pandas import AssignTF  # noqa
-from dtoolkit.transformer.pandas import DropTF  # noqa
-from dtoolkit.transformer.pandas import EvalTF  # noqa
-from dtoolkit.transformer.pandas import FillnaTF  # noqa
-from dtoolkit.transformer.pandas import FilterInTF  # noqa
-from dtoolkit.transformer.pandas import FilterTF  # noqa
-from dtoolkit.transformer.pandas import GetTF  # noqa
-from dtoolkit.transformer.pandas import QueryTF  # noqa
-from dtoolkit.transformer.pandas import ReplaceTF  # noqa
-from dtoolkit.transformer.pandas import SelectDtypesTF  # noqa
-from dtoolkit.transformer.sklearn import FeatureUnion  # noqa
-from dtoolkit.transformer.sklearn import make_union  # noqa
-from dtoolkit.transformer.sklearn import MinMaxScaler  # noqa
-from dtoolkit.transformer.sklearn import OneHotEncoder  # noqa
+from dtoolkit.transformer.base import DataFrameTF  # noqa: F401
+from dtoolkit.transformer.base import MethodTF  # noqa: F401
+from dtoolkit.transformer.base import NumpyTF  # noqa: F401
+from dtoolkit.transformer.base import Transformer  # noqa: F401
+from dtoolkit.transformer.factory import methodtf_factory  # noqa: F401
+from dtoolkit.transformer.numpy import RavelTF  # noqa: F401
+from dtoolkit.transformer.pandas import AppendTF  # noqa: F401
+from dtoolkit.transformer.pandas import AssignTF  # noqa: F401
+from dtoolkit.transformer.pandas import DropTF  # noqa: F401
+from dtoolkit.transformer.pandas import EvalTF  # noqa: F401
+from dtoolkit.transformer.pandas import FillnaTF  # noqa: F401
+from dtoolkit.transformer.pandas import FilterInTF  # noqa: F401
+from dtoolkit.transformer.pandas import FilterTF  # noqa: F401
+from dtoolkit.transformer.pandas import GetTF  # noqa: F401
+from dtoolkit.transformer.pandas import QueryTF  # noqa: F401
+from dtoolkit.transformer.pandas import ReplaceTF  # noqa: F401
+from dtoolkit.transformer.pandas import SelectDtypesTF  # noqa: F401
+from dtoolkit.transformer.sklearn import OneHotEncoder  # noqa: F401

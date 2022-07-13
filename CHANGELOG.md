@@ -1,5 +1,183 @@
 # Changelog
 
+## [Version 0.0.16] (2022-5-30)
+
+New features and improvements:
+
+- New accessor {meth}`~dtoolkit.accessor.dataframe.fillna_regression` ({pr}`556`, {pr}`567`).
+- New `unique` option for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`548`).
+- Speed up {meth}`~dtoolkit.util._exception.find_stack_level` ({pr}`546`).
+- {meth}`~dtoolkit.accessor.dataframe.filter_in`'s `how` only works on `condition` `DataFrame`'s columns ({pr}`545`).
+- {meth}`~dtoolkit.accessor.series.to_set` speeds up especial to large data ({pr}`542`, {pr}`543`).
+- {meth}`~dtoolkit.accessor.dataframe.drop_inf`'s `inf` option supports `+` and `-` ({pr}`539`).
+- New accessor {meth}`~dtoolkit.accessor.dataframe.boolean` for `DataFrame` ({pr}`537`, {pr}`538`).
+- New `complement` option for {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`533`).
+- New `Index` method {meth}`~dtoolkit.accessor.index.to_set` ({pr}`529`).
+- New method {meth}`~dtoolkit.accessor.dataframe.decompose` for `DataFrame` ({pr}`488`, {pr}`573`).
+
+API changes:
+
+- Add deprecated warning for {mod}`dtoolkit.transformer.pipeline` ({pr}`558`).
+- Split {mod}`dtoolkit.transformer` scripts into sub-pakcages ({pr}`557`).
+- Drop `inplace` for {meth}`~dtoolkit.accessor.dataframe.drop_inf` ({pr}`540`).
+- Drop `generic` package ({pr}`535`).
+- Drop `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`518`, {pr}`531`, {pr}`559`).
+
+Documentation:
+
+- Adjust the sequence of methods ({pr}`565`).
+- Index `._decorator` and `_exception` method ({pr}`532`).
+
+Maintenance development:
+
+- Don't skip dist when `ci/**` path files changing ({pr}`570`).
+- Remove `TYPE_CHECKING` blocks ({pr}`566`).
+- Remove `__future__` useless line importing ({pr}`564`).
+- Simplify {meth}`~dtoolkit.accessor.register_method_factory` ({pr}`552`).
+- Correct name `excepted` -> `expected` ({pr}`547`).
+- Complete the accessor subpackage test suitcase ({pr}`544`).
+- Move `collapse` from `_util` into `expand` ({pr}`541`).
+- Lint importing ({pr}`536`).
+- Test {meth}`~dtoolkit.util._decorator.deprecated_kwargs` ({pr}`534`).
+
+## [Version 0.0.15] (2022-5-13)
+
+New features and improvements:
+
+- New decorator {meth}`deprecated_kwargs` ({pr}`525`).
+- Add `to_list` option for {meth}`~dtoolkit.accessor.series.cols` ({pr}`523`).
+- Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`~pandas.Index` ({pr}`507`).
+
+API changes:
+
+- Add version information for warning ({pr}`528`).
+- Add `DeprecationWarning` for dropping `axis` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`522`).
+- Add `DeprecationWarning` for dropping `generic` package ({pr}`521`).
+- Add `DeprecationWarning` for dropping `inplace` option of {meth}`~dtoolkit.accessor.dataframe.filter_in` ({pr}`519`).
+- Drop {meth}`unique_counts` method ({pr}`512`).
+
+Maintenance development:
+
+- Add single quote via `!r` for f-string ({pr}`520`).
+- Add changelog link at PyPI page ({pr}`517`).
+- Use `build` new distuils and add `pyproject.toml` configuration ({pr}`516`).
+- pre-commit hooks autoupdate ({pr}`515`, {pr}`524`).
+- Remove warning message ({pr}`513`, {pr}`514`, {pr}`526`).
+
+## [Version 0.0.14] (2022-5-1)
+
+New features and improvements:
+
+- Replace `.shape` with `.__len__`, 1.6x speed up than older method ({pr}`506`).
+- New method {meth}`~dtoolkit.accessor.series.to_set` ({pr}`503`).
+- New option `to_list` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`500`).
+- New decorator `deprecated_alias` ({pr}`498`).
+- New option `order` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`495`).
+- Return the error place is first happening via `stacklevel` option({pr}`490`).
+- New method {meth}`~dtoolkit.geoaccessor.dataframe.from_wkt` ({pr}`486`).
+- New method {meth}`~dtoolkit.accessor.dataframe.drop_or_not` ({pr}`485`).
+- New decorator `warning` ({pr}`484`).
+
+API changes:
+
+- Drop {meth}`~dtoolkit.accessor.dataframe.unique_counts`, use {meth}`pandas.DataFrame.nunique` instead ({pr}`502`)
+- Rename {meth}`~dtoolkit.accessor.dataframe.values_to_dict`'s argument from `few_as_key` to `asscending` ({pr}`499`).
+- Rename accessor name, `get_attr` -> `getattr`, `lens` -> `len` ({pr}`487`).
+- Simplify {meth}`~dtoolkit.accessor.dataframe.bin`'s parameters via `*args` and `**kwargs` ({pr}`481`).
+
+Documentation:
+
+- Add {meth}`~dtoolkit.accessor.dataframe.top_n`'s new example about returning values ({pr}`489`).
+- Adjust API reference sequences ({pr}`478`).
+
+Maintenance development:
+
+- Autoupdate actions ({pr}`494`, {pr}`496`, {pr}`497`, {pr}`504`, {pr}`510`).
+- Autoupdate pre-commit hooks ({pr}`493`, {pr}`501`, {pr}`508`).
+- Use `pd.concat` replace `pd.DataFrame.append` ({pr}`491`).
+- Update black version ({pr}`483`).
+- Split package to scripts, `dataframe.py` -> `dataframe/`, `series.py` -> `series/`, `geodataframe.py` -> `geodataframe/`, `geoseries.py` -> `geoseries/`, `generic.py` -> `generic/` ({pr}`475`, {pr}`480`, {pr}`482`).
+
+## [Version 0.0.13] (2022-4-2)
+
+New features and improvements:
+
+- Use `.loc[:, wrong_keys]` instead of `.get(wrong_keys)` ({pr}`473`).
+- New method {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`470`).
+- New method {meth}`~dtoolkit.accessor.dataframe.unique_counts` ({pr}`469`).
+- {meth}`~dtoolkit.accessor.dataframe.to_series` could convert two or more columns DataFrame ({pr}`468`).
+
+API changes:
+
+- Array in array out ({pr}`460`).
+- `OneHotEncoder`'s `fit_transform` use inputting's index ({pr}`458`).
+- Let `Pipeline`'s `fit_transform` supports `Series` ({pr}`457`).
+- Drop `dtoolkit.transformer.MinMaxScaler`({pr}`451`).
+
+Small bug-fix:
+
+- Fix jupyter notebook can't render ({pr}`438`).
+
+Documentation:
+
+- Rename sphinx project name from 'dtoolkit' to 'my data toolkit' ({pr}`454`).
+- Add 'feature' section at documentation homepage ({pr}`452`).
+
+Maintenance development:
+
+- Update versioneer ({pr}`471`).
+- Autoupdate pre-commit hooks ({pr}`464`).
+- Autoupdate actions ({pr}`462`, {pr}`463`, {pr}`472`).
+- Yaml file uses list item replace `[]` ({pr}`461`).
+- Group test suits ({pr}`459`).
+- Handle `GeoSeries` FutureWarning ({pr}`456`).
+- Move all data to conftest.py ({pr}`453`).
+
+Typing annotations:
+
+- Specific `None` type using ({pr}`467`).
+- Specific `None` type ({pr}`466`).
+- Add `Number` and `IntOrStr` annotation constants ({pr}`465`).
+
+## [Version 0.0.12] (2022-2-11)
+
+Specific pandas minimal version to each python version ({pr}`440`).
+
+Highlights of this release:
+
+- One column data pipeline supports return `Series` ({pr}`431`).
+
+API changes:
+
+- Add `DeprecationWarning` for {class}`dtoolkit.transformer.MinMaxScaler` ({pr}`449`).
+
+Documentation:
+
+- New documentation, [Register a Method as the Original Attribute of Pandas Object](https://my-data-toolkit.readthedocs.io/en/v0.0.12/guide/tips_about_accessor.html) ({pr}`445`).
+- Correct jupyter link ({pr}`444`).
+
+Maintenance development:
+
+- Add `extras_require` ({pr}`446`).
+- Update pre-commit hooks ({pr}`442`, {pr}`448`).
+- Set `setup.cfg` version attribute ({pr}`441`).
+- Compat sklearn 1.0 ({pr}`250`).
+
+## [Version 0.0.11] (2022-1-25)
+
+Small bug-fix:
+
+- Fix jupyter notebook can't render ({pr}`438`).
+
+New features and improvements:
+
+- Simplify `OneHotEncoder` examples and inputs ({pr}`434`).
+- `FeatureUnion` would merge all into one DataFrame and the index would use the common part ({pr}`433`).
+
+Maintenance development:
+
+- Simplify linting workflow ({pr}`437`).
+
 ## [Version 0.0.10] (2022-1-21)
 
 Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
@@ -10,8 +188,9 @@ New features and improvements:
 
 Documentation:
 
+- Fix Readthedocs running excessive memory consumption ({pr}`436`).
 - Update installation documentation ({pr}`419`).
-- New documentation, [Tips About Accessing Element Attributes of `Series`](https://my-data-toolkit.readthedocs.io/en/v0.0.10/guide/tips_about_getattr.html) ({pr}`408`).
+- New documentation, [Tips About Accessing Element Attributes of `Series`](https://my-data-toolkit.readthedocs.io/en/v0.0.11/guide/tips_about_getattr.html) ({pr}`408`).
 - Use jupyter replace markdown ({pr}`405`, {pr}`409`, {pr}`410`, {pr}`414`).
 - Remove warning for `Series.lens` ({pr}`399`).
 
@@ -19,7 +198,7 @@ Maintenance development:
 
 - Cancel any previous runs that are not completed ({pr}`426`).
 - Add skip check job ({pr}`425`).
-- Use mamba to speed up building env ({pr}`422`, {pr}`427`).
+- Use mamba to speed up building env ({pr}`422`, {pr}`427`, {pr}`436`).
 - Test `register_*_method` positional arguments ({pr}`420`).
 - Simplify CI jobs ({pr}`416`, {pr}`423`, {pr}`424`)
 - Add some new pre-commit hooks ({pr}`407`).
@@ -290,6 +469,12 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.16]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.16
+[Version 0.0.15]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.14...v0.0.15
+[Version 0.0.14]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.13...v0.0.14
+[Version 0.0.13]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.12...v0.0.13
+[Version 0.0.12]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.11...v0.0.12
+[Version 0.0.11]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.10...v0.0.11
 [Version 0.0.10]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.9...v0.0.10
 [Version 0.0.9]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.8...v0.0.9
 [Version 0.0.8]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.7...v0.0.8

@@ -48,11 +48,13 @@ doctest:
 	pytest -v -r a -n auto --color=yes --cov=dtoolkit --cov-append --cov-report xml --doctest-only dtoolkit
 
 dist:
-	python setup.py sdist bdist_wheel
+	python -m build
+	twine check --strict dist/*
 	ls -l dist
 
 info:
 	python -V
+	python -c "from dtoolkit import __version__; print(__version__);"
 	python -c "import pprint; from dtoolkit._version import get_versions; pprint.pprint(get_versions());"
 	conda info
 	conda list

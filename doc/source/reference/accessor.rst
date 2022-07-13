@@ -3,20 +3,30 @@ Accessor
 ========
 
 
+Index Accessor
+---------------
+.. currentmodule:: dtoolkit.accessor.index
+.. autosummary::
+    :toctree: api/
+
+    to_set
+
 Series Accessor
 ---------------
 .. currentmodule:: dtoolkit.accessor.series
 .. autosummary::
     :toctree: api/
 
-    cols
-    lens
     bin
-    expand
+    cols
     drop_inf
-    top_n
     error_report
-    get_attr
+    expand
+    getattr
+    len
+    to_set
+    top_n
+    values_to_dict
 
 
 DataFrame Accessor
@@ -25,13 +35,18 @@ DataFrame Accessor
 .. autosummary::
     :toctree: api/
 
+    boolean
     cols
-    expand
+    decompose
     drop_inf
+    drop_or_not
+    expand
+    fillna_regression
     filter_in
     repeat
-    top_n
     to_series
+    top_n
+    values_to_dict
 
 
 Pandas Method Register
@@ -41,5 +56,6 @@ Pandas Method Register
     :toctree: api/
 
     register_method_factory
-    register_series_method
     register_dataframe_method
+    register_series_method
+    register_index_method

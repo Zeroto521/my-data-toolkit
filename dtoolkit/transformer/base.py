@@ -1,21 +1,18 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import TYPE_CHECKING
+from typing import Any
+from typing import Callable
 
 import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.base import TransformerMixin
 
+from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 from dtoolkit.transformer._validation import require_series_or_frame
-
-if TYPE_CHECKING:
-    from typing import Any
-    from typing import Callable
-
-    from dtoolkit._typing import SeriesOrFrame
 
 
 class Transformer(TransformerMixin):
@@ -41,7 +38,7 @@ class MethodTF(Transformer):
     """
 
     transform_method: Callable
-    inverse_transform_method: Callable | None = None
+    inverse_transform_method: Callable = None
 
     def __init__(self, *args, **kwargs):
         """Transform method argument entry."""
@@ -89,7 +86,10 @@ class MethodTF(Transformer):
             A new X was transformed.
         """
 
-        return self.transform_method(X, *self.args, **self.kwargs)
+        X = transform_series_to_frame(X)
+
+        Xt = self.transform_method(X, *self.args, **self.kwargs)
+        return transform_frame_to_series(Xt)
 
     def inverse_transform(self, X: np.ndarray) -> np.ndarray:
         """
@@ -112,11 +112,12 @@ class MethodTF(Transformer):
         """
 
         if self.inverse_transform_method:
-            return self.inverse_transform_method(
-                X,
+            Xt = self.inverse_transform_method(
+                transform_series_to_frame(X),
                 *self.inverse_args,
                 **self.inverse_kwargs,
             )
+            return transform_frame_to_series(Xt)
 
         return super().inverse_transform(X)
 
@@ -167,11 +168,10 @@ class DataFrameTF(MethodTF):
         """
 
         require_series_or_frame(X)
-        X = transform_series_to_frame(X)
 
         return super().transform(X)
 
-    def inverse_transform(self, X: SeriesOrFrame) -> pd.DataFrame:
+    def inverse_transform(self, X: SeriesOrFrame) -> SeriesOrFrame:
         """
         Undo transform to ``X``.
 
@@ -192,6 +192,5 @@ class DataFrameTF(MethodTF):
         """
 
         require_series_or_frame(X)
-        X = transform_series_to_frame(X)
 
         return super().inverse_transform(X)

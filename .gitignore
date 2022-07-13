@@ -65,6 +65,7 @@ instance/
 
 # Sphinx documentation
 doc/build/
+doc/source/_build/
 doc/source/reference/api/
 .buildinfo
 

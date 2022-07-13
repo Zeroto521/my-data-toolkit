@@ -19,12 +19,15 @@ from datetime import datetime
 
 import dtoolkit
 
-version = release = dtoolkit.__version__
-version = version.replace(".dev0", "")
-version = version.replace(".post0", "")
+# fmt: off
+version = release = (
+    dtoolkit.__version__
+    .replace(".dev0", "")
+    .replace(".post0", "")
+)
+# fmt: on
 
-
-project = "DToolKit"
+project = "My Data Toolkit"
 author = "Zero <@Zeroto521>"
 copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
@@ -115,11 +118,11 @@ nbsphinx_prolog = r"""
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": ("http://docs.python.org/", None),
+    "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "sklearn": ("https://scikit-learn.org/stable/", None),
-    "geopandas": ("https://geopandas.readthedocs.io/en/stable/", None),
+    "geopandas": ("https://geopandas.org/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
@@ -127,9 +130,9 @@ intersphinx_mapping = {
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#"),
-    "pr": (f"{github_url}/issues/%s", "pr#"),
-    "user": ("https://github.com/%s", "@"),
+    "issue": (f"{github_url}/issues/%s", "issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "pr#%s"),
+    "user": (r"https://github.com/%s", "@%s"),
 }
 
 myst_enable_extensions = [
@@ -142,7 +145,7 @@ nbsphinx_execute = "always"
 nbsphinx_allow_errors = True
 
 
-# based on pandas doc/source/conf.py
+# based on pandas/doc/source/conf.py
 def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
     """
     Determine the URL corresponding to Python object
@@ -174,7 +177,7 @@ def linkcode_resolve(domain: str, info: dict[str, str]) -> str | None:
         return None
 
     # to fix these doc doesn't exist in dtoolkit
-    if project.lower() not in fn:
+    if "dtoolkit" not in fn:
         return None
 
     try:
