@@ -64,9 +64,10 @@ pip install my-data-toolkit
 
 ### From YAML
 
-Save the following [environment.yaml](../../../environment.yaml) YAML to local.
+Save the following [environment.yaml](../../../environment.yaml) YAML file to local.
 
-```{include} ../../../environment.yaml
+```{literalinclude} ../../../environment.yaml
+:language: yaml
 ```
 
 Create the environment from YAML.
