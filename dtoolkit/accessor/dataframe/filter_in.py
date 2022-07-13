@@ -60,6 +60,9 @@ def filter_in(
         Subset the dataframe rows or columns according to the specified index
         labels.
 
+    dtoolkit.accessor.series.filter_in
+        Filter Series contents.
+
     Examples
     --------
     >>> import dtoolkit.accessor
