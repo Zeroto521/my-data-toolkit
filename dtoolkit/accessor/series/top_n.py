@@ -7,6 +7,7 @@ import pandas as pd
 from dtoolkit.accessor.register import register_series_method
 
 
+@register_series_method("topn")
 @register_series_method
 def top_n(
     s: pd.Series,
