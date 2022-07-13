@@ -267,7 +267,7 @@ class Tencent(Geocoder):
         elif status == 199:
             raise GeocoderAuthenticationFailure("The webservice isn't enabled.")
         elif status in {301, 311}:
-            raise GeocoderQueryError("KEY Illegal or Not Exist.")
+            raise GeocoderQueryError("KEY illegal or not exist.")
         elif status in {300, 306, 301, 320, 330, 331, 348, 351, 394, 395, 399}:
             raise GeocoderQueryError("Invalid parameters.")
         elif status in {347, 393}:
