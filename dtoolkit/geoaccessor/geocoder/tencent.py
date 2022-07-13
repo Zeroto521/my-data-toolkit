@@ -273,7 +273,7 @@ class Tencent(Geocoder):
         elif status in {347, 393}:
             raise GeocoderQueryError("No results.")
         elif status in {400, 402}:
-            raise GeocoderQueryError("Can't decode the request url.")
+            raise GeocoderQueryError("Can't decode the request URL.")
         elif status == 404:
             raise GeocoderQueryError("Invalid request path.")
         elif status == 407:
