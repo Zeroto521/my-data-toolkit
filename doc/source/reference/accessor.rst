@@ -22,6 +22,7 @@ Series Accessor
     drop_inf
     error_report
     expand
+    filter_in
     getattr
     len
     to_set
