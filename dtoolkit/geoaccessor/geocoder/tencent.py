@@ -37,7 +37,7 @@ class Tencent(Geocoder):
         timeout: int = DEFAULT_SENTINEL,
         proxies: dict = DEFAULT_SENTINEL,
         user_agent: str = None,
-        ssl_context: "ssl.SSLContext" = DEFAULT_SENTINEL,
+        ssl_context: ssl.SSLContext = DEFAULT_SENTINEL,
         adapter_factory: Callable = None,
     ):
         """
