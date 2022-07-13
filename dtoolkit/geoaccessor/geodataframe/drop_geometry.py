@@ -5,7 +5,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-def drop_geometry(df: gpd.GeoDataFrame) -> pd.DataFrame:
+def drop_geometry(df: gpd.GeoDataFrame, /) -> pd.DataFrame:
     """
     Drop the activate geometry column from the :class:`~geopandas.GeoDataFrame`
     to return a normal :class:`~pandas.DataFrame`.

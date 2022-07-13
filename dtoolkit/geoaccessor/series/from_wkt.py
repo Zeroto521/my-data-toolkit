@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 @register_series_method
 def from_wkt(
     s: pd.Series,
+    /,
     crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:

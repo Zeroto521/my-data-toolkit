@@ -29,8 +29,8 @@ def counts_1(s: gpd.GeoSeries):
     )
 
 
-@register_geodataframe_method(name="counts_it")
-@register_geoseries_method(name="counts_it")
+@register_geodataframe_method("counts_it")
+@register_geoseries_method("counts_it")
 def counts_2(s: gpd.GeoSeries):
     # Counts the number of coordinate pairs in geometry
 

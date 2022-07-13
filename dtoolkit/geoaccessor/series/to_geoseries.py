@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 @register_series_method
 def to_geoseries(
     s: pd.Series,
+    /,
     crs: CRS | str | int = None,
     **kwargs,
 ) -> gpd.GeoSeries | pd.Series:

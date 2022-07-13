@@ -9,7 +9,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def drop_inf(s: pd.Series, inf: Literal["all", "pos", "neg"] = "all") -> pd.Series:
+def drop_inf(s: pd.Series, /, inf: Literal["all", "pos", "neg"] = "all") -> pd.Series:
     """
     Remove ``inf`` values.
 

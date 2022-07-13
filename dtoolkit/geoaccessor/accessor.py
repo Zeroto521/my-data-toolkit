@@ -95,7 +95,7 @@ def register_geoseries_accessor(name: str):
 
         In [5]: d = s.to_frame("geometry")
         Out[5]:
-                        geometry
+                          geometry
         0  POINT (0.00000 0.00000)
         1  POINT (1.00000 1.00000)
         2                     None

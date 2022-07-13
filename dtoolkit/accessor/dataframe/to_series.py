@@ -11,6 +11,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def to_series(
     df: pd.DataFrame,
+    /,
     name: Hashable = None,
     index_column: Hashable = None,
     value_column: Hashable = None,

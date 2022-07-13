@@ -30,7 +30,7 @@ GeoDataFrame Accessor
 
 
 Series Accessor (to GeoPandas)
----------------
+------------------------------
 .. currentmodule:: dtoolkit.geoaccessor.series
 .. autosummary::
     :toctree: api/

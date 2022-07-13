@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def decompose(
     df: pd.DataFrame,
+    /,
     method: TransformerMixin,
     columns: None
     | dict[Hashable | tuple[Hashable], Hashable | list[Hashable] | tuple[Hashable]]

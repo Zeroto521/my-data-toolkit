@@ -5,7 +5,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def geocode(s: pd.Series, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
+def geocode(s: pd.Series, /, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     """
     Geocode string type Series and get a GeoDataFrame of the resulting points.
 
