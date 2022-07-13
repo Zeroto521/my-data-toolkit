@@ -3,6 +3,7 @@ from dtoolkit.accessor.series.cols import cols  # noqa: F401
 from dtoolkit.accessor.series.drop_inf import drop_inf  # noqa: F401
 from dtoolkit.accessor.series.error_report import error_report  # noqa: F401
 from dtoolkit.accessor.series.expand import expand  # noqa: F401
+from dtoolkit.accessor.series.filter_in import filter_in  # noqa: F401
 from dtoolkit.accessor.series.getattr import getattr  # noqa: F401
 from dtoolkit.accessor.series.len import len  # noqa: F401
 from dtoolkit.accessor.series.to_set import to_set  # noqa: F401
