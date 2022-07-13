@@ -90,12 +90,12 @@ def invert_or_not(s: pd.Series, /, invert: bool = False) -> pd.Series:
     1    False
     2     True
     dtype: bool
-    >>> s.invert_or_not()
+    >>> s.pipe(invert_or_not)
     0     True
     1    False
     2     True
     dtype: bool
-    >>> s.invert_or_not(True)
+    >>> s.pipe(invert_or_not, invert=True)
     0    False
     1     True
     2    False
