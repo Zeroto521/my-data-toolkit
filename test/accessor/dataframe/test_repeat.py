@@ -45,7 +45,7 @@ from dtoolkit.accessor.dataframe import repeat  # noqa: F401, F811
         ),
     ],
 )
-def test_work(repeat, axis, expected):
+def test_work(repeat, axis, expected):  # noqa: F811
     df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     result = df.repeat(repeat, axis=axis)
 
