@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def to_geoframe(
     df: pd.DataFrame,
+    /,
     crs: CRS | str | int = None,
     geometry: Hashable | gpd.GeoSeries = None,
     **kwargs,
