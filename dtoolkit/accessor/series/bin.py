@@ -4,7 +4,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
+def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.
 

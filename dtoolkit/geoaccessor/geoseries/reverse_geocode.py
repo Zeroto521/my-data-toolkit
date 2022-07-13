@@ -4,7 +4,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-def reverse_geocode(s: gpd.GeoSeries, **kwargs) -> gpd.GeoDataFrame:
+def reverse_geocode(s: gpd.GeoSeries, /, **kwargs) -> gpd.GeoDataFrame:
     """
     Reverse geocode :obj:`~shapely.geometry.Point` type :class:`~geopandas.GeoSeries`
     and get the corresponding addresses.

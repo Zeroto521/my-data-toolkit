@@ -8,7 +8,7 @@ from dtoolkit.accessor.register import register_index_method
 
 
 @register_index_method
-def to_set(index: pd.Index, level: int | Hashable = None) -> set:
+def to_set(index: pd.Index, /, level: int | Hashable = None) -> set:
     """
     Return a :keyword:`set` of the values.
 

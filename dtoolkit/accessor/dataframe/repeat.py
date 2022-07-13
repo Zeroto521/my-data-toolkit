@@ -10,7 +10,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def repeat(
     df: pd.DataFrame,
-    repeats: int | list[int],
+    repeat: int | list[int],
+    /,
     axis: Axis = 0,
 ) -> pd.DataFrame:
     """
@@ -23,7 +24,7 @@ def repeat(
 
     Parameters
     ----------
-    repeats : int or array of ints
+    repeat : int or array of ints
         The number of repetitions for each element. This should be a
         non-negative integer. Repeating 0 times will return an empty
         :obj:`~pandas.DataFrame`.
@@ -81,9 +82,9 @@ def repeat(
     return pd.DataFrame(
         np.repeat(
             df._values,
-            repeats,
+            repeat,
             axis=axis,
         ),
-        index=df.index.repeat(repeats) if axis == 0 else df.index,
-        columns=df.columns.repeat(repeats) if axis == 1 else df.columns,
+        index=df.index.repeat(repeat) if axis == 0 else df.index,
+        columns=df.columns.repeat(repeat) if axis == 1 else df.columns,
     )

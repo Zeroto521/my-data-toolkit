@@ -25,6 +25,7 @@ if TYPE_CHECKING:
 )
 def from_xy(
     df: pd.DataFrame,
+    /,
     x: Hashable,
     y: Hashable,
     z: Hashable = None,
