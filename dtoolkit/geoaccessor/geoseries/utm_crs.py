@@ -7,7 +7,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-def utm_crs(s: gpd.GeoSeries, datum_name: str = "WGS 84") -> pd.Series:
+def utm_crs(s: gpd.GeoSeries, /, datum_name: str = "WGS 84") -> pd.Series:
     """
     Returns the estimated UTM CRS based on the bounds of each geometry.
 

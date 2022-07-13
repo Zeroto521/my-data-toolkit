@@ -11,6 +11,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 def geocode(
     df: pd.DataFrame,
     column: Hashable,
+    /,
     drop: bool = False,
     **kwargs,
 ) -> gpd.GeoDataFrame:

@@ -14,6 +14,7 @@ from dtoolkit.accessor.series.drop_inf import get_inf_range
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
+    /,
     axis: Axis = 0,
     how: Literal["any", "all"] = "any",
     inf: Literal["all", "pos", "neg"] = "all",

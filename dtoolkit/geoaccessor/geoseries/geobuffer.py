@@ -50,6 +50,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 def geobuffer(
     s: gpd.GeoSeries,
     distance: Number | list[Number] | OneDimArray,
+    /,
     **kwargs,
 ) -> gpd.GeoSeries:
     """

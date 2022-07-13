@@ -4,7 +4,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 
 
 @register_dataframe_method
-def drop_or_not(df: pd.DataFrame, drop: bool = True, **kwargs) -> pd.DataFrame:
+def drop_or_not(df: pd.DataFrame, /, drop: bool = True, **kwargs) -> pd.DataFrame:
     """
     Drop specified labels from rows or columns.
 

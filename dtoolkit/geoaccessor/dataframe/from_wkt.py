@@ -25,6 +25,7 @@ if TYPE_CHECKING:
 def from_wkt(
     df: pd.DataFrame,
     column: Hashable,
+    /,
     crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoDataFrame:
