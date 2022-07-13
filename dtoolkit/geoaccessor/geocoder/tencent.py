@@ -35,6 +35,7 @@ class Tencent(Geocoder):
         self,
         api_key,
         *,
+        SmartGeocoder: bool = False,
         scheme: str = None,
         timeout: int = DEFAULT_SENTINEL,
         proxies: dict = DEFAULT_SENTINEL,
@@ -46,6 +47,9 @@ class Tencent(Geocoder):
         :param str api_key: The API key required by Tencent Map to perform
             geocoding requests. API keys are managed through the Tencent APIs
             console (https://lbs.qq.com/dev/console/application/mine).
+
+        :param bool SmartGeocoder: If True, use the SmartGeocoder API.
+            https://lbs.qq.com/service/webService/webServiceGuide/SmartGeocoder
 
         :param str scheme:
             See :attr:`geopy.geocoders.options.default_scheme`.
@@ -79,6 +83,7 @@ class Tencent(Geocoder):
         self.api_key = api_key
         self.api = f"{self.scheme}://{self.domin}{self.api_path}"
         self.reverse_api = f"{self.scheme}://{self.domin}{self.reverse_path}"
+        self.SmartGeocoder = SmartGeocoder
 
     def geocode(
         self,
@@ -106,7 +111,7 @@ class Tencent(Geocoder):
         """
 
         params = {
-            "address": query,
+            ("smart_address" if self.SmartGeocoder else "address"): query,
             **({"region": region} if region else {}),
             "key": self.api_key,
         }
