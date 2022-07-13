@@ -10,6 +10,8 @@ from geopy.exc import GeocoderAuthenticationFailure
 from geopy.exc import GeocoderQueryError
 from geopy.exc import GeocoderQuotaExceeded
 from geopy.exc import GeocoderServiceError
+from geopy.exc import GeocoderTimedOut
+from geopy.exc import GeocoderRateLimited
 from geopy.geocoders.base import DEFAULT_SENTINEL
 from geopy.geocoders.base import Geocoder
 from geopy.location import Location
@@ -237,32 +239,48 @@ class Tencent(Geocoder):
     def _check_status(self, status: str | int):
         """
         Validates error statuses.
+
+        Documentation at:
+            https://lbs.qq.com/service/webService/webServiceGuide/status
         """
 
         if status == 0:
-            # When there are no results, just return.
             return
-        if status == 1:
-            raise GeocoderServiceError("Internal server error.")
-        elif status == 2:
-            raise GeocoderQueryError("Invalid request.")
-        elif status == 3:
+        elif status == 110:
             raise GeocoderAuthenticationFailure("Authentication failure.")
-        elif status == 4:
-            raise GeocoderQuotaExceeded("Quota validate failure.")
-        elif status == 5:
-            raise GeocoderQueryError("AK Illegal or Not Exist.")
-        elif status == 101:
-            raise GeocoderAuthenticationFailure("No AK")
-        elif status == 102:
-            raise GeocoderAuthenticationFailure("MCODE Error")
-        elif status == 200:
-            raise GeocoderAuthenticationFailure("Invalid AK")
-        elif status == 211:
-            raise GeocoderAuthenticationFailure("Invalid SN")
-        elif 200 <= status < 300:
-            raise GeocoderAuthenticationFailure("Authentication Failure")
-        elif 300 <= status < 500:
-            raise GeocoderQuotaExceeded("Quota Error.")
+        elif status == 111:
+            raise GeocoderAuthenticationFailure("Signature verification failed.")
+        elif status == 112:
+            raise GeocoderAuthenticationFailure("Invalid IP.")
+        elif status == 113:
+            raise GeocoderAuthenticationFailure("This feature is not authorized.")
+        elif status == 120:
+            raise GeocoderQuotaExceeded(
+                "The number of requests per second has reached the upper limit."
+            )
+        elif status == 121:
+            raise GeocoderQuotaExceeded(
+                "The number of requests daily has reached the upper limit."
+            )
+        elif status in 190:
+            raise GeocoderAuthenticationFailure("Invalid KEY.")
+        elif status == 199:
+            raise GeocoderAuthenticationFailure("The webservice isn't enabled.")
+        elif status in {301, 311}:
+            raise GeocoderQueryError("KEY Illegal or Not Exist.")
+        elif status in {300, 306, 301, 320, 330, 331, 348, 351, 394, 395, 399}:
+            raise GeocoderQueryError("Invalid parameters.")
+        elif status in {347, 393}:
+            raise GeocoderQueryError("No results.")
+        elif status in {400, 402}:
+            raise GeocoderQueryError("Can't decode the request url.")
+        elif status == 404:
+            raise GeocoderQueryError("Invalid request path.")
+        elif status == 407:
+            raise GeocoderQueryError("Invalid request method.")
+        elif status == 500:
+            raise GeocoderTimedOut("Request timed out.")
+        elif 500 < status < 600:
+            raise GeocoderServiceError("Request server error.")
         else:
             raise GeocoderQueryError("Unknown error. Status: %r" % status)
