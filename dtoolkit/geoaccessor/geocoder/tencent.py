@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import hashlib
 from functools import partial
 from typing import Callable
-from urllib.parse import quote_plus
 from urllib.parse import urlencode
 
 from geopy.exc import GeocoderAuthenticationFailure
@@ -11,7 +9,6 @@ from geopy.exc import GeocoderQueryError
 from geopy.exc import GeocoderQuotaExceeded
 from geopy.exc import GeocoderServiceError
 from geopy.exc import GeocoderTimedOut
-from geopy.exc import GeocoderRateLimited
 from geopy.geocoders.base import DEFAULT_SENTINEL
 from geopy.geocoders.base import Geocoder
 from geopy.location import Location
@@ -40,7 +37,7 @@ class Tencent(Geocoder):
         timeout: int = DEFAULT_SENTINEL,
         proxies: dict = DEFAULT_SENTINEL,
         user_agent: str = None,
-        ssl_context: ssl.SSLContext = DEFAULT_SENTINEL,
+        ssl_context: "ssl.SSLContext" = DEFAULT_SENTINEL,
         adapter_factory: Callable = None,
     ):
         """
@@ -261,11 +258,11 @@ class Tencent(Geocoder):
             raise GeocoderAuthenticationFailure("This feature is not authorized.")
         elif status == 120:
             raise GeocoderQuotaExceeded(
-                "The number of requests per second has reached the upper limit."
+                "The number of requests per second has reached the upper limit.",
             )
         elif status == 121:
             raise GeocoderQuotaExceeded(
-                "The number of requests daily has reached the upper limit."
+                "The number of requests daily has reached the upper limit.",
             )
         elif status in 190:
             raise GeocoderAuthenticationFailure("Invalid KEY.")
