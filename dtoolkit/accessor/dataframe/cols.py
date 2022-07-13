@@ -17,7 +17,7 @@ def cols(df: pd.DataFrame, /, to_list: bool = False) -> list[Hashable]:
     ----------
     to_list : bool, default False
         This option doesn't work, and it's used to fit
-        :method:`dtoolkit.accessor.series.cols` arguments.
+        :func:`dtoolkit.accessor.series.cols` arguments.
 
     Returns
     -------
