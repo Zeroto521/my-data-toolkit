@@ -11,7 +11,7 @@ from pandas.util._decorators import doc
 from dtoolkit._typing import SeriesOrFrame
 
 
-def register_method_factory(register_accessor):
+def register_method_factory(register_accessor, /):
     """
     Let pandas-object like accessor which only hooks class also hooks function easily.
 
@@ -33,7 +33,7 @@ def register_method_factory(register_accessor):
     """
 
     # based on pandas_flavor/register.py
-    def register_accessor_method(method: Callable, name: str):
+    def register_accessor_method(method: Callable, name: str, /):
         @wraps(method)
         def method_accessor(pd_obj: SeriesOrFrame, /):
             @wraps(method)
@@ -48,8 +48,8 @@ def register_method_factory(register_accessor):
         # Must return method itself, otherwise would get None.
         return method
 
-    def register_accessor_alias(name: str = None):
-        def wrapper(method: Callable):
+    def register_accessor_alias(name: str = None, /):
+        def wrapper(method: Callable, /):
             return register_accessor_method(method, name or method.__name__)
 
         return wrapper
