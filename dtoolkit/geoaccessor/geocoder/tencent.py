@@ -73,10 +73,10 @@ class Tencent(Geocoder):
             ssl_context=ssl_context,
             adapter_factory=adapter_factory,
         )
+        self.domin = "apis.map.qq.com"
         self.api_key = api_key
-        domin = "apis.map.qq.com"
-        self.api = f"{self.scheme}://{domin}{self.api_path}"
-        self.reverse_api = f"{self.scheme}://{domin}{self.reverse_path}"
+        self.api = f"{self.scheme}://{self.domin}{self.api_path}"
+        self.reverse_api = f"{self.scheme}://{self.domin}{self.reverse_path}"
 
     def geocode(
         self,
