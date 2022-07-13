@@ -33,7 +33,7 @@ def values_to_dict(
         If True would drop duplicate elements.
 
     to_list : bool, default True
-        If True one element value will return :keyword:`list`.
+        If True one element value will return :class:`list`.
 
     Returns
     -------
