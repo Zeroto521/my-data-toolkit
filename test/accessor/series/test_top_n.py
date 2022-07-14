@@ -65,7 +65,7 @@ def test_work(n, largest, keep, expected):
             "Montserrat": 5200,
         },
     )
-    result = s.top_n(n, largest, keep=keep)
+    result = s.top_n(n=n, largest=largest, keep=keep)
     expected = pd.Series(expected)
 
     assert_series_equal(result, expected)
