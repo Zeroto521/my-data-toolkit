@@ -24,6 +24,7 @@ def jenks_breaks(s: pd.Series, bins: int) -> tuple[float]:
 
     See Also
     --------
+    jenkspy.jenks_breaks
     dtoolkit.accessor.series.bin
     dtoolkit.accessor.series.jenks_bin
 
