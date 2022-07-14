@@ -4,7 +4,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def jenks_breaks(s: pd.Series, bins: int) -> tuple[float]:
+def jenks_breaks(s: pd.Series, /, bins: int) -> tuple[float]:
     """
     Compute “natural breaks” (Fisher-Jenks algorithm) on Series.
 
@@ -57,7 +57,7 @@ def jenks_breaks(s: pd.Series, bins: int) -> tuple[float]:
 
 @register_series_method("jenks_cut")
 @register_series_method
-def jenks_bin(s: pd.Series, bins: int, **kwargs) -> pd.Series:
+def jenks_bin(s: pd.Series, /, bins: int, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals via “natural breaks” (Fisher-Jenks algorithm).
 
