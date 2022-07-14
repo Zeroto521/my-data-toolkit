@@ -11,6 +11,7 @@ GeoSeries Accessor
     count_coordinates
     geobuffer
     get_coordinates
+    reverse_geocode
     utm_crs
 
 
@@ -21,9 +22,23 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
+    drop_geometry
     geobuffer
     get_coordinates
+    reverse_geocode
     utm_crs
+
+
+Series Accessor (to GeoPandas)
+------------------------------
+.. currentmodule:: dtoolkit.geoaccessor.series
+.. autosummary::
+    :toctree: api/
+
+    from_wkb
+    from_wkt
+    geocode
+    to_geoseries
 
 
 DataFrame Accessor (to GeoPandas)
@@ -32,8 +47,10 @@ DataFrame Accessor (to GeoPandas)
 .. autosummary::
     :toctree: api/
 
+    from_wkb
     from_wkt
     from_xy
+    geocode
     to_geoframe
 
 

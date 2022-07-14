@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def decompose(
     df: pd.DataFrame,
+    /,
     method: TransformerMixin,
     columns: None
     | dict[Hashable | tuple[Hashable], Hashable | list[Hashable] | tuple[Hashable]]

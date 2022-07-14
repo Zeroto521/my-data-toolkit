@@ -10,7 +10,7 @@ The {class}`~dtoolkit.transformer.Transformer` is a protocol that defines the in
 
 It is just like a **pipe** in the real world.
 
-![Transformer methods](../_static/transformer-methods.svg)
+![Transformer methods](../_static/transformer-method.svg)
 
 Direction:
 

@@ -10,6 +10,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def boolean(
     df: pd.DataFrame,
+    /,
     how: Literal["any", "all"] = "any",
     complement: bool = False,
     **kwargs,

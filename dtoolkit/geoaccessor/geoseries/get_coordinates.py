@@ -31,7 +31,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     """,
     ),
 )
-def get_coordinates(s: gpd.GeoSeries, **kwargs) -> pd.Series:
+def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     """
     Gets coordinates from each geometry of {klass}.
 
@@ -51,8 +51,10 @@ def get_coordinates(s: gpd.GeoSeries, **kwargs) -> pd.Series:
     --------
     dtoolkit.geoaccessor.geoseries.get_coordinates
         Gets coordinates from each geometry of GeoSeries.
+
     dtoolkit.geoaccessor.geodataframe.get_coordinates
         Gets coordinates from each geometry of GeoDataFrame.
+
     pygeos.coordinates.get_coordinates
         The core algorithm of this accessor.
     {examples}

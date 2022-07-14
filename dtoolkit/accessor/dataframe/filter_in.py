@@ -7,7 +7,7 @@ from typing import Literal
 import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
-from dtoolkit.accessor.dataframe import boolean  # noqa
+from dtoolkit.accessor.dataframe import boolean  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -15,14 +15,14 @@ from dtoolkit.accessor.register import register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
     condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
+    /,
     how: Literal["any", "all"] = "all",
     complement: bool = False,
 ) -> pd.DataFrame:
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
-    Similar to :meth:`~pandas.DataFrame.isin`, but the return is value not
-    bool.
+    Similar to :meth:`~pandas.DataFrame.isin`, but the return is not bool.
 
     Parameters
     ----------
@@ -59,6 +59,9 @@ def filter_in(
     pandas.DataFrame.filter
         Subset the dataframe rows or columns according to the specified index
         labels.
+
+    dtoolkit.accessor.series.filter_in
+        Filter Series contents.
 
     Examples
     --------

@@ -31,7 +31,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     """,
     ),
 )
-def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
+def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     """
     Counts the number of coordinate pairs in each geometry of {klass}.
 
@@ -45,8 +45,10 @@ def count_coordinates(s: gpd.GeoSeries) -> pd.Series:
     --------
     dtoolkit.geoaccessor.geoseries.count_coordinates
         Counts the number of coordinate pairs in each geometry of GeoSeries.
+
     dtoolkit.geoaccessor.geodataframe.count_coordinates
         Counts the number of coordinate pairs in each geometry of GeoDataFrame.
+
     pygeos.coordinates.count_coordinates
         The core algorithm of this accessor.
     {examples}
