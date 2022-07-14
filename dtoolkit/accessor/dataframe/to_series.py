@@ -33,6 +33,7 @@ def to_series(
     Returns
     -------
     Series or DataFrame
+        Series if ``df`` is one column DataFrame or ``value_column`` is set.
 
     Raises
     ------
