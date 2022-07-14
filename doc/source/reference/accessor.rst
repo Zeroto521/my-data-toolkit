@@ -24,6 +24,8 @@ Series Accessor
     expand
     filter_in
     getattr
+    jenks_bin
+    jenks_breaks
     len
     to_set
     top_n
