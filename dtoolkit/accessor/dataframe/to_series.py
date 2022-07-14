@@ -74,7 +74,16 @@ def to_series(
     1  1  4  7
     2  2  5  8
 
-    Convert to Series with ``index_column`` and ``value_column`` are **both** set.
+    Convert to Series via ``value_column``.
+    A sugar syntax for ``df.get(value_column)``.
+
+    >>> df.to_series(value_column="a")
+    0  0
+    1  1
+    2  2
+    Name: a, dtype: int64
+
+    Convert to Series via ``index_column`` and ``value_column``.
     A sugar syntax for ``df.set_index(index_column).get(value_column)``.
 
     >>> df.to_series(index_column="b", value_column="c")
