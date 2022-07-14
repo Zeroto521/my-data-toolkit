@@ -22,8 +22,7 @@ def filter_in(
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
-    Similar to :meth:`~pandas.DataFrame.isin`, but the return is value not
-    bool.
+    Similar to :meth:`~pandas.DataFrame.isin`, but the return is not bool.
 
     Parameters
     ----------
@@ -60,6 +59,9 @@ def filter_in(
     pandas.DataFrame.filter
         Subset the dataframe rows or columns according to the specified index
         labels.
+
+    dtoolkit.accessor.series.filter_in
+        Filter Series contents.
 
     Examples
     --------
