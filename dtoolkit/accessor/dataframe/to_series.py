@@ -89,21 +89,34 @@ def to_series(
         column = df.columns[0]
         return df.get(column).rename(name or column)
 
-    # two and more columns DataFrame
-    elif index_column and value_column:
+    # two or more columns
+    elif value_column is not None:
+        if index_column is None:
+            # use original index
+            return df.pipe(
+                _to_series,
+                value_column=value_column,
+                name=name,
+            )
+
         if index_column == value_column:
             raise ValueError("'index_column' and 'value_column' should be different.")
-        elif index_column not in df.columns:
-            raise ValueError(f"{index_column!r} is not in the columns.")
-        elif value_column not in df.columns:
-            raise ValueError(f"{value_column!r} is not in the columns.")
 
-        return (
-            df.set_index(index_column)
-            .loc[:, value_column]
-            .rename(
-                name or value_column,
-            )
+        # use index_column as index
+        return df.set_index(index_column).pipe(
+            _to_series,
+            value_column=value_column,
+            name=name,
         )
 
     return df
+
+
+def _to_series(
+    df: pd.DataFrame,
+    name: Hashable,
+    value_column: Hashable,
+) -> pd.Series:
+    """Select one column of DataFrame and convert to Series."""
+
+    return df[value_column].rename(name or value_column)
