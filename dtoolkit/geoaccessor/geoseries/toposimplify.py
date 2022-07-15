@@ -18,9 +18,9 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     See Also
     --------
     geopandas.GeoSeries.simplify
+    dtoolkit.geoaccessor.geodataframe.toposimilify
     topojson.Topology.toposimplify
         https://mattijn.github.io/topojson/api/topojson.core.topology.html#toposimplify
-    dtoolkit.geoaccessor.geodataframe.toposimilify
     """,
     ),
     examples=dedent(
