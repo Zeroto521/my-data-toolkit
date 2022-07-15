@@ -72,6 +72,7 @@ from dtoolkit.accessor.register import register_series_method
 )
 def expand(
     s: pd.Series,
+    /,
     suffix: list[Hashable] = None,
     delimiter: str = "_",
     flatten: bool = False,

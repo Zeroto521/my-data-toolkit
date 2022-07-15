@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Literal
 from typing import TYPE_CHECKING
 
+import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 
 from dtoolkit._typing import TwoDimArray
-from dtoolkit.accessor.dataframe import cols  # noqa
-from dtoolkit.accessor.series import cols  # noqa
+from dtoolkit.accessor.dataframe import cols  # noqa: F401
+from dtoolkit.accessor.series import cols  # noqa: F401, F811
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
@@ -28,7 +30,7 @@ class OneHotEncoder(SKOneHotEncoder):
     sparse : bool, default False
         Will return sparse matrix if ``True`` else will return an array.
 
-    kwargs
+    Other parameters
         See :obj:`sklearn.preprocessing.OneHotEncoder`.
 
     Notes
@@ -74,12 +76,32 @@ class OneHotEncoder(SKOneHotEncoder):
     @doc(SKOneHotEncoder.__init__)
     def __init__(
         self,
-        categories_with_parent: bool = False,
+        *,
         sparse: bool = False,
-        **kwargs,
+        categories_with_parent: bool = False,
+        categories="auto",
+        drop=None,
+        dtype=np.float64,
+        handle_unknown: Literal["error", "ignore", "infrequent_if_exist"] = "error",
+        min_frequency: int | float = None,
+        max_categories: int = None,
     ):
-        super().__init__(sparse=sparse, **kwargs)
+        super().__init__(
+            sparse=sparse,
+            categories=categories,
+            drop=drop,
+            dtype=dtype,
+            handle_unknown=handle_unknown,
+            min_frequency=min_frequency,
+            max_categories=max_categories,
+        )
         self.categories_with_parent = categories_with_parent
+
+        # compat with sklearn lower version
+        # `_parameter_constraints` comes out at sklearn 1.2
+        # TODO: delete this condition when required sklearn version is >= 1.2
+        if hasattr(self, "_parameter_constraints"):
+            self._parameter_constraints["categories_with_parent"] = ["boolean"]
 
     @doc(
         SKOneHotEncoder.transform,

@@ -1,6 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 from pygeos import count_coordinates
 from pygeos import from_shapely
 
@@ -28,8 +29,8 @@ def counts_1(s: gpd.GeoSeries):
     )
 
 
-@register_geodataframe_method(name="counts_it")
-@register_geoseries_method(name="counts_it")
+@register_geodataframe_method("counts_it")
+@register_geoseries_method("counts_it")
 def counts_2(s: gpd.GeoSeries):
     # Counts the number of coordinate pairs in geometry
 
@@ -60,18 +61,18 @@ def test_method_hooked_exist(data, attr):
 @pytest.mark.parametrize(
     "data, name, expected",
     [
-        (s, "counts", pd.Series([1, 1, 0], name="geometry")),
+        (s, "counts", pd.Series([1, 1, 0])),
         (d, "counts", pd.Series([1, 1, 0], name="geometry")),
-        (s, "counts_1", pd.Series([1, 1, 0], name="geometry")),
+        (s, "counts_1", pd.Series([1, 1, 0])),
         (d, "counts_1", pd.Series([1, 1, 0], name="geometry")),
-        (s, "counts_it", pd.Series([1, 1, 0], name="geometry")),
+        (s, "counts_it", pd.Series([1, 1, 0])),
         (d, "counts_it", pd.Series([1, 1, 0], name="geometry")),
     ],
 )
 def test_work(data, name, expected):
     result = getattr(data, name)()
 
-    assert result.equals(expected)
+    assert_series_equal(result, expected)
 
 
 @pytest.mark.parametrize(

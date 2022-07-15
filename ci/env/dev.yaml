@@ -19,6 +19,7 @@ dependencies:
   - shapely
   - topojson
   - simplification
+  - geopy
   # testing
   - pytest
   - pytest-cov
@@ -27,7 +28,9 @@ dependencies:
   # dev versions of packages
   - pip
   - pip:
+    # required
     - git+https://github.com/pydata/pandas
+    # optional
     - git+https://github.com/scikit-learn/scikit-learn
     - git+https://github.com/geopandas/geopandas
     - git+https://github.com/pygeos/pygeos

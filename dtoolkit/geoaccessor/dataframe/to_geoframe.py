@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def to_geoframe(
     df: pd.DataFrame,
+    /,
     crs: CRS | str | int = None,
     geometry: Hashable | gpd.GeoSeries = None,
     **kwargs,
@@ -43,7 +44,7 @@ def to_geoframe(
 
     See Also
     --------
-    geopandas.GeoDataFrame
+    dtoolkit.geoaccessor.series.to_geoseries
 
     Examples
     --------
@@ -54,11 +55,11 @@ def to_geoframe(
     ...     .from_xy("x", "y", drop=True, crs=4326)
     ... )
     >>> df_point
-    0    POINT (122.00000 55.00000)
-    1     POINT (100.00000 1.00000)
-    Name: geometry, dtype: geometry
+                         geometry
+    0  POINT (122.00000 55.00000)
+    1   POINT (100.00000 1.00000)
     >>> df_data = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
-    >>> df = pd.concat([df_data, df_point], axis=1)
+    >>> df = pd.concat((df_data, df_point), axis=1)
     >>> df
        a  b                    geometry
     0  1  3  POINT (122.00000 55.00000)

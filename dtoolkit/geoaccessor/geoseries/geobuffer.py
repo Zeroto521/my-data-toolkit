@@ -11,7 +11,7 @@ from pandas.util._decorators import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
-from dtoolkit.accessor.series import getattr  # noqa
+from dtoolkit.accessor.series import getattr  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -50,6 +50,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 def geobuffer(
     s: gpd.GeoSeries,
     distance: Number | list[Number] | OneDimArray,
+    /,
     **kwargs,
 ) -> gpd.GeoSeries:
     """

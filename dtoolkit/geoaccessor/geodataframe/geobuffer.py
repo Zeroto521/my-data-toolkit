@@ -51,12 +51,14 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 def geobuffer(
     df: gpd.GeoDataFrame,
     distance: Number | list[Number] | OneDimArray,
+    /,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-
     return df.assign(
-        geometry=df.geometry.geobuffer(
-            distance,
-            **kwargs,
-        ),
+        **{
+            df.geometry.name: df.geometry.geobuffer(
+                distance,
+                **kwargs,
+            ),
+        },
     )

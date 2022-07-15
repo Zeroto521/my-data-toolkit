@@ -10,6 +10,7 @@ from dtoolkit.accessor.register import register_series_method
 @register_series_method
 def cols(
     s: pd.Series,
+    /,
     to_list: bool = False,
 ) -> Hashable | None | list[Hashable | None]:
     """
