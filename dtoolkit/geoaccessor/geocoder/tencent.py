@@ -76,8 +76,8 @@ class Tencent(Geocoder):
             ssl_context=ssl_context,
             adapter_factory=adapter_factory,
         )
-        self.domin = "apis.map.qq.com"
         self.api_key = api_key
+        self.domin = "apis.map.qq.com"
         self.api = f"{self.scheme}://{self.domin}{self.api_path}"
         self.reverse_api = f"{self.scheme}://{self.domin}{self.reverse_path}"
         self.SmartGeocoder = SmartGeocoder
