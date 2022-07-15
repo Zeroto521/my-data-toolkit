@@ -18,7 +18,8 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     See Also
     --------
     geopandas.GeoSeries.simplify
-    TopoJSON.Topology.toposimplify
+    topojson.Topology.toposimplify
+        https://mattijn.github.io/topojson/api/topojson.core.topology.html#toposimplify
     dtoolkit.geoaccessor.geodataframe.toposimilify
     """,
     ),
@@ -28,16 +29,44 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
+    >>> import matplotlib.pyplot as plt
     >>> df = (
     ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
     ...     .query('continent == "Africa"')
     ... )
     >>> fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
-    >>> df.geometry.simplify(1).plot(ax=ax1, alpha=0.9)
-    >>> df.geometry.toposimplify(1).plot(ax=ax2, alpha=0.9)
+    >>> df.geometry.simplify(1).plot(ax=ax1, alpha=0.7)
+    >>> df.geometry.toposimplify(1).plot(ax=ax2, alpha=0.7)
+    >>> ax1.set_title("simplify")
     >>> ax1.set_axis_off()
+    >>> ax2.set_title("toposimplify")
     >>> ax2.set_axis_off()
+    >>> fig.tight_layout()
     >>> plt.show()
+
+    .. plot::
+
+        import dtoolkit.geoaccessor
+        import geopandas as gpd
+        import matplotlib.pyplot as plt
+
+
+        df = (
+            gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+            .query('continent == "Africa"')
+        )
+
+        fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
+
+        df.geometry.simplify(1).plot(ax=ax1, alpha=0.7)
+        df.geometry.toposimplify(1).plot(ax=ax2, alpha=0.7)
+
+        ax1.set_title("simplify")
+        ax1.set_axis_off()
+        ax2.set_title("toposimplify")
+        ax2.set_axis_off()
+        fig.tight_layout()
+        plt.show()
     """,
     ),
 )
@@ -50,19 +79,19 @@ def toposimplify(
     prevent_oversimplify: bool = False,
 ) -> gpd.GeoSeries:
     """
-    Apply :func:`TopoJSON.Topology.toposimplify` to {klass} to keep **shared edges**.
+    Apply :func:`topojson.Topology.toposimplify` to {klass} to keep **shared edges**.
 
     Parameters
     ----------
     tolerance : float
         tolerance parameter.
 
-    simplify_algorithm : {'dp', 'vw'}, default 'dp'
+    simplify_algorithm : {{'dp', 'vw'}}, default 'dp'
         Choose between `dp` and `vw`, for Douglas-Peucker or Visvalingam-Whyatt
         respectively. `vw` will only be selected if `simplify_with` is set to
         `simplification`.
 
-    simplify_with : {'shapely', 'simplification'}, default 'shapely'
+    simplify_with : {{'shapely', 'simplification'}}, default 'shapely'
         Sets the package to use for simplifying. Shapely adopts solely Douglas-Peucker
         and simplification both Douglas-Peucker and Visvalingam-Whyatt. The pacakge
         simplification is known to be quicker than shapely.
@@ -87,13 +116,13 @@ def toposimplify(
     {examples}
     """
 
-    return _toposimplify(
-        s,
+    return s.pipe(
+        _toposimplify,
         tolerance,
         simplify_algorithm,
         simplify_with,
         prevent_oversimplify,
-    )
+    ).to_series()
 
 
 def _toposimplify(
