@@ -6,7 +6,7 @@ from typing import Literal
 import geopandas as gpd
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor.dataframe import to_series
+from dtoolkit.accessor.dataframe import to_series  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
