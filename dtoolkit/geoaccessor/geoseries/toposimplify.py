@@ -27,23 +27,6 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
         """
     Examples
     --------
-    >>> import dtoolkit.geoaccessor
-    >>> import geopandas as gpd
-    >>> import matplotlib.pyplot as plt
-    >>> df = (
-    ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-    ...     .query('continent == "Africa"')
-    ... )
-    >>> fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
-    >>> df.geometry.simplify(1).plot(ax=ax1, alpha=0.7)
-    >>> df.geometry.toposimplify(1).plot(ax=ax2, alpha=0.7)
-    >>> ax1.set_title("simplify")
-    >>> ax1.set_axis_off()
-    >>> ax2.set_title("toposimplify")
-    >>> ax2.set_axis_off()
-    >>> fig.tight_layout()
-    >>> plt.show()
-
     .. plot::
 
         import dtoolkit.geoaccessor
