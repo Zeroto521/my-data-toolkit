@@ -12,6 +12,7 @@ GeoSeries Accessor
     geobuffer
     get_coordinates
     reverse_geocode
+    toposimplify
     utm_crs
 
 
