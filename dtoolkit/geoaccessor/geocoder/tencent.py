@@ -95,6 +95,8 @@ class Tencent(Geocoder):
 
         :param str query: The address or query you wish to geocode.
 
+        :param str region: The city of address.
+
         :param bool exactly_one: Return one result or a list of results, if
             available.
 
