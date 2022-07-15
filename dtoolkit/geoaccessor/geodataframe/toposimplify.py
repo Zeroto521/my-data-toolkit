@@ -14,16 +14,6 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @doc(
     s_toposimplify,
     klass=":class:`~geopandas.GeoDataFrame`",
-    seealso=dedent(
-        """
-    See Also
-    --------
-    geopandas.GeoDataFrame.simplify
-    dtoolkit.geoaccessor.geoseries.toposimilify
-    topojson.Topology.toposimplify
-        https://mattijn.github.io/topojson/api/topojson.core.topology.html#toposimplify
-    """,
-    ),
     examples=dedent(
         """
     Examples

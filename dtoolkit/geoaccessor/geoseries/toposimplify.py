@@ -13,16 +13,6 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 @register_geoseries_method
 @doc(
     klass=":class:`~geopandas.GeoSeries`",
-    seealso=dedent(
-        """
-    See Also
-    --------
-    geopandas.GeoSeries.simplify
-    dtoolkit.geoaccessor.geodataframe.toposimilify
-    topojson.Topology.toposimplify
-        https://mattijn.github.io/topojson/api/topojson.core.topology.html#toposimplify
-    """,
-    ),
     examples=dedent(
         """
     Examples
@@ -95,7 +85,14 @@ def toposimplify(
     ModuleNotFoundError
         - If don't have module named 'topojson'.
         - If don't have module named 'simplification'.
-    {seealso}
+
+    See Also
+    --------
+    geopandas.GeoSeries.simplify
+    dtoolkit.geoaccessor.geoseries.toposimplify
+    dtoolkit.geoaccessor.geodataframe.toposimplify
+    topojson.Topology.toposimplify
+        https://mattijn.github.io/topojson/api/topojson.core.topology.html#toposimplify
     {examples}
     """
 
