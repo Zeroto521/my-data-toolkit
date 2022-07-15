@@ -30,7 +30,7 @@ class Tencent(Geocoder):
 
     def __init__(
         self,
-        api_key,
+        api_key: str,
         *,
         SmartGeocoder: bool = False,
         scheme: str = None,
