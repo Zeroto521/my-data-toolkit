@@ -29,7 +29,7 @@ def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
 
     Notes
     -----
-    - This method could be called via ``s.bin`` or ``s.cut``.
+    This method could be called via ``s.bin`` or ``s.cut``.
 
     Examples
     --------
