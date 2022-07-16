@@ -7,10 +7,12 @@ import pandas as pd
 from dtoolkit.accessor.register import register_series_method
 
 
+@register_series_method("topn")
 @register_series_method
 def top_n(
     s: pd.Series,
-    n: int,
+    /,
+    n: int = 5,
     largest: bool = True,
     keep: Literal["first", "last", "all"] = "first",
 ) -> pd.Series:
@@ -22,7 +24,7 @@ def top_n(
 
     Parameters
     ----------
-    n : int
+    n : int, default 5
         Number of top to return.
 
     largest : bool, default True

@@ -6,8 +6,7 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -18,11 +17,12 @@ if TYPE_CHECKING:
 def from_wkb(
     df: pd.DataFrame,
     column: Hashable,
+    /,
     crs: CRS | str | int = None,
     drop: bool = False,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
+) -> gpd.GeoDataFrame:
     """
-    Generate :obj:`~geopandas.GeoDataFrame` of geometries from columns of
+    Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKB' column of
     :obj:`~pandas.DataFrame`.
 
     A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkb`.
@@ -42,12 +42,12 @@ def from_wkb(
 
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+    GeoDataFrame
 
     See Also
     --------
     geopandas.GeoSeries.from_wkb
+    dtoolkit.geoaccessor.series.from_wkb
     dtoolkit.geoaccessor.dataframe.from_wkt
 
     Notes
@@ -60,51 +60,50 @@ def from_wkb(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame(
-    ...     {
-    ...         "wkt": [
-    ...             "POINT (1 1)",
-    ...             "POINT (2 2)",
-    ...             "POINT (3 3)",
-    ...         ]
-    ...     }
+    >>> s = pd.Series(
+    ...      [
+    ...          "POINT (1 1)",
+    ...          "POINT (2 2)",
+    ...          "POINT (3 3)",
+    ...      ],
+    ...      name="wkt",
     ... )
-    >>> df
-               wkt
-    0  POINT (1 1)
-    1  POINT (2 2)
-    2  POINT (3 3)
-    >>> s_wkb = df.from_wkt("wkt", crs=4326, drop=True).to_wkb()
+    >>> s
+    0    POINT (1 1)
+    1    POINT (2 2)
+    2    POINT (3 3)
+    Name: wkt, dtype: object
+    >>> s_wkb = s.from_wkt(crs=4326, drop=True).to_wkb().rename('wkb')
     >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     2    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
-    dtype: object
+    Name: wkb, dtype: object
     >>> type(s_wkb)
     <class 'pandas.core.series.Series'>
-    >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326)
+    >>> gdf = s_wkb.to_frame().from_wkb("wkb", crs=4326)
     >>> gdf  # doctest: +SKIP
-                                                    wkb                 geometry
+                                                      wkb                 geometry
     0  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (1.00000 1.00000)
     1  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (2.00000 2.00000)
     2  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (3.00000 3.00000)
     >>> type(gdf)
     <class 'geopandas.geodataframe.GeoDataFrame'>
 
-    Drop original 'wkt' column.
+    Drop original 'wkb' column.
 
-    >>> gs = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
-    >>> gs
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
-    >>> type(gs)
-    <class 'geopandas.geoseries.GeoSeries'>
+    >>> gdf = s_wkb.to_frame("wkb").from_wkb("wkb", crs=4326, drop=True)
+    >>> gdf
+                      geometry
+    0  POINT (1.00000 1.00000)
+    1  POINT (2.00000 2.00000)
+    2  POINT (3.00000 3.00000)
+    >>> type(gdf)
+    <class 'geopandas.geodataframe.GeoDataFrame'>
     """
 
     return gpd.GeoDataFrame(
         df.drop_or_not(drop=drop, columns=column),
         geometry=gpd.GeoSeries.from_wkb(df[column]),
         crs=crs,
-    ).to_series()
+    )

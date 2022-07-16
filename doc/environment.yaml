@@ -1,4 +1,4 @@
-name: dtoolkit_doc
+name: dtoolkit-doc
 channels:
   - conda-forge
 dependencies:

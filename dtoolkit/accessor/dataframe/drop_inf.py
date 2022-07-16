@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from dtoolkit._typing import Axis
-from dtoolkit.accessor.dataframe import boolean  # noqa
+from dtoolkit.accessor.dataframe import boolean  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series.drop_inf import get_inf_range
 
@@ -14,6 +14,7 @@ from dtoolkit.accessor.series.drop_inf import get_inf_range
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
+    /,
     axis: Axis = 0,
     how: Literal["any", "all"] = "any",
     inf: Literal["all", "pos", "neg"] = "all",

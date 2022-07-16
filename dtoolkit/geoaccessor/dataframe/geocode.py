@@ -3,7 +3,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -11,6 +11,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 def geocode(
     df: pd.DataFrame,
     column: Hashable,
+    /,
     drop: bool = False,
     **kwargs,
 ) -> gpd.GeoDataFrame:

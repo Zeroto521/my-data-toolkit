@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit.accessor.register import register_series_method  # noqa
+from dtoolkit.accessor.register import register_series_method  # noqa: F401
 
 
 @register_series_method
-def values_to_dict(s: pd.Series, unique: bool = True, to_list: bool = True) -> dict:
+def values_to_dict(
+    s: pd.Series,
+    /,
+    unique: bool = True,
+    to_list: bool = True,
+) -> dict:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :class:`dict`.
@@ -17,7 +22,7 @@ def values_to_dict(s: pd.Series, unique: bool = True, to_list: bool = True) -> d
         If True would drop duplicate elements.
 
     to_list : bool, default True
-        If True one element value will return :keyword:`list`.
+        If True one element value will return :class:`list`.
 
     Returns
     -------
