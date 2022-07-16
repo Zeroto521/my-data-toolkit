@@ -67,7 +67,7 @@ def drop_inf(
     return s[~mask]
 
 
-def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> list[float]:
+def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> set[float]:
     """Get inf value from string"""
 
     INF_RANGE = {
