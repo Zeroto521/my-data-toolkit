@@ -4,9 +4,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def query(s: pd.Series, /, expr: str, inplace: bool = False, **kwargs):
-    inplace = validate_bool_kwarg(inplace, "inplace")
-
+def query(s: pd.Series, /, expr: str, **kwargs):
     if not isinstance(expr, str):
         raise ValueError(
             f"expr must be a string to be evaluated, {type(expr)} given",
@@ -28,7 +26,4 @@ def query(s: pd.Series, /, expr: str, inplace: bool = False, **kwargs):
         # valid query
         result = s[mask]
 
-    if not inplace:
-        return result
-
-    s._update_inplace(result)
+    return result
