@@ -10,14 +10,9 @@ def query(s: pd.Series, /, expr: str, **kwargs):
             f"expr must be a string to be evaluated, {type(expr)} given",
         )
 
-    mask = s.eval(
-        expr,
-        **{
-            **kwargs,
-            "level": kwargs.pop("level", 0) + 1,
-            "target": None,
-        },
-    )
+    kwargs["level"] = kwargs.pop("level", 0) + 1
+    kwargs["target"] = None
+    mask = s.eval(expr, **kwargs)
 
     try:
         result = s.loc[mask]
