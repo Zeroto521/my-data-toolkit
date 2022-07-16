@@ -71,12 +71,8 @@ def eval(s: pd.Series, /, expr: str, **kwargs):
     column_resolvers = s._get_cleaned_column_resolvers()
     resolvers = column_resolvers, index_resolvers
 
-    return _eval(
-        expr,
-        **{
-            **kwargs,
-            "level": kwargs.pop("level", 0) + 1,
-            "target": kwargs.get("target", s),
-            "resolvers": tuple(kwargs.get("resolvers", ())) + resolvers,
-        },
-    )
+    kwargs["level"] = kwargs.pop("level", 0) + 1
+    kwargs["target"] = kwargs.get("target", s)
+    kwargs["resolvers"] = tuple(kwargs.get("resolvers", ())) + resolvers
+
+    return _eval(expr, **kwargs)
