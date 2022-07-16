@@ -27,6 +27,8 @@ def jenks_breaks(s: pd.Series, /, bins: int) -> list[float]:
     See Also
     --------
     jenkspy.jenks_breaks
+        https://github.com/mthh/jenkspy
+
     dtoolkit.accessor.series.bin
     dtoolkit.accessor.series.jenks_bin
 
