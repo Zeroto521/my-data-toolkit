@@ -66,12 +66,12 @@ def eval(s: pd.Series, expr: str, inplace: bool = False, **kwargs):
     a     True
     b    False
     c    False
-    dtype: bool
+    Name: col, dtype: bool
     >>> s.eval("index == 'c'")
     a    False
     b    False
     c     True
-    dtype: bool
+    Name: col, dtype: bool
     """
 
     inplace = validate_bool_kwarg(inplace, "inplace")
