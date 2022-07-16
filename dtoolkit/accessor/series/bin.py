@@ -25,6 +25,7 @@ def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
     See Also
     --------
     pandas.cut
+    dtoolkit.accessor.series.jenks_bin
 
     Examples
     --------
