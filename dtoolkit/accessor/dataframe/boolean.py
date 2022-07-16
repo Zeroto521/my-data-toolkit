@@ -51,6 +51,11 @@ def boolean(
     -------
     Series
 
+    Raises
+    ------
+    ValueError
+        If ``how`` isn't "any" or "all".
+
     See Also
     --------
     pandas.DataFrame.any
