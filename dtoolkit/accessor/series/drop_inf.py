@@ -30,6 +30,11 @@ def drop_inf(
     Series
         Series with ``inf`` entries dropped from it.
 
+    Raises
+    ------
+    ValueError
+        If ``inf`` isn't "all", "pos", "+", "neg", or "-".
+
     See Also
     --------
     dtoolkit.accessor.dataframe.drop_inf
