@@ -71,7 +71,7 @@ def eval(s: pd.Series, expr: str, inplace: bool = False, **kwargs):
     a    False
     b    False
     c     True
-    Name: col, dtype: bool
+    dtype: bool
     """
 
     inplace = validate_bool_kwarg(inplace, "inplace")
