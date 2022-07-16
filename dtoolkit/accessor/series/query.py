@@ -15,10 +15,7 @@ def query(s: pd.Series, /, expr: str, **kwargs):
     mask = s.eval(expr, **kwargs)
 
     try:
-        result = s.loc[mask]
+        return s.loc[mask]
     except ValueError:
-        # when mask is multi-dimensional loc raises, but this is sometimes a
-        # valid query
-        result = s[mask]
-
-    return result
+        # when mask is multi-dimensional loc raises, but this is sometimes a valid query
+        return s[mask]
