@@ -109,6 +109,7 @@ def fillna_regression(
     if how not in {"na", "all"}:
         raise ValueError(f"invalid inf option: {how!r}")
 
+    df = df.copy()  # avoid mutating the original dataframe
     for y, X in columns.items():
         df = _fillna_regression(df, method, y, X, how=how, **kwargs)
 
