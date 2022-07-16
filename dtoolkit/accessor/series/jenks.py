@@ -6,7 +6,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def jenks_breaks(s: pd.Series, /, bins: int) -> tuple[float]:
+def jenks_breaks(s: pd.Series, /, bins: int) -> list[float]:
     """
     Compute “natural breaks” (Fisher-Jenks algorithm) on Series.
 
@@ -17,7 +17,7 @@ def jenks_breaks(s: pd.Series, /, bins: int) -> tuple[float]:
 
     Returns
     -------
-    tuple of floats
+    list of floats
 
     Raises
     ------
@@ -50,7 +50,7 @@ def jenks_breaks(s: pd.Series, /, bins: int) -> tuple[float]:
     11    4.3
     dtype: float64
     >>> s.jenks_breaks(3)
-    (1.2, 2.3, 5.0, 7.8)
+    [1.2, 2.3, 5.0, 7.8]
     """
     from jenkspy import jenks_breaks
 
