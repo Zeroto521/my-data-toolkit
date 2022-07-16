@@ -106,7 +106,7 @@ def test_single_index_work(
     )
 
     result = df.top_n(
-        n,
+        n=n,
         largest=largest,
         keep=keep,
         prefix=prefix,
@@ -194,7 +194,7 @@ def test_duplicate_dataframe(n, keep, expected):
 )
 def test_multi_index(df, n, expected):
     df = pd.DataFrame(df)
-    result = df.top_n(n, element="both")
+    result = df.top_n(n=n, element="both")
     expected = pd.DataFrame(expected)
 
     assert_frame_equal(result, expected)

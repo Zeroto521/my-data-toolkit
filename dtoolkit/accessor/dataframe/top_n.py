@@ -12,8 +12,8 @@ from dtoolkit.accessor.series import top_n as s_top_n
 @register_dataframe_method
 def top_n(
     df: pd.DataFrame,
-    n: int,
     /,
+    n: int = 5,
     largest: bool = True,
     keep: Literal["first", "last", "all"] = "first",
     prefix: str = "top",
@@ -25,7 +25,7 @@ def top_n(
 
     Parameters
     ----------
-    n : int
+    n : int, default 5
         Number of top to return.
 
     largest : bool, default True
@@ -149,8 +149,8 @@ def top_n(
 
     return df.apply(
         wrap_s_top_n,
+        n=n,
         axis=1,
-        args=(n,),
         largest=largest,
         keep=keep,
     ).add_prefix(prefix + delimiter)
