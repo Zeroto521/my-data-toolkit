@@ -41,7 +41,7 @@ def from_wkt(
     Raises
     ------
     ValueError
-        If 'drop' is True and the name of Series is empty.
+        If ``drop`` is False and the name of Series is empty.
 
     See Also
     --------

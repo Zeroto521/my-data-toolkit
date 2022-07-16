@@ -44,6 +44,11 @@ def fillna_regression(
     -------
     DataFrame
 
+    Raises
+    ------
+    ValueError
+        If ``how`` isn't "na" or "all".
+
     See Also
     --------
     sklearn.kernel_ridge
@@ -109,6 +114,7 @@ def fillna_regression(
     if how not in {"na", "all"}:
         raise ValueError(f"invalid inf option: {how!r}")
 
+    df = df.copy()  # avoid mutating the original dataframe
     for y, X in columns.items():
         df = _fillna_regression(df, method, y, X, how=how, **kwargs)
 
@@ -120,7 +126,7 @@ def _fillna_regression(
     method: RegressorMixin,
     y: Hashable,
     X: Hashable | list[Hashable] | pd.Index,
-    how: str = "na",
+    how: Literal["na", "all"] = "na",
     **kwargs,
 ):
     """Fill single na column at once."""

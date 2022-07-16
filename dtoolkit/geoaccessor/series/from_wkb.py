@@ -38,6 +38,11 @@ def from_wkb(
     GeoSeries or GeoDataFrame
         GeoSeries if `drop` is True else GeoDataFrame.
 
+    Raises
+    ------
+    ValueError
+        If ``drop`` is False and the name of Series is empty.
+
     See Also
     --------
     geopandas.GeoSeries.from_wkb

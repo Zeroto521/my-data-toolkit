@@ -33,6 +33,7 @@ def to_series(
     Returns
     -------
     Series or DataFrame
+        Series if ``df`` is one column DataFrame or ``value_column`` is set.
 
     Raises
     ------
@@ -74,7 +75,16 @@ def to_series(
     1  1  4  7
     2  2  5  8
 
-    Convert to Series with ``index_column`` and ``value_column`` are **both** set.
+    Convert to Series via ``value_column``.
+    A sugar syntax for ``df.get(value_column)``.
+
+    >>> df.to_series(value_column="a")
+    0  0
+    1  1
+    2  2
+    Name: a, dtype: int64
+
+    Convert to Series via ``index_column`` and ``value_column``.
     A sugar syntax for ``df.set_index(index_column).get(value_column)``.
 
     >>> df.to_series(index_column="b", value_column="c")
@@ -85,25 +95,34 @@ def to_series(
     Name: c, dtype: int64
     """
 
-    if df.columns.__len__() == 1:  # one column DataFrame
+    if len(df.columns) == 1:  # one column
         column = df.columns[0]
-        return df.get(column).rename(name or column)
+        return df[column].rename(name or column)
 
-    # two and more columns DataFrame
-    elif index_column and value_column:
+    # two or more columns
+    elif value_column is not None:
+        if index_column is None:
+            # use original index
+            return df.pipe(
+                _to_series,
+                value_column=value_column,
+                name=name,
+            )
+
         if index_column == value_column:
             raise ValueError("'index_column' and 'value_column' should be different.")
-        elif index_column not in df.columns:
-            raise ValueError(f"{index_column!r} is not in the columns.")
-        elif value_column not in df.columns:
-            raise ValueError(f"{value_column!r} is not in the columns.")
 
-        return (
-            df.set_index(index_column)
-            .loc[:, value_column]
-            .rename(
-                name or value_column,
-            )
+        # use index_column as index
+        return df.set_index(index_column).pipe(
+            _to_series,
+            value_column=value_column,
+            name=name,
         )
 
     return df
+
+
+def _to_series(df: pd.DataFrame, name: Hashable, value_column: Hashable) -> pd.Series:
+    """Select one column of DataFrame and convert to Series."""
+
+    return df[value_column].rename(name or value_column)
