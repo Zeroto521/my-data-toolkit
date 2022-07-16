@@ -43,11 +43,6 @@ def top_n(
     -------
     Series
 
-    Raises
-    ------
-    ValueError
-        If ``element`` isn't "both", "index" or "value".
-
     See Also
     --------
     dtoolkit.accessor.series.expand
