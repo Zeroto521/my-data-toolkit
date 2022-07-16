@@ -55,7 +55,7 @@ def eval(s: pd.Series, expr: str, inplace: bool = False, **kwargs):
     a    0
     b    1
     c    2
-    dtype: int64
+    Name: col, dtype: int64
     >>> s.eval("d = 4")
     a    1
     b    2
