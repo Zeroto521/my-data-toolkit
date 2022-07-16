@@ -1,25 +1,20 @@
 from __future__ import annotations
 
+from typing import Hashable
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict  # noqa
-from dtoolkit.util._decorator import deprecated_alias
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa: F401
 
 
 @register_dataframe_method
-@deprecated_alias(
-    warning_msg=(
-        "{func_name}'s parameter '{old_alias}' is deprecated and will be removed in "
-        "0.0.15. Please use the parameter '{new_alias}'. "
-        "(Warning added DToolKit 0.0.14)"
-    ),
-    few_as_key="ascending",
-)
-def values_to_dict(  # noqa: F811
+def values_to_dict(
     df: pd.DataFrame,
-    order: list | tuple = None,
+    /,
+    order: list[Hashable] | pd.Index = None,
     ascending: bool = True,
+    unique: bool = True,
     to_list: bool = True,
 ) -> dict:
     """
@@ -27,15 +22,18 @@ def values_to_dict(  # noqa: F811
 
     Parameters
     ----------
-    order : list or tuple, optional
+    order : list of Hashable, Index, optional
         The order of keys via given columns. If ``order`` is set, ``ascending``
         will not work.
 
     ascending : bool, default True
         If True the key would use the few unique of column values first.
 
+    unique : bool, default True
+        If True would drop duplicate elements.
+
     to_list : bool, default True
-        If True one element value will return :keyword:`list`.
+        If True one element value will return :class:`list`.
 
     Returns
     -------
@@ -134,7 +132,6 @@ def values_to_dict(  # noqa: F811
         ],
         "B": [
             "3",
-            "3",
             "4"
         ]
     }
@@ -199,31 +196,43 @@ def values_to_dict(  # noqa: F811
     }
     """
 
-    if df.shape[1] == 1:  # one columns DataFrame
-        return df.to_series().values_to_dict(to_list=to_list)
+    if len(df.columns) == 1:  # one columns DataFrame
+        return df.to_series().values_to_dict(
+            unique=unique,
+            to_list=to_list,
+        )
 
     columns = order or (
-        df.unique_counts()
+        df.nunique()
         .sort_values(
             ascending=ascending,
         )
         .index
     )
-    return _dict(df[columns], to_list=to_list)
+
+    return df[columns].pipe(
+        to_dict,
+        unique=unique,
+        to_list=to_list,
+    )
 
 
-def _dict(df: pd.DataFrame, to_list: bool) -> dict:
+def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
     key_column, *value_column = df.columns
 
-    if df.shape[1] == 2:  # two column DataFrame
+    if len(df.columns) == 2:  # two column DataFrame
         return df.to_series(
             index_column=key_column,
             value_column=value_column[0],
-        ).values_to_dict(to_list=to_list)
+        ).values_to_dict(
+            unique=unique,
+            to_list=to_list,
+        )
 
     return {
-        key: _dict(
-            df.loc[df[key_column] == key, value_column],
+        key: df.loc[df[key_column] == key, value_column].pipe(
+            to_dict,
+            unique=unique,
             to_list=to_list,
         )
         for key in df[key_column].unique()

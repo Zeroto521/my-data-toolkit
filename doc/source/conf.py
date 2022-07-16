@@ -19,10 +19,13 @@ from datetime import datetime
 
 import dtoolkit
 
-version = release = dtoolkit.__version__
-version = version.replace(".dev0", "")
-version = version.replace(".post0", "")
-
+# fmt: off
+version = release = (
+    dtoolkit.__version__
+    .replace(".dev0", "")
+    .replace(".post0", "")
+)
+# fmt: on
 
 project = "My Data Toolkit"
 author = "Zero <@Zeroto521>"
@@ -54,7 +57,7 @@ extensions = [
 source_suffix = [".rst", ".md"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ["_templates"]
+templates_path = ["_template"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -115,11 +118,11 @@ nbsphinx_prolog = r"""
 
 # connect docs in other projects
 intersphinx_mapping = {
-    "python": ("http://docs.python.org/", None),
+    "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "sklearn": ("https://scikit-learn.org/stable/", None),
-    "geopandas": ("https://geopandas.readthedocs.io/en/stable/", None),
+    "geopandas": ("https://geopandas.org/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
@@ -127,9 +130,9 @@ intersphinx_mapping = {
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#"),
-    "pr": (f"{github_url}/issues/%s", "pr#"),
-    "user": (r"https://github.com/%s", "@"),
+    "issue": (f"{github_url}/issues/%s", "issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "pr#%s"),
+    "user": (r"https://github.com/%s", "@%s"),
 }
 
 myst_enable_extensions = [

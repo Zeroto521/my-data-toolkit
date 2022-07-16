@@ -1,37 +1,165 @@
-from test.accessor.conftest import d
-
 import pandas as pd
+import pytest
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import filter_in  # noqa
-
-
-def test_work():
-    res = d.filter_in({"a": [0, 1], "b": [2]})
-
-    assert res["a"].isin([0, 1]).any()  # 0 and 1 in a
-    assert (~res["a"].isin([2])).all()  # 2 not in a
-    assert res["b"].isin([2]).any()  # 2 in a
-    assert (~res["b"].isin([0, 1])).all()  # 0 and not in a
+from dtoolkit.accessor.dataframe import filter_in  # noqa: F401
 
 
-def test_inplace_is_true():
-    df = d.copy(True)
-    res = df.filter_in({"a": [0, 1], "b": [2]}, inplace=True)
+df = pd.DataFrame(
+    {
+        "legs": [2, 4, 2],
+        "wings": [2, 0, 0],
+    },
+    index=["falcon", "dog", "cat"],
+)
 
-    assert res is None
-    assert df.equals(d) is False
+
+@pytest.mark.parametrize(
+    "condition, kwargs, expected",
+    [
+        (
+            [0, 2],
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            [0, 2],
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 4, 2],
+                    "wings": [2, 0, 0],
+                },
+                index=["falcon", "dog", "cat"],
+            ),
+        ),
+        (
+            [0, 2],
+            dict(how="any", complement=True),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            (0, 2),
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            [4],
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            [4],
+            dict(how="all", complement=True),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            {"legs": [4]},
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            {"legs": [4]},
+            dict(how="all", complement=True),
+            pd.DataFrame(
+                {
+                    "legs": [2, 2],
+                    "wings": [2, 0],
+                },
+                index=["falcon", "cat"],
+            ),
+        ),
+        (
+            {"legs": [4], "wings": [0]},
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            {"legs": [4], "wings": [0]},
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4, 2],
+                    "wings": [0, 0],
+                },
+                index=["dog", "cat"],
+            ),
+        ),
+        (
+            pd.Series([0], index=["dog"]),
+            dict(how="any", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [4],
+                    "wings": [0],
+                },
+                index=["dog"],
+            ),
+        ),
+        (
+            pd.DataFrame({"legs": [2, 4, 2]}, index=["falcon", "dog", "cat"]),
+            dict(how="all", complement=False),
+            pd.DataFrame(
+                {
+                    "legs": [2, 4, 2],
+                    "wings": [2, 0, 0],
+                },
+                index=["falcon", "dog", "cat"],
+            ),
+        ),
+    ],
+)
+def test_work(condition, kwargs, expected):
+    result = df.filter_in(condition, **kwargs)
+
+    assert_frame_equal(result, expected)
 
 
 def test_issue_145():
     # test my-data-toolkit#145
-    df = pd.DataFrame(
-        {
-            "legs": [2, 4, 2],
-            "wings": [2, 0, 0],
-        },
-        index=["falcon", "dog", "cat"],
-    )
-    res = df.filter_in({"legs": [2]})
+    result = df.filter_in({"legs": [2]})
 
     expected = pd.DataFrame(
         {
@@ -41,4 +169,4 @@ def test_issue_145():
         index=["falcon", "cat"],
     )
 
-    assert res.equals(expected)
+    assert_frame_equal(result, expected)

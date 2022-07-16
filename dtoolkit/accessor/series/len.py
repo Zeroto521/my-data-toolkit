@@ -4,29 +4,15 @@ import pandas as pd
 from pandas.api.types import is_number
 
 from dtoolkit.accessor.register import register_series_method
-from dtoolkit.util._decorator import warning
 
 
-@register_series_method("lens")
 @register_series_method
-@warning(
-    "'dtoolkit.accessor.series.lens' is deprecated and will be removed in 0.0.15. "
-    "Please use 'dtoolkit.accessor.series.len' instead. "
-    "(Warning added DToolKit 0.0.14)",
-    DeprecationWarning,
-    stacklevel=3,
-)
-def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
+def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
     """
     Return the length of each element in the series.
 
     Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
     the length of other types will as ``NaN``.
-
-    .. warning::
-        ``dtoolkit.accessor.series.lens`` is deprecated and will be removed in 0.0.15.
-        Please use ``dtoolkit.accessor.series.len`` instead.
-        (Warning added DToolKit 0.0.14)
 
     Parameters
     ----------
@@ -52,24 +38,26 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> s = pd.Series([0, 1, "string", ("tuple",), ["list"], {}, object])
+    >>> s = pd.Series([0, 1, 1.5, "string", ("tuple",), ["list"], {}, object])
     >>> s
     0                   0
     1                   1
-    2              string
-    3            (tuple,)
-    4              [list]
-    5                  {}
-    6    <class 'object'>
+    2                 1.5
+    3              string
+    4            (tuple,)
+    5              [list]
+    6                  {}
+    7    <class 'object'>
     dtype: object
     >>> s.len()
     0    1.0
     1    1.0
-    2    6.0
-    3    1.0
+    2    1.0
+    3    6.0
     4    1.0
-    5    0.0
-    6    NaN
+    5    1.0
+    6    0.0
+    7    NaN
     dtype: float64
 
     Set `number` and `other` default return.
@@ -77,11 +65,12 @@ def len(s: pd.Series, number: int = 1, other: int = None) -> pd.Series:
     >>> s.len(number=0, other=0)
     0    0
     1    0
-    2    6
-    3    1
+    2    0
+    3    6
     4    1
-    5    0
+    5    1
     6    0
+    7    0
     dtype: int64
     """
 

@@ -1,22 +1,18 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pandas.util._decorators import doc
-
-from dtoolkit.accessor.series import getattr  # noqa
-from dtoolkit.geoaccessor.register import register_geoseries_method
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import Number
-
 from pandas.api.types import is_list_like
 from pandas.api.types import is_number
+from pandas.util._decorators import doc
+
+from dtoolkit._typing import Number
+from dtoolkit._typing import OneDimArray
+from dtoolkit.accessor.series import getattr  # noqa: F401
+from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
@@ -54,6 +50,7 @@ from pandas.api.types import is_number
 def geobuffer(
     s: gpd.GeoSeries,
     distance: Number | list[Number] | OneDimArray,
+    /,
     **kwargs,
 ) -> gpd.GeoSeries:
     """

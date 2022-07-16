@@ -1,29 +1,25 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Literal
 
 import numpy as np
 import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
 
-from dtoolkit.accessor._util import get_inf_range
-from dtoolkit.accessor._util import get_mask
+from dtoolkit._typing import Axis
+from dtoolkit.accessor.dataframe import boolean  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
+from dtoolkit.accessor.series.drop_inf import get_inf_range
 
 
 @register_dataframe_method
 def drop_inf(
     df: pd.DataFrame,
-    axis: IntOrStr = 0,
-    how: str = "any",
-    inf: str = "all",
+    /,
+    axis: Axis = 0,
+    how: Literal["any", "all"] = "any",
+    inf: Literal["all", "pos", "neg"] = "all",
     subset: list[str] = None,
-    inplace: bool = False,
-) -> pd.DataFrame | None:
+) -> pd.DataFrame:
     """
     Remove ``inf`` values.
 
@@ -43,23 +39,19 @@ def drop_inf(
         * 'any' : If any ``inf`` values are present, drop that row or column.
         * 'all' : If all values are ``inf``, drop that row or column.
 
-    inf : {'all', 'pos', 'neg'}, default 'all'
+    inf : {'all', 'pos', '+', 'neg', '-'}, default 'all'
         * 'all' : Remove ``inf`` and ``-inf``.
-        * 'pos' : Only remove ``inf``.
-        * 'neg' : Only remove ``-inf``.
+        * 'pos' / '+' : Only remove ``inf``.
+        * 'neg' / '-' : Only remove ``-inf``.
 
     subset : array-like, optional
         Labels along other axis to consider, e.g. if you are dropping rows
         these would be a list of columns to include.
 
-    inplace : bool, default False
-        If True, do operation inplace and return None.
-
     Returns
     -------
-    DataFrame or None
-        DataFrame with ``inf`` entries dropped from it or None if
-        ``inplace=True``.
+    DataFrame
+        DataFrame with ``inf`` entries dropped from it.
 
     See Also
     --------
@@ -71,10 +63,13 @@ def drop_inf(
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> import numpy as np
-    >>> df = pd.DataFrame({"name": ['Alfred', 'Batman', 'Catwoman'],
-    ...                    "toy": [np.inf, 'Batmobile', 'Bullwhip'],
-    ...                    "born": [np.inf, pd.Timestamp("1940-04-25"),
-    ...                             -np.inf]})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "name": ['Alfred', 'Batman', 'Catwoman'],
+    ...         "toy": [np.inf, 'Batmobile', 'Bullwhip'],
+    ...         "born": [np.inf, pd.Timestamp("1940-04-25"), -np.inf],
+    ...     },
+    ... )
     >>> df
            name        toy                 born
     0    Alfred        inf                  inf
@@ -90,7 +85,7 @@ def drop_inf(
     Drop the columns where at least one element is inf and -inf.
 
     >>> df.drop_inf(axis='columns')
-            name
+           name
     0    Alfred
     1    Batman
     2  Catwoman
@@ -118,15 +113,9 @@ def drop_inf(
     2  Catwoman   Bullwhip                 -inf
 
     Keep the DataFrame with valid entries in the same variable.
-
-    >>> df.drop_inf(inplace=True)
-    >>> df
-           name        toy                 born
-    1    Batman  Batmobile  1940-04-25 00:00:00
     """
 
-    inplace = validate_bool_kwarg(inplace, "inplace")
-
+    inf_range = get_inf_range(inf)
     axis = df._get_axis_number(axis)
     agg_axis = 1 - axis
 
@@ -140,12 +129,5 @@ def drop_inf(
 
         agg_obj = df.take(indices, axis=agg_axis)
 
-    inf_range = get_inf_range(inf)
-    mask = agg_obj.isin(inf_range)
-    mask = get_mask(how, mask, agg_axis)
-    result = df.loc(axis=axis)[~mask]
-
-    if not inplace:
-        return result
-
-    df._update_inplace(result)
+    mask = agg_obj.isin(inf_range).boolean(how=how, axis=agg_axis)
+    return df.loc(axis=axis)[~mask]

@@ -1,12 +1,13 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 
-from dtoolkit.accessor.series import bin  # noqa
+from dtoolkit.accessor.series import bin  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "bins, labels, right, excepted",
+    "bins, labels, right, expected",
     [
         (
             [-np.inf, 1, 10, 20, 30, np.inf],
@@ -40,17 +41,17 @@ from dtoolkit.accessor.series import bin  # noqa
         ),
     ],
 )
-def test_work(bins, labels, right, excepted):
+def test_work(bins, labels, right, expected):
     s = pd.Series([1, 10, 20, 30, 40, 50])
-    res = s.bin(
+    result = s.bin(
         bins=bins,
         labels=labels,
         right=right,
         ordered=False,
     )
-    excepted = pd.Series(
-        excepted,
+    expected = pd.Series(
+        expected,
         dtype=pd.CategoricalDtype(categories=labels),
     )
 
-    assert res.equals(excepted)
+    assert_series_equal(result, expected)

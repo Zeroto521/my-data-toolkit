@@ -1,22 +1,20 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Hashable
 
 import pandas as pd
 
+from dtoolkit._typing import Number
+from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.register import register_series_method
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import Number
 
 
 @register_series_method
 def error_report(
     s: pd.Series,
     predicted: OneDimArray | list[Number],
-    columns: list[IntOrStr] = None,
+    /,
+    columns: list[Hashable] = None,
 ) -> pd.DataFrame:
     """
     Calculate `absolute error` and `relative error` of two columns.
@@ -26,7 +24,7 @@ def error_report(
     predicted : list of int or float, ndarrray, Series
         A array is compared to ``s``.
 
-    columns : list of str or int, optional
+    columns : list of Hashable, optional
         The columns of returning DataFrame, each represents `true value`,
         `predicted value`, `absolute error`, and `relative error`.
 

@@ -13,7 +13,7 @@ sphinx:
   configuration: doc/source/conf.py
 
 conda:
-  environment: doc/environment.yml
+  environment: doc/environment.yaml
 
 python:
   install:

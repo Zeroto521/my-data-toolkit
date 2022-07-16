@@ -1,12 +1,13 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import top_n  # noqa
+from dtoolkit.accessor.dataframe import top_n  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "n, largest, keep, prefix, delimiter, element, excepted",
+    "n, largest, keep, prefix, delimiter, element, expected",
     [
         (
             1,
@@ -94,7 +95,7 @@ def test_single_index_work(
     prefix,
     delimiter,
     element,
-    excepted,
+    expected,
 ):
     df = pd.DataFrame(
         {
@@ -113,12 +114,13 @@ def test_single_index_work(
         element=element,
     )
 
-    excepted = pd.DataFrame(excepted)
-    assert result.equals(excepted)
+    expected = pd.DataFrame(expected)
+
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(
-    "n, keep, excepted",
+    "n, keep, expected",
     [
         (
             1,
@@ -138,7 +140,7 @@ def test_single_index_work(
         ),
     ],
 )
-def test_duplicate_dataframe(n, keep, excepted):
+def test_duplicate_dataframe(n, keep, expected):
     df = pd.DataFrame(
         {
             "a": [1, 3],
@@ -147,14 +149,14 @@ def test_duplicate_dataframe(n, keep, excepted):
         },
     )
 
-    result = df.top_n(n=n, keep=keep, element="both")
-    excepted = pd.DataFrame(excepted)
+    result = df.top_n(n, keep=keep, element="both")
+    expected = pd.DataFrame(expected)
 
-    assert result.equals(excepted)
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(
-    "df, n, excepted",
+    "df, n, expected",
     [
         (
             {
@@ -190,12 +192,12 @@ def test_duplicate_dataframe(n, keep, excepted):
         ),
     ],
 )
-def test_multi_index(df, n, excepted):
+def test_multi_index(df, n, expected):
     df = pd.DataFrame(df)
     result = df.top_n(n=n, element="both")
-    excepted = pd.DataFrame(excepted)
+    expected = pd.DataFrame(expected)
 
-    assert result.equals(excepted)
+    assert_frame_equal(result, expected)
 
 
 def test_element_error():

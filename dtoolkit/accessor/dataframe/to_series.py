@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Hashable
 
 import pandas as pd
 
@@ -8,29 +8,26 @@ from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.register import register_dataframe_method
 
 
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-
-
 @register_dataframe_method
 def to_series(
     df: pd.DataFrame,
-    name: IntOrStr = None,
-    index_column: IntOrStr = None,
-    value_column: IntOrStr = None,
+    /,
+    name: Hashable = None,
+    index_column: Hashable = None,
+    value_column: Hashable = None,
 ) -> SeriesOrFrame:
     """
     Convert :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
 
     Parameters
     ----------
-    name : str or int, optional
+    name : Hashable, optional
         The name of returned Series.
 
-    index_column : str or int, optional
+    index_column : Hashable, optional
         The Series's index.
 
-    value_column : str or int, optional
+    value_column : Hashable, optional
         The Series's value.
 
     Returns
@@ -88,7 +85,7 @@ def to_series(
     Name: c, dtype: int64
     """
 
-    if df.shape[1] == 1:  # one column DataFrame
+    if df.columns.__len__() == 1:  # one column DataFrame
         column = df.columns[0]
         return df.get(column).rename(name or column)
 
@@ -97,9 +94,9 @@ def to_series(
         if index_column == value_column:
             raise ValueError("'index_column' and 'value_column' should be different.")
         elif index_column not in df.columns:
-            raise ValueError(f"{index_column} is not in the columns.")
+            raise ValueError(f"{index_column!r} is not in the columns.")
         elif value_column not in df.columns:
-            raise ValueError(f"{value_column} is not in the columns.")
+            raise ValueError(f"{value_column!r} is not in the columns.")
 
         return (
             df.set_index(index_column)

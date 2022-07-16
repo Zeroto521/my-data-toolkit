@@ -1,11 +1,12 @@
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 
-from dtoolkit.accessor.series import top_n  # noqa
+from dtoolkit.accessor.series import top_n  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "n, largest, keep, excepted",
+    "n, largest, keep, expected",
     [
         (
             4,
@@ -49,7 +50,7 @@ from dtoolkit.accessor.series import top_n  # noqa
         ),
     ],
 )
-def test_work(n, largest, keep, excepted):
+def test_work(n, largest, keep, expected):
     s = pd.Series(
         {
             "Italy": 59000000,
@@ -64,7 +65,7 @@ def test_work(n, largest, keep, excepted):
             "Montserrat": 5200,
         },
     )
-    result = s.top_n(n, largest, keep=keep)
-    excepted = pd.Series(excepted)
+    result = s.top_n(n=n, largest=largest, keep=keep)
+    expected = pd.Series(expected)
 
-    assert result.equals(excepted)
+    assert_series_equal(result, expected)

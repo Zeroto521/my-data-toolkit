@@ -1,11 +1,12 @@
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 
-from dtoolkit.accessor.series import getattr  # noqa
+from dtoolkit.accessor.series import getattr  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "s, name, args, kwargs, excepted",
+    "s, name, args, kwargs, expected",
     [
         # test attribute
         (
@@ -76,7 +77,7 @@ from dtoolkit.accessor.series import getattr  # noqa
         ),
     ],
 )
-def test_attr_work(s, name, args, kwargs, excepted):
+def test_attr_work(s, name, args, kwargs, expected):
     result = s.getattr(name, *args, **kwargs)
 
-    assert result.equals(excepted)
+    assert_series_equal(result, expected)

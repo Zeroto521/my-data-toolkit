@@ -1,17 +1,14 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import TYPE_CHECKING
 
 import geopandas as gpd
 from pandas.util._decorators import doc
 
+from dtoolkit._typing import Number
+from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor.geoseries import geobuffer as s_geobuffer
 from dtoolkit.geoaccessor.register import register_geodataframe_method
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import Number
 
 
 @register_geodataframe_method
@@ -54,12 +51,14 @@ if TYPE_CHECKING:
 def geobuffer(
     df: gpd.GeoDataFrame,
     distance: Number | list[Number] | OneDimArray,
+    /,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-
     return df.assign(
-        geometry=df.geometry.geobuffer(
-            distance,
-            **kwargs,
-        ),
+        **{
+            df.geometry.name: df.geometry.geobuffer(
+                distance,
+                **kwargs,
+            ),
+        },
     )

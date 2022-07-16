@@ -1,12 +1,13 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.series import expand  # noqa
+from dtoolkit.accessor.series import expand  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "suffix, delimiter, data, name, flatten, excepted",
+    "suffix, delimiter, data, name, flatten, expected",
     [
         # test default parameters
         (
@@ -97,9 +98,9 @@ from dtoolkit.accessor.series import expand  # noqa
         ),
     ],
 )
-def test_work(suffix, delimiter, flatten, data, name, excepted):
+def test_work(suffix, delimiter, flatten, data, name, expected):
     s = pd.Series(data, name=name)
-    excepted = pd.DataFrame(excepted)
+    expected = pd.DataFrame(expected)
 
     result = s.expand(
         suffix=suffix,
@@ -107,7 +108,7 @@ def test_work(suffix, delimiter, flatten, data, name, excepted):
         flatten=flatten,
     )
 
-    assert result.equals(excepted)
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(

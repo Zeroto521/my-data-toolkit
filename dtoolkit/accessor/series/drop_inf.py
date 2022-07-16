@@ -1,37 +1,30 @@
 from __future__ import annotations
 
-import pandas as pd
-from pandas.util._validators import validate_bool_kwarg
+from typing import Literal
 
-from dtoolkit.accessor._util import get_inf_range
+import numpy as np
+import pandas as pd
+
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def drop_inf(
-    s: pd.Series,
-    inf: str = "all",
-    inplace: bool = False,
-) -> pd.Series | None:
+def drop_inf(s: pd.Series, /, inf: Literal["all", "pos", "neg"] = "all") -> pd.Series:
     """
     Remove ``inf`` values.
 
     Parameters
     ----------
-    inf : {'all', 'pos', 'neg'}, default 'all'
+    inf : {'all', 'pos', '+', 'neg', '-'}, default 'all'
 
         * 'all' : Remove ``inf`` and ``-inf``.
-        * 'pos' : Only remove ``inf``.
-        * 'neg' : Only remove ``-inf``.
-
-    inplace : bool, default False
-        If True, do operation inplace and return None.
+        * 'pos' / '+' : Only remove ``inf``.
+        * 'neg' / '-' : Only remove ``-inf``.
 
     Returns
     -------
-    Series or None
-        Series with ``inf`` entries dropped from it or None if
-        ``inplace=True``.
+    Series
+        Series with ``inf`` entries dropped from it.
 
     See Also
     --------
@@ -57,22 +50,26 @@ def drop_inf(
     0    1.0
     1    2.0
     dtype: float64
-
-    Keep the Series with valid entries in the same variable.
-
-    >>> s.drop_inf(inplace=True)
-    >>> s
-    0    1.0
-    1    2.0
-    dtype: float64
     """
 
-    inplace = validate_bool_kwarg(inplace, "inplace")
     inf_range = get_inf_range(inf)
     mask = s.isin(inf_range)
-    result = s[~mask]
 
-    if not inplace:
-        return result
+    return s[~mask]
 
-    s._update_inplace(result)
+
+def get_inf_range(inf: Literal["all", "pos", "neg"] = "all") -> list[float]:
+    """Get inf value from string"""
+
+    inf_range = {
+        "all": [np.inf, -np.inf],
+        "pos": [np.inf],
+        "+": [np.inf],
+        "neg": [-np.inf],
+        "-": [-np.inf],
+    }
+
+    if inf in inf_range:
+        return inf_range[inf]
+
+    raise ValueError(f"invalid inf option: {inf!r}")

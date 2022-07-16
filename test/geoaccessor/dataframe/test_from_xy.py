@@ -1,14 +1,15 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from geopandas.testing import assert_geodataframe_equal
 from pyproj.crs import CRSError
 from shapely.geometry import Point
 
-from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
+from dtoolkit.geoaccessor.dataframe import from_xy  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "data, x, y, z, crs, drop, excepted",
+    "data, x, y, z, crs, drop, expected",
     [
         # normal
         (
@@ -125,13 +126,12 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
             "z",
             None,
             True,
-            gpd.GeoSeries(
-                [
+            gpd.GeoDataFrame(
+                geometry=[
                     Point(122, 55, 0),
                     Point(100, 1, 0),
                     Point(0, 0, 0),
                 ],
-                name="Geometry",
             ),
         ),
         # test drop is True
@@ -159,10 +159,10 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
         ),
     ],
 )
-def test_work(data, x, y, z, crs, drop, excepted):
+def test_work(data, x, y, z, crs, drop, expected):
     result = pd.DataFrame(data).points_from_xy(x, y, z, crs, drop)
 
-    assert result.equals(excepted)
+    assert_geodataframe_equal(result, expected)
 
 
 @pytest.mark.parametrize(
