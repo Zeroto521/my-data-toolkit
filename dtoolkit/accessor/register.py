@@ -1,20 +1,17 @@
 from __future__ import annotations
 
 from functools import wraps
-from typing import TYPE_CHECKING
+from typing import Callable
 
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_index_accessor
 from pandas.api.extensions import register_series_accessor
 from pandas.util._decorators import doc
 
-if TYPE_CHECKING:
-    from typing import Callable
-
-    from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import SeriesOrFrame
 
 
-def register_method_factory(register_accessor):
+def register_method_factory(register_accessor, /):
     """
     Let pandas-object like accessor which only hooks class also hooks function easily.
 
@@ -36,8 +33,9 @@ def register_method_factory(register_accessor):
     """
 
     # based on pandas_flavor/register.py
-    def register_accessor_method(method: Callable, name: str):
-        def method_accessor(pd_obj: SeriesOrFrame):
+    def register_accessor_method(method: Callable, name: str, /):
+        @wraps(method)
+        def method_accessor(pd_obj: SeriesOrFrame, /):
             @wraps(method)
             def wrapper(*args, **kwargs):
                 return method(pd_obj, *args, **kwargs)
@@ -50,19 +48,19 @@ def register_method_factory(register_accessor):
         # Must return method itself, otherwise would get None.
         return method
 
-    def register_accessor_alias(name: str = None):
-        def wrapper(method: Callable):
+    def register_accessor_alias(name: str = None, /):
+        def wrapper(method: Callable, /):
             return register_accessor_method(method, name or method.__name__)
 
         return wrapper
 
     @wraps(register_accessor)
-    def decorator(name: Callable | str = None):
+    def decorator(name: Callable | str = None, /):
         if callable(name):  # Supports `@register_*_method` using.
             method = name  # This 'name' variable actually is a function.
             return register_accessor_method(method, method.__name__)
 
-        # Supports `@register_*_method()` and `@register_*_method(name="")` using.
+        # Supports `@register_*_method()` using.
         return register_accessor_alias(name)
 
     return decorator
@@ -107,7 +105,7 @@ def register_series_method(name: str = None):
 
         @register_index_method("col")  # Support alias name also.
         @register_series_method("col")
-        @register_dataframe_method(name="col")
+        @register_dataframe_method("col")
         @register_index_method  # Use accessor method's `__name__` as the entrance.
         @register_series_method
         @register_dataframe_method

@@ -1,4 +1,4 @@
-name: nightly tests
+name: nightly test
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         with:
           paths_ignore: '["doc/**"]'
 
-  nightly-tests:
+  nightly-test:
     needs: skip-check
     if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     name: ${{ matrix.os }}, ${{ matrix.python-version }}, ${{ matrix.env }}

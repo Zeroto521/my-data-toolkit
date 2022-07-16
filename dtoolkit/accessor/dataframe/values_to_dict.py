@@ -1,20 +1,18 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Hashable
 
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa
-
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa: F401
 
 
 @register_dataframe_method
 def values_to_dict(
     df: pd.DataFrame,
-    order: list[IntOrStr] | pd.Index = None,
+    /,
+    order: list[Hashable] | pd.Index = None,
     ascending: bool = True,
     unique: bool = True,
     to_list: bool = True,
@@ -24,7 +22,7 @@ def values_to_dict(
 
     Parameters
     ----------
-    order : list of str or int, Index, optional
+    order : list of Hashable, Index, optional
         The order of keys via given columns. If ``order`` is set, ``ascending``
         will not work.
 
@@ -35,7 +33,7 @@ def values_to_dict(
         If True would drop duplicate elements.
 
     to_list : bool, default True
-        If True one element value will return :keyword:`list`.
+        If True one element value will return :class:`list`.
 
     Returns
     -------

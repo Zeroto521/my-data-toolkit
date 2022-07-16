@@ -1,8 +1,8 @@
-name: dtoolkit_doc
+name: dtoolkit-doc
 channels:
   - conda-forge
 dependencies:
-  - python>=3.7
+  - python>=3.8
   # package dependencies
   - pandas
   - scikit-learn

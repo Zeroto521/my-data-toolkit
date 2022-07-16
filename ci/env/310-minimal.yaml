@@ -5,9 +5,11 @@ dependencies:
   - python=3.10
   # required
   - pandas=1.3.4
-  - scikit-learn=1.0
+  # optional
+  - scikit-learn=1.1
   - geopandas=0.9.0
   - pygeos=0.11.1
+  - geopy
   # testing
   - pytest
   - pytest-cov

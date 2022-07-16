@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from typing import Hashable
+from typing import Literal
 from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -14,10 +15,10 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
-    X: IntOrStr | list[IntOrStr] | pd.Index,
-    y: IntOrStr,
-    how: str = "na",
+    columns: dict[Hashable, Hashable | list[Hashable] | pd.Index],
+    how: Literal["na", "all"] = "na",
     **kwargs,
 ) -> pd.DataFrame:
     """
@@ -28,11 +29,9 @@ def fillna_regression(
     method : RegressorMixin
         Regression transformer.
 
-    X : int or str, list of int or str, Index
-        Feature columns.
-
-    y : int or str
-        Target column.
+    columns : dict, ``{y: X}``
+        A series of column names pairs. The key is the y (or target) column name, and
+        values are X (or feature) column names.
 
     how : {'na', 'all'}, default 'na'
         Only fill na value or apply regression to entire target column.
@@ -40,6 +39,10 @@ def fillna_regression(
     **kwargs
         See the documentation for ``method`` for complete details on
         the keyword arguments.
+
+    Returns
+    -------
+    DataFrame
 
     See Also
     --------
@@ -94,7 +97,7 @@ def fillna_regression(
 
     Use 'x1' and 'x2' columns to fit 'y' column and fill the value.
 
-    >>> df.fillna_regression(LinearRegression, ['x1', 'x2'], 'y')
+    >>> df.fillna_regression(LinearRegression, {'y': ['x1', 'x2']})
        x1  x2     y
     0   1   1   6.0
     1   1   2   8.0
@@ -105,6 +108,22 @@ def fillna_regression(
 
     if how not in {"na", "all"}:
         raise ValueError(f"invalid inf option: {how!r}")
+
+    for y, X in columns.items():
+        df = _fillna_regression(df, method, y, X, how=how, **kwargs)
+
+    return df
+
+
+def _fillna_regression(
+    df: pd.DataFrame,
+    method: RegressorMixin,
+    y: Hashable,
+    X: Hashable | list[Hashable] | pd.Index,
+    how: str = "na",
+    **kwargs,
+):
+    """Fill single na column at once."""
 
     if isinstance(X, (str, int)):
         X = [X]

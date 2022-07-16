@@ -1,7 +1,8 @@
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import feature_names
+from pandas.testing import assert_series_equal
 
 from dtoolkit.transformer import EvalTF
+from test.transformer.conftest import df_iris
+from test.transformer.conftest import feature_names
 
 
 def test_work():
@@ -9,4 +10,8 @@ def test_work():
     tf = EvalTF(f"`{new_column}` = `{feature_names[0]}` * 2")
     result = tf.fit_transform(df_iris)
 
-    assert result[new_column].equals(df_iris[feature_names[0]] * 2)
+    assert_series_equal(
+        result[new_column],
+        df_iris[feature_names[0]] * 2,
+        check_names=False,
+    )

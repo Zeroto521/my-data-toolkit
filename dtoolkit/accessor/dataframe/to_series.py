@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Hashable
 
 import pandas as pd
 
@@ -8,29 +8,26 @@ from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.register import register_dataframe_method
 
 
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-
-
 @register_dataframe_method
 def to_series(
     df: pd.DataFrame,
-    name: IntOrStr = None,
-    index_column: IntOrStr = None,
-    value_column: IntOrStr = None,
+    /,
+    name: Hashable = None,
+    index_column: Hashable = None,
+    value_column: Hashable = None,
 ) -> SeriesOrFrame:
     """
     Convert :class:`~pandas.DataFrame` to :class:`~pandas.Series`.
 
     Parameters
     ----------
-    name : str or int, optional
+    name : Hashable, optional
         The name of returned Series.
 
-    index_column : str or int, optional
+    index_column : Hashable, optional
         The Series's index.
 
-    value_column : str or int, optional
+    value_column : Hashable, optional
         The Series's value.
 
     Returns

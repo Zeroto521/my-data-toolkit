@@ -1,36 +1,28 @@
-from test.accessor.conftest import s
-from test.accessor.conftest import s_inf
-
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_series_equal
 
-from dtoolkit.accessor.series import drop_inf  # noqa
+from dtoolkit.accessor.series import drop_inf  # noqa: F401
+from test.accessor.conftest import s
+from test.accessor.conftest import s_inf
 
 
 @pytest.mark.parametrize(
-    "inf, df, expt",
+    "inf, df, expected",
     [
         ("all", s, s),
-        ("all", pd.concat((s, s_inf)), s),
+        ("all", pd.concat((s, s_inf)), s.rename(None)),
         ("pos", s_inf, pd.Series([-np.inf], index=[1])),
         ("+", s_inf, pd.Series([-np.inf], index=[1])),
         ("neg", s_inf, pd.Series([np.inf])),
         ("-", s_inf, pd.Series([np.inf])),
     ],
 )
-def test_work(inf, df, expt):
+def test_work(inf, df, expected):
     result = df.drop_inf(inf=inf)
 
-    assert result.equals(expt)
-
-
-def test_inplace_is_true():
-    self_s = pd.concat((s, s_inf))
-    result = self_s.drop_inf(inplace=True)
-
-    assert result is None
-    assert self_s.equals(s)
+    assert_series_equal(result, expected)
 
 
 @pytest.mark.parametrize(
