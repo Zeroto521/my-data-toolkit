@@ -71,11 +71,11 @@ def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> list[f
     """Get inf value from string"""
 
     INF_RANGE = {
-        "all": [np.inf, -np.inf],
-        "pos": [np.inf],
-        "+": [np.inf],
-        "neg": [-np.inf],
-        "-": [-np.inf],
+        "all": {np.inf, -np.inf},
+        "pos": {np.inf},
+        "+": {np.inf},
+        "neg": {-np.inf},
+        "-": {-np.inf},
     }
     try:
         return INF_RANGE[inf]
