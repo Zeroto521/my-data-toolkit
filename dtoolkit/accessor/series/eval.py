@@ -28,9 +28,6 @@ def eval(s: pd.Series, /, expr: str, **kwargs):
 
     See Also
     --------
-    query
-        Evaluates a boolean expression to query Series.
-
     pandas.eval
         Evaluate a Python expression as a string using various backends.
 
