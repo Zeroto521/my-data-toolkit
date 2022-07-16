@@ -99,6 +99,12 @@ def expand(
     -------
     DataFrame
         The structure of new column name is ``{{column name}}{{delimiter}}{{suffix}}``.
+
+    Raises
+    ------
+    ValueError
+        - If ``s.name`` is None.
+        - If ``len(suffix)`` less than the max size of ``s``'s elements.
     {see_also}
     {examples}
     """
