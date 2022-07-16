@@ -13,16 +13,6 @@ from dtoolkit.accessor.register import register_series_method
 
 @register_series_method
 @doc(
-    see_also=dedent(
-        """
-    See Also
-    --------
-    pandas.Series.explode
-        Transform each element of a list-like to a row.
-    dtoolkit.accessor.dataframe.expand
-        Transform each element of a list-like to a column.
-    """,
-    ),
     examples=dedent(
         """
     Examples
@@ -105,7 +95,20 @@ def expand(
     ValueError
         - If ``s.name`` is None.
         - If ``len(suffix)`` less than the max size of ``s``'s elements.
-    {see_also}
+
+    See Also
+    --------
+    pandas.Series.explode
+        Transform each element of a list-like to a row.
+
+    pandas.DataFrame.explode
+        Transform each element of a list-like to a row.
+
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+
+    dtoolkit.accessor.dataframe.expand
+        Transform each element of a list-like to a column.
     {examples}
     """
 
