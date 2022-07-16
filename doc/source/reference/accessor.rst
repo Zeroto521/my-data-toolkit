@@ -23,7 +23,6 @@ Series Accessor
     error_report
     eval
     expand
-    getattr
     filter_in
     getattr
     jenks_bin
