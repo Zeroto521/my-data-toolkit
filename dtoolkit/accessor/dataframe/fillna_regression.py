@@ -44,6 +44,11 @@ def fillna_regression(
     -------
     DataFrame
 
+    Raises
+    ------
+    ValueError
+        If ``how`` isn't "na" or "all".
+
     See Also
     --------
     sklearn.kernel_ridge
