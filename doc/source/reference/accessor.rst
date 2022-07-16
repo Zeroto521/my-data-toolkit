@@ -28,6 +28,7 @@ Series Accessor
     jenks_bin
     jenks_breaks
     len
+    query
     to_set
     top_n
     values_to_dict
