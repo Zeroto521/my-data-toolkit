@@ -6,7 +6,7 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def eval(s: pd.Series, expr: str, **kwargs):
+def eval(s: pd.Series, /, expr: str, **kwargs):
     """
     Evaluate a string describing operations on Series.
 
