@@ -47,6 +47,10 @@ def boolean(
         See the documentation for :meth:`~pandas.DataFrame.any` and
         :attr:`~pandas.DataFrame.all` for complete details on the keyword arguments.
 
+    Returns
+    -------
+    Series
+
     See Also
     --------
     pandas.DataFrame.any
