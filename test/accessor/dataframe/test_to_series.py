@@ -195,14 +195,14 @@ def test_work(df, name, index_column, value_column, expected):
             None,
             "a",
             "c",
-            ValueError,
+            KeyError,
         ),
         (
             pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
             None,
             "c",
             "b",
-            ValueError,
+            KeyError,
         ),
     ],
 )
