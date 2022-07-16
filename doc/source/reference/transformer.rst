@@ -19,17 +19,6 @@ Base transformer class for all transformers.
     methodtf_factory
 
 
-Pipeline
--------------------
-.. autosummary::
-    :toctree: api/
-
-    Pipeline
-    make_pipeline
-    FeatureUnion
-    make_union
-
-
 Sklearn Transformer
 -------------------
 .. autosummary::
@@ -47,8 +36,8 @@ corresponding to relative :class:`pandas.DataFrame`'s method.
 .. autosummary::
     :toctree: api/
 
-    AssignTF
     AppendTF
+    AssignTF
     DropTF
     EvalTF
     FilterInTF

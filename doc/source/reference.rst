@@ -9,6 +9,7 @@ functions and methods implemented in DToolKit.
     :maxdepth: 3
 
     Accessor <reference/accessor>
-    Transformer <reference/transformer>
     GeoAccessor <reference/geoaccessor>
+    Transformer <reference/transformer>
+    Pipeline <reference/pipeline>
     Utility <reference/utility>

@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 import numpy as np
 import pandas as pd
 
-if TYPE_CHECKING:
-    from dtoolkit._typing import SeriesOrFrame
-    from dtoolkit._typing import OneDimArray
-    from dtoolkit._typing import TwoDimArray
+from dtoolkit._typing import OneDimArray
+from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import TwoDimArray
 
 
 def transform_array_to_frame(
@@ -70,3 +67,29 @@ def transform_frame_to_series(X: np.ndarray | SeriesOrFrame) -> OneDimArray:
     """
 
     return X.to_series() if isinstance(X, pd.DataFrame) else X
+
+
+def snake_to_camel(name: str) -> str:
+    """
+    Change snake style name to camel style name.
+
+    Parameters
+    ----------
+    name : str
+        Snake style name
+
+    Returns
+    -------
+    str
+        Camel style name
+
+    Examples
+    --------
+    >>> from dtoolkit.transformer._util import snake_to_camel
+    >>> snake_to_camel(snake_to_camel.__name__)
+    'SnakeToCamel'
+    """
+
+    components = name.split("_")
+    components = (x.title() for x in components)
+    return "".join(components)
