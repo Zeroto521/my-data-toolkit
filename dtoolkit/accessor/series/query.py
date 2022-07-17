@@ -62,8 +62,4 @@ def query(s: pd.Series, /, expr: str, **kwargs) -> pd.Series:
     kwargs["target"] = None
     mask = s.eval(expr, **kwargs)
 
-    try:
-        return s.loc[mask]
-    except ValueError:
-        # when mask is multi-dimensional loc raises, but this is sometimes a valid query
-        return s[mask]
+    return s[mask]
