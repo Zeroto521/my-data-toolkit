@@ -30,6 +30,12 @@ def eval(s: pd.Series, /, expr: str, **kwargs):
     pandas.eval
         Evaluate a Python expression as a string using various backends.
 
+    pandas.DataFrame.eval
+        Evaluate a string describing operations on DataFrame columns.
+
+    dtoolkit.accessor.series.query
+        Evaluates a boolean expression to query Series.
+
     Examples
     --------
     >>> import dtoolkit.accessor
