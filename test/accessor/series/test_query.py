@@ -1,5 +1,4 @@
 import pandas as pd
-
 import pytest
 
 from dtoolkit.accessor.series import query  # noqa: F401
