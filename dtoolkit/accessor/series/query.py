@@ -55,7 +55,7 @@ def query(s: pd.Series, /, expr: str, **kwargs) -> pd.Series:
 
     if not isinstance(expr, str):
         raise ValueError(
-            f"expr must be a string to be evaluated, {type(expr)} given",
+            f"'expr' must be a string to be evaluated, {type(expr)} given",
         )
 
     kwargs["level"] = kwargs.pop("level", 0) + 1
