@@ -57,24 +57,25 @@ def toposimplify(
     Parameters
     ----------
     tolerance : float
-        tolerance parameter.
+        All parts of a simplified geometry will be no more than tolerance distance from
+        the original.
 
     simplify_algorithm : {{'dp', 'vw'}}, default 'dp'
-        Choose between `dp` and `vw`, for Douglas-Peucker or Visvalingam-Whyatt
-        respectively. `vw` will only be selected if `simplify_with` is set to
-        `simplification`.
+        ``vw`` will only be selected if ``simplify_with`` is set to ``simplification``.
+        - ``dp`` : Douglas-Peucker
+        - ``vw`` : Visvalingam-Whyatt
 
     simplify_with : {{'shapely', 'simplification'}}, default 'shapely'
         Sets the package to use for simplifying. Shapely adopts solely Douglas-Peucker
         and simplification both Douglas-Peucker and Visvalingam-Whyatt. The pacakge
         simplification is known to be quicker than shapely.
 
-    prevent_oversimplify : bool, default False
-        If this setting is set to `True`, the simplification is slower, but the
-        likelihood of producing valid geometries is higher as it prevents
-        oversimplification. Simplification happens on paths separately, so this
-        setting is especially relevant for rings with no partial shared paths. This
-        is also known as a topology-preserving variant of simplification.
+    prevent_oversimplify : bool, default True
+        If `True`, the simplification is slower, but the likelihood of producing
+        valid geometries is higher as it prevents oversimplification. Simplification
+        happens on paths separately, so this setting is especially relevant for rings
+        with no partial shared paths. This is also known as a topology-preserving
+        variant of simplification.
 
     Returns
     -------
