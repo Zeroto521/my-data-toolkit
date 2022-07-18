@@ -14,10 +14,8 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @doc(
     s_toposimplify,
     klass=":class:`~geopandas.GeoDataFrame`",
-    examples=dedent(
+    plot=dedent(
         """
-    Examples
-    --------
     .. plot::
 
         import dtoolkit.geoaccessor
