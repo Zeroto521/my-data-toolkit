@@ -109,9 +109,9 @@ def toposimplify(
 def _toposimplify(
     gpd_obj: gpd.GeoSeries | gpd.GeoDataFrame,
     tolerance: float,
-    simplify_algorithm: Literal["dp", "vw"] = "dp",
-    simplify_with: Literal["shapely", "simplification"] = "shapely",
-    prevent_oversimplify: bool = False,
+    simplify_algorithm: Literal["dp", "vw"],
+    simplify_with: Literal["shapely", "simplification"],
+    prevent_oversimplify: bool,
 ) -> gpd.GeoSeries | gpd.GeoDataFrame:
     from topojson import Topology
 
