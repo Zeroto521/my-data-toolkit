@@ -10,6 +10,8 @@ dependencies:
   - pygeos
   - geopy
   - jenkspy
+  - topojson
+  - simplification
   # testing
   - pytest
   - pytest-cov
