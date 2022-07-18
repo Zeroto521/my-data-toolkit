@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Literal
 
 import geopandas as gpd
 from pandas.util._decorators import doc
