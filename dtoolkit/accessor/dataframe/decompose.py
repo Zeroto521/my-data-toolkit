@@ -52,6 +52,11 @@ def decompose(
     -------
     DataFrame
 
+    Raises
+    ------
+    ValueError
+        If the number of rows is less than the number of columns.
+
     See Also
     --------
     sklearn.decomposition

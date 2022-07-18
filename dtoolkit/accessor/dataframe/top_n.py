@@ -8,6 +8,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import top_n as s_top_n
 
 
+@register_dataframe_method("topn")
 @register_dataframe_method
 def top_n(
     df: pd.DataFrame,
@@ -59,6 +60,11 @@ def top_n(
         - The default structure of value is ``{column index}`` and could be
           controlled via ``element``.
 
+    Raises
+    ------
+    ValueError
+        If ``element`` isn't "both", "index" or "value".
+
     See Also
     --------
     dtoolkit.accessor.dataframe.expand
@@ -66,12 +72,15 @@ def top_n(
 
     Notes
     -----
-    Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
-    :meth:`~pandas.DataFrame.nsmallest`?
+    - This method could be called via ``df.top_n`` or ``df.topn``.
 
-    A: :meth:`~pandas.DataFrame.nlargest` and
-    :meth:`~pandas.DataFrame.nsmallest` base one column to return all selected
-    columns dataframe top `n`.
+    - Q & A
+        Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
+        :meth:`~pandas.DataFrame.nsmallest`?
+
+        A: :meth:`~pandas.DataFrame.nlargest` and
+        :meth:`~pandas.DataFrame.nsmallest` base one column to return all selected
+        columns dataframe top `n`.
 
     Examples
     --------

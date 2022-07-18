@@ -21,10 +21,14 @@ Series Accessor
     cols
     drop_inf
     error_report
+    eval
     expand
     filter_in
     getattr
+    jenks_bin
+    jenks_breaks
     len
+    query
     to_set
     top_n
     values_to_dict
