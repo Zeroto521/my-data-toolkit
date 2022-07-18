@@ -25,6 +25,7 @@ Series Accessor
     expand
     filter_in
     getattr
+    groupby_index
     jenks_bin
     jenks_breaks
     len
@@ -48,6 +49,7 @@ DataFrame Accessor
     expand
     fillna_regression
     filter_in
+    groupby_index
     repeat
     to_series
     top_n
