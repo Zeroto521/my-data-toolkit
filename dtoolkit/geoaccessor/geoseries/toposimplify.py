@@ -101,20 +101,16 @@ def toposimplify(
     ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
     ...     .query('continent == "Africa"')
     ... )
-    >>> df.head()
+    >>> df.head(3)
          pop_est continent             name iso_a3  gdp_md_est                                           geometry  # noqa: E501
     1   53950935    Africa         Tanzania    TZA    150600.0  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...  # noqa: E501
     2     603253    Africa        W. Sahara    ESH       906.5  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...  # noqa: E501
     11  83301151    Africa  Dem. Rep. Congo    COD     66010.0  POLYGON ((29.34000 -4.49998, 29.51999 -5.41998...  # noqa: E501
-    12   7531386    Africa          Somalia    SOM      4719.0  POLYGON ((41.58513 -1.68325, 40.99300 -0.85829...  # noqa: E501
-    13  47615739    Africa            Kenya    KEN    152700.0  POLYGON ((39.20222 -4.67677, 37.76690 -3.67712...  # noqa: E501
-    >>> df.toposimplify(0.1).head()
+    >>> df.toposimplify(0.1).head(3)
                                                 geometry   pop_est continent             name iso_a3  gdp_md_est  # noqa: E501
     0  POLYGON ((33.90367 -0.95000, 30.76984 -1.01452...  53950935    Africa         Tanzania    TZA    150600.0  # noqa: E501
     1  POLYGON ((-8.66561 27.65644, -8.79490 27.12073...    603253    Africa        W. Sahara    ESH       906.5  # noqa: E501
     2  POLYGON ((29.33999 -4.50001, 29.27634 -3.29391...  83301151    Africa  Dem. Rep. Congo    COD     66010.0  # noqa: E501
-    3  POLYGON ((41.58509 -1.68324, 42.04156 -0.91918...   7531386    Africa          Somalia    SOM      4719.0  # noqa: E501
-    4  POLYGON ((39.20220 -4.67675, 39.60493 -4.34650...  47615739    Africa            Kenya    KEN    152700.0  # noqa: E501
     {plot}
     """
 
