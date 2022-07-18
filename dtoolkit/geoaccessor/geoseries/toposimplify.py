@@ -65,7 +65,7 @@ def toposimplify(
 
     simplify_with : {{'shapely', 'simplification'}}, default 'shapely'
         Sets the package to use for simplifying. Shapely adopts solely Douglas-Peucker
-        and simplification both Douglas-Peucker and Visvalingam-Whyatt. The pacakge
+        and simplification both Douglas-Peucker and Visvalingam-Whyatt. The package
         simplification is known to be quicker than shapely.
 
     prevent_oversimplify : bool, default True
