@@ -101,12 +101,12 @@ def toposimplify(
     ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
     ...     .query('continent == "Africa"')
     ... )
-    >>> df.head(3)
+    >>> df.head(3)  # doctest: +SKIP
          pop_est continent             name iso_a3  gdp_md_est                                           geometry  # noqa: E501
     1   53950935    Africa         Tanzania    TZA    150600.0  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...  # noqa: E501
     2     603253    Africa        W. Sahara    ESH       906.5  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...  # noqa: E501
     11  83301151    Africa  Dem. Rep. Congo    COD     66010.0  POLYGON ((29.34000 -4.49998, 29.51999 -5.41998...  # noqa: E501
-    >>> df.toposimplify(0.1).head(3)
+    >>> df.toposimplify(0.1).head(3)  # doctest: +SKIP
                                                 geometry   pop_est continent             name iso_a3  gdp_md_est  # noqa: E501
     0  POLYGON ((33.90367 -0.95000, 30.76984 -1.01452...  53950935    Africa         Tanzania    TZA    150600.0  # noqa: E501
     1  POLYGON ((-8.66561 27.65644, -8.79490 27.12073...    603253    Africa        W. Sahara    ESH       906.5  # noqa: E501
