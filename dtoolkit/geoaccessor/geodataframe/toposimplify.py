@@ -41,7 +41,6 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
         ax2.set_axis_off()
         fig.tight_layout()
         plt.show()
-
     """,
     ),
 )
