@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
@@ -7,21 +9,35 @@ from pandas.util._decorators import doc
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
+BINARY_PREDICATE = Literal[
+    "intersects",
+    "crosses",
+    "overlaps",
+    "touches",
+    "covered_by",
+    "contains_properly",
+    "contains",
+    "within",
+    "covers",
+]
+
+
 @register_geoseries_method
 @doc(klass=":class:`~geopandas.GeoSeries`")
-def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
+def count_duplicated_geometry(
+    s: gpd.GeoSeries,
+    /,
+    predicate: BINARY_PREDICATE = "intersects",
+) -> pd.Series:
     """
     Count the number of duplicated geometries in a {klass}.
 
     Parameters
     ----------
-    predicate / op : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
+    predicate : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
 'contains_properly', 'contains', 'within', 'covers'}}, default 'intersects'
         The binary predicate is used to validate whether the geometries are duplicates
         or not.
-
-        * geopandas version >= 0.10.0 : Please use ``predicate``.
-        * geopandas version < 0.10.0 : Please use ``op``.
 
     Returns
     -------
@@ -62,7 +78,7 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     return (
         s.to_frame("geometry")
         .pipe(set_unique_index, drop=True)
-        .pipe(self_sjoin, **kwargs)
+        .pipe(self_sjoin, predicate=predicate)
         .groupby_index()
         .geometry.count()
         .set_axis(s.index)  # Restore original index
