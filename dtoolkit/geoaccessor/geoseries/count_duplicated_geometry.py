@@ -82,8 +82,8 @@ def count_duplicated_geometry(
         .pipe(self_sjoin, predicate=predicate)
         .groupby_index()
         .geometry.count()
-        .set_axis(s.index)  # Restore original index
         .rename(None)
+        .set_axis(s.index)  # Restore original index
         .__sub__(1)  # 1 means itself sjoin, but doesn't sjoin other geometries
     )
 
