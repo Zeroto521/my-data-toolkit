@@ -1,8 +1,8 @@
-import pytest
-
 import geopandas as gpd
-from shapely.geometry import Polygon
+import pytest
 from pandas.testing import assert_series_equal
+from shapely.geometry import Polygon
+
 from dtoolkit.geoaccessor.geoseries import count_duplicated_geometry  # noqa: F401
 
 

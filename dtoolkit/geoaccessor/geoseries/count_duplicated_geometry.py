@@ -88,7 +88,7 @@ def count_duplicated_geometry(
             pd.Series(
                 np.ones(len(s), dtype=int),
                 index=s.index,
-            )
+            ),
         )  # Fill the value of empty index with 1
         .set_axis(s.index)  # Restore original index
         .__sub__(1)  # 1 means itself sjoin, but doesn't sjoin other geometries
