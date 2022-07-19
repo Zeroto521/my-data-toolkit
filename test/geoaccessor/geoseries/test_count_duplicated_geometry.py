@@ -1,3 +1,4 @@
+import pandas as pd
 import geopandas as gpd
 import pytest
 from pandas.testing import assert_series_equal
