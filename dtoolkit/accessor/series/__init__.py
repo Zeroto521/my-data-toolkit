@@ -6,6 +6,7 @@ from dtoolkit.accessor.series.eval import eval  # noqa: F401
 from dtoolkit.accessor.series.expand import expand  # noqa: F401
 from dtoolkit.accessor.series.filter_in import filter_in  # noqa: F401
 from dtoolkit.accessor.series.getattr import getattr  # noqa: F401
+from dtoolkit.accessor.series.groupby_index import groupby_index  # noqa: F401
 from dtoolkit.accessor.series.jenks import jenks_bin  # noqa: F401
 from dtoolkit.accessor.series.jenks import jenks_breaks  # noqa: F401
 from dtoolkit.accessor.series.len import len  # noqa: F401
