@@ -49,6 +49,36 @@ def test_warning(s, warning):
             "contains",
             pd.Series([1, 0]),
         ),
+        (
+            gpd.GeoSeries(
+                [
+                    Polygon([(0, 0), (2, 0), (2, 2), (0, 2)]),
+                    Polygon([(2, 2), (4, 2), (4, 4), (2, 4)]),
+                ],
+            ),
+            "intersects",
+            pd.Series([1, 1]),
+        ),
+        (
+            gpd.GeoSeries(
+                [
+                    Polygon([(0, 0), (2, 0), (2, 2), (0, 2)]),
+                    Polygon([(2, 2), (4, 2), (4, 4), (2, 4)]),
+                ],
+            ),
+            "touches",
+            pd.Series([0, 0]),
+        ),
+        (
+            gpd.GeoSeries(
+                [
+                    Polygon([(0, 0), (2, 0), (2, 2), (0, 2)]),
+                    Polygon([(2, 2), (4, 2), (4, 4), (2, 4)]),
+                ],
+            ),
+            "crosses",
+            pd.Series([0, 0]),
+        ),
     ],
 )
 def test_work(s, predicate, expected):
