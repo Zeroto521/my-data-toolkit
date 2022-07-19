@@ -64,7 +64,7 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
         .pipe(self_sjoin, **kwargs)
         .groupby_index()
         .geometry.count()
-        .set_axis(df.index)
+        .set_axis(s.index)
         .rename(None)
     )
 
