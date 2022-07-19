@@ -29,6 +29,8 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     See Also
     --------
     geopandas.sjoin
+    dtoolkit.geoaccessor.geoseries.count_duplicated_geometry
+    dtoolkit.geoaccessor.geodataframe.count_duplicated_geometry
 
     Examples
     --------
