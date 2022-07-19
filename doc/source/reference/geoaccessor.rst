@@ -23,6 +23,7 @@ GeoDataFrame Accessor
 
     count_coordinates
     drop_geometry
+    duplicated_geometry
     geobuffer
     get_coordinates
     reverse_geocode
