@@ -10,6 +10,7 @@ GeoSeries Accessor
 
     count_coordinates
     count_duplicated_geometry
+    duplicated_geometry
     geobuffer
     get_coordinates
     reverse_geocode
