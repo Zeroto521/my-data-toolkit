@@ -48,11 +48,11 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     <BLANKLINE>
     [5 rows x 6 columns]
     >>> df.count_duplicated_geometry().head()
-    1      9
-    2      4
-    11    10
-    12     4
-    13     6
+    1      8
+    2      3
+    11     9
+    12     3
+    13     5
     dtype: int64
     """
 
@@ -64,6 +64,7 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
         .geometry.count()
         .set_axis(s.index)
         .rename(None)
+        .__sub__(1)  # 1 means itself sjoin, but doesn't sjoin other geometries
     )
 
 
