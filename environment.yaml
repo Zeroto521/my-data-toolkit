@@ -10,7 +10,11 @@ dependencies:
   - pygeos >= 0.11.1
   - geopy
   - jenkspy
+  - topojson
 
   - pip
   - pip:
       - my-data-toolkit
+
+      # optional
+      - simplification
