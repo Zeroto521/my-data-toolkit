@@ -38,7 +38,7 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
     ...     .query('continent == "Africa"')
     ... )
-    >>> df.head()
+    >>> df.head()  # doctest: +SKIP
          pop_est  ...                                           geometry
     1   53950935  ...  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...
     2     603253  ...  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...
