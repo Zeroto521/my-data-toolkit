@@ -9,6 +9,7 @@ GeoSeries Accessor
     :toctree: api/
 
     count_coordinates
+    count_duplicated_geometry
     geobuffer
     get_coordinates
     reverse_geocode
@@ -22,6 +23,7 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
+    count_duplicated_geometry
     drop_geometry
     duplicated_geometry
     geobuffer
