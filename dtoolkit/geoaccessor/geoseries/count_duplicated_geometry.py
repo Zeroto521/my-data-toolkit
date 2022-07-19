@@ -19,8 +19,9 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
 'contains_properly', 'contains', 'within', 'covers'}}, default 'intersects'
         The binary predicate is used to validate whether the geometries are duplicates
         or not.
-        - geopandas version >= 0.10.0 : Please use ``predicate`.
-        - geopandas version < 0.10.0 : Please use ``op``.
+
+        * geopandas version >= 0.10.0 : Please use ``predicate``.
+        * geopandas version < 0.10.0 : Please use ``op``.
 
     Returns
     -------
