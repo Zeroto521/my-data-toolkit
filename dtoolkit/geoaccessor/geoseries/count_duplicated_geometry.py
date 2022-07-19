@@ -6,6 +6,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -87,9 +88,9 @@ def count_duplicated_geometry(
     )
 
 
-def set_unique_index(df: pd.DataFrame, /, **kwargs) -> pd.DataFrame | pd.Series:
+def set_unique_index(data: SeriesOrFrame, /, **kwargs) -> SeriesOrFrame:
     """
-    Set unique index via ``.reset_index`` if ``df.index`` isn't unique.
+    Set unique index via ``.reset_index`` if ``data.index`` isn't unique.
 
     Parameters
     ----------
@@ -108,13 +109,13 @@ def set_unique_index(df: pd.DataFrame, /, **kwargs) -> pd.DataFrame | pd.Series:
     pandas.DataFrame.reset_index
     """
 
-    if not df.index.is_unique:
+    if not data.index.is_unique:
         from warnings import warn
 
-        warn(f"The 'Index' of {type(df)} is not unique.")
-        return df.reset_index(**kwargs)
+        warn(f"The 'Index' of {type(data)} is not unique.")
+        return data.reset_index(**kwargs)
 
-    return df
+    return data
 
 
 def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
