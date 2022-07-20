@@ -1,26 +1,45 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import geopandas as gpd
+import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.register import register_geoseries_method
+
+
+BINARY_PREDICATE = Literal[
+    "intersects",
+    "crosses",
+    "overlaps",
+    "touches",
+    "covered_by",
+    "contains_properly",
+    "contains",
+    "within",
+    "covers",
+]
 
 
 @register_geoseries_method
 @doc(klass=":class:`~geopandas.GeoSeries`")
-def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
+def count_duplicated_geometry(
+    s: gpd.GeoSeries,
+    /,
+    predicate: BINARY_PREDICATE = "intersects",
+) -> pd.Series:
     """
     Count the number of duplicated geometries in a {klass}.
 
     Parameters
     ----------
-    predicate / op : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
+    predicate : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
 'contains_properly', 'contains', 'within', 'covers'}}, default 'intersects'
         The binary predicate is used to validate whether the geometries are duplicates
         or not.
-        - geopandas version >= 0.10.0 : Please use ``predicate`.
-        - geopandas version < 0.10.0 : Please use ``op``.
 
     Returns
     -------
@@ -29,6 +48,8 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     See Also
     --------
     geopandas.sjoin
+    dtoolkit.geoaccessor.geoseries.count_duplicated_geometry
+    dtoolkit.geoaccessor.geodataframe.count_duplicated_geometry
 
     Examples
     --------
@@ -59,18 +80,24 @@ def count_duplicated_geometry(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     return (
         s.to_frame("geometry")
         .pipe(set_unique_index, drop=True)
-        .pipe(self_sjoin, **kwargs)
+        .pipe(self_sjoin, predicate=predicate)
         .groupby_index()
         .geometry.count()
-        .set_axis(s.index)  # Restore original index
         .rename(None)
+        .combine_first(
+            pd.Series(
+                np.ones(len(s), dtype=int),
+                index=s.index,
+            ),
+        )  # Fill the value of empty index with 1
+        .set_axis(s.index)  # Restore original index
         .__sub__(1)  # 1 means itself sjoin, but doesn't sjoin other geometries
     )
 
 
-def set_unique_index(df: pd.DataFrame, /, **kwargs) -> pd.DataFrame | pd.Series:
+def set_unique_index(data: SeriesOrFrame, /, **kwargs) -> SeriesOrFrame:
     """
-    Set unique index via ``.reset_index`` if ``df.index`` isn't unique.
+    Set unique index via ``.reset_index`` if ``data.index`` isn't unique.
 
     Parameters
     ----------
@@ -89,13 +116,13 @@ def set_unique_index(df: pd.DataFrame, /, **kwargs) -> pd.DataFrame | pd.Series:
     pandas.DataFrame.reset_index
     """
 
-    if not df.index.is_unique:
+    if not data.index.is_unique:
         from warnings import warn
 
-        warn(f"The 'Index' of {type(df)} is not unique.")
-        return df.reset_index(**kwargs)
+        warn(f"The 'Index' of {type(data)} is not unique.")
+        return data.reset_index(**kwargs)
 
-    return df
+    return data
 
 
 def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
