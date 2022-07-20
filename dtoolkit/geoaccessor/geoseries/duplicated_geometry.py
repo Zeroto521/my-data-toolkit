@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.geoseries import count_duplicated_geometry  # noqa: f401
+from dtoolkit.geoaccessor.geoseries import count_duplicated_geometry  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
