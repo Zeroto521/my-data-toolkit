@@ -3,25 +3,26 @@ import pandas as pd
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geoseries import count_duplicated_geometry  # noqa: F401
+from dtoolkit.geoaccessor.geoseries.count_duplicated_geometry import BINARY_PREDICATE
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
 @doc()
-def duplicated_geometry(s: gpd.GeoDataFrame, /, **kwargs) -> pd.Series:
+def duplicated_geometry(
+    s: gpd.GeoDataFrame,
+    /,
+    predicate: BINARY_PREDICATE = "intersects",
+) -> pd.Series:
     """
     Return boolean Series denoting duplicate geometries.
 
     Parameters
     ----------
-    Parameters
-    ----------
-    predicate / op : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
+    predicate : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
 'contains_properly', 'contains', 'within', 'covers'}}, default 'intersects'
         The binary predicate is used to validate whether the geometries are duplicates
         or not.
-        - geopandas version >= 0.10.0 : Please use ``predicate`.
-        - geopandas version < 0.10.0 : Please use ``op``.
 
     Returns
     -------
@@ -59,4 +60,4 @@ def duplicated_geometry(s: gpd.GeoDataFrame, /, **kwargs) -> pd.Series:
     dtype: bool
     """
 
-    return s.count_duplicated_geometry(**kwargs) >= 1
+    return s.count_duplicated_geometry(predicate=predicate) >= 1
