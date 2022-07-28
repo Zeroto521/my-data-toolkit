@@ -57,5 +57,3 @@ def jenks_breaks(s: pd.Series, /, bins: int) -> list[float]:
     from jenkspy import jenks_breaks
 
     return jenks_breaks(s, bins)
-
-
