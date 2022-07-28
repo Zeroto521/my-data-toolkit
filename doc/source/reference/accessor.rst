@@ -17,6 +17,7 @@ Series Accessor
 .. autosummary::
     :toctree: api/
 
+    between_replace
     bin
     cols
     drop_inf

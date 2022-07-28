@@ -1,3 +1,4 @@
+from dtoolkit.accessor.series.between_replace import between_replace  # noqa: F401
 from dtoolkit.accessor.series.bin import bin  # noqa: F401
 from dtoolkit.accessor.series.cols import cols  # noqa: F401
 from dtoolkit.accessor.series.drop_inf import drop_inf  # noqa: F401
