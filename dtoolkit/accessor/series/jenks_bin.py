@@ -1,6 +1,7 @@
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series.jenks_breaks import jenks_breaks
 
 
 @register_series_method("jenks_cut")
@@ -69,5 +70,5 @@ def jenks_bin(s: pd.Series, /, bins: int, **kwargs) -> pd.Series:
     Categories (3, interval[float64, right]): [(1.199, 2.3] < (2.3, 5.0] < (5.0, 7.8]]
     """
 
-    bins = s.jenks_breaks(bins)
+    bins = jenks_breaks(s, bins)
     return pd.cut(s, bins=bins, **kwargs)
