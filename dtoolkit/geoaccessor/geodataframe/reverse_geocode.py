@@ -1,7 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe import drop_geometry
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
@@ -58,7 +58,7 @@ def reverse_geocode(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
 
     return pd.concat(
         (
-            df.drop_geometry(),
+            drop_geometry(df),
             gpd.tools.reverse_geocode(df.geometry, **kwargs),
         ),
         axis=1,

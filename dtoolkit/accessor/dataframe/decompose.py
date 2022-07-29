@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
+from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -165,7 +165,8 @@ def decompose(
             index=df.index,
             columns=chain.from_iterable(columns.keys()),
         ).combine_first(
-            df.drop_or_not(
+            drop_or_not(
+                df,
                 drop=drop,
                 columns=chain.from_iterable(columns.values()),
             ),
