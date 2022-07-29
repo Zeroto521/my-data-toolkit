@@ -16,6 +16,9 @@ def range_replace(
     /,
     to_replace: dict,
     inclusive: Literal["both", "neither", "left", "right"] = "both",
+    limit: int = None,
+    regex: bool = False,
+    method: Literal["pad", "ffill", "bfill"] = None,
 ) -> pd.Series:
     if not is_dict_like(to_replace):
         raise TypeError(
@@ -23,13 +26,10 @@ def range_replace(
             f"{type(to_replace).__name__!r}",
         )
 
-    for left_right, value in to_replace.items():
-        if not (is_list_like(left_right) and len(left_right) == 2):
-            raise ValueError(
-                "The key of dict should be a range type contains scalar element, "
-                "the first element must be greater than the second one",
-            )
-
-        s = between_replace(s, *left_right, value, inclusive=inclusive)
+    for key, value in to_replace.items():
+        if is_list_like(key) and len(key) == 2 and key[0] < key[1]:
+            s = between_replace(s, *key, value, inclusive=inclusive)
+        else:
+            s = s.replace(key, value, limit=limit, regex=regex, method=method)
 
     return s
