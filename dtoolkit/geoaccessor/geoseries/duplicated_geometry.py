@@ -85,13 +85,13 @@ def duplicated_geometry(
 
 def lines_group(s: pd.Series, length: int) -> pd.Series:
     groups = []
-    for i, v in s.items():
+    for k, v in s.items():
         for group in groups:
-            if i in group or v in group:
-                group.update({i, v})
+            if k in group or v in group:
+                group.update({k, v})
                 break
         else:
-            groups.append({i, v})
+            groups.append({k, v})
 
     for i in range(length):
         for group in groups:
