@@ -7,10 +7,11 @@ from dtoolkit.accessor.series.expand import expand  # noqa: F401
 from dtoolkit.accessor.series.filter_in import filter_in  # noqa: F401
 from dtoolkit.accessor.series.getattr import getattr  # noqa: F401
 from dtoolkit.accessor.series.groupby_index import groupby_index  # noqa: F401
-from dtoolkit.accessor.series.jenks import jenks_bin  # noqa: F401
-from dtoolkit.accessor.series.jenks import jenks_breaks  # noqa: F401
+from dtoolkit.accessor.series.jenks_bin import jenks_bin  # noqa: F401
+from dtoolkit.accessor.series.jenks_breaks import jenks_breaks  # noqa: F401
 from dtoolkit.accessor.series.len import len  # noqa: F401
 from dtoolkit.accessor.series.query import query  # noqa: F401
+from dtoolkit.accessor.series.swap_index_values import swap_index_values  # noqa: F401
 from dtoolkit.accessor.series.to_set import to_set  # noqa: F401
 from dtoolkit.accessor.series.top_n import top_n  # noqa: F401
 from dtoolkit.accessor.series.values_to_dict import values_to_dict  # noqa: F401
