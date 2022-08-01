@@ -45,8 +45,8 @@ def duplicated_geometry_groups(
         ``index`` is the index of inputting, ``values`` is the labels of groups.
         And labels are natural numbers.
 
-    Warnings
-    --------
+    Warns
+    -----
     UserWarning
         If the index of the inputting is not unique.
 
