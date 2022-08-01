@@ -30,7 +30,7 @@ def duplicated_geometry_groups(
     predicate: BINARY_PREDICATE = "intersects",
 ) -> pd.Series:
     """
-    Return boolean Series denoting duplicate geometries.
+    Labels of duplicate geometries.
 
     Parameters
     ----------
@@ -42,6 +42,8 @@ def duplicated_geometry_groups(
     Returns
     -------
     Series
+        ``index`` is the index of inputting, ``values`` is the labels of groups.
+        And labels are natural numbers.
 
     Warnings
     --------
