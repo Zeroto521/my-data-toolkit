@@ -2,6 +2,7 @@ from typing import Literal
 
 import geopandas as gpd
 import pandas as pd
+from pandas.util._decorators import doc
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.series import swap_index_values  # noqa: F401
@@ -22,6 +23,7 @@ BINARY_PREDICATE = Literal[
 
 
 @register_geoseries_method
+@doc()
 def duplicated_geometry_groups(
     s: gpd.GeoSeries,
     /,
@@ -44,7 +46,7 @@ def duplicated_geometry_groups(
     Warnings
     --------
     UserWarning
-        If the index of the inputting DataFrame is not unique.
+        If the index of the inputting is not unique.
 
     See Also
     --------
