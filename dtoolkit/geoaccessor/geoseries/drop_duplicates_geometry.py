@@ -4,10 +4,10 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import BINARY_PREDICATE
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry import (  # noqa: F401
     duplicated_geometry,
 )
+from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import BINARY_PREDICATE
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
