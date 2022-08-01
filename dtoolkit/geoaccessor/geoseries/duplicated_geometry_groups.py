@@ -51,6 +51,39 @@ def duplicated_geometry_groups(
     See Also
     --------
     geopandas.sjoin
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import geopandas as gpd
+    >>> from shapely.geometry import Polygon
+    >>> df = gpd.GeoDataFrame(
+    ...     geometry=[
+    ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),
+    ...         Polygon([(1,1), (2,1), (2,2), (1,2)]),
+    ...         Polygon([(2,2), (3,2), (3,3), (2,3)]),
+    ...         Polygon([(2, 0), (3, 0), (3, 1)]),
+    ...     ],
+    ... )
+    >>> df
+                                                geometry
+    0  POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
+    1  POLYGON ((1.00000 1.00000, 2.00000 1.00000, 2....
+    2  POLYGON ((2.00000 2.00000, 3.00000 2.00000, 3....
+    3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
+
+    - 0 and 1 are intersecting.
+    - 1 and 2 are intersecting.
+    - 3 is alone.
+
+    So there are two groups: ``(0, 1, 2)`` and ``(3,)``.
+
+    >>> df.duplicated_geometry_groups()
+    0    0
+    1    0
+    2    0
+    3    1
+    dtype: int64
     """
 
     return (
