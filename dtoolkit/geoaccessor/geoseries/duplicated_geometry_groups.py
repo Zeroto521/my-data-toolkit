@@ -2,7 +2,6 @@ from typing import Literal
 
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.series import swap_index_values  # noqa: F401
@@ -23,7 +22,6 @@ BINARY_PREDICATE = Literal[
 
 
 @register_geoseries_method
-@doc()
 def duplicated_geometry_groups(
     s: gpd.GeoSeries,
     /,
@@ -34,8 +32,8 @@ def duplicated_geometry_groups(
 
     Parameters
     ----------
-    predicate : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
-'contains_properly', 'contains', 'within', 'covers'}}, default 'intersects'
+    predicate : {'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
+'contains_properly', 'contains', 'within', 'covers'}, default 'intersects'
         The binary predicate is used to validate whether the geometries are duplicates
         or not.
 
@@ -53,7 +51,9 @@ def duplicated_geometry_groups(
     See Also
     --------
     geopandas.sjoin
+    dtoolkit.geoaccessor.geoseries.duplicated_geometry
     dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups
+    dtoolkit.geoaccessor.geodataframe.duplicated_geometry
     dtoolkit.geoaccessor.geodataframe.duplicated_geometry_groups
 
     Examples
