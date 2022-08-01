@@ -70,4 +70,4 @@ def drop_duplicates_geometry(
     3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
     """
 
-    return s[-s.duplicated_geometry(predicate=predicate, keep=keep)]
+    return s[~s.duplicated_geometry(predicate=predicate, keep=keep)]
