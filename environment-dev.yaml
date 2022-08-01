@@ -8,7 +8,7 @@ dependencies:
   - pandas >= 1.3.4
   # optional
   - scikit-learn >= 1.1
-  - geopandas >= 0.9.0
+  - geopandas >= 0.10.0
   - pygeos >= 0.11.1
   - geopy
   - jenkspy
