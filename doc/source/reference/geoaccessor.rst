@@ -25,6 +25,7 @@ GeoDataFrame Accessor
 
     count_coordinates
     drop_geometry
+    duplicated_geometry
     duplicated_geometry_groups
     geobuffer
     get_coordinates
