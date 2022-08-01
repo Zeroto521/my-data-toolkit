@@ -1,3 +1,4 @@
+from typing import Literal
 import geopandas as gpd
 from pandas.util._decorators import doc
 
@@ -14,5 +15,6 @@ def drop_duplicates_geometry(
     df: gpd.GeoDataFrame,
     /,
     predicate: BINARY_PREDICATE = "intersects",
+    keep: Literal["first", "last", False] = "first",
 ) -> gpd.GeoDataFrame:
-    return df.geometry.duplicated_geometry_groups(predicate=predicate)
+    return df.geometry.duplicated_geometry_groups(predicate=predicate, keep=keep)
