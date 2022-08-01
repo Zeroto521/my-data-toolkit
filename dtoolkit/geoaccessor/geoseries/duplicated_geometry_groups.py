@@ -178,7 +178,7 @@ def group_shared_xy(s: pd.Series, index: pd.Index) -> pd.Series:
         else:
             groups.append({x, y})
 
-    # add misssing group via natural number
+    # add missing group via natural number
     for i in range(len(index)):
         for group in groups:
             if i in group:
