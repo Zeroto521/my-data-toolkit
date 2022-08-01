@@ -1,4 +1,5 @@
 from typing import Literal
+
 import geopandas as gpd
 from pandas.util._decorators import doc
 
