@@ -51,6 +51,8 @@ def duplicated_geometry_groups(
     See Also
     --------
     geopandas.sjoin
+    dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups
+    dtoolkit.geoaccessor.geodataframe.duplicated_geometry_groups
 
     Examples
     --------
