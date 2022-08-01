@@ -1,5 +1,4 @@
 import geopandas as gpd
-import pandas as pd
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geoseries import (
@@ -15,5 +14,5 @@ def drop_duplicates_geometry(
     df: gpd.GeoDataFrame,
     /,
     predicate: BINARY_PREDICATE = "intersects",
-) -> pd.Series:
+) -> gpd.GeoDataFrame:
     return df.geometry.duplicated_geometry_groups(predicate=predicate)
