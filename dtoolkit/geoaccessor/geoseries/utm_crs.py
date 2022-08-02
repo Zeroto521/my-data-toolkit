@@ -61,17 +61,17 @@ def utm_crs(s: gpd.GeoSeries, /, datum_name: str = "WGS 84") -> pd.Series:
     dtype: object
     """
 
-    return s.bounds.apply(
-        lambda bound: None
-        if bound.isna().all()
-        else query_utm_crs_info(
-            datum_name=datum_name,
-            area_of_interest=AreaOfInterest(
-                west_lon_degree=bound["minx"],
-                south_lat_degree=bound["miny"],
-                east_lon_degree=bound["maxx"],
-                north_lat_degree=bound["maxy"],
-            ),
-        )[0],
-        axis=1,
+    from dtoolkit.util import parallelize
+
+    return pd.Series(
+        parallelize(
+            lambda bound: None
+            if any(map(pd.isna, bound))
+            else query_utm_crs_info(
+                datum_name=datum_name,
+                area_of_interest=AreaOfInterest(*bound),
+            )[0],
+            s.geometry.bounds.itertuples(False, None),
+        ),
+        index=s.index,
     )
