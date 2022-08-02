@@ -3,7 +3,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
+from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -69,7 +69,7 @@ def geocode(
 
     return pd.concat(
         (
-            df.drop_or_not(drop=drop, columns=column),
+            drop_or_not(df, drop=drop, columns=column),
             gpd.tools.geocode(df[column], **kwargs),
         ),
         axis=1,
