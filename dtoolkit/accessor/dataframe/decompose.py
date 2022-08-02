@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 import numpy as np
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not
+from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
