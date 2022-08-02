@@ -4,6 +4,7 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.accessor.series import set_unique_index  # noqa: F401
 from dtoolkit.accessor.series import swap_index_values  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
@@ -92,45 +93,12 @@ def duplicated_geometry_groups(
 
     return (
         s.to_frame("geometry")
-        .pipe(set_unique_index, drop=True)
+        .set_unique_index(drop=True)
         .pipe(self_sjoin, predicate=predicate)
         .drop_geometry()
         .to_series()
         .pipe(group_shared_xy, index=s.index)
     )
-
-
-def set_unique_index(data: SeriesOrFrame, /, **kwargs) -> SeriesOrFrame:
-    """
-    Set unique index via ``.reset_index`` if ``data.index`` isn't unique.
-
-    Parameters
-    ----------
-    **kwargs
-        See the documentation for ``set_index`` for complete details on the keyword
-        arguments.
-
-    Returns
-    -------
-    DataFrame or Series
-        Return DataFrame if ``data`` is a DataFrame, else Series.
-
-    See Also
-    --------
-    pandas.Series.reset_index
-    pandas.DataFrame.reset_index
-    """
-
-    if not data.index.is_unique:
-        from warnings import warn
-
-        warn(
-            f"The 'Index' of {type(data).__name__!r} is not unique.",
-            stacklevel=6,
-        )
-        return data.reset_index(**kwargs)
-
-    return data
 
 
 def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
