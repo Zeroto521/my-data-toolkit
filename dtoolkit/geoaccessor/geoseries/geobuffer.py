@@ -69,6 +69,16 @@ def geobuffer(
     -------
     {klass}
 
+    Raises
+    ------
+    IndexError
+        - If ``distance`` is a list-like but its length does not match the length of
+         ``{alias}``.
+        - If ``distance`` is a Series but its index does not match the index of
+         ``{alias}``.
+    TypeError
+        If ``distance`` is not a number.
+
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.geobuffer
