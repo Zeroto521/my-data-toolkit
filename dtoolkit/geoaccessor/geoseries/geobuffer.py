@@ -111,7 +111,7 @@ def geobuffer(
     crs = s.crs
     if s.crs != 4326:
         warn(
-            f"The CRS is {s.crs}, which requires is 'WGS86' (epsg:4326).",
+            f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
             stacklevel=3,
         )
         s = s.to_crs(4326)
