@@ -15,37 +15,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(
-    klass=":class:`~geopandas.GeoSeries`",
-    alias="s",
-    examples=dedent(
-        """
-    Examples
-    --------
-    >>> import dtoolkit.geoaccessor
-    >>> import geopandas as gpd
-    >>> from shapely.geometry import Point, LineString
-    >>> s = gpd.GeoSeries(
-    ...     [
-    ...         Point(122, 55),
-    ...         Point(100, 1),
-    ...         LineString([Point(122, 55), Point(100, 1)])
-    ...     ],
-    ...     crs="EPSG:4326",
-    ... )
-    >>> s
-    0    POINT (122.00000 55.00000)
-    1    POINT (100.00000  1.00000)
-    2    LINESTRING (122.00000 55.00000, 100.00000 1.00...
-    dtype: geometry
-    >>> s.geobuffer(100)
-    0    POLYGON ((122.00156 55.00001, 122.00156 54.999...
-    1    POLYGON ((100.00090 1.00000, 100.00089 0.99991...
-    2    POLYGON ((100.00088 0.99981, 100.00086 0.99972...
-    dtype: geometry
-    """,
-    ),
-)
+@doc(klass=":class:`~geopandas.GeoSeries`", alias="s")
 def geobuffer(
     s: gpd.GeoSeries,
     distance: Number | list[Number] | OneDimArray,
@@ -86,11 +56,37 @@ def geobuffer(
 
     See Also
     --------
+    geopandas.GeoSeries.buffer
     dtoolkit.geoaccessor.geoseries.geobuffer
     dtoolkit.geoaccessor.geodataframe.geobuffer
-    geopandas.GeoSeries.buffer
 
-    {examples}
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
+    >>> df = (
+    ...      pd.DataFrame(
+    ...          {
+    ...              "where": ["close to equator", "away from equator"],
+    ...              "x": [122, 100],
+    ...              "y": [55, 1],
+    ...          },
+    ...      )
+    ...      .from_xy(
+    ...          "x",
+    ...          "y",
+    ...          crs=4326,
+    ...          drop=True,
+    ...     )
+    ... )
+    >>> df
+                   where                    geometry
+    0   close to equator  POINT (122.00000 55.00000)
+    1  away from equator   POINT (100.00000 1.00000)
+    >>> df.geobuffer(100)
+                   where                                           geometry
+    0   close to equator  POLYGON ((122.00156 55.00001, 122.00156 54.999...
+    1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     """
 
     if is_list_like(distance):
