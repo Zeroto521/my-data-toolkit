@@ -3,7 +3,6 @@ from typing import Literal
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.series import set_unique_index  # noqa: F401
 from dtoolkit.accessor.series import swap_index_values  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from textwrap import dedent
 from warnings import warn
 
 import geopandas as gpd
@@ -68,11 +67,11 @@ def geobuffer(
     >>> import pandas as pd
     >>> df = (
     ...      pd.DataFrame(
-    ...          {
+    ...          {{
     ...              "where": ["close to equator", "away from equator"],
     ...              "x": [122, 100],
     ...              "y": [55, 1],
-    ...          },
+    ...          }},
     ...      )
     ...      .from_xy(
     ...          "x",
@@ -130,14 +129,13 @@ def geobuffer(
                     distance[utms == utm] if is_list_like(distance) else distance,
                     **kwargs,
                 )
-                .to_crs(s.crs)
+                .to_crs(crs)
             )
             for utm in utms.unique()
         )
         .sort_index()
         .set_axis(s_index)
         .rename(s.name)
-        .to_crs(crs)
     )
 
 
