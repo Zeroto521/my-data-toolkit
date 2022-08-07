@@ -140,7 +140,7 @@ def geobuffer(
 
 
 def wgs_to_utm(lon: float, lat: float) -> str:
-    """Based on (lat, lng), return the best utm epsg code."""
+    """Based on `(lat, lng)`, return the best UTM EPSG code."""
 
-    brand = (lon + 180) // 6 % 60 + 1
-    return f"{326 if lat >=0 else 327}{brand:02.0f}"
+    zone = (lon + 180) // 6 % 60 + 1
+    return f"{326 if lat >= 0 else 327}{zone:02.0f}"
