@@ -1,6 +1,7 @@
+from warnings import warn
+
 import pandas as pd
 from pandas.util._decorators import doc
-from warnings import warn
 
 from dtoolkit.accessor.register import register_series_method
 

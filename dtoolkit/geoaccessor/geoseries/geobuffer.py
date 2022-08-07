@@ -6,10 +6,12 @@ from warnings import warn
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_list_like, is_number
+from pandas.api.types import is_list_like
+from pandas.api.types import is_number
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import Number, OneDimArray
+from dtoolkit._typing import Number
+from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
