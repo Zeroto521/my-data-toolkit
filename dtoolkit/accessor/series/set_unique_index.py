@@ -38,7 +38,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
 
     if not s.index.is_unique:
         warn(
-            f"The 'Index' of {type(data).__name__!r} is not unique.",
+            f"The 'Index' of {type(s).__name__!r} is not unique.",
             stacklevel=3,
         )
         return s.reset_index(**kwargs)
