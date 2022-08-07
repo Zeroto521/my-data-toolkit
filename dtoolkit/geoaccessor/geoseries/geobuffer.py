@@ -1,17 +1,16 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from warnings import warn
 
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_list_like
-from pandas.api.types import is_number
+from pandas.api.types import is_list_like, is_number
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import Number
-from dtoolkit._typing import OneDimArray
-from dtoolkit.accessor.series import getattr  # noqa: F401
+from dtoolkit._typing import Number, OneDimArray
+from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -69,6 +68,12 @@ def geobuffer(
     -------
     {klass}
 
+    Warns
+    -----
+    UserWarning
+        - If the index of the inputting is not unique.
+        - If the CRS of the inputting is not WGS84 (epsg:4326).
+
     Raises
     ------
     IndexError
@@ -106,27 +111,40 @@ def geobuffer(
     elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
-    utms = s.utm_crs().getattr("code").to_numpy()
+    crs = s.crs
+    if s.crs != 4326:
+        warn(
+            f"The CRS is {s.crs}, which requires is 'WGS86' (epsg:4326).",
+            stacklevel=3,
+        )
+        s = s.to_crs(4326)
 
     s_index = s.index
-    s = s.reset_index(drop=True)
+    s = set_unique_index(s, drop=True)
+    utms = s.centroid.apply(lambda p: wgs_to_utm(p.x, p.y))
+
     return (
         pd.concat(
             (
                 s[utms == utm]
-                .to_crs(epsg=utm)
+                .to_crs(utm)
                 .buffer(
                     distance[utms == utm] if is_list_like(distance) else distance,
                     **kwargs,
                 )
                 .to_crs(s.crs)
             )
-            if utm is not None
-            else s[utms == utm]
-            for utm in np.unique(utms)
+            for utm in utms.unique()
         )
         .sort_index()
         .set_axis(s_index)
         .rename(s.name)
-        .set_crs(s.crs)
+        .to_crs(crs)
     )
+
+
+def wgs_to_utm(lon: float, lat: float) -> str:
+    """Based on (lat, lng), return the best utm epsg code."""
+
+    brand = (lon + 180) // 6 % 60 + 1
+    return f"{326 if lat >=0 else 327}{brand:02.0f}"
