@@ -19,6 +19,12 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     -------
     Series
 
+    See Also
+    --------
+    GeoSeries.area
+    dtoolkit.geoaccessor.geoseries.geoarea
+    dtoolkit.geoaccessor.geodataframe.geoarea
+
     Notes
     -----
     The result is a tiny bit different from the value, because of CRS problem. But the
