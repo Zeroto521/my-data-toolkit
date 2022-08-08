@@ -1,6 +1,5 @@
-import pytest
-
 import pandas as pd
+import pytest
 
 from dtoolkit.accessor.series import set_unique_index
 
