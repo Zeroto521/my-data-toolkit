@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from warnings import catch_warnings
+from warnings import simplefilter
 from warnings import warn
 
 import geopandas as gpd
@@ -108,6 +110,9 @@ def geobuffer(
     elif not is_number(distance):
         raise TypeError("type of 'distance' should be int or float.")
 
+    s_index = s.index
+    s = set_unique_index(s, drop=True)
+
     crs = s.crs
     if s.crs != 4326:
         warn(
@@ -116,9 +121,10 @@ def geobuffer(
         )
         s = s.to_crs(4326)
 
-    s_index = s.index
-    s = set_unique_index(s, drop=True)
-    utms = s.centroid.apply(lambda p: wgs_to_utm(p.x, p.y))
+    with catch_warnings():
+        # Ignore UserWarning ("Geometry is in a geographic CRS")
+        simplefilter("ignore", UserWarning)
+        utms = s.centroid.apply(lambda p: wgs_to_utm(p.x, p.y))
 
     return (
         pd.concat(
