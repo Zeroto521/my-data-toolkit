@@ -5,7 +5,6 @@ from pyproj.database import query_utm_crs_info
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.util._decorator import warning
-from dtoolkit.util._exception import find_stack_level
 
 
 @register_geoseries_method
@@ -13,7 +12,7 @@ from dtoolkit.util._exception import find_stack_level
     "The 'utm_crs' is deprecated and will be removed in 0.0.17. "
     "(Warning added DToolKit 0.0.16)",
     DeprecationWarning,
-    find_stack_level(),
+    stacklevel=3,
 )
 def utm_crs(s: gpd.GeoSeries, /, datum_name: str = "WGS 84") -> pd.Series:
     """
