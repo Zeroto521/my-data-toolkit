@@ -125,7 +125,7 @@ def geobuffer(
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
         utms = s.centroid.apply(
-            lambda p: (wgs_to_utm(p.x, p.y) if p else None)
+            lambda p: (wgs_to_utm(p.x, p.y) if p else None),
         ).to_numpy()
 
     return (
