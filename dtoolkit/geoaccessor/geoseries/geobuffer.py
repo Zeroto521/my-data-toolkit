@@ -124,7 +124,7 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.apply(lambda p: wgs_to_utm(p.x, p.y))
+        utms = s.centroid.apply(lambda p: wgs_to_utm(p.x, p.y) if p else None)
 
     return (
         pd.concat(
@@ -137,6 +137,8 @@ def geobuffer(
                 )
                 .to_crs(crs)
             )
+            if utm is not None
+            else s[utms == utm]
             for utm in utms.unique()
         )
         .sort_index()
