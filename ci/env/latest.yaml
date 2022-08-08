@@ -10,6 +10,7 @@ dependencies:
   - pygeos
   - geopy
   - jenkspy
+  - joblib
   # testing
   - pytest
   - pytest-cov
