@@ -10,13 +10,13 @@ from dtoolkit.accessor.register import register_series_method
 @doc(klass="Series", alias="s")
 def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     """
-    Set unique index via :meth:`~pandas.{klass}.reset_index`` if ``{alias}.index``
+    Set unique index via :meth:`~pandas.{klass}.reset_index` if ``{alias}.index``
     isn't unique.
 
     Parameters
     ----------
      **kwargs
-        See the documentation for :meth:``~pandas.{klass}.set_index`` for complete
+        See the documentation for :meth:`~pandas.{klass}.set_index` for complete
         details on the keyword arguments.
 
     Returns
@@ -47,11 +47,9 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     1  3  6
 
     If the index of the inputting is not unique, then it will be reset.
-    And give a warning like below.
+    And give a warning like below::
 
-    ```python
-    UserWarning: The index of 'DataFrame' is not unique.
-    ```
+        UserWarning: The index of 'DataFrame' is not unique.
 
     >>> df.set_unique_index(drop=True)
        a  b
