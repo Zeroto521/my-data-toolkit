@@ -124,7 +124,9 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.apply(lambda p: wgs_to_utm(p.x, p.y) if p else None)
+        utms = s.centroid.apply(
+            lambda p: (wgs_to_utm(p.x, p.y) if p else None)
+        ).to_numpy()
 
     return (
         pd.concat(
@@ -137,9 +139,9 @@ def geobuffer(
                 )
                 .to_crs(crs)
             )
-            if utm is not None
-            else s[utms == utm]
-            for utm in utms.unique()
+            if isinstance(utm, str)
+            else s[pd.isnull(utms)]
+            for utm in pd.unique(utms)
         )
         .sort_index()
         .set_axis(s_index)
@@ -147,8 +149,9 @@ def geobuffer(
     )
 
 
-def wgs_to_utm(lon: float, lat: float) -> str:
+def wgs_to_utm(lon: float, lat: float) -> str | None:
     """Based on `(lat, lng)`, return the best UTM EPSG code."""
 
-    zone = (lon + 180) // 6 % 60 + 1
-    return f"{326 if lat >= 0 else 327}{zone:02.0f}"
+    if is_number(lon) and is_number(lat) and -180 <= lon <= 180 and -90 <= lat <= 90:
+        zone = (lon + 180) // 6 % 60 + 1
+        return f"EPSG:{326 if lat >= 0 else 327}{zone:02.0f}"
