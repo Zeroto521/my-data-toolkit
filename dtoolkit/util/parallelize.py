@@ -57,7 +57,7 @@ def parallelize(
     --------
     >>> from dtoolkit.util import parallelize
     >>> parallelize(lambda x: x ** 2, range(3))
-    >>> [0, 1, 4]
+    [0, 1, 4]
     """
     from joblib import Parallel, delayed
 
