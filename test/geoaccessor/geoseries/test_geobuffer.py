@@ -54,3 +54,8 @@ def test_geometry_is_none():
 def test_distance_type_is_not_num_type():
     with pytest.raises(TypeError):
         s.geobuffer(str(1))
+
+
+def test_crs():
+    with pytest.warns(UserWarning):
+        s.to_crs("epsg:3857").geobuffer(10)
