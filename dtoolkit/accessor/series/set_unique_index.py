@@ -39,7 +39,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]}, index=[0, 0, 1])
+    >>> df = pd.DataFrame({{'a': [1, 2, 3], 'b': [4, 5, 6]}}, index=[0, 0, 1])
     >>> df
        a  b
     0  1  4
