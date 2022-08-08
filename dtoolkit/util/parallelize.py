@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from functools import partial
-from typing import Callable, Iterable, Literal
+from typing import Callable
+from typing import Iterable
+from typing import Literal
 
 
 def parallelize(
@@ -11,8 +13,6 @@ def parallelize(
     n_jobs: int = -1,
     verbose: int = 0,
     timeout: float = None,
-    backend: Literal["loky", "multiprocessing", "threading"]
-    | "ParallelBackendBase" = None,
     require: Literal["sharedmem"] = None,
     mmap_mode: Literal[None, "r+", "r", "w+", "c"] = "r",
     **kwargs,
@@ -56,7 +56,7 @@ def parallelize(
     --------
     >>> from dtoolkit.util import parallelize
     >>> parallelize(lambda x: x ** 2, range(3))
-    >>> [0, 1, 4]
+    [0, 1, 4]
     """
     from joblib import Parallel, delayed
 
