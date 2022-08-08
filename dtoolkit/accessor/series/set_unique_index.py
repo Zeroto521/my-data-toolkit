@@ -16,7 +16,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     Parameters
     ----------
      **kwargs
-        See the documentation for :meth:`~pandas.{klass}.set_index` for complete
+        See the documentation for :meth:`~pandas.{klass}.reset_index` for complete
         details on the keyword arguments.
 
     Returns
