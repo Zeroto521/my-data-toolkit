@@ -29,7 +29,7 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     -----
     The result is a tiny bit different from the value, because of CRS problem. But the
     `cea`_ (Equal Area Cylindrical) CRS is quite enough, the average absolute error is
-    less than 0.04%.
+    less than 0.04% base on 'naturalearth_lowres' data.
 
     .. _cea: https://proj.org/operations/projections/cea.html
 
