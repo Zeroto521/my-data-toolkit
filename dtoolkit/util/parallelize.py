@@ -13,6 +13,7 @@ def parallelize(
     n_jobs: int = -1,
     verbose: int = 0,
     timeout: float = None,
+    backend: Literal["loky", "multiprocessing", "threading"] = "loky",
     require: Literal["sharedmem"] = None,
     mmap_mode: Literal[None, "r+", "r", "w+", "c"] = "r",
     **kwargs,
