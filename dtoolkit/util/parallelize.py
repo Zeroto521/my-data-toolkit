@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from functools import partial
-from typing import Callable, Iterable, Literal
+from typing import Callable
+from typing import Iterable
+from typing import Literal
 
 
 def parallelize(
