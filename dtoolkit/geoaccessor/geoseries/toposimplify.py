@@ -30,8 +30,8 @@ def toposimplify(
 
     simplify_algorithm : {{'dp', 'vw'}}, default 'dp'
         ``vw`` will only be selected if ``simplify_with`` is set to ``simplification``.
-        - ``dp`` : Douglas-Peucker
-        - ``vw`` : Visvalingam-Whyatt
+            - ``dp`` : Douglas-Peucker
+            - ``vw`` : Visvalingam-Whyatt
 
     simplify_with : {{'shapely', 'simplification'}}, default 'shapely'
         Sets the package to use for simplifying. Shapely adopts solely Douglas-Peucker
