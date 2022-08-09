@@ -45,6 +45,7 @@ def to_geoframe(
 
     See Also
     --------
+    dtoolkit.geoaccessor.series.to_geoseries
     dtoolkit.geoaccessor.dataframe.to_geoframe
 
     Examples
