@@ -80,7 +80,7 @@ def to_geoframe(
     """
 
     # Use `.copy` to avoid mutating the original Series.
-    if geometry:
+    if geometry is not None:
         return gpd.GeoDataFrame(s.copy(), geometry=geometry, crs=crs, **kwargs)
     elif is_geometry_type(s):
         return gpd.GeoDataFrame(geometry=s.copy(), crs=crs, **kwargs)
