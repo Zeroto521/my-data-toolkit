@@ -1,3 +1,4 @@
+import pandas as pd
 import geopandas as gpd
 
 from dtoolkit.geoaccessor.dataframe import geocode  # noqa: F401

@@ -1,6 +1,7 @@
+import pandas as pd
 import geopandas as gpd
 
-from dtoolkit.geoaccessor.geodataframe import reverse_geocode
+from dtoolkit.geoaccessor.geodataframe import reverse_geocode  # noqa: F401
 
 
 def test_type():
@@ -12,4 +13,4 @@ def test_type():
     ).from_wkt(crs=4326)
     result = df.reverse_geocode()
 
-    assert isinstance(df, gpd.GeoDataFrame)
+    assert isinstance(result, gpd.GeoDataFrame)
