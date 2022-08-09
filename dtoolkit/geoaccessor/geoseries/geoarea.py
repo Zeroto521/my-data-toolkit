@@ -47,7 +47,7 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     4  328239523.0  ...  MULTIPOLYGON (((-122.84000 49.00000, -120.0000...
     <BLANKLINE>
     [5 rows x 6 columns]
-    >>> df.geoarea.head()
+    >>> df.geoarea().head()
     0    1.928760e+10
     1    9.327793e+11
     2    9.666925e+10
