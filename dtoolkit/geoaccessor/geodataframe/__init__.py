@@ -11,6 +11,7 @@ from dtoolkit.geoaccessor.geodataframe.duplicated_geometry import (  # noqa: F40
 from dtoolkit.geoaccessor.geodataframe.duplicated_geometry_groups import (  # noqa: F401
     duplicated_geometry_groups,
 )
+from dtoolkit.geoaccessor.geodataframe.geoarea import geoarea  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.geobuffer import geobuffer  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.get_coordinates import (  # noqa: F401
     get_coordinates,
