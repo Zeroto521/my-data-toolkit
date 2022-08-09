@@ -45,6 +45,7 @@ def to_geoframe(
     See Also
     --------
     dtoolkit.geoaccessor.series.to_geoseries
+    dtoolkit.geoaccessor.series.to_geoframe
 
     Examples
     --------
@@ -80,6 +81,23 @@ def to_geoframe(
 
     >>> type(df)
     <class 'geopandas.geodataframe.GeoDataFrame'>
+
+    Use original CRS if its CRS is not specified.
+
+    >>> df.crs == df_point.crs == 4326
+    True
+    >>> df.crs
+    <Geographic 2D CRS: EPSG:4326>
+    Name: WGS 84
+    Axis Info [ellipsoidal]:
+    - Lat[north]: Geodetic latitude (degree)
+    - Lon[east]: Geodetic longitude (degree)
+    Area of Use:
+    - name: World.
+    - bounds: (-180.0, -90.0, 180.0, 90.0)
+    Datum: World Geodetic System 1984 ensemble
+    - Ellipsoid: WGS 84
+    - Prime Meridian: Greenwich
     """
 
     return gpd.GeoDataFrame(
