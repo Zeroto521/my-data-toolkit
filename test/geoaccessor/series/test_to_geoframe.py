@@ -5,7 +5,7 @@ import pytest
 from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
 
 
-@pytestj.mark.parametrize(
+@pytest.mark.parametrize(
     "s, geometry, expected",
     [
         (
