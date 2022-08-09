@@ -9,7 +9,8 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 @doc(alias="s")
 def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     """
-    Returns a ``Series`` containing the **geographic area** (m\ :sup:`2`) of each geometry.
+    Returns a ``Series`` containing the **geographic area** (m\ :sup:`2`) of each
+    geometry.
 
     A sugar syntax wraps::
 
