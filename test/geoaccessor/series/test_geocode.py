@@ -31,6 +31,7 @@ def test_type():
             "boston, ma",
             "1600 pennsylvania ave. washington, dc",
         ],
+        name='address',
     )
 
     result = s.geocode()

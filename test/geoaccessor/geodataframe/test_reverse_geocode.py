@@ -10,6 +10,7 @@ def test_type():
             "POINT (-71.0594869 42.3584697)",
             "POINT (-77.0365305 38.8977332)",
         ],
+        name="WKT",
     ).from_wkt(crs=4326)
     result = df.reverse_geocode()
 
