@@ -1,3 +1,4 @@
+import geopandas as gpd
 import pandas as pd
 import pytest
 
@@ -34,4 +35,4 @@ def test_type():
 
     result = s.geocode()
 
-    assert isinstance(s, gpd.GeoDataFrame)
+    assert isinstance(result, gpd.GeoDataFrame)
