@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from textwrap import dedent
 from typing import Literal
 
 import geopandas as gpd
@@ -107,29 +106,17 @@ def toposimplify(
         fig.tight_layout()
         plt.show()
     """
-
-    return s.pipe(
-        _toposimplify,
-        tolerance,
-        simplify_algorithm,
-        simplify_with,
-        prevent_oversimplify,
-    ).to_series()
-
-
-def _toposimplify(
-    gpd_obj: gpd.GeoSeries | gpd.GeoDataFrame,
-    tolerance: float,
-    simplify_algorithm: Literal["dp", "vw"],
-    simplify_with: Literal["shapely", "simplification"],
-    prevent_oversimplify: bool,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
     from topojson import Topology
 
-    return Topology(
-        gpd_obj,
-        toposimplify=tolerance,
-        simplify_algorithm=simplify_algorithm,
-        simplify_with=simplify_with,
-        prevent_oversimplify=prevent_oversimplify,
-    ).to_gdf(crs=gpd_obj.crs)
+    return (
+        Topology(
+            s,
+            toposimplify=tolerance,
+            simplify_algorithm=simplify_algorithm,
+            simplify_with=simplify_with,
+            prevent_oversimplify=prevent_oversimplify,
+        )
+        # `to_gdf` return is a GeoDataFrame, require GeoSeries
+        .to_gdf(crs=s.crs)
+        .to_series()
+    )
