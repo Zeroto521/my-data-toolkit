@@ -2,6 +2,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit.geoaccessor.dataframe import to_geoframe  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe import drop_geometry
 from dtoolkit.geoaccessor.geoseries.reverse_geocode import (
     reverse_geocode as s_reverse_geocode,
@@ -19,4 +20,4 @@ def reverse_geocode(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
             s_reverse_geocode(df.geometry, **kwargs),
         ),
         axis=1,
-    )
+    ).to_geoframe()

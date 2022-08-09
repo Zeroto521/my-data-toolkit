@@ -5,6 +5,7 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.geoaccessor.dataframe import to_geoframe  # noqa: F401
 
 
 @register_dataframe_method
@@ -73,4 +74,4 @@ def geocode(
             gpd.tools.geocode(df[column], **kwargs),
         ),
         axis=1,
-    )
+    ).to_geoframe()
