@@ -6,6 +6,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit.geoaccessor.dataframe import to_geoframe  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe import drop_geometry
 from dtoolkit.geoaccessor.geoseries import toposimplify as s_toposimplify
 from dtoolkit.geoaccessor.register import register_geodataframe_method
@@ -34,4 +35,4 @@ def toposimplify(
             ),
         ),
         axis=1,
-    )
+    ).to_geoframe()
