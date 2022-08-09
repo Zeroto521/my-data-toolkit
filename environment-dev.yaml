@@ -12,6 +12,7 @@ dependencies:
   - pygeos >= 0.11.1
   - geopy
   - jenkspy
+  - joblib
 
   # testing
   - pytest
