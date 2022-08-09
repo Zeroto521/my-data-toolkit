@@ -1,7 +1,8 @@
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
+import pytest
+
 from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
-import pytestj
 
 
 @pytestj.mark.parametrize(
