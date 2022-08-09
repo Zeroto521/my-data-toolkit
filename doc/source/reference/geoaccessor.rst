@@ -46,6 +46,7 @@ Series Accessor (to GeoPandas)
     from_wkb
     from_wkt
     geocode
+    to_geoframe
     to_geoseries
 
 
