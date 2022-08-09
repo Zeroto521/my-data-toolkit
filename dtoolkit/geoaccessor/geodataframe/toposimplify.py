@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from textwrap import dedent
 from typing import Literal
 
 import geopandas as gpd
@@ -12,37 +11,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc(
-    s_toposimplify,
-    klass=":class:`~geopandas.GeoDataFrame`",
-    plot=dedent(
-        """
-    .. plot::
-
-        import dtoolkit.geoaccessor
-        import geopandas as gpd
-        import matplotlib.pyplot as plt
-
-
-        df = (
-            gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-            .query('continent == "Africa"')
-        )
-
-        fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
-
-        df.simplify(1).plot(ax=ax1, alpha=0.7)
-        df.toposimplify(1).plot(ax=ax2, alpha=0.7)
-
-        ax1.set_title("simplify")
-        ax1.set_axis_off()
-        ax2.set_title("toposimplify")
-        ax2.set_axis_off()
-        fig.tight_layout()
-        plt.show()
-    """,
-    ),
-)
+@doc(s_toposimplify, klass=":class:`~geopandas.GeoDataFrame`")
 def toposimplify(
     df: gpd.GeoDataFrame,
     /,

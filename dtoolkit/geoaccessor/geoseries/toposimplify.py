@@ -11,36 +11,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(
-    klass=":class:`~geopandas.GeoSeries`",
-    plot=dedent(
-        """
-    .. plot::
-
-        import dtoolkit.geoaccessor
-        import geopandas as gpd
-        import matplotlib.pyplot as plt
-
-
-        df = (
-            gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-            .query('continent == "Africa"')
-        )
-
-        fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
-
-        df.geometry.simplify(1).plot(ax=ax1, alpha=0.7)
-        df.geometry.toposimplify(1).plot(ax=ax2, alpha=0.7)
-
-        ax1.set_title("simplify")
-        ax1.set_axis_off()
-        ax2.set_title("toposimplify")
-        ax2.set_axis_off()
-        fig.tight_layout()
-        plt.show()
-    """,
-    ),
-)
+@doc(klass=":class:`~geopandas.GeoSeries`")
 def toposimplify(
     s: gpd.GeoSeries,
     /,
@@ -101,17 +72,40 @@ def toposimplify(
     ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
     ...     .query('continent == "Africa"')
     ... )
-    >>> df.head(3)  # doctest: +SKIP
-         pop_est continent             name iso_a3  gdp_md_est                                           geometry  # noqa: E501
-    1   53950935    Africa         Tanzania    TZA    150600.0  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...  # noqa: E501
-    2     603253    Africa        W. Sahara    ESH       906.5  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...  # noqa: E501
-    11  83301151    Africa  Dem. Rep. Congo    COD     66010.0  POLYGON ((29.34000 -4.49998, 29.51999 -5.41998...  # noqa: E501
-    >>> df.toposimplify(0.1).head(3)  # doctest: +SKIP
-                                                geometry   pop_est continent             name iso_a3  gdp_md_est  # noqa: E501
-    0  POLYGON ((33.90367 -0.95000, 30.76984 -1.01452...  53950935    Africa         Tanzania    TZA    150600.0  # noqa: E501
-    1  POLYGON ((-8.66561 27.65644, -8.79490 27.12073...    603253    Africa        W. Sahara    ESH       906.5  # noqa: E501
-    2  POLYGON ((29.33999 -4.50001, 29.27634 -3.29391...  83301151    Africa  Dem. Rep. Congo    COD     66010.0  # noqa: E501
-    {plot}
+    >>> df.head(3)
+         pop_est continent             name iso_a3  gdp_md_est                                           geometry
+    1   53950935    Africa         Tanzania    TZA    150600.0  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...
+    2     603253    Africa        W. Sahara    ESH       906.5  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...
+    11  83301151    Africa  Dem. Rep. Congo    COD     66010.0  POLYGON ((29.34000 -4.49998, 29.51999 -5.41998...
+    >>> df.toposimplify(0.1).head(3)
+                                                geometry   pop_est continent             name iso_a3  gdp_md_est
+    0  POLYGON ((33.90367 -0.95000, 30.76984 -1.01452...  53950935    Africa         Tanzania    TZA    150600.0
+    1  POLYGON ((-8.66561 27.65644, -8.79490 27.12073...    603253    Africa        W. Sahara    ESH       906.5
+    2  POLYGON ((29.33999 -4.50001, 29.27634 -3.29391...  83301151    Africa  Dem. Rep. Congo    COD     66010.0
+
+    .. plot::
+
+        import dtoolkit.geoaccessor
+        import geopandas as gpd
+        import matplotlib.pyplot as plt
+
+
+        df = (
+            gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+            .query('continent == "Africa"')
+        )
+
+        fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
+
+        df.simplify(1).plot(ax=ax1, alpha=0.7)
+        df.toposimplify(1).plot(ax=ax2, alpha=0.7)
+
+        ax1.set_title("simplify")
+        ax1.set_axis_off()
+        ax2.set_title("toposimplify")
+        ax2.set_axis_off()
+        fig.tight_layout()
+        plt.show()
     """
 
     return s.pipe(
