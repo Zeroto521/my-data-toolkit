@@ -18,7 +18,7 @@ def toposimplify(
     tolerance: float,
     simplify_algorithm: Literal["dp", "vw"] = "dp",
     simplify_with: Literal["shapely", "simplification"] = "shapely",
-    prevent_oversimplify: bool = False,
+    prevent_oversimplify: bool = True,
 ) -> gpd.GeoDataFrame:
 
     return _toposimplify(
