@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Literal
 
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geodataframe import drop_geometry

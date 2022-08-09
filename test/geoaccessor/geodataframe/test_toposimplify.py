@@ -1,5 +1,6 @@
-from dtoolkit.geoaccessor.geodataframe import toposimplify  # noqa: F401
 import geopandas as gpd
+
+from dtoolkit.geoaccessor.geodataframe import toposimplify  # noqa: F401
 
 
 def test_type():
