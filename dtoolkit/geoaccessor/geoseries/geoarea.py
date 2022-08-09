@@ -21,7 +21,7 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
 
     See Also
     --------
-    GeoSeries.area
+    geopandas.GeoSeries.area
     dtoolkit.geoaccessor.geoseries.geoarea
     dtoolkit.geoaccessor.geodataframe.geoarea
 
