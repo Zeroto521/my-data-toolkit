@@ -13,7 +13,7 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
 
     A sugar syntax wraps::
 
-        {alias}.to_crs({{"proj": "cea"}}).area
+        {alias}.to_crs("+proj=cea").area
 
     Returns
     -------
@@ -55,4 +55,4 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     dtype: float64
     """
 
-    return s.to_crs({"proj": "cea"}).area
+    return s.to_crs("+proj=cea").area
