@@ -10,30 +10,26 @@ from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
     [
         (
             pd.Series(
-                (
-                    pd.Series(
-                        [
-                            "POINT (1 1)",
-                            "POINT (2 2)",
-                            "POINT (3 3)",
-                        ],
-                    ).from_wkt(drop=True)
-                )
+                pd.Series(
+                    [
+                        "POINT (1 1)",
+                        "POINT (2 2)",
+                        "POINT (3 3)",
+                    ],
+                ).from_wkt(drop=True),
             ),
             None,
             gpd.GeoDataFrame,
         ),
         (
             pd.Series(
-                (
-                    pd.Series(
-                        [
-                            "POINT (1 1)",
-                            "POINT (2 2)",
-                            "POINT (3 3)",
-                        ],
-                    ).from_wkt(drop=True)
-                )
+                pd.Series(
+                    [
+                        "POINT (1 1)",
+                        "POINT (2 2)",
+                        "POINT (3 3)",
+                    ],
+                ).from_wkt(drop=True),
             ),
             (
                 pd.Series(
