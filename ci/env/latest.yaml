@@ -11,6 +11,7 @@ dependencies:
   - geopy
   - jenkspy
   - topojson
+  - joblib
   # testing
   - pytest
   - pytest-cov
