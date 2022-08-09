@@ -12,6 +12,7 @@ GeoSeries Accessor
     drop_duplicates_geometry
     duplicated_geometry
     duplicated_geometry_groups
+    geoarea
     geobuffer
     get_coordinates
     reverse_geocode
@@ -29,6 +30,7 @@ GeoDataFrame Accessor
     drop_geometry
     duplicated_geometry
     duplicated_geometry_groups
+    geoarea
     geobuffer
     get_coordinates
     reverse_geocode
