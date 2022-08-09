@@ -30,6 +30,7 @@ Series Accessor
     jenks_breaks
     len
     query
+    set_unique_index
     swap_index_values
     to_set
     top_n
@@ -52,6 +53,7 @@ DataFrame Accessor
     filter_in
     groupby_index
     repeat
+    set_unique_index
     to_series
     top_n
     values_to_dict
