@@ -97,8 +97,13 @@ def from_xy(
     1   POINT (100.00000 1.00000)
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=[x, y, z] if z is not None else [x, y]),
+        df.copy().drop_or_not(
+            drop=drop,
+            columns=[x, y] if z is None else [x, y, z],
+        ),
         geometry=gpd.points_from_xy(
             df[x],
             df[y],

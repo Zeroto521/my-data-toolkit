@@ -16,8 +16,8 @@ if TYPE_CHECKING:
 def to_geoframe(
     df: pd.DataFrame,
     /,
-    crs: CRS | str | int = None,
     geometry: Hashable | gpd.GeoSeries = None,
+    crs: CRS | str | int = None,
     **kwargs,
 ) -> gpd.GeoDataFrame:
     """
@@ -25,14 +25,14 @@ def to_geoframe(
 
     Parameters
     ----------
+    geometry : Hashable or GeoSeries, optional
+        If str or int, column to use as geometry. If array, will be set as 'geometry'
+        column on GeoDataFrame.
+
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
-
-    geometry : Hashable or GeoSeries, optional
-        If str or int, column to use as geometry. If array, will be set as 'geometry'
-        column on GeoDataFrame.
 
     **kwargs
         See the documentation for :class:`~geopandas.GeoDataFrame` and  for complete
@@ -100,8 +100,10 @@ def to_geoframe(
     - Prime Meridian: Greenwich
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df,
+        df.copy(),
         crs=crs,
         geometry=geometry,
         **kwargs,

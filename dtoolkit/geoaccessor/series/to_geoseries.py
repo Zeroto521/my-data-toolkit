@@ -48,7 +48,7 @@ def to_geoseries(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> s = (
+    >>> s = pd.Series(
     ...     pd.Series(
     ...         [
     ...             "POINT (1 1)",
@@ -58,7 +58,6 @@ def to_geoseries(
     ...     )
     ...     .from_wkt(drop=True, crs=4326)
     ... )
-    >>> s = pd.Series(s)
     >>> s
     0    POINT (1.00000 1.00000)
     1    POINT (2.00000 2.00000)
@@ -76,5 +75,4 @@ def to_geoseries(
     <class 'geopandas.geoseries.GeoSeries'>
     """
 
-    # Use `.copy` to avoid mutating the original Series.
-    return gpd.GeoSeries(s.copy(), crs=crs, **kwargs) if is_geometry_type(s) else s
+    return gpd.GeoSeries(s, crs=crs, **kwargs) if is_geometry_type(s) else s

@@ -2,6 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import pytest
 from geopandas.testing import assert_geodataframe_equal
+from pandas.testing import assert_frame_equal
 from pyproj.crs import CRSError
 from shapely.geometry import Point
 
@@ -160,8 +161,11 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa: F401
     ],
 )
 def test_work(data, x, y, z, crs, drop, expected):
-    result = pd.DataFrame(data).points_from_xy(x, y, z, crs, drop)
+    df = pd.DataFrame(data)
+    result = df.points_from_xy(x, y, z, crs, drop)
 
+    # test the original data is not changed
+    assert_frame_equal(df, pd.DataFrame(data))
     assert_geodataframe_equal(result, expected)
 
 
