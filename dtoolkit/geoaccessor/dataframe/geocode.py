@@ -5,7 +5,6 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.geoaccessor.dataframe import to_geoframe  # noqa: F401
 
 
 @register_dataframe_method
@@ -68,10 +67,12 @@ def geocode(
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
     """
 
+    # pandas.concat((GeoDataFrame, Series), axis=1) -> GeoDataFrame
+    # pandas.concat((GeoDataFrame, DataFrame), axis=1) -> GeoDataFrame
     return pd.concat(
         (
-            drop_or_not(df, drop=drop, columns=column),
             gpd.tools.geocode(df[column], **kwargs),
+            drop_or_not(df, drop=drop, columns=column),
         ),
         axis=1,
-    ).to_geoframe()
+    )
