@@ -30,6 +30,6 @@ def toposimplify(
                 simplify_algorithm=simplify_algorithm,
                 simplify_with=simplify_with,
                 prevent_oversimplify=prevent_oversimplify,
-            )
+            ),
         }
     )

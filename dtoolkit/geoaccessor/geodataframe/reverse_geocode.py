@@ -17,6 +17,6 @@ def reverse_geocode(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
             df.geometry.name: s_reverse_geocode(
                 df.geometry,
                 **kwargs,
-            )
+            ),
         }
     )
