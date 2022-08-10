@@ -75,4 +75,7 @@ def to_geoseries(
     <class 'geopandas.geoseries.GeoSeries'>
     """
 
-    return gpd.GeoSeries(s, crs=crs, **kwargs) if is_geometry_type(s) else s
+    if not isinstance(s, gpd.GeoSeries) and is_geometry_type(s):
+        return gpd.GeoSeries(s, crs=crs, **kwargs)
+
+    return s
