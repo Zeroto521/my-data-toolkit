@@ -100,8 +100,10 @@ def to_geoframe(
     - Prime Meridian: Greenwich
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df,
+        df.copy(),
         crs=crs,
         geometry=geometry,
         **kwargs,

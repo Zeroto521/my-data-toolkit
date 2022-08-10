@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from typing import Hashable
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Hashable
 
 import geopandas as gpd
 import pandas as pd
@@ -102,8 +101,10 @@ def from_wkb(
     <class 'geopandas.geodataframe.GeoDataFrame'>
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=geometry),
+        df.copy().drop_or_not(drop=drop, columns=geometry),
         geometry=gpd.GeoSeries.from_wkb(df[geometry]),
         crs=crs,
     )
