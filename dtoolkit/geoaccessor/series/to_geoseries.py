@@ -74,5 +74,4 @@ def to_geoseries(
     <class 'geopandas.geoseries.GeoSeries'>
     """
 
-    # Use `.copy` to avoid mutating the original Series.
-    return gpd.GeoSeries(s.copy(), crs=crs, **kwargs) if is_geometry_type(s) else s
+    return gpd.GeoSeries(s, crs=crs, **kwargs) if is_geometry_type(s) else s
