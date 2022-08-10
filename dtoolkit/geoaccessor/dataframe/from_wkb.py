@@ -16,8 +16,8 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def from_wkb(
     df: pd.DataFrame,
-    column: Hashable,
     /,
+    geometry: Hashable,
     crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoDataFrame:
@@ -29,7 +29,7 @@ def from_wkb(
 
     Parameters
     ----------
-    column : Hashable
+    geometry : Hashable
         The name of WKB column.
 
     crs : CRS, str, int, optional
@@ -103,7 +103,7 @@ def from_wkb(
     """
 
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=column),
-        geometry=gpd.GeoSeries.from_wkb(df[column]),
+        df.drop_or_not(drop=drop, columns=geometry),
+        geometry=gpd.GeoSeries.from_wkb(df[geometry]),
         crs=crs,
     )
