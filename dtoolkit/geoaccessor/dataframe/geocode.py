@@ -10,8 +10,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def geocode(
     df: pd.DataFrame,
-    column: Hashable,
     /,
+    address: Hashable,
     drop: bool = False,
     **kwargs,
 ) -> gpd.GeoDataFrame:
@@ -21,7 +21,7 @@ def geocode(
 
     Parameters
     ----------
-    column : Hashable
+    address : Hashable
         The name of the column to geocode.
 
     drop : bool, default False
@@ -69,8 +69,8 @@ def geocode(
 
     return pd.concat(
         (
-            drop_or_not(df, drop=drop, columns=column),
-            gpd.tools.geocode(df[column], **kwargs),
+            drop_or_not(df, drop=drop, columns=address),
+            gpd.tools.geocode(df[address], **kwargs),
         ),
         axis=1,
     )
