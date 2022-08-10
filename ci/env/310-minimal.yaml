@@ -9,6 +9,7 @@ dependencies:
   - scikit-learn=1.1
   - geopandas=0.10.0
   - pygeos=0.11.1
+  - geopy
   # testing
   - pytest
   - pytest-cov
