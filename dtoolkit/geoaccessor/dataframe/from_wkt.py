@@ -9,12 +9,14 @@ import pandas as pd
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.util._decorator import warning
+from dtoolkit.util._decorator import deprecated_alias
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_dataframe_method
+@deprecated_alias(column="geometry")
 @warning(
     (
         "The result doesn't support returning 'GeoSeries' anymore, "
@@ -24,8 +26,8 @@ if TYPE_CHECKING:
 )
 def from_wkt(
     df: pd.DataFrame,
-    column: Hashable,
     /,
+    geometry: Hashable,
     crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoDataFrame:
@@ -37,8 +39,13 @@ def from_wkt(
 
     Parameters
     ----------
+    geometry : Hashable
+        The name of WKT column.
+
     column : Hashable
         The name of WKT column.
+        .. deprecated:: 0.0.18
+            Please use ``geometry`` instead.
 
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
@@ -100,7 +107,7 @@ def from_wkt(
     """
 
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=column),
-        geometry=gpd.GeoSeries.from_wkt(df[column]),
+        df.drop_or_not(drop=drop, columns=geometry),
+        geometry=gpd.GeoSeries.from_wkt(df[geometry]),
         crs=crs,
     )
