@@ -1,5 +1,6 @@
 import geopandas as gpd
 import pandas as pd
+from pandas.testing import assert_frame_equal
 
 from dtoolkit.geoaccessor.dataframe import from_wkb  # noqa: F401
 from dtoolkit.geoaccessor.dataframe import from_wkt  # noqa: F401
@@ -22,11 +23,11 @@ def test_csv():
         .to_csv(file, index=False)
     )
 
-    df = (
-        pd.read_csv(file)
-        .assign(geometry=lambda df: df.geometry.apply(eval))
-        .from_wkb("geometry")
-    )
+    df = pd.read_csv(file).assign(geometry=lambda df: df.geometry.apply(eval))
+    df_copy = df.copy()
+    result = df.from_wkb("geometry")
 
-    assert isinstance(df, gpd.GeoDataFrame)
-    assert isinstance(df.geometry, gpd.GeoSeries)
+    # test the original data is not changed
+    assert_frame_equal(df, df_copy)
+    assert isinstance(result, gpd.GeoDataFrame)
+    assert isinstance(result.geometry, gpd.GeoSeries)
