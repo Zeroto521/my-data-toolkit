@@ -99,8 +99,10 @@ def from_wkt(
     2  POINT (3.00000 3.00000)
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=column),
+        df.copy().drop_or_not(drop=drop, columns=column),
         geometry=gpd.GeoSeries.from_wkt(df[column]),
         crs=crs,
     )
