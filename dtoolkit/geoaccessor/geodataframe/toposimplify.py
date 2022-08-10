@@ -25,7 +25,6 @@ def toposimplify(
 
     return pd.concat(
         (
-            drop_geometry(df),
             s_toposimplify(
                 df.geometry,
                 tolerance=tolerance,
@@ -33,6 +32,7 @@ def toposimplify(
                 simplify_with=simplify_with,
                 prevent_oversimplify=prevent_oversimplify,
             ),
+            drop_geometry(df),
         ),
         axis=1,
     ).to_geoframe()
