@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Hashable
+from typing import Hashable
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd

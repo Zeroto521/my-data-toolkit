@@ -8,8 +8,8 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
 from dtoolkit.util._decorator import deprecated_alias
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
