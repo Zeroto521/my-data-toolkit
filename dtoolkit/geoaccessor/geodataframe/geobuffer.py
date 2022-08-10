@@ -17,4 +17,12 @@ def geobuffer(
     /,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-    return df.assign(**{df.geometry.name: df.geometry.geobuffer(distance, **kwargs)})
+
+    return df.assign(
+        **{
+            df.geometry.name: df.geometry.geobuffer(
+                distance,
+                **kwargs,
+            )
+        }
+    )
