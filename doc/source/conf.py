@@ -46,7 +46,6 @@ extensions = [
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.inheritance_diagram",
     "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
     "matplotlib.sphinxext.plot_directive",
