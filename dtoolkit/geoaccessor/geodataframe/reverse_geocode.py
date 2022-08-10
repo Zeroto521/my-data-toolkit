@@ -15,8 +15,8 @@ def reverse_geocode(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
 
     return pd.concat(
         (
-            drop_geometry(df),
             s_reverse_geocode(df.geometry, **kwargs),
+            drop_geometry(df),
         ),
         axis=1,
     )
