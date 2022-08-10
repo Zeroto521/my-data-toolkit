@@ -47,7 +47,7 @@ def to_geoseries(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> s = (
+    >>> s = pd.Series(
     ...     pd.Series(
     ...         [
     ...             "POINT (1 1)",
@@ -57,7 +57,6 @@ def to_geoseries(
     ...     )
     ...     .from_wkt(drop=True, crs=4326)
     ... )
-    >>> s = pd.Series(s)
     >>> s
     0    POINT (1.00000 1.00000)
     1    POINT (2.00000 2.00000)
