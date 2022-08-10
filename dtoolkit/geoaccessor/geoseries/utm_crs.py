@@ -9,8 +9,8 @@ from dtoolkit.util._decorator import warning
 
 @register_geoseries_method
 @warning(
-    "The 'utm_crs' is deprecated and will be removed in 0.0.17. "
-    "(Warning added DToolKit 0.0.16)",
+    "The 'utm_crs' is deprecated and will be removed in 0.0.18. "
+    "(Warning added DToolKit 0.0.17)",
     DeprecationWarning,
     stacklevel=3,
 )
@@ -18,9 +18,9 @@ def utm_crs(s: gpd.GeoSeries, /, datum_name: str = "WGS 84") -> pd.Series:
     """
     Returns the estimated UTM CRS based on the bounds of each geometry.
 
-    .. deprecated:: 0.0.17
-        The 'utm_crs' is deprecated and will be removed in 0.0.17.
-        (Warning added DToolKit 0.0.16)
+    .. deprecated:: 0.0.18
+        The 'utm_crs' is deprecated and will be removed in 0.0.18.
+        (Warning added DToolKit 0.0.17)
 
     Parameters
     ----------
