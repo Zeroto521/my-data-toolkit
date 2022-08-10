@@ -13,8 +13,6 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @doc(s_reverse_geocode, klass="GeoDataFrame")
 def reverse_geocode(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
 
-    # pandas.concat((GeoDataFrame, Series), axis=1) -> GeoDataFrame
-    # pandas.concat((GeoDataFrame, DataFrame), axis=1) -> GeoDataFrame
     return pd.concat(
         (
             s_reverse_geocode(df.geometry, **kwargs),

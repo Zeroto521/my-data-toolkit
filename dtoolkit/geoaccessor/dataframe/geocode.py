@@ -67,8 +67,6 @@ def geocode(
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
     """
 
-    # pandas.concat((GeoDataFrame, Series), axis=1) -> GeoDataFrame
-    # pandas.concat((GeoDataFrame, DataFrame), axis=1) -> GeoDataFrame
     return pd.concat(
         (
             gpd.tools.geocode(df[address], **kwargs),
