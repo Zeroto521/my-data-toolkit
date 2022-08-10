@@ -16,8 +16,8 @@ if TYPE_CHECKING:
 def to_geoframe(
     s: pd.Series,
     /,
-    crs: CRS | str | int = None,
     geometry: gpd.GeoSeries = None,
+    crs: CRS | str | int = None,
     **kwargs,
 ) -> gpd.GeoDataFrame | pd.DataFrame:
     """
@@ -26,13 +26,13 @@ def to_geoframe(
 
     Parameters
     ----------
+    geometry : GeoSeries, optional
+        It will be prior set as 'geometry' column on GeoDataFrame.
+
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
-
-    geometry : GeoSeries, optional
-        It will be prior set as 'geometry' column on GeoDataFrame.
 
     **kwargs
         See the documentation for :class:`~geopandas.GeoDataFrame` and  for complete
@@ -79,10 +79,9 @@ def to_geoframe(
     <class 'geopandas.geodataframe.GeoDataFrame'>
     """
 
-    # Use `.copy` to avoid mutating the original Series.
     if geometry is not None:
-        return gpd.GeoDataFrame(s.copy(), geometry=geometry, crs=crs, **kwargs)
+        return gpd.GeoDataFrame(s, geometry=geometry, crs=crs, **kwargs)
     elif is_geometry_type(s):
-        return gpd.GeoDataFrame(geometry=s.copy(), crs=crs, **kwargs)
+        return gpd.GeoDataFrame(geometry=s, crs=crs, **kwargs)
     else:
         return s.to_frame()
