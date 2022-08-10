@@ -17,10 +17,10 @@ def test_original_dataframe_type():
             },
         )
         .from_wkt("wkt")
-        .rename_geometry("geom")
+        .rename_geometry("geom"),
     )
 
     df_copy = df.copy()
-    df.to_geoframe(geometry=df['geom'])
+    df.to_geoframe(geometry=df["geom"])
 
     assert_frame_equal(df, df_copy)
