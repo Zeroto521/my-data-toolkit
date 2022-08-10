@@ -23,6 +23,6 @@ def geobuffer(
             df.geometry.name: df.geometry.geobuffer(
                 distance,
                 **kwargs,
-            )
+            ),
         }
     )
