@@ -69,8 +69,8 @@ def geocode(
 
     return pd.concat(
         (
-            drop_or_not(df, drop=drop, columns=address),
             gpd.tools.geocode(df[address], **kwargs),
+            drop_or_not(df, drop=drop, columns=address),
         ),
         axis=1,
     )
