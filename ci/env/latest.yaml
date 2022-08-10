@@ -10,6 +10,7 @@ dependencies:
   - pygeos
   - geopy
   - jenkspy
+  - topojson
   - joblib
   # testing
   - pytest
@@ -18,3 +19,8 @@ dependencies:
   - codecov
   # doctest testing
   - pytest-doctestplus
+
+  - pip
+  - pip:
+      # optional
+      - simplification

@@ -12,6 +12,7 @@ dependencies:
   - pygeos >= 0.11.1
   - geopy
   - jenkspy
+  - topojson
   - joblib
 
   # testing
@@ -37,4 +38,8 @@ dependencies:
   - ipykernel
   - pip
   - pip:
+      # doc
       - sphinx-toggleprompt
+
+      # optional
+      - simplification
