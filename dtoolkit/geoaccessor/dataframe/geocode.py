@@ -62,7 +62,7 @@ def geocode(
     0                             boston, ma
     1  1600 pennsylvania ave. washington, dc
     >>> df.geocode("name", drop=True)
-                        geometry                                            address
+                         geometry                                            address
     0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
     """
