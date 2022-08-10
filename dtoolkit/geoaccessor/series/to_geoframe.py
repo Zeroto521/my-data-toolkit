@@ -79,10 +79,9 @@ def to_geoframe(
     <class 'geopandas.geodataframe.GeoDataFrame'>
     """
 
-    # Use `.copy` to avoid mutating the original Series.
     if geometry is not None:
-        return gpd.GeoDataFrame(s.copy(), geometry=geometry, crs=crs, **kwargs)
+        return gpd.GeoDataFrame(s, geometry=geometry, crs=crs, **kwargs)
     elif is_geometry_type(s):
-        return gpd.GeoDataFrame(geometry=s.copy(), crs=crs, **kwargs)
+        return gpd.GeoDataFrame(geometry=s, crs=crs, **kwargs)
     else:
         return s.to_frame()
