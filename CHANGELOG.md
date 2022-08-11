@@ -12,7 +12,7 @@ New features and improvements:
 - New geoaccessor {meth}`~dtoolkit.geoaccessor.dataframe.from_wkb` ({pr}`584`, {pr}`598`).
 - Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
 - New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
-- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`)
+- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates {meth}`~dtoolkit.geoaccessor.geoseries.reverse_geocode` ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`, {pr}`652`)
 - New geoaccessor {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
 - New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.geodataframe.drop_geometry` ({pr}`599`).
 - New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
@@ -58,7 +58,7 @@ Maintenance development:
 - Rename yaml file `*.yml` -> `*.yaml` ({pr}`603`).
 - Correct file name ({pr}`604`).
 - Singular style file name ({pr}`605`).
-- Use function style rather than OOP ({pr}`606`, {pr}`633`, {pr}`648`).
+- Use function style rather than OOP ({pr}`606`, {pr}`633`, {pr}`648`, {pr}`653`).
 - Use `pandas.testing.assert_*_equal` replace `(Series|DataFrame).equals` in testing ({pr}`607`, {pr}`608`).
 - Add `environment.yaml` at root path for user ({pr}`611`).
 - Set only positional parameter (`/`) for `(geo)accessor` ({pr}`612`).
