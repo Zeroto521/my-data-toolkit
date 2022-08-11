@@ -20,7 +20,8 @@ def toposimplify(
     prevent_oversimplify: bool = True,
 ) -> gpd.GeoSeries:
     """
-    Apply :func:`topojson.Topology.toposimplify` to {klass} to keep **shared edges**.
+    Returns a {klass} containing a simplified representation of each geometry.
+    Similar to :func:`~geopandas.GeoSeries.simplify`, but keeps shared edges.
 
     Parameters
     ----------
