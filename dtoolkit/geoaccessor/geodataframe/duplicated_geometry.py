@@ -17,4 +17,4 @@ def duplicated_geometry(
     predicate: BINARY_PREDICATE = "intersects",
     keep: Literal["first", "last", False] = "first",
 ) -> pd.Series:
-    return df.geometry.duplicated_geometry(predicate=predicate, keep=keep)
+    return s_duplicated_geometry(df.geometry, predicate=predicate, keep=keep)
