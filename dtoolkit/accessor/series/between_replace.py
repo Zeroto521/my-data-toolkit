@@ -50,6 +50,7 @@ def between_replace(
     --------
     pandas.Series.between
     pandas.Series.mask
+    dtoolkit.accessor.series.range_replace
 
     Examples
     --------
