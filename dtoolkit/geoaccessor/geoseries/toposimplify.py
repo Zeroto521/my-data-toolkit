@@ -126,4 +126,6 @@ def toposimplify(
         )
         # `to_gdf` return is a GeoDataFrame, require GeoSeries
         .to_gdf(crs=s.crs).to_series()
+        # To fix https://github.com/mattijn/topojson/issues/164
+        .set_axis(s.index)
     )
