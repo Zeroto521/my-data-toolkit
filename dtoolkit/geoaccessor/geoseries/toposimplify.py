@@ -23,6 +23,10 @@ def toposimplify(
     Returns a {klass} containing a simplified representation of each geometry.
     Similar to :func:`~geopandas.GeoSeries.simplify`, but keeps shared edges.
 
+    .. image:: ../../../../_static/simplify-vs-toposimplify.png
+        :width: 80%
+        :align: center
+
     Parameters
     ----------
     tolerance : float
@@ -90,30 +94,6 @@ def toposimplify(
     13  52573973.0  ...  POLYGON ((-11.51397 12.44302, -11.45617 12.076...
     <BLANKLINE>
     [5 rows x 6 columns]
-
-    .. plot::
-
-        import dtoolkit.geoaccessor
-        import geopandas as gpd
-        import matplotlib.pyplot as plt
-
-
-        df = (
-            gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-            .query('continent == "Africa"')
-        )
-
-        fig, (ax1, ax2) = plt.subplots(ncols=2, sharex=True, sharey=True)
-
-        df.simplify(1).plot(ax=ax1, alpha=0.7)
-        df.toposimplify(1).plot(ax=ax2, alpha=0.7)
-
-        ax1.set_title("simplify")
-        ax1.set_axis_off()
-        ax2.set_title("toposimplify")
-        ax2.set_axis_off()
-        fig.tight_layout()
-        plt.show()
     """
     from topojson import Topology
 
