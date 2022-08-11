@@ -17,7 +17,7 @@ jobs:
       - uses: fkirc/skip-duplicate-actions@v4.0.0
         id: skip-check
         with:
-          paths_ignore: '["doc/**"]'
+          paths_ignore: '["doc/**", "CHANGELOG.*"]'
 
   nightly-test:
     needs: skip-check
