@@ -2,6 +2,8 @@
 
 ## [Version 0.0.17] (2022-8-xx)
 
+Highlights of this release:
+
 - Require minimal Python 3.8+ ({pr}`554`).
 - Speed up geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
 - {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for Series now ({pr}`492`, {pr}.`551`)
@@ -118,7 +120,7 @@ Maintenance development:
 
 New features and improvements:
 
-- New decorator {meth}`deprecated_kwargs` ({pr}`525`).
+- New decorator {meth}`~dtoolkit.util._decorator.deprecated_kwargs` ({pr}`525`).
 - Add `to_list` option for {meth}`~dtoolkit.accessor.series.cols` ({pr}`523`).
 - Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`~pandas.Index` ({pr}`507`).
 
@@ -145,7 +147,7 @@ New features and improvements:
 - Replace `.shape` with `.__len__`, 1.6x speed up than older method ({pr}`506`).
 - New method {meth}`~dtoolkit.accessor.series.to_set` ({pr}`503`).
 - New option `to_list` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`500`).
-- New decorator `deprecated_alias` ({pr}`498`).
+- New decorator {meth}`dtoolkit.util._decorator.deprecated_alias` ({pr}`498`).
 - New option `order` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`495`).
 - Return the error place is first happening via `stacklevel` option({pr}`490`).
 - New method {meth}`~dtoolkit.geoaccessor.dataframe.from_wkt` ({pr}`486`).
@@ -215,11 +217,10 @@ Typing annotations:
 
 ## [Version 0.0.12] (2022-2-11)
 
-Specific pandas minimal version to each python version ({pr}`440`).
-
 Highlights of this release:
 
 - One column data pipeline supports return `Series` ({pr}`431`).
+- Specific pandas minimal version to each python version ({pr}`440`).
 
 API changes:
 
@@ -239,14 +240,14 @@ Maintenance development:
 
 ## [Version 0.0.11] (2022-1-25)
 
-Small bug-fix:
-
-- Fix jupyter notebook can't render ({pr}`438`).
-
 New features and improvements:
 
 - Simplify `OneHotEncoder` examples and inputs ({pr}`434`).
 - `FeatureUnion` would merge all into one DataFrame and the index would use the common part ({pr}`433`).
+
+Small bug-fix:
+
+- Fix jupyter notebook can't render ({pr}`438`).
 
 Maintenance development:
 
@@ -254,7 +255,9 @@ Maintenance development:
 
 ## [Version 0.0.10] (2022-1-21)
 
-Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
+Highlights of this release:
+
+- Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
 
 New features and improvements:
 
@@ -282,10 +285,9 @@ Maintenance development:
 
 ## [Version 0.0.9] (2022-1-10)
 
-Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
-
 Highlights of this release:
 
+- Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
 - {meth}`~dtoolkit.accessor.register_series_method` and {meth}`~dtoolkit.accessor.register_dataframe_method` support alias ({pr}`392`).
 
 New features and improvements:
@@ -500,7 +502,9 @@ Maintenance development:
 
 ## [Version 0.0.2] (2021-9-2)
 
-Now DToolKit supports py3.9, works with Python >= 3.7 ({pr}`211`).
+Highlights of this release:
+
+- Now DToolKit supports py3.9, works with Python >= 3.7 ({pr}`211`).
 
 New features and improvements:
 
