@@ -70,6 +70,7 @@ Maintenance development:
 - Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
 - Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
 - Rename arguments of methodes ({pr}`647`).
+- Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
 
 Typing annotations:
 
