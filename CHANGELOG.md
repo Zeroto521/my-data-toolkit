@@ -32,7 +32,7 @@ Small bug-fix:
 - {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer` uses the active geometry to generate buffers ({pr}`583`).
 - Compat with sklearn 1.2 stricter class parameters checking ({pr}`602`).
 - Avoid `fillna_regression` mutating the original dataframe ({pr}`622`).
-- Avoid GeoDataFrame contructor mutating the original (inputting) DataFrame ({pr}`644`).
+- Avoid GeoDataFrame constructor mutating the original (inputting) DataFrame ({pr}`644`).
 
 API changes:
 
