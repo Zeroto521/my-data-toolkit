@@ -1,5 +1,79 @@
 # Changelog
 
+## [Version 0.0.17] (2022-8-xx)
+
+- Require minimal Python 3.8+ ({pr}`554`).
+- Speed up GeoPandas geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
+- {meth}`~dtoolkit.accessor.series.eval` and `~dtoolkit.accessor.series.query` work for {class}`pandas.Series` now ({pr}`492`, {pr}.`551`)
+
+New features and improvements:
+
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.series.to_geoframe` ({pr}`568`, {pr}`642`, {pr}`646`).
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.dataframe.from_wkb` ({pr}`584`, {pr}`598`).
+- Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
+- New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
+- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates ({pr}.`591`, {pr}`594`, {pr}`643`, {pr}`636`)
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
+- New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.dataframe.drop_geometry` ({pr}`599`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.filter_in` ({pr}`614`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.jenks_bin` and {meth}`~dtoolkit.accessor.series.jenks_breaks` ({pr}`618`, .{pr}`629`)
+- {meth}`~dtoolkit.accessor.dataframe.to_series` gets only `value_column` also return Series from DataFrame ({pr}`620`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimiplify` ({pr}`624`, {pr}`649`, {pr}`651`).
+- New accessor group by index {meth}`~dtoolkit.accessor.series.groupby_index` ({pr}`625`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.swap_index_values` ({pr}`630`).
+- New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`)
+- A syntactic sugar to parallelize multi-jobs {meth}`~dtoolkit.util.parallelize` ({pr}`635`, {pr}`641`).
+- New geoaccessor compute geographic area {meth}`~dtoolkit.geoaccessor.geoseries.geoarea` ({pr}`640`).
+
+Small bug-fix:
+
+- Hook accessor method's attrs into both class and instance ({pr}`580`).
+- {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer` uses the active geometry to generate buffers ({pr}`583`).
+- Compat with sklearn 1.2 stricter class parameters checking ({pr}`602`).
+- Avoid `fillna_regression` mutating the original dataframe ({pr}`622`).
+- Avoid GeoDataFrame contructor mutating the original (inputting) DataFrame ({pr}`644`).
+
+API changes:
+
+- Use positional-only arguments (`/`) to limit `name` ({pr}`435`).
+- Depcrated {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`637`, {pr}`645`).
+- Remove warning message and drop `inplace` option ({pr}`555`).
+
+Documentation:
+
+- Beautify the format of inputting dictionary ({pr}`577`).
+- Remove title '.dev0' and '.post0' suffixes ({pr}`587`).
+- Apply singular file name style to `/doc/*` ({pr}`613`).
+- Add Raises part for documentation ({pr}`623`).
+
+Maintenance development:
+
+- Move `dtoolkit.transformer.pipeline` into `dtoolkit.pipeline` ({pr}`563`).
+- Autoupdate actions ({pr}`578`, {pr}`592`, {pr}`628`).
+- pre-commit hooks autoupdate ({pr}`579`, {pr}`595`, {pr}`610`, {pr}`627`, {pr}`634`, {pr}`639`).
+- Suit actions/setup-python@v4 new changing ({pr}`581`).
+- Set default coding style via EditorConfig ({pr}`600`).
+- `(Geo)DataFrame` geoaccessor don't return `(Geo)Series` anymore ({pr}`601`).
+- Rename yaml file `*.yml` -> `*.yaml` ({pr}`603`).
+- Correct file name ({pr}`604`).
+- Singular style file name ({pr}`605`).
+- Use function style rather than OOP ({pr}`606`, {pr}`633`, {pr}`648`).
+- Use `pandas.testing.assert_*_equal` replace `(Series|DataFrame).equals` in testing ({pr}`607`, {pr}`608`).
+- Add `environment.yaml` at root path for user ({pr}`611`).
+- Set only positional parameter (`/`) for `(geo)accessor` ({pr}`612`).
+- Follow `numpy.repeat(repeats, axis)` API ({pr}`615`).
+- Follow `Series.nlargest(n=5, keep='first')` API ({pr}`616`).
+- Use `topn` as {meth}`~dtoolkit.accessor.series.top_n`'s alias ({pr}`617`).
+- Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
+- Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
+- Rename arguments of methodes ({pr}`647`).
+
+Typing annotations:
+
+- Use `Literal` ({pr}`505`).
+- Use `Hashable` replace `str | int` ({pr}`582`).
+
 ## [Version 0.0.16] (2022-5-30)
 
 New features and improvements:
@@ -469,6 +543,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.17]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.16...v0.0.17
 [Version 0.0.16]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.16
 [Version 0.0.15]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.14...v0.0.15
 [Version 0.0.14]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.13...v0.0.14
