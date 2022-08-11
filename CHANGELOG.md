@@ -4,7 +4,7 @@
 
 - Require minimal Python 3.8+ ({pr}`554`).
 - Speed up GeoPandas geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
-- {meth}`~dtoolkit.accessor.series.eval` and `~dtoolkit.accessor.series.query` work for {class}`pandas.Series` now ({pr}`492`, {pr}.`551`)
+- {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for {class}`pandas.Series` now ({pr}`492`, {pr}.`551`)
 
 New features and improvements:
 
@@ -12,14 +12,14 @@ New features and improvements:
 - New geoaccessor {meth}`~dtoolkit.geoaccessor.dataframe.from_wkb` ({pr}`584`, {pr}`598`).
 - Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
 - New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
-- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates ({pr}.`591`, {pr}`594`, {pr}`643`, {pr}`636`)
+- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`)
 - New geoaccessor {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
-- New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.dataframe.drop_geometry` ({pr}`599`).
+- New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.geodataframe.drop_geometry` ({pr}`599`).
 - New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
 - New accessor for Series {meth}`~dtoolkit.accessor.series.filter_in` ({pr}`614`).
 - New accessor for Series {meth}`~dtoolkit.accessor.series.jenks_bin` and {meth}`~dtoolkit.accessor.series.jenks_breaks` ({pr}`618`, .{pr}`629`)
 - {meth}`~dtoolkit.accessor.dataframe.to_series` gets only `value_column` also return Series from DataFrame ({pr}`620`).
-- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimiplify` ({pr}`624`, {pr}`649`, {pr}`651`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimplify` ({pr}`624`, {pr}`649`, {pr}`651`).
 - New accessor group by index {meth}`~dtoolkit.accessor.series.groupby_index` ({pr}`625`).
 - New accessor for Series {meth}`~dtoolkit.accessor.series.swap_index_values` ({pr}`630`).
 - New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`)
@@ -31,7 +31,7 @@ Small bug-fix:
 - Hook accessor method's attrs into both class and instance ({pr}`580`).
 - {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer` uses the active geometry to generate buffers ({pr}`583`).
 - Compat with sklearn 1.2 stricter class parameters checking ({pr}`602`).
-- Avoid `fillna_regression` mutating the original dataframe ({pr}`622`).
+- Avoid {meth}`~dtoolkit.accessor.dataframe.fillna_regression` mutating the original dataframe ({pr}`622`).
 - Avoid GeoDataFrame constructor mutating the original (inputting) DataFrame ({pr}`644`).
 
 API changes:
