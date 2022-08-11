@@ -15,7 +15,7 @@ New features and improvements:
 - Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
 - New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
 - New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates {meth}`~dtoolkit.geoaccessor.geoseries.reverse_geocode` ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`, {pr}`652`)
-- New geoaccessor {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
+- New geoaccessor for Series {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
 - New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.geodataframe.drop_geometry` ({pr}`599`).
 - New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
 - New accessor for Series {meth}`~dtoolkit.accessor.series.filter_in` ({pr}`614`).
