@@ -24,7 +24,7 @@ New features and improvements:
 - New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimplify` ({pr}`624`, {pr}`649`, {pr}`651`).
 - New accessor group by index {meth}`~dtoolkit.accessor.series.groupby_index` ({pr}`625`).
 - New accessor for Series {meth}`~dtoolkit.accessor.series.swap_index_values` ({pr}`630`).
-- New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`)
+- New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`).
 - A syntactic sugar to parallelize multi-jobs {meth}`~dtoolkit.util.parallelize` ({pr}`635`, {pr}`641`).
 - New geoaccessor compute geographic area {meth}`~dtoolkit.geoaccessor.geoseries.geoarea` ({pr}`640`).
 
