@@ -34,4 +34,4 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
     ),
 )
 def count_coordinates(df: gpd.GeoDataFrame, /) -> pd.Series:
-    return df.geometry.count_coordinates()
+    return s_count_coordinates(df.geometry)
