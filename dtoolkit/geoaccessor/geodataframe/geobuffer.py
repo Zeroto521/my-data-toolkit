@@ -20,7 +20,8 @@ def geobuffer(
 
     return df.assign(
         **{
-            df.geometry.name: df.geometry.geobuffer(
+            df.geometry.name: s_geobuffer(
+                df.geometry,
                 distance,
                 **kwargs,
             ),
