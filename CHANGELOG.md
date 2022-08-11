@@ -3,8 +3,8 @@
 ## [Version 0.0.17] (2022-8-xx)
 
 - Require minimal Python 3.8+ ({pr}`554`).
-- Speed up GeoPandas geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
-- {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for {class}`pandas.Series` now ({pr}`492`, {pr}.`551`)
+- Speed up geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
+- {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for Series now ({pr}`492`, {pr}.`551`)
 
 New features and improvements:
 
