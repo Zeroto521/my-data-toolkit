@@ -77,7 +77,8 @@ def expand(
 
     return pd.concat(
         (
-            s.expand(
+            s_expand(
+                s,
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,

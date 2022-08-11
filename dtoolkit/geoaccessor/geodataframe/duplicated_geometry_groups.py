@@ -16,4 +16,4 @@ def duplicated_geometry_groups(
     /,
     predicate: BINARY_PREDICATE = "intersects",
 ) -> pd.Series:
-    return df.geometry.duplicated_geometry_groups(predicate=predicate)
+    return s_duplicated_geometry_groups(df.geometry, predicate=predicate)
