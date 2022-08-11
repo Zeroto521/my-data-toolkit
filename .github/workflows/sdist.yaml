@@ -11,20 +11,7 @@ on:
       - main
 
 jobs:
-  skip-check:
-    runs-on: ubuntu-latest
-    outputs:
-      should_skip: ${{ steps.skip-check.outputs.should-skip }}
-    steps:
-      - uses: fkirc/skip-duplicate-actions@v4.0.0
-        id: skip-check
-        with:
-          paths_ignore: '["doc/**", "test/**"]'
-          do_not_skip: '["push"]'
-
   sdist:
-    needs: skip-check
-    if: ${{ needs.skip-check.outputs.should-skip != 'true' }}
     runs-on: ubuntu-latest
     defaults:
       run:
