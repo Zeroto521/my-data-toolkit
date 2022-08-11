@@ -15,6 +15,7 @@ dependencies:
   - myst-parser
   - numpydoc
   - ipython
+  - matplotlib
 
   # jupyter
   - nbsphinx
