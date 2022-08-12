@@ -102,6 +102,9 @@ class Tencent(Geocoder):
 
         :rtype: ``None``, :class:`geopy.location.Location` or a list of them, if
             ``exactly_one=False``.
+
+        Documentation at:
+            https://lbs.qq.com/service/webService/webServiceGuide/webServiceGeocoder
         """
 
         params = {
@@ -141,6 +144,9 @@ class Tencent(Geocoder):
 
         :rtype: ``None``, :class:`geopy.location.Location` or a list of them, if
             ``exactly_one=False``.
+
+        Documentation at:
+            https://lbs.qq.com/service/webService/webServiceGuide/webServiceGcoder
         """
 
         params = {
