@@ -20,8 +20,8 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Update versioneer
-        run: python -m pip install --upgrade pip versioneer
+      - name: Set environment
+        run: python -m pip install --upgrade pip versioneer pre-commit
 
       - name: Skip check
         id: skip-check
@@ -39,6 +39,10 @@ jobs:
         run: |
           git reset -- setup.py dtoolkit/__init__.py
           git checkout -- setup.py dtoolkit/__init__.py
+
+      - name: Lint versioneer
+        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
+        run: pre-commit run -a -v
 
       - uses: actions/upload-artifact@v3
         with:
