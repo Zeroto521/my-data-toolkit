@@ -71,6 +71,7 @@ Maintenance development:
 - Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
 - Rename arguments of methodes ({pr}`647`).
 - Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
+- `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
 
 Typing annotations:
 
