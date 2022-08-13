@@ -72,6 +72,7 @@ Maintenance development:
 - Rename arguments of methodes ({pr}`647`).
 - Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
 - `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
+- Set timeout for updating versioneer CI ({pr}`657`).
 
 Typing annotations:
 
