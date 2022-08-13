@@ -72,11 +72,7 @@ def values_to_dict(s: pd.Series, /, unique: bool = True, to_list: bool = True) -
     """
 
     return {
-        key: handle_element(
-            s.loc[s.index == key],
-            unique=unique,
-            to_list=to_list,
-        )
+        key: handle_element(s.loc[s.index == key], unique=unique, to_list=to_list)
         for key in s.index.unique()
     }
 
