@@ -14,3 +14,4 @@ jobs:
             .github/workflows/test.yaml,
             .github/workflows/nightly-test.yaml,
             .github/workflows/sdist.yaml
+            .github/workflows/versioneer.yaml,
