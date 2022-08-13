@@ -29,7 +29,9 @@ jobs:
           output=$(python ci/script/versioneer_update_check.py)
           echo "::set-output name=should-skip::$output"
 
-      - run: versioneer install
+      - name: Run 'versioneer install'
+      - run: versioneer install & { sleep 5; kill $! & }
+
         if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
 
       - name: Undo changes to __init__.py & setup.py
