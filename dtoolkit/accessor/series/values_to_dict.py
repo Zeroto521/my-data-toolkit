@@ -2,16 +2,11 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit.accessor.register import register_series_method  # noqa: F401
+from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def values_to_dict(
-    s: pd.Series,
-    /,
-    unique: bool = True,
-    to_list: bool = True,
-) -> dict:
+def values_to_dict(s: pd.Series, /, unique: bool = True, to_list: bool = True) -> dict:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :class:`dict`.
@@ -77,8 +72,8 @@ def values_to_dict(
     """
 
     return {
-        key: s.loc[s.index == key].pipe(
-            handle_element,
+        key: handle_element(
+            s.loc[s.index == key],
             unique=unique,
             to_list=to_list,
         )
@@ -91,8 +86,5 @@ def handle_element(s: pd.Series, unique: bool = False, to_list: bool = True):
         s = s.unique()
 
     s = s.tolist()
-    if not to_list and len(s) == 1:
-        # Unfold one element list-like
-        return s[0]
-
-    return s
+    # Unfold one element list-like
+    return s[0] if not to_list and len(s) == 1 else s
