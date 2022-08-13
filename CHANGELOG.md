@@ -4,50 +4,50 @@
 
 Highlights of this release:
 
-- Require minimal Python 3.8+ ({pr}`554`).
 - Speed up geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
-- {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for Series now ({pr}`492`, {pr}.`551`)
+- Require minimal Python 3.8+ ({pr}`554`).
+- {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for Series now ({pr}`492`, {pr}`551`).
 
 New features and improvements:
 
-- New geoaccessor {meth}`~dtoolkit.geoaccessor.series.to_geoframe` ({pr}`568`, {pr}`642`, {pr}`646`).
-- New geoaccessor {meth}`~dtoolkit.geoaccessor.dataframe.from_wkb` ({pr}`584`, {pr}`598`).
-- Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
-- New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
-- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates {meth}`~dtoolkit.geoaccessor.geoseries.reverse_geocode` ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`, {pr}`652`).
-- New geoaccessor for Series {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
-- New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.geodataframe.drop_geometry` ({pr}`599`).
-- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
-- New accessor for Series {meth}`~dtoolkit.accessor.series.filter_in` ({pr}`614`).
-- New accessor for Series {meth}`~dtoolkit.accessor.series.jenks_bin` and {meth}`~dtoolkit.accessor.series.jenks_breaks` ({pr}`618`, .{pr}`629`)
-- {meth}`~dtoolkit.accessor.dataframe.to_series` gets only `value_column` also return Series from DataFrame ({pr}`620`).
-- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimplify` ({pr}`624`, {pr}`649`, {pr}`651`).
-- New accessor group by index {meth}`~dtoolkit.accessor.series.groupby_index` ({pr}`625`).
-- New accessor for Series {meth}`~dtoolkit.accessor.series.swap_index_values` ({pr}`630`).
-- New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`).
-- A syntactic sugar to parallelize multi-jobs {meth}`~dtoolkit.util.parallelize` ({pr}`635`, {pr}`641`).
 - New geoaccessor compute geographic area {meth}`~dtoolkit.geoaccessor.geoseries.geoarea` ({pr}`640`).
+- A syntactic sugar to parallelize multi-jobs {meth}`~dtoolkit.util.parallelize` ({pr}`635`, {pr}`641`).
+- New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.swap_index_values` ({pr}`630`).
+- New accessor group by index {meth}`~dtoolkit.accessor.series.groupby_index` ({pr}`625`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimplify` ({pr}`624`, {pr}`649`, {pr}`651`).
+- {meth}`~dtoolkit.accessor.dataframe.to_series` gets only `value_column` also return Series from DataFrame ({pr}`620`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.jenks_bin` and {meth}`~dtoolkit.accessor.series.jenks_breaks` ({pr}`618`, .{pr}`629`)
+- New accessor for Series {meth}`~dtoolkit.accessor.series.filter_in` ({pr}`614`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
+- New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.geodataframe.drop_geometry` ({pr}`599`).
+- New geoaccessor for Series {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
+- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates {meth}`~dtoolkit.geoaccessor.geoseries.reverse_geocode` ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`, {pr}`652`).
+- New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
+- Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.dataframe.from_wkb` ({pr}`584`, {pr}`598`).
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.series.to_geoframe` ({pr}`568`, {pr}`642`, {pr}`646`).
 
 Small bug-fix:
 
-- Hook accessor method's attrs into both class and instance ({pr}`580`).
-- {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer` uses the active geometry to generate buffers ({pr}`583`).
-- Compat with sklearn 1.2 stricter class parameters checking ({pr}`602`).
-- Avoid {meth}`~dtoolkit.accessor.dataframe.fillna_regression` mutating the original dataframe ({pr}`622`).
 - Avoid GeoDataFrame constructor mutating the original (inputting) DataFrame ({pr}`644`).
+- Avoid {meth}`~dtoolkit.accessor.dataframe.fillna_regression` mutating the original dataframe ({pr}`622`).
+- Compat with sklearn 1.2 stricter class parameters checking ({pr}`602`).
+- {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer` uses the active geometry to generate buffers ({pr}`583`).
+- Hook accessor method's attrs into both class and instance ({pr}`580`).
 
 API changes:
 
-- Use positional-only arguments (`/`) to limit `name` ({pr}`435`).
-- Depcrated {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`637`, {pr}`645`).
+- Add deprecated warning for {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`637`, {pr}`645`).
 - Remove warning message and drop `inplace` option ({pr}`555`).
+- Use positional-only arguments (`/`) to limit `name` ({pr}`435`).
 
 Documentation:
 
-- Beautify the format of inputting dictionary ({pr}`577`).
-- Remove title '.dev0' and '.post0' suffixes ({pr}`587`).
-- Apply singular file name style to `/doc/*` ({pr}`613`).
 - Add Raises part for documentation ({pr}`623`).
+- Apply singular file name style to `/doc/*` ({pr}`613`).
+- Remove title '.dev0' and '.post0' suffixes ({pr}`587`).
+- Beautify the format of inputting dictionary ({pr}`577`).
 
 Maintenance development:
 
@@ -75,8 +75,8 @@ Maintenance development:
 
 Typing annotations:
 
-- Use `Literal` ({pr}`505`).
 - Use `Hashable` replace `str | int` ({pr}`582`).
+- Use `Literal` ({pr}`505`).
 
 ## [Version 0.0.16] (2022-5-30)
 
@@ -221,8 +221,8 @@ Typing annotations:
 
 Highlights of this release:
 
-- One column data pipeline supports return `Series` ({pr}`431`).
 - Specific pandas minimal version to each python version ({pr}`440`).
+- One column data pipeline supports return `Series` ({pr}`431`).
 
 API changes:
 
@@ -329,12 +329,12 @@ API changes:
 
 Maintenance development:
 
+- Let git choose the default branch ({pr}`376`).
 - Update pre-commit commit message ({pr}`371`).
 - Enable labeled 'auto-merged' PR could merge master branch into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
 - Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`, {pr}`383`).
 - Auto update github action runner ({pr}`360`, {pr}`364`).
 - Pre-commit hooks auto update ({pr}`359`).
-- Let git choose the default branch ({pr}`376`).
 
 Documentation:
 
