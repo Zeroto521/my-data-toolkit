@@ -30,7 +30,7 @@ jobs:
           echo "::set-output name=should-skip::$output"
 
       - name: Run 'versioneer install'
-      - run: versioneer install & { sleep 5; kill $! & }
+        run: versioneer install & { sleep 5; kill $! & }
 
         if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
 
