@@ -3,15 +3,15 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
+from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
 
 
 @register_dataframe_method
 def geocode(
     df: pd.DataFrame,
-    column: Hashable,
     /,
+    address: Hashable,
     drop: bool = False,
     **kwargs,
 ) -> gpd.GeoDataFrame:
@@ -21,7 +21,7 @@ def geocode(
 
     Parameters
     ----------
-    column : Hashable
+    address : Hashable
         The name of the column to geocode.
 
     drop : bool, default False
@@ -62,15 +62,15 @@ def geocode(
     0                             boston, ma
     1  1600 pennsylvania ave. washington, dc
     >>> df.geocode("name", drop=True)
-                        geometry                                            address
+                         geometry                                            address
     0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
     """
 
     return pd.concat(
         (
-            df.drop_or_not(drop=drop, columns=column),
-            gpd.tools.geocode(df[column], **kwargs),
+            gpd.tools.geocode(df[address], **kwargs),
+            drop_or_not(df, drop=drop, columns=address),
         ),
         axis=1,
     )

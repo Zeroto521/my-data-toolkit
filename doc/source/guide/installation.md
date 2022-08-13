@@ -17,7 +17,7 @@ Optional Dependencies:
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
-  - GeoPandas (>= 0.9.0)
+  - GeoPandas (>= 0.10.0)
   - PyGEOS (>= 0.11.1)
 
 ### Different Python Version Minimal Dependencies

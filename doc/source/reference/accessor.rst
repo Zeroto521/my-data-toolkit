@@ -21,12 +21,17 @@ Series Accessor
     cols
     drop_inf
     error_report
+    eval
     expand
     filter_in
     getattr
+    groupby_index
     jenks_bin
     jenks_breaks
     len
+    query
+    set_unique_index
+    swap_index_values
     to_set
     top_n
     values_to_dict
@@ -46,7 +51,9 @@ DataFrame Accessor
     expand
     fillna_regression
     filter_in
+    groupby_index
     repeat
+    set_unique_index
     to_series
     top_n
     values_to_dict

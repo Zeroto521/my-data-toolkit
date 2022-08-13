@@ -9,9 +9,14 @@ GeoSeries Accessor
     :toctree: api/
 
     count_coordinates
+    drop_duplicates_geometry
+    duplicated_geometry
+    duplicated_geometry_groups
+    geoarea
     geobuffer
     get_coordinates
     reverse_geocode
+    toposimplify
     utm_crs
 
 
@@ -22,10 +27,15 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
+    drop_duplicates_geometry
     drop_geometry
+    duplicated_geometry
+    duplicated_geometry_groups
+    geoarea
     geobuffer
     get_coordinates
     reverse_geocode
+    toposimplify
     utm_crs
 
 
@@ -38,6 +48,7 @@ Series Accessor (to GeoPandas)
     from_wkb
     from_wkt
     geocode
+    to_geoframe
     to_geoseries
 
 
