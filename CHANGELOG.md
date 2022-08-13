@@ -51,27 +51,27 @@ Documentation:
 
 Maintenance development:
 
-- Move `dtoolkit.transformer.pipeline` into `dtoolkit.pipeline` ({pr}`563`).
-- Autoupdate actions ({pr}`578`, {pr}`592`, {pr}`628`).
-- pre-commit hooks autoupdate ({pr}`579`, {pr}`595`, {pr}`610`, {pr}`627`, {pr}`634`, {pr}`639`).
-- Suit actions/setup-python@v4 new changing ({pr}`581`).
-- Set default coding style via EditorConfig ({pr}`600`).
-- `(Geo)DataFrame` geoaccessor don't return `(Geo)Series` anymore ({pr}`601`).
-- Rename yaml file `*.yml` -> `*.yaml` ({pr}`603`).
-- Correct file name ({pr}`604`).
-- Singular style file name ({pr}`605`).
-- Use function style rather than OOP ({pr}`606`, {pr}`633`, {pr}`648`, {pr}`653`).
-- Use `pandas.testing.assert_*_equal` replace `(Series|DataFrame).equals` in testing ({pr}`607`, {pr}`608`).
-- Add `environment.yaml` at root path for user ({pr}`611`).
-- Set only positional parameter (`/`) for `(geo)accessor` ({pr}`612`).
-- Follow `numpy.repeat(repeats, axis)` API ({pr}`615`).
-- Follow `Series.nlargest(n=5, keep='first')` API ({pr}`616`).
-- Use `topn` as {meth}`~dtoolkit.accessor.series.top_n`'s alias ({pr}`617`).
-- Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
-- Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
-- Rename arguments of methodes ({pr}`647`).
-- Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
 - `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
+- Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
+- Rename arguments of methodes ({pr}`647`).
+- Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
+- Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
+- Use `topn` as {meth}`~dtoolkit.accessor.series.top_n`'s alias ({pr}`617`).
+- Follow `Series.nlargest(n=5, keep='first')` API ({pr}`616`).
+- Follow `numpy.repeat(repeats, axis)` API ({pr}`615`).
+- Set only positional parameter (`/`) for `(geo)accessor` ({pr}`612`).
+- Add `environment.yaml` at root path for user ({pr}`611`).
+- Use `pandas.testing.assert_*_equal` replace `(Series|DataFrame).equals` in testing ({pr}`607`, {pr}`608`).
+- Use function style rather than OOP ({pr}`606`, {pr}`633`, {pr}`648`, {pr}`653`).
+- Singular style file name ({pr}`605`).
+- Correct file name ({pr}`604`).
+- Rename yaml file `*.yml` -> `*.yaml` ({pr}`603`).
+- `(Geo)DataFrame` geoaccessor don't return `(Geo)Series` anymore ({pr}`601`).
+- Set default coding style via EditorConfig ({pr}`600`).
+- Suit actions/setup-python@v4 new changing ({pr}`581`).
+- pre-commit hooks autoupdate ({pr}`579`, {pr}`595`, {pr}`610`, {pr}`627`, {pr}`634`, {pr}`639`).
+- Autoupdate actions ({pr}`578`, {pr}`592`, {pr}`628`).
+- Move `dtoolkit.transformer.pipeline` into `dtoolkit.pipeline` ({pr}`563`).
 
 Typing annotations:
 
