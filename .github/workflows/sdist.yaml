@@ -12,6 +12,7 @@ on:
 
 jobs:
   sdist:
+    name: ${{ python-version }}
     runs-on: ubuntu-latest
     defaults:
       run:
