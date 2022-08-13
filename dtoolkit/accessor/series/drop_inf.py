@@ -67,18 +67,17 @@ def drop_inf(
     return s[~mask]
 
 
-def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> list[float]:
+def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> set[float]:
     """Get inf value from string"""
 
-    inf_range = {
-        "all": [np.inf, -np.inf],
-        "pos": [np.inf],
-        "+": [np.inf],
-        "neg": [-np.inf],
-        "-": [-np.inf],
+    INF_RANGE = {
+        "all": {np.inf, -np.inf},
+        "pos": {np.inf},
+        "+": {np.inf},
+        "neg": {-np.inf},
+        "-": {-np.inf},
     }
-
-    if inf in inf_range:
-        return inf_range[inf]
-
-    raise ValueError(f"invalid inf option: {inf!r}")
+    try:
+        return INF_RANGE[inf]
+    except KeyError as e:
+        raise ValueError(f"invalid inf option: {inf!r}") from e
