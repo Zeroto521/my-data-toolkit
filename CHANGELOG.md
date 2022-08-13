@@ -51,6 +51,7 @@ Documentation:
 
 Maintenance development:
 
+- Set timeout for updating versioneer CI ({pr}`657`).
 - `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
 - Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
 - Rename arguments of methodes ({pr}`647`).
