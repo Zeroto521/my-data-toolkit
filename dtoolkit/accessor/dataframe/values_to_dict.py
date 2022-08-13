@@ -5,7 +5,7 @@ from typing import Hashable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa: F401
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict
 
 
 @register_dataframe_method
@@ -197,7 +197,8 @@ def values_to_dict(
     """
 
     if len(df.columns) == 1:  # one columns DataFrame
-        return df.to_series().values_to_dict(
+        return s_values_to_dict(
+            df.to_series(),
             unique=unique,
             to_list=to_list,
         )
@@ -210,14 +211,16 @@ def values_to_dict(
         .index
     )
 
-    return df[columns].pipe(
-        to_dict,
+    return to_dict(
+        df[columns],
         unique=unique,
         to_list=to_list,
     )
 
 
-def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
+def to_dict(df: pd.DataFrame, unique: bool = True, to_list: bool = False) -> dict:
+    """Iterate over columns pairwise to generate :class:`dic`."""
+
     key_column, *value_column = df.columns
 
     if len(df.columns) == 2:  # two column DataFrame
@@ -230,8 +233,8 @@ def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
         )
 
     return {
-        key: df.loc[df[key_column] == key, value_column].pipe(
-            to_dict,
+        key: to_dict(
+            df.loc[df[key_column] == key, value_column],
             unique=unique,
             to_list=to_list,
         )
