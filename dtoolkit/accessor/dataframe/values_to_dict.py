@@ -218,7 +218,7 @@ def values_to_dict(
     )
 
 
-def to_dict(df: pd.DataFrame, unique: bool = True, to_list: bool = False) -> dict:
+def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
     """Iterate over columns pairwise to generate :class:`dic`."""
 
     key_column, *value_column = df.columns

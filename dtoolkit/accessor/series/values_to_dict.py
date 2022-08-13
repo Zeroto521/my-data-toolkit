@@ -77,7 +77,7 @@ def values_to_dict(s: pd.Series, /, unique: bool = True, to_list: bool = True) -
     }
 
 
-def handle_element(s: pd.Series, unique: bool = False, to_list: bool = True):
+def handle_element(s: pd.Series, unique: bool, to_list: bool):
     if unique:
         s = s.unique()
 
