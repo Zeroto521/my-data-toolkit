@@ -205,7 +205,7 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
             groups.append({x, y})
 
     # add missing group via natural number
-    for i in range(len(index)):
+    for i in range(size):
         for group in groups:
             if i in group:
                 break
