@@ -22,7 +22,7 @@ def to_series(
     Parameters
     ----------
     name : Hashable, optional
-        The name of returned Series.
+        The new name of returned Series. If not set, would use the original name.
 
     index_column : Hashable, optional
         The Series's index.
@@ -123,6 +123,9 @@ def to_series(
 
 
 def _to_series(df: pd.DataFrame, name: Hashable, value_column: Hashable) -> pd.Series:
-    """Select one column of DataFrame and convert to Series."""
+    """
+    Select one column (`value_column`) of DataFrame and convert to Series.
+    The name of Series is set to `name`.
+    """
 
     return df[value_column].rename(name or value_column)
