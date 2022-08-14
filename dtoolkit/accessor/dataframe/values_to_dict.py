@@ -16,6 +16,7 @@ def values_to_dict(
     ascending: bool = True,
     unique: bool = True,
     to_list: bool = True,
+    dropna: bool = True,
 ) -> dict:
     """
     Convert :attr:`~pandas.DataFrame.values` to :class:`dict`.
@@ -34,6 +35,9 @@ def values_to_dict(
 
     to_list : bool, default True
         If True one element value will return :class:`list`.
+
+    dropna : bool, default True
+        If True it will return ``{}`` when come across ``nan`` value.
 
     Returns
     -------
@@ -204,18 +208,22 @@ def values_to_dict(
     if not df.columns.is_unique:
         raise ValueError("The columns of the inputting is not unique.")
 
-
     columns = order or df.nunique().sort_values(ascending=ascending).index
     return to_dict(
         df[columns],
         unique=unique,
         to_list=to_list,
+        dropna=dropna,
     )
 
 
-def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
+def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict:
     """Iterate over columns pairwise to generate :class:`dic`."""
-    if len(df.columns) == 1:  # one columns DataFrame
+
+    if len(df.columns) == 0:  # empty DataFrame
+        return {}
+
+    elif len(df.columns) == 1:  # one columns DataFrame
         return df.to_series().values_to_dict(unique=unique, to_list=to_list)
 
     elif len(df.columns) == 2:  # two columns DataFrame
@@ -233,6 +241,13 @@ def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
             df.loc[df[key_column] == key, value_column],
             unique=unique,
             to_list=to_list,
+            dropna=dropna,
         )
         for key in df[key_column].unique()
     }
+
+
+def dropna_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> pd.DataFrame:
+    """Dropna or not."""
+
+    return df.dropna(**kwargs) if drop else df
