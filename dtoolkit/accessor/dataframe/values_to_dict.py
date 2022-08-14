@@ -204,12 +204,6 @@ def values_to_dict(
     if not df.columns.is_unique:
         raise ValueError("The columns of the inputting is not unique.")
 
-    if len(df.columns) == 1:  # one columns DataFrame
-        return s_values_to_dict(
-            df.to_series(),
-            unique=unique,
-            to_list=to_list,
-        )
 
     columns = order or df.nunique().sort_values(ascending=ascending).index
     return to_dict(
@@ -221,18 +215,19 @@ def values_to_dict(
 
 def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
     """Iterate over columns pairwise to generate :class:`dic`."""
+    if len(df.columns) == 1:  # one columns DataFrame
+        return df.to_series().values_to_dict(unique=unique, to_list=to_list)
 
-    key_column, *value_column = df.columns
-
-    if len(df.columns) == 2:  # two column DataFrame
-        return df.to_series(
-            index_column=key_column,
-            value_column=value_column[0],
-        ).values_to_dict(
-            unique=unique,
-            to_list=to_list,
+    elif len(df.columns) == 2:  # two columns DataFrame
+        key_column, value_column = df.columns
+        return (
+            dropna_or_not(df, drop=dropna, subset=key_column)
+            .to_series(index_column=key_column, value_column=value_column)
+            .values_to_dict(unique=unique, to_list=to_list)
         )
 
+    # three or more columns DataFrame
+    key_column, *value_column = df.columns
     return {
         key: to_dict(
             df.loc[df[key_column] == key, value_column],
