@@ -95,7 +95,7 @@ def to_series(
     Name: c, dtype: int64
     """
 
-    if len(df.columns) == 1:  # one column
+    if df.columns.size == 1:  # one column
         column = df.columns[0]
         return df[column].rename(name or column)
 
