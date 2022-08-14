@@ -181,14 +181,14 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
     >>> s = pd.Series([2, 3], name='y', index=pd.Index([1, 2], name='x'))
     >>> s
     x
-    2    1
-    3    2
+    1    2
+    2    3
     Name: y, dtype: int64
     >>> group_shared_xy(s, 4)
-    0    0
-    1    1
-    2    1
-    3    1
+    0    1
+    1    0
+    2    0
+    3    0
     dtype: int64
     """
 
