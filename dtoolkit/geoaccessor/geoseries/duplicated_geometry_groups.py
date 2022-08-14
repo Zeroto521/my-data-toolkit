@@ -127,7 +127,7 @@ def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
     return gpd.sjoin(df, df, **kwargs)
 
 
-def group_shared_xy(s: pd.Series, index: pd.Index) -> pd.Series:
+def group_shared_xy(s: pd.Series, /, index: pd.Index) -> pd.Series:
     """
     Group the shared 'x' and 'y' coordinates.
 
