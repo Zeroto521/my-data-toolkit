@@ -5,7 +5,7 @@ from typing import Hashable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict as s_values_to_dict
+from dtoolkit.accessor.series import values_to_dict  # noqa: F401
 
 
 @register_dataframe_method
@@ -211,14 +211,7 @@ def values_to_dict(
             to_list=to_list,
         )
 
-    columns = order or (
-        df.nunique()
-        .sort_values(
-            ascending=ascending,
-        )
-        .index
-    )
-
+    columns = order or df.nunique().sort_values(ascending=ascending).index
     return to_dict(
         df[columns],
         unique=unique,
