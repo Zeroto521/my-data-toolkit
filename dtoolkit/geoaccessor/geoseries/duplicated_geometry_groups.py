@@ -97,7 +97,7 @@ def duplicated_geometry_groups(
         .drop_geometry()
         .to_series()
         .pipe(group_shared_xy, size=s.size)
-        .set_axis(index)
+        .set_axis(s.index)
     )
 
 
