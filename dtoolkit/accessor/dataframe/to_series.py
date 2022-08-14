@@ -96,8 +96,7 @@ def to_series(
     """
 
     if len(df.columns) == 1:  # one column
-        column = df.columns[0]
-        return df[column].rename(name or column)
+        return _to_series(df, name=name, value_column=df.columns[0])
 
     # two or more columns
     elif value_column is not None:
