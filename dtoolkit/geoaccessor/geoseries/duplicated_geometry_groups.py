@@ -97,6 +97,7 @@ def duplicated_geometry_groups(
         .drop_geometry()
         .to_series()
         .pipe(group_shared_xy, index=s.index)
+        .set_axis(index)
     )
 
 
@@ -197,5 +198,4 @@ def group_shared_xy(s: pd.Series, index: pd.Index) -> pd.Series:
         .explode()
         .swap_index_values()
         .sort_index()
-        .set_axis(index)
     )
