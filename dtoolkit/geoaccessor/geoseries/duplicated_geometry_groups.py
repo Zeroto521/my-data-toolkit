@@ -174,6 +174,25 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
     - Only support 2d coordinates, it means data unit is ``(x, y)``.
     - Only support 'diagonal maxtrix', it means 'x' valeu equal to 'y' value.
     - Only support natural numbers of labels.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> s = pd.Series([2, 3], name='y', index=pd.Index([1, 2], name='x'))
+
+    Require all x-y pairs in the diagonal matrix.
+
+    >>> s
+    x
+    2    1
+    3    2
+    Name: y, dtype: int64
+    >>> group_shared_xy(s, 4)
+    0    0
+    1    1
+    2    1
+    3    1
+    dtype: int64
     """
 
     groups = []
