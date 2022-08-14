@@ -191,11 +191,4 @@ def group_shared_xy(s: pd.Series, /, index: pd.Index) -> pd.Series:
         else:
             groups.append({i})
 
-    return (
-        pd.Series(
-            groups,
-        )
-        .explode()
-        .swap_index_values()
-        .sort_index()
-    )
+    return pd.Series(groups).explode().swap_index_values().sort_index()
