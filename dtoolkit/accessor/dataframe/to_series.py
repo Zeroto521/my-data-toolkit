@@ -101,7 +101,7 @@ def to_series(
         if index_column == value_column:
             raise ValueError(
                 f"'index_column' ({index_column}) and 'value_column' ({value_column}) "
-                "should be different."
+                "should be different.",
             )
 
         if index_column is None:  # use original index
