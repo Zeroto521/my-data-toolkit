@@ -39,6 +39,11 @@ def values_to_dict(
     -------
     dict
 
+    Raises
+    ------
+    ValueError
+        If the columns of the inputting is not unique.
+
     See Also
     --------
     dtoolkit.accessor.series.values_to_dict
@@ -195,6 +200,9 @@ def values_to_dict(
         }
     }
     """
+
+    if not df.columns.is_unique:
+        raise ValueError("The columns of the inputting is not unique.")
 
     if len(df.columns) == 1:  # one columns DataFrame
         return s_values_to_dict(
