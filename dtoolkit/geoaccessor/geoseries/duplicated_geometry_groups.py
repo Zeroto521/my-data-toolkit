@@ -179,9 +179,6 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
     --------
     >>> import pandas as pd
     >>> s = pd.Series([2, 3], name='y', index=pd.Index([1, 2], name='x'))
-
-    Require all x-y pairs in the diagonal matrix.
-
     >>> s
     x
     2    1
