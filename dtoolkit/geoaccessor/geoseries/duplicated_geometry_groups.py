@@ -108,7 +108,7 @@ def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
     Parameters
     ----------
     **kwargs
-        See the documentation for :meth:`~geopandas.GeoDataFrame.sjoin` for complete
+        See the documentation for :meth:`~geopandas.sjoin` for complete
         details on the keyword arguments except ``left_df`` and ``right_df``.
 
     Returns
@@ -117,7 +117,7 @@ def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
 
     See Also
     --------
-    geopandas.GeoDataFrame.sjoin
+    geopandas.sjoin
 
     Notes
     -----
