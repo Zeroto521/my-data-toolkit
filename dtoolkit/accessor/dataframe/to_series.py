@@ -98,18 +98,15 @@ def to_series(
     if len(df.columns) == 1:  # one column
         return _to_series(df, name=name, value_column=df.columns[0])
 
-    # two or more columns
-    elif value_column is not None:
-        if index_column is None:
-            # use original index
-            return df.pipe(
-                _to_series,
-                value_column=value_column,
-                name=name,
+    elif value_column is not None:  # two or more columns
+        if index_column == value_column:
+            raise ValueError(
+                f"'index_column' ({index_column}) and 'value_column' ({value_column}) "
+                "should be different."
             )
 
-        if index_column == value_column:
-            raise ValueError("'index_column' and 'value_column' should be different.")
+        if index_column is None:  # use original index
+            return _to_series(df, name=name, value_column=value_column)
 
         # use index_column as index
         return df.set_index(index_column).pipe(
