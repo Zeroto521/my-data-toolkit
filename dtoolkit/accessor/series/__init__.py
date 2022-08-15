@@ -1,6 +1,7 @@
 from dtoolkit.accessor.series.bin import bin  # noqa: F401
 from dtoolkit.accessor.series.cols import cols  # noqa: F401
 from dtoolkit.accessor.series.drop_inf import drop_inf  # noqa: F401
+from dtoolkit.accessor.series.dropna_index import dropna_index  # noqa: F401
 from dtoolkit.accessor.series.error_report import error_report  # noqa: F401
 from dtoolkit.accessor.series.eval import eval  # noqa: F401
 from dtoolkit.accessor.series.expand import expand  # noqa: F401

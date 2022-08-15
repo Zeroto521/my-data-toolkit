@@ -3,6 +3,7 @@ from dtoolkit.accessor.dataframe.cols import cols  # noqa: F401
 from dtoolkit.accessor.dataframe.decompose import decompose  # noqa: F401
 from dtoolkit.accessor.dataframe.drop_inf import drop_inf  # noqa: F401
 from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not  # noqa: F401
+from dtoolkit.accessor.dataframe.dropna_index import dropna_index  # noqa: F401
 from dtoolkit.accessor.dataframe.expand import expand  # noqa: F401
 from dtoolkit.accessor.dataframe.fillna_regression import (  # noqa: F401
     fillna_regression,
