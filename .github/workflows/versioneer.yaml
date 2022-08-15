@@ -42,6 +42,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
+          name: versioneer
           path: versioneer.py
 
       - uses: peter-evans/create-pull-request@v4
