@@ -8,14 +8,12 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import deprecated_alias
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_dataframe_method
-@deprecated_alias(column="geometry")
 def from_wkt(
     df: pd.DataFrame,
     /,
@@ -33,11 +31,6 @@ def from_wkt(
     ----------
     geometry : Hashable
         The name of WKT column.
-
-    column : Hashable
-        The name of WKT column.
-        .. deprecated:: 0.0.18
-            Please use ``geometry`` instead.
 
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
