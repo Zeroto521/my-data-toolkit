@@ -8,7 +8,6 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -16,13 +15,6 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
-@warning(
-    (
-        "The result doesn't support returning 'GeoSeries' anymore, "
-        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
-    ),
-    stacklevel=3,
-)
 def from_xy(
     df: pd.DataFrame,
     /,
