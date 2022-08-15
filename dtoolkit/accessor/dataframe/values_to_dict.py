@@ -4,6 +4,7 @@ from typing import Hashable
 
 import pandas as pd
 
+from dtoolkit.accessor.dataframe.to_series import to_series
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import values_to_dict  # noqa: F401
 
@@ -37,7 +38,7 @@ def values_to_dict(
         If True one element value will return :class:`list`.
 
     dropna : bool, default True
-        If True it will return ``{}`` when come across ``nan`` value.
+        If True it will drop the ``nan`` value don't let it as the key.
 
     Returns
     -------
@@ -220,22 +221,36 @@ def values_to_dict(
 def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict:
     """Iterate over columns pairwise to generate :class:`dic`."""
 
-    if df.columns.size == 0:  # empty DataFrame
+    if df.columns.size == 0 or df.empty:  # empty DataFrame
         return {}
 
     elif df.columns.size == 1:  # one columns DataFrame
-        return df.to_series().values_to_dict(unique=unique, to_list=to_list)
+        return to_series(df).values_to_dict(
+            unique=unique,
+            to_list=to_list,
+            dropna=dropna,
+        )
 
     elif df.columns.size == 2:  # two columns DataFrame
         key_column, value_column = df.columns
-        return (
-            dropna_or_not(df, drop=dropna, subset=key_column)
-            .to_series(index_column=key_column, value_column=value_column)
-            .values_to_dict(unique=unique, to_list=to_list)
+
+        return to_series(
+            df,
+            index_column=key_column,
+            value_column=value_column,
+        ).values_to_dict(
+            unique=unique,
+            to_list=to_list,
+            dropna=dropna,
         )
 
     # three or more columns DataFrame
     key_column, *value_column = df.columns
+
+    if dropna:
+        # Drop where key_column is NA rows
+        df = df.dropna(subset=key_column)
+
     return {
         key: to_dict(
             df.loc[df[key_column] == key, value_column],
@@ -245,9 +260,3 @@ def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict
         )
         for key in df[key_column].unique()
     }
-
-
-def dropna_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> pd.DataFrame:
-    """Dropna or not."""
-
-    return df.dropna(**kwargs) if drop else df

@@ -2,11 +2,18 @@ from __future__ import annotations
 
 import pandas as pd
 
+from dtoolkit.accessor.series.dropna_index import dropna_index
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def values_to_dict(s: pd.Series, /, unique: bool = True, to_list: bool = True) -> dict:
+def values_to_dict(
+    s: pd.Series,
+    /,
+    unique: bool = True,
+    to_list: bool = True,
+    dropna: bool = True,
+) -> dict:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
     :class:`dict`.
@@ -18,6 +25,9 @@ def values_to_dict(s: pd.Series, /, unique: bool = True, to_list: bool = True) -
 
     to_list : bool, default True
         If True one element value will return :class:`list`.
+
+    dropna : bool, default True
+        If True it will drop the ``nan`` value don't let it as the key.
 
     Returns
     -------
@@ -70,6 +80,13 @@ def values_to_dict(s: pd.Series, /, unique: bool = True, to_list: bool = True) -
         "c": 3
     }
     """
+
+    if dropna:
+        # Drop NA index rows
+        s = dropna_index(s)
+
+    if s.empty:
+        return {}
 
     return {
         key: handle_element(s.loc[s.index == key], unique=unique, to_list=to_list)
