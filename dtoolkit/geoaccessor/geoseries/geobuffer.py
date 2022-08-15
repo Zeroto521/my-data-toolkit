@@ -93,7 +93,7 @@ def geobuffer(
     """
 
     if is_list_like(distance):
-        if len(distance) != len(s):
+        if len(distance) != s.size:
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
             )
