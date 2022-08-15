@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from typing import Hashable
+from warnings import catch_warnings
+from warnings import simplefilter
 
 import pandas as pd
 
@@ -107,12 +109,18 @@ def to_series(
         if index_column is None:  # use original index
             return _to_series(df, name=name, value_column=value_column)
 
-        # use `index_column` as index
-        return _to_series(
-            df.set_index(index_column),
-            name=name,
-            value_column=value_column,
-        )
+        with catch_warnings():
+            simplefilter("ignore", FutureWarning)
+            # ignore `.set_index` FutureWarning
+            # In a future version, the Index constructor will not infer numeric dtypes
+            # when passed object-dtype sequences (matching Series behavior)
+
+            # use `index_column` as index
+            return _to_series(
+                df.set_index(index_column),
+                name=name,
+                value_column=value_column,
+            )
 
     return df
 
