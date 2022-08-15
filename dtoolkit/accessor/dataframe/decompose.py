@@ -181,7 +181,7 @@ def _decompose(
     n_components=None,
     **kwargs,
 ) -> np.ndarray:
-    if n_components is None and len(df) < len(df.columns):
+    if n_components is None and len(df) < df.columns.size:
         raise ValueError(
             "Don't support decomposing DataFrame in which "
             "the number of rows is less than the number of columns",

@@ -73,7 +73,7 @@ def error_report(
     2  3  1  2  0.666667
     """
 
-    if len(s) != len(predicted):
+    if s.size != len(predicted):
         raise IndexError(
             "Length of 'predicted' doesn't match length of 'reference'.",
         )
