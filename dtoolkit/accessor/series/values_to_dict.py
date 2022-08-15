@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit.accessor.series.dropna_index import dropna_index
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series.dropna_index import dropna_index
 
 
 @register_series_method

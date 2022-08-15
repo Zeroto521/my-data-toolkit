@@ -6,7 +6,7 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe.to_series import to_series
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict  # noqa: F401
+from dtoolkit.accessor.series import values_to_dict  # noqa: F401, F811
 
 
 @register_dataframe_method
