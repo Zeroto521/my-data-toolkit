@@ -27,6 +27,14 @@ def dropna_index(s: pd.Series, /, how: Literal["any", "all"] = "any") -> pd.Seri
     ValueError
         If ``how`` isn't "any" or "all".
 
+    See Also
+    --------
+    pandas.Index.dropna
+    pandas.Series.dropna
+    pandas.DataFrame.dropna
+    dtoolkit.accessor.series.dropna_index
+    dtoolkit.accessor.dataframe.dropna_index
+
     Examples
     --------
     >>> import dtoolkit.accessor
