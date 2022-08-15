@@ -22,7 +22,7 @@ def to_series(
     Parameters
     ----------
     name : Hashable, optional
-        The name of returned Series.
+        The new name of returned Series. If not set, would use the original name.
 
     index_column : Hashable, optional
         The Series's index.
@@ -94,35 +94,33 @@ def to_series(
     5    8
     Name: c, dtype: int64
     """
-
     if df.columns.size == 1:  # one column
-        column = df.columns[0]
-        return df[column].rename(name or column)
+        return _to_series(df, name=name, value_column=df.columns[0])
 
-    # two or more columns
-    elif value_column is not None:
-        if index_column is None:
-            # use original index
-            return df.pipe(
-                _to_series,
-                value_column=value_column,
-                name=name,
+    elif value_column is not None:  # two or more columns
+        if index_column == value_column:
+            raise ValueError(
+                f"'index_column' ({index_column}) and 'value_column' ({value_column}) "
+                "should be different.",
             )
 
-        if index_column == value_column:
-            raise ValueError("'index_column' and 'value_column' should be different.")
+        if index_column is None:  # use original index
+            return _to_series(df, name=name, value_column=value_column)
 
-        # use index_column as index
-        return df.set_index(index_column).pipe(
-            _to_series,
-            value_column=value_column,
+        # use `index_column` as index
+        return _to_series(
+            df.set_index(index_column),
             name=name,
+            value_column=value_column,
         )
 
     return df
 
 
 def _to_series(df: pd.DataFrame, name: Hashable, value_column: Hashable) -> pd.Series:
-    """Select one column of DataFrame and convert to Series."""
+    """
+    Select one column (`value_column`) of DataFrame and convert to Series.
+    The name of Series is set to `name`.
+    """
 
     return df[value_column].rename(name or value_column)
