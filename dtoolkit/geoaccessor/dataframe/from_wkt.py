@@ -8,22 +8,12 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import deprecated_alias
-from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_dataframe_method
-@deprecated_alias(column="geometry")
-@warning(
-    (
-        "The result doesn't support returning 'GeoSeries' anymore, "
-        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
-    ),
-    stacklevel=3,
-)
 def from_wkt(
     df: pd.DataFrame,
     /,
@@ -42,11 +32,6 @@ def from_wkt(
     geometry : Hashable
         The name of WKT column.
 
-    column : Hashable
-        The name of WKT column.
-        .. deprecated:: 0.0.18
-            Please use ``geometry`` instead.
-
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
@@ -58,9 +43,6 @@ def from_wkt(
     Returns
     -------
     GeoDataFrame
-        .. deprecated:: 0.0.17
-            The result doesn't support returning 'GeoSeries' anymore, even one column
-            'GeoDataFrame'.
 
     See Also
     --------
