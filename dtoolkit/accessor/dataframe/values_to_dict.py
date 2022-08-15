@@ -220,13 +220,13 @@ def values_to_dict(
 def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict:
     """Iterate over columns pairwise to generate :class:`dic`."""
 
-    if len(df.columns) == 0:  # empty DataFrame
+    if df.columns.size == 0:  # empty DataFrame
         return {}
 
-    elif len(df.columns) == 1:  # one columns DataFrame
+    elif df.columns.size == 1:  # one columns DataFrame
         return df.to_series().values_to_dict(unique=unique, to_list=to_list)
 
-    elif len(df.columns) == 2:  # two columns DataFrame
+    elif df.columns.size == 2:  # two columns DataFrame
         key_column, value_column = df.columns
         return (
             dropna_or_not(df, drop=dropna, subset=key_column)
