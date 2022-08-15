@@ -96,7 +96,8 @@ def duplicated_geometry_groups(
         .pipe(self_sjoin, predicate=predicate)
         .drop_geometry()
         .to_series()
-        .pipe(group_shared_xy, index=s.index)
+        .pipe(group_shared_xy, size=s.size)
+        .set_axis(s.index)
     )
 
 
@@ -107,7 +108,7 @@ def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
     Parameters
     ----------
     **kwargs
-        See the documentation for :meth:`~geopandas.GeoDataFrame.sjoin` for complete
+        See the documentation for :meth:`~geopandas.sjoin` for complete
         details on the keyword arguments except ``left_df`` and ``right_df``.
 
     Returns
@@ -116,7 +117,7 @@ def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
 
     See Also
     --------
-    geopandas.GeoDataFrame.sjoin
+    geopandas.sjoin
 
     Notes
     -----
@@ -126,40 +127,42 @@ def self_sjoin(df: gpd.GeoDataFrame, /, **kwargs) -> gpd.GeoDataFrame:
     return gpd.sjoin(df, df, **kwargs)
 
 
-def group_shared_xy(s: pd.Series, index: pd.Index) -> pd.Series:
+def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
     """
     Group the shared 'x' and 'y' coordinates.
 
     A simple example::
 
         # group x-y relationship
-        # diagonal matrix in logical
-           0  1  2  3
-        0  √
-        1     √  √
-        2     √  √
-        3           √
 
-        # data in real
+        # diagonal matrix in logical
+        #    0  1  2  3
+        # 0  √
+        # 1     √  √
+        # 2     √  √  √
+        # 3        √  √
+
+        # which data in real
         [
-            (1, 2),
-            (2, 3),
+            (1, 2),  # or `(2, 1)`
+            (2, 3),  # or `(3, 2)`
         ]
 
         # into
 
         [
-            (0,),
-            (1, 2, 3),
+            {0},
+            {1, 2, 3},
         ]
 
     Parameters
     ----------
     s : Series
-        index is the x, values is the y.
+        Its index is the 'x' and values is the 'y'. Require all 'x' value is not equal
+        to 'y' value 'x-y' (or 'y-x') parts.
 
-    index : Index
-        The original index.
+    size : int
+        The size of the matrix.
 
     Returns
     -------
@@ -169,8 +172,24 @@ def group_shared_xy(s: pd.Series, index: pd.Index) -> pd.Series:
     Notes
     -----
     - Only support 2d coordinates, it means data unit is ``(x, y)``.
-    - Only support 'diagonal maxtrix', it means 'x valeus equal to 'y' values.
+    - Only support 'diagonal maxtrix', it means 'x' valeu equal to 'y' value.
     - Only support natural numbers of labels.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> s = pd.Series([2, 3], name='y', index=pd.Index([1, 2], name='x'))
+    >>> s
+    x
+    1    2
+    2    3
+    Name: y, dtype: int64
+    >>> group_shared_xy(s, 4)
+    0    1
+    1    0
+    2    0
+    3    0
+    dtype: int64
     """
 
     groups = []
@@ -183,19 +202,11 @@ def group_shared_xy(s: pd.Series, index: pd.Index) -> pd.Series:
             groups.append({x, y})
 
     # add missing group via natural number
-    for i in range(len(index)):
+    for i in range(size):
         for group in groups:
             if i in group:
                 break
         else:
             groups.append({i})
 
-    return (
-        pd.Series(
-            groups,
-        )
-        .explode()
-        .swap_index_values()
-        .sort_index()
-        .set_axis(index)
-    )
+    return pd.Series(groups).explode().swap_index_values().sort_index()
