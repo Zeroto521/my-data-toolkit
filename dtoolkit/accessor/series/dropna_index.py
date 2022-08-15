@@ -22,6 +22,11 @@ def dropna_index(s: pd.Series, /, how: Literal["any", "all"] = "any") -> pd.Seri
     -------
     {klass}
 
+    Raises
+    ------
+    ValueError
+        If ``how`` isn't "any" or "all".
+
     Examples
     --------
     >>> import dtoolkit.accessor
