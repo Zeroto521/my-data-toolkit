@@ -1319,7 +1319,7 @@ def git_pieces_from_vcs(tag_prefix, root, verbose, runner=run_command):
             if verbose:
                 fmt = "tag '%s' doesn't start with prefix '%s'"
                 print(fmt % (full_tag, tag_prefix))
-            pieces["error"] = "tag '%s' doesn't start with prefix '%s'" % (
+            pieces["error"] = "tag '{}' doesn't start with prefix '{}'".format(
                 full_tag,
                 tag_prefix,
             )
