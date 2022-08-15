@@ -17,7 +17,6 @@ GeoSeries Accessor
     get_coordinates
     reverse_geocode
     toposimplify
-    utm_crs
 
 
 GeoDataFrame Accessor
@@ -36,7 +35,6 @@ GeoDataFrame Accessor
     get_coordinates
     reverse_geocode
     toposimplify
-    utm_crs
 
 
 Series Accessor (to GeoPandas)
