@@ -2,13 +2,17 @@ name: release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - "v*"
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
         with:
@@ -47,15 +51,11 @@ jobs:
       tar: ${{ steps.tar.outputs.file }}
       whl: ${{ steps.whl.outputs.file }}
 
-  publish-to-github:
+  publish-to-Github:
     needs: build
+    if: ${{ github.event_name == 'tag' }}
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Fetch all history for all tags and branches
-
       - uses: actions/download-artifact@v3
         with:
           name: release
@@ -71,15 +71,32 @@ jobs:
           prerelease: ${{ contains(github.ref, 'rc')  }}
           files: dist/${{ needs.build.outputs.tar }}
 
-  publish-to-pypi:
+  publish-to-TestPyPI:
     needs: build
+    if: ${{ github.event_name == 'push' || github.event_name == 'tag' }}
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
         with:
-          fetch-depth: 0 # Fetch all history for all tags and branches
+          name: release
+          path: dist/
 
+      - name: List dist/ Folder
+        run: ls dist/ -l
+
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@v1.5.1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
+          verbose: true
+
+  publish-to-PyPI:
+    needs: build
+    if: ${{ github.event_name == 'tag' }}
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/download-artifact@v3
         with:
           name: release
