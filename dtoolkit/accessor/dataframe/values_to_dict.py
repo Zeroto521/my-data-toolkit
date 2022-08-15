@@ -6,7 +6,7 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe.to_series import to_series
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict  # noqa: F401, F811
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict
 
 
 @register_dataframe_method
@@ -225,7 +225,8 @@ def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict
         return {}
 
     elif df.columns.size == 1:  # one columns DataFrame
-        return to_series(df).values_to_dict(
+        return s_values_to_dict(
+            to_series(df),
             unique=unique,
             to_list=to_list,
             dropna=dropna,
