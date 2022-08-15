@@ -94,7 +94,7 @@ def to_series(
     5    8
     Name: c, dtype: int64
     """
-    if len(df.columns) == 1:  # one column
+    if df.columns.size == 1:  # one column
         return _to_series(df, name=name, value_column=df.columns[0])
 
     elif value_column is not None:  # two or more columns
