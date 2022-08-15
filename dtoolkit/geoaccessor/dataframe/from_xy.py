@@ -52,9 +52,6 @@ def from_xy(
     Returns
     -------
     GeoDataFrame
-        .. deprecated:: 0.0.17
-            The result doesn't support returning 'GeoSeries' anymore, even one column
-            'GeoDataFrame'.
 
     See Also
     --------
