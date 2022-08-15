@@ -20,6 +20,7 @@ Series Accessor
     bin
     cols
     drop_inf
+    dropna_index
     error_report
     eval
     expand
@@ -48,6 +49,7 @@ DataFrame Accessor
     decompose
     drop_inf
     drop_or_not
+    dropna_index
     expand
     fillna_regression
     filter_in
