@@ -196,7 +196,7 @@ def values_to_dict(
     }
     """
 
-    if len(df.columns) == 1:  # one columns DataFrame
+    if df.columns.size == 1:  # one columns DataFrame
         return df.to_series().values_to_dict(
             unique=unique,
             to_list=to_list,
@@ -220,7 +220,7 @@ def values_to_dict(
 def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
     key_column, *value_column = df.columns
 
-    if len(df.columns) == 2:  # two column DataFrame
+    if df.columns.size == 2:  # two column DataFrame
         return df.to_series(
             index_column=key_column,
             value_column=value_column[0],
