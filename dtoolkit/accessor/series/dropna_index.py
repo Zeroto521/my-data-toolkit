@@ -15,8 +15,8 @@ def dropna_index(s: pd.Series, /, how: Literal["any", "all"] = "any") -> pd.Seri
     Parameters
     ----------
     how : {{"any", "all"}}, default "any"
-        If the ``Index`` is a :class:`~pandas.MultiIndex`, drop the value when ``any``
-        or ``all`` levels are NaN.
+        If the ``Index`` is a :class:`~pandas.MultiIndex`, drop the value when "any"
+        or "all" levels are NaN.
 
     Returns
     -------
