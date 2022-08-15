@@ -38,7 +38,7 @@ def values_to_dict(
         If True one element value will return :class:`list`.
 
     dropna : bool, default True
-        If True it will drop the ``nan`` value don't let it as the key.
+        If True it will drop the ``nan`` value whatever it's key or value.
 
     Returns
     -------
@@ -211,11 +211,17 @@ def values_to_dict(
 
     columns = order or df.nunique().sort_values(ascending=ascending).index
     return to_dict(
-        df[columns],
+        dropna_or_not(df[columns], drop=dropna),
         unique=unique,
         to_list=to_list,
         dropna=dropna,
     )
+
+
+def dropna_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> pd.DataFrame:
+    """Dropna or not."""
+
+    return df.dropna(**kwargs) if drop else df
 
 
 def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict:
@@ -247,11 +253,6 @@ def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict
 
     # three or more columns DataFrame
     key_column, *value_column = df.columns
-
-    if dropna:
-        # Drop where key_column is NA rows
-        df = df.dropna(subset=key_column)
-
     return {
         key: to_dict(
             df.loc[df[key_column] == key, value_column],

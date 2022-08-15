@@ -27,7 +27,7 @@ def values_to_dict(
         If True one element value will return :class:`list`.
 
     dropna : bool, default True
-        If True it will drop the ``nan`` value don't let it as the key.
+        If True it will drop the ``nan`` value whatever it's key or value.
 
     Returns
     -------
@@ -82,8 +82,8 @@ def values_to_dict(
     """
 
     if dropna:
-        # Drop NA index rows
-        s = dropna_index(s)
+        # Drop NA both index and values
+        s = dropna_index(s.dropna())
 
     if s.empty:
         return {}
