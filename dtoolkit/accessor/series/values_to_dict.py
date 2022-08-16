@@ -36,6 +36,7 @@ def values_to_dict(
 
     See Also
     --------
+    pandas.Series.to_dict
     dtoolkit.accessor.dataframe.values_to_dict
 
     Notes

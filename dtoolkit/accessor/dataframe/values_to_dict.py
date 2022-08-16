@@ -51,6 +51,7 @@ def values_to_dict(
 
     See Also
     --------
+    pandas.DataFrame.to_dict
     dtoolkit.accessor.series.values_to_dict
 
     Notes
