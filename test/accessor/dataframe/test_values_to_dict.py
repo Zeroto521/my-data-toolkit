@@ -83,3 +83,10 @@ def test_error():
     df = pd.DataFrame({"a": [1, 2]}).repeat(2, axis=1)
     with pytest.raises(ValueError):
         df.values_to_dict()
+
+
+@pytest.mark.parametrize("df", [pd.DataFrame(), pd.DataFrame(columns=["a"])])
+def test_empty(df):
+    result = df.values_to_dict()
+
+    assert result == {}
