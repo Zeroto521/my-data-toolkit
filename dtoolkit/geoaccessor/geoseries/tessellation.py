@@ -36,7 +36,7 @@ class Tessellation:
     Parameters
     ----------
     *args, **kwargs
-        Arguments passed to ``tesspy.Tessellation.{{method}}``.
+        Arguments passed to ``tesspy.Tessellation.*``.
 
     Returns
     -------
