@@ -43,6 +43,11 @@ class Tessellation:
     GeoDataFrame
         Single column geometry.
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'tesspy'.
+
     See Also
     --------
     tesspy.tessellation
