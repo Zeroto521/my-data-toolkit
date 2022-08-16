@@ -38,3 +38,10 @@ def test_work(s, kwargs, expected):
     result = s.values_to_dict(**kwargs)
 
     assert result == expected
+
+
+@pytest.mark.parametrize("s", [pd.Series(), pd.Series(None)])
+def test_empty(s):
+    result = s.values_to_dict()
+
+    assert result == {}
