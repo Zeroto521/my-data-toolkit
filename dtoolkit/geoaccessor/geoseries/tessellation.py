@@ -33,6 +33,15 @@ class Tessellation:
     Use this geoaccessor via
     ``{klass}.tess.(squares|hexagons|adaptive_squares|voronoi|city_blocks)``.
 
+    Parameters
+    *args, **kwargs
+        Arguments passed to ``tesspy.Tessellation.{method}``.
+
+    Returns
+    -------
+    GeoDataFrame
+        Single column geometry.
+
     See Also
     --------
     tesspy.tessellation
