@@ -1,4 +1,6 @@
 import geopandas as gpd
+from pandas.util._decorators import doc
+
 from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
 
 
@@ -12,7 +14,6 @@ def tesspy_doc_decorator(func):
     """
 
     try:
-        from pandas.util._decorators import doc
         from tesspy import Tessellation as Tess
 
         return doc(getattr(Tess, func.__name__))(func)
@@ -24,7 +25,21 @@ def tesspy_doc_decorator(func):
 
 
 @register_geoseries_accessor("tess")
+@doc(klass="GeoSeries")
 class Tessellation:
+    """
+    Tessellation for {klass}.
+
+    Use this geoaccessor via
+    ``{klass}.tess.(squares|hexagons|adaptive_squares|voronoi|city_blocks)``.
+
+    See Also
+    --------
+    tesspy.tessellation
+    dtoolkit.geoaccessor.geoseries.Tessellation
+    dtoolkit.geoaccessor.geodataframe.Tessellation
+    """
+
     def __init__(self, s: gpd.GeoSeries):
         from tesspy import Tessellation as Tess
 

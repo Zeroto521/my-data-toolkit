@@ -128,6 +128,7 @@ intersphinx_mapping = {
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
+    "tesspy": ("https://tesspy.readthedocs.io/en/latest/", None),
 }
 
 # extlinks alias
