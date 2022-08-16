@@ -6,7 +6,7 @@ from dtoolkit.geoaccessor.geoseries import Tessellation as s_Tessellation
 
 
 @register_geodataframe_accessor("tess")
-@doc(s_Tessellation)
+@doc(s_Tessellation, klass="GeoDataFrame")
 class Tessellation:
     def __init__(self, s: gpd.GeoSeries):
         self.tess = s_Tessellation(s.geometry)

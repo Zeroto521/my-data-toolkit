@@ -28,14 +28,14 @@ def tesspy_doc_decorator(func):
 @doc(klass="GeoSeries")
 class Tessellation:
     """
-    Tessellation for {klass}.
+    Tessellation for {{klass}}.
 
     Use this geoaccessor via
-    ``{klass}.tess.(squares|hexagons|adaptive_squares|voronoi|city_blocks)``.
+    ``{{klass}}.tess.(squares|hexagons|adaptive_squares|voronoi|city_blocks)``.
 
     Parameters
     *args, **kwargs
-        Arguments passed to ``tesspy.Tessellation.{method}``.
+        Arguments passed to ``tesspy.Tessellation.{{method}}``.
 
     Returns
     -------
