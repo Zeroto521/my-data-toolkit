@@ -4,8 +4,9 @@ from typing import Hashable
 
 import pandas as pd
 
+from dtoolkit.accessor.dataframe.to_series import to_series
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series import values_to_dict as s_values_to_dict  # noqa: F401
+from dtoolkit.accessor.series import values_to_dict as s_values_to_dict
 
 
 @register_dataframe_method
@@ -16,6 +17,7 @@ def values_to_dict(
     ascending: bool = True,
     unique: bool = True,
     to_list: bool = True,
+    dropna: bool = True,
 ) -> dict:
     """
     Convert :attr:`~pandas.DataFrame.values` to :class:`dict`.
@@ -35,12 +37,21 @@ def values_to_dict(
     to_list : bool, default True
         If True one element value will return :class:`list`.
 
+    dropna : bool, default True
+        If True it will drop the ``nan`` value whatever it's key or value.
+
     Returns
     -------
     dict
 
+    Raises
+    ------
+    ValueError
+        If the columns of the inputting is not unique.
+
     See Also
     --------
+    pandas.DataFrame.to_dict
     dtoolkit.accessor.series.values_to_dict
 
     Notes
@@ -196,44 +207,59 @@ def values_to_dict(
     }
     """
 
-    if df.columns.size == 1:  # one columns DataFrame
-        return df.to_series().values_to_dict(
-            unique=unique,
-            to_list=to_list,
-        )
+    if not df.columns.is_unique:
+        raise ValueError("The columns of the inputting is not unique.")
 
-    columns = order or (
-        df.nunique()
-        .sort_values(
-            ascending=ascending,
-        )
-        .index
-    )
-
-    return df[columns].pipe(
-        to_dict,
+    columns = order or df.nunique().sort_values(ascending=ascending).index
+    return to_dict(
+        dropna_or_not(df[columns], drop=dropna),
         unique=unique,
         to_list=to_list,
+        dropna=dropna,
     )
 
 
-def to_dict(df: pd.DataFrame, unique: bool, to_list: bool) -> dict:
-    key_column, *value_column = df.columns
+def dropna_or_not(df: pd.DataFrame, drop: bool, **kwargs) -> pd.DataFrame:
+    """Dropna or not."""
 
-    if df.columns.size == 2:  # two column DataFrame
-        return df.to_series(
+    return df.dropna(**kwargs) if drop else df
+
+
+def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict:
+    """Iterate over columns pairwise to generate :class:`dic`."""
+
+    if df.columns.size == 0 or df.empty:  # empty DataFrame
+        return {}
+
+    elif df.columns.size == 1:  # one columns DataFrame
+        return s_values_to_dict(
+            to_series(df),
+            unique=unique,
+            to_list=to_list,
+            dropna=dropna,
+        )
+
+    elif df.columns.size == 2:  # two columns DataFrame
+        key_column, value_column = df.columns
+
+        return to_series(
+            df,
             index_column=key_column,
-            value_column=value_column[0],
+            value_column=value_column,
         ).values_to_dict(
             unique=unique,
             to_list=to_list,
+            dropna=dropna,
         )
 
+    # three or more columns DataFrame
+    key_column, *value_column = df.columns
     return {
-        key: df.loc[df[key_column] == key, value_column].pipe(
-            to_dict,
+        key: to_dict(
+            df.loc[df[key_column] == key, value_column],
             unique=unique,
             to_list=to_list,
+            dropna=dropna,
         )
         for key in df[key_column].unique()
     }
