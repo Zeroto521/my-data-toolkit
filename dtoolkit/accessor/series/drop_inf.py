@@ -9,7 +9,11 @@ from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def drop_inf(s: pd.Series, /, inf: Literal["all", "pos", "neg"] = "all") -> pd.Series:
+def drop_inf(
+    s: pd.Series,
+    /,
+    inf: Literal["all", "pos", "+", "neg", "-"] = "all",
+) -> pd.Series:
     """
     Remove ``inf`` values.
 
@@ -25,6 +29,11 @@ def drop_inf(s: pd.Series, /, inf: Literal["all", "pos", "neg"] = "all") -> pd.S
     -------
     Series
         Series with ``inf`` entries dropped from it.
+
+    Raises
+    ------
+    ValueError
+        If ``inf`` isn't "all", "pos", "+", "neg", or "-".
 
     See Also
     --------
@@ -58,18 +67,17 @@ def drop_inf(s: pd.Series, /, inf: Literal["all", "pos", "neg"] = "all") -> pd.S
     return s[~mask]
 
 
-def get_inf_range(inf: Literal["all", "pos", "neg"] = "all") -> list[float]:
+def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> set[float]:
     """Get inf value from string"""
 
-    inf_range = {
-        "all": [np.inf, -np.inf],
-        "pos": [np.inf],
-        "+": [np.inf],
-        "neg": [-np.inf],
-        "-": [-np.inf],
+    INF_RANGE = {
+        "all": {np.inf, -np.inf},
+        "pos": {np.inf},
+        "+": {np.inf},
+        "neg": {-np.inf},
+        "-": {-np.inf},
     }
-
-    if inf in inf_range:
-        return inf_range[inf]
-
-    raise ValueError(f"invalid inf option: {inf!r}")
+    try:
+        return INF_RANGE[inf]
+    except KeyError as e:
+        raise ValueError(f"invalid inf option: {inf!r}") from e

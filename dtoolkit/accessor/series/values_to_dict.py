@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import pandas as pd
 
-from dtoolkit.accessor.register import register_series_method  # noqa: F401
+from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series.dropna_index import dropna_index
 
 
 @register_series_method
@@ -11,6 +12,7 @@ def values_to_dict(
     /,
     unique: bool = True,
     to_list: bool = True,
+    dropna: bool = True,
 ) -> dict:
     """
     Convert :attr:`~pandas.Series.index` and :attr:`~pandas.Series.values` to
@@ -24,6 +26,9 @@ def values_to_dict(
     to_list : bool, default True
         If True one element value will return :class:`list`.
 
+    dropna : bool, default True
+        If True it will drop the ``nan`` value whatever it's key or value.
+
     Returns
     -------
     dict
@@ -31,6 +36,7 @@ def values_to_dict(
 
     See Also
     --------
+    pandas.Series.to_dict
     dtoolkit.accessor.dataframe.values_to_dict
 
     Notes
@@ -76,23 +82,23 @@ def values_to_dict(
     }
     """
 
+    if dropna:
+        # Drop NA both index and values
+        s = dropna_index(s.dropna())
+
+    if s.empty:
+        return {}
+
     return {
-        key: s.loc[s.index == key].pipe(
-            handle_element,
-            unique=unique,
-            to_list=to_list,
-        )
+        key: handle_element(s.loc[s.index == key], unique=unique, to_list=to_list)
         for key in s.index.unique()
     }
 
 
-def handle_element(s: pd.Series, unique: bool = False, to_list: bool = True):
+def handle_element(s: pd.Series, unique: bool, to_list: bool):
     if unique:
         s = s.unique()
 
     s = s.tolist()
-    if not to_list and len(s) == 1:
-        # Unfold one element list-like
-        return s[0]
-
-    return s
+    # Unfold one element list-like
+    return s[0] if not to_list and len(s) == 1 else s

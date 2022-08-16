@@ -13,16 +13,6 @@ from dtoolkit.accessor.series import expand as s_expand
 @register_dataframe_method
 @doc(
     s_expand,
-    see_also=dedent(
-        """
-    See Also
-    --------
-    dtoolkit.accessor.series.expand
-        Transform each element of a list-like to a column.
-    pandas.DataFrame.explode
-        Transform each element of a list-like to a row.
-    """,
-    ),
     examples=dedent(
         """
     Examples
@@ -87,7 +77,8 @@ def expand(
 
     return pd.concat(
         (
-            s.expand(
+            s_expand(
+                s,
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,

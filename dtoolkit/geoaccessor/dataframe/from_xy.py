@@ -8,7 +8,6 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -16,13 +15,6 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
-@warning(
-    (
-        "The result doesn't support returning 'GeoSeries' anymore, "
-        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
-    ),
-    stacklevel=3,
-)
 def from_xy(
     df: pd.DataFrame,
     /,
@@ -60,9 +52,6 @@ def from_xy(
     Returns
     -------
     GeoDataFrame
-        .. deprecated:: 0.0.17
-            The result doesn't support returning 'GeoSeries' anymore, even one column
-            'GeoDataFrame'.
 
     See Also
     --------
@@ -97,8 +86,13 @@ def from_xy(
     1   POINT (100.00000 1.00000)
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=[x, y, z] if z is not None else [x, y]),
+        df.copy().drop_or_not(
+            drop=drop,
+            columns=[x, y] if z is None else [x, y, z],
+        ),
         geometry=gpd.points_from_xy(
             df[x],
             df[y],

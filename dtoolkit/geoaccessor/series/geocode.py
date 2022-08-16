@@ -62,4 +62,4 @@ def geocode(s: pd.Series, /, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
         )
 
     df = gpd.tools.geocode(s, **kwargs)
-    return df if drop else pd.concat((s, df), axis=1)
+    return df if drop else pd.concat((df, s), axis=1)

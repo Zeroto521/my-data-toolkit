@@ -60,6 +60,11 @@ def top_n(
         - The default structure of value is ``{column index}`` and could be
           controlled via ``element``.
 
+    Raises
+    ------
+    ValueError
+        If ``element`` isn't "both", "index" or "value".
+
     See Also
     --------
     dtoolkit.accessor.dataframe.expand
@@ -145,7 +150,7 @@ def top_n(
         else:
             raise ValueError('element must be either "both", "index" or "value"')
 
-        return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
+        return pd.Series(data, index=pd.RangeIndex(1, top.size + 1))
 
     return df.apply(
         wrap_s_top_n,

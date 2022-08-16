@@ -8,24 +8,16 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_dataframe_method
-@warning(
-    (
-        "The result doesn't support returning 'GeoSeries' anymore, "
-        "even one column 'GeoDataFrame'. (Warning added DToolKit 0.0.17)"
-    ),
-    stacklevel=3,
-)
 def from_wkt(
     df: pd.DataFrame,
-    column: Hashable,
     /,
+    geometry: Hashable,
     crs: CRS | str | int = None,
     drop: bool = False,
 ) -> gpd.GeoDataFrame:
@@ -37,7 +29,7 @@ def from_wkt(
 
     Parameters
     ----------
-    column : Hashable
+    geometry : Hashable
         The name of WKT column.
 
     crs : CRS, str, int, optional
@@ -51,9 +43,6 @@ def from_wkt(
     Returns
     -------
     GeoDataFrame
-        .. deprecated:: 0.0.17
-            The result doesn't support returning 'GeoSeries' anymore, even one column
-            'GeoDataFrame'.
 
     See Also
     --------
@@ -99,8 +88,10 @@ def from_wkt(
     2  POINT (3.00000 3.00000)
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=column),
-        geometry=gpd.GeoSeries.from_wkt(df[column]),
+        df.copy().drop_or_not(drop=drop, columns=geometry),
+        geometry=gpd.GeoSeries.from_wkt(df[geometry]),
         crs=crs,
     )

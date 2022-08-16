@@ -34,6 +34,13 @@ def error_report(
         Return four columns DataFrame and each represents `true value`,
         `predicted value`, `absolute error`, and `relative error`.
 
+    Raises
+    ------
+    IndexError
+        - If ``len(s)`` != ``len(predicted)``.
+        - If ``predicted`` is Series and its index not equal to ``s``'s index.
+        - ``columns`` isn't empty and its length is not equal to 4.
+
     Examples
     --------
     >>> import dtoolkit.accessor
@@ -66,7 +73,7 @@ def error_report(
     2  3  1  2  0.666667
     """
 
-    if len(s) != len(predicted):
+    if s.size != len(predicted):
         raise IndexError(
             "Length of 'predicted' doesn't match length of 'reference'.",
         )
