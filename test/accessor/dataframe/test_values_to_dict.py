@@ -1,6 +1,7 @@
 import pandas as pd
 import pytest
 
+from dtoolkit.accessor.dataframe import repeat  # noqa: F401
 from dtoolkit.accessor.dataframe import values_to_dict  # noqa: F401
 
 
@@ -76,3 +77,9 @@ def test_work(df, kwargs, expected):
     result = df.values_to_dict(**kwargs)
 
     assert result == expected
+
+
+def test_error():
+    df = pd.DataFrame({"a": [1, 2]}).repeat(2, axis=1)
+    with pytest.raises(ValueError):
+        df.values_to_dict()
