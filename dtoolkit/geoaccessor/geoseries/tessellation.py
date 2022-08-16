@@ -34,6 +34,7 @@ class Tessellation:
     ``{klass}.tess.(squares|hexagons|adaptive_squares|voronoi|city_blocks)``.
 
     Parameters
+    ----------
     *args, **kwargs
         Arguments passed to ``tesspy.Tessellation.{{method}}``.
 
