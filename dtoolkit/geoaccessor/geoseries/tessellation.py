@@ -32,20 +32,25 @@ class Tessellation:
 
     @tesspy_doc_decorator
     def squares(self, *args, **kwargs) -> gpd.GeoDataFrame:
-        return self.tess.squares(*args, **kwargs)
+        df = self.tess.squares(*args, **kwargs)
+        return df[[df.geometry.name]].rename_geometry("geometry")
 
     @tesspy_doc_decorator
     def hexagons(self, *args, **kwargs) -> gpd.GeoDataFrame:
-        return self.tess.hexagons(*args, **kwargs)
+        df = self.tess.hexagons(*args, **kwargs)
+        return df[[df.geometry.name]].rename_geometry("geometry")
 
     @tesspy_doc_decorator
     def adaptive_squares(self, *args, **kwargs) -> gpd.GeoDataFrame:
-        return self.tess.adaptive_squares(*args, **kwargs)
+        df = self.tess.adaptive_squares(*args, **kwargs)
+        return df[[df.geometry.name]].rename_geometry("geometry")
 
     @tesspy_doc_decorator
     def voronoi(self, *args, **kwargs) -> gpd.GeoDataFrame:
-        return self.tess.voronoi(*args, **kwargs)
+        df = self.tess.voronoi(*args, **kwargs)
+        return df[[df.geometry.name]].rename_geometry("geometry")
 
-    @tesspy_doc_decorator()
+    @tesspy_doc_decorator
     def city_blocks(self, *args, **kwargs) -> gpd.GeoDataFrame:
-        return self.tess.city_blocks(*args, **kwargs)
+        df = self.tess.city_blocks(*args, **kwargs)
+        return df[[df.geometry.name]].rename_geometry("geometry")
