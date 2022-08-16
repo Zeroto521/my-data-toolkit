@@ -16,6 +16,7 @@ GeoSeries Accessor
     geobuffer
     get_coordinates
     reverse_geocode
+    Tessellation
     toposimplify
 
 
@@ -34,6 +35,7 @@ GeoDataFrame Accessor
     geobuffer
     get_coordinates
     reverse_geocode
+    Tessellation
     toposimplify
 
 
