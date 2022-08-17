@@ -149,7 +149,7 @@ class Amap(Geocoder):
             "location": self._coerce_point_to_string(
                 query,
                 output_format="%(lon)s,%(lat)s",
-            )
+            ),
         }
         url = self._construct_url(self.reverse_api, params)
 
