@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from functools import partial
 from typing import Callable
-from urllib.parse import urlencode
 
 from geopy.exc import GeocoderAuthenticationFailure
 from geopy.exc import GeocoderQueryError
@@ -113,7 +112,7 @@ class Amap(Geocoder):
 
         params = {
             "address": query,
-            **({"city": city} if city else {}),
+            "city": city,
             "key": self.api_key,
         }
         url = self._construct_url(self.api, params)
@@ -180,7 +179,10 @@ class Amap(Geocoder):
 
         :return: string URL.
         """
+        from urllib.parse import urlencode
 
+        # Remove empty value item
+        params = {k: v for k, v in params.items() if v}
         return "?".join((base_api, urlencode(params)))
 
     def _parse_json(
