@@ -32,7 +32,6 @@ class Amap(Geocoder):
         self,
         api_key: str,
         *,
-        sig: str = None,
         scheme: str = None,
         timeout: int = DEFAULT_SENTINEL,
         proxies: dict = DEFAULT_SENTINEL,
@@ -44,10 +43,6 @@ class Amap(Geocoder):
         :param str api_key: The API key required by Amap Map to perform
             geocoding requests. API keys are managed through the Amap APIs
             console (https://console.amap.com/dev/key/app).
-
-        :param str sig: The digital signature (sig) to calculate the SN
-            parameter in request if authentication setting requires
-            (https://lbs.amap.com/faq/quota-key/key/41169).
 
         :param str scheme:
             See :attr:`geopy.geocoders.options.default_scheme`.
@@ -78,7 +73,6 @@ class Amap(Geocoder):
             adapter_factory=adapter_factory,
         )
         self.api_key = api_key
-        self.sig = sig
         self.domin = "restapi.amap.com"
         self.api = f"{self.scheme}://{self.domin}{self.api_path}"
         self.reverse_api = f"{self.scheme}://{self.domin}{self.reverse_path}"
@@ -110,7 +104,7 @@ class Amap(Geocoder):
             ``exactly_one=False``.
         """
 
-        params = {"address": query, "city": city}
+        params = {"address": query, "city": city, "key": self.api_key}
         url = self._construct_url(self.api, params)
 
         logger.debug(f"{self.__class__.__name__}.geocode: {url}")
@@ -146,10 +140,11 @@ class Amap(Geocoder):
         """
 
         params = {
+            "key": self.api_key,
             "location": self._coerce_point_to_string(
                 query,
                 output_format="%(lon)s,%(lat)s",
-            )
+            ),
         }
         url = self._construct_url(self.reverse_api, params)
 
@@ -174,7 +169,7 @@ class Amap(Geocoder):
         # Remove empty value item
         params = {k: v for k, v in params.items() if v}
         query_string = urlencode(params)
-        return f"{base_api}?key={self.api_key}&{query_string}"
+        return f"{base_api}?{query_string}"
 
     def _parse_geocode_json(
         self,
