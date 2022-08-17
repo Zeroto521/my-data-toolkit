@@ -279,7 +279,7 @@ class Amap(Geocoder):
             raise GeocoderQuotaExceeded(f"{info}.")
         elif code in {10013, 10017} or 20000 <= code < 30000:
             raise GeocoderQueryError(f"{info}.")
-        elif code in {10011} or 30000 <= code < 40000:
+        elif code == 10011 or 30000 <= code < 40000:
             raise GeocoderServiceError(f"{info}.")
         else:
             raise GeocoderQueryError(f"{info}.")
