@@ -188,7 +188,8 @@ class Amap(Geocoder):
         response: dict,
         exactly_one: bool = True,
         result: str = "result",
-        status: str = "status",
+        code: str = "infocode",
+        info: str = "info",
         address: str = "formatted_address",
         location: str = "location",
     ) -> None | Location | list[Location]:
@@ -196,7 +197,7 @@ class Amap(Geocoder):
         Returns location, (latitude, longitude) from JSON feed.
         """
 
-        self._check_status(response.get(status))
+        self._check_status(response.get(code), response.get(info))
         if response is None or result not in response:
             return
 
@@ -236,7 +237,7 @@ class Amap(Geocoder):
 
         return tuple(map(float, location.split(",")))
 
-    def _check_status(self, status: str | int):
+    def _check_status(self, code: int, info: str):
         """
         Validates error statuses.
 
@@ -244,43 +245,41 @@ class Amap(Geocoder):
             https://lbs.amap.com/api/webservice/guide/tools/info
         """
 
-        if status == 0:
+        if code == 10000:
             return
-        elif status == 110:
-            raise GeocoderAuthenticationFailure("Authentication failure.")
-        elif status == 111:
-            raise GeocoderAuthenticationFailure("Signature verification failed.")
-        elif status == 112:
-            raise GeocoderAuthenticationFailure("Invalid IP.")
-        elif status == 113:
-            raise GeocoderAuthenticationFailure("This feature is not authorized.")
-        elif status == 120:
-            raise GeocoderQuotaExceeded(
-                "The number of requests per second has reached the upper limit.",
-            )
-        elif status == 121:
-            raise GeocoderQuotaExceeded(
-                "The number of requests daily has reached the upper limit.",
-            )
-        elif status in 190:
-            raise GeocoderAuthenticationFailure("Invalid KEY.")
-        elif status == 199:
-            raise GeocoderAuthenticationFailure("The webservice isn't enabled.")
-        elif status in {301, 311}:
-            raise GeocoderQueryError("KEY illegal or not exist.")
-        elif status in {300, 306, 301, 320, 330, 331, 348, 351, 394, 395, 399}:
-            raise GeocoderQueryError("Invalid parameters.")
-        elif status in {347, 393}:
-            raise GeocoderQueryError("No results.")
-        elif status in {400, 402}:
-            raise GeocoderQueryError("Can't decode the request URL.")
-        elif status == 404:
-            raise GeocoderQueryError("Invalid request path.")
-        elif status == 407:
-            raise GeocoderQueryError("Invalid request method.")
-        elif status == 500:
-            raise GeocoderTimedOut("Request timed out.")
-        elif 500 < status < 600:
-            raise GeocoderServiceError("Request server error.")
+        elif code in {
+            10001,
+            10002,
+            10005,
+            10006,
+            10007,
+            10009,
+            10010,
+            10012,
+            10026,
+            10041,
+        }:
+            raise GeocoderAuthenticationFailure(f"{info}.")
+        elif (
+            code
+            in {
+                10003,
+                10004,
+                10014,
+                10015,
+                10019,
+                10020,
+                10021,
+                10029,
+                10044,
+                10045,
+            }
+            or 40000 <= code <= 50000
+        ):
+            raise GeocoderQuotaExceeded(f"{info}.")
+        elif code in {10013, 10017} or 20000 <= code < 30000:
+            raise GeocoderQueryError(f"{info}.")
+        elif code in {10011} or 30000 <= code < 40000:
+            raise GeocoderServiceError(f"{info}.")
         else:
-            raise GeocoderQueryError("Unknown error. Status: %r" % status)
+            raise GeocoderQueryError(f"{info}.")
