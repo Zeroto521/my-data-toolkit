@@ -215,7 +215,7 @@ class Amap(Geocoder):
         point = self._parse_coordinate(
             place.get("addressComponent", {})
             .get("streetNumber", {})
-            .get("location", None)
+            .get("location", None),
         )
         location = Location(address, point, place)
         return location if exactly_one else [location]
