@@ -25,8 +25,8 @@ class Amap(Geocoder):
         https://lbs.amap.com/api/webservice/guide/api/georegeo
     """
 
-    api_path = "/v3/geocode/geo/"
-    reverse_path = "/v3/geocode/regeo/"
+    api_path = "/v3/geocode/geo"
+    reverse_path = "/v3/geocode/regeo"
 
     def __init__(
         self,
@@ -110,19 +110,11 @@ class Amap(Geocoder):
             ``exactly_one=False``.
         """
 
-        params = {
-            "address": query,
-            "city": city,
-            "key": self.api_key,
-        }
+        params = {"address": query, "city": city}
         url = self._construct_url(self.api, params)
 
         logger.debug(f"{self.__class__.__name__}.geocode: {url}")
-        callback = partial(
-            self._parse_json,
-            exactly_one=exactly_one,
-            result="geocodes",
-        )
+        callback = partial(self._parse_geocode_json, exactly_one=exactly_one)
 
         return self._call_geocoder(url, callback, timeout=timeout)
 
@@ -154,17 +146,15 @@ class Amap(Geocoder):
         """
 
         params = {
-            "location": self._coerce_point_to_string(query),
-            "key": self.api_key,
+            "location": self._coerce_point_to_string(
+                query,
+                output_format="%(lon)s,%(lat)s",
+            )
         }
         url = self._construct_url(self.reverse_api, params)
 
         logger.debug(f"{self.__class__.__name__}.reverse: {url}")
-        callback = partial(
-            self._parse_json,
-            exactly_one=exactly_one,
-            result="regeocode",
-        )
+        callback = partial(self._parse_reverse_json, exactly_one=exactly_one)
 
         return self._call_geocoder(url, callback, timeout=timeout)
 
@@ -183,69 +173,83 @@ class Amap(Geocoder):
 
         # Remove empty value item
         params = {k: v for k, v in params.items() if v}
-        return "?".join((base_api, urlencode(params)))
+        query_string = urlencode(params)
+        return f"{base_api}?key={self.api_key}&{query_string}"
 
-    def _parse_json(
+    def _parse_geocode_json(
         self,
         response: dict,
         exactly_one: bool = True,
-        result: str = "result",
-        code: str = "infocode",
-        info: str = "info",
-        address: str = "formatted_address",
-        location: str = "location",
     ) -> None | Location | list[Location]:
         """
         Returns location, (latitude, longitude) from JSON feed.
         """
 
-        self._check_status(response.get(code), response.get(info))
-        if response is None or result not in response:
-            return
+        def _parse_place(place: dict) -> None | Location:
+            """
+            Returns location, (latitude, longitude) from JSON feed.
+            """
 
-        place = self._parse_place(
-            response["result"],
-            location=location,
-            address=address,
-        )
+            if not isinstance(place, dict):
+                return
+
+            address = place.get("formatted_address")
+            point = self._parse_coordinate(place.get("location"))
+            return Location(address, point, place)
+
+        if not isinstance(response, dict):
+            return
+        self._check_status(response.get("infocode"), response.get("info"))
+
+        result = response.get("geocodes")
+        if exactly_one:
+            return _parse_place(result[0])
+        return [_parse_place(place) for place in result]
+
+    def _parse_reverse_json(self, response: dict, exactly_one: bool = True):
+        """
+        Returns location, (latitude, longitude) from JSON feed.
+        """
+
+        def _parse_place(place: dict) -> None | Location:
+            """
+            Returns location, (latitude, longitude) from JSON feed.
+            """
+
+            if not isinstance(place, dict):
+                return
+
+            address = place.get("formatted_address")
+            location = place.get("addressComponent", {}).get("streetNumber", {})
+            point = self._parse_coordinate(location)
+            return Location(address, point, place)
+
+        if not isinstance(response, dict):
+            return
+        self._check_status(response.get("infocode"), response.get("info"))
+
+        place = _parse_place(response.get("regeocode"))
         return place if exactly_one else [place]
-
-    def _parse_place(
-        self,
-        place: dict,
-        address: str = "formatted_address",
-        location: str = "location",
-    ) -> None | Location:
-        """
-        Get the location, lat, and lng from a single JSON place.
-        """
-
-        if place is None or address not in place or location not in place:
-            return
-
-        return Location(
-            place[address],
-            self._parse_coordinate(place[location]),
-            place,
-        )
 
     def _parse_coordinate(self, location: str) -> tuple(float | None, float | None):
         """
         Get the lat and lng from a string ("lat,lng").
         """
 
-        if location is None:
+        if not isinstance(location, str):
             return (None, None)
 
-        return tuple(map(float, location.split(",")))
+        return tuple(reversed(tuple(map(float, location.split(",")))))
 
-    def _check_status(self, code: int, info: str):
+    def _check_status(self, code: str, info: str):
         """
         Validates error statuses.
 
         Documentation at:
             https://lbs.amap.com/api/webservice/guide/tools/info
         """
+
+        code = int(code)
 
         if code == 10000:
             return
