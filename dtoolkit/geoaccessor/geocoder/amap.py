@@ -196,10 +196,10 @@ class Amap(Geocoder):
             return
         self._check_status(response.get("infocode"), response.get("info"))
 
-        result = response.get("geocodes")
+        places = response.get("geocodes")
         if exactly_one:
-            return _parse_place(result[0])
-        return [_parse_place(place) for place in result]
+            return _parse_place(places[0])
+        return [_parse_place(place) for place in places]
 
     def _parse_reverse_json(self, response: dict, exactly_one: bool = True):
         """
