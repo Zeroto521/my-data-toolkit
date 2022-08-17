@@ -206,25 +206,19 @@ class Amap(Geocoder):
         Returns location, (latitude, longitude) from JSON feed.
         """
 
-        def _parse_place(place: dict) -> None | Location:
-            """
-            Returns location, (latitude, longitude) from JSON feed.
-            """
-
-            if not isinstance(place, dict):
-                return
-
-            address = place.get("formatted_address")
-            location = place.get("addressComponent", {}).get("streetNumber", {})
-            point = self._parse_coordinate(location)
-            return Location(address, point, place)
-
         if not isinstance(response, dict):
             return
         self._check_status(response.get("infocode"), response.get("info"))
 
-        place = _parse_place(response.get("regeocode"))
-        return place if exactly_one else [place]
+        place = response.get("regeocode", {})
+        address = place.get("formatted_address")
+        point = self._parse_coordinate(
+            place.get("addressComponent", {})
+            .get("streetNumber", {})
+            .get("location", None)
+        )
+        location = Location(address, point, place)
+        return location if exactly_one else [location]
 
     def _parse_coordinate(self, location: str) -> tuple(float | None, float | None):
         """
