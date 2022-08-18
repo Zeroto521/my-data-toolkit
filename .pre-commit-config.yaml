@@ -5,6 +5,8 @@ ci:
     for more information, see https://pre-commit.ci
   autoupdate_commit_msg: "BOT: pre-commit hooks autoupdate"
 
+exclude: "(versioneer.py|dtoolkit/_version.py)"
+
 repos:
   # import
   - repo: https://github.com/MarcoGorelli/absolufy-imports
