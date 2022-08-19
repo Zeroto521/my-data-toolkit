@@ -59,6 +59,7 @@ DataFrame Accessor
     to_series
     top_n
     values_to_dict
+    weighted_score
 
 
 Pandas Method Register
