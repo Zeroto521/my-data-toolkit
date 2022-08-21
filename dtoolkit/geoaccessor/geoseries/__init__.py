@@ -15,4 +15,3 @@ from dtoolkit.geoaccessor.geoseries.geobuffer import geobuffer  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.get_coordinates import get_coordinates  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.reverse_geocode import reverse_geocode  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.toposimplify import toposimplify  # noqa: F401
-from dtoolkit.geoaccessor.geoseries.utm_crs import utm_crs  # noqa: F401

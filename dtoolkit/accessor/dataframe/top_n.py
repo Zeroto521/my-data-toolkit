@@ -150,7 +150,7 @@ def top_n(
         else:
             raise ValueError('element must be either "both", "index" or "value"')
 
-        return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
+        return pd.Series(data, index=pd.RangeIndex(1, top.size + 1))
 
     return df.apply(
         wrap_s_top_n,
