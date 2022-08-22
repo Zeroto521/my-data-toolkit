@@ -1,6 +1,4 @@
-import pytest
-
-gpd = pytest.importorskip("geopandas")
+import geopandas as gpd
 
 from dtoolkit.geoaccessor.geodataframe import toposimplify  # noqa: F401
 

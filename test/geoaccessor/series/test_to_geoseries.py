@@ -1,8 +1,5 @@
-import pytest
-
-pytest.importorskip("geopandas")
-
 import pandas as pd
+import pytest
 from geopandas.testing import assert_geoseries_equal
 from pandas.testing import assert_series_equal
 

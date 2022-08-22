@@ -1,8 +1,6 @@
-import pytest
-
-gpd = pytest.importorskip("geopandas")
-
+import geopandas as gpd
 import pandas as pd
+import pytest
 from pandas.testing import assert_series_equal
 from pygeos import count_coordinates
 from pygeos import from_shapely

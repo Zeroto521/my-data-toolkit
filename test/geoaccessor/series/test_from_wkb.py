@@ -1,8 +1,5 @@
-import pytest
-
-pytest.importorskip("geopandas")
-
 import pandas as pd
+import pytest
 
 from dtoolkit.geoaccessor.series import from_wkb  # noqa: F401
 

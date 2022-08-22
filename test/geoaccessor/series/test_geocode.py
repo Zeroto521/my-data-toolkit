@@ -1,8 +1,6 @@
-import pytest
-
-gpd = pytest.importorskip("geopandas")
-
+import geopandas as gpd
 import pandas as pd
+import pytest
 
 from dtoolkit.geoaccessor.series import geocode  # noqa: F401
 

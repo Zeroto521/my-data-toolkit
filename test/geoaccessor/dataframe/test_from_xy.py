@@ -1,8 +1,6 @@
-import pytest
-
-gpd = pytest.importorskip("geopandas")
-
+import geopandas as gpd
 import pandas as pd
+import pytest
 from geopandas.testing import assert_geodataframe_equal
 from pandas.testing import assert_frame_equal
 from pyproj.crs import CRSError

@@ -1,13 +1,11 @@
-import pytest
-
-gpd = pytest.importorskip("geopandas")
-
 import contextlib
 import warnings
 
+import geopandas as gpd
+import pytest
+
 from dtoolkit.geoaccessor.accessor import register_geodataframe_accessor
 from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
-
 
 my_wkts = [
     "POINT (1 1)",
