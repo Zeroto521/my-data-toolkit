@@ -1,6 +1,8 @@
 name: workflow-run-cleaner
 
 on:
+  schedule:
+    - cron: "0 0 1 * *"
   workflow_dispatch:
     inputs:
       retain_days:
