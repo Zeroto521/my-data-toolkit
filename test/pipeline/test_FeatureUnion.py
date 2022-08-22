@@ -1,5 +1,8 @@
-import pandas as pd
 import pytest
+
+pytest.importorskip("sklearn")
+
+import pandas as pd
 from scipy import sparse
 from sklearn.preprocessing import MinMaxScaler
 

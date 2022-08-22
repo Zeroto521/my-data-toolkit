@@ -1,3 +1,7 @@
+import pytest
+
+pytest.importorskip("sklearn")
+
 from functools import partial
 
 from dtoolkit.transformer import AssignTF

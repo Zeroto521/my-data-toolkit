@@ -1,5 +1,7 @@
 import pytest
 
+pytest.importorskip("sklearn")
+
 from dtoolkit.transformer._util import transform_array_to_frame
 from test.transformer.conftest import array
 from test.transformer.conftest import df_iris

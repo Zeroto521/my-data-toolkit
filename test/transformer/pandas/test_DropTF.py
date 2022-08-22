@@ -1,5 +1,7 @@
 import pytest
 
+pytest.importorskip("sklearn")
+
 from dtoolkit.transformer import DropTF
 from test.transformer.conftest import df_iris
 from test.transformer.conftest import feature_names

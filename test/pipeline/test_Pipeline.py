@@ -1,6 +1,9 @@
+import pytest
+
+pytest.importorskip("sklearn")
+
 import joblib
 import pandas as pd
-import pytest
 from pandas.testing import assert_frame_equal
 from pandas.testing import assert_series_equal
 from sklearn.preprocessing import MinMaxScaler

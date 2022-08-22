@@ -1,3 +1,7 @@
+import pytest
+
+pytest.importorskip("sklearn")
+
 from dtoolkit.transformer import FilterInTF
 from test.transformer.conftest import df_label
 

@@ -1,5 +1,8 @@
-import pandas as pd
 import pytest
+
+pytest.importorskip("sklearn")
+
+import pandas as pd
 
 from dtoolkit.transformer import RavelTF
 from test.transformer.conftest import array
