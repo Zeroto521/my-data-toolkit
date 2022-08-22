@@ -1,3 +1,7 @@
+"""
+This is a test for `dtoolkit.accessor.dataframe.to_series`,
+while the input is `GeoDataFrame`.
+"""
 import pytest
 
 gpd = pytest.importorskip("geopandas")
