@@ -3,11 +3,11 @@ name: workflow-run-cleaner
 on:
   workflow_dispatch:
     inputs:
-      days:
-        description: "Number of days."
+      retain_days:
+        description: "The number of days that is used to compare with the retention days of each workflow."
         required: true
         default: "30"
-      minimum_runs:
+      keep_minimum_runs:
         description: "The minimum runs to keep for each workflow."
         required: true
         default: "7"
@@ -37,8 +37,8 @@ jobs:
     steps:
       - uses: Mattraks/delete-workflow-runs@v2
         with:
-          retain_days: ${{ github.event.inputs.days }}
-          keep_minimum_runs: ${{ github.event.inputs.minimum_runs }}
+          retain_days: ${{ github.event.inputs.retain_days }}
+          keep_minimum_runs: ${{ github.event.inputs.keep_minimum_runs }}
           delete_workflow_pattern: ${{ github.event.inputs.delete_workflow_pattern }}
           delete_workflow_by_state_pattern: ${{ github.event.inputs.delete_workflow_by_state_pattern }}
           dry_run: ${{ github.event.inputs.dry_run }}
