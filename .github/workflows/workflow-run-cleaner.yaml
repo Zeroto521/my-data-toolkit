@@ -1,4 +1,4 @@
-name: workflow-run
+name: workflow-run-cleaner
 
 on:
   workflow_dispatch:
