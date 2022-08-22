@@ -59,7 +59,7 @@ jobs:
         run: make test
 
       - name: Test Docstrings
-        if: contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu')
+        if: ${{ contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu') }}
         run: make doctest
 
       - uses: codecov/codecov-action@v3
