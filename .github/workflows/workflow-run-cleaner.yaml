@@ -2,7 +2,7 @@ name: workflow-run-cleaner
 
 on:
   schedule:
-    - cron: "0 0 1 * *"
+    - cron: "0 0 0 * *"
   workflow_dispatch:
     inputs:
       retain_days:
@@ -31,6 +31,7 @@ on:
       dry_run:
         description: "Only log actions, do not perform any delete operations."
         required: false
+        default: false
         type: boolean
 
 jobs:
