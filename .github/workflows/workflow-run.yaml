@@ -29,6 +29,7 @@ on:
       dry_run:
         description: "Only log actions, do not perform any delete operations."
         required: false
+        type: boolean
 
 jobs:
   delete:
