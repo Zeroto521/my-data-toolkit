@@ -1,7 +1,3 @@
-import pytest
-
-pytest.importorskip("sklearn")
-
 from pandas.testing import assert_series_equal
 
 from dtoolkit.transformer import EvalTF

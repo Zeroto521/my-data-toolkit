@@ -1,7 +1,3 @@
-import pytest
-
-pytest.importorskip("sklearn")
-
 from dtoolkit.transformer import ReplaceTF
 from test.transformer.conftest import df_label
 

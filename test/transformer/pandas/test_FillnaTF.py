@@ -1,7 +1,3 @@
-import pytest
-
-pytest.importorskip("sklearn")
-
 import pandas as pd
 
 from dtoolkit.transformer import FillnaTF

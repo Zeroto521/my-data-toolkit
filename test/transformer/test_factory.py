@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import pytest
-
-pytest.importorskip("sklearn")
-
 import numpy as np
+import pytest
 
 from dtoolkit.transformer.factory import methodtf_factory
 
