@@ -1,7 +1,9 @@
-import geopandas as gpd
+import pytest
+
+gpd = pytest.importorskip("geopandas")
+
 import numpy as np
 import pandas as pd
-import pytest
 from pyproj import CRS
 
 from dtoolkit.geoaccessor.geodataframe import geobuffer  # noqa: F401

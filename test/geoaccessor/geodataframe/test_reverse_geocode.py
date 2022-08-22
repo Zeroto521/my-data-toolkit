@@ -1,4 +1,7 @@
-import geopandas as gpd
+import pytest
+
+gpd = pytest.importorskip("geopandas")
+
 import pandas as pd
 
 from dtoolkit.geoaccessor.geodataframe import reverse_geocode  # noqa: F401

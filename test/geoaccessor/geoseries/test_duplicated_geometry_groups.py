@@ -1,5 +1,8 @@
-import pandas as pd
 import pytest
+
+pytest.importorskip("geopandas")
+
+import pandas as pd
 
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import set_unique_index
 
