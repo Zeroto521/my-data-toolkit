@@ -52,7 +52,7 @@ jobs:
       whl: ${{ steps.whl.outputs.file }}
 
   publish-to-TestPyPI:
-    needs: build
+    needs: sdist
     if: ${{ github.event_name == 'push' || github.event_name == 'tag' }}
     runs-on: ubuntu-latest
     steps:
@@ -73,7 +73,7 @@ jobs:
           verbose: true
 
   publish-to-Github:
-    needs: build
+    needs: sdist
     if: ${{ github.event_name == 'tag' }}
     runs-on: ubuntu-latest
     steps:
@@ -93,7 +93,7 @@ jobs:
           files: dist/${{ needs.build.outputs.tar }}
 
   publish-to-PyPI:
-    needs: build
+    needs: sdist
     if: ${{ github.event_name == 'tag' }}
     runs-on: ubuntu-latest
     steps:
