@@ -10,19 +10,20 @@ on:
       minimum_runs:
         description: "The minimum runs to keep for each workflow."
         required: true
-        default: "6"
+        default: "7"
       delete_workflow_pattern:
         description: "The name or filename of the workflow. if not set then it will target all workflows."
         required: false
       delete_workflow_by_state_pattern:
-        description: "Remove workflow by state: active, deleted, disabled_fork, disabled_inactivity, disabled_manually"
-        required: true
-        default: "All"
+        description: "Remove workflow runs by state."
+        required: false
+        default: all
         type: choice
         options:
-          - "All"
+          - all
           - active
           - deleted
+          - disabled_fork
           - disabled_inactivity
           - disabled_manually
       dry_run:
