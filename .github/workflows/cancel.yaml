@@ -12,5 +12,4 @@ jobs:
           workflow_id: |
             .github/workflows/codeql-analysis.yaml,
             .github/workflows/test.yaml,
-            .github/workflows/nightly-test.yaml,
             .github/workflows/versioneer.yaml,
