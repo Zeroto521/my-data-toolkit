@@ -53,7 +53,7 @@ jobs:
 
   publish-to-TestPyPI:
     needs: sdist
-    if: ${{ github.event_name == 'push' || github.event_name == 'tag' }}
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
@@ -74,7 +74,7 @@ jobs:
 
   publish-to-Github:
     needs: sdist
-    if: ${{ github.event_name == 'tag' }}
+    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
@@ -94,7 +94,7 @@ jobs:
 
   publish-to-PyPI:
     needs: sdist
-    if: ${{ github.event_name == 'tag' }}
+    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3
