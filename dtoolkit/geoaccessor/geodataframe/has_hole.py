@@ -7,6 +7,6 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc()
+@doc(s_has_hole)
 def has_hole(df: gpd.GeoDataFrame, /) -> pd.Series:
     return s_has_hole(df.geometry)
