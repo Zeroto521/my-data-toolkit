@@ -8,5 +8,5 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 @register_geodataframe_method
 @doc(klass="df")
-def hole_counts(df: gpd.GeoDataFrame) -> pd.Series:
+def hole_counts(df: gpd.GeoDataFrame, /) -> pd.Series:
     return s_hole_counts(df.geometry)
