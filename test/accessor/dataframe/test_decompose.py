@@ -1,12 +1,11 @@
-import pytest
-
-pytest.importorskip("sklearn")
-
 import pandas as pd
+import pytest
 from pandas.testing import assert_frame_equal
-from sklearn import decomposition
 
 from dtoolkit.accessor.dataframe import decompose  # noqa: F401
+
+
+decomposition = pytest.importorskip("sklearn.decomposition")
 
 
 @pytest.mark.parametrize(
