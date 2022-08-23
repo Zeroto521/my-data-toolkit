@@ -15,6 +15,7 @@ GeoSeries Accessor
     geoarea
     geobuffer
     get_coordinates
+    hole_count
     reverse_geocode
     toposimplify
 
@@ -33,6 +34,7 @@ GeoDataFrame Accessor
     geoarea
     geobuffer
     get_coordinates
+    hole_count
     reverse_geocode
     toposimplify
 
