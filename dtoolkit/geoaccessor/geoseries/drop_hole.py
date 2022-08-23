@@ -3,6 +3,7 @@ import pandas as pd
 import pygeos
 from pandas.util._decorators import doc
 
+from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -60,5 +61,17 @@ def drop_hole(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
         return result.fillna(s)
     except NotImplementedError:
         # Still to geopandas 0.11, only supports filling with a single scalar geometry
-        mask = result.isna()
-        return pd.concat((result[~mask], s[mask]))
+        s_index = s.index
+        s = set_unique_index(s)
+
+        mask = result.isna().to_numpy()
+        return (
+            pd.concat(
+                (
+                    result[~mask],
+                    s[mask],
+                )
+            )
+            .sort_index()
+            .set_axis(s_index)
+        )
