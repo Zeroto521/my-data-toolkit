@@ -10,6 +10,7 @@ GeoSeries Accessor
 
     count_coordinates
     drop_duplicates_geometry
+    drop_hole
     duplicated_geometry
     duplicated_geometry_groups
     geoarea
@@ -29,6 +30,7 @@ GeoDataFrame Accessor
     count_coordinates
     drop_duplicates_geometry
     drop_geometry
+    drop_hole
     duplicated_geometry
     duplicated_geometry_groups
     geoarea
