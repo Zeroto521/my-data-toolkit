@@ -4,6 +4,7 @@ from dtoolkit.geoaccessor.geoseries.count_coordinates import (  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry import (  # noqa: F401
     drop_duplicates_geometry,
 )
+from dtoolkit.geoaccessor.geoseries.drop_hole import drop_hole  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry import (  # noqa: F401
     duplicated_geometry,
 )

@@ -5,6 +5,7 @@ from dtoolkit.geoaccessor.geodataframe.drop_duplicates_geometry import (  # noqa
     drop_duplicates_geometry,
 )
 from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe.drop_hole import drop_hole  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.duplicated_geometry import (  # noqa: F401
     duplicated_geometry,
 )
