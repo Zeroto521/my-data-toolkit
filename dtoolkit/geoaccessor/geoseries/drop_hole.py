@@ -63,6 +63,7 @@ def drop_hole(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
         # Still to geopandas 0.11, only supports filling with a single scalar geometry
         s_index = s.index
         s = set_unique_index(s)
+        result = result.reset_index(drop=True)
 
         # use `ndarray` instead of Series to slice
         mask = result.isna().to_numpy()
