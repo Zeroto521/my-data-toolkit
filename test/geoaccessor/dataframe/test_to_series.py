@@ -2,15 +2,15 @@
 This is a test for `dtoolkit.accessor.dataframe.to_series`,
 while the input is `GeoDataFrame`.
 """
-import pytest
-
-gpd = pytest.importorskip("geopandas")
-
 import pandas as pd
+import pytest
 from pandas.testing import assert_frame_equal
 from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.dataframe import to_series  # noqa: F401
+
+
+gpd = pytest.importorskip("geopandas")
 
 
 @pytest.mark.parametrize(
