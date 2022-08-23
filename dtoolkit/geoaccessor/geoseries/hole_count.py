@@ -8,7 +8,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 @register_geoseries_method
 @doc(klass="s")
-def hole_count(s: gpd.GeoSeries) -> pd.Series:
+def hole_counts(s: gpd.GeoSeries) -> pd.Series:
     """
     Return the number of holes in each Polygon geometries.
 
@@ -41,7 +41,7 @@ def hole_count(s: gpd.GeoSeries) -> pd.Series:
     1  POLYGON ((1.00000 0.00000, 2.00000 1.00000, 0....
     2  LINESTRING (0.00000 0.00000, 0.00000 5.00000, ...
     3                            POINT (0.00000 0.00000)
-    >>> df.hole_count()
+    >>> df.hole_counts()
     0    2.0
     1    0.0
     2    NaN
