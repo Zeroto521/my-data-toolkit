@@ -7,12 +7,12 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(klass="s")
+@doc(alias="s")
 def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
     """
     Return the number of holes in each Polygon geometries.
 
-    A sugar syntax for ``{klass}.interiors.apply(len)``.
+    A sugar syntax for ``{alias}.interiors.apply(len)``.
 
     Returns
     -------
