@@ -1,9 +1,9 @@
 import pytest
 
 from dtoolkit.transformer import DropTF
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import feature_names
-from test.transformer.conftest import s
+from test.transformer.data import df_iris
+from test.transformer.data import feature_names
+from test.transformer.data import s
 
 
 def test_work():

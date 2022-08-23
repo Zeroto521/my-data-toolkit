@@ -1,24 +1,16 @@
+from test.transformer.data import df_iris, df_mixed, feature_names, s
+
 import joblib
 import pandas as pd
 import pytest
-from pandas.testing import assert_frame_equal
-from pandas.testing import assert_series_equal
+from pandas.testing import assert_frame_equal, assert_series_equal
 from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
 from dtoolkit.accessor.series import cols  # noqa: F401, F811
-from dtoolkit.pipeline import make_pipeline
-from dtoolkit.pipeline import make_union
-from dtoolkit.transformer import DropTF
-from dtoolkit.transformer import EvalTF
-from dtoolkit.transformer import FilterInTF
-from dtoolkit.transformer import GetTF
-from dtoolkit.transformer import QueryTF
-from dtoolkit.transformer import RavelTF
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_mixed
-from test.transformer.conftest import feature_names
-from test.transformer.conftest import s
+from dtoolkit.pipeline import make_pipeline, make_union
+from dtoolkit.transformer import (DropTF, EvalTF, FilterInTF, GetTF, QueryTF,
+                                  RavelTF)
 
 
 # include `make_pipeline`
