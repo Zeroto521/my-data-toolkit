@@ -20,9 +20,7 @@ def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
     --------
     geopandas.GeoSeries.interiors
     dtoolkit.geoaccessor.geoseries.has_hole
-    dtoolkit.geoaccessor.geoseries.hole_counts
     dtoolkit.geoaccessor.geodataframe.has_hole
-    dtoolkit.geoaccessor.geodataframe.hole_counts
 
     Examples
     --------
