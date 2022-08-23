@@ -1,27 +1,23 @@
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
 
-from dtoolkit.accessor.series import len
+from dtoolkit.geoaccessor.geoseries.hole_counts import hole_counts
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(alias="s")
-def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
+def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
     """
-    Return the number of holes in each Polygon geometries.
+    Check if each Polygon geometries have holes.
 
-    A sugar syntax for ``{alias}.interiors.apply(len)``.
+    Except for Polygon and MultiPolygon, other geometries will return ``False``.
 
     Returns
     -------
     Series
-        Except for Polygon and MultiPolygon, others will get ``NaN``.
 
     See Also
     --------
-    geopandas.GeoSeries.interiors
     dtoolkit.geoaccessor.geoseries.has_hole
     dtoolkit.geoaccessor.geoseries.hole_counts
     dtoolkit.geoaccessor.geodataframe.has_hole
@@ -49,12 +45,12 @@ def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
     1  POLYGON ((1.00000 0.00000, 2.00000 1.00000, 0....
     2  LINESTRING (0.00000 0.00000, 0.00000 5.00000, ...
     3                            POINT (0.00000 0.00000)
-    >>> df.hole_counts()
-    0    2.0
-    1    0.0
-    2    NaN
-    3    NaN
-    dtype: float64
+    >>> df.has_hole()
+    0     True
+    1    False
+    2    False
+    3    False
+    dtype: bool
     """
 
-    return len(s.interiors)
+    return hole_counts(s) >= 1
