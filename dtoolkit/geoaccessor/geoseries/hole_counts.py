@@ -19,6 +19,12 @@ def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
     Series
         Except for Polygon and MultiPolygon, others will get ``NaN``.
 
+    See Also
+    --------
+    geopandas.GeoSeries.interiors
+    dtoolkit.geoaccessor.geoseries.hole_counts
+    dtoolkit.geoaccessor.geodataframe.hole_counts
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
