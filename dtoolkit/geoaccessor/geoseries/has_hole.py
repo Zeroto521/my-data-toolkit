@@ -53,4 +53,3 @@ def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
     """
 
     return hole_counts(s) >= 1
-
