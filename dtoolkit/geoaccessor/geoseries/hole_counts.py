@@ -46,6 +46,7 @@ def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
     1    0.0
     2    NaN
     3    NaN
+    dtype: float64
     """
 
     return len(s.interiors)
