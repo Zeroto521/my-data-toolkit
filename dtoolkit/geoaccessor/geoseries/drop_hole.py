@@ -64,6 +64,7 @@ def drop_hole(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
         s_index = s.index
         s = set_unique_index(s)
 
+        # use `ndarray` instead of Series to slice
         mask = result.isna().to_numpy()
         return (
             pd.concat(
