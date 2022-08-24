@@ -21,7 +21,8 @@ def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
 
     See Also
     --------
-    geopandas.GeoSeries.interiors
+    geopandas.GeoSeries.interiors : Inner boundary.
+    geopandas.GeoSeries.convex_hull : Drop holes in Polygon and MultiPolygon.
     dtoolkit.geoaccessor.geoseries.has_hole
     dtoolkit.geoaccessor.geoseries.hole_counts
     dtoolkit.geoaccessor.geodataframe.has_hole
