@@ -18,6 +18,7 @@ def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
 
     See Also
     --------
+    geopandas.GeoSeries.convex_hull : Drop holes in Polygon and MultiPolygon.
     dtoolkit.geoaccessor.geoseries.has_hole
     dtoolkit.geoaccessor.geoseries.hole_counts
     dtoolkit.geoaccessor.geodataframe.has_hole
