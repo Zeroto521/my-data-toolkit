@@ -72,7 +72,7 @@ def drop_hole(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
                 (
                     result[~mask],
                     s[mask],
-                )
+                ),
             )
             .sort_index()
             .set_axis(s_index)
