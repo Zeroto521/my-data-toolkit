@@ -5,7 +5,7 @@ from scipy import sparse
 
 from dtoolkit.pipeline import make_pipeline
 from dtoolkit.transformer import OneHotEncoder
-from test.transformer.conftest import df_label
+from test.transformer.data import df_label
 
 
 def test_dataframe_in_dataframe_out():

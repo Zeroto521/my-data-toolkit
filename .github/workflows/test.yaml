@@ -42,6 +42,10 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
+          - env: ci/env/latest-base.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.10"
 
     steps:
       - uses: actions/checkout@v3
@@ -62,7 +66,7 @@ jobs:
         run: make test
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest') && contains(matrix.os, 'ubuntu') }}
+        if: contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu-latest')
         run: make doctest
 
       - uses: codecov/codecov-action@v3
