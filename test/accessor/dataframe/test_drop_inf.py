@@ -4,7 +4,7 @@ import pytest
 from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.dataframe import drop_inf  # noqa: F401
-from test.accessor.conftest import d
+from test.accessor.data import d
 
 
 @pytest.mark.parametrize(
