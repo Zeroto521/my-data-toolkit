@@ -5,7 +5,7 @@ ci:
     for more information, see https://pre-commit.ci
   autoupdate_commit_msg: "BOT: pre-commit hooks autoupdate"
 
-exclude: "(versioneer.py|dtoolkit/_version.py)"
+exclude: versioneer.py|dtoolkit/_version.py|\.(html|svg)$
 
 repos:
   # import
