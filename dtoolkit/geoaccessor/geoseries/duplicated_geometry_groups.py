@@ -172,7 +172,7 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
     Notes
     -----
     - Only support 2d coordinates, it means data unit is ``(x, y)``.
-    - Only support 'diagonal maxtrix', it means 'x' valeu equal to 'y' value.
+    - Only support 'diagonal maxtrix', it means 'x' value equal to 'y' value.
     - Only support natural numbers of labels.
 
     Examples
