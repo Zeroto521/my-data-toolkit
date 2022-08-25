@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
-import pytest
+from sklearn.datasets import load_iris
 
-load_iris = pytest.importorskip(modname="sklearn.datasets.load_iris")
 
 iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
