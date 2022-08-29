@@ -20,6 +20,7 @@ from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 
+
 __all__ = (
     "Pipeline",
     "FeatureUnion",
@@ -49,9 +50,6 @@ class Pipeline(SKPipeline):
     This would let :obj:`~pandas.DataFrame` in and
     :obj:`~pandas.DataFrame` out.
     """
-
-    # TODO: Overwrite `predict` and `fit_predict` method
-    # let Pandas-Object in Pandas-Object out
 
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps) -> np.ndarray | SeriesOrFrame:
