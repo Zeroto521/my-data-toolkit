@@ -11,7 +11,7 @@ on:
       - .github/workflows/versioneer.yaml
 
 jobs:
-  versioneer:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
