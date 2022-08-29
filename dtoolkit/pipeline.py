@@ -20,16 +20,39 @@ from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
 
-
-__all__ = [
+__all__ = (
     "Pipeline",
     "FeatureUnion",
     "make_pipeline",
     "make_union",
-]
+)
 
 
 class Pipeline(SKPipeline):
+    """
+    Pipeline of transforms with a final estimator.
+
+    Parameters
+    ----------
+    *args, **kwargs
+        See the documentation for :class:`sklearn.pipeline.Pipeline` for complete
+        details on the positional arguments and keyword arguments.
+
+    See Also
+    --------
+    make_pipeline : DToolKit's version
+    sklearn.pipeline.make_pipeline : sklearn's version
+
+    Notes
+    -----
+    Different to :class:`sklearn.pipeline.Pipeline`.
+    This would let :obj:`~pandas.DataFrame` in and
+    :obj:`~pandas.DataFrame` out.
+    """
+
+    # TODO: Overwrite `predict` and `fit_predict` method
+    # let Pandas-Object in Pandas-Object out
+
     @doc(SKPipeline._fit)
     def _fit(self, X, y=None, **fit_params_steps) -> np.ndarray | SeriesOrFrame:
         # shallow copy of steps - this should really be steps_
@@ -251,8 +274,8 @@ def make_union(
     >>> from sklearn.decomposition import PCA, TruncatedSVD
     >>> from dtoolkit.pipeline import make_union
     >>> make_union(PCA(), TruncatedSVD())
-     FeatureUnion(transformer_list=[('pca', PCA()),
-                                   ('truncatedsvd', TruncatedSVD())])
+    FeatureUnion(transformer_list=[('pca', PCA()),
+                                  ('truncatedsvd', TruncatedSVD())])
     """
 
     return FeatureUnion(
