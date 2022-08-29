@@ -20,12 +20,21 @@ Series Accessor
     bin
     cols
     drop_inf
+    dropna_index
     error_report
-    getattr
+    eval
     expand
+    filter_in
+    getattr
+    groupby_index
+    jenks_bin
+    jenks_breaks
     len
-    top_n
+    query
+    set_unique_index
+    swap_index_values
     to_set
+    top_n
     values_to_dict
 
 
@@ -35,17 +44,20 @@ DataFrame Accessor
 .. autosummary::
     :toctree: api/
 
-    cols
     boolean
+    cols
     decompose
     drop_inf
     drop_or_not
+    dropna_index
     expand
     fillna_regression
     filter_in
+    groupby_index
     repeat
-    top_n
+    set_unique_index
     to_series
+    top_n
     values_to_dict
 
 

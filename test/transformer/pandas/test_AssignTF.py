@@ -1,7 +1,7 @@
 from functools import partial
-from test.transformer.conftest import df_period
 
 from dtoolkit.transformer import AssignTF
+from test.transformer.data import df_period
 
 
 def period(df, regex):

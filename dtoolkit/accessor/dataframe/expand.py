@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
-from typing import TYPE_CHECKING
+from typing import Hashable
 
 import pandas as pd
 from pandas.util._decorators import doc
@@ -10,23 +10,9 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import expand as s_expand
 
 
-if TYPE_CHECKING:
-    from dtoolkit._typing import IntOrStr
-
-
 @register_dataframe_method
 @doc(
     s_expand,
-    see_also=dedent(
-        """
-    See Also
-    --------
-    dtoolkit.accessor.series.expand
-        Transform each element of a list-like to a column.
-    pandas.DataFrame.explode
-        Transform each element of a list-like to a row.
-    """,
-    ),
     examples=dedent(
         """
     Examples
@@ -37,9 +23,13 @@ if TYPE_CHECKING:
 
     Expand the *list-like* element.
 
-    >>> df = pd.DataFrame({'A': [[0, 1, 2], 'foo', [], [3, 4]],
-    ...                    'B': 1,
-    ...                    'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']]})
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'A': [[0, 1, 2], 'foo', [], [3, 4]],
+    ...         'B': 1,
+    ...         'C': [['a', 'b', 'c'], np.nan, [], ['d', 'e']],
+    ...     },
+    ... )
     >>> df.expand()
         A_0  A_1  A_2  B   C_0   C_1   C_2
     0     0  1.0  2.0  1     a     b     c
@@ -79,14 +69,16 @@ if TYPE_CHECKING:
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list[IntOrStr] = None,
+    /,
+    suffix: list[Hashable] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
 
     return pd.concat(
         (
-            s.expand(
+            s_expand(
+                s,
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,

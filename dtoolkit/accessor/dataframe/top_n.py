@@ -1,27 +1,31 @@
 from __future__ import annotations
 
+from typing import Literal
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import top_n as s_top_n
 
 
+@register_dataframe_method("topn")
 @register_dataframe_method
 def top_n(
     df: pd.DataFrame,
-    n: int,
+    /,
+    n: int = 5,
     largest: bool = True,
-    keep: str = "first",
+    keep: Literal["first", "last", "all"] = "first",
     prefix: str = "top",
     delimiter: str = "_",
-    element: str = "index",
+    element: Literal["index", "value", "both"] = "index",
 ) -> pd.DataFrame:
     """
     Returns each row's top `n`.
 
     Parameters
     ----------
-    n : int
+    n : int, default 5
         Number of top to return.
 
     largest : bool, default True
@@ -56,6 +60,11 @@ def top_n(
         - The default structure of value is ``{column index}`` and could be
           controlled via ``element``.
 
+    Raises
+    ------
+    ValueError
+        If ``element`` isn't "both", "index" or "value".
+
     See Also
     --------
     dtoolkit.accessor.dataframe.expand
@@ -63,12 +72,15 @@ def top_n(
 
     Notes
     -----
-    Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
-    :meth:`~pandas.DataFrame.nsmallest`?
+    - This method could be called via ``df.top_n`` or ``df.topn``.
 
-    A: :meth:`~pandas.DataFrame.nlargest` and
-    :meth:`~pandas.DataFrame.nsmallest` base one column to return all selected
-    columns dataframe top `n`.
+    - Q & A
+        Q: Any different to :meth:`~pandas.DataFrame.nlargest` and
+        :meth:`~pandas.DataFrame.nsmallest`?
+
+        A: :meth:`~pandas.DataFrame.nlargest` and
+        :meth:`~pandas.DataFrame.nsmallest` base one column to return all selected
+        columns dataframe top `n`.
 
     Examples
     --------
@@ -138,12 +150,12 @@ def top_n(
         else:
             raise ValueError('element must be either "both", "index" or "value"')
 
-        return pd.Series(data, index=pd.RangeIndex(1, len(top) + 1))
+        return pd.Series(data, index=pd.RangeIndex(1, top.size + 1))
 
     return df.apply(
         wrap_s_top_n,
-        axis=1,
         n=n,
+        axis=1,
         largest=largest,
         keep=keep,
     ).add_prefix(prefix + delimiter)

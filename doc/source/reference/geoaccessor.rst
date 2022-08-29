@@ -9,9 +9,16 @@ GeoSeries Accessor
     :toctree: api/
 
     count_coordinates
-    get_coordinates
+    drop_duplicates_geometry
+    duplicated_geometry
+    duplicated_geometry_groups
+    geoarea
     geobuffer
-    utm_crs
+    get_coordinates
+    has_hole
+    hole_counts
+    reverse_geocode
+    toposimplify
 
 
 GeoDataFrame Accessor
@@ -21,9 +28,30 @@ GeoDataFrame Accessor
     :toctree: api/
 
     count_coordinates
-    get_coordinates
+    drop_duplicates_geometry
+    drop_geometry
+    duplicated_geometry
+    duplicated_geometry_groups
+    geoarea
     geobuffer
-    utm_crs
+    get_coordinates
+    has_hole
+    hole_counts
+    reverse_geocode
+    toposimplify
+
+
+Series Accessor (to GeoPandas)
+------------------------------
+.. currentmodule:: dtoolkit.geoaccessor.series
+.. autosummary::
+    :toctree: api/
+
+    from_wkb
+    from_wkt
+    geocode
+    to_geoframe
+    to_geoseries
 
 
 DataFrame Accessor (to GeoPandas)
@@ -32,8 +60,11 @@ DataFrame Accessor (to GeoPandas)
 .. autosummary::
     :toctree: api/
 
+    from_wkb
     from_wkt
     from_xy
+    geocode
+    to_geoframe
 
 
 GeoPandas Base Accessor

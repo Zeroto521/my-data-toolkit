@@ -1,12 +1,11 @@
-from __future__ import annotations
-
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
 
 
+@register_series_method("cut")
 @register_series_method
-def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
+def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
     """
     Bin values into discrete intervals.
 
@@ -27,6 +26,11 @@ def bin(s: pd.Series, *args, **kwargs) -> pd.Series:
     See Also
     --------
     pandas.cut
+    dtoolkit.accessor.series.jenks_bin
+
+    Notes
+    -----
+    This method could be called via ``s.bin`` or ``s.cut``.
 
     Examples
     --------

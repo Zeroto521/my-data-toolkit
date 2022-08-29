@@ -6,30 +6,36 @@
 
 Required Dependencies:
 
-- Python (>= 3.7)
-- Pandas (>= 1.3.4)
+- Python (>= 3.8)
+- pandas (>= 1.3.4)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - Scikit-learn (>= 1.0 )
+  - Scikit-learn (>= 1.1)
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
-  - GeoPandas (>= 0.9.0)
+  - GeoPandas (>= 0.10.0)
   - PyGEOS (>= 0.11.1)
 
 ### Different Python Version Minimal Dependencies
 
-Dtoolkit support Python version from 3.7 to 3.10.
+Dtoolkit support Python version from 3.8 to 3.10.
 Therefore each version supports minimal dependencies is different.
 You could check the dependencies list from following.
 
-- [Python 3.7 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/37-minimal.yaml)
 - [Python 3.8 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/38-minimal.yaml)
 - [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/39-minimal.yaml)
 - [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/310-minimal.yaml)
+
+### DToolKit Requires Python Version History
+
+- DToolKit 0.0.1 requires Python 3.7 or 3.8.
+- DToolKit 0.0.2 to 0.0.5 require Python 3.7 to 3.9.
+- DToolKit 0.0.6 to 0.0.16 require Python 3.7 to 3.10.
+- DToolKit 0.0.17 and later require Python 3.8 or newer.
 
 ## Install with Conda
 
@@ -58,27 +64,16 @@ pip install my-data-toolkit
 
 ### From YAML
 
-Save the following `dtoolkit_env.yaml` YAML to local.
+Save the following [environment.yaml](../../../environment.yaml) YAML file to local.
 
-```yaml
-name: dtoolkit_env
-channels:
-  - conda-forge
-dependencies:
-  - python=3
-  - pandas
-  - scikit-learn
-  - geopandas
-  - pygeos
-  - pip
-  - pip:
-      - my-data-toolkit
+```{literalinclude} ../../../environment.yaml
+:language: yaml
 ```
 
 Create the environment from YAML.
 
 ```bash
-conda env create -f dtoolkit_env.yaml
+conda env create -f environment.yaml
 ```
 
 ## Install from PyPI

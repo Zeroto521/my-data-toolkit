@@ -1,36 +1,32 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Hashable
+from typing import Iterable
+from typing import Literal
 
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import boolean  # noqa
+from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.accessor.dataframe import boolean  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
-
-
-if TYPE_CHECKING:
-    from typing import Iterable
-
-    from dtoolkit._typing import IntOrStr
-    from dtoolkit._typing import SeriesOrFrame
 
 
 @register_dataframe_method
 def filter_in(
     df: pd.DataFrame,
-    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
-    how: str = "all",
+    condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
+    /,
+    how: Literal["any", "all"] = "all",
     complement: bool = False,
 ) -> pd.DataFrame:
     """
     Filter :obj:`~pandas.DataFrame` contents.
 
-    Similar to :meth:`~pandas.DataFrame.isin`, but the return is value not
-    bool.
+    Similar to :meth:`~pandas.DataFrame.isin`, but the return is not bool.
 
     Parameters
     ----------
-    condition : iterable, Series, DataFrame or dict
+    condition : Iterable, Series, DataFrame or dict
         The filtered result is based on this specific condition.
 
         * If ``condition`` is a :obj:`dict`, the keys must be the column
@@ -63,6 +59,9 @@ def filter_in(
     pandas.DataFrame.filter
         Subset the dataframe rows or columns according to the specified index
         labels.
+
+    dtoolkit.accessor.series.filter_in
+        Filter Series contents.
 
     Examples
     --------
@@ -139,7 +138,7 @@ def filter_in(
 
 def select_column(
     df: pd.DataFrame,
-    condition: Iterable | SeriesOrFrame | dict[IntOrStr, list[IntOrStr]],
+    condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
 ) -> pd.DataFrame:
     """Select DataFram columns via condition type"""
 
