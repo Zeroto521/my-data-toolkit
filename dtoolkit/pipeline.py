@@ -240,8 +240,8 @@ def make_union(
     >>> from sklearn.decomposition import PCA, TruncatedSVD
     >>> from dtoolkit.pipeline import make_union
     >>> make_union(PCA(), TruncatedSVD())
-     FeatureUnion(transformer_list=[('pca', PCA()),
-                                   ('truncatedsvd', TruncatedSVD())])
+    FeatureUnion(transformer_list=[('pca', PCA()),
+                                  ('truncatedsvd', TruncatedSVD())])
     """
 
     return FeatureUnion(
