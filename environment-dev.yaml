@@ -1,0 +1,45 @@
+name: dtoolkit-dev
+channels:
+  - conda-forge
+dependencies:
+  - python >= 3.8
+
+  # required
+  - pandas >= 1.3.4
+  # optional
+  - scikit-learn >= 1.1
+  - geopandas >= 0.10.0
+  - pygeos >= 0.11.1
+  - geopy
+  - jenkspy
+  - topojson
+  - joblib
+
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov
+  # doctest testing
+  - pytest-doctestplus
+
+  # styling
+  - black
+  - pre-commit
+
+  # doc
+  - sphinx
+  - pydata-sphinx-theme
+  - myst-parser
+  - numpydoc
+  - ipython
+  # jupyter
+  - nbsphinx
+  - ipykernel
+  - pip
+  - pip:
+      # doc
+      - sphinx-toggleprompt
+
+      # optional
+      - simplification

@@ -7,17 +7,17 @@
 Required Dependencies:
 
 - Python (>= 3.8)
-- Pandas (>= 1.3.4)
+- pandas (>= 1.3.4)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - Scikit-learn (>= 1.0 )
+  - Scikit-learn (>= 1.1)
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
-  - GeoPandas (>= 0.9.0)
+  - GeoPandas (>= 0.10.0)
   - PyGEOS (>= 0.11.1)
 
 ### Different Python Version Minimal Dependencies
@@ -64,27 +64,16 @@ pip install my-data-toolkit
 
 ### From YAML
 
-Save the following `dtoolkit_env.yaml` YAML to local.
+Save the following [environment.yaml](../../../environment.yaml) YAML file to local.
 
-```yaml
-name: dtoolkit_env
-channels:
-  - conda-forge
-dependencies:
-  - python=3
-  - pandas
-  - scikit-learn
-  - geopandas
-  - pygeos
-  - pip
-  - pip:
-      - my-data-toolkit
+```{literalinclude} ../../../environment.yaml
+:language: yaml
 ```
 
 Create the environment from YAML.
 
 ```bash
-conda env create -f dtoolkit_env.yaml
+conda env create -f environment.yaml
 ```
 
 ## Install from PyPI

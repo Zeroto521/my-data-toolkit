@@ -1,28 +1,18 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Hashable
 from typing import Iterable
 
 import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
 @doc(
-    see_also=dedent(
-        """
-    See Also
-    --------
-    pandas.Series.explode
-        Transform each element of a list-like to a row.
-    dtoolkit.accessor.dataframe.expand
-        Transform each element of a list-like to a column.
-    """,
-    ),
     examples=dedent(
         """
     Examples
@@ -72,7 +62,8 @@ from dtoolkit.accessor.register import register_series_method
 )
 def expand(
     s: pd.Series,
-    suffix: list[IntOrStr] = None,
+    /,
+    suffix: list[Hashable] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
@@ -85,7 +76,7 @@ def expand(
 
     Parameters
     ----------
-    suffix : list of str or int, optional
+    suffix : list of Hashable, optional
         New columns of return :class:`~pandas.DataFrame`.
 
     delimiter : str, default "_"
@@ -98,7 +89,26 @@ def expand(
     -------
     DataFrame
         The structure of new column name is ``{{column name}}{{delimiter}}{{suffix}}``.
-    {see_also}
+
+    Raises
+    ------
+    ValueError
+        - If ``s.name`` is None.
+        - If ``len(suffix)`` less than the max size of ``s``'s elements.
+
+    See Also
+    --------
+    pandas.Series.explode
+        Transform each element of a list-like to a row.
+
+    pandas.DataFrame.explode
+        Transform each element of a list-like to a row.
+
+    dtoolkit.accessor.series.expand
+        Transform each element of a list-like to a column.
+
+    dtoolkit.accessor.dataframe.expand
+        Transform each element of a list-like to a column.
     {examples}
     """
 

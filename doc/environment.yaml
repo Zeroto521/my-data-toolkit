@@ -1,4 +1,4 @@
-name: dtoolkit_doc
+name: dtoolkit-doc
 channels:
   - conda-forge
 dependencies:
@@ -8,12 +8,14 @@ dependencies:
   - scikit-learn
   - geopandas
   - pygeos
+
   # doc dependencies
   - sphinx
   - pydata-sphinx-theme
   - myst-parser
   - numpydoc
   - ipython
+
   # jupyter
   - nbsphinx
   - ipykernel

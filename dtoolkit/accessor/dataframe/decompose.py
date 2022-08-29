@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 from itertools import chain
+from typing import Hashable
 from typing import TYPE_CHECKING
 
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
+from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -17,10 +17,11 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def decompose(
     df: pd.DataFrame,
+    /,
     method: TransformerMixin,
     columns: None
-    | dict[IntOrStr | tuple[IntOrStr], IntOrStr | list[IntOrStr] | tuple[IntOrStr]]
-    | list[IntOrStr]
+    | dict[Hashable | tuple[Hashable], Hashable | list[Hashable] | tuple[Hashable]]
+    | list[Hashable]
     | pd.Index = None,
     drop: bool = False,
     **kwargs,
@@ -50,6 +51,11 @@ def decompose(
     Returns
     -------
     DataFrame
+
+    Raises
+    ------
+    ValueError
+        If the number of rows is less than the number of columns.
 
     See Also
     --------
@@ -159,7 +165,8 @@ def decompose(
             index=df.index,
             columns=chain.from_iterable(columns.keys()),
         ).combine_first(
-            df.drop_or_not(
+            drop_or_not(
+                df,
                 drop=drop,
                 columns=chain.from_iterable(columns.values()),
             ),
@@ -174,7 +181,7 @@ def _decompose(
     n_components=None,
     **kwargs,
 ) -> np.ndarray:
-    if n_components is None and len(df) < len(df.columns):
+    if n_components is None and len(df) < df.columns.size:
         raise ValueError(
             "Don't support decomposing DataFrame in which "
             "the number of rows is less than the number of columns",

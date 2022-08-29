@@ -1,14 +1,14 @@
-from test.accessor.conftest import d
-
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import drop_inf  # noqa
+from dtoolkit.accessor.dataframe import drop_inf  # noqa: F401
+from test.accessor.data import d
 
 
 @pytest.mark.parametrize(
-    "df, axis, how, inf, subset, expt",
+    "df, axis, how, inf, subset, expected",
     [
         (
             d,
@@ -177,10 +177,10 @@ from dtoolkit.accessor.dataframe import drop_inf  # noqa
         ),
     ],
 )
-def test_work(df, axis, how, inf, subset, expt):
+def test_work(df, axis, how, inf, subset, expected):
     result = df.drop_inf(axis=axis, how=how, inf=inf, subset=subset)
 
-    assert result.equals(expt)
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(

@@ -1,35 +1,35 @@
 from __future__ import annotations
 
+from typing import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa
-from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
-@register_dataframe_method()
+@register_dataframe_method
 def from_wkt(
     df: pd.DataFrame,
-    column: IntOrStr,
-    crs: CRS | IntOrStr = None,
+    /,
+    geometry: Hashable,
+    crs: CRS | str | int = None,
     drop: bool = False,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
+) -> gpd.GeoDataFrame:
     """
-    Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
-    geometries from columns of :obj:`~pandas.DataFrame`.
+    Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKT' column of
+    :obj:`~pandas.DataFrame`.
 
     A sugary syntax wraps :meth:`geopandas.GeoSeries.from_wkt`.
 
     Parameters
     ----------
-    column : str or int
+    geometry : Hashable
         The name of WKT column.
 
     crs : CRS, str, int, optional
@@ -38,17 +38,18 @@ def from_wkt(
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
     drop : bool, default False
-        Don't contain ``x``, ``y`` and ``z`` anymore.
+        Don't contain original 'WKT' column anymore.
 
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if dropped ``df`` is empty else GeoDataFrame.
+    GeoDataFrame
 
     See Also
     --------
     geopandas.GeoSeries.from_wkt
+    dtoolkit.geoaccessor.series.from_wkt
     dtoolkit.geoaccessor.dataframe.from_xy
+    dtoolkit.geoaccessor.dataframe.from_wkb
 
     Notes
     -----
@@ -81,14 +82,16 @@ def from_wkt(
     Drop original 'wkt' column.
 
     >>> df.from_wkt("wkt", drop=True)
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    Name: geometry, dtype: geometry
+                      geometry
+    0  POINT (1.00000 1.00000)
+    1  POINT (2.00000 2.00000)
+    2  POINT (3.00000 3.00000)
     """
 
+    # Avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
     return gpd.GeoDataFrame(
-        df.drop_or_not(drop=drop, columns=column),
-        geometry=gpd.GeoSeries.from_wkt(df[column]),
+        df.copy().drop_or_not(drop=drop, columns=geometry),
+        geometry=gpd.GeoSeries.from_wkt(df[geometry]),
         crs=crs,
-    ).to_series()
+    )

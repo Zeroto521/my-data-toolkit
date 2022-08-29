@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Hashable
 
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import expand as s_expand
 
@@ -13,16 +13,6 @@ from dtoolkit.accessor.series import expand as s_expand
 @register_dataframe_method
 @doc(
     s_expand,
-    see_also=dedent(
-        """
-    See Also
-    --------
-    dtoolkit.accessor.series.expand
-        Transform each element of a list-like to a column.
-    pandas.DataFrame.explode
-        Transform each element of a list-like to a row.
-    """,
-    ),
     examples=dedent(
         """
     Examples
@@ -79,14 +69,16 @@ from dtoolkit.accessor.series import expand as s_expand
 )
 def expand(
     df: pd.DataFrame,
-    suffix: list[IntOrStr] = None,
+    /,
+    suffix: list[Hashable] = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
 
     return pd.concat(
         (
-            s.expand(
+            s_expand(
+                s,
                 suffix=suffix,
                 delimiter=delimiter,
                 flatten=flatten,
