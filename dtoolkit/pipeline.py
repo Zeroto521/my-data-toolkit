@@ -24,7 +24,6 @@ __all__ = (
 )
 
 
-@doc(SKPipeline)
 class Pipeline(SKPipeline):
     """
     Pipeline of transforms with a final estimator.
