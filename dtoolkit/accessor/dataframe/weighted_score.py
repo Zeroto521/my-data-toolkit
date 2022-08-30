@@ -26,7 +26,7 @@ def weighted_score(
     weights : list, dict or Series
         The weights of each column in the DataFrame.
         - list : The weights of each column in the DataFrame.
-        - dict :
+        - dict : Receive datastructure like ``{column: score, new_column: {column: score}}``.
         - Series : The weights must be a series with the same index as the DataFrame.
 
     drop : bool, default False
@@ -62,10 +62,11 @@ def weighted_score(
         return score(df, weights=weights, name=name)
     elif isinstance(weights, dict):
         ...
-
-    raise TypeError(
-        f"weights ({type(weights).__name__!r}) must be list, dict or Series type."
-    )
+    else:
+        raise TypeError(
+            "'weights' must be a list, a dict or a Series type, "
+            f"but you passed a {type(weights).__name__!r}.",
+        )
 
 
 def score(
@@ -74,12 +75,14 @@ def score(
     weights: list[Number] | pd.Series,
     name: Hashable = None,
 ) -> pd.Series:
+    """Return calculated single score column."""
+
     if isinstance(weights, pd.Series) and (
         not to_set(weights.index) <= to_set(df.columns)
     ):
         raise ValueError(
-            f"One of the weights ({weights!r}) is not in the DataFrame columns "
-            f"({to_set(df.columns)!r})."
+            f"One of the 'weights' elements ({to_set(weights.index)!r}) is not in "
+            f"the DataFrame columns ({to_set(df.columns)!r}).",
         )
 
     return ((df * weights).sum(axis=1) / sum(weights)).rename(name)
