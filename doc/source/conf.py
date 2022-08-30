@@ -29,7 +29,7 @@ version = release = (
 
 project = "My Data Toolkit"
 author = "@Zeroto521"
-copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
+copyright = f"2021-{datetime.now().year} {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
