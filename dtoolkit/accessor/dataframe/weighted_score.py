@@ -19,14 +19,16 @@ def weighted_score(
     """
     Calculate the weighted score of selected columns in the DataFrame.
 
-    The weighted score is the sum of the values in the DataFrame multiplied by the weights.
+    The weighted score is the sum of the values in the DataFrame multiplied by
+    the weights.
 
     Parameters
     ----------
     weights : list, dict or Series
         The weights of each column in the DataFrame.
         - list : The weights of each column in the DataFrame.
-        - dict : Receive datastructure like ``{column: score, new_column: {column: score}}``.
+        - dict : Receive datastructure like ``{column: score}`` or
+         ``{new_column: {column: score}}``.
         - Series : The weights must be a series with the same index as the DataFrame.
 
     drop : bool, default False
