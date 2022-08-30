@@ -2,9 +2,9 @@ from typing import Hashable
 
 import pandas as pd
 
+from dtoolkit._typing import Number
 from dtoolkit.accessor.index import to_set
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit._typing import Number
 
 
 @register_dataframe_method
