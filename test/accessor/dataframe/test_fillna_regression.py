@@ -4,7 +4,7 @@ from pandas.testing import assert_frame_equal
 from sklearn import linear_model
 from sklearn import tree
 
-from dtoolkit.accessor.dataframe import fillna_regression  # noqa
+from dtoolkit.accessor.dataframe import fillna_regression  # noqa: F401
 
 
 @pytest.mark.parametrize(
