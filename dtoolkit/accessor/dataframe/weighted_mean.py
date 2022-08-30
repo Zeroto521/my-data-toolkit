@@ -7,10 +7,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit._typing import Number
 
 
-@register_dataframe_method("weighted_average")
-@register_dataframe_method("weighted_mean")
 @register_dataframe_method
-def weighted_score(
+def weighted_mean(
     df: pd.DataFrame,
     /,
     weights: list[Number] | dict[Hashable, Number | dict[Hashable, Number]] | pd.Series,
@@ -52,11 +50,6 @@ def weighted_score(
         - weights is Series type
             - If the labels of the weights are not in the DataFrame columns.
             - If the labels of the weights are duplicated.
-
-    Notes
-    -----
-    This method could be called via ``df.weighted_score``, ``df.weighted_mean``,
-    or ``df.weighted_average``.
     """
 
     # HACK: Figure out how to handle the relationship between `weights`` (array-like)

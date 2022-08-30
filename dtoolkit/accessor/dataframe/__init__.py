@@ -15,4 +15,4 @@ from dtoolkit.accessor.dataframe.set_unique_index import set_unique_index  # noq
 from dtoolkit.accessor.dataframe.to_series import to_series  # noqa: F401
 from dtoolkit.accessor.dataframe.top_n import top_n  # noqa: F401
 from dtoolkit.accessor.dataframe.values_to_dict import values_to_dict  # noqa: F401
-from dtoolkit.accessor.dataframe.weighted_score import weighted_score  # noqa: F401
+from dtoolkit.accessor.dataframe.weighted_mean import weighted_mean  # noqa: F401
