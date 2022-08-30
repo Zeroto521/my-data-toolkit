@@ -64,9 +64,18 @@ def weighted_score(
     # the result of array-like type `weights` is a Series (or single column DataFrame).
     # It don't have a 'name'. So how to combine with the original DataFrame?
 
-    if isinstance(weights, (list, tuple, pd.Series)):
-        name = weights.name if isinstance(weights, pd.Series) else None
-        return score(df, weights=weights, name=name)
+    if isinstance(weights, list, tuple):
+        return score(df, weights=weights)
+
+    if isinstance(weights, pd.Series):
+        if to_set(weights.index) > to_set(df.columns):
+            raise ValueError(
+                f"One of the 'weights' elements ({to_set(weights.index)!r}) is not in "
+                f"the DataFrame columns ({to_set(df.columns)!r}).",
+            )
+
+        return score(df, weights=weights, name=weights.name)
+
     elif isinstance(weights, dict):
         ...
     else:
@@ -83,13 +92,5 @@ def score(
     name: Hashable = None,
 ) -> pd.Series:
     """Return calculated single score column."""
-
-    if isinstance(weights, pd.Series) and (
-        not to_set(weights.index) <= to_set(df.columns)
-    ):
-        raise ValueError(
-            f"One of the 'weights' elements ({to_set(weights.index)!r}) is not in "
-            f"the DataFrame columns ({to_set(df.columns)!r}).",
-        )
 
     return ((df * weights).sum(axis=1) / sum(weights)).rename(name)
