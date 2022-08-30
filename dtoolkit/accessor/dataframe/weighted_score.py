@@ -57,6 +57,11 @@ def weighted_score(
     or ``df.weighted_average``.
     """
 
+    # HACK: Figure out how to handle the relationship between `weights`` (array-like)
+    # and `drop`.
+    # the result of array-like type `weights` is a Series (or single column DataFrame).
+    # It don't have a 'name'. So how to combine with the original DataFrame?
+
     if isinstance(weights, (list, tuple, pd.Series)):
         name = weights.name if isinstance(weights, pd.Series) else None
         return score(df, weights=weights, name=name)
