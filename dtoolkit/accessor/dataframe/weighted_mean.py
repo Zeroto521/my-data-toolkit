@@ -20,7 +20,9 @@ def weighted_mean(
     Calculate the weighted score of selected columns in the DataFrame.
 
     The weighted score is the sum of the values in the DataFrame multiplied by
-    the weights.
+    the weights. A sugar syntax wraps::
+
+        (df * weights).sum(axis=1) / sum(weights)
 
     Parameters
     ----------
