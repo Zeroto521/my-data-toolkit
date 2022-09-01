@@ -34,6 +34,9 @@ def weighted_mean(
     drop : bool, default False
         If True, drop the used columns.
 
+    validate : bool, default False
+        If True, require the sum of weights values equal to 1.
+
     Returns
     -------
     DataFrame or Series
@@ -85,7 +88,14 @@ def score(
     /,
     weights: list[Number] | pd.Series,
     name: Hashable = None,
+    validate: bool = False,
 ) -> pd.Series:
     """Return calculated single score column."""
 
-    return ((df * weights).sum(axis=1) / sum(weights)).rename(name)
+    sum_weights = sum(weights)
+    if validate and sum_weights != 1:
+        raise ValueError(
+            f"The sum of weights values ({sum_weights!r}) is not equal to 1."
+        )
+
+    return ((df * weights).sum(axis=1) / sum_weights).rename(name)
