@@ -1,3 +1,5 @@
+from dtoolkit.geoaccessor.geoseries.bd09_to_gcj02 import bd09_to_gcj02  # noqa: F401
+from dtoolkit.geoaccessor.geoseries.geoarea import geoarea  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.count_coordinates import (  # noqa: F401
     count_coordinates,
 )
