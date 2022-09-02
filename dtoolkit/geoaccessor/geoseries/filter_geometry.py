@@ -37,7 +37,7 @@ def filter_geometry(
     predicate: BINARY_PREDICATE,
     complement: bool = False,
     **kwargs,
-) -> pd.Series:
+) -> gpd.GeoSeries:
     """
     Filter {klass} via the spatial relationship between {klass} and ``geometry``.
 
