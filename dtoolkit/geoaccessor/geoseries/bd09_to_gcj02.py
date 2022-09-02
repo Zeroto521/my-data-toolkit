@@ -29,24 +29,26 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {{
-    ...         "x": [114.21892734521, 128.543],
-    ...         "y": [29.575429778924, 37.065],
+    ...         "x": [114.21892734521, 128.543, 1],
+    ...         "y": [29.575429778924, 37.065, 1],
     ...     }},
-    ...     index=[2, 0],
+    ...     index=[2, 0, 1],
     ... )
     >>> df
                 x         y
     2  114.218927  29.57543
     0  128.543000  37.06500
+    1    1.000000   1.00000
     >>> df.bd09_to_gcj02()
     2    POINT (114.21243 29.56938)
     0    POINT (128.53659 37.05875)
+    1       POINT (1.00000 1.00000)
     """
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     s_index = s.index
-    s = set_unique_index(s)
+    s = set_unique_index(s, drop=True)
     mask = is_in_china(s).to_numpy()
     return (
         pd.concat((s[~mask], _bd09_to_gcj02(s[mask])))
