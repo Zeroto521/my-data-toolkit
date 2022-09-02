@@ -18,6 +18,11 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     {klass}
         Replaced original geometry.
 
+    Raises
+    ------
+    ValueError
+        If the CRS is not ``ESGP:4326``.
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
@@ -37,6 +42,8 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     2    POINT (114.21243 29.56938)
     0    POINT (128.53659 37.05875)
     """
+    if s.crs != 4326:
+        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     s_index = s.index
     s = set_unique_index(s)
@@ -61,17 +68,10 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
     Returns
     -------
     Series of bool
-
-    Raises
-    ------
-    ValueError
-        If the CRS is not ESGP:4326.
     """
+    from shapely.geometry import box
 
-    if s.crs != 4326:
-        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-
-    return 73.66 <= s.x and s.x <= 135.05 and 3.86 <= s.y and s.y <= 53.55
+    return s.covered_by(box(73.66, 3.86, 135.05, 53.55))
 
 
 def _bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
