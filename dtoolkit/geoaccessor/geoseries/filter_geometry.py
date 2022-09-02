@@ -37,7 +37,7 @@ def filter_geometry(
     **kwargs,
 ) -> pd.Series:
     """
-    Filter {klass} by ``geometry``.
+    Filter {klass} via the spatial relationship between {klass} and ``geometry``.
 
     A sugar syntax wraps::
 
