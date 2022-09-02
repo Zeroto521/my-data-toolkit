@@ -47,7 +47,9 @@ def filter_geometry(
     ----------
     geometry : Geometry, GeoSeries, or GeoDataFrame
 
-    predicate : str
+    predicate : {{"intersects", "disjoint", "crosses", "overlaps", "touches", \
+"covered_by", "contains", "within", "covers"}}
+        Binary predicate.
 
     complement : bool, default False
         If True, do operation reversely.
