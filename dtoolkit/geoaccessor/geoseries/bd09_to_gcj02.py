@@ -1,5 +1,5 @@
 import geopandas as gpd
-import numpy
+import numpy as np
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -15,7 +15,27 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     -------
     {klass}
         Replaced original geometry.
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(
+    ...     {{
+    ...         "x": [114.21892734521, 128.543],
+    ...         "y": [29.575429778924, 37.065],
+    ...     }},
+    ...     index=[2, 0],
+    ... )
+    >>> df
+                x         y
+    2  114.218927  29.57543
+    0  128.543000  37.06500
+    >>> df.bd09_to_gcj02()
+    2    POINT (114.21243 29.56938)
+    0    POINT (128.53659 37.05875)
     """
+
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
