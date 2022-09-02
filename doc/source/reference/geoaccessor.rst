@@ -8,6 +8,7 @@ GeoSeries Accessor
 .. autosummary::
     :toctree: api/
 
+    bd09_to_gcj02
     count_coordinates
     drop_duplicates_geometry
     duplicated_geometry
@@ -27,6 +28,7 @@ GeoDataFrame Accessor
 .. autosummary::
     :toctree: api/
 
+    bd09_to_gcj02
     count_coordinates
     drop_duplicates_geometry
     drop_geometry
