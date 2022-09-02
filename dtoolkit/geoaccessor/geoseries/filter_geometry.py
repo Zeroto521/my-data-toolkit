@@ -108,7 +108,7 @@ def _filter_geometry(
 ) -> pd.Series:
     if predicate not in get_args(BINARY_PREDICATE):
         raise ValueError(
-            f"Got {predicate:!r}, expected one of {get_args(BINARY_PREDICATE)!r}."
+            f"Got {predicate=!r}, expected one of {get_args(BINARY_PREDICATE)!r}."
         )
 
     mask = getattr(s, predicate)(geometry, **kwargs)
