@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, get_args
+from typing import get_args
+from typing import Literal
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
@@ -111,7 +113,7 @@ def _filter_geometry(
 ) -> pd.Series:
     if predicate not in get_args(BINARY_PREDICATE):
         raise ValueError(
-            f"Got {predicate=!r}, expected one of {get_args(BINARY_PREDICATE)!r}."
+            f"Got {predicate=!r}, expected one of {get_args(BINARY_PREDICATE)!r}.",
         )
 
     mask = getattr(s, predicate)(geometry, **kwargs)
