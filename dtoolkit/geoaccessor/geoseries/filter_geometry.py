@@ -73,6 +73,7 @@ def filter_geometry(
     ...         LineString([(0, 0), (0, 2)]),
     ...         LineString([(0, 0), (0, 1)]),
     ...         Point(0, 1),
+    ...         Point(-1, -1),
     ...     ],
     ... )
     >>> df
@@ -83,9 +84,9 @@ def filter_geometry(
     3                            POINT (0.00000 1.00000)
     4                          POINT (-1.00000 -1.00000)
 
-    Filter the geometries out of the bounding box ``box(0, 0, 2, 2)``.
+    Filter the geometries out of the bounding ``box(0, 0, 2, 2)``.
 
-    >>> df.filter_geometry(box(0, 0, 2, 2), "covered_by")
+    >>> df.filter_geometry(box(0, 0, 2, 2), "covered_by", complement=True)
                           geometry
     4    POINT (-1.00000 -1.00000)
     """
