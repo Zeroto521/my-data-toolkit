@@ -76,6 +76,7 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
     return s.covered_by(box(73.66, 3.86, 135.05, 53.55))
 
 
+# based on https://github.com/wandergis/coordTransform_py/
 def _bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     pi = np.pi * 3000 / 180
 
