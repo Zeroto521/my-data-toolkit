@@ -1,7 +1,9 @@
 import geopandas as gpd
 import numpy as np
+import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -36,9 +38,43 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     0    POINT (128.53659 37.05875)
     """
 
+    s_index = s.index
+    s = set_unique_index(s)
+    mask = is_in_china(s).to_numpy()
+    return (
+        pd.concat((s[~mask], _bd09_to_gcj02(s[mask])))
+        .sort_index()
+        .set_axis(s_index)
+        .rename(s.name)
+    )
+
+
+def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
+    """
+    Based on China boundary to judge whether a point is in China.
+
+    Parameters
+    ----------
+    GeoSeries
+        The ESGP:4326 coordinates of the point.
+
+    Returns
+    -------
+    Series of bool
+
+    Raises
+    ------
+    ValueError
+        If the CRS is not ESGP:4326.
+    """
+
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
+    return 73.66 <= s.x and s.x <= 135.05 and 3.86 <= s.y and s.y <= 53.55
+
+
+def _bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     pi = np.pi * 3000 / 180
 
     x = s.x - 0.0065
@@ -46,7 +82,6 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     z = np.sqrt(x * x + y * y) - 2e-5 * np.sin(y * pi)
 
     theta = np.arctan2(y, x) - 3e-6 * np.cos(x * pi)
-
     return gpd.GeoSeries(
         gpd.points_from_xy(
             x=z * np.cos(theta),
