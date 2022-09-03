@@ -2,7 +2,6 @@ from textwrap import dedent
 
 import geopandas as gpd
 import pandas as pd
-import pygeos
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -47,6 +46,11 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     -------
     Series
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'pygeos'.
+
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.get_coordinates
@@ -59,7 +63,6 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
         The core algorithm of this accessor.
     {examples}
     """
+    from pygeos import from_shapely, get_coordinates
 
-    return s.apply(
-        lambda x: pygeos.get_coordinates(pygeos.from_shapely(x), **kwargs),
-    )
+    return s.apply(lambda x: get_coordinates(from_shapely(x), **kwargs))
