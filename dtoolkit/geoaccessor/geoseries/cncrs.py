@@ -14,7 +14,7 @@ CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
 
 @register_geoseries_method
 @doc(klass="GeoSeries")
-def chncrs(
+def cncrs_offset(
     s: gpd.GeoSeries,
     /,
     from_crs: CHINA_CRS,
@@ -60,7 +60,7 @@ def chncrs(
     0  114.218927  29.57543
     1  128.543000  37.06500
     2    1.000000   1.00000
-    >>> df.chncrs()
+    >>> df.cncrs_offset()
     0    POINT (114.21243 29.56938)
     1    POINT (128.53659 37.05875)
     2       POINT (1.00000 1.00000)
@@ -68,7 +68,6 @@ def chncrs(
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
-    s_index = s.index
     s = set_unique_index(s, drop=True)
     mask = is_in_china(s).to_numpy()
     return (
