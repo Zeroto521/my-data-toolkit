@@ -1,8 +1,8 @@
+from functools import partial
 from textwrap import dedent
 
 import geopandas as gpd
 import pandas as pd
-import pygeos
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -41,6 +41,11 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     -------
     Series
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'pygeos'.
+
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.count_coordinates
@@ -53,9 +58,6 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
         The core algorithm of this accessor.
     {examples}
     """
+    from pygeos import count_coordinates, from_shapely
 
-    return s.apply(
-        lambda x: pygeos.count_coordinates(
-            pygeos.from_shapely(x),
-        ),
-    )
+    return s.apply(lambda x: count_coordinates(from_shapely(x)))
