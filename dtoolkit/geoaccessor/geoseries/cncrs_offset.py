@@ -137,9 +137,10 @@ def gcj02_to_wgs84(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     rad_y = s.y / 180 * np.pi
     magic = np.sin(rad_y)
     magic = 1 - ee * magic * magic
+    magic_sqrt = np.sqrt(magic)
 
-    dy = transform_y(s) * 180 / ((a * (1 - ee)) / (magic * np.sqrt(magic)) * np.pi)
-    dx = transform_x(s) * 180 / (a / sqrtmagic * np.cos(rad_y) * np.pi)
+    dy = transform_y(s) * 180 / ((a * (1 - ee)) / (magic * magic_sqrt) * np.pi)
+    dx = transform_x(s) * 180 / (a / magic_sqrt * np.cos(rad_y) * np.pi)
     return gpd.points_from_xy(
         x=s.x - dx,
         y=s.y - dy,

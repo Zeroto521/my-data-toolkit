@@ -6,7 +6,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc(s_bd09_to_gcj02, klass="GeoDataFrame")
+@doc(s_cncrs_offset, klass="GeoDataFrame")
 def cncrs_offset(df: gpd.GeoDataFrame, /) -> gpd.GeoDataFrame:
 
     return df.assign(**{df.geometry.name: s_cncrs_offset(df.geometry)})
