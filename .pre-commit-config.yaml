@@ -41,9 +41,13 @@ repos:
       - id: check-merge-conflict
       # yaml
       - id: check-yaml
+      # toml
+      - id: check-toml
       # text
       - id: end-of-file-fixer
       - id: trailing-whitespace
+      # other
+      - id: detect-private-key
   # code style
   - repo: https://github.com/psf/black
     rev: 22.6.0
@@ -64,9 +68,12 @@ repos:
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.9.0
     hooks:
+      - id: python-check-blanket-noqa
+      - id: python-use-type-annotations
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+      - id: text-unicode-replacement-char
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.1
     hooks:
