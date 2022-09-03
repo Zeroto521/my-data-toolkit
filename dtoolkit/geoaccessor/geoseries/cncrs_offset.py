@@ -9,6 +9,9 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
+PI = np.pi * 3000 / 180
+a = 6378245  # Semi major axis of the earth
+ee = 0.00669342162296594323  # Eccentricity^2
 
 
 @register_geoseries_method
@@ -110,15 +113,94 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
+def wgs84_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+    rad_y = s.y / 180 * np.pi
+    magic = np.sin(rad_y)
+    magic = 1 - ee * magic * magic
+    magic_sqrt = np.sqrt(magic)
+
+    dx = transform_x(s) * 180 / (a / magic_sqrt * np.cos(rad_y) * np.pi)
+    dy = transform_y(s) * 180 / (a * (1 - ee) / (magic * magic_sqrt) * np.pi)
+    return gpd.points_from_xy(
+        x=s.x + dx,
+        y=s.y + dy,
+    )
+
+
+def wgs84_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+    return gcj02_to_bd09(wgs84_to_gcj02(s))
+
+
+# based on https://github.com/wandergis/coordTransform_py
+def gcj02_to_wgs84(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+    rad_y = s.y / 180 * np.pi
+    magic = np.sin(rad_y)
+    magic = 1 - ee * magic * magic
+
+    dy = transform_y(s) * 180 / ((a * (1 - ee)) / (magic * np.sqrt(magic)) * np.pi)
+    dx = transform_x(s) * 180 / (a / sqrtmagic * np.cos(rad_y) * np.pi)
+    return gpd.points_from_xy(
+        x=s.x - dx,
+        y=s.y - dy,
+    )
+
+
+# based on https://github.com/wandergis/coordTransform_py
+def gcj02_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+    z = np.sqrt(s.x * s.x + s.y * s.y) + 2e-5 * np.sin(s.y * PI)
+
+    theta = np.arctan2(s.y, s.x) + 3e-6 * np.cos(s.x * PI)
+    return gpd.points_from_xy(
+        x=z * np.cos(theta) + 0.0065,
+        y=z * np.sin(theta) + 0.006,
+    )
+
+
+def bd09_to_wgs84(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+    return gcj02_to_wgs84(bd09_to_gcj02(s))
+
+
+# based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
-    pi = np.pi * 3000 / 180
+    x, y = s.x - 0.0065, s.y - 0.006
+    z = np.sqrt(x * x + y * y) - 2e-5 * np.sin(y * PI)
 
-    x = s.x - 0.0065
-    y = s.y - 0.006
-    z = np.sqrt(x * x + y * y) - 2e-5 * np.sin(y * pi)
-
-    theta = np.arctan2(y, x) - 3e-6 * np.cos(x * pi)
+    theta = np.arctan2(y, x) - 3e-6 * np.cos(x * PI)
     return gpd.points_from_xy(
         x=z * np.cos(theta),
         y=z * np.sin(theta),
+    )
+
+
+def transform_x(s: gpd.GeoSeries) -> pd.Series:
+    x, y = s.x - 105, s.y - 35
+    x_multiply_pi = x * np.pi
+
+    return (
+        300
+        + x
+        + 2 * y
+        + 0.1 * x * x
+        + 0.1 * x * y
+        + 0.1 * np.sqrt(np.fabs(x))
+        + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 1.5
+        + (20 * np.sin(x_multiply_pi) + 40 * np.sin(x / 3 * np.pi)) * 1.5
+        + (150 * np.sin(x / 12 * np.pi) + 300 * np.sin(x / 30 * np.pi)) * 1.5
+    )
+
+
+def transform_y(s: gpd.GeoSeries) -> pd.Series:
+    x, y = s.x - 105, s.y - 35
+    x_multiply_pi = x * np.pi
+
+    return (
+        -100
+        + 2 * x
+        + 3 * y
+        + 0.2 * y * y
+        + 0.1 * x * y
+        + 0.2 * np.sqrt(np.fabs(x))
+        + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 1.5
+        + (20 * np.sin(y * np.pi) + 40 * np.sin(y / 3 * np.pi)) * 1.5
+        + (160 * np.sin(y / 12 * np.pi) + 320 * np.sin(y * np.pi / 30)) * 1.5
     )
