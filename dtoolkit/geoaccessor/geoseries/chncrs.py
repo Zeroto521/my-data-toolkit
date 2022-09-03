@@ -1,3 +1,5 @@
+from typing import Literal, get_args
+
 import geopandas as gpd
 import numpy as np
 import pandas as pd
@@ -7,11 +9,31 @@ from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
+CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
+
+
 @register_geoseries_method
 @doc(klass="GeoSeries")
-def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
+def chncrs(
+    s: gpd.GeoSeries,
+    /,
+    from_crs: CHINA_CRS,
+    to_crs: CHINA_CRS,
+) -> gpd.GeoSeries:
     """
-    China web map CRS transformer, ``BD-09`` to ``GCJ-02``.
+    China CRS transformer.
+
+    - ``WGS-84`` to ``GCJ-02``.
+    - ``WGS-84`` to ``BD-09``.
+    - ``GCJ-02`` to ``WGS-84``.
+    - ``GCJ-02`` to ``BD-09``.
+    - ``BD-09`` to ``WGS-84``.
+    - ``BD-09`` to ``GCJ-02``.
+
+    Parameters
+    ----------
+    from_crs, to_crs : {{'wgs84', 'gcj02', 'bd09'}}
+        The CRS of the input and output.
 
     Returns
     -------
@@ -38,7 +60,7 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     0  114.218927  29.57543
     1  128.543000  37.06500
     2    1.000000   1.00000
-    >>> df.bd09_to_gcj02()
+    >>> df.chncrs()
     0    POINT (114.21243 29.56938)
     1    POINT (128.53659 37.05875)
     2       POINT (1.00000 1.00000)
@@ -76,7 +98,7 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py/
-def _bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
+def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     pi = np.pi * 3000 / 180
 
     x = s.x - 0.0065
@@ -92,4 +114,3 @@ def _bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
         index=s.index,
         crs=s.crs,
     )
-
