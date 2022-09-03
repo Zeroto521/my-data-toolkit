@@ -109,8 +109,8 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
     return s.covered_by(box(73.66, 3.86, 135.05, 53.55))
 
 
-# based on https://github.com/wandergis/coordTransform_py/
-def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
+# based on https://github.com/wandergis/coordTransform_py
+def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     pi = np.pi * 3000 / 180
 
     x = s.x - 0.0065
@@ -118,11 +118,7 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.GeoSeries:
     z = np.sqrt(x * x + y * y) - 2e-5 * np.sin(y * pi)
 
     theta = np.arctan2(y, x) - 3e-6 * np.cos(x * pi)
-    return gpd.GeoSeries(
-        gpd.points_from_xy(
-            x=z * np.cos(theta),
-            y=z * np.sin(theta),
-        ),
-        index=s.index,
-        crs=s.crs,
+    return gpd.points_from_xy(
+        x=z * np.cos(theta),
+        y=z * np.sin(theta),
     )
