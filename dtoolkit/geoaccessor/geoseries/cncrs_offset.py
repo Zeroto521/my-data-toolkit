@@ -23,7 +23,7 @@ def cncrs_offset(
     to_crs: CHINA_CRS,
 ) -> gpd.GeoSeries:
     """
-    China CRS transformer.
+    Fix the offset of the coordinates in China.
 
     - ``WGS-84`` to ``GCJ-02``.
     - ``WGS-84`` to ``BD-09``.
