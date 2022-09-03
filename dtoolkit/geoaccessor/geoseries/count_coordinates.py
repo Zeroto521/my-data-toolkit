@@ -37,7 +37,7 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> dF = gpd.GeoSeries.from_wkt(
+    >>> df = gpd.GeoSeries.from_wkt(
     ...     [
     ...         "POINT (0 0)",
     ...         "LINESTRING (2 2, 4 4)",
