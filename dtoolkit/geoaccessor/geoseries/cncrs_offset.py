@@ -5,7 +5,6 @@ import numpy as np
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -67,15 +66,29 @@ def cncrs_offset(
     """
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+    if from_crs == to_crs:
+        raise ValueError("'from_crs' and 'to_crs' must be different.")
+    elif from_crs not in get_args(CHINA_CRS):
+        raise ValueError(f"Unknown 'from_crs': {from_crs!r}.")
+    elif to_crs not in get_args(CHINA_CRS):
+        raise ValueError(f"Unknown 'to_crs': {to_crs!r}.")
 
-    s = set_unique_index(s, drop=True)
+    s = s.copy()
     mask = is_in_china(s).to_numpy()
-    return (
-        pd.concat((s[~mask], _bd09_to_gcj02(s[mask])))
-        .sort_index()
-        .set_axis(s_index)
-        .rename(s.name)
-    )
+    if from_crs == "wgs84" and to_crs == "gcj02":
+        s[mask] = wgs84_to_gcj02(s[mask])
+    elif from_crs == "wgs84" and to_crs == "bd09":
+        s[mask] = wgs84_to_bd09(s[mask])
+    elif from_crs == "gcj02" and to_crs == "wgs84":
+        s[mask] = gcj02_to_wgs84(s[mask])
+    elif from_crs == "gcj02" and to_crs == "bd09":
+        s[mask] = gcj02_to_bd09(s[mask])
+    elif from_crs == "bd09" and to_crs == "wgs84":
+        s[mask] = bd09_to_wgs84(s[mask])
+    elif from_crs == "bd09" and to_crs == "gcj02":
+        s[mask] = bd09_to_gcj02(s[mask])
+
+    return s
 
 
 def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
