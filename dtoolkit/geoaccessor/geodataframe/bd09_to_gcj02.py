@@ -8,4 +8,5 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 @register_geodataframe_method
 @doc(s_bd09_to_gcj02, klass="GeoDataFrame")
 def bd09_to_gcj02(df: gpd.GeoDataFrame, /) -> gpd.GeoDataFrame:
-    return s_bd09_to_gcj02(df.geometry)
+
+    return df.assign(**{df.geometry.name: s_bd09_to_gcj02(df.geometry)})
