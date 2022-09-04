@@ -48,6 +48,12 @@ def cncrs_offset(
     ValueError
         If the CRS is not ``ESGP:4326``.
 
+    See Also
+    --------
+    geopandas.{klass}.cncrs_offset
+    dtoolkit.geoaccessor.geoseries.cncrs_offset
+    dtoolkit.geoaccessor.geodataframe.cncrs_offset
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
