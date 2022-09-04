@@ -73,9 +73,13 @@ def cncrs_offset(
     if from_crs == to_crs:
         raise ValueError("'from_crs' and 'to_crs' must be different.")
     elif from_crs not in get_args(CHINA_CRS):
-        raise ValueError(f"Unknown 'from_crs': {from_crs!r}.")
+        raise ValueError(
+            f"Unknown 'from_crs': {from_crs!r}, must be in {get_args(CHINA_CRS)!r}.",
+        )
     elif to_crs not in get_args(CHINA_CRS):
-        raise ValueError(f"Unknown 'to_crs': {to_crs!r}.")
+        raise ValueError(
+            f"Unknown 'from_crs': {from_crs!r}, must be in {get_args(CHINA_CRS)!r}.",
+        )
 
     s = s.copy()
     mask = is_in_china(s).to_numpy()
