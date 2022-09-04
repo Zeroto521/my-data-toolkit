@@ -50,7 +50,7 @@ def cncrs_offset(
 
     See Also
     --------
-    geopandas.{klass}.cncrs_offset
+    geopandas.{klass}.to_crs
     dtoolkit.geoaccessor.geoseries.cncrs_offset
     dtoolkit.geoaccessor.geodataframe.cncrs_offset
 
