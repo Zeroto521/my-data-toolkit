@@ -190,9 +190,9 @@ def transform_x(s: gpd.GeoSeries) -> pd.Series:
         + 0.1 * x * x
         + 0.1 * x * y
         + 0.1 * np.sqrt(np.fabs(x))
-        + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 1.5
-        + (20 * np.sin(x_multiply_pi) + 40 * np.sin(x / 3 * np.pi)) * 1.5
-        + (150 * np.sin(x / 12 * np.pi) + 300 * np.sin(x / 30 * np.pi)) * 1.5
+        + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 2 / 3
+        + (20 * np.sin(x_multiply_pi) + 40 * np.sin(x / 3 * np.pi)) * 2 / 3
+        + (150 * np.sin(x / 12 * np.pi) + 300 * np.sin(x / 30 * np.pi)) * 2 / 3
     )
 
 
@@ -208,7 +208,7 @@ def transform_y(s: gpd.GeoSeries) -> pd.Series:
         + 0.2 * y * y
         + 0.1 * x * y
         + 0.2 * np.sqrt(np.fabs(x))
-        + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 1.5
-        + (20 * np.sin(y * np.pi) + 40 * np.sin(y / 3 * np.pi)) * 1.5
-        + (160 * np.sin(y / 12 * np.pi) + 320 * np.sin(y * np.pi / 30)) * 1.5
+        + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 2 / 3
+        + (20 * np.sin(y * np.pi) + 40 * np.sin(y / 3 * np.pi)) * 2 / 3
+        + (160 * np.sin(y / 12 * np.pi) + 320 * np.sin(y * np.pi / 30)) * 2 / 3
     )
