@@ -10,8 +10,10 @@ from dtoolkit.accessor.register import register_series_method
 @doc(klass="Series", alias="s")
 def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     """
-    Set unique index via :meth:`~pandas.{klass}.reset_index` if ``{alias}.index``
-    isn't unique.
+    Set unique index via :meth:`~pandas.{klass}.reset_index`.
+
+    - Set index if ``{alias}.index`` isn't unique.
+    - Set index if ``{alias}.index`` isn't monotonic increasing.
 
     Parameters
     ----------
@@ -30,6 +32,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
 
     See Also
     --------
+    pandas.Index.is_monotonic
     pandas.Series.reset_index
     pandas.DataFrame.reset_index
     dtoolkit.accessor.series.set_unique_index
@@ -56,6 +59,20 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     0  1  4
     1  2  5
     2  3  6
+
+    The index will be reset if it isn't monotonic increasing or decreasing.
+
+    >>> df = pd.DataFrame({{'a': [1, 2, 3], 'b': [4, 5, 6]}}, index=[3, 1, 2])
+    >>> df
+       a  b
+    3  1  4
+    1  2  5
+    2  3  6
+    >>> df.set_unique_index(drop=True)
+       a  b
+    0  1  4
+    1  2  5
+    2  3  6
     """
 
     if not s.index.is_unique:
@@ -63,6 +80,9 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
             f"The 'Index' of {type(s).__name__!r} is not unique.",
             stacklevel=3,
         )
+        return s.reset_index(**kwargs)
+
+    elif not s.index.is_monotonic:
         return s.reset_index(**kwargs)
 
     return s
