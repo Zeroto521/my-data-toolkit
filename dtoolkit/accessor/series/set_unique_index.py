@@ -12,8 +12,10 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     """
     Set unique index via :meth:`~pandas.{klass}.reset_index`.
 
-    - Set index if ``{alias}.index`` isn't unique.
-    - Set index if ``{alias}.index`` isn't monotonic increasing.
+    The index will be reset:
+
+    - If ``{alias}.index`` isn't unique.
+    - If ``{alias}.index`` isn't monotonic increasing.
 
     Parameters
     ----------
@@ -24,6 +26,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     Returns
     -------
     {klass}
+        With new index.
 
     Warns
     -----
@@ -33,8 +36,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     See Also
     --------
     pandas.Index.is_monotonic
-    pandas.Series.reset_index
-    pandas.DataFrame.reset_index
+    pandas.{klass}.reset_index
     dtoolkit.accessor.series.set_unique_index
     dtoolkit.accessor.dataframe.set_unique_index
 
