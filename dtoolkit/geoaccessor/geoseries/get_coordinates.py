@@ -6,10 +6,10 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(klass=":class:`~geopandas.GeoSeries`")
+@doc(klass="GeoSeries")
 def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     """
-    Gets coordinates from each geometry of {klass}.
+    Gets coordinates from each geometry of :class:`~geopandas.{klass}`.
 
     A sugary syntax wraps :meth:`pygeos.coordinates.get_coordinates`.
 
@@ -30,14 +30,14 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
 
     See Also
     --------
+    pygeos.coordinates.get_coordinates
+        The core algorithm of this accessor.
+
     dtoolkit.geoaccessor.geoseries.get_coordinates
         Gets coordinates from each geometry of GeoSeries.
 
     dtoolkit.geoaccessor.geodataframe.get_coordinates
         Gets coordinates from each geometry of GeoDataFrame.
-
-    pygeos.coordinates.get_coordinates
-        The core algorithm of this accessor.
 
     Examples
     --------

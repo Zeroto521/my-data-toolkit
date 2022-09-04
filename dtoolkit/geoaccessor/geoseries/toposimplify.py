@@ -10,7 +10,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(klass=":class:`~geopandas.GeoSeries`")
+@doc(klass="GeoSeries")
 def toposimplify(
     s: gpd.GeoSeries,
     /,
@@ -20,8 +20,9 @@ def toposimplify(
     prevent_oversimplify: bool = True,
 ) -> gpd.GeoSeries:
     """
-    Returns a {klass} containing a simplified representation of each geometry.
-    Similar to :meth:`~geopandas.GeoSeries.simplify`, but keeps shared edges.
+    Returns a :class:`~geopandas.{klass}` containing a simplified representation
+    of each geometry. Similar to :meth:`~geopandas.GeoSeries.simplify`, but keeps
+    shared edges.
 
     .. image:: ../../../../_static/simplify-vs-toposimplify.png
         :width: 80%

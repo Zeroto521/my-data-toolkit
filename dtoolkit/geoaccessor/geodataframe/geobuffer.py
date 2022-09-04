@@ -10,7 +10,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc(s_geobuffer, klass=":class:`~geopandas.GeoDataFrame`", alias="df")
+@doc(s_geobuffer, klass="GeoDataFrame", alias="df")
 def geobuffer(
     df: gpd.GeoDataFrame,
     distance: Number | list[Number] | OneDimArray,
