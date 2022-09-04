@@ -7,7 +7,6 @@ dependencies:
   - pandas
   - scikit-learn
   - geopandas
-  - pygeos
 
   # doc dependencies
   - sphinx
