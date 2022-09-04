@@ -7,6 +7,6 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc(s_count_coordinates, klass=":class:`~geopandas.GeoDataFrame`")
+@doc(s_count_coordinates, klass="GeoDataFrame")
 def count_coordinates(df: gpd.GeoDataFrame, /) -> pd.Series:
     return s_count_coordinates(df.geometry)
