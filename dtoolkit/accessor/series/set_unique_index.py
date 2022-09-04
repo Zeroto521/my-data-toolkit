@@ -14,7 +14,6 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
 
     - Set index if ``{alias}.index`` isn't unique.
     - Set index if ``{alias}.index`` isn't monotonic increasing.
-    - Set index if ``{alias}.index`` isn't monotonic decreasing.
 
     Parameters
     ----------
@@ -83,7 +82,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
         )
         return s.reset_index(**kwargs)
 
-    elif not s.index.is_monotonic or not s.index.is_monotonic_decreasing:
+    elif not s.index.is_monotonic:
         return s.reset_index(**kwargs)
 
     return s
