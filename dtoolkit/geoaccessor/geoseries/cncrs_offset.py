@@ -30,6 +30,8 @@ def cncrs_offset(
 
     .. _wiki: https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China
 
+    The following CRS could be transformed:
+
     - ``WGS-84`` to ``GCJ-02``.
     - ``WGS-84`` to ``BD-09``.
     - ``GCJ-02`` to ``WGS-84``.
