@@ -20,8 +20,9 @@ def toposimplify(
     prevent_oversimplify: bool = True,
 ) -> gpd.GeoSeries:
     """
-    Returns a :class:`~geopandas.{klass}` containing a simplified representation of each
-    geometry. Similar to :meth:`~geopandas.GeoSeries.simplify`, but keeps shared edges.
+    Returns a :class:`~geopandas.{klass}` containing a simplified representation
+    of each geometry. Similar to :meth:`~geopandas.GeoSeries.simplify`, but keeps
+    shared edges.
 
     .. image:: ../../../../_static/simplify-vs-toposimplify.png
         :width: 80%
