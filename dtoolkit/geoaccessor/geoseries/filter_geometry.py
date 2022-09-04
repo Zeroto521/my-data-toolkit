@@ -88,6 +88,18 @@ def filter_geometry(
 
     Filter the geometries out of the bounding ``box(0, 0, 2, 2)``.
 
+    This method is actually faster than the following one::
+
+        def is_in_geometry(s: gpd.GeoSeries, geometry: BaseGeometry) -> pd.Series:
+            s_bounds, g_bounds = s.bounds, geometry.bounds
+
+            return (
+                (s_bounds.minx <= g_bounds.minx)
+                & (s_bounds.maxx >= g_bounds.maxx)
+                & (s_bounds.miny <= g_bounds.miny)
+                & (s_bounds.maxy >= g_bounds.maxy)
+            )
+
     >>> df.filter_geometry(box(0, 0, 2, 2), "covered_by", complement=True)
                           geometry
     4    POINT (-1.00000 -1.00000)
