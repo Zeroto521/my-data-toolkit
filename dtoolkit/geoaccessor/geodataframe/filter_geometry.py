@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 
 @register_geodataframe_method
-@doc(s_filter_geometry, klass="GeoDataFrame`")
+@doc(s_filter_geometry, klass="GeoDataFrame")
 def filter_geometry(
     df: gpd.GeoDataFrame,
     /,
