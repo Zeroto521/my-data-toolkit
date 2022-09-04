@@ -9,7 +9,8 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 @doc(klass="GeoSeries")
 def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     """
-    Counts the number of coordinate pairs in each geometry of :class:`~geopandas.{klass}`.
+    Counts the number of coordinate pairs in each geometry of
+    :class:`~geopandas.{klass}`.
 
     A sugary syntax wraps :meth:`pygeos.coordinates.count_coordinates`.
 
