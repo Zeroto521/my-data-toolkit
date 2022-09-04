@@ -21,6 +21,6 @@ def cncrs_offset(
                 df.geometry,
                 from_crs=from_crs,
                 to_crs=to_crs,
-            )
+            ),
         }
     )
