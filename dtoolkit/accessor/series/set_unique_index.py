@@ -26,7 +26,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
     Returns
     -------
     {klass}
-        With resetted index.
+        With new index.
 
     Warns
     -----
