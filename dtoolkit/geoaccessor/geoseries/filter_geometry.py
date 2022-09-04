@@ -64,6 +64,14 @@ def filter_geometry(
     -------
     {klass}
 
+    See Also
+    --------
+    geopandas.GeoSeries.intersects
+    geopandas.GeoSeries.covered_by
+    geopandas.GeoSeries.contains
+    dtoolkit.geoaccessor.geoseries.filter_geometry
+    dtoolkit.geoaccessor.geodataframe.filter_geometry
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
