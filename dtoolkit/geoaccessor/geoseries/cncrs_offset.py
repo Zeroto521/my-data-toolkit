@@ -26,6 +26,10 @@ def cncrs_offset(
     """
     Fix the offset of the coordinates in China.
 
+    Details see `Restrictions on geographic data in China <wiki>`_.
+
+    .. _wiki: https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China
+
     - ``WGS-84`` to ``GCJ-02``.
     - ``WGS-84`` to ``BD-09``.
     - ``GCJ-02`` to ``WGS-84``.
