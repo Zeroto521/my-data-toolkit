@@ -94,10 +94,10 @@ def filter_geometry(
             s_bounds, g_bounds = s.bounds, geometry.bounds
 
             return (
-                (s_bounds.minx <= g_bounds.minx)
-                & (s_bounds.maxx >= g_bounds.maxx)
-                & (s_bounds.miny <= g_bounds.miny)
-                & (s_bounds.maxy >= g_bounds.maxy)
+                (s_bounds.minx >= g_bounds[0])
+                & (s_bounds.miny >= g_bounds[1])
+                & (s_bounds.maxx <= g_bounds[2])
+                & (s_bounds.maxy <= g_bounds[3])
             )
 
     >>> df.filter_geometry(box(0, 0, 2, 2), "covered_by", complement=True)
