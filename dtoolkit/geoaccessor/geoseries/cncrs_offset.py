@@ -26,9 +26,9 @@ def cncrs_offset(
     """
     Fix the offset of the coordinates in China.
 
-    Details see `Restrictions on geographic data in China <wiki>`_.
+    Details see: `Restrictions on geographic data in China`__.
 
-    .. _wiki: https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China
+    __ https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China
 
     The following CRS could be transformed:
 
