@@ -174,6 +174,7 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     )
 
 
+# based on https://github.com/wandergis/coordTransform_py
 def transform_x(s: gpd.GeoSeries) -> pd.Series:
     x, y = s.x - 105, s.y - 35
     x_multiply_pi = x * np.pi
@@ -191,6 +192,7 @@ def transform_x(s: gpd.GeoSeries) -> pd.Series:
     )
 
 
+# based on https://github.com/wandergis/coordTransform_py
 def transform_y(s: gpd.GeoSeries) -> pd.Series:
     x, y = s.x - 105, s.y - 35
     x_multiply_pi = x * np.pi
