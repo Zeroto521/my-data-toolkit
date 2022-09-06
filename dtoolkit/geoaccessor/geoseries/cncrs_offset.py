@@ -206,7 +206,7 @@ def transform_x(s: gpd.GeoSeries) -> pd.Series:
         300
         + x
         + 2 * y
-        + 0.1 * x*2
+        + 0.1 * x * 2
         + 0.1 * x * y
         + 0.1 * np.sqrt(np.fabs(x))
         + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 2 / 3
