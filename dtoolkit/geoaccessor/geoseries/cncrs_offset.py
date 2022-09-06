@@ -172,7 +172,7 @@ def gcj02_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.Geomet
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
-    z = np.sqrt(s.x * s.x + s.y * s.y) + 2e-5 * np.sin(s.y * PI)
+    z = np.sqrt(s.x**2 + s.y**2) + 2e-5 * np.sin(s.y * PI)
 
     theta = np.arctan2(s.y, s.x) + 3e-6 * np.cos(s.x * PI)
     return gpd.points_from_xy(
@@ -188,7 +188,7 @@ def bd09_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.Geometr
 # based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     x, y = s.x - 0.0065, s.y - 0.006
-    z = np.sqrt(x * x + y * y) - 2e-5 * np.sin(y * PI)
+    z = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
     theta = np.arctan2(y, x) - 3e-6 * np.cos(x * PI)
     return gpd.points_from_xy(
@@ -206,7 +206,7 @@ def transform_x(s: gpd.GeoSeries) -> pd.Series:
         300
         + x
         + 2 * y
-        + 0.1 * x * x
+        + 0.1 * x*2
         + 0.1 * x * y
         + 0.1 * np.sqrt(np.fabs(x))
         + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 2 / 3
@@ -224,7 +224,7 @@ def transform_y(s: gpd.GeoSeries) -> pd.Series:
         -100
         + 2 * x
         + 3 * y
-        + 0.2 * y * y
+        + 0.2 * y**2
         + 0.1 * x * y
         + 0.2 * np.sqrt(np.fabs(x))
         + (20 * np.sin(6 * x_multiply_pi) + 20 * np.sin(2 * x_multiply_pi)) * 2 / 3
