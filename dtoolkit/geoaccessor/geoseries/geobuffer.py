@@ -18,7 +18,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(klass=":class:`~geopandas.GeoSeries`", alias="s")
+@doc(klass="GeoSeries", alias="s")
 def geobuffer(
     s: gpd.GeoSeries,
     distance: Number | list[Number] | OneDimArray,
@@ -26,7 +26,7 @@ def geobuffer(
     **kwargs,
 ) -> gpd.GeoSeries:
     """
-    Creates geographic buffers for {klass}.
+    Creates geographic buffers for :class:`~geopandas.{klass}`.
 
     Reprojects input features into the *UTM* projection, buffers them,
     then reprojects back into the original geographic coordinates.
