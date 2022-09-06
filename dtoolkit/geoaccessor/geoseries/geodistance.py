@@ -57,16 +57,16 @@ def geodistance(
     -----
     Currently, only supports Point geometry.
     """
+
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+    if not isinstance(other, (BaseGeometry, gpd.base.GeoPandasBase)):
+        raise TypeError(f"Unknown type: {type(other)!r}.")
 
-    if isinstance(other, BaseGeometry):
-        arr = np.empty(s.size, dtype=object)
-        with catch_warnings():
-            filterwarnings("ignore")
-            arr[:] = other
+    if isinstance(other, gpd.base.GeoPandasBase):
+        if other.crs != 4326:
+            raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-    elif isinstance(other, gpd.base.GeoPandasBase):
         s = s.geometry
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
@@ -74,15 +74,12 @@ def geodistance(
         else:
             other = other.geometry
 
-    else:
-        raise TypeError(f"Unknown type: {type(other)!r}.")
-
     return pd.Series(
         distance(
             s.geometry.x,
             s.geometry.y,
-            other.geometry.x,
-            other.geometry.y,
+            other.x,
+            other.y,
             radius=radius,
         ),
         index=s.index,
@@ -91,12 +88,12 @@ def geodistance(
 
 # based on https://github.com/geopy/geopy geopy/distance.py::great_circle.measure
 def distance(
-    lng1: np.ndarray,
-    lat1: np.ndarray,
-    lng2: np.ndarray,
-    lat2: np.ndarray,
+    lng1: np.ndarray | float,
+    lat1: np.ndarray | float,
+    lng2: np.ndarray | float,
+    lat2: np.ndarray | float,
     radius: float,
-) -> np.ndarray:
+) -> np.ndarray | float:
     """
     The geodesic distance is the shortest distance on the surface of an ellipsoidal
     model of the earth. The default algorithm uses the method is given by
@@ -104,6 +101,7 @@ def distance(
     to round-off and always converges.
     """
 
+    lng1, lat1, lng2, lat2 = map(np.radians, (lng1, lat1, lng2, lat2))
     sin_lat1, cos_lat1 = np.sin(lat1), np.cos(lat1)
     sin_lat2, cos_lat2 = np.sin(lat2), np.cos(lat2)
 
