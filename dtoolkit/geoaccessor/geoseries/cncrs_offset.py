@@ -23,7 +23,7 @@ def cncrs_offset(
     a: float = 6378245,
     ee: float = 0.00669342162296594323,
 ) -> gpd.GeoSeries:
-    """
+    r"""
     Fix the offset of the coordinates in China.
 
     Details see: `Restrictions on geographic data in China`__.
