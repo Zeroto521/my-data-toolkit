@@ -56,6 +56,24 @@ def geodistance(
     Notes
     -----
     Currently, only supports Point geometry.
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
+    >>> from shapely.geometry import Point
+    >>> df = (
+    ...     pd.DataFrame({"x": [122, 100], "y":[55, 1]})
+    ...     .from_xy("x", "y", crs=4326)
+    ... )
+    >>> df
+         x   y                    geometry
+    0  122  55  POINT (122.00000 55.00000)
+    1  100   1   POINT (100.00000 1.00000)
+    >>> df.geodistance(Point(120, 30)) / 1e6
+    0    2.784435
+    1    3.855604
+    dtype: float64
     """
 
     if s.crs != 4326:
