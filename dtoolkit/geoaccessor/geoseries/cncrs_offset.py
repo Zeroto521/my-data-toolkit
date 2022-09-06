@@ -11,8 +11,6 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
 PI = np.pi * 3000 / 180
-a = 6378245  # Semi major axis of the earth
-ee = 0.00669342162296594323  # Eccentricity^2
 
 
 @register_geoseries_method
@@ -22,6 +20,8 @@ def cncrs_offset(
     /,
     from_crs: CHINA_CRS,
     to_crs: CHINA_CRS,
+    a: float = 6378245,
+    ee: float = 0.00669342162296594323,
 ) -> gpd.GeoSeries:
     """
     Fix the offset of the coordinates in China.
@@ -43,6 +43,12 @@ def cncrs_offset(
     ----------
     from_crs, to_crs : {{'wgs84', 'gcj02', 'bd09'}}
         The CRS of the input and output.
+
+    a : float, default 6378245
+        Semi major axis of the earth.
+
+    ee : float, default 0.00669342162296594323
+        Eccentricity\ :sup:`2`.
 
     Returns
     -------
@@ -97,15 +103,15 @@ def cncrs_offset(
     s = s.copy()
     mask = is_in_china(s).to_numpy()
     if from_crs == "wgs84" and to_crs == "gcj02":
-        s[mask] = wgs84_to_gcj02(s[mask])
+        s[mask] = wgs84_to_gcj02(s[mask], a=a, ee=ee)
     elif from_crs == "wgs84" and to_crs == "bd09":
-        s[mask] = wgs84_to_bd09(s[mask])
+        s[mask] = wgs84_to_bd09(s[mask], a=a, ee=ee)
     elif from_crs == "gcj02" and to_crs == "wgs84":
-        s[mask] = gcj02_to_wgs84(s[mask])
+        s[mask] = gcj02_to_wgs84(s[mask], a=a, ee=ee)
     elif from_crs == "gcj02" and to_crs == "bd09":
         s[mask] = gcj02_to_bd09(s[mask])
     elif from_crs == "bd09" and to_crs == "wgs84":
-        s[mask] = bd09_to_wgs84(s[mask])
+        s[mask] = bd09_to_wgs84(s[mask], a=a, ee=ee)
     elif from_crs == "bd09" and to_crs == "gcj02":
         s[mask] = bd09_to_gcj02(s[mask])
 
@@ -131,7 +137,7 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def wgs84_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+def wgs84_to_gcj02(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
     rad_y = s.y / 180 * np.pi
     magic = np.sin(rad_y)
     magic = 1 - ee * magic * magic
@@ -145,12 +151,12 @@ def wgs84_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     )
 
 
-def wgs84_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
-    return gcj02_to_bd09(wgs84_to_gcj02(s))
+def wgs84_to_bd09(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
+    return gcj02_to_bd09(wgs84_to_gcj02(s, a=a, ee=ee))
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def gcj02_to_wgs84(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+def gcj02_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
     rad_y = s.y / 180 * np.pi
     magic = np.sin(rad_y)
     magic = 1 - ee * magic * magic
@@ -175,8 +181,8 @@ def gcj02_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     )
 
 
-def bd09_to_wgs84(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
-    return gcj02_to_wgs84(bd09_to_gcj02(s))
+def bd09_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
+    return gcj02_to_wgs84(bd09_to_gcj02(s), a=a, ee=ee)
 
 
 # based on https://github.com/wandergis/coordTransform_py
