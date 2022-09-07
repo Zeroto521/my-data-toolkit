@@ -61,6 +61,7 @@ def geodistance(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
+    >>> import geopandas as gpd
     >>> from shapely.geometry import Point
     >>> df = (
     ...     pd.DataFrame({"x": [122, 100], "y":[55, 1]})
@@ -73,6 +74,23 @@ def geodistance(
     >>> df.geodistance(Point(120, 30)) / 1e6
     0    2.784435
     1    3.855604
+    dtype: float64
+
+    Calculate the great-circle distance of corresponding points.
+
+    >>> s = gpd.GeoSeries([Point(120, 30), Point(120, 50)], index=[1, 2], crs=4326)
+    >>> s
+    1    POINT (120.00000 30.00000)
+    2    POINT (120.00000 50.00000)
+    dtype: geometry
+    >>> df.geodistance(s) / 1e6
+    0         NaN
+    1    3.855604
+    2         NaN
+    dtype: float64
+    >>> df.geodistance(s, align=False) / 1e6
+    0    2.784435
+    1    5.768885
     dtype: float64
     """
 
