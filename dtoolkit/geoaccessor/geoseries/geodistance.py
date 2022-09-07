@@ -117,8 +117,8 @@ def geodistance(
         distance(
             s.geometry.x.to_numpy(),
             s.geometry.y.to_numpy(),
-            other.x.to_numpy() if isinstance(other, gpd.base.GeoPandasBase) else other.x,
-            other.y.to_numpy() if isinstance(other, gpd.base.GeoPandasBase) else other.y,
+            other.x if isinstance(other, BaseGeometry) else other.x.to_numpy(),
+            other.y if isinstance(other, BaseGeometry) else other.y.to_numpy(),
             radius=radius,
         ),
         index=s.index,
