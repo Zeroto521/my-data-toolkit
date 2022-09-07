@@ -94,10 +94,10 @@ def geodistance(
 
     return pd.Series(
         distance(
-            s.geometry.x,
-            s.geometry.y,
-            other.x,
-            other.y,
+            s.geometry.x.to_numpy(),
+            s.geometry.y.to_numpy(),
+            other.x.to_numpy(),
+            other.y.to_numpy(),
             radius=radius,
         ),
         index=s.index,
@@ -111,7 +111,7 @@ def distance(
     lng2: np.ndarray | float,
     lat2: np.ndarray | float,
     radius: float,
-) -> np.ndarray | float:
+) -> np.ndarray:
     """
     The geodesic distance is the shortest distance on the surface of an ellipsoidal
     model of the earth. The default algorithm uses the method is given by
