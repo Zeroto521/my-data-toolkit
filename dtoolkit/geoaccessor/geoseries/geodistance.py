@@ -1,8 +1,5 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-from warnings import catch_warnings
-from warnings import filterwarnings
 from warnings import warn
 
 import geopandas as gpd

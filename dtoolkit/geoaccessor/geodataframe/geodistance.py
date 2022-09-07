@@ -3,6 +3,7 @@ from __future__ import annotations
 import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
+from shapely.geometry.base import BaseGeometry
 
 from dtoolkit.geoaccessor.geoseries import geodistance as s_geodistance
 from dtoolkit.geoaccessor.register import register_geodataframe_method
