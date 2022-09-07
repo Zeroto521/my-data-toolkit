@@ -70,7 +70,6 @@ def geodistance(
 
     See Also
     --------
-    geopy.distance.distance
     geopandas.GeoSeries.distance
     dtoolkit.geoaccessor.geoseries.geodistance
     dtoolkit.geoaccessor.geoseries.geodistance_matrix
