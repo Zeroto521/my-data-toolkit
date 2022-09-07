@@ -45,6 +45,9 @@ def geodistance(
     ValueError
         If the CRS is not ``ESGP:4326``.
 
+    TypeError
+        If the other is not a ``BaseGeometry``, ``GeoSeries``, or ``GeoDataFrame``.
+
     See Also
     --------
     geopy.distance.distance
