@@ -128,7 +128,7 @@ def test_error(s, from_crs, to_crs, error):
 def test_work(s, from_crs, to_crs, expected):
     result = s.cncrs_offset(from_crs, to_crs)
 
-    assert_geoseries_equal(result, expected)
+    assert_geoseries_equal(result, expected, check_less_precise=True)
 
 
 def test_avoid_mutating_original_data():
