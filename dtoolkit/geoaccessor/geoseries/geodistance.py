@@ -97,7 +97,7 @@ def geodistance(
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
     if not isinstance(other, (BaseGeometry, gpd.base.GeoPandasBase)):
-        raise TypeError(f"Unknown type: {type(other)!r}.")
+        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
     if isinstance(other, gpd.base.GeoPandasBase):
         if other.crs != 4326:
