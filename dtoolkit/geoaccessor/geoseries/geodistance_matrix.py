@@ -101,8 +101,12 @@ def geodistance_matrix(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if other is not None and other.crs != 4326:
-        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
+
+    if isinstance(other, gpd.base.GeoPandasBase):
+        if other.crs != 4326:
+            raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
+
+        other = other.geometry
 
     X = np.radians(np.stack((s.x, s.y), axis=1))
     Y = np.radians(np.stack((other.x, other.y), axis=1)) if other is not None else other
