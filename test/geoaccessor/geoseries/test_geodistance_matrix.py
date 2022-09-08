@@ -1,6 +1,7 @@
-import pytest
 import geopandas as gpd
+import pytest
 from shapely.geometry import Point
+
 from dtoolkit.geoaccessor.geoseries import geodistance_matrix
 
 
