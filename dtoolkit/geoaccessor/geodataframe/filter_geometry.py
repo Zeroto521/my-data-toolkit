@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 def filter_geometry(
     df: gpd.GeoDataFrame,
     /,
-    geometry: BaseGeometry | gpd.GeoSeries | gpd.GeoDataFrame,
+    other: BaseGeometry | gpd.GeoSeries | gpd.GeoDataFrame,
     predicate: BINARY_PREDICATE,
     complement: bool = False,
     **kwargs,
@@ -29,7 +29,7 @@ def filter_geometry(
     return df[
         _filter_geometry(
             df,
-            geometry=geometry,
+            other=other,
             predicate=predicate,
             complement=complement,
             **kwargs,
