@@ -26,6 +26,12 @@ from dtoolkit.geoaccessor.geoseries import geodistance
             True,
             ValueError,
         ),
+        (
+            gpd.GeoSeries([Point(122, 55), Point(100, 1)], crs=4326),
+            gpd.GeoSeries([Point(122, 55), Point(100, 1)]),
+            True,
+            ValueError,
+        ),
     ],
 )
 def test_error(s, other, align, error):
