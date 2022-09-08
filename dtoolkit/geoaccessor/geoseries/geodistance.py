@@ -58,6 +58,7 @@ def geodistance(
     Returns
     -------
     Series
+        The values are the great-circle distances and its unit is meters.
 
     Raises
     ------
