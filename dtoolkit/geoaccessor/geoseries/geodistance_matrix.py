@@ -48,10 +48,16 @@ def geodistance_matrix(
     ModuleNotFoundError
         If don't have module named 'sklearn'.
 
+    ValueError
+        If the CRS is not ``ESGP:4326``.
+
     See Also
     --------
-    geopandas.GeoSeries.distance
     sklearn.metrics.pairwise.haversine_distances
+    dtoolkit.geoaccessor.geoseries.geodistance
+    dtoolkit.geoaccessor.geoseries.geodistance_matrix
+    dtoolkit.geoaccessor.geodataframe.geodistance
+    dtoolkit.geoaccessor.geodataframe.geodistance_matrix
 
     Notes
     -----
