@@ -45,3 +45,13 @@ def test_warning():
 
     with pytest.warns(UserWarning):
         geodistance(s1, s2)
+
+
+def test_geodataframe():
+    s = gpd.GeoSeries([Point(122, 55), Point(100, 1)], crs=4326)
+    df = gpd.GeoSeries([Point(122, 55), Point(100, 1)], crs=4326).to_frame("geometry")
+
+    assert isinstance(df, gpd.GeoDataFrame)
+    result = s.geodistance(df)
+
+    assert all(result == 0)
