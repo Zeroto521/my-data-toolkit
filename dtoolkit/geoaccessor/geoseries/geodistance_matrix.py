@@ -60,6 +60,35 @@ def geodistance_matrix(
       surface of a sphere. As the Earth is nearly spherical, the haversine formula
       provides a good approximation of the distance between two points of the Earth
       surface, with a less than 1% error on average.
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "x": [120, 122, 100],
+    ...         "y":[30, 55, 1],
+    ...     },
+    ... ).from_xy("x", "y", crs=4326)
+    >>> df
+         x   y                    geometry
+    0  120  30  POINT (120.00000 30.00000)
+    1  122  55  POINT (122.00000 55.00000)
+    2  100   1   POINT (100.00000 1.00000)
+    >>> other = pd.DataFrame(
+    ...     {
+    ...         "x": [120, 110],
+    ...         "y":[30, 40],
+    ...     },
+    ... ).from_xy("x", "y", crs=4326)
+         x   y                    geometry
+    0  120  30  POINT (120.00000 30.00000)
+    1  110  40  POINT (110.00000 40.00000)
+    >>> df.geodistance_matrix(other)
+                  0             1
+    0  0.000000e+00  1.203540e+06
+    1  1.439971e+06  1.511958e+06
+    2  2.418544e+06  1.522752e+06
     """
     from sklearn.metrics.pairwise import haversine_distances
 
