@@ -20,7 +20,9 @@ def geodistance(
     radius: float = 6371008.7714150598,
 ) -> pd.Series:
     """
-    Returns a ``Series`` containing the great-circle distance to aligned other.
+    Returns a ``Series`` containing the `great-circle`__ distance to aligned other.
+
+    __ https://en.wikipedia.org/wiki/Great-circle_distance
 
     The algorithm uses the Vincenty formula which is more accurate than the Haversine
     formula.
