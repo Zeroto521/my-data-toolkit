@@ -81,6 +81,7 @@ def geodistance_matrix(
     ...         "y":[30, 40],
     ...     },
     ... ).from_xy("x", "y", crs=4326)
+    >>> other
          x   y                    geometry
     0  120  30  POINT (120.00000 30.00000)
     1  110  40  POINT (110.00000 40.00000)
