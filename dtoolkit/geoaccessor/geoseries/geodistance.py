@@ -29,18 +29,20 @@ def geodistance(
 
     .. math::
 
-        D(x, y) = \\arctan \frac{
-            \\sqrt[
-                (
-                    \\cos(\\y_1) \\sin(\\y_2)
-                    - \\sin(\\y_1) \\cos(\\y_2) \\cos(\\x_2 - \\x_1)
-                )^2
-                + (\\cos(\\y_2) \\sin(\\x_2 - \\x_1))^2
-            ]
-        }{
-            \\sin(\\y_1) \\sin(\\y_2)
-            + \\cos(\\y_1) \\cos(\\y_2) \\cos(\\x_2 - \\x_1)
-        }
+        D(x, y) = \\arctan[
+            \\frac{
+                \\sqrt{
+                    (
+                        \\cos(y_1) \\sin(y_2)
+                        - \\sin(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+                    )^2
+                    + (\\cos(y_2) \\sin(x_2 - x_1))^2
+                }
+            }{
+                \\sin(y_1) \\sin(y_2)
+                + \\cos(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+            }
+        ]
 
     Parameters
     ----------
