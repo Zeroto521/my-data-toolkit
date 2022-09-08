@@ -134,8 +134,9 @@ def geodistance(
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
-        else:
-            other = other.geometry
+
+        # Force convert to GeoSeries
+        other = other.geometry
 
     return pd.Series(
         distance(
