@@ -22,10 +22,8 @@ def geodistance(
     """
     Returns a ``Series`` containing the great-circle distance to aligned other.
 
-    The geodesic distance is the shortest distance on the surface of an ellipsoidal
-    model of the earth. The default algorithm uses the method is given by
-    `Karney (2013) <https://doi.org/10.1007%2Fs00190-012-0578-z>`_. This is accurate to
-    round-off and always converges.
+    The algorithm uses the Vincenty formula which is more accurate than the Haversine
+    formula.
 
     .. math::
 
@@ -55,8 +53,7 @@ def geodistance(
     radius : float, default 6371008.7714150598
         Great-circle distance uses a spherical model of the earth, using the mean earth
         radius as defined by the International Union of Geodesy and Geophysics,
-        (2\\ *a* + *b*)/3 = 6371008.7714150598 meters for WGS-84, resulting in an error
-        of up to about 0.5%.
+        (2\\ *a* + *b*)/3 = 6371008.7714150598 meters for WGS-84.
 
     Returns
     -------
@@ -80,7 +77,9 @@ def geodistance(
 
     Notes
     -----
-    Currently, only supports Point geometry.
+    - Currently, only supports Point geometry.
+    - The geodesic distance is the shortest distance on the surface of an ellipsoidal
+      model of the earth. Resulting in an error of up to about 0.5%.
 
     Examples
     --------
