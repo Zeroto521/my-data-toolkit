@@ -55,6 +55,8 @@ def geodistance_matrix(
     --------
     geopandas.GeoSeries.distance
     sklearn.metrics.pairwise.haversine_distances
+    dtoolkit.geoaccessor.geoseries.geodistance_matrix
+    dtoolkit.geoaccessor.geodataframe.geodistance_matrix
 
     Notes
     -----
