@@ -16,7 +16,7 @@ def geodistance_matrix(
 ) -> pd.DataFrame:
     """
     Returns a ``DataFrame`` containing the great-circle distances matrix between in
-    ``s`` and``other`` via haversine formula.
+    ``s`` and ``other`` via haversine formula.
 
     .. math::
 
