@@ -15,8 +15,10 @@ def geodistance_matrix(
     radius: float = 6371008.7714150598,
 ) -> pd.DataFrame:
     """
-    Returns a ``DataFrame`` containing the great-circle distances matrix between in
+    Returns a ``DataFrame`` containing the `great-circle`__ distances matrix between in
     ``s`` and ``other`` via haversine formula.
+
+    __ https://en.wikipedia.org/wiki/Great-circle_distance
 
     .. math::
 
