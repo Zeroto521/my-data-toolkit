@@ -22,6 +22,26 @@ def geodistance(
     """
     Returns a ``Series`` containing the great-circle distance to aligned other.
 
+    The geodesic distance is the shortest distance on the surface of an ellipsoidal
+    model of the earth. The default algorithm uses the method is given by
+    `Karney (2013) <https://doi.org/10.1007%2Fs00190-012-0578-z>`_. This is accurate to
+    round-off and always converges.
+
+    .. math::
+
+        D(x, y) = \\arctan \frac{
+            \\sqrt[
+                (
+                    \\cos(\\y_1) \\sin(\\y_2)
+                    - \\sin(\\y_1) \\cos(\\y_2) \\cos(\\x_2 - \\x_1)
+                )^2
+                + (\\cos(\\y_2) \\sin(\\x_2 - \\x_1))^2
+            ]
+        }{
+            \\sin(\\y_1) \\sin(\\y_2)
+            + \\cos(\\y_1) \\cos(\\y_2) \\cos(\\x_2 - \\x_1)
+        }
+
     Parameters
     ----------
     other : BaseGeometry, GeoSeries, or GeoDataFrame
@@ -133,13 +153,6 @@ def distance(
     lat2: np.ndarray | float,
     radius: float,
 ) -> np.ndarray:
-    """
-    The geodesic distance is the shortest distance on the surface of an ellipsoidal
-    model of the earth. The default algorithm uses the method is given by
-    `Karney (2013) <https://doi.org/10.1007%2Fs00190-012-0578-z>`_; this is accurate
-    to round-off and always converges.
-    """
-
     lng1, lat1, lng2, lat2 = map(np.radians, (lng1, lat1, lng2, lat2))
     sin_lat1, cos_lat1 = np.sin(lat1), np.cos(lat1)
     sin_lat2, cos_lat2 = np.sin(lat2), np.cos(lat2)
