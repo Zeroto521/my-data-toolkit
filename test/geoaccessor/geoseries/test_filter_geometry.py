@@ -25,7 +25,7 @@ def test_error():
 
 
 @pytest.mark.parametrize(
-    "s, geometry, predicate, complement, expected",
+    "s, other, predicate, complement, expected",
     [
         (
             gpd.GeoSeries(
@@ -81,9 +81,9 @@ def test_error():
         ),
     ],
 )
-def test_work(s, geometry, predicate, complement, expected):
+def test_work(s, other, predicate, complement, expected):
     result = s.filter_geometry(
-        geometry=geometry,
+        other=other,
         predicate=predicate,
         complement=complement,
     )
