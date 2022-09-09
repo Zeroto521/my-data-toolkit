@@ -20,6 +20,16 @@ from dtoolkit.geoaccessor.geoseries import geodistance_matrix
             gpd.GeoSeries([Point(120, 30), Point(122, 55), Point(100, 1)]),
             ValueError,
         ),
+        (
+            gpd.GeoSeries([Point(120, 30), Point(110, 40)], crs=4326),
+            Point(1, 1),
+            TypeError,
+        ),
+        (
+            gpd.GeoSeries([Point(120, 30), Point(110, 40)], crs=4326),
+            "string",
+            TypeError,
+        ),
     ],
 )
 def test_error(s, other, error):
@@ -34,5 +44,14 @@ def test_geodataframe():
     assert isinstance(df, gpd.GeoDataFrame)
     result = s.geodistance_matrix(df) / 1e6
     expected = pd.DataFrame([[0, 6.3275778074520295], [6.3275778074520295, 0]])
+
+    assert_frame_equal(result, expected)
+
+
+def test_none():
+    s = gpd.GeoSeries([Point(122, 55), Point(100, 1)], crs=4326)
+
+    result = s.geodistance_matrix()
+    expected = pd.DataFrame([[0, 6327577.80745203], [6327577.80745203, 0]])
 
     assert_frame_equal(result, expected)
