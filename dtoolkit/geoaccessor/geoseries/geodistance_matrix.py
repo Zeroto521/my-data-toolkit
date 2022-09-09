@@ -109,9 +109,8 @@ def geodistance_matrix(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     if other is None:
-        other = s.copy()
-
-    if isinstance(other, gpd.base.GeoPandasBase):
+        Y = None
+    elif isinstance(other, gpd.base.GeoPandasBase):
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
@@ -123,5 +122,5 @@ def geodistance_matrix(
     return pd.DataFrame(
         radius * haversine_distances(X, Y),
         index=s.index,
-        columns=other.index,
+        columns=other.index if other is not None else s.index,
     )
