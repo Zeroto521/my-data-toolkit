@@ -20,6 +20,16 @@ from dtoolkit.geoaccessor.geoseries import geodistance_matrix
             gpd.GeoSeries([Point(120, 30), Point(122, 55), Point(100, 1)]),
             ValueError,
         ),
+        (
+            gpd.GeoSeries([Point(120, 30), Point(110, 40)], crs=4326),
+            Point(1, 1),
+            TypeError,
+        ),
+        (
+            gpd.GeoSeries([Point(120, 30), Point(110, 40)], crs=4326),
+            "string",
+            TypeError,
+        ),
     ],
 )
 def test_error(s, other, error):
