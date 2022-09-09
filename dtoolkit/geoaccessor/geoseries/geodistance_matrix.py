@@ -75,6 +75,7 @@ def geodistance_matrix(
     Examples
     --------
     >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {
     ...         "x": [120, 122, 100],
