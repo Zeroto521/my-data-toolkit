@@ -53,6 +53,9 @@ def geodistance_matrix(
     ValueError
         If the CRS is not ``ESGP:4326``.
 
+    TypeError
+        If the other is not a GeoSeries, GeoDataFrame, or None type.
+
     See Also
     --------
     sklearn.metrics.pairwise.haversine_distances
@@ -104,15 +107,17 @@ def geodistance_matrix(
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
-    if isinstance(other, gpd.base.GeoPandasBase):
+    if other is None:
+        Y = None
+    elif isinstance(other, gpd.base.GeoPandasBase):
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-        # Force convert to GeoSeries
-        other = other.geometry
+        Y = np.radians(np.stack((other.geometry.x, other.geometry.y), axis=1))
+    else:
+        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
     X = np.radians(np.stack((s.x, s.y), axis=1))
-    Y = np.radians(np.stack((other.x, other.y), axis=1)) if other is not None else other
     return pd.DataFrame(
         radius * haversine_distances(X, Y),
         index=s.index,
