@@ -50,9 +50,8 @@ def test_geodataframe():
 
 def test_none():
     s = gpd.GeoSeries([Point(122, 55), Point(100, 1)], crs=4326)
-    other = gpd.GeoSeries([None], crs=4326)
 
-    result = s.geodistance_matrix(other)
-    expected = pd.DataFrame([[None], [None]])
+    result = s.geodistance_matrix()
+    expected = pd.DataFrame([[0, 6327577.80745203], [6327577.80745203, 0]])
 
-    assert_frame_equal(result, expected, check_dtype=False)
+    assert_frame_equal(result, expected)
