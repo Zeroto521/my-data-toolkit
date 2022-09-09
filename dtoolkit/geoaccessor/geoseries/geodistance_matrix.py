@@ -99,9 +99,9 @@ def geodistance_matrix(
     1  110  40  POINT (110.00000 40.00000)
     >>> df.geodistance_matrix(other)
                   0             1
-    0  0.000000e+00  1.203540e+06
-    1  1.439971e+06  1.511958e+06
-    2  2.418544e+06  1.522752e+06
+    0  0.000000e+00  1.435335e+06
+    1  2.784435e+06  1.889892e+06
+    2  3.855604e+06  4.453100e+06
     """
     from sklearn.metrics.pairwise import haversine_distances
 
@@ -118,7 +118,7 @@ def geodistance_matrix(
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    X = np.radians(np.stack((s.x, s.y), axis=1))
+    X = np.radians(np.stack((s.y, s.x), axis=1))
     return pd.DataFrame(
         radius * haversine_distances(X, Y),
         index=s.index,
