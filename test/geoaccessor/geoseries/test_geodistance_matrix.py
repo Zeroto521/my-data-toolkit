@@ -33,6 +33,6 @@ def test_geodataframe():
 
     assert isinstance(df, gpd.GeoDataFrame)
     result = s.geodistance_matrix(df) / 1e6
-    expected = pd.DataFrame([[0, 3.02679565], [3.02679565, 0]])
+    expected = pd.DataFrame([[0, 6.3275778074520295], [6.3275778074520295, 0]])
 
     assert_frame_equal(result, expected)
