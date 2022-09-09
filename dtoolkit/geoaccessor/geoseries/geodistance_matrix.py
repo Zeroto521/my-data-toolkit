@@ -109,8 +109,9 @@ def geodistance_matrix(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     if other is None:
-        Y = None
-    elif isinstance(other, gpd.base.GeoPandasBase):
+        other = s.copy()
+
+    if isinstance(other, gpd.base.GeoPandasBase):
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
