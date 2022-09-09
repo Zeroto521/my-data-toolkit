@@ -114,7 +114,7 @@ def geodistance_matrix(
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-        Y = np.radians(np.stack((other.geometry.x, other.geometry.y), axis=1))
+        Y = np.radians(np.stack((other.geometry.y, other.geometry.x), axis=1))
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
