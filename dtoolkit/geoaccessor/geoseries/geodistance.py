@@ -171,7 +171,7 @@ def haversine(x1, y1, x2, y2) -> np.ndarray | float:
     >>> bsas = [-58.5166646, -34.83333]
     >>> paris = [2.53844117956, 49.0083899664]
     >>> haversine(*bsas, *paris) * 63711  # multiply by Earth radius to get kilometers
-    110997.14575570967
+    110997.14575570964
     """
 
     x1, y1, x2, y2 = map(np.radians, (x1, y1, x2, y2))
