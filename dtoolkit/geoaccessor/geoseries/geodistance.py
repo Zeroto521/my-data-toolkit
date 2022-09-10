@@ -139,12 +139,12 @@ def geodistance(
         other = other.geometry
 
     return pd.Series(
-        distance(
+        radius
+        * distance(
             s.geometry.x.to_numpy(),
             s.geometry.y.to_numpy(),
             other.x if isinstance(other, BaseGeometry) else other.x.to_numpy(),
             other.y if isinstance(other, BaseGeometry) else other.y.to_numpy(),
-            radius=radius,
         ),
         index=s.index,
     )
@@ -165,7 +165,7 @@ def distance(
     delta_lng = lng2 - lng1
     cos_delta_lng, sin_delta_lng = np.cos(delta_lng), np.sin(delta_lng)
 
-    return radius * np.arctan2(
+    return np.arctan2(
         np.sqrt(
             (cos_lat1 * sin_lat2 - sin_lat1 * cos_lat2 * cos_delta_lng) ** 2
             + (cos_lat2 * sin_delta_lng) ** 2,
