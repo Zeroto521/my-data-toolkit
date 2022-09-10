@@ -178,6 +178,6 @@ def haversine(x1, y1, x2, y2) -> np.ndarray | float:
     return 2 * np.arcsin(
         np.sqrt(
             np.sin((y2 - y1) / 2) ** 2
-            + np.cos(y1) * np.cos(y2) * np.sin((x2 - x1) / 2) ** 2
-        )
+            + np.cos(y1) * np.cos(y2) * np.sin((x2 - x1) / 2) ** 2,
+        ),
     )
