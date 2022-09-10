@@ -24,8 +24,8 @@ def geodistance_matrix(
 
         D(x, y) = 2 \\arcsin [
             \\sqrt{
-                \\sin^2 ((x_1 - y_1) / 2)
-                + \\cos(x_1) \\cos(y_1) \\sin^2 ((x_2 - y_2) / 2)
+                \\sin^2 ((y_2 - y_1) / 2)
+                + \\cos(y_1) \\cos(y_1) \\sin^2 ((x_2 - y_1) / 2)
             }
         ]
 
