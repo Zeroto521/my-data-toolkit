@@ -148,14 +148,67 @@ def geodistance(
 
 
 # based on https://github.com/geopy/geopy geopy/distance.py::great_circle.measure
-def distance(
-    lng1: np.ndarray | float,
-    lat1: np.ndarray | float,
-    lng2: np.ndarray | float,
-    lat2: np.ndarray | float,
-    radius: float,
-) -> np.ndarray:
-    lng1, lat1, lng2, lat2 = map(np.radians, (lng1, lat1, lng2, lat2))
+def distance(X, Y):
+    """
+    Compute the paired the great-circle distance between two points on the earth via
+    formula.
+
+    .. math::
+
+        D(x, y) = \\arctan[
+            \\frac{
+                \\sqrt{
+                    (
+                        \\cos(y_1) \\sin(y_2)
+                        - \\sin(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+                    )^2
+                    + (\\cos(y_2) \\sin(x_2 - x_1))^2
+                }
+            }{
+                \\sin(y_1) \\sin(y_2)
+                + \\cos(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+            }
+        ]
+
+    Parameters
+    ----------
+    X : array-like of shape (n_samples_X, 2)
+        A feature array.
+
+    Y : array-like of shape (n_samples_Y, 2)
+        An optional second feature array. If None, uses ``Y=X``.
+
+    Returns
+    -------
+    ndarray
+
+    Raises
+    ------
+    ValueError
+        The dimension of 'X' or 'Y' is not 2.
+
+    Notes
+    -----
+    - The first coordinate of each point is assumed to be the longitude, the second is
+      the latitude, given in radians.
+    - The dimension of the data must be 2.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> bsas = np.radians([-34.83333, -58.5166646])
+    >>> paris = np.radians([49.0083899664, 2.53844117956])
+    >>> distance(bsas, paris) * 6371  # multiply by Earth radius to get kilometers
+    array([11099.54035582])
+    """
+
+    X, Y = np.atleast_2d(X), np.atleast_2d(Y)
+    if X.ndim != 2 or Y.ndim != 2:
+        raise ValueError("The dimension of the data is not 2.")
+    elif X.shape[1] != 2 or Y.shape[1] != 2:
+        raise ValueError("The shape of the data must be like (n, 2).")
+
+    lng1, lat1, lng2, lat2 = X[:, 0], X[:, 1], Y[:, 0], Y[:, 1]
     sin_lat1, cos_lat1 = np.sin(lat1), np.cos(lat1)
     sin_lat2, cos_lat2 = np.sin(lat2), np.cos(lat2)
 
