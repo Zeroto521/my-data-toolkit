@@ -95,7 +95,7 @@ def geodistance(
     1    3.855604
     dtype: float64
 
-    Calculate the great-circle distance of corresponding points.
+    Calculate the great-circle distance of paired points.
 
     >>> s = gpd.GeoSeries([Point(120, 30), Point(120, 50)], index=[1, 2], crs=4326)
     >>> s
