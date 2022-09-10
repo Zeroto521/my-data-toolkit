@@ -115,28 +115,22 @@ def geodistance(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if not isinstance(other, (BaseGeometry, gpd.base.GeoPandasBase)):
-        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    if isinstance(other, gpd.base.GeoPandasBase):
+    if isinstance(other, BaseGeometry):
+        x2, y2 = other.x, other.y
+    elif isinstance(other, gpd.base.GeoPandasBase):
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
-
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
 
-        # Force convert to GeoSeries
-        other = other.geometry
+        x2, y2 = other.geometry.x.to_numpy(), other.geometry.y.to_numpy()
+    else:
+        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
     return pd.Series(
-        radius
-        * haversine(
-            s.geometry.x.to_numpy(),
-            s.geometry.y.to_numpy(),
-            other.x if isinstance(other, BaseGeometry) else other.x.to_numpy(),
-            other.y if isinstance(other, BaseGeometry) else other.y.to_numpy(),
-        ),
+        radius * haversine(s.x.to_numpy(), s.y.to_numpy(), x2, y2),
         index=s.index,
     )
 
