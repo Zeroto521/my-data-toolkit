@@ -20,27 +20,17 @@ def geodistance(
     radius: float = 6371008.7714150598,
 ) -> pd.Series:
     """
-    Returns a ``Series`` containing the `great-circle`__ distance to aligned other.
+    Returns a ``Series`` containing the `great-circle`__ distance to aligned other
+    via haversine formula.
 
     __ https://en.wikipedia.org/wiki/Great-circle_distance
 
-    The algorithm uses the Vincenty formula which is more accurate than the Haversine
-    formula.
-
     .. math::
 
-        D(x, y) = \\arctan[
-            \\frac{
-                \\sqrt{
-                    (
-                        \\cos(y_1) \\sin(y_2)
-                        - \\sin(y_1) \\cos(y_2) \\cos(x_2 - x_1)
-                    )^2
-                    + (\\cos(y_2) \\sin(x_2 - x_1))^2
-                }
-            }{
-                \\sin(y_1) \\sin(y_2)
-                + \\cos(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+        D(x, y) = 2 \\arcsin [
+            \\sqrt{
+                \\sin^2 ((y_2 - y_1) / 2)
+                + \\cos(y_1) \\cos(y_1) \\sin^2 ((x_2 - y_1) / 2)
             }
         ]
 
@@ -81,8 +71,10 @@ def geodistance(
     Notes
     -----
     - Currently, only supports Point geometry.
-    - The geodesic distance is the shortest distance on the surface of an ellipsoidal
-      model of the earth. Resulting in an error of up to about 0.5%.
+    - The great-circle distance is the angular distance between two points on the
+      surface of a sphere. As the Earth is nearly spherical, the haversine formula
+      provides a good approximation of the distance between two points of the Earth
+      surface, with a less than 1% error on average.
 
     Examples
     --------
@@ -103,7 +95,7 @@ def geodistance(
     1    3.855604
     dtype: float64
 
-    Calculate the great-circle distance of corresponding points.
+    Calculate the great-circle distance of paired points.
 
     >>> s = gpd.GeoSeries([Point(120, 30), Point(120, 50)], index=[1, 2], crs=4326)
     >>> s
@@ -123,52 +115,72 @@ def geodistance(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if not isinstance(other, (BaseGeometry, gpd.base.GeoPandasBase)):
-        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    if isinstance(other, gpd.base.GeoPandasBase):
+    if isinstance(other, BaseGeometry):
+        x2, y2 = other.x, other.y
+    elif isinstance(other, gpd.base.GeoPandasBase):
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
-
-        s = s.geometry
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
 
-        # Force convert to GeoSeries
-        other = other.geometry
+        x2, y2 = other.geometry.x.to_numpy(), other.geometry.y.to_numpy()
+    else:
+        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
     return pd.Series(
-        distance(
-            s.geometry.x.to_numpy(),
-            s.geometry.y.to_numpy(),
-            other.x if isinstance(other, BaseGeometry) else other.x.to_numpy(),
-            other.y if isinstance(other, BaseGeometry) else other.y.to_numpy(),
-            radius=radius,
-        ),
+        radius * haversine(s.x.to_numpy(), s.y.to_numpy(), x2, y2),
         index=s.index,
     )
 
 
-# based on https://github.com/geopy/geopy geopy/distance.py::great_circle.measure
-def distance(
-    lng1: np.ndarray | float,
-    lat1: np.ndarray | float,
-    lng2: np.ndarray | float,
-    lat2: np.ndarray | float,
-    radius: float,
-) -> np.ndarray:
-    lng1, lat1, lng2, lat2 = map(np.radians, (lng1, lat1, lng2, lat2))
-    sin_lat1, cos_lat1 = np.sin(lat1), np.cos(lat1)
-    sin_lat2, cos_lat2 = np.sin(lat2), np.cos(lat2)
+def haversine(x1, y1, x2, y2) -> np.ndarray | float:
+    """
+    Compute the paired the great-circle distance between two points on the earth via
+    haversine formula.
 
-    delta_lng = lng2 - lng1
-    cos_delta_lng, sin_delta_lng = np.cos(delta_lng), np.sin(delta_lng)
+    .. math::
 
-    return radius * np.arctan2(
+        D(x, y) = 2 \\arcsin [
+            \\sqrt{
+                \\sin^2 ((y_2 - y_1) / 2)
+                + \\cos(y_1) \\cos(y_1) \\sin^2 ((x_2 - y_1) / 2)
+            }
+        ]
+
+    Parameters
+    ----------
+    x1, y1 : array-like or float
+        A feature array. The shape of data should be equal.
+
+    x2, y2 : array-like or float
+        A second feature array. The shape of data should be equal.
+
+    Returns
+    -------
+    ndarray or float
+
+    Notes
+    -----
+    The first coordinate of each point is assumed to be the longitude, the second is
+    the latitude.
+
+    Examples
+    --------
+    >>> bsas = [-58.5166646, -34.83333]
+    >>> paris = [2.53844117956, 49.0083899664]
+
+    Multiply by Earth radius to get kilometers
+
+    >>> int(haversine(*bsas, *paris) * 63711)
+    110997
+    """
+
+    x1, y1, x2, y2 = map(np.radians, (x1, y1, x2, y2))
+    return 2 * np.arcsin(
         np.sqrt(
-            (cos_lat1 * sin_lat2 - sin_lat1 * cos_lat2 * cos_delta_lng) ** 2
-            + (cos_lat2 * sin_delta_lng) ** 2,
+            np.sin((y2 - y1) / 2) ** 2
+            + np.cos(y1) * np.cos(y2) * np.sin((x2 - x1) / 2) ** 2,
         ),
-        sin_lat1 * sin_lat2 + cos_lat1 * cos_lat2 * cos_delta_lng,
     )
