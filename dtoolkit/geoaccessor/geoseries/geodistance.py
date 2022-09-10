@@ -131,7 +131,7 @@ def geodistance(
 
     return pd.Series(
         radius
-        * distance(
+        * haversine(
             s.geometry.x.to_numpy(),
             s.geometry.y.to_numpy(),
             other.x if isinstance(other, BaseGeometry) else other.x.to_numpy(),
@@ -141,8 +141,7 @@ def geodistance(
     )
 
 
-# based on https://github.com/geopy/geopy geopy/distance.py::great_circle.measure
-def distance(X, Y):
+def haversine(x1, y1, x2, y2) -> np.ndarray:
     """
     Compute the paired the great-circle distance between two points on the earth via
     haversine formula.
@@ -158,11 +157,11 @@ def distance(X, Y):
 
     Parameters
     ----------
-    X : array-like of shape (n_samples_X, 2)
-        A feature array.
+    x1, y1 : array-like or float
+        A feature array. The shape of data should be equal.
 
-    Y : array-like of shape (n_samples_Y, 2)
-        An optional second feature array. If None, uses ``Y=X``.
+    x2, y2 : array-like or float
+        A second feature array. The shape of data should be equal.
 
     Returns
     -------
@@ -171,40 +170,25 @@ def distance(X, Y):
     Raises
     ------
     ValueError
-        The dimension of 'X' or 'Y' is not 2.
+        If the shape of data is not equal.
 
     Notes
     -----
-    - The first coordinate of each point is assumed to be the longitude, the second is
-      the latitude, given in radians.
-    - The dimension of the data must be 2.
+    The first coordinate of each point is assumed to be the longitude, the second is
+    the latitude.
 
     Examples
     --------
-    >>> import numpy as np
-    >>> bsas = np.radians([-34.83333, -58.5166646])
-    >>> paris = np.radians([49.0083899664, 2.53844117956])
-    >>> distance(bsas, paris) * 6371  # multiply by Earth radius to get kilometers
-    array([11099.54035582])
+    >>> bsas = [-58.5166646, -34.83333]
+    >>> paris = [2.53844117956, 49.0083899664]
+    >>> haversine(bsas, paris) * 63711  # multiply by Earth radius to get kilometers
+    110997.14575570967
     """
 
-    X, Y = np.atleast_2d(X), np.atleast_2d(Y)
-    if X.ndim != 2 or Y.ndim != 2:
-        raise ValueError("The dimension of the data is not 2.")
-    elif X.shape[1] != 2 or Y.shape[1] != 2:
-        raise ValueError("The shape of the data must be like (n, 2).")
-
-    lng1, lat1, lng2, lat2 = X[:, 0], X[:, 1], Y[:, 0], Y[:, 1]
-    sin_lat1, cos_lat1 = np.sin(lat1), np.cos(lat1)
-    sin_lat2, cos_lat2 = np.sin(lat2), np.cos(lat2)
-
-    delta_lng = lng2 - lng1
-    cos_delta_lng, sin_delta_lng = np.cos(delta_lng), np.sin(delta_lng)
-
-    return np.arctan2(
+    x1, y1, x2, y2 = map(np.radians, (x1, y1, x2, y2))
+    return 2 * np.arcsin(
         np.sqrt(
-            (cos_lat1 * sin_lat2 - sin_lat1 * cos_lat2 * cos_delta_lng) ** 2
-            + (cos_lat2 * sin_delta_lng) ** 2,
-        ),
-        sin_lat1 * sin_lat2 + cos_lat1 * cos_lat2 * cos_delta_lng,
+            np.sin((y2 - y1) / 2) ** 2
+            + np.cos(y1) * np.cos(y2) * np.sin((x2 - x1) / 2) ** 2
+        )
     )
