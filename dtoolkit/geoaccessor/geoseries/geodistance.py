@@ -21,24 +21,16 @@ def geodistance(
 ) -> pd.Series:
     """
     Returns a ``Series`` containing the `great-circle`__ distance to aligned other
-    via formula.
+    via haversine formula.
 
     __ https://en.wikipedia.org/wiki/Great-circle_distance
 
     .. math::
 
-        D(x, y) = \\arctan[
-            \\frac{
-                \\sqrt{
-                    (
-                        \\cos(y_1) \\sin(y_2)
-                        - \\sin(y_1) \\cos(y_2) \\cos(x_2 - x_1)
-                    )^2
-                    + (\\cos(y_2) \\sin(x_2 - x_1))^2
-                }
-            }{
-                \\sin(y_1) \\sin(y_2)
-                + \\cos(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+        D(x, y) = 2 \\arcsin [
+            \\sqrt{
+                \\sin^2 ((x_1 - y_1) / 2)
+                + \\cos(x_1) \\cos(y_1) \\sin^2 ((x_2 - y_2) / 2)
             }
         ]
 
@@ -79,8 +71,10 @@ def geodistance(
     Notes
     -----
     - Currently, only supports Point geometry.
-    - The geodesic distance is the shortest distance on the surface of an ellipsoidal
-      model of the earth. Resulting in an error of up to about 0.5%.
+    - The great-circle distance is the angular distance between two points on the
+      surface of a sphere. As the Earth is nearly spherical, the haversine formula
+      provides a good approximation of the distance between two points of the Earth
+      surface, with a less than 1% error on average.
 
     Examples
     --------
@@ -151,22 +145,14 @@ def geodistance(
 def distance(X, Y):
     """
     Compute the paired the great-circle distance between two points on the earth via
-    formula.
+    haversine formula.
 
     .. math::
 
-        D(x, y) = \\arctan[
-            \\frac{
-                \\sqrt{
-                    (
-                        \\cos(y_1) \\sin(y_2)
-                        - \\sin(y_1) \\cos(y_2) \\cos(x_2 - x_1)
-                    )^2
-                    + (\\cos(y_2) \\sin(x_2 - x_1))^2
-                }
-            }{
-                \\sin(y_1) \\sin(y_2)
-                + \\cos(y_1) \\cos(y_2) \\cos(x_2 - x_1)
+        D(x, y) = 2 \\arcsin [
+            \\sqrt{
+                \\sin^2 ((x_1 - y_1) / 2)
+                + \\cos(x_1) \\cos(y_1) \\sin^2 ((x_2 - y_2) / 2)
             }
         ]
 
