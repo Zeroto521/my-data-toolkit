@@ -128,7 +128,6 @@ def geodistance(
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-        s = s.geometry
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
