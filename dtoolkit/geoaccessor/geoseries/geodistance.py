@@ -141,7 +141,7 @@ def geodistance(
     )
 
 
-def haversine(x1, y1, x2, y2) -> np.ndarray:
+def haversine(x1, y1, x2, y2) -> np.ndarray | float:
     """
     Compute the paired the great-circle distance between two points on the earth via
     haversine formula.
@@ -165,12 +165,7 @@ def haversine(x1, y1, x2, y2) -> np.ndarray:
 
     Returns
     -------
-    ndarray
-
-    Raises
-    ------
-    ValueError
-        If the shape of data is not equal.
+    ndarray or float
 
     Notes
     -----
