@@ -26,7 +26,7 @@ def cncrs_offset(
     a: float = 6378245,
     ee: float = 0.00669342162296594323,
 ) -> gpd.GeoSeries:
-    r"""
+    """
     Fix the offset of the coordinates in China.
 
     Details see: `Restrictions on geographic data in China`__.
@@ -104,7 +104,7 @@ def cncrs_offset(
         )
 
     s = s.copy()
-    mask = is_in_china(s).to_numpy()
+    mask = (s.geom_type == "Point") & (is_in_china(s))
     if from_crs == "wgs84" and to_crs == "gcj02":
         s[mask] = wgs84_to_gcj02(s[mask], a=a, ee=ee)
     elif from_crs == "wgs84" and to_crs == "bd09":
@@ -252,5 +252,5 @@ def transform_y(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
         + 0.2 * np.sqrt(np.fabs(x))
         + (20 * np.sin(x_dot_pi * 6) + 20 * np.sin(x_dot_pi * 2)) * 2 / 3
         + (20 * np.sin(y_dot_pi) + 40 * np.sin(y_dot_pi / 3)) * 2 / 3
-        + (160 * np.sin(y_dot_pi / 12 ) + 320 * np.sin(y_dot_pi / 30)) * 2 / 3
+        + (160 * np.sin(y_dot_pi / 12) + 320 * np.sin(y_dot_pi / 30)) * 2 / 3
     )
