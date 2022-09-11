@@ -185,7 +185,7 @@ def gcj02_to_wgs84(
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def transform_x(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
+def transform_x(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
     x, y = s.x - 105, s.y - 35
     x_dot_pi = x * np.pi
 
@@ -203,7 +203,7 @@ def transform_x(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def transform_y(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
+def transform_y(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
     x, y = s.x - 105, s.y - 35
     x_dot_pi, y_dot_pi = x * np.pi, y * np.pi
 
