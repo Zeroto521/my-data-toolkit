@@ -176,8 +176,8 @@ def gcj02_to_wgs84(
     rad_y = s.y / 180 * np.pi
     magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
 
-    dy = transform_y(s) * 180 / ((a * (1 - ee)) / magic**3 * np.pi)
     dx = transform_x(s) * 180 / (a / magic * np.cos(rad_y) * np.pi)
+    dy = transform_y(s) * 180 / ((a * (1 - ee)) / magic**3 * np.pi)
     return gpd.points_from_xy(
         x=s.x - dx,
         y=s.y - dy,
