@@ -98,7 +98,7 @@ def cncrs_offset(
         )
     elif to_crs not in get_args(CHINA_CRS):
         raise ValueError(
-            f"Unknown 'from_crs': {from_crs!r}, must be in {get_args(CHINA_CRS)!r}.",
+            f"Unknown 'to_crs': {to_crs!r}, must be in {get_args(CHINA_CRS)!r}.",
         )
 
     s = s.copy()
