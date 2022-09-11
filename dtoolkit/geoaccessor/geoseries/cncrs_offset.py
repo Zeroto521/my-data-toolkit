@@ -250,5 +250,5 @@ def transform_y(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
         + 0.2 * np.sqrt(np.fabs(x))
         + (20 * np.sin(x_dot_pi * 6) + 20 * np.sin(x_dot_pi * 2)) * 2 / 3
         + (20 * np.sin(y_dot_pi) + 40 * np.sin(y_dot_pi / 3)) * 2 / 3
-        + (160 * np.sin(y_dot_pi / 12 ) + 320 * np.sin(y_dot_pi / 30)) * 2 / 3
+        + (160 * np.sin(y_dot_pi / 12) + 320 * np.sin(y_dot_pi / 30)) * 2 / 3
     )
