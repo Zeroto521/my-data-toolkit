@@ -13,7 +13,6 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
-PI = np.pi * 3000 / 180
 
 
 @register_geoseries_method
@@ -222,6 +221,7 @@ def transform_y(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_bd09(s: gpd.GeoSeries | GeometryArray, /) -> GeometryArray:
+    PI = np.pi * 3000 / 180
     z = np.sqrt(s.x**2 + s.y**2) + 2e-5 * np.sin(s.y * PI)
 
     theta = np.arctan2(s.y, s.x) + 3e-6 * np.cos(s.x * PI)
@@ -242,6 +242,7 @@ def bd09_to_wgs84(
 
 # based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(s: gpd.GeoSeries, /) -> GeometryArray:
+    PI = np.pi * 3000 / 180
     x, y = s.x - 0.0065, s.y - 0.006
     z = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
