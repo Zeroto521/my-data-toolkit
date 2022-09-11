@@ -147,7 +147,7 @@ def wgs84_to_gcj02(
     ee: float,
 ) -> GeometryArray:
     rad_y = s.y / 180 * np.pi
-    magic = 1 - ee * np.sin(rad_y)**2
+    magic = 1 - ee * np.sin(rad_y) ** 2
     magic_sqrt = np.sqrt(magic)
 
     dx = transform_x(s) * 180 / (a / magic_sqrt * np.cos(rad_y) * np.pi)
@@ -175,7 +175,7 @@ def gcj02_to_wgs84(
     ee: float,
 ) -> GeometryArray:
     rad_y = s.y / 180 * np.pi
-    magic = 1 - ee * np.sin(rad_y)**2
+    magic = 1 - ee * np.sin(rad_y) ** 2
     magic_sqrt = np.sqrt(magic)
 
     dy = transform_y(s) * 180 / ((a * (1 - ee)) / (magic * magic_sqrt) * np.pi)
