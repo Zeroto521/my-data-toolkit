@@ -4,6 +4,7 @@ from typing import Literal
 import geopandas as gpd
 import numpy as np
 import pandas as pd
+from geopandas.base import GeometryArray
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -137,7 +138,12 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def wgs84_to_gcj02(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
+def wgs84_to_gcj02(
+    s: gpd.GeoSeries | GeometryArray,
+    /,
+    a: float,
+    ee: float,
+) -> GeometryArray:
     rad_y = s.y / 180 * np.pi
     magic = np.sin(rad_y)
     magic = 1 - ee * magic * magic
@@ -151,12 +157,22 @@ def wgs84_to_gcj02(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.Geomet
     )
 
 
-def wgs84_to_bd09(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
+def wgs84_to_bd09(
+    s: gpd.GeoSeries | GeometryArray,
+    /,
+    a: float,
+    ee: float,
+) -> GeometryArray:
     return gcj02_to_bd09(wgs84_to_gcj02(s, a=a, ee=ee))
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def gcj02_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
+def gcj02_to_wgs84(
+    s: gpd.GeoSeries | GeometryArray,
+    /,
+    a: float,
+    ee: float,
+) -> GeometryArray:
     rad_y = s.y / 180 * np.pi
     magic = np.sin(rad_y)
     magic = 1 - ee * magic * magic
@@ -171,7 +187,7 @@ def gcj02_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.Geomet
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def gcj02_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+def gcj02_to_bd09(s: gpd.GeoSeries | GeometryArray, /) -> GeometryArray:
     z = np.sqrt(s.x**2 + s.y**2) + 2e-5 * np.sin(s.y * PI)
 
     theta = np.arctan2(s.y, s.x) + 3e-6 * np.cos(s.x * PI)
@@ -181,12 +197,17 @@ def gcj02_to_bd09(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
     )
 
 
-def bd09_to_wgs84(s: gpd.GeoSeries, /, a: float, ee: float) -> gpd.array.GeometryArray:
+def bd09_to_wgs84(
+    s: gpd.GeoSeries | GeometryArray,
+    /,
+    a: float,
+    ee: float,
+) -> GeometryArray:
     return gcj02_to_wgs84(bd09_to_gcj02(s), a=a, ee=ee)
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
+def bd09_to_gcj02(s: gpd.GeoSeries, /) -> GeometryArray:
     x, y = s.x - 0.0065, s.y - 0.006
     z = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
@@ -198,7 +219,7 @@ def bd09_to_gcj02(s: gpd.GeoSeries, /) -> gpd.array.GeometryArray:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def transform_x(s: gpd.GeoSeries) -> pd.Series:
+def transform_x(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
     x, y = s.x - 105, s.y - 35
     x_multiply_pi = x * np.pi
 
@@ -216,7 +237,7 @@ def transform_x(s: gpd.GeoSeries) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def transform_y(s: gpd.GeoSeries) -> pd.Series:
+def transform_y(s: gpd.GeoSeries | GeometryArray) -> pd.Series:
     x, y = s.x - 105, s.y - 35
     x_multiply_pi = x * np.pi
 
