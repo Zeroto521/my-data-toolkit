@@ -123,6 +123,27 @@ def test_error(s, from_crs, to_crs, error):
                 crs=4326,
             ),
         ),
+        # bd09 to gcj02, but only one validate point
+        (
+            gpd.GeoSeries.from_wkt(
+                [
+                    "POINT (0 0)",
+                    "POINT (128.543 37.065)",
+                    "LINESTRING (120 30, 122 33)",
+                ],
+                crs=4326,
+            ),
+            "bd09",
+            "gcj02",
+            gpd.GeoSeries.from_wkt(
+                [
+                    "POINT (0 0)",
+                    "POINT (128.5365893261212 37.058754503281534)",
+                    "LINESTRING (120 30, 122 33)",
+                ],
+                crs=4326,
+            ),
+        ),
     ],
 )
 def test_work(s, from_crs, to_crs, expected):
