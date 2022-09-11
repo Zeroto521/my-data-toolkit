@@ -16,6 +16,8 @@ GeoSeries Accessor
     filter_geometry
     geoarea
     geobuffer
+    geodistance_matrix
+    geodistance
     get_coordinates
     has_hole
     hole_counts
@@ -38,6 +40,8 @@ GeoDataFrame Accessor
     filter_geometry
     geoarea
     geobuffer
+    geodistance_matrix
+    geodistance
     get_coordinates
     has_hole
     hole_counts
