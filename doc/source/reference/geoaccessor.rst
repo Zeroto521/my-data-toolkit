@@ -8,6 +8,7 @@ GeoSeries Accessor
 .. autosummary::
     :toctree: api/
 
+    cncrs_offset
     count_coordinates
     drop_duplicates_geometry
     duplicated_geometry
@@ -30,6 +31,7 @@ GeoDataFrame Accessor
 .. autosummary::
     :toctree: api/
 
+    cncrs_offset
     count_coordinates
     drop_duplicates_geometry
     drop_geometry
