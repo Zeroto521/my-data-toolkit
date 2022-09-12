@@ -113,4 +113,4 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
         else:
             other = np.asarray(other)
 
-    return pd.Series(np.equal(s, other, **kwargs), index=s.index)
+    return np.equal(s, other, **kwargs)
