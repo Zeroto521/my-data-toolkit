@@ -21,6 +21,7 @@ Series Accessor
     cols
     drop_inf
     dropna_index
+    equal
     error_report
     eval
     expand
@@ -50,6 +51,7 @@ DataFrame Accessor
     drop_inf
     drop_or_not
     dropna_index
+    equal
     expand
     fillna_regression
     filter_in
