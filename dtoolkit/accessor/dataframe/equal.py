@@ -1,30 +1,32 @@
-from __future__ import annotations
-from typing import Any
-import pandas as pd
-import numpy as np
 from warnings import warn
+
+import numpy as np
+import pandas as pd
 from pandas.api.types import is_array_like
-from dtoolkit.accessor.register import register_series_method
+
+from dtookit._typing import Axis
+from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.util._exception import find_stack_level
 
 
-@register_series_method
+@register_dataframe_method
 def equal(
     df: pd.DataFrame,
     /,
-    other: Any | list | np.ndarray | pd.Series,
+    other,
     align: bool = True,
+    axis: Axis = 0,
     **kwargs,
 ) -> pd.DataFrame:
     if is_array_like(other):
-        if align and isinstance(other, pd.Series) and not s.index.equals(other.index):
+        if align and isinstance(other, pd.Series) and not df.index.equals(other.index):
+            # FIXME: Wether check DataFrame's index.
+            # And use `.align` will change the values of `df`.
             warn("The indices are different.", stacklevel=find_stack_level())
-            s, other = s.align(other)
+            df, other = df.align(other)
 
-        other = np.asarray(other)
-        if other.ndims != 1:
+        if pd.DataFrame._get_axis_number(axis) == 1 and len(np.shape(other)) == 1:
+            # TODO: Do something to other, reshape it ot (n, 1)
             ...
 
-        other = other.reshape(-1, 1)
-
-    return pd.Series(np.equal(s, other, **kwargs), index=s.index)
+    return np.equal(df, other, **kwargs)
