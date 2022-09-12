@@ -33,7 +33,7 @@ BINARY_PREDICATE = Literal[
 def filter_geometry(
     s: gpd.GeoSeries,
     /,
-    geometry: BaseGeometry | gpd.GeoSeries | gpd.GeoDataFrame,
+    other: BaseGeometry | gpd.GeoSeries | gpd.GeoDataFrame,
     predicate: BINARY_PREDICATE,
     complement: bool = False,
     **kwargs,
@@ -43,11 +43,11 @@ def filter_geometry(
 
     A sugar syntax wraps::
 
-        s[s.{{predicate}}(geometry, **kwargs)]
+        s[s.{{predicate}}(other, **kwargs)]
 
     Parameters
     ----------
-    geometry : Geometry, GeoSeries, or GeoDataFrame
+    other : Geometry, GeoSeries, or GeoDataFrame
 
     predicate : {{"intersects", "disjoint", "crosses", "overlaps", "touches", \
 "covered_by", "contains", "within", "covers"}}
@@ -102,8 +102,8 @@ def filter_geometry(
 
     This method is actually faster than the following one::
 
-        def is_in_geometry(s: gpd.GeoSeries, geometry: BaseGeometry) -> pd.Series:
-            s_bounds, g_bounds = s.bounds, geometry.bounds
+        def is_in_geometry(s: gpd.GeoSeries, other: BaseGeometry) -> pd.Series:
+            s_bounds, g_bounds = s.bounds, other.bounds
 
             return (
                 (s_bounds.minx >= g_bounds[0])
@@ -116,7 +116,7 @@ def filter_geometry(
     return s[
         _filter_geometry(
             s,
-            geometry=geometry,
+            other=other,
             predicate=predicate,
             complement=complement,
             **kwargs,
@@ -126,7 +126,7 @@ def filter_geometry(
 
 def _filter_geometry(
     s: gpd.GeoSeries,
-    geometry: BaseGeometry | gpd.GeoSeries | gpd.GeoDataFrame,
+    other: BaseGeometry | gpd.GeoSeries | gpd.GeoDataFrame,
     predicate: BINARY_PREDICATE,
     complement: bool,
     **kwargs,
@@ -136,5 +136,5 @@ def _filter_geometry(
             f"Got {predicate=!r}, expected one of {get_args(BINARY_PREDICATE)!r}.",
         )
 
-    mask = getattr(s, predicate)(geometry, **kwargs)
+    mask = getattr(s, predicate)(other, **kwargs)
     return ~mask if complement else mask

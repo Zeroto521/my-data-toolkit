@@ -8,6 +8,7 @@ GeoSeries Accessor
 .. autosummary::
     :toctree: api/
 
+    cncrs_offset
     count_coordinates
     drop_duplicates_geometry
     duplicated_geometry
@@ -15,6 +16,8 @@ GeoSeries Accessor
     filter_geometry
     geoarea
     geobuffer
+    geodistance_matrix
+    geodistance
     get_coordinates
     has_hole
     hole_counts
@@ -28,6 +31,7 @@ GeoDataFrame Accessor
 .. autosummary::
     :toctree: api/
 
+    cncrs_offset
     count_coordinates
     drop_duplicates_geometry
     drop_geometry
@@ -36,6 +40,8 @@ GeoDataFrame Accessor
     filter_geometry
     geoarea
     geobuffer
+    geodistance_matrix
+    geodistance
     get_coordinates
     has_hole
     hole_counts

@@ -1,3 +1,4 @@
+from dtoolkit.geoaccessor.geodataframe.cncrs_offset import cncrs_offset  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.count_coordinates import (  # noqa: F401
     count_coordinates,
 )
@@ -16,6 +17,10 @@ from dtoolkit.geoaccessor.geodataframe.filter_geometry import (  # noqa: F401
 )
 from dtoolkit.geoaccessor.geodataframe.geoarea import geoarea  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.geobuffer import geobuffer  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe.geodistance import geodistance  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe.geodistance_matrix import (  # noqa: F401
+    geodistance_matrix,
+)
 from dtoolkit.geoaccessor.geodataframe.get_coordinates import (  # noqa: F401
     get_coordinates,
 )
