@@ -10,6 +10,7 @@ import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.api.types import is_number
 from pandas.util._decorators import doc
+from shapely.geometry import Point
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
@@ -92,7 +93,9 @@ def geobuffer(
     1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     """
 
-    if is_list_like(distance):
+    if is_number(distance):
+        ...
+    elif is_list_like(distance):
         if len(distance) != s.size:
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
@@ -106,17 +109,19 @@ def geobuffer(
                 )
         else:
             distance = np.asarray(distance)
-
-    elif not is_number(distance):
-        raise TypeError("type of 'distance' should be int or float.")
+    else:
+        raise TypeError(
+            "'distance' should be a number or a list of number, "
+            f"but got {type(distance)!r}."
+        )
 
     s_index = s.index
     s = set_unique_index(s, drop=True)
 
     crs = s.crs
-    if s.crs != 4326:
+    if crs != 4326:
         warn(
-            f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
+            f"The CRS is {crs}, which requires is 'WGS86' (EPSG:4326).",
             stacklevel=3,
         )
         s = s.to_crs(4326)
@@ -124,9 +129,7 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.apply(
-            lambda p: (wgs_to_utm(p.x, p.y) if p else None),
-        ).to_numpy()
+        utms = s.centroid.apply(wgs_to_utm).to_numpy()
 
     return (
         pd.concat(
@@ -149,9 +152,9 @@ def geobuffer(
     )
 
 
-def wgs_to_utm(lon: float, lat: float) -> str | None:
-    """Based on `(lat, lng)`, return the best UTM EPSG code."""
+def wgs_to_utm(point: Point) -> str | None:
+    """Based on Point's x and y, return the best UTM EPSG code."""
 
-    if is_number(lon) and is_number(lat) and -180 <= lon <= 180 and -90 <= lat <= 90:
-        zone = (lon + 180) // 6 % 60 + 1
-        return f"EPSG:{326 if lat >= 0 else 327}{zone:02.0f}"
+    if isinstance(point, Point) and -180 <= point.x <= 180 and -90 <= point.y <= 90:
+        zone = (point.x + 180) // 6 % 60 + 1
+        return f"EPSG:{326 if point.y >= 0 else 327}{zone:02.0f}"
