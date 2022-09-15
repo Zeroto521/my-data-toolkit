@@ -133,14 +133,11 @@ def geobuffer(
 
     return (
         pd.concat(
-            (
-                s[utms == utm]
-                .to_crs(utm)
-                .buffer(
-                    distance[utms == utm] if is_list_like(distance) else distance,
-                    **kwargs,
-                )
-                .to_crs(crs)
+            _geobuffer(
+                s[utms == utm],
+                distance[utms == utm] if is_list_like(distance) else distance,
+                utm,
+                **kwargs,
             )
             if isinstance(utm, str)
             else s[pd.isnull(utms)]
@@ -158,3 +155,7 @@ def wgs_to_utm(point: Point) -> str | None:
     if isinstance(point, Point) and -180 <= point.x <= 180 and -90 <= point.y <= 90:
         zone = (point.x + 180) // 6 % 60 + 1
         return f"EPSG:{326 if point.y >= 0 else 327}{zone:02.0f}"
+
+
+def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs):
+    return s.to_crs(to_crs).buffer(distance, **kwargs).to_crs(s.crs)
