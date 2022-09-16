@@ -49,17 +49,17 @@ def geobuffer(
 
     Raises
     ------
+    ValueError
+        Requires the CRS of the inputting is WGS84 (epsg:4326).
+
+    TypeError
+        If ``distance`` is not a number.
+
     IndexError
         - If ``distance`` is a list-like but its length does not match the length of
          ``{alias}``.
         - If ``distance`` is a Series but its index does not match the index of
          ``{alias}``.
-
-    TypeError
-        If ``distance`` is not a number.
-
-    ValueError
-        Requires the CRS of the inputting is WGS84 (epsg:4326).
 
     See Also
     --------
