@@ -138,8 +138,6 @@ def geobuffer(
                 utm,
                 **kwargs,
             )
-            if isinstance(utm, str)
-            else s[pd.isnull(utms)]
             for utm in pd.unique(utms)
         )
         .sort_index()
@@ -158,11 +156,7 @@ def wgs_to_utm(point: tuple[float, float]) -> str | None:
 
 
 def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs):
-    return (
-        s.to_crs(to_crs)
-        .buffer(
-            distance,
-            **kwargs,
-        )
-        .to_crs(s.crs)
-    )
+    if to_crs is None:
+        return s
+
+    return s.to_crs(to_crs).buffer(distance, **kwargs).to_crs(s.crs)
