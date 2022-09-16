@@ -99,7 +99,7 @@ def geobuffer(
         raise ValueError(
             f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
         )
-    if not is_number(distance) or not is_list_like(distance):
+    if not (is_number(distance) or is_list_like(distance)):
         raise TypeError(
             "'distance' should be a number or a list of number, "
             f"but got {type(distance)!r}."
