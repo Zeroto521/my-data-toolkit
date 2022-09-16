@@ -23,6 +23,7 @@ GeoSeries Accessor
     hole_counts
     reverse_geocode
     toposimplify
+    xy
 
 
 GeoDataFrame Accessor
