@@ -160,4 +160,11 @@ def wgs_to_utm(point: tuple[float, float]) -> str | None:
 
 
 def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs):
-    return s.to_crs(to_crs).buffer(distance, **kwargs).to_crs(s.crs)
+    return (
+        s.to_crs(to_crs)
+        .buffer(
+            distance,
+            **kwargs,
+        )
+        .to_crs(s.crs)
+    )
