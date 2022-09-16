@@ -9,7 +9,6 @@ import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.api.types import is_number
 from pandas.util._decorators import doc
-from shapely.geometry import Point
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
