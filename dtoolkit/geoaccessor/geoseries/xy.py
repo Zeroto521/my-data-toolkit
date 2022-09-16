@@ -16,8 +16,8 @@ def xy(s: gpd.GeoSeries, /) -> pd.Series:
 
     See Also
     --------
-    GeoSeries.x
-    GeoSeries.y
+    geopandas.GeoSeries.x
+    geopandas.GeoSeries.y
 
     Examples
     --------
