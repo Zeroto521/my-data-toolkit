@@ -24,7 +24,7 @@ def xy(s: gpd.GeoSeries, /) -> pd.Series:
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
     >>> from shapely.geometry import Point
-    >>> s = geopandas.GeoSeries([Point(1, 1), Point(2, 2), Point(3, 3)])
+    >>> s = gpd.GeoSeries([Point(1, 1), Point(2, 2), Point(3, 3)])
     >>> s.xy
     0    (1.0, 1.0)
     1    (2.0, 2.0)
