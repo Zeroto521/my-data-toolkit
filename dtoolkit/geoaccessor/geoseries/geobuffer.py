@@ -160,7 +160,7 @@ def wgs_to_utm(point: tuple[float, float]) -> str | None:
         return f"EPSG:{326 if y >= 0 else 327}{zone:02.0f}"
 
 
-def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs):
+def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs) -> gpd.GeoSeries:
     """
     Three steps to generate a geographic buffer.
 
