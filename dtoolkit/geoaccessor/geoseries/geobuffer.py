@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from warnings import catch_warnings
 from warnings import simplefilter
-from warnings import warn
 
 import geopandas as gpd
 import numpy as np
@@ -56,8 +55,12 @@ def geobuffer(
          ``{alias}``.
         - If ``distance`` is a Series but its index does not match the index of
          ``{alias}``.
+
     TypeError
         If ``distance`` is not a number.
+
+    ValueError
+        Requires the CRS of the inputting is WGS84 (epsg:4326).
 
     See Also
     --------
@@ -93,6 +96,10 @@ def geobuffer(
     0   close to equator  POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1  away from equator  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     """
+    if s.crs != 4326:
+        raise ValueError(
+            f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
+        )
 
     if is_number(distance):
         ...
@@ -118,14 +125,6 @@ def geobuffer(
 
     s_index = s.index
     s = set_unique_index(s, drop=True)
-
-    crs = s.crs
-    if crs != 4326:
-        warn(
-            f"The CRS is {crs}, which requires is 'WGS86' (EPSG:4326).",
-            stacklevel=3,
-        )
-        s = s.to_crs(4326)
 
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")

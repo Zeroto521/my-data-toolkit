@@ -57,5 +57,5 @@ def test_distance_type_is_not_num_type():
 
 
 def test_crs():
-    with pytest.warns(UserWarning):
+    with pytest.raises(ValueError):
         s.to_crs("epsg:3857").geobuffer(10)
