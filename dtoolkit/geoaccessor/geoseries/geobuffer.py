@@ -12,7 +12,6 @@ from pandas.util._decorators import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
-from dtoolkit.accessor.series import set_unique_index
 from dtoolkit.geoaccessor.geoseries.xy import xy  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
@@ -127,28 +126,24 @@ def geobuffer(
 
         distance = np.asarray(distance)
 
-    s_index = s.index
-    s = set_unique_index(s, drop=True)
-
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
         utms = s.centroid.xy().apply(wgs_to_utm).to_numpy()
 
-    return (
-        pd.concat(
-            _geobuffer(
-                s[utms == utm],
-                distance[utms == utm] if is_list_like(distance) else distance,
-                utm,
-                **kwargs,
-            )
-            for utm in pd.unique(utms)
+    s = s.copy()
+    for utm in pd.unique(utms):
+        if utm is None:
+            continue
+
+        mask = utms == utm
+        s[mask] = (
+            s[mask]
+            .to_crs(utm)
+            .buffer(distance[mask] if is_list_like(distance) else distance, **kwargs)
         )
-        .sort_index()
-        .set_axis(s_index)
-        .rename(s.name)
-    )
+
+    return s
 
 
 def wgs_to_utm(point: tuple[float, float]) -> str | None:
@@ -158,18 +153,3 @@ def wgs_to_utm(point: tuple[float, float]) -> str | None:
     if is_number(x) and -180 <= x <= 180 and is_number(y) and -90 <= y <= 90:
         zone = (x + 180) // 6 % 60 + 1
         return f"EPSG:{326 if y >= 0 else 327}{zone:02.0f}"
-
-
-def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs) -> gpd.GeoSeries:
-    """
-    Three steps to generate a geographic buffer.
-
-    1. Reproject the geometry into the ``to_crs`` projection.
-    2. Generate the buffer.
-    3. Reproject the buffer geometry back into the original projection.
-    """
-
-    if to_crs is None:
-        return s
-
-    return s.to_crs(to_crs).buffer(distance, **kwargs).to_crs(s.crs)
