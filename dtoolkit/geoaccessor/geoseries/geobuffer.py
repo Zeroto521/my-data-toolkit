@@ -161,6 +161,14 @@ def wgs_to_utm(point: tuple[float, float]) -> str | None:
 
 
 def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs):
+    """
+    Three steps to generate a geographic buffer.
+
+    1. Reproject the geometry into the ``to_crs`` projection.
+    2. Generate the buffer.
+    3. Reproject the buffer geometry back into the original projection.
+    """
+
     if to_crs is None:
         return s
 
