@@ -15,6 +15,7 @@ from shapely.geometry import Point
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.series import set_unique_index
+from dtoolkit.geoaccessor.geoseries.xy import xy  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -129,7 +130,7 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.apply(wgs_to_utm).to_numpy()
+        utms = s.centroid.xy().apply(wgs_to_utm).to_numpy()
 
     return (
         pd.concat(
@@ -149,12 +150,13 @@ def geobuffer(
     )
 
 
-def wgs_to_utm(point: Point) -> str | None:
-    """Based on Point's x and y, return the best UTM EPSG code."""
+def wgs_to_utm(point: tuple[float, float]) -> str | None:
+    """Based on (x, y), return the best UTM EPSG code."""
 
-    if isinstance(point, Point) and -180 <= point.x <= 180 and -90 <= point.y <= 90:
-        zone = (point.x + 180) // 6 % 60 + 1
-        return f"EPSG:{326 if point.y >= 0 else 327}{zone:02.0f}"
+    x, y = point
+    if is_number(x) and -180 <= x <= 180 and is_number(y) and -90 <= y <= 90:
+        zone = (x + 180) // 6 % 60 + 1
+        return f"EPSG:{326 if y >= 0 else 327}{zone:02.0f}"
 
 
 def _geobuffer(s: gpd.GeoSeries, distance, to_crs, **kwargs):
