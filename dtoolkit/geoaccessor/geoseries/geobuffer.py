@@ -99,28 +99,25 @@ def geobuffer(
         raise ValueError(
             f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
         )
+    if not is_number(distance) or not is_list_like(distance):
+        raise TypeError(
+            "'distance' should be a number or a list of number, "
+            f"but got {type(distance)!r}."
+        )
 
-    if is_number(distance):
-        ...
-    elif is_list_like(distance):
+    if is_list_like(distance):
         if len(distance) != s.size:
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
             )
 
-        if isinstance(distance, pd.Series):
-            if not s.index.equals(distance.index):
-                raise IndexError(
-                    "Index values of 'distance' sequence doesn't "
-                    f"match index values of the {type(s)!r}",
-                )
-        else:
-            distance = np.asarray(distance)
-    else:
-        raise TypeError(
-            "'distance' should be a number or a list of number, "
-            f"but got {type(distance)!r}."
-        )
+        if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
+            raise IndexError(
+                "Index values of 'distance' sequence doesn't "
+                f"match index values of the {type(s)!r}",
+            )
+
+        distance = np.asarray(distance)
 
     s_index = s.index
     s = set_unique_index(s, drop=True)
