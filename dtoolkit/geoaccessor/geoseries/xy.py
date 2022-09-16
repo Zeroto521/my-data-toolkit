@@ -1,7 +1,6 @@
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.geoaccessor.geoseries.hole_counts import hole_counts
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
