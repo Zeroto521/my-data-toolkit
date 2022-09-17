@@ -49,4 +49,4 @@ def xy(s: gpd.GeoSeries, /, reverse: bool = False) -> pd.Series:
     dtype: object
     """
 
-    return pd.concat((s.y, s.x) if reverse (s.x, s.y), axis=1).apply(tuple, axis=1)
+    return pd.concat((s.y, s.x) if reverse else (s.x, s.y), axis=1).apply(tuple, axis=1)
