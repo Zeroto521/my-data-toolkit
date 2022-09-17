@@ -40,7 +40,7 @@ def xy(s: gpd.GeoSeries, /, reverse: bool = False) -> pd.Series:
     1    (0.0, 2.0)
     2    (0.0, 3.0)
     dtype: object
-    
+
     Set 'reverse' True to return (y, x).
     >>> s.xy(True)
     0    (1.0, 0.0)
