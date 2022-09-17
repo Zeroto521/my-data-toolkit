@@ -109,7 +109,7 @@ def geobuffer(
     if not (is_number(distance) or is_list_like(distance)):
         raise TypeError(
             "'distance' should be a number or a list of number, "
-            f"but got {type(distance)!r}."
+            f"but got {type(distance)!r}.",
         )
 
     if is_list_like(distance):
