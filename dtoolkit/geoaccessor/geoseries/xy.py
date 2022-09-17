@@ -5,14 +5,19 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-def xy(s: gpd.GeoSeries, /) -> pd.Series:
+def xy(s: gpd.GeoSeries, /, reverse: bool = False) -> pd.Series:
     """
     Return the x and y location of Point geometries in a GeoSeries.
+
+    Parameters
+    ----------
+    reverse : bool, default False
+        If True, return (y, x) instead.
 
     Returns
     -------
     Series
-        tuple of x and y coordinates.
+        tuple of coordinate.
 
     See Also
     --------
@@ -24,17 +29,24 @@ def xy(s: gpd.GeoSeries, /) -> pd.Series:
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
     >>> from shapely.geometry import Point
-    >>> s = gpd.GeoSeries([Point(1, 1), Point(2, 2), Point(3, 3)])
+    >>> s = gpd.GeoSeries([Point(0, 1), Point(0, 2), Point(0, 3)])
     >>> s
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
+    0    POINT (0.00000 1.00000)
+    1    POINT (0.00000 2.00000)
+    2    POINT (0.00000 3.00000)
     dtype: geometry
     >>> s.xy()
-    0    (1.0, 1.0)
-    1    (2.0, 2.0)
-    2    (3.0, 3.0)
+    0    (0.0, 1.0)
+    1    (0.0, 2.0)
+    2    (0.0, 3.0)
+    dtype: object
+    
+    Set 'reverse' True to return (y, x).
+    >>> s.xy(True)
+    0    (1.0, 0.0)
+    1    (2.0, 0.0)
+    2    (3.0, 0.0)
     dtype: object
     """
 
-    return pd.concat((s.x, s.y), axis=1).apply(tuple, axis=1)
+    return pd.concat((s.y, s.x) if reverse (s.x, s.y), axis=1).apply(tuple, axis=1)
