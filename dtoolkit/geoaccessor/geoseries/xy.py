@@ -16,8 +16,8 @@ def xy(s: gpd.GeoSeries, /) -> pd.Series:
 
     See Also
     --------
-    GeoSeries.x
-    GeoSeries.y
+    geopandas.GeoSeries.x
+    geopandas.GeoSeries.y
 
     Examples
     --------
@@ -25,6 +25,11 @@ def xy(s: gpd.GeoSeries, /) -> pd.Series:
     >>> import geopandas as gpd
     >>> from shapely.geometry import Point
     >>> s = gpd.GeoSeries([Point(1, 1), Point(2, 2), Point(3, 3)])
+    >>> s
+    0    POINT (1.00000 1.00000)
+    1    POINT (2.00000 2.00000)
+    2    POINT (3.00000 3.00000)
+    dtype: geometry
     >>> s.xy()
     0    (1.0, 1.0)
     1    (2.0, 2.0)
