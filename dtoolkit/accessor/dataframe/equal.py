@@ -32,6 +32,10 @@ def equal(
         - scalar : compare each element with the scalar value.
         - 1d / 2d array-like : compare each element with the corresponding value.
 
+    align : bool, default True
+        If True, align ``df`` and ``other`` before comparing.
+        Only works wihle ``other`` is a Series / DataFrame.
+
     axis : {0 or 'index', 1 or 'columns'}, default 0
         If 0, compare along ``df``'s rows else columns. Works only when ``other`` is
         1d array-like.
