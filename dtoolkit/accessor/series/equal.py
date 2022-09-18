@@ -23,8 +23,8 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
         - 1d array-like : compare each element with the corresponding value.
 
     align : bool, default True
-        If True, align the Series and ``other`` before comparing.
-        Only works wihle ``other`` is a Series.
+        If True, align ``s`` and ``other`` before comparing.         Only works wihle
+        ``other`` is a Series.
 
     **kwargs
         Additional keyword arguments are passed to :meth:`numpy.equal`.
