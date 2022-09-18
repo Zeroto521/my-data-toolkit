@@ -62,7 +62,8 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
     2    3
     dtype: int64
 
-    Like two Series compare scalar or array-like via ``==`` (``s1 == s2``).
+    Like ``Series.eq`` method to compare scalar or array-like via ``==``,
+    ``Series.equal`` could also do that.
 
     Compare with scalar.
 
