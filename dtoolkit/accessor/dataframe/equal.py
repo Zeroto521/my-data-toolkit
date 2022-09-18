@@ -4,7 +4,7 @@ from warnings import warn
 
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_array_like
+from pandas.api.types import is_list_like
 
 from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
@@ -123,7 +123,7 @@ def equal(
             axis=1 - axis if isinstance(other, pd.Series) else None,
         )
 
-    if is_array_like(other):
+    if is_list_like(other):
         other = np.asarray(other)
         if other.ndim == 1 and other.size != df.shape[1 - axis]:
             raise ValueError(

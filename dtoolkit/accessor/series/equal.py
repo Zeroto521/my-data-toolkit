@@ -2,7 +2,7 @@ from warnings import warn
 
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_array_like
+from pandas.api.types import is_list_like
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.util._exception import find_stack_level
@@ -111,7 +111,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
         warn("the indices are different.", stacklevel=find_stack_level())
         s, other = s.align(other)
 
-    if is_array_like(other):
+    if is_list_like(other):
         other = np.asarray(other)
 
     return np.equal(s, other, **kwargs)
