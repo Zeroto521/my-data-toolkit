@@ -106,7 +106,25 @@ def equal(
     0   True  False
     1  False   True
     2  False  False
-    >>> df.equal([1, 2, 3], axis=0)  # default compare along the column
+    >>> df.equal([1, 2, 3], axis=1)  # default compare along the column
+          a      b
+    0  True  False
+    1  True   True
+    2  True  False
+
+    Compare with a 2d array-like.
+
+    >>> import numpy as np
+    >>> df == np.array([[1, 1], [2, 2], [3, 3]])
+          a      b
+    0  True  False
+    1  True   True
+    2  True  False
+    >>> df.equal(np.array([[1, 1], [2, 2], [3, 3]]))  # pure list is also okay
+          a      b
+    0  True  False
+    1  True   True
+    2  True  False
     """
 
     axis = df._get_axis_number(axis)
