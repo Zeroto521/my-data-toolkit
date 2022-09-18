@@ -54,22 +54,28 @@ def equal(
 
     if is_array_like(other):
         axis = df._get_axis_number(axis)
-        if (
-            align
-            and isinstance(other, (pd.Series, pd.DataFrame))
-            and not df.index.equals(other.index)  # BUG: df.index == other.index and df.columns == other.columns
+        if align and (
+            isinstance(other, pd.Series)
+            and not df.index.equals(other.index)
+            or isinstance(other, pd.DataFrame)
+            and not df.index.equals(other.index)
+            and not df.columns.equals(other.columns)
         ):
-            warn("The indices are different.", stacklevel=find_stack_level())
-            df, other = df.align(other, axis=1 - axis)
+            warn("the indices are different.", stacklevel=find_stack_level())
+            df, other = df.align(
+                other,
+                axis=1 - axis if isinstance(other, pd.Series) else None,
+            )
 
-        if len(shape_other := np.shape(other)) == 1:
-            if shape_other[0] != df.shape[1 - axis]:
+        other = np.asarray(other)
+        if other.ndim == 1:
+            if other.size != df.shape[1 - axis]:
                 raise ValueError(
-                    f"size of other ({shape_other[0]}) does not equal to df.shape"
+                    f"size of other ({other.shape[0]}) does not equal to df.shape"
                     f"[{1-axis}] ({df.shape[1 - axis]})."
                 )
 
             if axis == 1:
-                other = np.asarray(other).reshape((-1, 1))
+                other = other.reshape((-1, 1))
 
     return np.equal(df, other, **kwargs)
