@@ -18,12 +18,46 @@ def equal(
     axis: Axis = 0,
     **kwargs,
 ) -> pd.DataFrame:
+    """
+    Return a boolean DataFrame containing the result of comparing with ``other``.
+
+    A sugar syntax for ``np.equal(df, other, **kwargs)``.
+
+    Parameters
+    ----------
+    other : scalar, 1d array-like or 2d array-like
+        The value(s) to compare with the DataFrame.
+        - scalar : compare each element with the scalar value.
+        - 1d / 2d array-like : compare each element with the corresponding value.
+
+    axis : {0 or 'index', 1 or 'columns'}, default 0
+        If 0, compare along ``df``'s rows else columns. Works only when ``other`` is
+        1d array-like.
+
+    **kwargs
+        Additional keyword arguments are passed to :meth:`numpy.equal`.
+
+    Returns
+    -------
+    DataFrame
+
+    Warns
+    -----
+    UserWarning
+
+    See Also
+    --------
+    pandas.DataFrame.eq : Compare two Series.
+    numpy.equal : Return (x1 == x2) element-wise.
+    dtoolkit.accessor.series.equal : Series version of ``.equal``.
+    """
+
     if is_array_like(other):
         axis = df._get_axis_number(axis)
         if (
             align
             and isinstance(other, (pd.Series, pd.DataFrame))
-            and not df.index.equals(other.index)
+            and not df.index.equals(other.index)  # BUG: df.index == other.index and df.columns == other.columns
         ):
             warn("The indices are different.", stacklevel=find_stack_level())
             df, other = df.align(other, axis=1 - axis)
