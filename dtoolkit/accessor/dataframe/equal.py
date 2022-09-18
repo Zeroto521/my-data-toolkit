@@ -63,6 +63,50 @@ def equal(
     pandas.DataFrame.eq : Compare two Series.
     numpy.equal : Return (x1 == x2) element-wise.
     dtoolkit.accessor.series.equal : Series version of ``.equal``.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({"a": [1, 2, 3], "b": [3, 2, 1]})
+    >>> df
+       a  b
+    0  1  3
+    1  2  2
+    2  3  1
+
+    Like ``DataFrame.eq`` method to compare scalar or array-like via ``==``,
+    ``DataFrame.equal`` could also do that.
+
+    Compare with a scalar.
+
+    >>> df == 1
+           a      b
+    0   True  False
+    1  False  False
+    2  False   True
+    >>> df.equal(1)
+           a      b
+    0   True  False
+    1  False  False
+    2  False   True
+
+    Compare with a 1d array-like.
+
+    But ``==`` only can compare along the row. ``DataFrame.equal`` can compare along
+    the row or column.
+
+    >>> df == [1, 2]
+           a      b
+    0   True  False
+    1  False   True
+    2  False  False
+    >>> df.equal([1, 2], axis=0)  # default compare along the row
+           a      b
+    0   True  False
+    1  False   True
+    2  False  False
+    >>> df.equal([1, 2, 3], axis=0)  # default compare along the column
     """
 
     axis = df._get_axis_number(axis)
