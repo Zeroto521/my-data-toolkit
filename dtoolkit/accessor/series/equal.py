@@ -24,8 +24,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
 
     align : bool, default True
         If True, align the Series and ``other`` before comparing.
-        Only works
-        wihle ``other`` is a Series.
+        Only works wihle ``other`` is a Series.
 
     **kwargs
         Additional keyword arguments are passed to :meth:`numpy.equal`.
@@ -50,6 +49,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
     --------
     pandas.Series.eq : Compare two Series.
     numpy.equal : Return (x1 == x2) element-wise.
+    dtoolkit.accessor.dataframe.equal : DataFrame version of ``.equal``.
 
     Examples
     --------
