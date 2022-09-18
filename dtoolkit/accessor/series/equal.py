@@ -36,8 +36,8 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
     Warns
     -----
     UserWarning
-        If ``align`` is True and ``other`` is a Series, but its index is not equal to
-        the ``s``.
+        If ``align`` is True and ``other`` is a Series, but its indexes are not
+        equal to ``s``.
 
     Raises
     ------
