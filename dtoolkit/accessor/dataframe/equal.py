@@ -49,6 +49,11 @@ def equal(
         If ``align`` is True and ``other`` is a Series / DataFrame, but its
         indexes (columns) are not equal to ``df``.
 
+    Raises
+    ------
+    ValueError
+        If ``other`` is id array-like and its size is not equal to ``df``'s size.
+
     See Also
     --------
     pandas.DataFrame.eq : Compare two Series.
