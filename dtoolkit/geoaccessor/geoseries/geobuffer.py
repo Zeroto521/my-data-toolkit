@@ -102,6 +102,7 @@ def geobuffer(
     0         0   close to equator                                      POLYGON EMPTY
     1        10  away from equator  POLYGON ((100.00009 1.00000, 100.00009 0.99999...
     """
+
     if s.crs != 4326:
         raise ValueError(
             f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
@@ -114,16 +115,16 @@ def geobuffer(
             f"but got {type(distance)!r}.",
         )
 
+    if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
+        raise IndexError(
+            "Index values of 'distance' sequence doesn't "
+            f"match index values of the {type(s)!r}",
+        )
+
     if distance_is_list:
         if len(distance) != s.size:
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
-            )
-
-        if isinstance(distance, pd.Series) and not s.index.equals(distance.index):
-            raise IndexError(
-                "Index values of 'distance' sequence doesn't "
-                f"match index values of the {type(s)!r}",
             )
 
         distance = np.asarray(distance)
