@@ -106,11 +106,11 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
     dtype: bool
     """
 
-    if is_array_like(other):
-        if align and isinstance(other, pd.Series) and not s.index.equals(other.index):
-            warn("The indices are different.", stacklevel=find_stack_level())
-            s, other = s.align(other)
+    if align and isinstance(other, pd.Series) and not s.index.equals(other.index):
+        warn("The indices are different.", stacklevel=find_stack_level())
+        s, other = s.align(other)
 
+    if is_array_like(other):
         other = np.asarray(other)
 
     return np.equal(s, other, **kwargs)
