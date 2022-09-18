@@ -122,12 +122,11 @@ def geobuffer(
         )
 
     if distance_is_list:
-        if len(distance) != s.size:
+        distance = np.asarray(distance)
+        if distance.size != s.size:
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
             )
-
-        distance = np.asarray(distance)
 
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
