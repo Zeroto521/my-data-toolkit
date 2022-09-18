@@ -106,13 +106,15 @@ def geobuffer(
         raise ValueError(
             f"The CRS is {s.crs}, which requires is 'WGS86' (EPSG:4326).",
         )
-    if not (is_number(distance) or is_list_like(distance)):
+
+    distance_is_list = is_list_like(distance)
+    if not (is_number(distance) or distance_is_list):
         raise TypeError(
             "'distance' should be a number or a list of number, "
             f"but got {type(distance)!r}.",
         )
 
-    if is_list_like(distance):
+    if distance_is_list:
         if len(distance) != s.size:
             raise IndexError(
                 f"Length of 'distance' doesn't match length of the {type(s)!r}.",
@@ -137,11 +139,8 @@ def geobuffer(
             continue
 
         mask = utms == utm
-        s[mask] = (
-            s[mask]
-            .to_crs(utm)
-            .buffer(distance[mask] if is_list_like(distance) else distance, **kwargs)
-        )
+        dis = distance[mask] if distance_is_list else distance
+        s[mask] = s[mask].to_crs(utm).buffer(dis, **kwargs)
 
     return s
 
