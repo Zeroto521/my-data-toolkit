@@ -25,8 +25,15 @@ def equal(
             warn("The indices are different.", stacklevel=find_stack_level())
             df, other = df.align(other)
 
-        if pd.DataFrame._get_axis_number(axis) == 1 and len(np.shape(other)) == 1:
-            # TODO: Do something to other, reshape it ot (n, 1)
-            ...
+        if len(shape_other := np.shape(other)) == 1:
+            axis = df._get_axis_number(axis)
+            if shape_other[0] != df.shape[1 - axis]:
+                raise ValueError(
+                    f"size of other ({shape_other[0]}) does not equal to df.shape"
+                    f"[{1-axis}] ({df.shape[1 - axis]})."
+                )
+
+            if axis == 1:
+                other = np.asarray(other).reshape((-1, 1))
 
     return np.equal(df, other, **kwargs)
