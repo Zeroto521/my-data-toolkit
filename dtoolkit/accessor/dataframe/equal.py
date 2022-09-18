@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import is_array_like
 
-from dtookit._typing import Axis
+from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.util._exception import find_stack_level
 
