@@ -1,3 +1,5 @@
+from warnings import catch_warnings
+from warnings import simplefilter
 from warnings import warn
 
 import numpy as np
@@ -78,4 +80,18 @@ def equal(
             if axis == 1:
                 other = other.reshape((-1, 1))
 
-    return np.equal(df, other, **kwargs)
+    with catch_warnings():
+        # TODO: remove `catch_warnings` in the future.
+        # The latest pandas version (1.4.x) doesn't specify a version when
+        # it will change the behavior on non-aligned DataFrame.
+
+        # Original message:
+        # FutureWarning: Calling a ufunc on non-aligned DataFrames(or DataFrame/Series
+        # combination). Currently, the indices are ignored and the result takes the
+        # index/columns of the first DataFrame. In the future , the DataFrames/Series
+        # will be aligned before applying the ufunc. Convert one of the arguments to a
+        # NumPy array (eg 'ufunc(df1, np.asarray(df2)') to keep the current behaviour,
+        # or align manually (eg 'df1, df2 = df1.align(df2)') before passing to the ufunc
+        # to obtain the future behaviour and silence this warning.
+        simplefilter("ignore", FutureWarning)
+        return np.equal(df, other, **kwargs)
