@@ -140,7 +140,7 @@ def geobuffer(
 
         mask = utms == utm
         dis = distance[mask] if distance_is_list else distance
-        s[mask] = s[mask].to_crs(utm).buffer(dis, **kwargs)
+        s[mask] = s[mask].to_crs(utm).buffer(dis, **kwargs).to_crs(4326)
 
     return s
 
