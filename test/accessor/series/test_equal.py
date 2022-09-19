@@ -1,6 +1,6 @@
+import numpy as np
 import pandas as pd
 import pytest
-import numpy as np
 from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import equal
