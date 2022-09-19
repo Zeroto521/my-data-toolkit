@@ -23,7 +23,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
         - 1d array-like : compare each element with the corresponding value.
 
     align : bool, default True
-        If True, align ``s`` and ``other`` before comparing.         Only works wihle
+        If True, align ``s`` and ``other`` before comparing. Only works while
         ``other`` is a Series.
 
     **kwargs
