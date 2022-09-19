@@ -43,8 +43,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
     Raises
     ------
     ValueError
-        - If the lengths of ``s`` and ``other`` are not equal.
-        - If ``other`` is not a scalar or 1d array-like.
+        If the lengths of ``s`` and ``other`` are not equal.
 
     See Also
     --------
