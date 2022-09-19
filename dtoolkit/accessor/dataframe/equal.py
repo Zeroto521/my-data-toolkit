@@ -130,20 +130,17 @@ def equal(
 
     axis = df._get_axis_number(axis)
     if align and (
-        (
-            isinstance(other, pd.Series)
-            and (
-                axis == 0
-                and not df.columns.equals(other.index)
-                or axis == 1
-                and not df.index.equals(other.index)
-            )
-        )
-        or (
-            isinstance(other, pd.DataFrame)
+        # For Series, `df.index` or `df.columns` must be equal to `other.index`.
+        isinstance(other, pd.Series)
+        and (
+            axis == 0
+            and not df.columns.equals(other.index)
+            or axis == 1
             and not df.index.equals(other.index)
-            and not df.columns.equals(other.columns)
         )
+        # For DataFrame, both `df.index` and `df.columns` must be equal to `other.index`
+        or isinstance(other, pd.DataFrame)
+        and not (df.index.equals(other.index) and df.columns.equals(other.columns))
     ):
         warn("the indices are different.", stacklevel=find_stack_level())
         df, other = df.align(
