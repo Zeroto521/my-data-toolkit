@@ -143,10 +143,8 @@ def equal(
         and not (df.index.equals(other.index) and df.columns.equals(other.columns))
     ):
         warn("the indices are different.", stacklevel=find_stack_level())
-        df, other = df.align(
-            other,
-            axis=1 - axis if isinstance(other, pd.Series) else None,
-        )
+        a = 1 - axis if isinstance(other, pd.Series) else None
+        df, other = df.align(other, axis=a)
 
     if is_list_like(other):
         other = np.asarray(other)
