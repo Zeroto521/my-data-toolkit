@@ -106,7 +106,7 @@ def equal(
     0   True  False
     1  False   True
     2  False  False
-    >>> df.equal([1, 2, 3], axis=1)  # default compare along the column
+    >>> df.equal([1, 2, 3], axis=1)  # compare along the column
           a      b
     0  True  False
     1  True   True
