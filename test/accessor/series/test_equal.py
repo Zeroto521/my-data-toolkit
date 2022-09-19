@@ -1,5 +1,6 @@
 import pandas as pd
 import pytest
+import numpy as np
 from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import equal
@@ -61,10 +62,17 @@ def test_warning(s, other, align, warning):
             True,
             pd.Series([False, False, False]),
         ),
-        # test array-like
+        # test list
         (
             pd.Series([1, 2, 3]),
             [2, 2, 2],
+            True,
+            pd.Series([False, True, False]),
+        ),
+        # test ndarray
+        (
+            pd.Series([1, 2, 3]),
+            np.array([2, 2, 2]),
             True,
             pd.Series([False, True, False]),
         ),
