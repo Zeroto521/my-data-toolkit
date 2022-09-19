@@ -29,6 +29,7 @@ def equal(
     ----------
     other : scalar, 1d array-like or 2d array-like
         The value(s) to compare with the DataFrame.
+
         - scalar : compare each element with the scalar value.
         - 1d / 2d array-like : compare each element with the corresponding value.
 
