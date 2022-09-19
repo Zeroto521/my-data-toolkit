@@ -34,7 +34,7 @@ def equal(
 
     align : bool, default True
         If True, align ``df`` and ``other`` before comparing.
-        Only works wihle ``other`` is a Series / DataFrame.
+        Only works while ``other`` is a Series / DataFrame.
 
     axis : {0 or 'index', 1 or 'columns'}, default 0
         If 0, compare along ``df``'s rows else columns. Works only when ``other`` is
