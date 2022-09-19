@@ -19,6 +19,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
     ----------
     other : scalar or 1d array-like
         The value(s) to compare with the Series.
+
         - scalar : compare each element with the scalar value.
         - 1d array-like : compare each element with the corresponding value.
 
