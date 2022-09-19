@@ -146,7 +146,7 @@ def equal(
         if other.ndim == 1 and other.size != df.shape[1 - axis]:
             raise ValueError(
                 f"size of other ({other.shape[0]}) does not equal to df.shape"
-                f"[{1-axis}] ({df.shape[1 - axis]})."
+                f"[{1-axis}] ({df.shape[1 - axis]}).",
             )
 
         if other.ndim == 1 and axis == 1:
