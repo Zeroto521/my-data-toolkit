@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from itertools import chain
 from typing import Hashable
 from typing import TYPE_CHECKING
 
@@ -9,6 +8,7 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series.expand import collapse
 
 if TYPE_CHECKING:
     from sklearn.base import TransformerMixin
@@ -163,12 +163,12 @@ def decompose(
                 ],
             ),
             index=df.index,
-            columns=chain.from_iterable(columns.keys()),
+            columns=collapse(columns.keys()),
         ).combine_first(
             drop_or_not(
                 df,
                 drop=drop,
-                columns=chain.from_iterable(columns.values()),
+                columns=collapse(columns.values()),
             ),
         )
 
