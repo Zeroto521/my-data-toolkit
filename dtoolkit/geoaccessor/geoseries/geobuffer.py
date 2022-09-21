@@ -91,7 +91,7 @@ def geobuffer(
     0         0   close to equator  POINT (122.00000 55.00000)
     1        10  away from equator   POINT (100.00000 1.00000)
     >>> df.geobuffer(100)
-       distance                                                geometry
+       distance  ...                                           geometry
     0         0  ...  POLYGON ((122.00156 55.00001, 122.00156 54.999...
     1        10  ...  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
     <BLANKLINE>
@@ -100,7 +100,7 @@ def geobuffer(
     For GeoDataFrame, you can use the column as the distance to generate buffer.
 
     >>> df.geobuffer("distance")
-       distance                                                geometry
+       distance  ...                                           geometry
     0         0  ...                                      POLYGON EMPTY
     1        10  ...  POLYGON ((100.00009 1.00000, 100.00009 0.99999...
     <BLANKLINE>
