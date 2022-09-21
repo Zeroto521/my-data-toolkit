@@ -2,7 +2,6 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pytest
-from pyproj import CRS
 
 from dtoolkit.geoaccessor.geodataframe import geobuffer  # noqa: F401
 
@@ -66,6 +65,6 @@ def test_use_column_as_distance():
     result = df.geobuffer(10)  # use column '10' as distance not value 10
 
     # the first one should be a empty polygon
-    assert result.is_empty[0] == True
+    assert result.is_empty[0]
     # the seconed one should be a polygon
-    assert result.is_empty[1] == False
+    assert not result.is_empty[1]
