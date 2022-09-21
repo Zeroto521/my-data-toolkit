@@ -7,21 +7,23 @@ from pyproj import CRS
 from dtoolkit.geoaccessor.geodataframe import geobuffer  # noqa: F401
 
 
-my_wkts = ["Point(120 50)", "Point(150 -30)", "Point(100 1)"]
-distances = np.asarray(range(1, 1000, 499))
-
-
-df = gpd.GeoSeries.from_wkt(my_wkts, crs="epsg:4326").to_frame("geometry")
-crs = CRS.from_user_input("epsg:4326")
+df = gpd.GeoSeries.from_wkt(
+    [
+        "Point(120 50)",
+        "Point(150 -30)",
+        "Point(100 1)",
+    ],
+    crs="epsg:4326",
+).to_frame("geometry")
 
 
 @pytest.mark.parametrize(
     "distance",
     [
         1000,
-        list(distances),
-        distances,
-        pd.Series(distances),
+        list(range(1, 1000, 499)),
+        np.asarray(range(1, 1000, 499)),
+        pd.Series(range(1, 1000, 499)),
     ],
 )
 def test_distance_work(distance):
