@@ -45,7 +45,7 @@ def test_distance_length_is_different_to_data():
 
 
 def test_geometry_is_none():
-    s = gpd.GeoSeries([None, Point()], crs="epsg:4326")
+    s = gpd.GeoSeries([None], crs="epsg:4326")
     b = s.geobuffer(10)
 
     assert b[0] is None
