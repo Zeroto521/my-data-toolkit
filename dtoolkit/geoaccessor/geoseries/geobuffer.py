@@ -33,8 +33,9 @@ def geobuffer(
     Parameters
     ----------
     distance : int, float, list-like of int or float, the unit is meter.
-        The radius of the buffer. If :obj:`~numpy.ndarray` or :obj:`~pandas.Series`
-        are used then it must have same length as the ``{alias}``.
+        The radius of the buffer. If numpy.ndarray or Series are used then it must have
+        same length as the ``{alias}``. For GeoDataFrame.geobuffer, it would use the
+        column name as the distance prior.
 
     Returns
     -------
@@ -97,7 +98,7 @@ def geobuffer(
     <BLANKLINE>
     [2 rows x 3 columns]
 
-    For GeoDataFrame, you can use the column as the distance to generate buffer.
+    For GeoDataFrame, it could use the column name as the distance to generate buffer.
 
     >>> df.geobuffer("distance")
        distance  ...                                           geometry
