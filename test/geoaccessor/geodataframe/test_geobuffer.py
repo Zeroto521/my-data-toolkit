@@ -52,3 +52,20 @@ def test_renamed_geometry():
 
     assert new_geometry_column_name in result.columns
     assert default_geometry_column_name not in result.columns
+
+
+def test_use_column_as_distance():
+    df = pd.DataFrame(
+        {
+            10: [0, 10],
+            "x": [122, 100],
+            "y": [55, 1],
+        },
+    ).from_xy("x", "y", crs=4326)
+
+    result = df.geobuffer(10)  # use column '10' as distance not value 10
+
+    # the first one should be a empty polygon
+    assert result.is_empty[0] == True
+    # the seconed one should be a polygon
+    assert result.is_empty[1] == False
