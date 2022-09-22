@@ -170,4 +170,6 @@ def equal(
         # or align manually (eg 'df1, df2 = df1.align(df2)') before passing to the ufunc
         # to obtain the future behaviour and silence this warning.
         simplefilter("ignore", FutureWarning)
+
+        # NOTE: Requires pandas >= 1.2.0 to better support numpy ufunc.
         return np.equal(df, other, **kwargs)
