@@ -34,7 +34,7 @@ def geobuffer(
     ----------
     distance : int, float, list-like of int or float, the unit is meter.
         The radius of the buffer. If numpy.ndarray or Series are used then it must have
-        same length as the ``{alias}``. For GeoDataFrame.geobuffer, it would use the
+        same length as the ``{alias}``. For ``GeoDataFrame.geobuffer``, it would use the
         column name as the distance prior.
 
     Returns
