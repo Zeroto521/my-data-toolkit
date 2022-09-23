@@ -24,12 +24,13 @@ def to_datetime(s: pd.Series, /, **kwargs) -> pd.Series:
     See Also
     --------
     pandas.to_datetime
-        The function that this method wraps.
 
-    janitor.functions.to_datetime
-        DataFrame version of this function. See `Janitor's documentation`__ for details.
+    Notes
+    -----
+    ``DataFrame.to_datetime`` could use `janitor.functions.to_datetime`__.
 
-    __ https://pyjanitor-devs.github.io/pyjanitor/api/functions/#janitor.functions.to_datetime
+    __ https://pyjanitor-devs.github.io/pyjanitor/api/functions/\
+#janitor.functions.to_datetime
 
     Examples
     --------
