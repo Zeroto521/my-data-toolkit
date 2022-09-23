@@ -17,6 +17,10 @@ def to_datetime(s: pd.Series, /, **kwargs) -> pd.Series:
     **kwargs
         Keyword arguments to pass to :meth:`pandas.to_datetime`.
 
+    Returns
+    -------
+    Series
+
     See Also
     --------
     pandas.to_datetime
