@@ -5,7 +5,7 @@ import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit._typing import TwoDimArray
-from dtoolkit.accessor.dataframe import to_series  # noqa
+from dtoolkit.accessor.dataframe import to_series  # noqa: F401
 
 
 def transform_array_to_frame(
