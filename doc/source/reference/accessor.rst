@@ -34,6 +34,7 @@ Series Accessor
     query
     set_unique_index
     swap_index_values
+    to_datetime
     to_set
     top_n
     values_to_dict
