@@ -138,8 +138,8 @@ def top_n(
     3       a       b       c
     """
 
-    def wrap_s_top_n(*args, **kwargs) -> pd.Series:
-        top = s_top_n(*args, **kwargs)
+    def wrap_s_top_n(s: pd.Series) -> pd.Series:
+        top = s_top_n(s, n=n, largest=largest, keep=keep)
 
         if element == "index":
             data = top.index
@@ -152,10 +152,4 @@ def top_n(
 
         return pd.Series(data, index=pd.RangeIndex(1, top.size + 1))
 
-    return df.apply(
-        wrap_s_top_n,
-        n=n,
-        axis=1,
-        largest=largest,
-        keep=keep,
-    ).add_prefix(prefix + delimiter)
+    return df.apply(wrap_s_top_n, axis=1).add_prefix(prefix + delimiter)

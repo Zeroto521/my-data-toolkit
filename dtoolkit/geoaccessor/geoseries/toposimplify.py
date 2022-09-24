@@ -10,7 +10,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-@doc(klass=":class:`~geopandas.GeoSeries`")
+@doc(klass="GeoSeries")
 def toposimplify(
     s: gpd.GeoSeries,
     /,
@@ -20,8 +20,9 @@ def toposimplify(
     prevent_oversimplify: bool = True,
 ) -> gpd.GeoSeries:
     """
-    Returns a {klass} containing a simplified representation of each geometry.
-    Similar to :meth:`~geopandas.GeoSeries.simplify`, but keeps shared edges.
+    Returns a :class:`~geopandas.{klass}` containing a simplified representation
+    of each geometry. Similar to :meth:`~geopandas.GeoSeries.simplify`, but keeps
+    shared edges.
 
     .. image:: ../../../../_static/simplify-vs-toposimplify.png
         :width: 80%
@@ -87,11 +88,11 @@ def toposimplify(
     [5 rows x 6 columns]
     >>> df.toposimplify(0.1).head()
            pop_est  ...                                           geometry
-    1   58005463.0  ...  POLYGON ((33.90367 -0.95000, 30.76984 -1.01452...
-    2     603253.0  ...  POLYGON ((-8.66561 27.65644, -8.81786 27.65644...
-    11  86790567.0  ...  POLYGON ((29.33999 -4.50001, 29.27634 -3.29391...
-    12  10192317.3  ...  POLYGON ((41.58509 -1.68324, 42.04156 -0.91918...
-    13  52573973.0  ...  POLYGON ((39.20220 -4.67675, 39.60493 -4.34650...
+    1   58005463.0  ...  POLYGON ((33.90358 -0.94984, 30.76987 -1.01479...
+    2     603253.0  ...  POLYGON ((-8.66587 27.65614, -8.81778 27.65614...
+    11  86790567.0  ...  POLYGON ((29.34014 -4.49988, 29.27690 -3.29392...
+    12  10192317.3  ...  POLYGON ((41.58493 -1.68309, 42.04203 -0.91881...
+    13  52573973.0  ...  POLYGON ((39.20182 -4.67669, 39.60462 -4.34688...
     <BLANKLINE>
     [5 rows x 6 columns]
     """

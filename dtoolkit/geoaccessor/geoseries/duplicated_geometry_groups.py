@@ -90,6 +90,7 @@ def duplicated_geometry_groups(
     dtype: int64
     """
 
+    # NOTE: `predicate` requires geopandas >= 0.10.0
     return (
         s.to_frame("geometry")
         .set_unique_index(drop=True)

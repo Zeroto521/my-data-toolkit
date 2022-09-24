@@ -8,7 +8,7 @@ Features
 --------
 
 - Make the data of the Pipeline transparent: the Pandas-like object in and the Pandas-like object out
-- `Use the custom method for the Pandas-like object like calling the native attribute <./guide/tips_about_getattr.ipynb>`_
+- `Use the custom method for the Pandas-like object like calling the native attribute <./guide/tips_about_accessor.ipynb>`_
 
 Routes
 ------
