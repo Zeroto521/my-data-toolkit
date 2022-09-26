@@ -33,8 +33,7 @@ def weighted_mean(
         The weights of each column in the DataFrame.
 
         - list : The weights of each column in the DataFrame.
-        - dict : Receive datastructure like ``{column: score}`` or
-         ``{new_column: {column: score}}``.
+        - dict : Receive like ``{column: score}`` or ``{new_column: {column: score}}``.
         - Series : The weights must be a series with the same index as the DataFrame.
 
     validate : bool, default False
@@ -75,14 +74,14 @@ def weighted_mean(
     0  1  2  4
     1  1  2  4
 
-    Select all columns to calculate the weighted score.
+    Select all columns to calculate the score.
 
     >>> df.weighted_mean([0, 5, 5])
     0    3.0
     1    3.0
     dtype: float64
 
-    Select some of columns and calculate the weighted score.
+    Select some of columns and calculate the score.
 
     >>> df.weighted_mean({'b': 5, 'c': 5})
     1    3.0
