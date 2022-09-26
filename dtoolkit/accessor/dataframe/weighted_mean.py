@@ -68,10 +68,7 @@ def weighted_mean(
         result = score(df, weights=weights, validate=validate)
     elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
-            raise ValueError(
-                f"One of the 'weights' elements ({to_set(weights.index)!r}) is not in "
-                f"the DataFrame columns ({to_set(df.columns)!r}).",
-            )
+            raise ValueError(f"{to_set(weights.index)}) > {to_set(df.columns)}.")
 
         result = score(df, weights=weights, validate=validate, name=weights.name)
     elif isinstance(weights, dict):
