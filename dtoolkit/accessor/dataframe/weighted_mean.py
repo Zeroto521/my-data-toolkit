@@ -113,11 +113,12 @@ def weighted_mean(
 
     if isinstance(weights, (list, tuple)):
         result = score(df, weights=weights, validate=validate)
+
     elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
             raise ValueError(f"{to_set(weights.index)}) > {to_set(df.columns)}.")
-
         result = score(df, weights=weights, validate=validate, name=weights.name)
+
     elif isinstance(weights, dict):
         if all(map(is_number, weights.values())):
             result = score(df[weights.keys()], weights=weights, validate=validate)
@@ -125,22 +126,24 @@ def weighted_mean(
             result = pd.DataFrame()
             for name, weight in weights.items():
                 if not all(map(is_number, weight.values())):
-                    raise TypeError()
+                    raise TypeError("The value of weights is not number type.")
 
-                temp = score(
+                res = score(
                     result.combine_first(df)[weight.keys()],
                     weights=weight,
                     validate=validate,
                     name=name,
                 )
-                result = pd.concat((result, temp), axis=1)
+                result = pd.concat((result, res), axis=1)
         else:
-            raise TypeError()
+            raise TypeError("Received an invalid weights type.")
+
     else:
         raise TypeError(
             "'weights' must be a list, a dict or a Series type, "
             f"but you passed a {type(weights).__name__!r}.",
         )
+
 
     if not drop:
         if isinstance(result, pd.Series) and result.name:
