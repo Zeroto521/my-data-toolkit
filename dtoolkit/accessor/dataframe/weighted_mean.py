@@ -59,6 +59,51 @@ def weighted_mean(
         - If ``weights`` is Series type and its labels are not in the DataFrame columns.
         - If ``weights`` is Series type and its labels are duplicated.
         - If ``validate=True`` and the sum of ``weights`` values is not equal to 1.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({"a": [1, 1], "b": [2, 2], "c": [4, 4]})
+    >>> df
+       a  b  c
+    0  1  2  4
+    1  1  2  4
+
+    Select all columns to calculate the weighted score.
+
+    >>> df.weighted_mean([0, 5, 5])
+    0    3.0
+    1    3.0
+    dtype: float64
+
+    Select some of columns and calculate the weighted score.
+
+    >>> df.weighted_mean({'b': 5, 'c': 5})
+    1    3.0
+    2    3.0
+    dtype: float64
+
+    Keep the original columns.
+
+    >>> df.weighted_mean({"bc": {'b': 5, 'c': 5}})
+       a  b   bc  c
+    0  1  2  3.0  4
+    1  1  2  3.0  4
+
+    While ``weights`` is a dict and its values are also dict, it could use new generated
+    columns to generate the score.
+
+    >>> df.weighted_mean(
+    ...     {
+    ...         "ab": {"a": 1, "b": 1},
+    ...         "bc": {"b": 1, "c": 1},
+    ...         "ab-bc": {"ab": 1, "bc": 1},  # 'ab' and 'bc' are new generated columns
+    ...     }
+    ... )
+       a   ab  ab-bc  b   bc  c
+    0  1  1.5   2.25  2  3.0  4
+    1  1  1.5   2.25  2  3.0  4
     """
 
     if isinstance(weights, (list, tuple)):
