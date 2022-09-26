@@ -7,6 +7,7 @@ from pandas.api.types import is_dict_like
 from pandas.api.types import is_number
 
 from dtoolkit._typing import Number
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.index import to_set
 from dtoolkit.accessor.register import register_dataframe_method
 
@@ -18,7 +19,7 @@ def weighted_mean(
     weights: list[Number] | dict[Hashable, Number | dict[Hashable, Number]] | pd.Series,
     validate: bool = False,
     drop: bool = False,
-) -> pd.DataFrame | pd.Series:
+) -> SeriesOrFrame:
     """
     Calculate the weighted score of selected columns in the DataFrame.
 
