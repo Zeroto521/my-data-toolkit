@@ -100,8 +100,7 @@ def score(
 ) -> pd.Series:
     """Return calculated single score column."""
 
-    sum_w = sum(weights)
-    if validate and sum_w != 1:
-        raise ValueError(f"The sum of weights values ({sum_w!r}) is not equal to 1.")
+    if validate and sum(weights) != 1:
+        raise ValueError(f"({sum(weights)=}) is not equal to 1.")
 
-    return df.mul(weights).sum(axis=1).divide(sum_w).rename(name)
+    return df.mul(weights).sum(axis=1).divide(sum(weights)).rename(name)
