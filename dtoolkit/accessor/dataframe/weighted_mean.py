@@ -60,6 +60,10 @@ def weighted_mean(
         - If ``weights`` is Series type and its labels are duplicated.
         - If ``validate=True`` and the sum of ``weights`` values is not equal to 1.
 
+    See also
+    --------
+    pandas.DataFrame.mean : Calculate the mean of the DataFrame.
+
     Examples
     --------
     >>> import dtoolkit.accessor
