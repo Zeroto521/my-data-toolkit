@@ -74,7 +74,7 @@ def weighted_mean(
         raise ValueError("The 'weights' is empty.")
 
     if isinstance(weights, list, tuple):
-        return score(df, weights=weights, validate=validate)
+        result = score(df, weights=weights, validate=validate)
     elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
             raise ValueError(
@@ -82,7 +82,7 @@ def weighted_mean(
                 f"the DataFrame columns ({to_set(df.columns)!r}).",
             )
 
-        return score(df, weights=weights, validate=validate, name=weights.name)
+        result = score(df, weights=weights, validate=validate, name=weights.name)
     elif isinstance(weights, dict):
         ...
     else:
@@ -90,6 +90,10 @@ def weighted_mean(
             "'weights' must be a list, a dict or a Series type, "
             f"but you passed a {type(weights).__name__!r}.",
         )
+
+    if not drop and result.name:
+        result = result.to_frame().combine_first(df)
+    return result
 
 
 def score(
