@@ -54,9 +54,8 @@ def weighted_mean(
     ValueError
         - If ``weights`` is empty.
 
-        - ``weights`` is list type
-            - If the length of weights is not the same as the number of DataFrame
-             columns.
+        - If ``weights`` is list type and its length is not the same as the number of
+          DataFrame columns.
 
         - ``weights`` is Series type
             - If the labels of the weights are not in the DataFrame columns.
@@ -105,10 +104,8 @@ def score(
 ) -> pd.Series:
     """Return calculated single score column."""
 
-    sum_weights = sum(weights)
-    if validate and sum_weights != 1:
-        raise ValueError(
-            f"The sum of weights values ({sum_weights!r}) is not equal to 1."
-        )
+    sum_w = sum(weights)
+    if validate and sum_w != 1:
+        raise ValueError(f"The sum of weights values ({sum_w!r}) is not equal to 1.")
 
-    return ((df * weights).sum(axis=1) / sum_weights).rename(name)
+    return ((df * weights).sum(axis=1) / sum_w).rename(name)
