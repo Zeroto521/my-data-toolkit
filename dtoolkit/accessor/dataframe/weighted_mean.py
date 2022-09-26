@@ -85,8 +85,8 @@ def weighted_mean(
     Select some of columns and calculate the score.
 
     >>> df.weighted_mean({'b': 5, 'c': 5})
+    0    3.0
     1    3.0
-    2    3.0
     dtype: float64
 
     Keep the original columns.
