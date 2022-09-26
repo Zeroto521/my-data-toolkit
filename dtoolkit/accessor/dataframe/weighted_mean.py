@@ -90,8 +90,12 @@ def weighted_mean(
             f"but you passed a {type(weights).__name__!r}.",
         )
 
-    if not drop and result.name:
-        result = result.to_frame().combine_first(df)
+    if not drop:
+        if isinstance(result, pd.Series) and result.name:
+            result = result.to_frame()
+        if isinstance(result, pd.DataFrame):
+            result = result.combine_first(df)
+
     return result
 
 
