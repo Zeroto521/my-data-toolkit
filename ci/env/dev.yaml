@@ -17,6 +17,7 @@ dependencies:
   - fiona
   - pyproj
   - shapely
+  - pygeos
   - geopy
   - topojson
   # testing
@@ -32,4 +33,3 @@ dependencies:
     # optional
     - git+https://github.com/scikit-learn/scikit-learn
     - git+https://github.com/geopandas/geopandas
-    - git+https://github.com/pygeos/pygeos

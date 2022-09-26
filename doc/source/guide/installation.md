@@ -18,7 +18,6 @@ Optional Dependencies:
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
   - GeoPandas (>= 0.10.0)
-  - PyGEOS (>= 0.11.1)
 
 ### Different Python Version Minimal Dependencies
 
@@ -58,7 +57,7 @@ conda create -n dtoolkit_env
 conda activate dtoolkit_env
 conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
-conda install python=3 pandas scikit-learn geopandas pygeos
+conda install python=3 pandas scikit-learn geopandas
 pip install my-data-toolkit
 ```
 

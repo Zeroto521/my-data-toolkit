@@ -21,6 +21,7 @@ Series Accessor
     cols
     drop_inf
     dropna_index
+    equal
     error_report
     eval
     expand
@@ -33,6 +34,7 @@ Series Accessor
     query
     set_unique_index
     swap_index_values
+    to_datetime
     to_set
     top_n
     values_to_dict
@@ -50,6 +52,7 @@ DataFrame Accessor
     drop_inf
     drop_or_not
     dropna_index
+    equal
     expand
     fillna_regression
     filter_in
