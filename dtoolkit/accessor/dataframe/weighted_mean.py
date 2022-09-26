@@ -3,6 +3,8 @@ from __future__ import annotations
 from typing import Hashable
 
 import pandas as pd
+from pandas.api.types import is_dict_like
+from pandas.api.types import is_number
 
 from dtoolkit._typing import Number
 from dtoolkit.accessor.index import to_set
@@ -59,11 +61,6 @@ def weighted_mean(
         - If ``validate=True`` and the sum of ``weights`` values is not equal to 1.
     """
 
-    # HACK: Figure out how to handle the relationship between `weights`` (array-like)
-    # and `drop`.
-    # the result of array-like type `weights` is a Series (or single column DataFrame).
-    # It don't have a 'name'. So how to combine with the original DataFrame?
-
     if isinstance(weights, (list, tuple)):
         result = score(df, weights=weights, validate=validate)
     elif isinstance(weights, pd.Series):
@@ -72,7 +69,23 @@ def weighted_mean(
 
         result = score(df, weights=weights, validate=validate, name=weights.name)
     elif isinstance(weights, dict):
-        ...
+        if all(map(is_number, weights.values())):
+            result = score(df[weights.keys()], weights=weights, validate=validate)
+        elif all(map(is_dict_like, weights.values())):
+            result = pd.DataFrame()
+            for name, weight in weights.items():
+                if not all(map(is_number, weight.values())):
+                    raise TypeError()
+
+                temp = score(
+                    result.combine_first(df)[weight.keys()],
+                    weights=weight,
+                    validate=validate,
+                    name=name,
+                )
+                result = pd.concat((result, temp), axis=1)
+        else:
+            raise TypeError()
     else:
         raise TypeError(
             "'weights' must be a list, a dict or a Series type, "
