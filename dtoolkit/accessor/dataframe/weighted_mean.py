@@ -50,8 +50,9 @@ def weighted_mean(
     Raises
     ------
     TypeError
-        - If one of the weight values is not number type.
-        - If weights is not a list, a dict or a Series type.
+        - If one of the ``weights`` values is not number type.
+        - If ``weights`` is not a list, a dict or a Series type.
+        - If ``weights`` is a dict and the value is not a number or a dict type.
 
     ValueError
         - If ``weights`` is list type and its length is not the same as the number of
