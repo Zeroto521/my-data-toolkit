@@ -91,13 +91,15 @@ def weighted_mean(
 def score(
     df: pd.DataFrame,
     /,
-    weights: list[Number] | pd.Series,
+    weights: list[Number] | dict[Hashable, Number] | pd.Series,
     name: Hashable = None,
     validate: bool = False,
 ) -> pd.Series:
     """Return calculated single score column."""
 
-    if validate and sum(weights) != 1:
-        raise ValueError(f"({sum(weights)=}) is not equal to 1.")
+    # if weights is dict should sum its values
+    sum_weights = sum(weights.values() if isinstance(weights, dict) else weights)
+    if validate and sum_weights != 1:
+        raise ValueError(f"sum(weights)={sum_weights}) is not equal to 1.")
 
-    return df.mul(weights).sum(axis=1).divide(sum(weights)).rename(name)
+    return df.mul(weights).sum(axis=1).divide(sum_weights).rename(name)
