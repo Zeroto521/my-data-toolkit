@@ -104,7 +104,7 @@ def score(
     sum_weights = sum(weights)
     if validate and sum_weights != 1:
         raise ValueError(
-            f"The sum of weights values ({sum_weights!r}) is not equal to 1."
+            f"The sum of weights values ({sum_weights!r}) is not equal to 1.",
         )
 
     return ((df * weights).sum(axis=1) / sum_weights).rename(name)
