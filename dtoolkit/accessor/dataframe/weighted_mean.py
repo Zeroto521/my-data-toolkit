@@ -64,7 +64,7 @@ def weighted_mean(
     # the result of array-like type `weights` is a Series (or single column DataFrame).
     # It don't have a 'name'. So how to combine with the original DataFrame?
 
-    if isinstance(weights, list, tuple):
+    if isinstance(weights, (list, tuple)):
         result = score(df, weights=weights, validate=validate)
     elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
