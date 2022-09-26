@@ -52,15 +52,10 @@ def weighted_mean(
         - If weights is not a list, a dict or a Series type.
 
     ValueError
-        - If ``weights`` is empty.
-
         - If ``weights`` is list type and its length is not the same as the number of
           DataFrame columns.
-
-        - ``weights`` is Series type
-            - If the labels of the weights are not in the DataFrame columns.
-            - If the labels of the weights are duplicated.
-
+        - If ``weights`` is Series type and its labels are not in the DataFrame columns.
+        - If ``weights`` is Series type and its labels are duplicated.
         - If ``validate=True`` and the sum of ``weights`` values is not equal to 1.
     """
 
@@ -68,9 +63,6 @@ def weighted_mean(
     # and `drop`.
     # the result of array-like type `weights` is a Series (or single column DataFrame).
     # It don't have a 'name'. So how to combine with the original DataFrame?
-
-    if len(weights) == 0:
-        raise ValueError("The 'weights' is empty.")
 
     if isinstance(weights, list, tuple):
         result = score(df, weights=weights, validate=validate)
