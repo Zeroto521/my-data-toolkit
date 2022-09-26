@@ -29,13 +29,14 @@ def weighted_mean(
     ----------
     weights : list, dict or Series
         The weights of each column in the DataFrame.
+
         - list : The weights of each column in the DataFrame.
         - dict : Receive datastructure like ``{column: score}`` or
          ``{new_column: {column: score}}``.
         - Series : The weights must be a series with the same index as the DataFrame.
 
     validate : bool, default False
-        If True, require the sum of weights values equal to 1.
+        If True, require the sum of ``weights`` values equal to 1.
 
     drop : bool, default False
         If True, drop the used columns.
@@ -51,15 +52,17 @@ def weighted_mean(
         - If weights is not a list, a dict or a Series type.
 
     ValueError
-        - weights is list type
+        - If ``weights`` is empty.
+
+        - ``weights`` is list type
             - If the length of weights is not the same as the number of DataFrame
              columns.
 
-        - weights is Series type
+        - ``weights`` is Series type
             - If the labels of the weights are not in the DataFrame columns.
             - If the labels of the weights are duplicated.
 
-        - If ``validate=True`` and the sum of weights values is not equal to 1.
+        - If ``validate=True`` and the sum of ``weights`` values is not equal to 1.
     """
 
     # HACK: Figure out how to handle the relationship between `weights`` (array-like)
@@ -67,10 +70,12 @@ def weighted_mean(
     # the result of array-like type `weights` is a Series (or single column DataFrame).
     # It don't have a 'name'. So how to combine with the original DataFrame?
 
+    if len(weights) == 0:
+        raise ValueError("The 'weights' is empty.")
+
     if isinstance(weights, list, tuple):
         return score(df, weights=weights, validate=validate)
-
-    if isinstance(weights, pd.Series):
+    elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
             raise ValueError(
                 f"One of the 'weights' elements ({to_set(weights.index)!r}) is not in "
@@ -78,7 +83,6 @@ def weighted_mean(
             )
 
         return score(df, weights=weights, validate=validate, name=weights.name)
-
     elif isinstance(weights, dict):
         ...
     else:
