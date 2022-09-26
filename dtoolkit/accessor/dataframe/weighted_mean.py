@@ -14,6 +14,7 @@ def weighted_mean(
     df: pd.DataFrame,
     /,
     weights: list[Number] | dict[Hashable, Number | dict[Hashable, Number]] | pd.Series,
+    validate: bool = False,
     drop: bool = False,
 ) -> pd.DataFrame | pd.Series:
     """
@@ -33,11 +34,11 @@ def weighted_mean(
          ``{new_column: {column: score}}``.
         - Series : The weights must be a series with the same index as the DataFrame.
 
-    drop : bool, default False
-        If True, drop the used columns.
-
     validate : bool, default False
         If True, require the sum of weights values equal to 1.
+
+    drop : bool, default False
+        If True, drop the used columns.
 
     Returns
     -------
@@ -57,6 +58,8 @@ def weighted_mean(
         - weights is Series type
             - If the labels of the weights are not in the DataFrame columns.
             - If the labels of the weights are duplicated.
+
+        - If ``validate=True`` and the sum of weights values is not equal to 1.
     """
 
     # HACK: Figure out how to handle the relationship between `weights`` (array-like)
@@ -65,7 +68,7 @@ def weighted_mean(
     # It don't have a 'name'. So how to combine with the original DataFrame?
 
     if isinstance(weights, list, tuple):
-        return score(df, weights=weights)
+        return score(df, weights=weights, validate=validate)
 
     if isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
@@ -74,7 +77,7 @@ def weighted_mean(
                 f"the DataFrame columns ({to_set(df.columns)!r}).",
             )
 
-        return score(df, weights=weights, name=weights.name)
+        return score(df, weights=weights, validate=validate, name=weights.name)
 
     elif isinstance(weights, dict):
         ...
