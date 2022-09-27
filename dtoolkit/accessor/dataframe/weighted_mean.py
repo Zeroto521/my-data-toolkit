@@ -121,7 +121,7 @@ def weighted_mean(
 
     elif isinstance(weights, dict):
         if all(map(is_number, weights.values())):
-            result = score(df[weights.keys()], weights=weights, validate=validate)
+            result = score(df, weights=weights, validate=validate)
         elif all(map(is_dict_like, weights.values())):
             result = pd.DataFrame()
             for name, weight in weights.items():
@@ -129,12 +129,13 @@ def weighted_mean(
                     raise TypeError("The value of weights is not number type.")
 
                 res = score(
-                    result.combine_first(df)[weight.keys()],
+                    result.combine_first(df),
                     weights=weight,
                     validate=validate,
                     name=name,
                 )
                 result = pd.concat((result, res), axis=1)
+
         else:
             raise TypeError("Received an invalid weights type.")
 
@@ -143,7 +144,6 @@ def weighted_mean(
             "'weights' must be a list, a dict or a Series type, "
             f"but you passed a {type(weights).__name__!r}.",
         )
-
 
     if not drop:
         if isinstance(result, pd.Series) and result.name:
@@ -163,9 +163,11 @@ def score(
 ) -> pd.Series:
     """Return calculated single score column."""
 
-    # if weights is dict should sum its values
-    sum_weights = sum(weights.values() if isinstance(weights, dict) else weights)
-    if validate and sum_weights != 1:
-        raise ValueError(f"sum(weights)={sum_weights}) is not equal to 1.")
+    if isinstance(weights, dict):
+        df = df[weights.keys()]
+        weights = weights.values()
 
-    return df.mul(weights).sum(axis=1).divide(sum_weights).rename(name)
+    if validate and sum(weights) != 1:
+        raise ValueError(f"{sum(weights)=} is not equal to 1.")
+
+    return df.mul(weights).sum(axis=1).divide(sum(weights)).rename(name)
