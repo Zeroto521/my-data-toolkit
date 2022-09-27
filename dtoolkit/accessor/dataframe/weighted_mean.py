@@ -166,6 +166,8 @@ def score(
     if isinstance(weights, dict):
         df = df[weights.keys()]
         weights = weights.values()
+    elif isinstance(weights, pd.Series):
+        df = df[weights.index]
 
     if validate and sum(weights) != 1:
         raise ValueError(f"{sum(weights)=} is not equal to 1.")
