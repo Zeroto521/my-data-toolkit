@@ -14,18 +14,18 @@ repos:
     hooks:
       - id: absolufy-imports
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.8.2
+    rev: v3.8.3
     hooks:
       - id: reorder-python-imports
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.38.0
+    rev: v2.38.2
     hooks:
       - id: pyupgrade
   # text
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.3
+    rev: v2.3.0
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -61,7 +61,7 @@ repos:
         exclude: ^(example|doc)/
   # jupyter
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.6.0
+    rev: 0.6.1
     hooks:
       - id: nbstripout
   # doc
