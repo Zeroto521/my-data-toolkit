@@ -18,6 +18,7 @@ def weighted_mean(
     /,
     weights: list[Number] | dict[Hashable, Number | dict[Hashable, Number]] | pd.Series,
     validate: bool = False,
+    top: Number = 1,
     drop: bool = False,
 ) -> SeriesOrFrame:
     """
@@ -39,6 +40,9 @@ def weighted_mean(
 
     validate : bool, default False
         If True, require the sum of ``weights`` values equal to 1.
+
+    top : int, default 1
+        If ``validate`` is True, require the sum of ``weights`` values equal to ``top``.
 
     drop : bool, default False
         If True, drop the used columns.
@@ -112,16 +116,18 @@ def weighted_mean(
     """
 
     if isinstance(weights, (list, tuple)):
-        result = score(df, weights=weights, validate=validate)
+        result = score(df, weights=weights, validate=validate, top=top)
 
     elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
             raise ValueError(f"{to_set(weights.index)}) > {to_set(df.columns)}.")
-        result = score(df, weights=weights, validate=validate, name=weights.name)
+        result = score(
+            df, weights=weights, validate=validate, top=top, name=weights.name
+        )
 
     elif isinstance(weights, dict):
         if all(map(is_number, weights.values())):
-            result = score(df, weights=weights, validate=validate)
+            result = score(df, weights=weights, validate=validate, top=top)
         elif all(map(is_dict_like, weights.values())):
             result = pd.DataFrame()
             for name, weight in weights.items():
@@ -132,6 +138,7 @@ def weighted_mean(
                     result.combine_first(df),
                     weights=weight,
                     validate=validate,
+                    top=top,
                     name=name,
                 )
                 result = pd.concat((result, res), axis=1)
@@ -148,6 +155,7 @@ def weighted_mean(
     if not drop:
         if isinstance(result, pd.Series) and result.name:
             result = result.to_frame()
+
         if isinstance(result, pd.DataFrame):
             result = result.combine_first(df)
 
@@ -158,8 +166,9 @@ def score(
     df: pd.DataFrame,
     /,
     weights: list[Number] | dict[Hashable, Number] | pd.Series,
-    name: Hashable = None,
     validate: bool = False,
+    top: Number = 1,
+    name: Hashable = None,
 ) -> pd.Series:
     """Return calculated single score column."""
 
@@ -169,7 +178,7 @@ def score(
     elif isinstance(weights, pd.Series):
         df = df[weights.index]
 
-    if validate and sum(weights) != 1:
-        raise ValueError(f"{sum(weights)=} is not equal to 1.")
+    if validate and sum(weights) != top:
+        raise ValueError(f"{sum(weights)=} is not equal to {top}.")
 
     return df.mul(weights).sum(axis=1).divide(sum(weights)).rename(name)
