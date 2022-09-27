@@ -116,14 +116,12 @@ def weighted_mean(
     """
 
     if isinstance(weights, (list, tuple)):
-        result = score(df, weights=weights, validate=validate, top=top)
+        result = score(df, weights, validate=validate, top=top)
 
     elif isinstance(weights, pd.Series):
         if to_set(weights.index) > to_set(df.columns):
             raise ValueError(f"{to_set(weights.index)}) > {to_set(df.columns)}.")
-        result = score(
-            df, weights=weights, validate=validate, top=top, name=weights.name
-        )
+        result = score(df, weights, validate=validate, top=top, name=weights.name)
 
     elif isinstance(weights, dict):
         if all(map(is_number, weights.values())):
@@ -136,7 +134,7 @@ def weighted_mean(
 
                 res = score(
                     result.combine_first(df),
-                    weights=weight,
+                    weight,
                     validate=validate,
                     top=top,
                     name=name,
@@ -166,8 +164,9 @@ def score(
     df: pd.DataFrame,
     /,
     weights: list[Number] | dict[Hashable, Number] | pd.Series,
-    validate: bool = False,
-    top: Number = 1,
+    *,
+    validate: bool,
+    top: Number,
     name: Hashable = None,
 ) -> pd.Series:
     """Return calculated single score column."""
