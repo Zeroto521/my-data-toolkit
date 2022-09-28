@@ -138,7 +138,7 @@ def weighted_mean(
                 result = pd.concat((result, another), axis=1)
 
         else:
-            raise TypeError("Received an invalid weights type.")
+            raise TypeError("Received an invalid 'weights' type.")
 
     else:
         raise TypeError(
