@@ -8,7 +8,6 @@ from pandas.api.types import is_number
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import SeriesOrFrame
-from dtoolkit.accessor.index import to_set
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -119,26 +118,23 @@ def weighted_mean(
         result = score(df, weights, validate=validate, top=top)
 
     elif isinstance(weights, pd.Series):
-        if to_set(weights.index) > to_set(df.columns):
-            raise ValueError(f"{to_set(weights.index)}) > {to_set(df.columns)}.")
+        if set(weights.index) > set(df.columns):
+            raise ValueError(f"{set(weights.index)=}) > {set(df.columns)=}.")
+
         result = score(df, weights, validate=validate, top=top, name=weights.name)
 
     elif isinstance(weights, dict):
         if all(map(is_number, weights.values())):
             result = score(df, weights=weights, validate=validate, top=top)
+
         elif all(map(is_dict_like, weights.values())):
             result = pd.DataFrame()
             for name, weight in weights.items():
                 if not all(map(is_number, weight.values())):
                     raise TypeError("The value of weights is not number type.")
 
-                res = score(
-                    result.combine_first(df),
-                    weight,
-                    validate=validate,
-                    top=top,
-                    name=name,
-                )
+                data = result.combine_first(df)
+                res = score(data, weight, validate=validate, top=top, name=name)
                 result = pd.concat((result, res), axis=1)
 
         else:
