@@ -134,8 +134,8 @@ def weighted_mean(
                     raise TypeError("The value of weights is not number type.")
 
                 data = result.combine_first(df)
-                res = score(data, weight, validate=validate, top=top, name=name)
-                result = pd.concat((result, res), axis=1)
+                another = score(data, weight, validate=validate, top=top, name=name)
+                result = pd.concat((result, another), axis=1)
 
         else:
             raise TypeError("Received an invalid weights type.")
@@ -149,7 +149,6 @@ def weighted_mean(
     if not drop:
         if isinstance(result, pd.Series) and result.name:
             result = result.to_frame()
-
         if isinstance(result, pd.DataFrame):
             result = result.combine_first(df)
 
