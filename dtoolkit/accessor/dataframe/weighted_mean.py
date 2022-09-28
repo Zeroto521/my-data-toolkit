@@ -118,9 +118,6 @@ def weighted_mean(
         result = score(df, weights, validate=validate, top=top)
 
     elif isinstance(weights, pd.Series):
-        if weights.size > df.columns.size and set(weights.index) > set(df.columns):
-            raise ValueError(f"{set(weights.index)=}) > {set(df.columns)=}.")
-
         result = score(df, weights, validate=validate, top=top, name=weights.name)
 
     elif isinstance(weights, dict):
