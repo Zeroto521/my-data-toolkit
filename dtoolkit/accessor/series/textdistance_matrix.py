@@ -19,6 +19,24 @@ def textdistance_matrix(
     other: None | list | np.ndarray | pd.Series = None,
     method: Callable = None,
 ) -> pd.DataFrame:
+    """
+    Returns a ``DataFrame`` containing the text distances matrix between in ``s``
+    and ``other``.
+
+    Parameters
+    ----------
+    other : None, list, ndarray, or Series, default None
+        If None, use ``s``.
+
+    method : Callable, default None
+        The method to calculate the distance. If None, use ``thefuzz.fuzz.ratio``.
+
+    Returns
+    -------
+    DataFrame
+        The values are the text distances.
+    """
+
     if not is_string_dtype(s):
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
 
