@@ -34,6 +34,8 @@ Series Accessor
     query
     set_unique_index
     swap_index_values
+    textdistance_matrix
+    textdistance
     to_datetime
     to_set
     top_n
