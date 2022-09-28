@@ -27,7 +27,7 @@ def textdistance(
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
 
     if isinstance(other, str):
-        return s.apply(ratio, args=(other,))
+        return s.apply(method, args=(other,))
 
     elif is_list_like(other):
         if len(other) != s.size:
