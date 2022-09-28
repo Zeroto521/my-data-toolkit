@@ -18,7 +18,7 @@ def textdistance_matrix(
     /,
     other: None | list | np.ndarray | pd.Series = None,
     method: Callable = None,
-) -> pd.Series:
+) -> pd.DataFrame:
     if not is_string_dtype(s):
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
 
