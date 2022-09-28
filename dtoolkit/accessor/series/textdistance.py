@@ -36,14 +36,19 @@ def textdistance(
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
 
-        other = np.asarray(other)
-        if other.ndim != 1:
-            raise ValueError("'other' must be 1-dimensional.")
-        if not is_string_dtype(other):
-            raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
-
+        other = validate_string_dtype(other)
         method = lambda x: method(*x)
         return pd.Series(map(method, zip(s, other)), name=s.name, index=s.index)
 
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
+
+
+def validate_string_dtype(other: list | np.ndarray | pd.Series) -> np.ndarray:
+    other = np.asarray(other)
+    if other.ndim != 1:
+        raise ValueError("'other' must be 1-dimensional.")
+    if not is_string_dtype(other):
+        raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
+
+    return other
