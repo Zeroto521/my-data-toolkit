@@ -7,9 +7,9 @@ import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.api.types import is_string_dtype
 
+from dtoolkit.accessor.register import register_series_method
 from dtoolkit.accessor.series.textdistance import textdistance
 from dtoolkit.accessor.series.textdistance import validate_string_dtype
-from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
@@ -29,6 +29,6 @@ def textdistance_matrix(
     if len(other) != s.size:
         raise ValueError(f"{len(other)=} != {s.size=}.")
 
-    func = lambda o: textdistance(s, o, method=method, align=False)
+    func = lambda o: textdistance(s, o, method=method)
     res = pd.concat(map(func, validate_string_dtype(other)), axis=1)
     return res.set_axis(other.index, axis=1) if isinstance(other, pd.Series) else res
