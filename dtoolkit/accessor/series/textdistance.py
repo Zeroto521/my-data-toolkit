@@ -20,6 +20,26 @@ def textdistance(
     method: Callable = None,
     align: bool = True,
 ) -> pd.Series:
+    """
+    Return a ``Series`` containing the text distance to aligned ``other``.
+
+    Parameters
+    ----------
+    other : str, list, ndarray, or Series
+
+    align : bool, default True
+        If True, automatically aligns GeoSeries based on their indices. If False,
+        the order of elements is preserved.
+
+    method : Callable, default None
+        The method to calculate the distance. If None, use ``thefuzz.fuzz.ratio``.
+
+    Returns
+    -------
+    Series
+        The values are the text distances.
+    """
+
     if method is None:
         method = __import__("thefuzz.fuzz").fuzz.ratio
 
