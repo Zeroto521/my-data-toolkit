@@ -84,9 +84,8 @@ def textdistance(
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
 
-        other = validate_string_dtype(other)
-        method = lambda x: method(*x)
-        return pd.Series(map(method, zip(s, other)), name=s.name, index=s.index)
+        data = (method(*x) for x in zip(s, validate_string_dtype(other)))
+        return pd.Series(data, name=s.name, index=s.index)
 
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
