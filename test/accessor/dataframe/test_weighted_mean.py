@@ -160,7 +160,7 @@ def test_error(df, weights, validate, top, error):
                     "ab-a": [1.25, 2.5],
                     "b": [2, 4],
                 },
-                index=pd.Index([0, 1], dtype='object'),
+                index=pd.Index([0, 1], dtype="object"),
             ),
         ),
     ],
