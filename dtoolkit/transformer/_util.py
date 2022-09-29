@@ -85,10 +85,7 @@ def transform_frame_to_series(
     if isinstance(X, pd.DataFrame):
         X = X.to_series()
 
-    if drop_name and isinstance(X, pd.Series):
-        X = X.rename(None)
-
-    return X
+    return X.rename(None) if drop_name and isinstance(X, pd.Series) else X
 
 
 def snake_to_camel(name: str) -> str:
