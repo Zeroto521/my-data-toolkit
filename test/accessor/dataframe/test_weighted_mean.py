@@ -63,6 +63,14 @@ from dtoolkit.accessor.dataframe import weighted_mean
             4,
             ValueError,
         ),
+        # weights (list) its length != df.columns
+        (
+            pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+            [1],
+            False,
+            1,
+            ValueError,
+        ),
     ],
 )
 def test_error(df, weights, validate, top, error):
