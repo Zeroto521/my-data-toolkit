@@ -34,7 +34,8 @@ def transform_array_to_frame(
         return array
 
     # Only length is equal
-    if len(array) == len(frame) and (
+    # sparse matrix can't use `len`
+    if array.shape[0] == frame.shape[0] and (
         array.ndim == 1 or (array.ndim == 2 and array.shape[1] == 1)
     ):
         if isinstance(frame, pd.Series):
