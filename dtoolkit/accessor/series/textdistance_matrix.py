@@ -43,8 +43,7 @@ def textdistance_matrix(
         - If ``other`` is not string dtype.
 
     ValueError
-        - If the length of ``other`` is not equal to the length of ``s``.
-        - If ``other`` but it is not 1-dimensional.
+        If ``other`` but it is not 1-dimensional.
 
     Examples
     --------
@@ -68,8 +67,6 @@ def textdistance_matrix(
         other = s.copy()
     if not is_list_like(other):
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
-    if len(other) != s.size:
-        raise ValueError(f"{len(other)=} != {s.size=}.")
 
     data = (textdistance(s, o, method=method) for o in validate_string_dtype(other))
     res = pd.concat(data, axis=1)
