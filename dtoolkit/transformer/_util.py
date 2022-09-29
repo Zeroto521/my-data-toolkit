@@ -35,7 +35,13 @@ def transform_array_to_frame(
 
     # Only length is equal
     elif array.ndim == 1 and len(array) == len(frame):
-        name = frame.name if isinstance(frame, pd.Series) else None
+        if isinstance(frame, pd.Series):
+            name = frame.name
+        elif isinstance(frame, pd.DataFrame) and len(frame.columns) == 1:
+            name = frame.columns[0]
+        else:
+            name = None
+
         return pd.Series(array, index=frame.index, name=name)
 
     return array
