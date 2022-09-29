@@ -138,6 +138,8 @@ def test_transformer_without_fit_transform():
 
 
 def test_issue_87():
+    # https://github.com/Zeroto521/my-data-toolkit/issues/87
+
     tf = make_union(
         make_pipeline(
             GetTF(["a"]),
