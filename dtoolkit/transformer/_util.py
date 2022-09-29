@@ -29,12 +29,10 @@ def transform_array_to_frame(
     if not isinstance(frame, (pd.Series, pd.DataFrame)) or array.ndim > 2:
         return array
 
-    # Both width and length are equal
-    if array.ndim == 2 and array.shape == frame.shape:
-        return pd.DataFrame(array, columns=frame.columns, index=frame.index)
-
     # Only length is equal
-    elif array.ndim == 1 and len(array) == len(frame):
+    if len(array) == len(frame) and (
+        array.ndim == 1 or (array.ndim == 2 and array.shape[1] == 1)
+    ):
         if isinstance(frame, pd.Series):
             name = frame.name
         elif isinstance(frame, pd.DataFrame) and len(frame.columns) == 1:
@@ -42,7 +40,11 @@ def transform_array_to_frame(
         else:
             name = None
 
-        return pd.Series(array, index=frame.index, name=name)
+        return pd.Series(np.ravel(array), index=frame.index, name=name)
+
+    # Both width and length are equal
+    elif array.ndim == 2 and array.shape == frame.shape:
+        return pd.DataFrame(array, columns=frame.columns, index=frame.index)
 
     return array
 
