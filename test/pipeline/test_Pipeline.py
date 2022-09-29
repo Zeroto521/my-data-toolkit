@@ -3,6 +3,7 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 from pandas.testing import assert_series_equal
+from sklearn.cluster import KMeans
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import MinMaxScaler
 
@@ -184,3 +185,22 @@ def test_predict():
     result = tf.predict(df[["x1", "x2"]])
 
     assert_series_equal(result, pd.Series([6, 8, 9, 11, 16], dtype=float))
+
+
+def test_fit_predict():
+    df = pd.DataFrame(
+        [
+            [1, 2],
+            [1, 4],
+            [1, 0],
+            [10, 2],
+            [10, 4],
+            [10, 0],
+        ],
+        columns=["x", "y"],
+    )
+
+    tf = make_pipeline(KMeans(n_clusters=2, random_state=42))
+    result = tf.fit_predict(df)
+
+    assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
