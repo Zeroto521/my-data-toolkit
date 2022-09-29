@@ -26,7 +26,11 @@ def transform_array_to_frame(
     Series, DataFrame or ndarray
     """
 
-    if not isinstance(frame, (pd.Series, pd.DataFrame)) or array.ndim > 2:
+    if (
+        isinstance(array, (pd.Series, pd.DataFrame))
+        or not isinstance(frame, (pd.Series, pd.DataFrame))
+        or array.ndim > 2
+    ):
         return array
 
     # Only length is equal
