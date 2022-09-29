@@ -1,96 +1,13 @@
+.. _geoaccessor:
+
 ===========
 GeoAccessor
 ===========
+.. toctree::
+    :maxdepth: 2
 
-GeoSeries Accessor
-------------------
-.. currentmodule:: dtoolkit.geoaccessor.geoseries
-.. autosummary::
-    :toctree: api/
-
-    cncrs_offset
-    count_coordinates
-    drop_duplicates_geometry
-    duplicated_geometry
-    duplicated_geometry_groups
-    filter_geometry
-    geoarea
-    geobuffer
-    geodistance_matrix
-    geodistance
-    get_coordinates
-    has_hole
-    hole_counts
-    reverse_geocode
-    toposimplify
-    xy
-
-
-GeoDataFrame Accessor
----------------------
-.. currentmodule:: dtoolkit.geoaccessor.geodataframe
-.. autosummary::
-    :toctree: api/
-
-    cncrs_offset
-    count_coordinates
-    drop_duplicates_geometry
-    drop_geometry
-    duplicated_geometry
-    duplicated_geometry_groups
-    filter_geometry
-    geoarea
-    geobuffer
-    geodistance_matrix
-    geodistance
-    get_coordinates
-    has_hole
-    hole_counts
-    reverse_geocode
-    toposimplify
-
-
-Series Accessor (to GeoPandas)
-------------------------------
-.. currentmodule:: dtoolkit.geoaccessor.series
-.. autosummary::
-    :toctree: api/
-
-    from_wkb
-    from_wkt
-    geocode
-    to_geoframe
-    to_geoseries
-
-
-DataFrame Accessor (to GeoPandas)
----------------------------------
-.. currentmodule:: dtoolkit.geoaccessor.dataframe
-.. autosummary::
-    :toctree: api/
-
-    from_wkb
-    from_wkt
-    from_xy
-    geocode
-    to_geoframe
-
-
-GeoPandas Base Accessor
------------------------
-.. currentmodule:: dtoolkit.geoaccessor
-.. autosummary::
-    :toctree: api/
-
-    register_geoseries_accessor
-    register_geodataframe_accessor
-
-
-GeoPandas Method Register
--------------------------
-.. currentmodule:: dtoolkit.geoaccessor
-.. autosummary::
-    :toctree: api/
-
-    register_geoseries_method
-    register_geodataframe_method
+    Series Accessor (to GeoPandas) <geoaccessor/series>
+    DataFrame Accessor (to GeoPandas) <geoaccessor/dataframe>
+    GeoSeries Accessor <geoaccessor/geoseries>
+    GeoDataFrame Accessor <geoaccessor/geodataframe>
+    GeoPandas Method Registering <geoaccessor/register>
