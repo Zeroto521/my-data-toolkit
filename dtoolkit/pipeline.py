@@ -180,7 +180,7 @@ class Pipeline(SKPipeline):
             )
             y_pred = transform_array_to_frame(y_pred, y)
 
-        return transform_frame_to_series(Xt)
+        return transform_frame_to_series(y_pred)
 
 
 class FeatureUnion(SKFeatureUnion, Transformer):
