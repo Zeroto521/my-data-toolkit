@@ -48,6 +48,24 @@ def textdistance(
     ValueError
         - If ``other`` is list-like but its length is not equal to the length of ``s``.
         - If ``other`` is list-like but it is not 1-dimensional.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> s = pd.Series(["hello", "world"])
+    >>> s
+    0    hello
+    1    world
+    dtype: object
+    >>> s.textdistance("python")
+    0    36
+    1    18
+    dtype: int64
+    >>> s.textdistance(["hello", "python"])
+    0    100
+    1     18
+    dtype: int64
     """
 
     if method is None:
