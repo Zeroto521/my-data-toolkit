@@ -3,6 +3,7 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 from pandas.testing import assert_series_equal
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
@@ -163,3 +164,23 @@ def test_issue_87():
     assert isinstance(result, pd.DataFrame)
     assert len(result) == 1
     assert result.notnull().all(axis=None)
+
+
+def test_predict():
+    df = pd.DataFrame(
+        [
+            [1, 1, 6],
+            [1, 2, 8],
+            [2, 2, 9],
+            [2, 3, 11],
+            [3, 5, None],
+        ],
+        columns=["x1", "x2", "y"],
+    )
+    index_notnull = df[df["y"].notnull()].index
+
+    tf = make_pipeline(LinearRegression())
+    tf.fit(df.loc[index_notnull, ["x1", "x2"]], df.loc[index_notnull, ["y"]])
+    result = tf.predict(df[["x1", "x2"]])
+
+    assert_series_equal(result, pd.Series([6, 8, 9, 11, 16], dtype=float))
