@@ -61,7 +61,7 @@ from test.transformer.data import s
         ),
     ],
 )
-def test_pipeline_work(name, data, pipeline):
+def test_pipeline(name, data, pipeline):
     transformed_data = pipeline.fit(data).transform(data)
     pipeline.inverse_transform(transformed_data)
 
