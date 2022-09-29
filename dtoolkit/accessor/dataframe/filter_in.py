@@ -123,10 +123,7 @@ def filter_in(
     """
 
     return df[
-        df.pipe(
-            select_column,
-            condition=condition,
-        )
+        select_column(df, condition=condition)
         .isin(condition)
         .boolean(
             how=how,
