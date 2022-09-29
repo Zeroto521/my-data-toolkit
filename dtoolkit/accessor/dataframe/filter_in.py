@@ -135,6 +135,7 @@ def filter_in(
 
 def select_column(
     df: pd.DataFrame,
+    /,
     condition: Iterable | SeriesOrFrame | dict[Hashable, list[Hashable]],
 ) -> pd.DataFrame:
     """Select DataFram columns via condition type"""
