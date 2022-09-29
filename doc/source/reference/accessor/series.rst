@@ -51,6 +51,8 @@ Computations / Descriptive Stats
     jenks_breaks
     error_report
     eval
+    textdistance_matrix
+    textdistance
     top_n
 
 
