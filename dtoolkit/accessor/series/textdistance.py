@@ -38,6 +38,16 @@ def textdistance(
     -------
     Series
         The values are the text distances.
+
+    Raises
+    ------
+    TypeError
+        - If ``s`` is not string dtype.
+        - If ``other`` is not string dtype.
+
+    ValueError
+        - If ``other`` is list-like but its length is not equal to the length of ``s``.
+        - If ``other`` is list-like but it is not 1-dimensional.
     """
 
     if method is None:

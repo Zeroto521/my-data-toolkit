@@ -35,6 +35,16 @@ def textdistance_matrix(
     -------
     DataFrame
         The values are the text distances.
+
+    Raises
+    ------
+    TypeError
+        - If ``s`` is not string dtype.
+        - If ``other`` is not string dtype.
+
+    ValueError
+        - If the length of ``other`` is not equal to the length of ``s``.
+        - If ``other`` but it is not 1-dimensional.
     """
 
     if not is_string_dtype(s):
