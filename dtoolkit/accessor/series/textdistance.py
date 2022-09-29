@@ -74,7 +74,7 @@ def textdistance(
     if not is_string_dtype(s):
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
 
-    if isinstance(other, str):
+    if isinstance(other, str) or other is None:
         return s.apply(method, args=(other,))
 
     elif is_list_like(other):
