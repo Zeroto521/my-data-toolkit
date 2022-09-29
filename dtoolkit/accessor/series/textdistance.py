@@ -14,7 +14,7 @@ from dtoolkit.util._exception import find_stack_level
 
 @register_series_method
 def textdistance(
-    s,
+    s: pd.Series,
     /,
     other: str | list | np.ndarray | pd.Series,
     method: Callable = None,

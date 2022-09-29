@@ -14,7 +14,7 @@ from dtoolkit.accessor.series.textdistance import validate_string_dtype
 
 @register_series_method
 def textdistance_matrix(
-    s: gpd.GeoSeries,
+    s: pd.Series,
     /,
     other: None | list | np.ndarray | pd.Series = None,
     method: Callable = None,
