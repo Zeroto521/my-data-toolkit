@@ -175,10 +175,10 @@ class Pipeline(SKPipeline):
         with _print_elapsed_time("Pipeline", self._log_message(len(self.steps) - 1)):
             y_pred = self.steps[-1][1].fit_predict(
                 transform_series_to_frame(Xt),
-                y,
+                y or X,  # if y is None use X to transform y_pred
                 **fit_params_last_step,
             )
-            y_pred = transform_array_to_frame(y_pred, y)
+            y_pred = transform_array_to_frame(y_pred, y or X)
 
         return transform_frame_to_series(y_pred)
 
