@@ -55,6 +55,14 @@ from dtoolkit.accessor.dataframe import weighted_mean
             1,
             TypeError,
         ),
+        # sum(weights) != top
+        (
+            pd.DataFrame({"a": [1, 2], "b": [3, 4]}),
+            {"a": 1, "b": 2},
+            True,
+            4,
+            ValueError,
+        ),
     ],
 )
 def test_error(df, weights, validate, top, error):
