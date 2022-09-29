@@ -154,7 +154,7 @@ class Pipeline(SKPipeline):
     @doc(SKPipeline.predict)
     def predict(self, X, **predict_params) -> OneDimArray:
         Xt = X
-        for _, name, transformer in self._iter(with_final=False):
+        for _, _, transformer in self._iter(with_final=False):
             Xt = transform_series_to_frame(Xt)
             Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
 
