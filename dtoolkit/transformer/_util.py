@@ -26,12 +26,13 @@ def transform_array_to_frame(
     Series, DataFrame or ndarray
     """
 
-    if not isinstance(frame, (pd.Series, pd.DataFrame)) or len(np.shape(array)) > 2:
+    if isinstance(frame, (pd.Series, pd.DataFrame)) or len(np.shape(array)) > 2:
         return array
 
     # Both width and length are equal
     if np.shape(array) == np.shape(frame) and isinstance(frame, pd.DataFrame):
         return pd.DataFrame(array, columns=frame.columns, index=frame.index)
+
     # length is equal
     elif np.shape(array)[0] == np.shape(frame)[0]:
         name = frame.name if isinstance(frame, pd.Series) else None
