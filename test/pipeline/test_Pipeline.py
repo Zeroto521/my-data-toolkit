@@ -179,7 +179,7 @@ def test_predict():
         ],
         columns=["x1", "x2", "y"],
     )
-    index_notnull = df[df["y"].notnull()].index
+    index_notnull = df["y"].notnull().index
 
     tf = make_pipeline(LinearRegression())
     tf.fit(df.loc[index_notnull, ["x1", "x2"]], df.loc[index_notnull, ["y"]])

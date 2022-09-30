@@ -134,7 +134,7 @@ def _fillna_regression(
     if isinstance(X, (str, int)):
         X = [X]
 
-    index_notnull = df[df[y].notnull()].index
+    index_notnull = df[y].notnull().index
     model = method(**kwargs).fit(
         df.loc[index_notnull, X],
         df.loc[index_notnull, y],
