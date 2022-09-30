@@ -78,6 +78,7 @@ class OneHotEncoder(SKOneHotEncoder):
         self,
         *,
         sparse: bool = False,
+        sparse_output: bool = False,
         categories_with_parent: bool = False,
         categories="auto",
         drop=None,
@@ -86,8 +87,11 @@ class OneHotEncoder(SKOneHotEncoder):
         min_frequency: int | float = None,
         max_categories: int = None,
     ):
+        # TODO: Remove `sparse` in sklearn 1.4.
+        # In the latest (>= 1.1.2) sklearn version, `sparse` is deprecated.
         super().__init__(
             sparse=sparse,
+            sparse_output=sparse_output,
             categories=categories,
             drop=drop,
             dtype=dtype,
