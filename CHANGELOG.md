@@ -44,7 +44,7 @@ Maintenance development:
 
 - {pr}`720`: Add comment for why updating the version of dependencies.
 - {pr}`717`: Compat Python 3.7 / 3.8 which requires pandas >= 1.2.
-- {pr}`710`: Lint {meth}`~dtoolkit.accessor.series.filter_in`.
+- {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
 - {pr}`700`: Simplify CodeQL CI.
 - {pr}`687`: Add new pre-commit hooks.
 - {pr}`684`: Use offical `concurrency` instead of `cancel.yaml`.
