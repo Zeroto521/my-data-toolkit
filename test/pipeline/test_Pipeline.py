@@ -202,7 +202,7 @@ def test_fit_predict():
     )
 
     tf = make_pipeline(
-        PCA(),  # Add PCA to covert `Pipeline.predict`'s `self._iter` line
+        PCA(),  # Add PCA to convert `Pipeline.predict`'s `self._iter` line
         KMeans(n_clusters=2, random_state=42),
     )
     result = tf.fit_predict(df)
