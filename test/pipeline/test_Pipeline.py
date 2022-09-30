@@ -188,7 +188,7 @@ def test_predict():
     assert_series_equal(result, pd.Series([6, 8, 9, 11, 16], dtype=float))
 
 
-def test_fit_predict():
+def test_predict_with_multi_tfs():
     df = pd.DataFrame(
         [
             [1, 2],
@@ -204,7 +204,26 @@ def test_fit_predict():
     tf = make_pipeline(
         PCA(),  # Add PCA to convert `Pipeline.predict`'s `self._iter` line
         KMeans(n_clusters=2, random_state=42),
+    ).fit(df)
+    result = tf.predict(df)
+
+    assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
+
+
+def test_fit_predict():
+    df = pd.DataFrame(
+        [
+            [1, 2],
+            [1, 4],
+            [1, 0],
+            [10, 2],
+            [10, 4],
+            [10, 0],
+        ],
+        columns=["x", "y"],
     )
+
+    tf = make_pipeline(KMeans(n_clusters=2, random_state=42))
     result = tf.fit_predict(df)
 
     assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
