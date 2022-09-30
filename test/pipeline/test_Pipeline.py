@@ -4,6 +4,7 @@ import pytest
 from pandas.testing import assert_frame_equal
 from pandas.testing import assert_series_equal
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import MinMaxScaler
 
@@ -200,7 +201,10 @@ def test_fit_predict():
         columns=["x", "y"],
     )
 
-    tf = make_pipeline(KMeans(n_clusters=2, random_state=42))
+    tf = make_pipeline(
+        PCA(),  # Add PCA to covert `Pipeline.predict`'s `self._iter` line
+        KMeans(n_clusters=2, random_state=42),
+    )
     result = tf.fit_predict(df)
 
     assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
