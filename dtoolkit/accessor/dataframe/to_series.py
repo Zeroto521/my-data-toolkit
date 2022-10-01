@@ -118,7 +118,10 @@ def to_series(
 
 
 def _to_series(
-    df: pd.DataFrame, /, name: Hashable, value_column: Hashable
+    df: pd.DataFrame,
+    /,
+    name: Hashable,
+    value_column: Hashable,
 ) -> pd.Series:
     """
     Select one column (`value_column`) of DataFrame and convert to Series.
