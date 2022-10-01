@@ -256,7 +256,7 @@ def to_dict(df: pd.DataFrame, unique: bool, to_list: bool, dropna: bool) -> dict
     key_column, *value_column = df.columns
     return {
         key: to_dict(
-            df`[df[key_column] == key, value_column],
+            df[df[key_column] == key, value_column],
             unique=unique,
             to_list=to_list,
             dropna=dropna,
