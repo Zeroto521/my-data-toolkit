@@ -126,7 +126,7 @@ def _fillna_regression(
     method: RegressorMixin,
     y: Hashable,
     X: Hashable | list[Hashable] | pd.Index,
-    how: Literal["na", "all"] = "na",
+    how: Literal["na", "all"],
     **kwargs,
 ):
     """Fill single na column at once."""
