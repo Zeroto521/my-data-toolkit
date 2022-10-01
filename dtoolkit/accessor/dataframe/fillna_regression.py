@@ -123,6 +123,7 @@ def fillna_regression(
 
 def _fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
     y: Hashable,
     X: Hashable | list[Hashable] | pd.Index,
