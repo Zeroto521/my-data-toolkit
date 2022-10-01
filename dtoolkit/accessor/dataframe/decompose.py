@@ -177,6 +177,7 @@ def decompose(
 
 def _decompose(
     df: pd.DataFrame,
+    /,
     method: TransformerMixin,
     n_components=None,
     **kwargs,
