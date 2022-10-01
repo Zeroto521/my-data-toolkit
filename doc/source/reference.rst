@@ -6,7 +6,7 @@ The API Reference provides an overview of all public objects,
 functions and methods implemented in DToolKit.
 
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 3
 
     Accessor <reference/accessor>
     GeoAccessor <reference/geoaccessor>
