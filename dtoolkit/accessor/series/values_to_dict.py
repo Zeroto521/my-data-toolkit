@@ -90,7 +90,7 @@ def values_to_dict(
         return {}
 
     return {
-        key: handle_element(s.loc[s.index == key], unique=unique, to_list=to_list)
+        key: handle_element(s[s.index == key], unique=unique, to_list=to_list)
         for key in s.index.unique()
     }
 

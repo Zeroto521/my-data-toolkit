@@ -179,10 +179,9 @@ def test_predict():
         ],
         columns=["x1", "x2", "y"],
     )
-    index_notnull = df[df["y"].notnull()].index
+    data = df[df["y"].notnull()]
 
-    tf = make_pipeline(LinearRegression())
-    tf.fit(df.loc[index_notnull, ["x1", "x2"]], df.loc[index_notnull, ["y"]])
+    tf = make_pipeline(LinearRegression()).fit(data[["x1", "x2"]], data[["y"]])
     result = tf.predict(df[["x1", "x2"]])
 
     assert_series_equal(result, pd.Series([6, 8, 9, 11, 16], dtype=float))
