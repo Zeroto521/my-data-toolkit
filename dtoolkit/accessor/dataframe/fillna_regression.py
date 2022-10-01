@@ -140,7 +140,7 @@ def _fillna_regression(
     if how == "all":
         df[y] = model.predict(df[X])
     elif how == "na":
-        index_null = df[y].isnull().index
+        index_null = df[y].isnull()
         df.loc[index_null, y] = model.predict(df.loc[index_null, X])
 
     return df
