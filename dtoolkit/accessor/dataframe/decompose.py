@@ -137,14 +137,14 @@ def decompose(
 
     if columns is None:
         return pd.DataFrame(
-            _decompose(method, df, **kwargs),
+            _decompose(df, method, **kwargs),
             index=df.index,
             columns=df.columns,
         )
 
     elif isinstance(columns, (list, pd.Index)):
         return pd.DataFrame(
-            _decompose(method, df[columns], **kwargs),
+            _decompose(df[columns], method, **kwargs),
             index=df.index,
             columns=columns,
         ).combine_first(df)
@@ -154,8 +154,8 @@ def decompose(
             np.hstack(
                 [
                     _decompose(
-                        method,
                         df[value],
+                        method,
                         n_components=len(key) if isinstance(key, tuple) else 1,
                         **kwargs,
                     )
@@ -176,8 +176,8 @@ def decompose(
 
 
 def _decompose(
-    method: TransformerMixin,
     df: pd.DataFrame,
+    method: TransformerMixin,
     n_components=None,
     **kwargs,
 ) -> np.ndarray:
