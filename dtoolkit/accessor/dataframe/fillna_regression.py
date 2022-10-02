@@ -123,10 +123,11 @@ def fillna_regression(
 
 def _fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
     y: Hashable,
     X: Hashable | list[Hashable] | pd.Index,
-    how: Literal["na", "all"] = "na",
+    how: Literal["na", "all"],
     **kwargs,
 ):
     """Fill single na column at once."""

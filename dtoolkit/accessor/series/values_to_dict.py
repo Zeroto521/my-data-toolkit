@@ -95,7 +95,7 @@ def values_to_dict(
     }
 
 
-def handle_element(s: pd.Series, unique: bool, to_list: bool):
+def handle_element(s: pd.Series, /, unique: bool, to_list: bool):
     if unique:
         s = s.unique()
 
