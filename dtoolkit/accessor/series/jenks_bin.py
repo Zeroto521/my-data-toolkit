@@ -30,7 +30,6 @@ def jenks_bin(s: pd.Series, /, bins: int, **kwargs) -> pd.Series:
 
     See Also
     --------
-    jenkspy.jenks_breaks
     dtoolkit.accessor.series.bin
     dtoolkit.accessor.series.jenks_breaks
 
