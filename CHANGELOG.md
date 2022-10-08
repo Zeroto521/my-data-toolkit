@@ -31,7 +31,8 @@ Small bug-fix:
 
 Documentation:
 
-- {pr}`723`: Add sub-title for reference apis.
+- {pr}`732`: Add description for {meth}`~dtoolkit.accessor.series.jenks_bin`.
+- {pr}`723`, {pr}`729`: Add sub-title for reference apis.
 - {pr}`719`: Fix `transformer_quickstart.ipynb` rendering.
 - {pr}`709`: Update `toposimplify` example.
 - {pr}`697`: Simplify doc link via `klass` variable.
@@ -42,6 +43,7 @@ Documentation:
 
 Maintenance development:
 
+- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive postional argument).
 - {pr}`720`: Add comment for why updating the version of dependencies.
 - {pr}`717`: Compat Python 3.7 / 3.8 which requires pandas >= 1.2.
 - {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
