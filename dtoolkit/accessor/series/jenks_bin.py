@@ -15,6 +15,10 @@ def jenks_bin(s: pd.Series, /, bins: int, **kwargs) -> pd.Series:
     bins : int
         The desired number of class. Requires ``2 <= bins < len(s)``.
 
+    **kwargs
+        See the documentation for :meth:`pandas.cut` for complete details on
+        the keyword arguments.
+
     Returns
     -------
     Series
