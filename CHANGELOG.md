@@ -13,8 +13,8 @@ New features and improvements:
 - {pr}`696`: New geoaccessor to handle China webmap offset problem, {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offset`.
 - {pr}`691`, {pr}`703`: New geoaccessor to filter geometry via spatial relationship, {meth}`~dtoolkit.geoaccessor.geoseries.filter_geometry`.
 - {pr}`688`: New accessor {meth}`~dtoolkit.accessor.dataframe.weighted_mean` for DataFrame.
-- {pr}`685`: Let `Pipeline`'s `fit_predict` and `predict` support outputing `DataFrame`.
-- {pr}`680`, {pr}`682`: New geoaccessor to check Polygon wether having hole, {meth}`~dtoolkit.geoaccessor.geoseries.has_hole`.
+- {pr}`685`: Let `Pipeline`'s `fit_predict` and `predict` support outputting `DataFrame`.
+- {pr}`680`, {pr}`682`: New geoaccessor to check Polygon whether having hole, {meth}`~dtoolkit.geoaccessor.geoseries.has_hole`.
 - {pr}`679`: New geoaccessor to count the hole number of `Polygon`, {meth}`~dtoolkit.geoaccessor.geoseries.hole_counts`.
 - {pr}`668`: Add a new option `dropna` for {meth}`~dtoolkit.accessor.series.values_to_dict` to handle nan value.
 - {pr}`667`: New accessor {meth}`~dtoolkit.accessor.series.dropna_index`.
@@ -49,7 +49,7 @@ Maintenance development:
 - {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
 - {pr}`700`: Simplify CodeQL CI.
 - {pr}`687`: Add new pre-commit hooks.
-- {pr}`684`: Use offical `concurrency` instead of `cancel.yaml`.
+- {pr}`684`: Use official `concurrency` instead of `cancel.yaml`.
 - {pr}`678`, {pr}`698`, {pr}`718`, {pr}`722`: pre-commit hooks autoupdate.
 - {pr}`677`: Update workflow-run-cleaner option.
 - {pr}`675`, {pr}`676`: New CI to remove old extra workflow runs.
