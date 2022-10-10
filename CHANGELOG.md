@@ -58,7 +58,7 @@ Maintenance development:
 - {pr}`671`: Don't lint versioneer.
 - {pr}`666`: Merge 'sdist' and 'release' two CIs.
 - {pr}`664`: use `*.size` replace `len(*)`.
-- {pr}`663`: Update {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_group` description and simplify its logic.
+- {pr}`663`: Update {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups` description and simplify its logic.
 - {pr}`661`: Update {meth}`~dtoolkit.accessor.series.to_series` description  and simplify its logic.
 - {pr}`660`: Set `sdist` default job name.
 - {pr}`658`, {pr}`690`, {pr}`708`: versioneer autoupdate.
