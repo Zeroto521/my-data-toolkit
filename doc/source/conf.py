@@ -132,8 +132,8 @@ intersphinx_mapping = {
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#%s"),
-    "pr": (f"{github_url}/issues/%s", "pr#%s"),
+    "issue": (f"{github_url}/issues/%s", "Issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "PR#%s"),
     "user": (r"https://github.com/%s", "@%s"),
 }
 

@@ -1,5 +1,68 @@
 # Changelog
 
+## [Version 0.0.18] (2022-10-x)
+
+New features and improvements:
+
+- {pr}`721`: New accessor for `Series` to convert datetime type, {meth}`~dtoolkit.accessor.series.to_datetime`.
+- {pr}`715`: New accessor {meth}`~dtoolkit.accessor.series.equal` to compare pandas-object with other.
+- {pr}`712`: Support use `DataFrame`'s column as the distance for {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer`.
+- {pr}`711`, {pr}`713`: New geoaccessor for GeoSeries to return tuple of coordinates `(x, y)`, {meth}`~dtoolkit.geoaccessor.geoseries.xy`.
+- {pr}`701`, {pr}`704`, {pr}`705`, {pr}`706`: New geoaccessor to generate great circle distances matrix, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance_matrix`.
+- {pr}`699`, {pr}`702`, {pr}`707`: New geoaccessor to calculate two coordinates distance on earth, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance`.
+- {pr}`696`: New geoaccessor to handle China webmap offset problem, {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offset`.
+- {pr}`691`, {pr}`703`: New geoaccessor to filter geometry via spatial relationship, {meth}`~dtoolkit.geoaccessor.geoseries.filter_geometry`.
+- {pr}`688`: New accessor {meth}`~dtoolkit.accessor.dataframe.weighted_mean` for DataFrame.
+- {pr}`685`: Let `Pipeline`'s `fit_predict` and `predict` support outputting `DataFrame`.
+- {pr}`680`, {pr}`682`: New geoaccessor to check Polygon whether having hole, {meth}`~dtoolkit.geoaccessor.geoseries.has_hole`.
+- {pr}`679`: New geoaccessor to count the hole number of `Polygon`, {meth}`~dtoolkit.geoaccessor.geoseries.hole_counts`.
+- {pr}`668`: Add a new option `dropna` for {meth}`~dtoolkit.accessor.series.values_to_dict` to handle nan value.
+- {pr}`667`: New accessor {meth}`~dtoolkit.accessor.series.dropna_index`.
+
+API changes:
+
+- {pr}`694`, {pr}`695`: `pygeos` isn't an optional dependency anymore.
+- {pr}`665`: Drop {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs`.
+
+Small bug-fix:
+
+- {pr}`714`, {pr}`716`: Fix {meth}`~dtoolkit.accessor.dataframe.decompose` can't collapse `dict`.
+- {pr}`692`: Reset non-monotonic index.
+
+Documentation:
+
+- {pr}`732`: Add description for {meth}`~dtoolkit.accessor.series.jenks_bin`.
+- {pr}`723`, {pr}`729`: Add sub-title for reference apis.
+- {pr}`719`: Fix [`transformer_quickstart.ipynb` rendering](https://my-data-toolkit.readthedocs.io/en/v0.0.18/guide/transformer_quickstart.html).
+- {pr}`709`: Update `toposimplify` example.
+- {pr}`697`: Simplify doc link via `klass` variable.
+- {pr}`693`: Reforce pydata-sphinx-theme to v0.9.0.
+- {pr}`689`: Update author information.
+- {pr}`686`: Correct link.
+- {pr}`553`: Add description for `pipeline`.
+
+Maintenance development:
+
+- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive postional argument).
+- {pr}`720`: Add comment for why updating the version of dependencies.
+- {pr}`717`: Compat Python 3.7 / 3.8 which requires pandas >= 1.2.
+- {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
+- {pr}`700`: Simplify CodeQL CI.
+- {pr}`687`: Add new pre-commit hooks.
+- {pr}`684`: Use official `concurrency` instead of `cancel.yaml`.
+- {pr}`678`, {pr}`698`, {pr}`718`, {pr}`722`: pre-commit hooks autoupdate.
+- {pr}`677`: Update workflow-run-cleaner option.
+- {pr}`675`, {pr}`676`: New CI to remove old extra workflow runs.
+- {pr}`673`: Merge two test CIs.
+- {pr}`672`: Small patch to release CI.
+- {pr}`671`: Don't lint versioneer.
+- {pr}`666`: Merge 'sdist' and 'release' two CIs.
+- {pr}`664`: use `*.size` replace `len(*)`.
+- {pr}`663`: Update {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups` description and simplify its logic.
+- {pr}`661`: Update {meth}`~dtoolkit.accessor.series.to_series` description  and simplify its logic.
+- {pr}`660`: Set `sdist` default job name.
+- {pr}`658`, {pr}`690`, {pr}`708`: versioneer autoupdate.
+
 ## [Version 0.0.17] (2022-8-15)
 
 Highlights of this release:
@@ -550,6 +613,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.18]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.17...v0.0.18
 [Version 0.0.17]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.16...v0.0.17
 [Version 0.0.16]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.16
 [Version 0.0.15]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.14...v0.0.15
