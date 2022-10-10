@@ -33,7 +33,7 @@ Documentation:
 
 - {pr}`732`: Add description for {meth}`~dtoolkit.accessor.series.jenks_bin`.
 - {pr}`723`, {pr}`729`: Add sub-title for reference apis.
-- {pr}`719`: Fix `transformer_quickstart.ipynb` rendering.
+- {pr}`719`: Fix [`transformer_quickstart.ipynb` rendering](https://my-data-toolkit.readthedocs.io/en/v0.0.18/guide/transformer_quickstart.html).
 - {pr}`709`: Update `toposimplify` example.
 - {pr}`697`: Simplify doc link via `klass` variable.
 - {pr}`693`: Reforce pydata-sphinx-theme to v0.9.0.
