@@ -74,6 +74,8 @@ def xy_to_h3(
     # 2. compat with h3-py 4
     # 3. requires crs is 4326
     # 4. conside h3-py as the accessor of Series
+    # 5. use h3 cell index as the index of DataFrame, this may be a problem,
+    # cause it is not unique actually.
 
     from h3.api.numpy_int import geo_to_h3
 
