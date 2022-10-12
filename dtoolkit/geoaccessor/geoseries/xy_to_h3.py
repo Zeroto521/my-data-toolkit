@@ -5,6 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.geoaccessor.geoseries.to_geoframe import to_geoframe
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
@@ -83,4 +84,4 @@ def xy_to_h3(
     func = lambda yx: geo_to_h3(*yx, resolution)
     h3 = xy(s, reverse=True).apply(func).rename(column)
 
-    return h3 if drop else pd.concat((s, h3))
+    return h3 if drop else pd.concat((to_geoframe(s), h3), axis=1)
