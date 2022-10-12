@@ -37,6 +37,11 @@ def xy_to_h3(
     DataFrame or GeoDataFrame
         DataFrame if drop is True else GeoDataFrame.
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'h3'.
+
     See Also
     --------
     h3.geo_to_h3 : https://h3geo.org/docs/api/indexing#latlngtocell
