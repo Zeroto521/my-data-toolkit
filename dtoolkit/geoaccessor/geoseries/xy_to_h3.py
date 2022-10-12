@@ -81,6 +81,7 @@ def xy_to_h3(
     # 4. conside h3-py as the accessor of Series
     # 5. use h3 cell index as the index of DataFrame, this may be a problem,
     # cause it is not unique actually.
+    # 6. Speed up points / polygons via pygeos
 
     from h3.api.numpy_int import geo_to_h3
 
