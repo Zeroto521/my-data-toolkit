@@ -39,9 +39,7 @@ def xy_to_h3(
 
     See Also
     --------
-    h3.geo_to_h3
-        https://h3geo.org/docs/api/indexing#latlngtocell
-
+    h3.geo_to_h3 : https://h3geo.org/docs/api/indexing#latlngtocell
     dtoolkit.geoaccessor.geodataframe.xy_to_h3
 
     Examples
