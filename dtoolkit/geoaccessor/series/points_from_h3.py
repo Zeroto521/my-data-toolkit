@@ -21,8 +21,6 @@ def points_from_h3(
     # from h3.api.numpy_int import cell_to_latlng
     # requires h3 < 4
     from h3.api.numpy_int import h3_to_geo
-    # TODO: delete pygeos after shapely 2.x released
-    from pygeos import points
 
     if not drop and s.name is None:
         raise ValueError(
