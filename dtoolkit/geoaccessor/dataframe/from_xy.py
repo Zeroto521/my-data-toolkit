@@ -28,7 +28,7 @@ def from_xy(
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
     geometries from columns of :obj:`~pandas.DataFrame`.
 
-    A sugary syntax wraps :meth:`geopandas.points_from_xy`.
+    A sugary syntax wraps :meth:`geopandas.GeoSeries.from_xy`.
 
     Parameters
     ----------
@@ -55,7 +55,6 @@ def from_xy(
 
     See Also
     --------
-    geopandas.points_from_xy
     geopandas.GeoSeries.from_xy
     dtoolkit.geoaccessor.dataframe.from_wkt
 
@@ -93,7 +92,7 @@ def from_xy(
             drop=drop,
             columns=[x, y] if z is None else [x, y, z],
         ),
-        geometry=gpd.points_from_xy(
+        geometry=gpd.GeoSeries.from_xy(
             df[x],
             df[y],
             z=df[z] if z is not None else z,
