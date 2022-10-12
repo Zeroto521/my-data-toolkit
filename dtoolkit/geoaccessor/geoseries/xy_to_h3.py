@@ -15,6 +15,7 @@ def xy_to_h3(
     /,
     resolution: int,
     column: Hashable = None,
+    drop: bool = True,
 ) -> pd.Series | gpd.GeoDataFrame:
     # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
     # While h3-py release 4, `latlon_to_h3` is not available.
@@ -33,4 +34,6 @@ def xy_to_h3(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     func = lambda yx: geo_to_h3(*yx, resolution)
-    return xy(s, reverse=True).apply(func).rename(column)
+    h3 = xy(s, reverse=True).apply(func).rename(column)
+
+    return h3 if drop else pd.concat((s, h3))

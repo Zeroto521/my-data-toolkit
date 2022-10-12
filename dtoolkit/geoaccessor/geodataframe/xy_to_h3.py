@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Hashable
 
 import pandas as pd
@@ -14,6 +16,12 @@ def xy_to_h3(
     /,
     resolution: int,
     column: Hashable = "h3",
-) -> pd.DataFrame:
-    h3 = s_xy_to_h3(df.geometry, resolution=resolution)
-    return drop_geometry(df).assign(**{column: h3})
+    drop: bool = True,
+) -> pd.DataFrame | gpd.GeoDataFrame:
+
+    h3 = s_xy_to_h3(df.geometry, resolution, column=column, drop=True)
+
+    if drop:
+        df = drop_geometry(df)
+
+    return df.assign(**{column: h3})
