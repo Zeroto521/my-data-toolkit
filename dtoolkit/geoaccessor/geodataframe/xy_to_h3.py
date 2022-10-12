@@ -43,6 +43,20 @@ def xy_to_h3(
         https://h3geo.org/docs/api/indexing#latlngtocell
 
     dtoolkit.geoaccessor.geodataframe.xy_to_h3
+
+    Examples
+    --------
+    >>> import dtoolkit.geoaccessor
+    >>> import pandas as pd
+    >>> df = pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy('x', 'y', crs=4326)
+    >>> df
+         x   y                    geometry
+    0  122  55  POINT (122.00000 55.00000)
+    1  100   1   POINT (100.00000 1.00000)
+    >>> df.xy_to_h3(8)
+         x   y                  h3
+    0  122  55  612845052823076863
+    1  100   1  614269156845420543
     """
 
     h3 = s_xy_to_h3(df.geometry, resolution, column=column, drop=True)
