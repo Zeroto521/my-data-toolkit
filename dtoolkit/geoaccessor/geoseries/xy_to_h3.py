@@ -14,7 +14,7 @@ def xy_to_h3(
     s: gpd.GeoSeries,
     /,
     resolution: int,
-    column: Hashable = None,
+    column: Hashable = "h3",
     drop: bool = True,
 ) -> pd.Series | gpd.GeoDataFrame:
     """
@@ -60,7 +60,7 @@ def xy_to_h3(
     >>> s.xy_to_h3(8)
     0    612845052823076863
     1    614269156845420543
-    dtype: int64
+    Name: h3, dtype: int64
     """
 
     # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
