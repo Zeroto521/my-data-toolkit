@@ -73,6 +73,7 @@ def xy_to_h3(
     # 1. use `import h3.api.numpy_int as h3` instead of `import h3`
     # 2. compat with h3-py 4
     # 3. requires crs is 4326
+    # 4. conside h3-py as the accessor of Series
 
     from h3.api.numpy_int import geo_to_h3
 
