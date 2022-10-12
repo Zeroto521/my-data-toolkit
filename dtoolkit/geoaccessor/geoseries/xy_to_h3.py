@@ -81,6 +81,11 @@ def xy_to_h3(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+    if not drop and (column is None or s.name is None):
+        raise ValueError(
+            "to keep the original data requires setting the 'name' of "
+            f"{s.__class__.__name__!r} and 'column'.",
+        )
 
     func = lambda yx: geo_to_h3(*yx, resolution)
     h3 = xy(s, reverse=True).apply(func).rename(column)
