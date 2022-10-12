@@ -18,6 +18,32 @@ def xy_to_h3(
     column: Hashable = "h3",
     drop: bool = True,
 ) -> pd.DataFrame | gpd.GeoDataFrame:
+    """
+    Convert Point to containing H3 cell index.
+
+    Parameters
+    ----------
+    resolution : int
+        H3 resolution.
+
+    column : Hashable, default "h3"
+        Name of the column to store the H3 cell index.
+
+    drop : bool, default True
+        Whether to drop the geometry column.
+
+    Returns
+    -------
+    DataFrame or GeoDataFrame
+        DataFrame if drop is True else GeoDataFrame.
+
+    See Also
+    --------
+    h3.geo_to_h3
+        https://h3geo.org/docs/api/indexing#latlngtocell
+
+    dtoolkit.geoaccessor.geodataframe.xy_to_h3
+    """
 
     h3 = s_xy_to_h3(df.geometry, resolution, column=column, drop=True)
 
