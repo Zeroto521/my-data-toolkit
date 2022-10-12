@@ -26,7 +26,7 @@ def xy_to_h3(
     resolution : int
         H3 resolution.
 
-    column : Hashable, default None
+    column : Hashable, default "h3"
         Name of the column to store the H3 cell index.
 
     drop : bool, default True
