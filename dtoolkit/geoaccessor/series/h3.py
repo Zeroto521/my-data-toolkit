@@ -5,8 +5,9 @@ from typing import Literal
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-
 from pandas.api.extensions import register_series_accessor
+
+from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
@@ -112,7 +113,6 @@ class H3:
         # from h3.api.numpy_int import cell_to_boundary
         # requires h3 < 4
         from h3.api.numpy_int import h3_to_geo_boundary
-
         # TODO: delete pygeos after shapely 2.x released
         from pygeos import polygons
 
@@ -127,3 +127,64 @@ class H3:
         geometry = gpd.GeoSeries(geometry, crs=4326)
 
         return geometry if drop else to_geoframe(s, geometry=geometry)
+
+    def to_children(
+        self,
+        resolution: int = None,
+        *,
+        drop: bool = True,
+        partent: Hashable = "partent",
+        children: Hashable = "children",
+    ) -> pd.Series | pd.DataFrame:
+        # TODO: Use `cell_to_children` instead of `h3_to_children`
+        # While h3-py release 4, `cell_to_children` is not available.
+
+        # requires h3 >= 4
+        # from h3.api.numpy_int import cell_to_children
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_to_children
+
+        h3_list = self.s.apply(h3_to_children, res=resolution)
+        h3_children = h3_list.explode(ignore_index=True)
+
+        if drop:
+            return h3_children
+        return pd.concat(
+            (
+                (
+                    self.s.repeat(s_len(h3_list))
+                    .reset_index(drop=True)
+                    .rename(self.s.name or partent)
+                ),
+                h3_children.rename(children),
+            ),
+            axis=1,
+        )
+
+    def to_parent(
+        self,
+        resolution: int = None,
+        *,
+        drop: bool = True,
+        partent: Hashable = "partent",
+        children: Hashable = "children",
+    ) -> pd.Series | pd.DataFrame:
+        # TODO: Use `cell_to_parent` instead of `h3_to_children`
+        # While h3-py release 4, `cell_to_parent` is not available.
+
+        # requires h3 >= 4
+        # from h3.api.numpy_int import cell_to_parent
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_to_parent
+
+        h3_parent = self.s.apply(h3_to_parent, res=resolution)
+
+        if drop:
+            return h3_parent
+        return pd.concat(
+            (
+                h3_parent.rename(partent),
+                self.s.rename(self.s.name or children),
+            ),
+            axis=1,
+        )
