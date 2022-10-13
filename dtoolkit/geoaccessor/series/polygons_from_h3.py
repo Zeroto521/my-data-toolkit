@@ -9,7 +9,7 @@ from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
 @register_series_method
-def hexagons_from_h3(
+def polygons_from_h3(
     s: pd.Series,
     /,
     drop: bool = False,
