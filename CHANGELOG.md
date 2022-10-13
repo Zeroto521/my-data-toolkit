@@ -9,7 +9,7 @@ New features and improvements:
 - {pr}`712`: Support use `DataFrame`'s column as the distance for {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer`.
 - {pr}`711`, {pr}`713`: New geoaccessor for GeoSeries to return tuple of coordinates `(x, y)`, {meth}`~dtoolkit.geoaccessor.geoseries.xy`.
 - {pr}`701`, {pr}`704`, {pr}`705`, {pr}`706`: New geoaccessor to generate great circle distances matrix, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance_matrix`.
-- {pr}`699`, {pr}`702`, {pr}`707`: New geoaccessor to calculate two coordinates distance on earth, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance`.
+- {pr}`699`, {pr}`702`, {pr}`707`, {pr}`735`: New geoaccessor to calculate two coordinates distance on earth, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance`.
 - {pr}`696`: New geoaccessor to handle China webmap offset problem, {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offset`.
 - {pr}`691`, {pr}`703`: New geoaccessor to filter geometry via spatial relationship, {meth}`~dtoolkit.geoaccessor.geoseries.filter_geometry`.
 - {pr}`688`: New accessor {meth}`~dtoolkit.accessor.dataframe.weighted_mean` for DataFrame.
