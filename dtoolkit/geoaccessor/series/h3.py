@@ -86,7 +86,7 @@ class H3:
 
     def to_points(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
-        # While h3-py release 4, `latlon_to_h3` is not available.
+        # While h3-py release 4, `cell_to_latlng` is not available.
 
         # requires h3 >= 4
         # from h3.api.numpy_int import cell_to_latlng
@@ -106,7 +106,7 @@ class H3:
 
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
-        # While h3-py release 4, `latlon_to_h3` is not available.
+        # While h3-py release 4, `cell_to_boundary` is not available.
 
         # requires h3 >= 4
         # from h3.api.numpy_int import cell_to_boundary
