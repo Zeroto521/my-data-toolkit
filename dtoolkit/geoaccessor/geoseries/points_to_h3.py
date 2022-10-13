@@ -11,7 +11,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-def xy_to_h3(
+def points_to_h3(
     s: gpd.GeoSeries,
     /,
     resolution: int,

@@ -11,7 +11,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-def xy_to_h3(
+def points_to_h3(
     df: gpd.GeoDataFrame,
     /,
     resolution: int,
