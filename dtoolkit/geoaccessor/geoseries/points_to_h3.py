@@ -73,6 +73,7 @@ def points_to_h3(
     # requires h3 >= 4
     # from h3.api.numpy_int import latlng_to_cell
     # requires h3 < 4
+    from h3.api.numpy_int import geo_to_h3
 
     # TODO: Advices for h3-pandas
     # 1. use `import h3.api.numpy_int as h3` instead of `import h3`
@@ -82,8 +83,6 @@ def points_to_h3(
     # 5. use h3 cell index as the index of DataFrame, this may be a problem,
     # cause it is not unique actually.
     # 6. Speed up points / polygons via pygeos
-
-    from h3.api.numpy_int import geo_to_h3
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
