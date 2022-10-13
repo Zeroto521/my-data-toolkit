@@ -20,6 +20,14 @@ General methods and attributes
     toposimplify
 
 
+Conversion
+----------
+.. autosummary::
+    :toctree: ../api/
+
+    points_to_h3
+
+
 Projection handling
 -------------------
 .. autosummary::
