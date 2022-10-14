@@ -12,6 +12,7 @@ dependencies:
   - jenkspy
   - topojson
   - joblib
+  - h3-py
   # testing
   - pytest
   - pytest-cov
