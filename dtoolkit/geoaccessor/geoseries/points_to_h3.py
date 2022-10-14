@@ -50,7 +50,7 @@ def points_to_h3(
     See Also
     --------
     h3.geo_to_h3 : https://h3geo.org/docs/api/indexing#latlngtocell
-    dtoolkit.geoaccessor.geoseries.xy_to_h3
+    dtoolkit.geoaccessor.geoseries.points_to_h3
 
     Examples
     --------
@@ -66,7 +66,7 @@ def points_to_h3(
     0    POINT (122.00000 55.00000)
     1     POINT (100.00000 1.00000)
     dtype: geometry
-    >>> s.xy_to_h3(8)
+    >>> s.points_to_h3(8)
     0    612845052823076863
     1    614269156845420543
     Name: h3, dtype: int64

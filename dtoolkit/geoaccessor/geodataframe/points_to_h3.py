@@ -6,7 +6,7 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
-from dtoolkit.geoaccessor.geoseries import xy_to_h3 as s_xy_to_h3
+from dtoolkit.geoaccessor.geoseries import points_to_h3 as s_points_to_h3
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
@@ -49,7 +49,7 @@ def points_to_h3(
     See Also
     --------
     h3.geo_to_h3 : https://h3geo.org/docs/api/indexing#latlngtocell
-    dtoolkit.geoaccessor.geodataframe.xy_to_h3
+    dtoolkit.geoaccessor.geodataframe.points_to_h3
 
     Examples
     --------
@@ -60,13 +60,13 @@ def points_to_h3(
          x   y                    geometry
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
-    >>> df.xy_to_h3(8)
+    >>> df.points_to_h3(8)
          x   y                  h3
     0  122  55  612845052823076863
     1  100   1  614269156845420543
     """
 
-    h3 = s_xy_to_h3(df.geometry, resolution, column=column, drop=True)
+    h3 = s_points_to_h3(df.geometry, resolution, column=column, drop=True)
 
     if drop:
         df = drop_geometry(df)
