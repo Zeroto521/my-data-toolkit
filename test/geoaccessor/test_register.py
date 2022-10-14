@@ -8,6 +8,8 @@ from pygeos import from_shapely
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
+# TODO: delete pygeos after shapely 2.x released
+
 
 @register_geodataframe_method
 @register_geoseries_method
