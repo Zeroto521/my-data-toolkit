@@ -84,7 +84,7 @@ def points_to_h3(
     # 1. use `import h3.api.numpy_int as h3` instead of `import h3`
     # 2. compat with h3-py 4
     # 3. requires crs is 4326
-    # 4. conside h3-py as the accessor of Series
+    # 4. consider h3-py as the accessor of Series
     # 5. use h3 cell index as the index of DataFrame, this may be a problem,
     # cause it is not unique actually.
     # 6. Speed up points / polygons via pygeos
@@ -99,7 +99,5 @@ def points_to_h3(
             f"{s.__class__.__name__!r} and 'column'.",
         )
 
-    func = lambda yx: geo_to_h3(*yx, resolution)
-    h3 = xy(s, reverse=True).apply(func).rename(column)
-
+    h3 = xy(s, reverse=True).apply(lambda yx: geo_to_h3(*yx, resolution)).rename(column)
     return h3 if drop else to_geoframe(h3, geometry=s)
