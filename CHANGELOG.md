@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.18] (2022-10-x)
+## [Version 0.0.18] (2022-10-14)
 
 New features and improvements:
 
