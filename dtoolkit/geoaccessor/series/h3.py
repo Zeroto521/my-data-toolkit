@@ -188,3 +188,32 @@ class H3:
             ),
             axis=1,
         )
+
+    def to_center_child(
+        self,
+        resolution: int = None,
+        *,
+        drop: bool = True,
+        partent: Hashable = "partent",
+        children: Hashable = "children",
+    ) -> pd.Series | pd.DataFrame:
+        # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
+        # While h3-py release 4, `cell_to_center_child` is not available.
+
+        # requires h3 >= 4
+        # from h3.api.numpy_int import cell_to_center_child
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_to_center_child
+
+        h3_children = self.s.apply(h3_to_center_child, res=resolution)
+
+        if drop:
+            return h3_children
+        return pd.concat(
+            (
+                self.s.rename(self.s.name or partent),
+                h3_children.rename(children),
+            ),
+            axis=1,
+        )
+    
