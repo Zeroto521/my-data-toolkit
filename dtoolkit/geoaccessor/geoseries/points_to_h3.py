@@ -41,6 +41,8 @@ def points_to_h3(
     ------
     ModuleNotFoundError
         If don't have module named 'h3'.
+    TypeError
+        If the geometry is not Point.
 
     See Also
     --------
@@ -84,6 +86,8 @@ def points_to_h3(
     # cause it is not unique actually.
     # 6. Speed up points / polygons via pygeos
 
+    if not all(s.geom_type == "Point"):
+        raise TypeError("Only support 'Point' geometry type.")
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
     if not drop and (column is None or s.name is None):

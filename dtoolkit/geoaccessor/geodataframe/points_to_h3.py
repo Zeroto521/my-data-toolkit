@@ -41,6 +41,8 @@ def points_to_h3(
     ------
     ModuleNotFoundError
         If don't have module named 'h3'.
+    TypeError
+        If the geometry is not Point.
 
     See Also
     --------
