@@ -43,6 +43,8 @@ def points_to_h3(
         If don't have module named 'h3'.
     TypeError
         If the geometry is not Point.
+    ValueError
+        If the CRS is not WGS84 or EPSG:4326.
 
     See Also
     --------
