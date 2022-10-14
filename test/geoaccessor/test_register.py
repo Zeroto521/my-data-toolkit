@@ -2,13 +2,13 @@ import geopandas as gpd
 import pandas as pd
 import pytest
 from pandas.testing import assert_series_equal
-
-# TODO: delete pygeos after shapely 2.x released
 from pygeos import count_coordinates
 from pygeos import from_shapely
 
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 from dtoolkit.geoaccessor.register import register_geoseries_method
+
+# TODO: delete pygeos after shapely 2.x released
 
 
 @register_geodataframe_method
