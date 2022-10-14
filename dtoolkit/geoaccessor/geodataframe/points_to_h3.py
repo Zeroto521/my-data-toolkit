@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Hashable
 
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 
 from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
 from dtoolkit.geoaccessor.geoseries import xy_to_h3 as s_xy_to_h3
