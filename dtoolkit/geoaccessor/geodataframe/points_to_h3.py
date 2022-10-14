@@ -49,7 +49,7 @@ def points_to_h3(
     See Also
     --------
     h3.latlon_to_h3
-    dtoolkit.geoaccessor.geodataframe.points_to_h3
+    dtoolkit.geoaccessor.geoseries.points_to_h3
 
     Examples
     --------
