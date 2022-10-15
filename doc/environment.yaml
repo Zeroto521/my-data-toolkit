@@ -10,7 +10,7 @@ dependencies:
 
   # doc dependencies
   - sphinx
-  - pydata-sphinx-theme=0.9.0
+  - pydata-sphinx-theme
   - myst-parser
   - numpydoc
   - ipython
