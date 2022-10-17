@@ -5,9 +5,9 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.series import to_geoframe
-from dtoolkit.accessor.series import len as s_len
 
 
 @register_geoseries_method
@@ -80,7 +80,7 @@ def to_h3(
     >>> s = pd.Series(
     ...     [
     ...         "POLYGON ((1 0, 1 1, 0 1, 0 0, 1 0))",
-    ...         "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1)),
+    ...         "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1))",
     ...     ],
     ... ).from_wkt(crs=4326, drop=True)
     >>> s
@@ -175,5 +175,5 @@ def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
             geom.__geo_interface__,
             resolution,
             geo_json_conformant=True,
-        )
+        ),
     )
