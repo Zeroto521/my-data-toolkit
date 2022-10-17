@@ -65,15 +65,17 @@ class H3:
 
         return self.s.apply(is_pentagon)
 
-    def edge(self, unit: Literal["km", "m", "rads"] = "km") -> pd.Series:
+    @property
+    def edge(self) -> pd.Series:
         from h3.api.numpy_int import edge_length
 
-        return self.s.apply(edge_length, unit=unit)
+        return self.s.apply(edge_length, unit="m")
 
-    def area(self, unit: Literal["km^2", "m^2", "rads^2"] = "km^2") -> pd.Series:
+    @property
+    def area(self) -> pd.Series:
         from h3.api.numpy_int import cell_area
 
-        return self.s.apply(cell_area, unit=unit)
+        return self.s.apply(cell_area, unit="m^2")
 
     def to_str(self) -> pd.Series:
         from h3 import int_to_str
@@ -113,6 +115,7 @@ class H3:
         # from h3.api.numpy_int import cell_to_boundary
         # requires h3 < 4
         from h3.api.numpy_int import h3_to_geo_boundary
+
         # TODO: delete pygeos after shapely 2.x released
         from pygeos import polygons
 
@@ -216,4 +219,3 @@ class H3:
             ),
             axis=1,
         )
-    
