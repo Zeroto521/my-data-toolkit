@@ -73,7 +73,7 @@ def to_h3(
     >>> s.to_h3(8)
     0    612845052823076863
     1    614269156845420543
-    Name: h3, dtype: int64
+    dtype: int64
 
     Polygons to h3 indexes.
 
