@@ -66,7 +66,7 @@ class H3:
         return self.s.apply(is_pentagon)
 
     @property
-    def edge(self) -> pd.Series:
+    def edge_length(self) -> pd.Series:
         from h3.api.numpy_int import edge_length
 
         return self.s.apply(edge_length, unit="m")
