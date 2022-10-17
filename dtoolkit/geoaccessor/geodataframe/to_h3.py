@@ -5,7 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import repeat
+from dtoolkit.accessor.dataframe import repeat  # noqa: F401
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
 from dtoolkit.geoaccessor.geoseries.to_h3 import points_to_h3
