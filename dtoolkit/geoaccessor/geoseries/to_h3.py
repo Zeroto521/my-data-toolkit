@@ -123,7 +123,7 @@ def to_h3(
     if not drop and (column is None or s.name is None):
         raise ValueError(
             "to keep the original data requires setting the 'name' of "
-            f"{s.__class__.__name__!r} and 'column'.",
+            f"{s.__class__.__name__!r} or 'column'.",
         )
 
     if all(s.geom_type == "Point"):
