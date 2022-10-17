@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
 
-from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
@@ -146,6 +145,8 @@ class H3:
         # from h3.api.numpy_int import cell_to_children
         # requires h3 < 4
         from h3.api.numpy_int import h3_to_children
+
+        from dtoolkit.accessor.series import len as s_len
 
         h3_list = self.s.apply(h3_to_children, res=resolution)
         h3_children = h3_list.explode(ignore_index=True)
