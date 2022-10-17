@@ -25,7 +25,7 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
-    points_to_h3
+    to_h3
 
 
 Projection handling
