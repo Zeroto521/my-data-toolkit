@@ -28,11 +28,27 @@ def available_if(check):
 
 @register_series_accessor("h3")
 class H3:
+    """
+    Hexagonal hierarchical geospatial indexing system.
+    """
+
     def __init__(self, s: pd.Series, /):
         self.s = s
 
     @property
-    def is_valid(self) -> bool:
+    def is_valid(self) -> pd.Series:
+        """
+        Validates an H3 cell (hexagon or pentagon).
+
+        Returns
+        -------
+        Series
+            Boolean Series indicating whether the H3 cell is valid.
+
+        See Also
+        --------
+        h3.h3_is_valid
+        """
         # TODO: Use `is_valid_cell` instead of `h3_is_valid`
         # While h3-py release 4, `is_valid_cell` is not available.
 
@@ -44,11 +60,41 @@ class H3:
         return self.s.apply(h3_is_valid)
 
     def _is_h3(self) -> bool:
+        """
+        Validate whether the whole series is H3 cell index.
+
+        Returns
+        -------
+        bool
+            True if the whole series is H3 cell index else False.
+
+        See Also
+        --------
+        h3.h3_is_valid
+        """
+
         return all(self.is_valid)
 
     @property
     @available_if(_is_h3)
     def is_res_class_III(self) -> pd.Series:
+        """
+        Determine if cell has orientation "Class II" or "Class III".
+
+        Cells of resolutions:
+
+        - Class II: 0, 2, 4, 6, 8, 10, 12, 14
+        - Class III: 1, 3, 5, 7, 9, 11, 13, 15
+
+        Returns
+        -------
+        Series
+            Boolean Series indicating whether the H3 cell is Class III.
+
+        See Also
+        --------
+        h3.h3_is_res_class_III
+        """
         # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
         # While h3-py release 4, `is_res_class_III` is not available.
 
@@ -62,6 +108,18 @@ class H3:
     @property
     @available_if(_is_h3)
     def is_pentagon(self) -> pd.Series:
+        """
+        Identify if an H3 cell is a pentagon.
+
+        Returns
+        -------
+        Series
+            Boolean Series indicating whether the H3 cell is a pentagon.
+
+        See Also
+        --------
+        h3.h3_is_pentagon
+        """
         # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
         # While h3-py release 4, `is_pentagon` is not available.
 
@@ -75,6 +133,18 @@ class H3:
     @property
     @available_if(_is_h3)
     def resolution(self) -> pd.Series:
+        """
+        Return the resolution of an H3 cell.
+
+        Returns
+        -------
+        Series
+            Integer Series indicating the resolution of the H3 cell.
+
+        See Also
+        --------
+        h3.h3_get_resolution
+        """
         # TODO: Use `get_resolution` instead of `h3_get_resolution`
         # While h3-py release 4, `get_resolution` is not available.
 
@@ -88,6 +158,18 @@ class H3:
     @property
     @available_if(_is_h3)
     def edge_length(self) -> pd.Series:
+        """
+        Compute the spherical length of a specific H3 edge.
+
+        Returns
+        -------
+        Series
+            Float (unit is m) Series indicating the spherical length of the H3 edge.
+
+        See Also
+        --------
+        h3.edge_length
+        """
         from h3.api.numpy_int import edge_length
 
         return self.s.apply(edge_length, unit="m")
@@ -95,11 +177,41 @@ class H3:
     @property
     @available_if(_is_h3)
     def area(self) -> pd.Series:
+        """
+        Compute the spherical surface area of a specific H3 cell.
+
+        Returns
+        -------
+        Series
+            Float (unit is m\ :sup:`2`) Series indicating the spherical surface area
+            of the H3 cell.
+
+        See Also
+        --------
+        h3.cell_area
+        """
         from h3.api.numpy_int import cell_area
 
         return self.s.apply(cell_area, unit="m^2")
 
     def to_str(self) -> pd.Series:
+        """
+        Converts a hexadecimal string to an H3 64-bit integer index.
+
+        Returns
+        -------
+        Series
+            String Series indicating the H3 cell index.
+
+        Raises
+        ------
+        TypeError
+            If the Series is not int type H3 cell index.
+
+        See Also
+        --------
+        h3.h3_to_string
+        """
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
 
@@ -117,6 +229,23 @@ class H3:
         return self.s.apply(h3_to_string)
 
     def to_int(self) -> pd.Series:
+        """
+        Converts an H3 64-bit integer index to a hexadecimal string.
+
+        Returns
+        -------
+        Series
+            Integer Series indicating the H3 cell index.
+
+        Raises
+        ------
+        TypeError
+            If the Series is not str type H3 cell index.
+
+        See Also
+        --------
+        h3.h3_to_int
+        """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
 
@@ -135,6 +264,28 @@ class H3:
 
     @available_if(_is_h3)
     def to_points(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
+        """
+        Return the center Point of an H3 cell as a lat/lng pair.
+
+        Parameters
+        ----------
+        drop : bool, default False
+            Whether to drop the original H3 cell index column.
+
+        Returns
+        -------
+        GeoSeries or GeoDataFrame
+            If True, return a GeoSeries with the original H3 cell index column dropped.
+
+        Raises
+        ------
+        ValueError
+            If ``drop=False`` and the original H3 cell index column is not named.
+
+        See Also
+        --------
+        h3.h3_to_geo
+        """
         # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
         # While h3-py release 4, `cell_to_latlng` is not available.
 
