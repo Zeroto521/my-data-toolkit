@@ -30,6 +30,25 @@ def available_if(check):
 class H3:
     """
     Hexagonal hierarchical geospatial indexing system.
+
+    A little magic binding H3 for Series.
+
+    Based on ``pandas.Series`` API style, this accessor APIs are designed as follows:
+
+    - Remove the prefix `h3_` of the original H3 API.
+      e.g. :meth:`h3.h3_to_geometh` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
+
+    - Use `to_` prefix for the conversion between H3 cell int and str.
+      e.g. :meth:`h3.h3_to_stringmeth` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
+
+    - Use `is_` prefix for the validation of H3 cell.
+      e.g. :meth:`h3.h3_is_validmeth` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
+
+    Notes
+    -----
+    Default use :meth:`h3.api.numpy_intmeth` as the backend. So the IO will use int64.
+    It can be converted to str by :meth:`~dtoolkit.geoaccessor.series.H3.to_str()`
+    and converted to int by :meth:`~dtoolkit.geoaccessor.series.H3.to_int()``.
     """
 
     def __init__(self, s: pd.Series, /):
