@@ -17,12 +17,6 @@ class H3:
         self.s = s
 
     @property
-    def resolution(self) -> pd.Series:
-        from h3.api.numpy_int import get_resolution
-
-        return self.s.apply(get_resolution)
-
-    @property
     def is_valid(self) -> bool:
         # TODO: Use `is_valid_cell` instead of `h3_is_valid`
         # While h3-py release 4, `is_valid_cell` is not available.
@@ -45,6 +39,12 @@ class H3:
         from h3.api.numpy_int import is_pentagon
 
         return self.s.apply(is_pentagon)
+
+    @property
+    def resolution(self) -> pd.Series:
+        from h3.api.numpy_int import get_resolution
+
+        return self.s.apply(get_resolution)
 
     @property
     def edge_length(self) -> pd.Series:
