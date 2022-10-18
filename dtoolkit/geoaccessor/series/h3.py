@@ -137,17 +137,17 @@ class H3:
         # TODO: delete pygeos after shapely 2.x released
         from pygeos import polygons
 
-        if not drop and s.name is None:
+        if not drop and self.s.name is None:
             raise ValueError(
                 "to keep the original data requires setting the 'name' of "
-                f"{s.__class__.__name__!r}.",
+                f"{self.s.__class__.__name__!r}.",
             )
 
-        geometry = np.asarray(s.apply(h3_to_geo_boundary).tolist())
+        geometry = np.asarray(self.s.apply(h3_to_geo_boundary).tolist())
         geometry = polygons(np.flip(geometry, 2))  # flip: (lat, lon) -> (lon, lat)
         geometry = gpd.GeoSeries(geometry, crs=4326)
 
-        return geometry if drop else to_geoframe(s, geometry=geometry)
+        return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
     def to_children(
         self,
