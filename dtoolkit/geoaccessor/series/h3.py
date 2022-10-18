@@ -128,13 +128,13 @@ class H3:
         if not drop and self.s.name is None:
             raise ValueError(
                 "to keep the original data requires setting the 'name' of "
-                f"{s.__class__.__name__!r}.",
+                f"{self.s.__class__.__name__!r}.",
             )
 
-        yx = np.asarray(s.apply(h3_to_geo).tolist())
+        yx = np.asarray(self.s.apply(h3_to_geo).tolist())
         geometry = gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326)
 
-        return geometry if drop else to_geoframe(s, geometry=geometry)
+        return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
