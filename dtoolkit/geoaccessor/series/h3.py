@@ -91,7 +91,6 @@ class H3:
         # requires h3 < 4
         from h3 import h3_to_string
 
-
         return self.s if self.s.dtype == "str" else self.s.apply(h3_to_string)
 
     def to_int(self) -> pd.Series:
@@ -143,9 +142,8 @@ class H3:
                 f"{self.s.__class__.__name__!r}.",
             )
 
-        geometry = np.asarray(self.s.apply(h3_to_geo_boundary).tolist())
-        geometry = polygons(np.flip(geometry, 2))  # flip: (lat, lon) -> (lon, lat)
-        geometry = gpd.GeoSeries(geometry, crs=4326)
+        geometry = self.s.apply(h3_to_geo_boundary, geo_json=True).tolist()
+        geometry = gpd.GeoSeries(polygons(geometry), crs=4326)
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
