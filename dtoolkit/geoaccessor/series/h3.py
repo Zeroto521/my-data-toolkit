@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import wraps
 from typing import Literal
 
 import geopandas as gpd
@@ -10,10 +11,24 @@ from pandas.api.extensions import register_series_accessor
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
+def available_if(check):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if not check(args[0]):
+                raise TypeError(
+                    f"For Non-H3, the '.h3.{func.__name__}' is not available."
+                )
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
 @register_series_accessor("h3")
 class H3:
     def __init__(self, s: pd.Series, /):
-        # TODO: raise error if s.dtype is not int64 or str
         self.s = s
 
     @property
@@ -28,7 +43,11 @@ class H3:
 
         return self.s.apply(h3_is_valid)
 
+    def _is_h3(self) -> bool:
+        return all(self.is_valid)
+
     @property
+    @available_if(_is_h3)
     def is_res_class_III(self) -> pd.Series:
         # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
         # While h3-py release 4, `is_res_class_III` is not available.
@@ -41,6 +60,7 @@ class H3:
         return self.s.apply(h3_is_res_class_III)
 
     @property
+    @available_if(_is_h3)
     def is_pentagon(self) -> pd.Series:
         # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
         # While h3-py release 4, `is_pentagon` is not available.
@@ -53,6 +73,7 @@ class H3:
         return self.s.apply(is_pentagon)
 
     @property
+    @available_if(_is_h3)
     def resolution(self) -> pd.Series:
         # TODO: Use `get_resolution` instead of `h3_get_resolution`
         # While h3-py release 4, `get_resolution` is not available.
@@ -65,12 +86,14 @@ class H3:
         return self.s.apply(h3_get_resolution)
 
     @property
+    @available_if(_is_h3)
     def edge_length(self) -> pd.Series:
         from h3.api.numpy_int import edge_length
 
         return self.s.apply(edge_length, unit="m")
 
     @property
+    @available_if(_is_h3)
     def area(self) -> pd.Series:
         from h3.api.numpy_int import cell_area
 
@@ -110,6 +133,7 @@ class H3:
             )
         return self.s.apply(string_to_h3)
 
+    @available_if(_is_h3)
     def to_points(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
         # While h3-py release 4, `cell_to_latlng` is not available.
@@ -130,6 +154,7 @@ class H3:
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
+    @available_if(_is_h3)
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
         # While h3-py release 4, `cell_to_boundary` is not available.
@@ -153,6 +178,7 @@ class H3:
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
+    @available_if(_is_h3)
     def to_children(
         self,
         resolution: int = None,
@@ -188,6 +214,7 @@ class H3:
             axis=1,
         )
 
+    @available_if(_is_h3)
     def to_parent(
         self,
         resolution: int = None,
@@ -216,6 +243,7 @@ class H3:
             axis=1,
         )
 
+    @available_if(_is_h3)
     def to_center_child(
         self,
         resolution: int = None,
