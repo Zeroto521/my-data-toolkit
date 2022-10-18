@@ -30,13 +30,25 @@ class H3:
 
     @property
     def is_res_class_III(self) -> pd.Series:
-        from h3.api.numpy_int import is_res_class_III
+        # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
+        # While h3-py release 4, `is_res_class_III` is not available.
 
-        return self.s.apply(is_res_class_III)
+        # requires h3 >= 4
+        # from h3.api.numpy_int import is_res_class_III
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_is_res_class_III
+
+        return self.s.apply(h3_is_res_class_III)
 
     @property
     def is_pentagon(self) -> pd.Series:
-        from h3.api.numpy_int import is_pentagon
+        # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
+        # While h3-py release 4, `is_pentagon` is not available.
+
+        # requires h3 >= 4
+        # from h3.api.numpy_int import is_pentagon
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_is_pentagon
 
         return self.s.apply(is_pentagon)
 
