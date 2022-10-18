@@ -54,9 +54,15 @@ class H3:
 
     @property
     def resolution(self) -> pd.Series:
-        from h3.api.numpy_int import get_resolution
+        # TODO: Use `get_resolution` instead of `h3_get_resolution`
+        # While h3-py release 4, `get_resolution` is not available.
 
-        return self.s.apply(get_resolution)
+        # requires h3 >= 4
+        # from h3.api.numpy_int import get_resolution
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_get_resolution
+
+        return self.s.apply(h3_get_resolution)
 
     @property
     def edge_length(self) -> pd.Series:
