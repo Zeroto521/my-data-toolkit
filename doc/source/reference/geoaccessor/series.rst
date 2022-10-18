@@ -21,3 +21,11 @@ Address handling
     :toctree: ../api/
 
     geocode
+
+
+H3 (Hexagonal hierarchical geospatial indexing system)
+------------------------------------------------------
+.. autosummary::
+    :toctree: ../api/
+
+    H3
