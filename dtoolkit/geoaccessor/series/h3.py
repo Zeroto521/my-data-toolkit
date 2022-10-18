@@ -48,9 +48,15 @@ class H3:
 
     @property
     def is_valid(self) -> bool:
-        from h3.api.numpy_int import is_valid_cell
+        # TODO: Use `is_valid_cell` instead of `h3_is_valid`
+        # While h3-py release 4, `is_valid_cell` is not available.
 
-        return self.s.apply(is_valid_cell)
+        # requires h3 >= 4
+        # from h3.api.numpy_int import is_valid_cell
+        # requires h3 < 4
+        from h3.api.numpy_int import h3_is_valid
+
+        return self.s.apply(h3_is_valid)
 
     @property
     def is_res_class_III(self) -> pd.Series:
@@ -77,14 +83,27 @@ class H3:
         return self.s.apply(cell_area, unit="m^2")
 
     def to_str(self) -> pd.Series:
-        from h3 import int_to_str
+        # TODO: Use `int_to_str` instead of `h3_to_string`
+        # While h3-py release 4, `int_to_str` is not available.
 
-        return self.s if self.s.dtype == "str" else self.s.apply(int_to_str)
+        # requires h3 >= 4
+        # from h3.api.numpy_int import int_to_str
+        # requires h3 < 4
+        from h3 import h3_to_string
+
+
+        return self.s if self.s.dtype == "str" else self.s.apply(h3_to_string)
 
     def to_int(self) -> pd.Series:
-        from h3 import str_to_int
+        # TODO: Use `str_to_int` instead of `string_to_h3`
+        # While h3-py release 4, `str_to_int` is not available.
 
-        return self.s if self.s.dtype == "int64" else self.s.apply(str_to_int)
+        # requires h3 >= 4
+        # from h3.api.numpy_int import str_to_int
+        # requires h3 < 4
+        from h3 import string_to_h3
+
+        return self.s if self.s.dtype == "int64" else self.s.apply(string_to_h3)
 
     def to_points(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
