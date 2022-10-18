@@ -24,7 +24,7 @@ class H3:
 
     @classmethod
     def num_cells(cls, resolution: int) -> int:
-        from h3 import get_num_cells
+        from h3.api.numpy_int import get_num_cells
 
         return get_num_cells(resolution)
 
@@ -89,7 +89,7 @@ class H3:
         # requires h3 >= 4
         # from h3.api.numpy_int import int_to_str
         # requires h3 < 4
-        from h3 import h3_to_string
+        from h3.api.numpy_int import h3_to_string
 
         return self.s if self.s.dtype == "str" else self.s.apply(h3_to_string)
 
@@ -100,7 +100,7 @@ class H3:
         # requires h3 >= 4
         # from h3.api.numpy_int import str_to_int
         # requires h3 < 4
-        from h3 import string_to_h3
+        from h3.api.numpy_int import string_to_h3
 
         return self.s if self.s.dtype == "int64" else self.s.apply(string_to_h3)
 
