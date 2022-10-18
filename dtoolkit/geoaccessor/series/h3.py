@@ -16,48 +16,6 @@ class H3:
         # TODO: raise error if s.dtype is not int64 or str
         self.s = s
 
-    @classmethod
-    def versions(cls) -> dict:
-        from h3 import versions
-
-        return versions()
-
-    @classmethod
-    def num_cells(cls, resolution: int) -> int:
-        # TODO: Use `get_num_cells` instead of `num_hexagons`
-        # While h3-py release 4, `get_num_cells` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import get_num_cells
-        # requires h3 < 4
-        from h3.api.numpy_int import num_hexagons
-
-        return num_hexagons(resolution)
-
-    @classmethod
-    def res0_cells(cls) -> pd.Series:
-        # TODO: Use `get_res0_cells` instead of `get_res0_indexes`
-        # While h3-py release 4, `get_res0_cells` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import get_res0_cells
-        # requires h3 < 4
-        from h3.api.numpy_int import get_res0_indexes
-
-        return pd.Series(get_res0_indexes())
-
-    @classmethod
-    def pentagons(cls, resolution: int) -> pd.Series:
-        # TODO: Use `get_pentagons` instead of `get_pentagon_indexes`
-        # While h3-py release 4, `get_pentagons` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import get_pentagons
-        # requires h3 < 4
-        from h3.api.numpy_int import get_pentagon_indexes
-
-        return pd.Series(get_pentagon_indexes(resolution))
-
     @property
     def resolution(self) -> pd.Series:
         from h3.api.numpy_int import get_resolution
