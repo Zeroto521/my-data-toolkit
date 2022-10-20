@@ -48,7 +48,30 @@ def filter(
     -----
     The ``items``, ``like``, and ``regex`` parameters are enforced to be mutually
     exclusive.
+
+    Examples
+    --------
+    >>> import dtoolkit.accessor
+    >>> import pandas as pd
+    >>> index = pd.Index(['one', 'two', 'three'])
+    >>> index
+    Index(['one', 'two', 'three'], dtype='object')
+
+    Select by name.
+
+    >>> index.filter(items=['one', 'three'])
+    Index(['one', 'three'], dtype='object')
+
+    Select by regular expression.
+
+    >>> index.filter(regex='e$')
+    Index(['one', 'three'], dtype='object')
+
+    Doesn't select containing 't'.
+    >>> index.filter(like='t', complement=True)
+    Index(['one'], dtype='object')
     """
+
     if count_not_none(items, like, regex) > 1:
         raise TypeError(
             "Keyword arguments `items`, `like`, or `regex` are mutually exclusive.",
