@@ -30,7 +30,7 @@ def filter(
         Keep labels from axis for which "like in label == True".
 
     regex : str (regular expression)
-        Keep labels from axis for which re.search(regex, label) == True.
+        Keep labels from axis for which ``re.search(regex, label) == True``.
 
     complement : bool, default False
         If True, return the complement of the result.
