@@ -6,7 +6,7 @@ import pandas as pd
 from pandas.core.common import count_not_none
 from pandas.core.dtypes.common import ensure_str
 
-from dtoolkit.accessor import register_index_method
+from dtoolkit.accessor.register import register_index_method
 
 
 @register_index_method
