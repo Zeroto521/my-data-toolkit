@@ -79,7 +79,7 @@ def filter(
 
     if items:
         choice = lambda x: (x not in items) if complement else (x in items)
-        return index.reindex((i in index for i in items if choice(i)))[0]
+        return index.reindex(i in index for i in items if choice(i))[0]
     elif like:
         condition = index.map(lambda x: like in ensure_str(x))
     elif regex:
