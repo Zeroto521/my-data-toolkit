@@ -1,20 +1,27 @@
+from __future__ import annotations
+
 from typing import Literal
 
 import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import BINARY_PREDICATE
-from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import (  # noqa: F401
+from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import (
     duplicated_geometry_groups,
 )
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.util._decorator import warning
 
 
 @register_geoseries_method
+@warning(
+    "`Geo(Series|DataFrame).duplicated_geometry`'s `predicate` default value is "
+    "changed from `'intersects'` to `None`. (Warning added DToolKit 0.0.18)"
+)
 def duplicated_geometry(
     s: gpd.GeoDataFrame,
     /,
-    predicate: BINARY_PREDICATE = "intersects",
+    predicate: BINARY_PREDICATE | None = None,
     keep: Literal["first", "last", False] = "first",
 ) -> pd.Series:
     """
@@ -23,9 +30,10 @@ def duplicated_geometry(
     Parameters
     ----------
     predicate : {'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
-'contains_properly', 'contains', 'within', 'covers'}, default 'intersects'
+'contains_properly', 'contains', 'within', 'covers', None}, default None
         The binary predicate is used to validate whether the geometries are duplicates
-        or not.
+        or not. If None, the geometries will directly compares via value relation
+        instead of the spatial relation.
 
     keep : {'first', 'last', False}, default 'first'
         - ``first`` : Mark duplicates as ``True`` except for the first occurrence.
@@ -38,6 +46,7 @@ def duplicated_geometry(
 
     See Also
     --------
+    Series.duplicated
     geopandas.sjoin
     dtoolkit.geoaccessor.geoseries.duplicated_geometry
     dtoolkit.geoaccessor.geodataframe.duplicated_geometry
@@ -46,6 +55,24 @@ def duplicated_geometry(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
+
+    Drop duplicated geometries by value equal.
+
+    >>> from shapely.geometry import Point
+    >>> df = gpd.GeoDataFrame(geometry=[Point(0, 0), Point(0, 0), Point(1, 1)])
+    >>> df
+                      geometry
+    0  POINT (0.00000 0.00000)
+    1  POINT (0.00000 0.00000)
+    2  POINT (1.00000 1.00000)
+    >>> df.duplicated_geometry()
+    0    False
+    1     True
+    2    False
+    Name: geometry, dtype: bool
+
+    Drop duplicated geometries by sptial relation.
+
     >>> from shapely.geometry import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
@@ -61,7 +88,7 @@ def duplicated_geometry(
     1  POLYGON ((1.00000 1.00000, 2.00000 1.00000, 2....
     2  POLYGON ((2.00000 2.00000, 3.00000 2.00000, 3....
     3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
-    >>> df.duplicated_geometry()
+    >>> df.duplicated_geometry('intersects')
     0    False
     1     True
     2     True
@@ -69,4 +96,6 @@ def duplicated_geometry(
     dtype: bool
     """
 
-    return s.duplicated_geometry_groups(predicate=predicate).duplicated(keep=keep)
+    if predicate is not None:
+        s = duplicated_geometry_groups(s, predicate=predicate)
+    return s.duplicated(keep=keep)
