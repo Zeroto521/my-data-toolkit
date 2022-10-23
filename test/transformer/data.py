@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
-import pytest
-
-load_iris = pytest.importorskip(modname="sklearn.datasets.load_iris")
+from sklearn.datasets import load_iris
 
 
 iris = load_iris(as_frame=True)
