@@ -49,7 +49,7 @@ def duplicated_geometry(
 
     See Also
     --------
-    Series.duplicated
+    pandas.Series.duplicated
     geopandas.sjoin
     dtoolkit.geoaccessor.geoseries.duplicated_geometry
     dtoolkit.geoaccessor.geodataframe.duplicated_geometry
