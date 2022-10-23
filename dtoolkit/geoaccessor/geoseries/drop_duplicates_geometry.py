@@ -29,6 +29,10 @@ def drop_duplicates_geometry(
         or not. If None, the geometries will directly compares via value relation
         instead of the spatial relation.
 
+        .. warning:: 0.0.19
+            The 'predicate' default value is changed from 'intersects' to None.
+            (Warning added DToolKit 0.0.19)
+
     keep : {{'first', 'last', False}}, default 'first'
         - ``first`` : Mark duplicates as ``True`` except for the first occurrence.
         - ``last`` : Mark duplicates as ``True`` except for the last occurrence.
