@@ -16,7 +16,7 @@ from dtoolkit.util._decorator import warning
 @register_geoseries_method
 @warning(
     "`Geo(Series|DataFrame).duplicated_geometry`'s `predicate` default value is "
-    "changed from `'intersects'` to `None`. (Warning added DToolKit 0.0.18)"
+    "changed from `'intersects'` to `None`. (Warning added DToolKit 0.0.19)"
 )
 def duplicated_geometry(
     s: gpd.GeoDataFrame,
