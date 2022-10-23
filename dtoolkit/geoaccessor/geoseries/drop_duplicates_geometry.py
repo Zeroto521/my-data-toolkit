@@ -29,7 +29,7 @@ def drop_duplicates_geometry(
         or not. If None, the geometries will directly compares via value relation
         instead of the spatial relation.
 
-        .. warning:: 0.0.19
+        .. versionchanged:: 0.0.19
             The 'predicate' default value is changed from 'intersects' to None.
 
     keep : {{'first', 'last', False}}, default 'first'
