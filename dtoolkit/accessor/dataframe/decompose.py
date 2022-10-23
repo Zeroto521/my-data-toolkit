@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from itertools import chain
 from typing import Hashable
 from typing import TYPE_CHECKING
 
@@ -9,6 +8,7 @@ import pandas as pd
 
 from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series.expand import collapse
 
 if TYPE_CHECKING:
     from sklearn.base import TransformerMixin
@@ -137,14 +137,14 @@ def decompose(
 
     if columns is None:
         return pd.DataFrame(
-            _decompose(method, df, **kwargs),
+            _decompose(df, method, **kwargs),
             index=df.index,
             columns=df.columns,
         )
 
     elif isinstance(columns, (list, pd.Index)):
         return pd.DataFrame(
-            _decompose(method, df[columns], **kwargs),
+            _decompose(df[columns], method, **kwargs),
             index=df.index,
             columns=columns,
         ).combine_first(df)
@@ -154,8 +154,8 @@ def decompose(
             np.hstack(
                 [
                     _decompose(
-                        method,
                         df[value],
+                        method,
                         n_components=len(key) if isinstance(key, tuple) else 1,
                         **kwargs,
                     )
@@ -163,12 +163,12 @@ def decompose(
                 ],
             ),
             index=df.index,
-            columns=chain.from_iterable(columns.keys()),
+            columns=collapse(columns.keys()),
         ).combine_first(
             drop_or_not(
                 df,
                 drop=drop,
-                columns=chain.from_iterable(columns.values()),
+                columns=collapse(columns.values()),
             ),
         )
 
@@ -176,8 +176,9 @@ def decompose(
 
 
 def _decompose(
-    method: TransformerMixin,
     df: pd.DataFrame,
+    /,
+    method: TransformerMixin,
     n_components=None,
     **kwargs,
 ) -> np.ndarray:

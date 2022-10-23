@@ -166,6 +166,30 @@ decomposition = pytest.importorskip("sklearn.decomposition")
                 columns=["a", "b", "c"],
             ),
             decomposition.PCA,
+            {"AA": ["a", "b"]},
+            True,
+            {},
+            pd.DataFrame(
+                [
+                    [0.5, 1],
+                    [-0.5, 1],
+                    [0.5, 1],
+                    [-0.5, 1],
+                ],
+                columns=["AA", "c"],
+            ),
+        ),
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, 1],
+                    [0, 1, 1],
+                    [1, 1, 1],
+                    [0, 1, 1],
+                ],
+                columns=["a", "b", "c"],
+            ),
+            decomposition.PCA,
             {"X": ["a", "b"], ("A", "B"): ["a", "c"], "C": "c", "a": "a"},
             False,
             {},

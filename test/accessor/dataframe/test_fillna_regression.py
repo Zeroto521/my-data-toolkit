@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import fillna_regression  # noqa
+from dtoolkit.accessor.dataframe import fillna_regression  # noqa: F401
 
 linear_model = pytest.importorskip("sklearn.linear_model")
 tree = pytest.importorskip("sklearn.tree")

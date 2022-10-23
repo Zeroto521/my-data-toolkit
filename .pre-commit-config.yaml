@@ -5,7 +5,7 @@ ci:
     for more information, see https://pre-commit.ci
   autoupdate_commit_msg: "BOT: pre-commit hooks autoupdate"
 
-exclude: "(versioneer.py|dtoolkit/_version.py)"
+exclude: versioneer.py|dtoolkit/_version.py|\.(html|svg)$
 
 repos:
   # import
@@ -14,18 +14,18 @@ repos:
     hooks:
       - id: absolufy-imports
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.8.2
+    rev: v3.8.5
     hooks:
       - id: reorder-python-imports
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.37.3
+    rev: v3.1.0
     hooks:
       - id: pyupgrade
   # text
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.3
+    rev: v2.3.0
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -41,12 +41,16 @@ repos:
       - id: check-merge-conflict
       # yaml
       - id: check-yaml
+      # toml
+      - id: check-toml
       # text
       - id: end-of-file-fixer
       - id: trailing-whitespace
+      # other
+      - id: detect-private-key
   # code style
   - repo: https://github.com/psf/black
-    rev: 22.6.0
+    rev: 22.10.0
     hooks:
       - id: black
       - id: black-jupyter
@@ -57,17 +61,20 @@ repos:
         exclude: ^(example|doc)/
   # jupyter
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.6.0
+    rev: 0.6.1
     hooks:
       - id: nbstripout
   # doc
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.9.0
     hooks:
+      - id: python-check-blanket-noqa
+      - id: python-use-type-annotations
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+      - id: text-unicode-replacement-char
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.2.2
     hooks:
       - id: codespell

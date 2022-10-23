@@ -3,6 +3,9 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 from pandas.testing import assert_series_equal
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import MinMaxScaler
 
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
@@ -61,7 +64,7 @@ from test.transformer.data import s
         ),
     ],
 )
-def test_pipeline_work(name, data, pipeline):
+def test_pipeline(name, data, pipeline):
     transformed_data = pipeline.fit(data).transform(data)
     pipeline.inverse_transform(transformed_data)
 
@@ -138,6 +141,8 @@ def test_transformer_without_fit_transform():
 
 
 def test_issue_87():
+    # https://github.com/Zeroto521/my-data-toolkit/issues/87
+
     tf = make_union(
         make_pipeline(
             GetTF(["a"]),
@@ -161,3 +166,63 @@ def test_issue_87():
     assert isinstance(result, pd.DataFrame)
     assert len(result) == 1
     assert result.notnull().all(axis=None)
+
+
+def test_predict():
+    df = pd.DataFrame(
+        [
+            [1, 1, 6],
+            [1, 2, 8],
+            [2, 2, 9],
+            [2, 3, 11],
+            [3, 5, None],
+        ],
+        columns=["x1", "x2", "y"],
+    )
+    data = df[df["y"].notnull()]
+
+    tf = make_pipeline(LinearRegression()).fit(data[["x1", "x2"]], data[["y"]])
+    result = tf.predict(df[["x1", "x2"]])
+
+    assert_series_equal(result, pd.Series([6, 8, 9, 11, 16], dtype=float))
+
+
+def test_predict_with_multi_tfs():
+    df = pd.DataFrame(
+        [
+            [1, 2],
+            [1, 4],
+            [1, 0],
+            [10, 2],
+            [10, 4],
+            [10, 0],
+        ],
+        columns=["x", "y"],
+    )
+
+    tf = make_pipeline(
+        PCA(),  # Add PCA to convert `Pipeline.predict`'s `self._iter` line
+        KMeans(n_clusters=2, random_state=42),
+    ).fit(df)
+    result = tf.predict(df)
+
+    assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
+
+
+def test_fit_predict():
+    df = pd.DataFrame(
+        [
+            [1, 2],
+            [1, 4],
+            [1, 0],
+            [10, 2],
+            [10, 4],
+            [10, 0],
+        ],
+        columns=["x", "y"],
+    )
+
+    tf = make_pipeline(KMeans(n_clusters=2, random_state=42))
+    result = tf.fit_predict(df)
+
+    assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)

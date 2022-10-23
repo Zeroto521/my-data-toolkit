@@ -28,8 +28,8 @@ version = release = (
 # fmt: on
 
 project = "My Data Toolkit"
-author = "Zero <@Zeroto521>"
-copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
+author = "@Zeroto521"
+copyright = f"2021-{datetime.now().year} {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
@@ -126,14 +126,15 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
+    # TODO: delete pygeos after shapely 2.x released
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
 }
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#%s"),
-    "pr": (f"{github_url}/issues/%s", "pr#%s"),
+    "issue": (f"{github_url}/issues/%s", "Issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "PR#%s"),
     "user": (r"https://github.com/%s", "@%s"),
 }
 
