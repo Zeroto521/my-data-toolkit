@@ -37,7 +37,6 @@ def duplicated_geometry(
 
         .. warning:: 0.0.19
             The 'predicate' default value is changed from 'intersects' to None.
-            (Warning added DToolKit 0.0.19)
 
     keep : {'first', 'last', False}, default 'first'
         - ``first`` : Mark duplicates as ``True`` except for the first occurrence.
