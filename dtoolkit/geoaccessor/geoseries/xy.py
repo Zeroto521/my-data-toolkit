@@ -54,6 +54,9 @@ def xy(
     1    POINT (0.00000 2.00000)
     2    POINT (0.00000 3.00000)
     dtype: geometry
+
+    Get the x and y coordinates of each point as a tuple.
+
     >>> s.xy()
     0    (0.0, 1.0)
     1    (0.0, 2.0)
@@ -67,6 +70,14 @@ def xy(
     1    (2.0, 0.0)
     2    (3.0, 0.0)
     dtype: object
+
+    Set ``frame=True`` to return a DataFrame with x and y columns.
+
+    >>> s.xy(frame=True)
+         x    y
+    0  0.0  1.0
+    1  0.0  2.0
+    2  0.0  3.0
     """
 
     coords = pd.concat((s.x.rename(x), s.y.rename(y)), axis=1)
