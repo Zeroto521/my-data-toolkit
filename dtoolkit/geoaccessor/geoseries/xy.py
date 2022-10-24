@@ -1,3 +1,5 @@
+from typing import Hashable
+
 import geopandas as gpd
 import pandas as pd
 
@@ -5,7 +7,14 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
-def xy(s: gpd.GeoSeries, /, reverse: bool = False) -> pd.Series:
+def xy(
+    s: gpd.GeoSeries,
+    /,
+    reverse: bool = False,
+    frame: bool = False,
+    x: Hashable = "x",
+    y: Hashable = "y",
+) -> pd.Series:
     """
     Return the x and y location of Point geometries in a GeoSeries.
 
@@ -14,10 +23,20 @@ def xy(s: gpd.GeoSeries, /, reverse: bool = False) -> pd.Series:
     reverse : bool, default False
         If True, return (y, x) instead.
 
+    frame : bool, default False
+        If True, return a DataFrame instead of a Series.
+
+    x : str, default 'x'
+        Name of the x column if frame=True.
+
+    y : str, default 'y'
+        Name of the y column if frame=True.
+
     Returns
     -------
-    Series
-        tuple of coordinate.
+    Series or DataFrame
+        If frame=False, a Series with tuple of coordinate. else, a DataFrame with
+        x and y two columns.
 
     See Also
     --------
@@ -50,5 +69,9 @@ def xy(s: gpd.GeoSeries, /, reverse: bool = False) -> pd.Series:
     dtype: object
     """
 
-    coordinates = (s.y, s.x) if reverse else (s.x, s.y)
-    return pd.concat(coordinates, axis=1).apply(tuple, axis=1)
+    coords = pd.concat((s.x.rename(x), s.y.rename(y)), axis=1)
+
+    if reverse:
+        coords = coords.iloc[:, ::-1]
+
+    return coords if frame else coords.apply(tuple, axis=1)
