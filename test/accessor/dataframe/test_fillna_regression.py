@@ -1,10 +1,11 @@
 import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
-from sklearn import linear_model
-from sklearn import tree
 
 from dtoolkit.accessor.dataframe import fillna_regression  # noqa: F401
+
+linear_model = pytest.importorskip("sklearn.linear_model")
+tree = pytest.importorskip("sklearn.tree")
 
 
 @pytest.mark.parametrize(

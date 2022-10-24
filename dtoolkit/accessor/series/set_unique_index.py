@@ -35,7 +35,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
 
     See Also
     --------
-    pandas.Index.is_monotonic
+    pandas.Index.is_monotonic_increasing
     pandas.{klass}.reset_index
     dtoolkit.accessor.series.set_unique_index
     dtoolkit.accessor.dataframe.set_unique_index
@@ -84,7 +84,7 @@ def set_unique_index(s: pd.Series, /, **kwargs) -> pd.Series:
         )
         return s.reset_index(**kwargs)
 
-    elif not s.index.is_monotonic:
+    elif not s.index.is_monotonic_increasing:
         return s.reset_index(**kwargs)
 
     return s
