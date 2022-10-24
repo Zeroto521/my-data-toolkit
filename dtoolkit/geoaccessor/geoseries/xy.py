@@ -3,6 +3,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -14,7 +15,7 @@ def xy(
     frame: bool = False,
     x: Hashable = "x",
     y: Hashable = "y",
-) -> pd.Series:
+) -> SeriesOrFrame:
     """
     Return the x and y location of Point geometries in a GeoSeries.
 
