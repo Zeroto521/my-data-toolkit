@@ -25,9 +25,9 @@ Dtoolkit support Python version from 3.8 to 3.10.
 Therefore each version supports minimal dependencies is different.
 You could check the dependencies list from following.
 
-- [Python 3.8 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/38-minimal.yaml)
-- [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/39-minimal.yaml)
-- [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/310-minimal.yaml)
+- [Python 3.8 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/38-minimal.yaml)
+- [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/39-minimal.yaml)
+- [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/310-minimal.yaml)
 
 ### DToolKit Requires Python Version History
 
