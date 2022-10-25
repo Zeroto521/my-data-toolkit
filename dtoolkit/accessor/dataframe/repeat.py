@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
+from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
 
 
@@ -11,7 +11,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 def repeat(
     df: pd.DataFrame,
     repeats: int | list[int],
-    axis: IntOrStr = 0,
+    /,
+    axis: Axis = 0,
 ) -> pd.DataFrame:
     """
     Repeat row or column of a :obj:`~pandas.DataFrame`.
@@ -77,12 +78,11 @@ def repeat(
     1  2  4  4
     """
 
-    axis = df._get_axis_number(axis)
     return pd.DataFrame(
         np.repeat(
             df._values,
             repeats,
-            axis=axis,
+            axis=df._get_axis_number(axis),
         ),
         index=df.index.repeat(repeats) if axis == 0 else df.index,
         columns=df.columns.repeat(repeats) if axis == 1 else df.columns,

@@ -22,11 +22,15 @@ class FillnaTF(DataFrameTF):
     >>> import numpy as np
     >>> import pandas as pd
     >>> from dtoolkit.transformer import FillnaTF
-    >>> df = pd.DataFrame([[np.nan, 2, np.nan, 0],
-    ...                    [3, 4, np.nan, 1],
-    ...                    [np.nan, np.nan, np.nan, 5],
-    ...                    [np.nan, 3, np.nan, 4]],
-    ...                   columns=list('ABCD'))
+    >>> df = pd.DataFrame(
+    ...     [
+    ...         [np.nan, 2, np.nan, 0],
+    ...         [3, 4, np.nan, 1],
+    ...         [np.nan, np.nan, np.nan, 5],
+    ...         [np.nan, 3, np.nan, 4],
+    ...     ],
+    ...     columns=list('ABCD'),
+    ... )
     >>> df
         A    B   C  D
     0  NaN  2.0 NaN  0

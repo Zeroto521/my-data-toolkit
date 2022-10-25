@@ -5,7 +5,7 @@ from dtoolkit.accessor.series._getattr_helper import get_attr
 
 
 @register_series_method
-def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
+def getattr(s: pd.Series, name: str, /, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
 

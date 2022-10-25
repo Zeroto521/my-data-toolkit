@@ -1,0 +1,25 @@
+name: dtoolkit-doc
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.8
+  # package dependencies
+  - pandas
+  - scikit-learn
+  - geopandas
+  # TODO: delete pygeos after shapely 2.x released
+  - pygeos
+
+  # doc dependencies
+  - sphinx
+  - pydata-sphinx-theme
+  - myst-parser
+  - numpydoc
+  - ipython
+
+  # jupyter
+  - nbsphinx
+  - ipykernel
+  - pip
+  - pip:
+      - sphinx-toggleprompt

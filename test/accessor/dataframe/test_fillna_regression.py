@@ -1,9 +1,11 @@
 import pandas as pd
 import pytest
-from sklearn import linear_model
-from sklearn import tree
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import fillna_regression  # noqa
+from dtoolkit.accessor.dataframe import fillna_regression  # noqa: F401
+
+linear_model = pytest.importorskip("sklearn.linear_model")
+tree = pytest.importorskip("sklearn.tree")
 
 
 @pytest.mark.parametrize(
@@ -56,7 +58,7 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
                     [1, 2, 8],
                     [2, 2, 9],
                     [2, 3, 11],
-                    [3, 5, 16],
+                    [3, 5, 13.9],
                 ],
                 columns=["x1", "x2", "y"],
             ),
@@ -208,7 +210,7 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
             dict(criterion="friedman_mse", splitter="best"),
             pd.DataFrame(
                 [
-                    [1, 1, 6],
+                    [1, 1, 8],
                     [1, 2, 8],
                     [2, 2, 9],
                     [2, 3, 11],
@@ -229,12 +231,12 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
                 columns=["x1", "x2", "y"],
             ),
             tree.DecisionTreeRegressor,
-            {"y": "x2", "y": ["x1"], "y": ["x1", "x2"]},  # noqa: F601
+            {"y": ["x1", "x2"]},
             "na",
             {},
             pd.DataFrame(
                 [
-                    [1, 1, 6],
+                    [1, 1, 8],
                     [1, 2, 8],
                     [2, 2, 9],
                     [2, 3, 11],
@@ -260,11 +262,11 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
             {},
             pd.DataFrame(
                 [
-                    [1, 1, 6, 6],
+                    [1, 1, 8, 6],
                     [1, 2, 8, 8],
                     [2, 2, 9, 9],
                     [2, 3, 11, 11],
-                    [3, 5, 11, 11],
+                    [3, 5, 11, 10],
                 ],
                 columns=["x1", "x2", "y1", "y2"],
             ),
@@ -274,7 +276,7 @@ from dtoolkit.accessor.dataframe import fillna_regression  # noqa
 def test_work(df, method, columns, how, kwargs, expected):
     result = df.fillna_regression(method, columns, how=how, **kwargs)
 
-    assert result.equals(result)
+    assert_frame_equal(result, expected, check_dtype=False)
 
 
 def test_error():

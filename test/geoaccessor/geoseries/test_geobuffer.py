@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa
+from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa: F401
 
 
 s = gpd.GeoSeries.from_wkt(
@@ -28,12 +28,8 @@ s = gpd.GeoSeries.from_wkt(
 )
 def test_distance_work(distance):
     b = s.geobuffer(distance)
+
     assert isinstance(b, gpd.GeoSeries)
-
-
-def test_distance_is_pd_series():
-    df_distance = pd.Series(range(1, 1000, 499))
-    s.geobuffer(df_distance)
 
 
 def test_distance_index_is_different_to_data():
@@ -57,3 +53,8 @@ def test_geometry_is_none():
 def test_distance_type_is_not_num_type():
     with pytest.raises(TypeError):
         s.geobuffer(str(1))
+
+
+def test_crs():
+    with pytest.raises(ValueError):
+        s.to_crs("epsg:3857").geobuffer(10)

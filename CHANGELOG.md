@@ -1,5 +1,147 @@
 # Changelog
 
+## [Version 0.0.18] (2022-10-14)
+
+New features and improvements:
+
+- {pr}`721`: New accessor for `Series` to convert datetime type, {meth}`~dtoolkit.accessor.series.to_datetime`.
+- {pr}`715`: New accessor {meth}`~dtoolkit.accessor.series.equal` to compare pandas-object with other.
+- {pr}`712`: Support use `DataFrame`'s column as the distance for {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer`.
+- {pr}`711`, {pr}`713`: New geoaccessor for GeoSeries to return tuple of coordinates `(x, y)`, {meth}`~dtoolkit.geoaccessor.geoseries.xy`.
+- {pr}`701`, {pr}`704`, {pr}`705`, {pr}`706`: New geoaccessor to generate great circle distances matrix, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance_matrix`.
+- {pr}`699`, {pr}`702`, {pr}`707`, {pr}`735`: New geoaccessor to calculate two coordinates distance on earth, {meth}`~dtoolkit.geoaccessor.geoseries.geodistance`.
+- {pr}`696`: New geoaccessor to handle China webmap offset problem, {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offset`.
+- {pr}`691`, {pr}`703`: New geoaccessor to filter geometry via spatial relationship, {meth}`~dtoolkit.geoaccessor.geoseries.filter_geometry`.
+- {pr}`688`: New accessor {meth}`~dtoolkit.accessor.dataframe.weighted_mean` for DataFrame.
+- {pr}`685`: Let `Pipeline`'s `fit_predict` and `predict` support outputting `DataFrame`.
+- {pr}`680`, {pr}`682`: New geoaccessor to check Polygon whether having hole, {meth}`~dtoolkit.geoaccessor.geoseries.has_hole`.
+- {pr}`679`: New geoaccessor to count the hole number of `Polygon`, {meth}`~dtoolkit.geoaccessor.geoseries.hole_counts`.
+- {pr}`668`: Add a new option `dropna` for {meth}`~dtoolkit.accessor.series.values_to_dict` to handle nan value.
+- {pr}`667`: New accessor {meth}`~dtoolkit.accessor.series.dropna_index`.
+
+API changes:
+
+- {pr}`694`, {pr}`695`: `pygeos` isn't an optional dependency anymore.
+- {pr}`665`: Drop {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs`.
+
+Small bug-fix:
+
+- {pr}`714`, {pr}`716`: Fix {meth}`~dtoolkit.accessor.dataframe.decompose` can't collapse `dict`.
+- {pr}`692`: Reset non-monotonic index.
+
+Documentation:
+
+- {pr}`732`: Add description for {meth}`~dtoolkit.accessor.series.jenks_bin`.
+- {pr}`723`, {pr}`729`: Add sub-title for reference apis.
+- {pr}`719`: Fix [`transformer_quickstart.ipynb` rendering](https://my-data-toolkit.readthedocs.io/en/v0.0.18/guide/transformer_quickstart.html).
+- {pr}`709`: Update `toposimplify` example.
+- {pr}`697`: Simplify doc link via `klass` variable.
+- {pr}`693`: Reforce pydata-sphinx-theme to v0.9.0.
+- {pr}`689`: Update author information.
+- {pr}`686`: Correct link.
+- {pr}`553`: Add description for `pipeline`.
+
+Maintenance development:
+
+- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive postional argument).
+- {pr}`720`: Add comment for why updating the version of dependencies.
+- {pr}`717`: Compat Python 3.7 / 3.8 which requires pandas >= 1.2.
+- {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
+- {pr}`700`: Simplify CodeQL CI.
+- {pr}`687`: Add new pre-commit hooks.
+- {pr}`684`: Use official `concurrency` instead of `cancel.yaml`.
+- {pr}`678`, {pr}`698`, {pr}`718`, {pr}`722`: pre-commit hooks autoupdate.
+- {pr}`677`: Update workflow-run-cleaner option.
+- {pr}`675`, {pr}`676`: New CI to remove old extra workflow runs.
+- {pr}`673`: Merge two test CIs.
+- {pr}`672`: Small patch to release CI.
+- {pr}`671`: Don't lint versioneer.
+- {pr}`666`: Merge 'sdist' and 'release' two CIs.
+- {pr}`664`: use `*.size` replace `len(*)`.
+- {pr}`663`: Update {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups` description and simplify its logic.
+- {pr}`661`: Update {meth}`~dtoolkit.accessor.series.to_series` description  and simplify its logic.
+- {pr}`660`: Set `sdist` default job name.
+- {pr}`658`, {pr}`690`, {pr}`708`: versioneer autoupdate.
+
+## [Version 0.0.17] (2022-8-15)
+
+Highlights of this release:
+
+- Speed up geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geobuffer` via `UTM` CRS ({pr}`638`).
+- Require minimal Python 3.8+ ({pr}`554`).
+- {meth}`~dtoolkit.accessor.series.eval` and {meth}`~dtoolkit.accessor.series.query` work for Series now ({pr}`492`, {pr}`551`).
+
+New features and improvements:
+
+- New geoaccessor compute geographic area {meth}`~dtoolkit.geoaccessor.geoseries.geoarea` ({pr}`640`).
+- A syntactic sugar to parallelize multi-jobs {meth}`~dtoolkit.util.parallelize` ({pr}`635`, {pr}`641`).
+- New geoaccessor to label / drop duplicate geometry: {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups`, {meth}`~dtoolkit.geoaccessor.geoseries.duplicated_geometry`, and {meth}`~dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry` ({pr}`631`, {pr}`632`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.swap_index_values` ({pr}`630`).
+- New accessor group by index {meth}`~dtoolkit.accessor.series.groupby_index` ({pr}`625`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geoseries.toposimplify` ({pr}`624`, {pr}`649`, {pr}`651`).
+- {meth}`~dtoolkit.accessor.dataframe.to_series` gets only `value_column` also return Series from DataFrame ({pr}`620`).
+- New accessor for Series {meth}`~dtoolkit.accessor.series.jenks_bin` and {meth}`~dtoolkit.accessor.series.jenks_breaks` ({pr}`618`, .{pr}`629`)
+- New accessor for Series {meth}`~dtoolkit.accessor.series.filter_in` ({pr}`614`).
+- New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.series.to_geoseries` ({pr}`609`).
+- New geoaccessor remove active geometry {meth}`~dtoolkit.geoaccessor.geodataframe.drop_geometry` ({pr}`599`).
+- New geoaccessor for Series {meth}`~dtoolkit.geoaccessor.series.from_wkt` ({pr}`596`).
+- New geoaccessor get coordinates from addresses {meth}`~dtoolkit.geoaccessor.series.geocode` and get addresses from coordinates {meth}`~dtoolkit.geoaccessor.geoseries.reverse_geocode` ({pr}`591`, {pr}`594`, {pr}`643`, {pr}`636`, {pr}`652`).
+- New `level` option for Index accessor {meth}`~dtoolkit.accessor.index.to_set` ({pr}`586`).
+- Speed up Series accessor {meth}`~dtoolkit.accessor.series.to_set` ({pr}`585`).
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.dataframe.from_wkb` ({pr}`584`, {pr}`598`).
+- New geoaccessor {meth}`~dtoolkit.geoaccessor.series.to_geoframe` ({pr}`568`, {pr}`642`, {pr}`646`).
+
+Small bug-fix:
+
+- Avoid GeoDataFrame constructor mutating the original (inputting) DataFrame ({pr}`644`).
+- Avoid {meth}`~dtoolkit.accessor.dataframe.fillna_regression` mutating the original dataframe ({pr}`622`).
+- Compat with sklearn 1.2 stricter class parameters checking ({pr}`602`).
+- {meth}`~dtoolkit.geoaccessor.geodataframe.geobuffer` uses the active geometry to generate buffers ({pr}`583`).
+- Hook accessor method's attrs into both class and instance ({pr}`580`).
+
+API changes:
+
+- Add deprecated warning for {meth}`~dtoolkit.geoaccessor.geoseries.utm_crs` ({pr}`637`, {pr}`645`).
+- Remove warning message and drop `inplace` option ({pr}`555`).
+- Use positional-only arguments (`/`) to limit `name` ({pr}`435`).
+
+Documentation:
+
+- Add Raises part for documentation ({pr}`623`).
+- Apply singular file name style to `/doc/*` ({pr}`613`).
+- Remove title '.dev0' and '.post0' suffixes ({pr}`587`).
+- Beautify the format of inputting dictionary ({pr}`577`).
+
+Maintenance development:
+
+- Set timeout for updating versioneer CI ({pr}`657`).
+- `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
+- Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
+- Rename arguments of methodes ({pr}`647`).
+- Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
+- Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
+- Use `topn` as {meth}`~dtoolkit.accessor.series.top_n`'s alias ({pr}`617`).
+- Follow `Series.nlargest(n=5, keep='first')` API ({pr}`616`).
+- Follow `numpy.repeat(repeats, axis)` API ({pr}`615`).
+- Set only positional parameter (`/`) for `(geo)accessor` ({pr}`612`).
+- Add `environment.yaml` at root path for user ({pr}`611`).
+- Use `pandas.testing.assert_*_equal` replace `(Series|DataFrame).equals` in testing ({pr}`607`, {pr}`608`).
+- Use function style rather than OOP ({pr}`606`, {pr}`633`, {pr}`648`, {pr}`653`).
+- Singular style file name ({pr}`605`).
+- Correct file name ({pr}`604`).
+- Rename yaml file `*.yml` -> `*.yaml` ({pr}`603`).
+- `(Geo)DataFrame` geoaccessor don't return `(Geo)Series` anymore ({pr}`601`).
+- Set default coding style via EditorConfig ({pr}`600`).
+- Suit actions/setup-python@v4 new changing ({pr}`581`).
+- pre-commit hooks autoupdate ({pr}`579`, {pr}`595`, {pr}`610`, {pr}`627`, {pr}`634`, {pr}`639`).
+- Autoupdate actions ({pr}`578`, {pr}`592`, {pr}`628`).
+- Move `dtoolkit.transformer.pipeline` into `dtoolkit.pipeline` ({pr}`563`).
+
+Typing annotations:
+
+- Use `Hashable` replace `str | int` ({pr}`582`).
+- Use `Literal` ({pr}`505`).
+
 ## [Version 0.0.16] (2022-5-30)
 
 New features and improvements:
@@ -44,7 +186,7 @@ Maintenance development:
 
 New features and improvements:
 
-- New decorator {meth}`deprecated_kwargs` ({pr}`525`).
+- New decorator {meth}`~dtoolkit.util._decorator.deprecated_kwargs` ({pr}`525`).
 - Add `to_list` option for {meth}`~dtoolkit.accessor.series.cols` ({pr}`523`).
 - Add the index register method {meth}`~dtoolkit.accessor.register_index_method`, support register method into {class}`~pandas.Index` ({pr}`507`).
 
@@ -71,7 +213,7 @@ New features and improvements:
 - Replace `.shape` with `.__len__`, 1.6x speed up than older method ({pr}`506`).
 - New method {meth}`~dtoolkit.accessor.series.to_set` ({pr}`503`).
 - New option `to_list` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`500`).
-- New decorator `deprecated_alias` ({pr}`498`).
+- New decorator {meth}`dtoolkit.util._decorator.deprecated_alias` ({pr}`498`).
 - New option `order` for {meth}`~dtoolkit.accessor.dataframe.values_to_dict` ({pr}`495`).
 - Return the error place is first happening via `stacklevel` option({pr}`490`).
 - New method {meth}`~dtoolkit.geoaccessor.dataframe.from_wkt` ({pr}`486`).
@@ -141,10 +283,9 @@ Typing annotations:
 
 ## [Version 0.0.12] (2022-2-11)
 
-Specific pandas minimal version to each python version ({pr}`440`).
-
 Highlights of this release:
 
+- Specific pandas minimal version to each python version ({pr}`440`).
 - One column data pipeline supports return `Series` ({pr}`431`).
 
 API changes:
@@ -165,14 +306,14 @@ Maintenance development:
 
 ## [Version 0.0.11] (2022-1-25)
 
-Small bug-fix:
-
-- Fix jupyter notebook can't render ({pr}`438`).
-
 New features and improvements:
 
 - Simplify `OneHotEncoder` examples and inputs ({pr}`434`).
 - `FeatureUnion` would merge all into one DataFrame and the index would use the common part ({pr}`433`).
+
+Small bug-fix:
+
+- Fix jupyter notebook can't render ({pr}`438`).
 
 Maintenance development:
 
@@ -180,7 +321,9 @@ Maintenance development:
 
 ## [Version 0.0.10] (2022-1-21)
 
-Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
+Highlights of this release:
+
+- Use `main` replace of `master` as the base branch ({issue}`412`, {pr}`413`).
 
 New features and improvements:
 
@@ -208,10 +351,9 @@ Maintenance development:
 
 ## [Version 0.0.9] (2022-1-10)
 
-Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
-
 Highlights of this release:
 
+- Use `squash merge` to keep a cleaning git commit history ({issue}`386`).
 - {meth}`~dtoolkit.accessor.register_series_method` and {meth}`~dtoolkit.accessor.register_dataframe_method` support alias ({pr}`392`).
 
 New features and improvements:
@@ -251,12 +393,12 @@ API changes:
 
 Maintenance development:
 
+- Let git choose the default branch ({pr}`376`).
 - Update pre-commit commit message ({pr}`371`).
 - Enable labeled 'auto-merged' PR could merge master branch into PR ({pr}`368`, {pr}`370`, {pr}`372`, {pr}`375`).
 - Github action runner update ({pr}`365`, {pr}`366`, {pr}`367`, {pr}`369`, {pr}`383`).
 - Auto update github action runner ({pr}`360`, {pr}`364`).
 - Pre-commit hooks auto update ({pr}`359`).
-- Let git choose the default branch ({pr}`376`).
 
 Documentation:
 
@@ -426,7 +568,9 @@ Maintenance development:
 
 ## [Version 0.0.2] (2021-9-2)
 
-Now DToolKit supports py3.9, works with Python >= 3.7 ({pr}`211`).
+Highlights of this release:
+
+- Now DToolKit supports py3.9, works with Python >= 3.7 ({pr}`211`).
 
 New features and improvements:
 
@@ -469,6 +613,8 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.18]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.17...v0.0.18
+[Version 0.0.17]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.16...v0.0.17
 [Version 0.0.16]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.16
 [Version 0.0.15]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.14...v0.0.15
 [Version 0.0.14]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.13...v0.0.14

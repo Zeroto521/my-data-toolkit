@@ -14,8 +14,13 @@ class FilterInTF(DataFrameTF):
     --------
     >>> from dtoolkit.transformer import FilterInTF
     >>> import pandas as pd
-    >>> df = pd.DataFrame({'legs': [2, 4, 2], 'wings': [2, 0, 0]},
-    ...                   index=['falcon', 'dog', 'cat'])
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         'legs': [2, 4, 2],
+    ...         'wings': [2, 0, 0],
+    ...     },
+    ...     index=['falcon', 'dog', 'cat'],
+    ... )
     >>> df
             legs  wings
     falcon     2      2

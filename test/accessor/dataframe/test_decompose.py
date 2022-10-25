@@ -1,9 +1,11 @@
 import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
-from sklearn import decomposition
 
-from dtoolkit.accessor.dataframe import decompose  # noqa
+from dtoolkit.accessor.dataframe import decompose  # noqa: F401
+
+
+decomposition = pytest.importorskip("sklearn.decomposition")
 
 
 @pytest.mark.parametrize(
@@ -151,6 +153,30 @@ from dtoolkit.accessor.dataframe import decompose  # noqa
                     [-0.5, 1],
                 ],
                 columns=["A", "c"],
+            ),
+        ),
+        (
+            pd.DataFrame(
+                [
+                    [1, 1, 1],
+                    [0, 1, 1],
+                    [1, 1, 1],
+                    [0, 1, 1],
+                ],
+                columns=["a", "b", "c"],
+            ),
+            decomposition.PCA,
+            {"AA": ["a", "b"]},
+            True,
+            {},
+            pd.DataFrame(
+                [
+                    [0.5, 1],
+                    [-0.5, 1],
+                    [0.5, 1],
+                    [-0.5, 1],
+                ],
+                columns=["AA", "c"],
             ),
         ),
         (
