@@ -1,10 +1,8 @@
-import pytest
-
 import pandas as pd
 import geopandas as gpd
 from pandas.testing import assert_series_equal
 
-from dtoolkit.geoaccessor.geodataframe import count_coordinates
+from dtoolkit.geoaccessor.geodataframe import count_coordinates  # noqa: F401
 
 
 def test_work():
