@@ -61,7 +61,15 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     2                          []
     Name: geometry, dtype: object
     """
-    # TODO: delete pygeos after shapely 2.x released
-    from pygeos import from_shapely, get_coordinates
 
-    return s.apply(lambda x: get_coordinates(from_shapely(x), **kwargs))
+    try:
+        from shapely import get_coordinates
+        # NOTE: requires shapely>=2.0
+
+        return s.apply(get_coordinates)
+
+    except ImportError:
+        # TODO: delete pygeos after shapely 2.x released
+        from pygeos import from_shapely, get_coordinates
+
+        return s.apply(lambda x: get_coordinates(from_shapely(x), **kwargs))
