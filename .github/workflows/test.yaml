@@ -31,7 +31,6 @@ jobs:
           - "3.8"
           - "3.9"
           - "3.10"
-          - "3.11"
         env: [ci/env/latest.yaml]
         include:
           - env: ci/env/38-minimal.yaml
@@ -46,10 +45,10 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
-          - env: ci/env/310-latest-base.yaml
+          - env: ci/env/latest-base.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "3.10"
+            python-version: "3.11"
           - env: ci/env/310-dev.yaml
             os: ubuntu-latest
             dev: false
