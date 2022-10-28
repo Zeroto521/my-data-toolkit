@@ -64,6 +64,7 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
 
     try:
         from shapely import get_coordinates
+
         # NOTE: requires shapely>=2.0
 
         return s.apply(get_coordinates)
