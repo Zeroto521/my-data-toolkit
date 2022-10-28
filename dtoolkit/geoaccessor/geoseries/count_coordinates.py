@@ -59,6 +59,7 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
 
     try:
         from shapely import count_coordinates
+
         # NOTE: requires shapely>=2.0
 
         return s.apply(count_coordinates)
