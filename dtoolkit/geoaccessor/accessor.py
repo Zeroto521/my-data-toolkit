@@ -59,6 +59,8 @@ def register_geoseries_accessor(name: str):
 
         from dataclasses import dataclass
 
+        import pandas as pd
+
 
         @register_geodataframe_accessor("gtype")
         @register_geoseries_accessor("gtype")
@@ -68,7 +70,7 @@ def register_geoseries_accessor(name: str):
             _obj: gpd.GeoSeries | gpd.GeoDataFrame
 
             @property
-            def is_point(self):
+            def is_point(self) -> pd.Series:
                 # Return a boolean Series denoting whether each geometry is a point.
 
                 return self._obj.geometry.geom_type == "Point"
