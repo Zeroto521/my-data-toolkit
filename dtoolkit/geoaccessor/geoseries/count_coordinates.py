@@ -56,7 +56,16 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     2    0
     Name: geometry, dtype: int64
     """
-    # TODO: delete pygeos after shapely 2.x released
-    from pygeos import count_coordinates, from_shapely
 
-    return s.apply(lambda x: count_coordinates(from_shapely(x)))
+    try:
+        from shapely import count_coordinates
+
+        # NOTE: requires shapely>=2.0
+
+        return s.apply(count_coordinates)
+
+    except ImportError:
+        # TODO: delete pygeos after shapely 2.x released
+        from pygeos import count_coordinates, from_shapely
+
+        return s.apply(lambda x: count_coordinates(from_shapely(x)))

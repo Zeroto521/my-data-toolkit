@@ -23,9 +23,9 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-latest
-          - macos-latest
           - windows-latest
+          - macos-latest
+          - ubuntu-latest
         dev: [false]
         python-version:
           - "3.8"
@@ -45,11 +45,15 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.10"
+          - env: ci/env/310-latest-shapely2.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.10"
           - env: ci/env/latest-base.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.11"
-          - env: ci/env/dev.yaml
+          - env: ci/env/310-dev.yaml
             os: ubuntu-latest
             dev: false
             python-version: "3.11"

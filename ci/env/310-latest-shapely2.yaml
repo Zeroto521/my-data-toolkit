@@ -1,0 +1,21 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  # required
+  - pandas
+  # optional
+  - scikit-learn
+  - geopandas>=0.12.0
+  - geopy
+  - topojson
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov
+
+  - pip
+  - pip:
+      - shapely==2.0b1
