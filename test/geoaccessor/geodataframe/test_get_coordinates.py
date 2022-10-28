@@ -1,5 +1,5 @@
-import pandas as pd
 import geopandas as gpd
+import pandas as pd
 from pandas.testing import assert_series_equal
 
 from dtoolkit.geoaccessor.geodataframe import get_coordinates  # noqa: F401
