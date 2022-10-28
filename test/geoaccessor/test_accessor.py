@@ -1,5 +1,6 @@
-import contextlib
 import warnings
+from contextlib import contextmanager
+from contextlib import suppress
 
 import geopandas as gpd
 import pytest
@@ -14,18 +15,16 @@ my_wkts = [
 ]
 
 
-@contextlib.contextmanager
+@contextmanager
 def ensure_removed(obj, attr):
-    """Ensure that an attribute added to 'obj' during the test is
-    removed when we're done
+    """
+    Ensure that an attribute added to 'obj' during the test is removed when we're done.
     """
     try:
         yield
     finally:
-        try:
+        with suppress(AttributeError):
             delattr(obj, attr)
-        except AttributeError:
-            pass
         obj._accessors.discard(attr)
 
 
