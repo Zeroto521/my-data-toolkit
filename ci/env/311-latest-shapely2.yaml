@@ -7,7 +7,7 @@ dependencies:
   - pandas
   # optional
   - scikit-learn
-  - geopandas>=0.12.0
+  - geopandas
   - geopy
   - topojson
   # testing
