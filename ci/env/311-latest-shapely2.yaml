@@ -19,3 +19,4 @@ dependencies:
   - pip
   - pip:
       - shapely==2.0b1
+      - fiona==1.9a3
