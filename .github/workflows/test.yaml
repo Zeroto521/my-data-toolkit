@@ -73,11 +73,11 @@ jobs:
       - name: Check and Log Environment
         run: make info
 
-      - name: Test with Pytest
-        run: make test
-
       - name: Test Docstrings
         if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') }}
         run: make doctest
+
+      - name: Test with Pytest
+        run: make test
 
       - uses: codecov/codecov-action@v3
