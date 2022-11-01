@@ -52,10 +52,10 @@ then installs dependencies and DToolKit in it:
 ### From Command
 
 ```bash
-mamba create -n dtoolkit_env
-mamba activate dtoolkit_env
-mamba install python=3 pandas scikit-learn geopandas
-pip install my-data-toolkit
+$ mamba create -n dtoolkit_env
+$ mamba activate dtoolkit_env
+$ mamba install python=3 pandas scikit-learn geopandas
+(dtoolkit_env)$ pip install my-data-toolkit
 ```
 
 ### From YAML
@@ -69,13 +69,13 @@ Save the following [environment.yaml](../../../environment.yaml) YAML file to lo
 Create the environment from YAML.
 
 ```bash
-mamba env create -f environment.yaml
+$ mamba env create -f environment.yaml
 ```
 
 ## Install from PyPI
 
 ```bash
-pip install my-data-toolkit
+$ pip install my-data-toolkit
 ```
 
 ## Install from Source
@@ -85,5 +85,5 @@ This's a latest version not stable version.
 ```
 
 ```bash
-pip install git+https://github.com/Zeroto521/my-data-toolkit
+$ pip install git+https://github.com/Zeroto521/my-data-toolkit
 ```
