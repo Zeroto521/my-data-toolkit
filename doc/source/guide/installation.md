@@ -36,28 +36,25 @@ You could check the dependencies list from following.
 - DToolKit 0.0.6 to 0.0.16 require Python 3.7 to 3.10.
 - DToolKit 0.0.17 and later require Python 3.8 or newer.
 
-## Install with Conda
+## Install with Mamba
 
-To install all DToolKit's dependencies, we recommend to use [the conda package manager](https://conda.io).
-The advantage of using the conda package manager is that it provides pre-built binaries for all the required and optional dependencies of DToolKit for all platforms.
+To install all DToolKit's dependencies, we recommend to use [Mamba: The Fast Cross-Platform Package Manager](https://mamba.readthedocs.io/).
+The advantage of using the mamba is that it provides pre-built binaries for all the required and optional dependencies of DToolKit for all platforms and faster.
 
-Conda will help you get out of many troubles such as the versions of dependencies,
+Mamba will help you get out of many troubles such as the versions of dependencies,
 conflicts from channels or environment itself, downloading from where or speed, and so on.
 
-You always can delete a problem conda environment and swift to another good environment.
+You always can delete that problem environment and swift to another good environment.
 
 The following commands create a new environment with the name `dtoolkit_env`,
-configures it to install packages always from `conda-forge` channel,
-and installs dependencies and DToolKit in it:
+then installs dependencies and DToolKit in it:
 
 ### From Command
 
 ```bash
-conda create -n dtoolkit_env
-conda activate dtoolkit_env
-conda config --env --add channels conda-forge
-conda config --env --set channel_priority strict
-conda install python=3 pandas scikit-learn geopandas
+mamba create -n dtoolkit_env
+mamba activate dtoolkit_env
+mamba install python=3 pandas scikit-learn geopandas
 pip install my-data-toolkit
 ```
 
@@ -72,7 +69,7 @@ Save the following [environment.yaml](../../../environment.yaml) YAML file to lo
 Create the environment from YAML.
 
 ```bash
-conda env create -f environment.yaml
+mamba env create -f environment.yaml
 ```
 
 ## Install from PyPI
