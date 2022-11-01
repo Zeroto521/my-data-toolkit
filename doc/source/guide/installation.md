@@ -39,7 +39,8 @@ You could check the dependencies list from following.
 ## Install with Mamba
 
 To install all DToolKit's dependencies, we recommend to use [Mamba: The Fast Cross-Platform Package Manager](https://mamba.readthedocs.io/).
-The advantage of using the mamba is that it provides pre-built binaries for all the required and optional dependencies of DToolKit for all platforms and faster.
+The advantage of using the mamba is that it provides pre-built binaries for all the
+required and optional dependencies of DToolKit for all platforms and faster to download them.
 
 Mamba will help you get out of many troubles such as the versions of dependencies,
 conflicts from channels or environment itself, downloading from where or speed, and so on.
