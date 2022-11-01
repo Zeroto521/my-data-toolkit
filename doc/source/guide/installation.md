@@ -82,7 +82,7 @@ $ pip install my-data-toolkit
 ## Install from Source
 
 ```{warning}
-This's a latest version not stable version.
+This's a latest version but not a stable version.
 ```
 
 ```console
