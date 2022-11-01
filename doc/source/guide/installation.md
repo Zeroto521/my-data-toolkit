@@ -14,6 +14,7 @@ Optional Dependencies:
 - {mod}`dtoolkit.transformer` requires dependencies
 
   - Scikit-learn (>= 1.1)
+  - packaging
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
@@ -57,7 +58,7 @@ conda create -n dtoolkit_env
 conda activate dtoolkit_env
 conda config --env --add channels conda-forge
 conda config --env --set channel_priority strict
-conda install python=3 pandas scikit-learn geopandas
+conda install python=3 pandas scikit-learn geopandas packaging
 pip install my-data-toolkit
 ```
 
