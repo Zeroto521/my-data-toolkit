@@ -12,6 +12,8 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
 from dtoolkit.accessor.series import cols  # noqa: F401, F811
+from dtoolkit.transformer._compat import SKLEARN_GE_12
+
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
@@ -90,14 +92,17 @@ class OneHotEncoder(SKOneHotEncoder):
         # TODO: Remove `sparse` in sklearn 1.4.
         # In the latest (>= 1.1.2) sklearn version, `sparse` is deprecated.
         super().__init__(
-            sparse=sparse,
-            sparse_output=sparse_output,
             categories=categories,
             drop=drop,
             dtype=dtype,
             handle_unknown=handle_unknown,
             min_frequency=min_frequency,
             max_categories=max_categories,
+            **(
+                dict(sparse_output=sparse_output)
+                if SKLEARN_GE_12
+                else dict(sparse=sparse)
+            ),
         )
         self.categories_with_parent = categories_with_parent
 
