@@ -14,6 +14,7 @@ Optional Dependencies:
 - {mod}`dtoolkit.transformer` requires dependencies
 
   - Scikit-learn (>= 1.1)
+  - packaging
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
