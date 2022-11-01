@@ -6,6 +6,7 @@ dependencies:
   # package dependencies
   - pandas
   - scikit-learn
+  - packaging
   - geopandas
   # TODO: delete pygeos after shapely 2.x released
   - pygeos
