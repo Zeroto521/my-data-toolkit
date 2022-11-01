@@ -6,6 +6,7 @@ dependencies:
   - pandas
   # optional
   - scikit-learn
+  - packaging
   - geopandas
   - pygeos
   - geopy

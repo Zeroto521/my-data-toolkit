@@ -14,6 +14,7 @@ Optional Dependencies:
 - {mod}`dtoolkit.transformer` requires dependencies
 
   - Scikit-learn (>= 1.1)
+  - packaging
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
@@ -55,7 +56,7 @@ then installs dependencies and DToolKit in it:
 ```console
 $ mamba create -n dtoolkit_env
 $ mamba activate dtoolkit_env
-$ mamba install python=3 pandas scikit-learn geopandas
+$ mamba install python=3 pandas scikit-learn packaging geopandas
 (dtoolkit_env)$ pip install my-data-toolkit
 ```
 
