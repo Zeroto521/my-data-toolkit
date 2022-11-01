@@ -80,6 +80,10 @@ pip install my-data-toolkit
 
 ## Install from Source
 
+```{warning}
+This's a latest version not stable version.
+```
+
 ```bash
 pip install git+https://github.com/Zeroto521/my-data-toolkit
 ```
