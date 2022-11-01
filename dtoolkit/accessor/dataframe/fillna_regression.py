@@ -123,10 +123,11 @@ def fillna_regression(
 
 def _fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
     y: Hashable,
     X: Hashable | list[Hashable] | pd.Index,
-    how: Literal["na", "all"] = "na",
+    how: Literal["na", "all"],
     **kwargs,
 ):
     """Fill single na column at once."""
@@ -134,16 +135,13 @@ def _fillna_regression(
     if isinstance(X, (str, int)):
         X = [X]
 
-    index_notnull = df[df[y].notnull()].index
-    model = method(**kwargs).fit(
-        df.loc[index_notnull, X],
-        df.loc[index_notnull, y],
-    )
+    data = df[df[y].notnull()]
+    model = method(**kwargs).fit(data[X], data[y])
 
     if how == "all":
         df[y] = model.predict(df[X])
     elif how == "na":
-        index_null = df[df[y].isnull()].index
+        index_null = df[y].isnull()
         df.loc[index_null, y] = model.predict(df.loc[index_null, X])
 
     return df
