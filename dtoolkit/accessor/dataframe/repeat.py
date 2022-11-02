@@ -87,12 +87,9 @@ def repeat(
     1  2  4  4
     """
 
+    axis = df._get_axis_number(axis)
     return pd.DataFrame(
-        np.repeat(
-            df._values,
-            repeats,
-            axis=df._get_axis_number(axis),
-        ),
+        np.repeat(df._values, repeats, axis=axis),
         index=df.index.repeat(repeats) if axis == 0 else df.index,
         columns=df.columns.repeat(repeats) if axis == 1 else df.columns,
     )
