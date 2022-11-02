@@ -86,6 +86,14 @@ def repeat(
        a  b  b
     0  1  3  3
     1  2  4  4
+
+    Use the 'a' column to repeat the row.
+
+    >>> df.repeat('a')
+       a  b
+    0  1  3
+    1  2  4
+    1  2  4
     """
 
     if isinstance(repeats, Hashable) and not is_numeric_dtype(repeats):
