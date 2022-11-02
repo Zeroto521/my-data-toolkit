@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Hashable
+
 import numpy as np
 import pandas as pd
 
@@ -10,7 +12,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def repeat(
     df: pd.DataFrame,
-    repeats: int | list[int],
+    repeats: int | Hashable | list[int],
     /,
     axis: Axis = 0,
 ) -> pd.DataFrame:
@@ -24,10 +26,17 @@ def repeat(
 
     Parameters
     ----------
-    repeats : int or array of ints
+    repeats : int, Hashable or array of ints
         The number of repetitions for each element. This should be a non-negative
         integer. Repeating 0 times will return an empty :obj:`~pandas.DataFrame`.
-        If an array, its length must be the same as the axis being repeated.
+        The order of priority type is ``int`` > ``Hashable``.
+
+        * int : the row or column will be repeated ``repeats`` times.
+
+        * array of int : the row or column at the i-th position will be repeated.
+          Its length must be the same as the axis being repeated.
+
+        * Hahsable : the row or column will be repeated by with the given column.
 
     axis : {0 or 'index', 1 or 'columns'}, default 0
         The axis along which to repeat.
