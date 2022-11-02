@@ -25,9 +25,9 @@ def repeat(
     Parameters
     ----------
     repeats : int or array of ints
-        The number of repetitions for each element. This should be a
-        non-negative integer. Repeating 0 times will return an empty
-        :obj:`~pandas.DataFrame`.
+        The number of repetitions for each element. This should be a non-negative
+        integer. Repeating 0 times will return an empty :obj:`~pandas.DataFrame`.
+        If an array, its length must be the same as the axis being repeated.
 
     axis : {0 or 'index', 1 or 'columns'}, default 0
         The axis along which to repeat.
