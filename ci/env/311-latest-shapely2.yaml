@@ -2,13 +2,13 @@ name: test
 channels:
   - conda-forge
 dependencies:
-  - python=3.10
+  - python=3.11
   # required
   - pandas
   # optional
   - scikit-learn
   - packaging
-  - geopandas>=0.12.0
+  - geopandas
   - geopy
   - topojson
   # testing
@@ -19,4 +19,4 @@ dependencies:
 
   - pip
   - pip:
-      - shapely==2.0b1
+      - shapely==2.0b2
