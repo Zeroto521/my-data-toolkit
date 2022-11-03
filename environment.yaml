@@ -18,6 +18,3 @@ dependencies:
   - pip
   - pip:
       - my-data-toolkit
-
-      # optional
-      - simplification

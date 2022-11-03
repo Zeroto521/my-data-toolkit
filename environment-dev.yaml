@@ -42,6 +42,3 @@ dependencies:
   - pip:
       # doc
       - sphinx-toggleprompt
-
-      # optional
-      - simplification
