@@ -7,7 +7,7 @@
 Required Dependencies:
 
 - Python (>= 3.8)
-- pandas (>= 1.3.4)
+- pandas (>= 1.5.1)
 
 Optional Dependencies:
 
