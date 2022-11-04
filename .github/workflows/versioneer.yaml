@@ -27,7 +27,7 @@ jobs:
       - name: Skip check
         id: skip-check
         run: |
-          output=$(python ci/script/versioneer_update_check.py)
+          output=$(python ci/script/versioneer_checker.py)
           echo "::set-output name=should-skip::$output"
 
       - name: Run 'versioneer install'
