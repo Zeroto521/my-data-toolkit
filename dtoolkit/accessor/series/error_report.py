@@ -38,6 +38,13 @@ def error_report(
     predicted : list of int or float, ndarrray, Series
         A array is compared to ``s``.
 
+    columns : list of Hashable, optional
+        The columns of returning DataFrame, each represents `true value`,
+        `predicted value`, `absolute error`, and `relative error`.
+
+        .. deprecated:: 0.0.19
+            Please use 'absolute_error' and 'relative_error' instead.
+
     absolute_error : str, default 'absolute_error'
         The name of the column of absolute error.
 
