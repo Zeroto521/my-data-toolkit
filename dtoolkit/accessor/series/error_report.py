@@ -95,7 +95,7 @@ def error_report(
         predicted = pd.Series(predicted, index=s.index)
 
     absolute = (predicted - s).abs()
-    relative = absolute_error / s
+    relative = absolute / s
     return pd.concat(
         (
             s.rename(s.name or "true"),
