@@ -18,7 +18,12 @@ def error_report(
     relative_error: str = "relative_error",
 ) -> pd.DataFrame:
     """
-    Calculate `absolute error` and `relative error` of two columns.
+    Calculate `absolute_error` and `relative_error` of two columns.
+
+    .. math::
+
+        absolute_error = \\lvert predicted - s \\rvert
+        relative_error = absolute_error \\times s
 
     Parameters
     ----------
