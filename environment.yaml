@@ -8,6 +8,7 @@ dependencies:
   - scikit-learn >= 1.1
   - packaging
   - geopandas >= 0.10.0
+  # TODO: delete pygeos after shapely 2.x released
   - pygeos
   - geopy
   - jenkspy
@@ -17,6 +18,3 @@ dependencies:
   - pip
   - pip:
       - my-data-toolkit
-
-      # optional
-      - simplification

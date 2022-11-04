@@ -58,10 +58,10 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.11"
-          - env: ci/env/310-dev.yaml
+          - env: ci/env/dev.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "3.10"
+            python-version: "3.11"
 
     steps:
       - uses: actions/checkout@v3
