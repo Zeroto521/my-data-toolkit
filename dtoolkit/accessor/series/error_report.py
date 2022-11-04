@@ -85,7 +85,7 @@ def error_report(
     1  2            2               0        0.000000
     2  3            1               2        0.666667
 
-    If ``columns`` is not None, the columns of ``error_report`` would use it firstly.
+    Set ``absolute_error`` and ``relative_error``.
 
     >>> s.rename('a').error_report(
     ...     predicted.rename('b'),
