@@ -69,10 +69,10 @@ def error_report(
     >>> import pandas as pd
     >>> s = pd.Series([1, 2, 3])
     >>> s.error_report([3, 2, 1])
-       0  predicted value  absolute_error  relative_error
-    0  1                3               2        2.000000
-    1  2                2               0        0.000000
-    2  3                1               2        0.666667
+       true  predicted  absolute_error  relative_error
+    0     1          3               2        2.000000
+    1     2          2               0        0.000000
+    2     3          1               2        0.666667
 
     If the name of ``s`` or ``predicted`` is not None, the columns of
     ``error_report`` would use the name of ``s`` and ``predicted``.
@@ -88,7 +88,11 @@ def error_report(
     If ``columns`` is not None, the columns of ``error_report`` would use it
     firstly.
 
-    >>> s.error_report(predicted, columns=["a", "b", "c", "d"])
+    >>> s.rename('a').error_report(
+    ...     predicted.rename('b'),
+    ...     absolute_error="c",
+    ...     relative_error="d",
+    ... )
        a  b  c         d
     0  1  3  2  2.000000
     1  2  2  0  0.000000
