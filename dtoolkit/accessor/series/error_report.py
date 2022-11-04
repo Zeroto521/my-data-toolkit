@@ -7,9 +7,17 @@ import pandas as pd
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import warning
 
 
 @register_series_method
+@warning(
+    "The keyword argument 'columns' is deprecated, "
+    "please use 'absolute_error' and 'relative_error' instead. "
+    "(Warning added DToolKit 0.0.19)",
+    category=DeprecationWarning,
+    stacklevel=3,
+)
 def error_report(
     s: pd.Series,
     predicted: OneDimArray | list[Number],
