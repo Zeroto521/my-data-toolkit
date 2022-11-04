@@ -2,22 +2,18 @@ name: test
 channels:
   - conda-forge
 dependencies:
+  - python=3.11
   # required
-  - pandas
+  - pandas=1.5.1
   # optional
-  - scikit-learn
+  - scikit-learn=1.1
   - packaging
-  - geopandas
-  # TODO: delete pygeos after shapely 2.x released
+  - geopandas=0.10.0
   - pygeos
   - geopy
-  - jenkspy
   - topojson
-  - joblib
   # testing
   - pytest
   - pytest-cov
   - pytest-xdist
   - codecov
-  # doctest testing
-  - pytest-doctestplus
