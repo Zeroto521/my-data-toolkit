@@ -92,14 +92,14 @@ def error_report(
                 "match index values of 'reference'.",
             )
     else:
-        predicted = pd.Series(predicted, index=s.index, name="predicted")
+        predicted = pd.Series(predicted, index=s.index)
 
     absolute = (predicted - s).abs()
     relative = absolute_error / s
     return pd.concat(
         (
-            s,
-            predicted,
+            s.rename(s.name or "true"),
+            predicted.rename(predicted.name or "predicted"),
             absolute.rename(absolute_error),
             relative.rename(relative_error),
         ),
