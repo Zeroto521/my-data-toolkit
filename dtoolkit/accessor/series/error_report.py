@@ -28,9 +28,9 @@ def error_report(
 
     .. math::
 
-        absolute\_error = \\lvert predicted - s \\rvert
+        absolute\\_error = \\lvert predicted - s \\rvert
 
-        relative\_error = \\frac{absolute\_error}{s}
+        relative\\_error = \\frac{absolute\\_error}{s}
 
     Parameters
     ----------
