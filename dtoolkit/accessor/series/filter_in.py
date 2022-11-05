@@ -64,7 +64,7 @@ def filter_in(
     Name: animal, dtype: object
     """
 
-    return s[s.isin(condition).pipe(invert_or_not, invert=complement)]
+    return s[invert_or_not(s.isin(condition), invert=complement)]
 
 
 def invert_or_not(s: pd.Series, /, invert: bool = False) -> pd.Series:

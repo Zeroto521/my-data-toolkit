@@ -6,7 +6,9 @@ dependencies:
   - pandas
   # optional
   - scikit-learn
+  - packaging
   - geopandas
+  # TODO: delete pygeos after shapely 2.x released
   - pygeos
   - geopy
   - jenkspy
@@ -19,8 +21,3 @@ dependencies:
   - codecov
   # doctest testing
   - pytest-doctestplus
-
-  - pip
-  - pip:
-      # optional
-      - simplification
