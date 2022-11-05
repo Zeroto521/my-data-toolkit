@@ -51,5 +51,5 @@ class AppendTF(DataFrameTF):
 
     # NOTE: `.append` is deprecated in pandas, and will be removed 2.0.0
     transform_method = staticmethod(
-        pd.DataFrame._append if PANDAS_GE_14 else pd.DataFrame.append
+        pd.DataFrame._append if PANDAS_GE_14 else pd.DataFrame.append,
     )
