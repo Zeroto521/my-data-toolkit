@@ -1,6 +1,7 @@
 import pandas as pd
 
 from dtoolkit.transformer import DataFrameTF
+from dtoolkit.transformer._compat import PANDAS_GE_14
 
 
 class AppendTF(DataFrameTF):
@@ -48,4 +49,7 @@ class AppendTF(DataFrameTF):
     3  7  8
     """
 
-    transform_method = staticmethod(pd.DataFrame._append)
+    # NOTE: `.append` is deprecated in pandas, and will be removed 1.4
+    transform_method = staticmethod(
+        pd.DataFrame._append if PANDAS_GE_14 else pd.DataFrame.append
+    )
