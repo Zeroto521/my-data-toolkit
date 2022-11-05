@@ -49,7 +49,7 @@ class AppendTF(DataFrameTF):
     3  7  8
     """
 
-    # NOTE: `.append` is deprecated in pandas, and will be removed 1.4
+    # NOTE: `.append` is deprecated in pandas, and will be removed 2.0.0
     transform_method = staticmethod(
         pd.DataFrame._append if PANDAS_GE_14 else pd.DataFrame.append
     )
