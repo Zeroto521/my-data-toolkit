@@ -96,7 +96,7 @@ def repeat(
     1  2  4
     """
 
-    if isinstance(repeats, Hashable) and not is_numeric_dtype(repeats):
+    if not is_numeric_dtype(repeats) and isinstance(repeats, Hashable):
         repeats = df[repeats]
 
     axis = df._get_axis_number(axis)
