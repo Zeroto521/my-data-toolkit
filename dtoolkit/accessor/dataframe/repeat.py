@@ -4,7 +4,7 @@ from typing import Hashable
 
 import numpy as np
 import pandas as pd
-from pandas.api.types import is_numeric_dtype
+from pandas.api.types import is_number
 
 from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
@@ -96,7 +96,7 @@ def repeat(
     1  2  4
     """
 
-    if not is_numeric_dtype(repeats) and isinstance(repeats, Hashable):
+    if not is_number(repeats) and isinstance(repeats, Hashable):
         repeats = df[repeats]
 
     axis = df._get_axis_number(axis)
