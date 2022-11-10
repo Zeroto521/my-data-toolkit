@@ -97,11 +97,7 @@ class OneHotEncoder(SKOneHotEncoder):
             handle_unknown=handle_unknown,
             min_frequency=min_frequency,
             max_categories=max_categories,
-            **(
-                dict(sparse_output=sparse)
-                if SKLEARN_GE_12
-                else dict(sparse=sparse)
-            ),
+            **(dict(sparse_output=sparse) if SKLEARN_GE_12 else dict(sparse=sparse)),
         )
         self.categories_with_parent = categories_with_parent
 
