@@ -63,7 +63,7 @@ def test_ndarray_hstack():
         ),
         make_pipeline(
             GetTF(df_label.cols()),
-            OneHotEncoder(sparse=True, sparse_output=True),
+            OneHotEncoder(sparse=True),
         ),
     )
 
