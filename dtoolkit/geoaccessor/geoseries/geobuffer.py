@@ -57,9 +57,9 @@ def geobuffer(
 
     IndexError
         - If ``distance`` is a list-like but its length does not match the length of
-         ``{alias}``.
+          ``{alias}``.
         - If ``distance`` is a Series but its index does not match the index of
-         ``{alias}``.
+          ``{alias}``.
 
     See Also
     --------
