@@ -57,9 +57,9 @@ def geobuffer(
 
     IndexError
         - If ``distance`` is a list-like but its length does not match the length of
-         ``{alias}``.
+          ``{alias}``.
         - If ``distance`` is a Series but its index does not match the index of
-         ``{alias}``.
+          ``{alias}``.
 
     See Also
     --------
@@ -72,19 +72,19 @@ def geobuffer(
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
     >>> df = (
-    ...      pd.DataFrame(
-    ...          {{
-    ...              "distance": [0, 10],
-    ...              "where": ["close to equator", "away from equator"],
-    ...              "x": [122, 100],
-    ...              "y": [55, 1],
-    ...          }},
-    ...      )
-    ...      .from_xy(
-    ...          "x",
-    ...          "y",
-    ...          crs=4326,
-    ...          drop=True,
+    ...     pd.DataFrame(
+    ...         {{
+    ...             "distance": [0, 10],
+    ...             "where": ["close to equator", "away from equator"],
+    ...             "x": [122, 100],
+    ...             "y": [55, 1],
+    ...         }},
+    ...     )
+    ...     .from_xy(
+    ...         "x",
+    ...         "y",
+    ...         crs=4326,
+    ...         drop=True,
     ...     )
     ... )
     >>> df
