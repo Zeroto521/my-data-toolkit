@@ -12,7 +12,7 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
 from dtoolkit.accessor.series import cols  # noqa: F401, F811
-from dtoolkit.transformer._compat import SKLEARN_GE_14
+from dtoolkit.transformer._compat import SKLEARN_GE_12
 
 
 if TYPE_CHECKING:
@@ -97,7 +97,7 @@ class OneHotEncoder(SKOneHotEncoder):
             handle_unknown=handle_unknown,
             min_frequency=min_frequency,
             max_categories=max_categories,
-            **(dict(sparse_output=sparse) if SKLEARN_GE_14 else dict(sparse=sparse)),
+            **(dict(sparse_output=sparse) if SKLEARN_GE_12 else dict(sparse=sparse)),
         )
         self.categories_with_parent = categories_with_parent
 
