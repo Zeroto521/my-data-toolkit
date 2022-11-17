@@ -38,6 +38,9 @@ def textdistance_matrix(
 
     Raises
     ------
+    ModuleNotFoundError
+        If don't have module named 'thefuzz'.
+
     TypeError
         - If ``s`` is not string dtype.
         - If ``other`` is not string dtype.
