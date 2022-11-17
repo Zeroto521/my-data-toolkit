@@ -107,6 +107,9 @@ class OneHotEncoder(SKOneHotEncoder):
         )
         self.categories_with_parent = categories_with_parent
 
+        if not SKLEARN_GE_12:
+            self.sparse_output = sparse_output
+
         # compat with sklearn lower version
         # `_parameter_constraints` comes out at sklearn 1.2
         # TODO: delete this condition when required sklearn version is >= 1.2
