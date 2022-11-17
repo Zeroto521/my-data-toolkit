@@ -12,7 +12,7 @@ from test.accessor.data import s_inf
     "inf, df, expected",
     [
         ("all", s, s),
-        ("all", pd.concat((s, s_inf)), s.rename(None)),
+        ("all", pd.concat((s, s_inf)), s.rename()),
         ("pos", s_inf, pd.Series([-np.inf], index=[1])),
         ("+", s_inf, pd.Series([-np.inf], index=[1])),
         ("neg", s_inf, pd.Series([np.inf])),

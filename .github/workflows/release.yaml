@@ -72,26 +72,6 @@ jobs:
           repository_url: https://test.pypi.org/legacy/
           verbose: true
 
-  publish-to-Github:
-    needs: sdist
-    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: release
-          path: dist/
-
-      - name: List dist/ Folder
-        run: ls dist/ -l
-
-      - name: Publish to GitHub
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          prerelease: ${{ contains(github.ref, 'rc')  }}
-          files: dist/${{ needs.build.outputs.tar }}
-
   publish-to-PyPI:
     needs: sdist
     if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
@@ -111,3 +91,23 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
+
+  publish-to-GitHub:
+    needs: sdist
+    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: release
+          path: dist/
+
+      - name: List dist/ Folder
+        run: ls dist/ -l
+
+      - name: Publish to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          prerelease: ${{ contains(github.ref, 'rc') }}
+          files: dist/${{ needs.build.outputs.tar }}

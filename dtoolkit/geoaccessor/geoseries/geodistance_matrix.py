@@ -4,6 +4,7 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 
+from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -114,11 +115,11 @@ def geodistance_matrix(
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-        Y = np.radians(np.stack((other.geometry.y, other.geometry.x), axis=1))
+        Y = np.radians(xy(other.geometry, reverse=True).tolist())
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    X = np.radians(np.stack((s.y, s.x), axis=1))
+    X = np.radians(xy(s, reverse=True).tolist())
     return pd.DataFrame(
         radius * haversine_distances(X, Y),
         index=s.index,

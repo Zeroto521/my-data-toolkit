@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Literal
 
 import geopandas as gpd
@@ -13,7 +15,7 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 def drop_duplicates_geometry(
     s: gpd.GeoSeries,
     /,
-    predicate: BINARY_PREDICATE = "intersects",
+    predicate: BINARY_PREDICATE | None = None,
     keep: Literal["first", "last", False] = "first",
 ) -> gpd.GeoSeries:
     """
@@ -22,9 +24,13 @@ def drop_duplicates_geometry(
     Parameters
     ----------
     predicate : {{'intersects', 'crosses', 'overlaps', 'touches', 'covered_by', \
-'contains_properly', 'contains', 'within', 'covers'}}, default 'intersects'
+'contains_properly', 'contains', 'within', 'covers'}}, default None
         The binary predicate is used to validate whether the geometries are duplicates
-        or not.
+        or not. If None, the geometries will directly compares via value relation
+        instead of the spatial relation.
+
+        .. versionchanged:: 0.0.19
+            The 'predicate' default value is changed from 'intersects' to None.
 
     keep : {{'first', 'last', False}}, default 'first'
         - ``first`` : Mark duplicates as ``True`` except for the first occurrence.
@@ -65,14 +71,14 @@ def drop_duplicates_geometry(
 
     Work for GeoSeries.
 
-    >>> df.geometry.drop_duplicates_geometry()
+    >>> df.geometry.drop_duplicates_geometry('intersects')
     0    POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
     3    POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
     Name: geometry, dtype: geometry
 
     Work for GeoDataFrame too.
 
-    >>> df.drop_duplicates_geometry()
+    >>> df.drop_duplicates_geometry('intersects')
                                                 geometry
     0  POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
     3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
