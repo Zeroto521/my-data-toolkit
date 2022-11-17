@@ -91,6 +91,7 @@ class OneHotEncoder(SKOneHotEncoder):
     ):
         # TODO: Remove `sparse` in sklearn 1.4.
         # In the latest (>= 1.1.2) sklearn version, `sparse` is deprecated.
+        assert sparse == sparse_output
         super().__init__(
             categories=categories,
             drop=drop,
