@@ -90,8 +90,7 @@ def textdistance(
         data = (method(*x) for x in zip(s, validate_string_dtype(other)))
         return pd.Series(data, name=s.name, index=s.index)
 
-    else:
-        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
+    raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
 
 def validate_string_dtype(other: list | np.ndarray | pd.Series) -> np.ndarray:
