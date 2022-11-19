@@ -24,7 +24,7 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     dtype : type
         The type to convert to.
 
-    axis : {0 or 'index', 1 or 'columns'}, default 0
+    axis : {{0 or 'index', 1 or 'columns'}}, default 0
         The axis to convert. For Series, always convert index type.
 
         * 0, or 'index' : Convert index type.
