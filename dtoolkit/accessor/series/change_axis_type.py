@@ -1,5 +1,4 @@
 import pandas as pd
-
 from pandas.util._decorators import doc
 
 from dtoolkit._typing import Axis
