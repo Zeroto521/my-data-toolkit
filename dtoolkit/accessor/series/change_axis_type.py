@@ -44,6 +44,9 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
+
+    Convert Series's index type from int to str:
+
     >>> s = pd.Series(["a", "b"])
     >>> s
     0    a
@@ -52,6 +55,25 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     >>> s.index
     RangeIndex(start=0, stop=2, step=1)
     >>> s.change_axis_type(str).index
+    Index(['0', '1'], dtype='object')
+
+    Convert DataFrame's index type from int to str:
+
+    >>> df = pd.DataFrame([[1, 2], [3, 4]])
+    >>> df
+       0  1
+    0  1  2
+    1  3  4
+    >>> df.index
+    RangeIndex(start=0, stop=2, step=1)
+    >>> df.change_axis_type(str).index
+    Index(['0', '1'], dtype='object')
+
+    Convert DataFrame's columns type from str to int:
+
+    >>> df.columns
+    RangeIndex(start=0, stop=2, step=1)
+    >>> df.change_axis_type(str, axis=1).columns
     Index(['0', '1'], dtype='object')
     """
 
