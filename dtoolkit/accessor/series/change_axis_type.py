@@ -76,7 +76,7 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     Index(['0', '1'], dtype='object')
     """
 
-    s = s.copy()  # Avoid mutating the original Serie
+    s = s.copy()  # Avoid mutating the original Series
     s.index = s.index.astype(dtype)
 
     return s
