@@ -19,6 +19,7 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
+    change_axis_type
     swap_index_values
     to_datetime
     to_set
