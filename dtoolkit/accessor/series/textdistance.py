@@ -98,7 +98,7 @@ def textdistance(
             raise ValueError(f"{s.size=} != {other.size=}.")
 
         return pd.Series(
-            (method(*x) for x in zip(s, other)),
+            (method(*xy) for xy in zip(s, other)),
             name=s.name,
             index=s.index,
         )
