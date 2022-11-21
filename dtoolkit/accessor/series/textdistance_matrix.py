@@ -71,6 +71,8 @@ def textdistance_matrix(
     if not is_list_like(other):
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    data = (textdistance(s, o, method=method) for o in validate_string_dtype(other))
-    res = pd.concat(data, axis=1)
+    res = pd.concat(
+        (textdistance(s, o, method=method) for o in validate_string_dtype(other)),
+        axis=1,
+    )
     return res.set_axis(other.index, axis=1) if isinstance(other, pd.Series) else res
