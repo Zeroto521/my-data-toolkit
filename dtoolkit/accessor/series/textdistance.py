@@ -101,11 +101,11 @@ def textdistance(
     raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
 
-def validate_string_dtype(other: list | np.ndarray | pd.Series) -> np.ndarray:
-    other = np.asarray(other)
-    if other.ndim != 1:
-        raise ValueError("'other' must be 1-dimensional.")
-    if not is_string_dtype(other):
-        raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
+def validate_string_dtype(array: list | np.ndarray | pd.Series) -> np.ndarray:
+    array = np.asarray(array)
+    if array.ndim != 1:
+        raise ValueError("'array' must be 1-dimensional.")
+    if not is_string_dtype(array):
+        raise TypeError(f"Expected string dtype, but got {array.dtype!r}.")
 
-    return other
+    return array
