@@ -9,8 +9,6 @@ dependencies:
   - scikit-learn
   - packaging
   - geopandas
-  - geopy
-  - topojson
   # testing
   - pytest
   - pytest-cov
