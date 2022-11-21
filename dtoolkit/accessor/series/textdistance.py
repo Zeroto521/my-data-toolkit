@@ -53,6 +53,10 @@ def textdistance(
         - If ``other`` is list-like but its length is not equal to the length of ``s``.
         - If ``other`` is list-like but it is not 1-dimensional.
 
+    See Also
+    --------
+    textdistance_matrix
+
     Examples
     --------
     >>> import dtoolkit.accessor

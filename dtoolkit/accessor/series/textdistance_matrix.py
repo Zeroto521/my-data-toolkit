@@ -49,6 +49,10 @@ def textdistance_matrix(
     ValueError
         If ``other`` but it is not 1-dimensional.
 
+    See Also
+    --------
+    textdistance
+
     Examples
     --------
     >>> import dtoolkit.accessor
