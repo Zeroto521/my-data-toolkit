@@ -76,11 +76,11 @@ def textdistance(
     dtype: int64
     """
 
-    if method is None:
-        method = __import__("thefuzz.fuzz").fuzz.ratio
-
     if not is_string_dtype(s):
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
+
+    if method is None:
+        method = __import__("thefuzz.fuzz").fuzz.ratio
 
     if isinstance(other, str) or other is None:
         return s.apply(method, args=(other,))
