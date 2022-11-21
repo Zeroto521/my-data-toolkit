@@ -85,7 +85,7 @@ def textdistance(
 
     elif isinstance(other, pd.Series):
         if not is_string_dtype(other):
-            raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
+            raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
@@ -100,4 +100,4 @@ def textdistance(
             index=s.index,
         )
 
-    raise TypeError(f"Expected string dtype, but got {type(other).__name__!r}.")
+    raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")

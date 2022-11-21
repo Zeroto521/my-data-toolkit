@@ -65,9 +65,9 @@ def textdistance_matrix(
     if other is None:
         other = s.copy()
     if not isinstance(other, pd.Series):
-        raise TypeError(f"Expected string dtype, but got {type(other).__name__!r}.")
+        raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")
     if not is_string_dtype(other):
-        raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
+        raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
     return pd.concat(
         (textdistance(s, o, method=method) for o in other),
