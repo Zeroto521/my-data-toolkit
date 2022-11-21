@@ -1,5 +1,6 @@
 import geopandas as gpd
 import pandas as pd
+import pytest
 
 from dtoolkit.geoaccessor.geodataframe import reverse_geocode  # noqa: F401
 
