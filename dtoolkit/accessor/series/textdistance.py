@@ -51,8 +51,7 @@ def textdistance(
         - If ``other`` is not string dtype.
 
     ValueError
-        - If ``other`` is list-like but its length is not equal to the length of ``s``.
-        - If ``other`` is list-like but it is not 1-dimensional.
+        If ``other``'s length is not equal to the length of ``s``.
 
     See Also
     --------

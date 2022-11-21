@@ -45,9 +45,6 @@ def textdistance_matrix(
         - If ``s`` is not string dtype.
         - If ``other`` is not string dtype.
 
-    ValueError
-        If ``other`` but it is not 1-dimensional.
-
     See Also
     --------
     textdistance
