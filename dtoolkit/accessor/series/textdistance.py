@@ -16,7 +16,7 @@ from dtoolkit.util._exception import find_stack_level
 def textdistance(
     s: pd.Series,
     /,
-    other: str | list | np.ndarray | pd.Series,
+    other: None | str | pd.Series = None,
     method: Callable = None,
     align: bool = True,
 ) -> pd.Series:
@@ -25,7 +25,8 @@ def textdistance(
 
     Parameters
     ----------
-    other : str, list, ndarray, or Series
+    other : None, str or Series
+        If None, the text distance is 0.
 
     align : bool, default True
         If True, automatically aligns GeoSeries based on their indices. If False,
@@ -85,27 +86,21 @@ def textdistance(
     if isinstance(other, str) or other is None:
         return s.apply(method, args=(other,))
 
-    elif is_list_like(other):
-        if len(other) != s.size:
-            raise ValueError(f"{len(other)=} != {s.size=}.")
-        if isinstance(other, pd.Series) and align and not s.index.equals(other.index):
+    elif isinstance(other, pd.Series):
+        if not is_string_dtype(other):
+            raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
+
+        if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
 
+        if s.size != other.size:
+            raise ValueError(f"{s.size=} != {other.size=}.")
+
         return pd.Series(
-            (method(*x) for x in zip(s, validate_string_dtype(other))),
+            (method(*x) for x in zip(s, other)),
             name=s.name,
             index=s.index,
         )
 
     raise TypeError(f"Unknown type: {type(other).__name__!r}.")
-
-
-def validate_string_dtype(array: list | np.ndarray | pd.Series) -> np.ndarray:
-    array = np.asarray(array)
-    if array.ndim != 1:
-        raise ValueError("'array' must be 1-dimensional.")
-    if not is_string_dtype(array):
-        raise TypeError(f"Expected string dtype, but got {array.dtype!r}.")
-
-    return array
