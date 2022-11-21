@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from typing import Callable
 
-import numpy as np
 import pandas as pd
-from pandas.api.types import is_list_like
 from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
@@ -15,7 +13,7 @@ from dtoolkit.accessor.series.textdistance import textdistance
 def textdistance_matrix(
     s: pd.Series,
     /,
-    other: None | list | np.ndarray | pd.Series = None,
+    other: None | pd.Series = None,
     method: Callable = None,
 ) -> pd.DataFrame:
     """
