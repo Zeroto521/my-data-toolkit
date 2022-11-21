@@ -69,5 +69,8 @@ def textdistance_matrix(
     if not is_string_dtype(other):
         raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
-    data = (textdistance(s, o, method=method) for o in other)
-    return pd.concat(data, axis=1).set_axis(other.index, axis=1)
+    return pd.concat(
+        (textdistance(s, o, method=method) for o in other),
+        axis=1,
+        keys=other.index,
+    )
