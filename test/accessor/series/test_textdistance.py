@@ -5,6 +5,9 @@ from pandas.testing import assert_series_equal
 from dtoolkit.accessor.series import textdistance
 
 
+pytest.importorskip("thefuzz")
+
+
 @pytest.mark.parametrize(
     "s, other, align, error",
     [
