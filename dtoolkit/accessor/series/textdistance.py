@@ -71,7 +71,7 @@ def textdistance(
     0    36
     1    18
     dtype: int64
-    >>> s.textdistance(["hello", "python"])
+    >>> s.textdistance(pd.Series(["hello", "python"]))
     0    100
     1     18
     dtype: int64
