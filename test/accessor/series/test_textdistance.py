@@ -1,6 +1,5 @@
 import pandas as pd
 import pytest
-
 from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import textdistance
