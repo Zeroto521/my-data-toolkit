@@ -9,7 +9,6 @@ from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.accessor.series.textdistance import textdistance
-from dtoolkit.accessor.series.textdistance import validate_string_dtype
 
 
 @register_series_method
@@ -25,7 +24,7 @@ def textdistance_matrix(
 
     Parameters
     ----------
-    other : None, list, ndarray, or Series, default None
+    other : None or Series, default None
         If None, use ``s``.
 
     method : Callable, default None
@@ -68,16 +67,12 @@ def textdistance_matrix(
     1   20  18
     """
 
-    if not is_string_dtype(s):
-        raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
-
     if other is None:
         other = s.copy()
-    if not is_list_like(other):
-        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
+    if not is_string_dtype(other):
+        raise TypeError(f"Expected string dtype, but got {other.dtype!r}.")
 
-    res = pd.concat(
-        (textdistance(s, o, method=method) for o in validate_string_dtype(other)),
+    return pd.concat(
+        (textdistance(s, o, method=method) for o in other),
         axis=1,
-    )
-    return res.set_axis(other.index, axis=1) if isinstance(other, pd.Series) else res
+    ).set_axis(other.index, axis=1)
