@@ -32,7 +32,8 @@ def textdistance(
         the order of elements is preserved.
 
     method : Callable, default None
-        The method to calculate the distance. If None, use ``thefuzz.fuzz.ratio``.
+        The method to calculate the distance. If None, use
+        `thefuzz.fuzz.ratio <https://github.com/seatgeek/thefuzz>`_.
 
     Returns
     -------

@@ -29,7 +29,8 @@ def textdistance_matrix(
         If None, use ``s``.
 
     method : Callable, default None
-        The method to calculate the distance. If None, use ``thefuzz.fuzz.ratio``.
+        The method to calculate the distance. If None, use
+        `thefuzz.fuzz.ratio <https://github.com/seatgeek/thefuzz>`_.
 
     Returns
     -------
