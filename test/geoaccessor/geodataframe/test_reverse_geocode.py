@@ -4,6 +4,9 @@ import pandas as pd
 from dtoolkit.geoaccessor.geodataframe import reverse_geocode  # noqa: F401
 
 
+pytest.importorskip("geopy")
+
+
 def test_type():
     df = pd.Series(
         [
