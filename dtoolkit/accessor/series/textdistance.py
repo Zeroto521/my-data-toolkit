@@ -103,4 +103,4 @@ def textdistance(
             index=s.index,
         )
 
-    raise TypeError(f"Unknown type: {type(other).__name__!r}.")
+    raise TypeError(f"Expected string dtype, but got {type(other).__name__!r}.")
