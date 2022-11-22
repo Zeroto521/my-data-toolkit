@@ -19,8 +19,6 @@ dependencies:
   - pyproj
   - shapely
   - pygeos
-  - geopy
-  - topojson
   # testing
   - pytest
   - pytest-cov

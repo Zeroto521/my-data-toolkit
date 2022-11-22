@@ -10,8 +10,6 @@ dependencies:
   - packaging
   - geopandas=0.10.0
   - pygeos
-  - geopy
-  - topojson
   # testing
   - pytest
   - pytest-cov
