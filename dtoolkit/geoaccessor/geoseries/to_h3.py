@@ -145,8 +145,7 @@ def to_h3(
             axis=1,
         )
 
-    else:
-        raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
+    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
 
 
 def points_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
