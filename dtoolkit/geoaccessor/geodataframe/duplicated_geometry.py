@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Literal
 
 import geopandas as gpd
@@ -14,7 +16,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 def duplicated_geometry(
     df: gpd.GeoDataFrame,
     /,
-    predicate: BINARY_PREDICATE = "intersects",
+    predicate: BINARY_PREDICATE | None = None,
     keep: Literal["first", "last", False] = "first",
 ) -> pd.Series:
     return s_duplicated_geometry(df.geometry, predicate=predicate, keep=keep)

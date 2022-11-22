@@ -3,6 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - cython
+  - packaging
   # the dependencies of dependencies
   # computing
   - numpy
@@ -18,8 +19,6 @@ dependencies:
   - pyproj
   - shapely
   - pygeos
-  - geopy
-  - topojson
   # testing
   - pytest
   - pytest-cov

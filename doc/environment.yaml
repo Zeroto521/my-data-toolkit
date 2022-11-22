@@ -6,11 +6,14 @@ dependencies:
   # package dependencies
   - pandas
   - scikit-learn
+  - packaging
   - geopandas
+  # TODO: delete pygeos after shapely 2.x released
+  - pygeos
 
   # doc dependencies
   - sphinx
-  - pydata-sphinx-theme=0.9.0
+  - pydata-sphinx-theme
   - myst-parser
   - numpydoc
   - ipython

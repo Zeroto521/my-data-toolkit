@@ -1,4 +1,5 @@
 from dtoolkit.accessor.dataframe.boolean import boolean  # noqa: F401
+from dtoolkit.accessor.dataframe.change_axis_type import change_axis_type  # noqa: F401
 from dtoolkit.accessor.dataframe.cols import cols  # noqa: F401
 from dtoolkit.accessor.dataframe.decompose import decompose  # noqa: F401
 from dtoolkit.accessor.dataframe.drop_inf import drop_inf  # noqa: F401

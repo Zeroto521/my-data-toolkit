@@ -5,9 +5,11 @@ on:
   schedule:
     - cron: "0 0 * * 0"
   push:
+    branches: [main]
     paths:
       - setup.cfg
       - setup.py
+      - pyproject.toml
       - .github/workflows/versioneer.yaml
 
 jobs:
@@ -23,19 +25,10 @@ jobs:
       - name: Set environment
         run: python -m pip install --upgrade pip versioneer
 
-      - name: Skip check
-        id: skip-check
-        run: |
-          output=$(python ci/script/versioneer_update_check.py)
-          echo "::set-output name=should-skip::$output"
-
       - name: Run 'versioneer install'
         run: versioneer install & { sleep 5; kill $! & }
 
-        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
-
       - name: Undo changes to __init__.py & setup.py
-        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
         run: |
           git reset -- setup.py dtoolkit/__init__.py
           git checkout -- setup.py dtoolkit/__init__.py
@@ -46,14 +39,12 @@ jobs:
           path: versioneer.py
 
       - uses: peter-evans/create-pull-request@v4
-        if: ${{ steps.skip-check.outputs.should-skip != 'true'}}
         with:
           commit-message: |
             BOT: versioneer autoupdate
 
             New versioneer released, changelogs see [NEWS](https://github.com/python-versioneer/python-versioneer/blob/master/NEWS.md).
-          author: GitHub <noreply@github.com>
-          branch: versioneer-update
+          branch: ci/versioneer/update
           delete-branch: true
           base: main
           title: "BOT: versioneer autoupdate"

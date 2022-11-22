@@ -5,6 +5,9 @@ import pytest
 from dtoolkit.geoaccessor.series import geocode  # noqa: F401
 
 
+pytest.importorskip("geopy")
+
+
 @pytest.mark.parametrize(
     "s, drop, error",
     [
