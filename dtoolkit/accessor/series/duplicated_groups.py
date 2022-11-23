@@ -1,7 +1,7 @@
 import pandas as pd
 
-from dtoolkit.accessor.series.to_set import to_set
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series.to_set import to_set
 
 
 @register_series_method
