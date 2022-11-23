@@ -20,6 +20,8 @@ def textdistance(
     other: None | str | pd.Series = None,
     method: Callable = None,
     align: bool = True,
+    enable_checking: bool = True,
+    enable_cache: bool = True,
 ) -> pd.Series:
     """
     Return a ``Series`` containing the text distance to aligned ``other``.
@@ -36,6 +38,14 @@ def textdistance(
     method : Callable, default None
         The method to calculate the distance. If None, use
         `thefuzz.fuzz.ratio <https://github.com/seatgeek/thefuzz>`_.
+
+    enable_checking : bool, default True
+        If True, check the input. If the input is None, nan or empty string the result
+        will be 0.
+
+    enable_cache : bool, default True
+        If True, cache the result. The text distance algorithm is hrad to be vectorized,
+        and it's a time-consuming operation. Cache the result can speed up the process.
 
     Returns
     -------
@@ -82,8 +92,11 @@ def textdistance(
 
     if method is None:
         method = __import__("thefuzz.fuzz").fuzz.ratio
+    if enable_checking:
+        method = check(method)
+    if enable_cache:
+        method = lru_cache(method)
 
-    method = check_and_cache(method)
     if isinstance(other, str) or other is None:
         return s.apply(method, args=(other,))
 
@@ -137,12 +150,11 @@ def check_empty_string(func):
     return decorator
 
 
-@lru_cache
-@check_none
-@check_nan
-@check_empty_string
-def check_and_cache(func):
+def check(func):
     @wraps(func)
+    @check_none
+    @check_nan
+    @check_empty_string
     def decorator(*args, **kwargs):
         return func(*args, **kwargs)
 
