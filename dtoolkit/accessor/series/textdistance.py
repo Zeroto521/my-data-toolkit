@@ -91,7 +91,6 @@ def textdistance(
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
 
     if method is None:
-        # change to
         method = __import__("rapidfuzz.fuzz").fuzz.ratio
     if enable_checking:
         method = check(method)
