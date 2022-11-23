@@ -83,7 +83,7 @@ def textdistance(
 
     if method is None:
         method = __import__("rapidfuzz.fuzz").fuzz.ratio
-    method = lru_cache(check(method))
+    method = lru_cache(check_none(check_nan(method)))
 
     if isinstance(other, str):
         return s.apply(method, args=(other,))
@@ -131,15 +131,5 @@ def check_nan(func):
         # NOTE: compare to nan always returns 0
         # the behavior is following rapidfuzz.fuzz.ratio
         return 0 if pd.isna(args[0]) or pd.isna(args[1]) else func(*args, **kwargs)
-
-    return decorator
-
-
-def check(func):
-    @wraps(func)
-    @check_none
-    @check_nan
-    def decorator(*args, **kwargs):
-        return func(*args, **kwargs)
 
     return decorator
