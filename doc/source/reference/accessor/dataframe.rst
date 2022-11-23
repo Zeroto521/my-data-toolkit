@@ -50,8 +50,8 @@ Computations / Descriptive Stats
     weighted_mean
 
 
-Reindexing / Selection
-----------------------
+Reindexing / Selection / Label manipulation
+-------------------------------------------
 .. autosummary::
     :toctree: ../api/
 
