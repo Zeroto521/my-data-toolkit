@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from functools import wraps
+from functools import lru_cache
+
 from typing import Callable
 from warnings import warn
 
@@ -80,6 +83,7 @@ def textdistance(
     if method is None:
         method = __import__("thefuzz.fuzz").fuzz.ratio
 
+    method = check_and_cache(method)
     if isinstance(other, str) or other is None:
         return s.apply(method, args=(other,))
 
@@ -101,3 +105,45 @@ def textdistance(
         )
 
     raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")
+
+
+def check_none(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        # NOTE: compare to None always returns 0
+        # the behavior is following thefuzz.fuzz.ratio
+        return 0 if args[0] is None or args[1] is None else func(*args, **kwargs)
+
+    return decorator
+
+
+def check_nan(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        # NOTE: compare to nan always returns 0
+        # the behavior is following thefuzz.fuzz.ratio
+        return 0 if pd.isna(args[0]) or pd.isna(args[1]) else func(*args, **kwargs)
+
+    return decorator
+
+
+def check_empty_string(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        # NOTE: compare to empty string always returns 0
+        # the behavior is following thefuzz.fuzz.ratio
+        return 0 if len(args[0]) == 0 or len(args[1]) == 0 else func(*args, **kwargs)
+
+    return decorator
+
+
+@lru_cache
+@check_none
+@check_nan
+@check_empty_string
+def check_and_cache(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        return func(*args, **kwargs)
+
+    return decorator
