@@ -26,7 +26,8 @@ def textdistance_matrix(
         If None, use ``s``.
 
     method : Callable, default None
-        The method to calculate the distance. If None, use \
+        The method to calculate the distance. The first and second positional parameters
+        will be compared. If None, \
 `rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
 
     Returns
