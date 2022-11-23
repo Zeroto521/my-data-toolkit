@@ -42,3 +42,31 @@ def test_work(s, other, method, expected):
     result = s.textdistance_matrix(other, method=method)
 
     assert_frame_equal(result, expected)
+
+
+@pytest.mark.parametrize(
+    "s, other, error",
+    [
+        # other is not Series
+        (
+            pd.Series(["hello", "world!"]),
+            "hi",
+            TypeError,
+        ),
+        # other is not Series
+        (
+            pd.Series(["hello", "world!"]),
+            ["hi"],
+            TypeError,
+        ),
+        # other is not Series(string)
+        (
+            pd.Series(["hello", "world!"]),
+            pd.Series(1),
+            TypeError,
+        ),
+    ],
+)
+def test_error(s, other, error):
+    with pytest.raises(error):
+        textdistance_matrix(s, other)
