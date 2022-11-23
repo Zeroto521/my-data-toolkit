@@ -1,3 +1,5 @@
+import dtoolkit.accessor
+
 from dtoolkit._version import get_versions
 
 __version__ = get_versions()["version"]
