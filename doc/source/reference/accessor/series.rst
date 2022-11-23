@@ -57,11 +57,12 @@ Computations / Descriptive Stats
     top_n
 
 
-Reindexing / Selection
-----------------------
+Reindexing / Selection / Label manipulation
+-------------------------------------------
 .. autosummary::
     :toctree: ../api/
 
+    duplicated_groups
     filter_in
     query
     set_unique_index
