@@ -73,9 +73,9 @@ def textdistance(
     1    18
     dtype: int64
     >>> s.textdistance(pd.Series(["hello", "python"]))
-    0    100
-    1     18
-    dtype: int64
+    0    36.363636
+    1    18.181818
+    dtype: float64
     """
 
     if not is_string_dtype(s):

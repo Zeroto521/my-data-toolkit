@@ -57,9 +57,9 @@ def textdistance_matrix(
     1    world
     dtype: object
     >>> s.textdistance_matrix(pd.Series(["hello", "python"]))
-         0   1
-    0  100  36
-    1   20  18
+           0          1
+    0  100.0  36.363636
+    1   20.0  18.181818
     """
 
     if other is None:
