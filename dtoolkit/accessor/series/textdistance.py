@@ -31,7 +31,7 @@ def textdistance(
     Parameters
     ----------
     other : None, str or Series
-        If None, the text distance is 0.
+        If None or nan, the text distance is 0.
 
     align : bool, default True
         If True, automatically aligns GeoSeries based on their indices. If False,
