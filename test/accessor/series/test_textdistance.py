@@ -108,6 +108,22 @@ def test_error(s, other, align, error):
             None,
             pd.Series([0] * 6),
         ),
+        # test other is None
+        (
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
+            None,
+            True,
+            None,
+            pd.Series([0] * 6),
+        ),
+        # test other is nan
+        (
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
+            float("nan"),
+            True,
+            None,
+            pd.Series([0] * 6),
+        ),
     ],
 )
 def test_work(s, other, align, method, expected):
