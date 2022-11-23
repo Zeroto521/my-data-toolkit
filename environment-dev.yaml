@@ -16,6 +16,7 @@ dependencies:
   - jenkspy
   - topojson
   - joblib
+  - rapidfuzz
 
   # testing
   - pytest
