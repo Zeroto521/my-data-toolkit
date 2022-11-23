@@ -1,7 +1,6 @@
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
-from dtoolkit.accessor.series.to_set import to_set
 
 
 @register_series_method
@@ -37,5 +36,5 @@ def duplicated_groups(s: pd.Series, /) -> pd.Series:
     dtype: int64
     """
 
-    base_elements = to_set(s)
-    return s.replace(dict(zip(base_elements, range(len(base_elements)))))
+    uniques = s.unique()
+    return s.replace(dict(zip(uniques, range(len(uniques)))))
