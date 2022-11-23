@@ -60,6 +60,10 @@ def textdistance(
     --------
     textdistance_matrix
 
+    Notes
+    -----
+    The distance of any value compared to nan or None is 0.
+
     Examples
     --------
     >>> import dtoolkit.accessor
