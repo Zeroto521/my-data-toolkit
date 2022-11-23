@@ -82,7 +82,7 @@ def test_error(s, other, align, error):
 
 
 @pytest.mark.parametrize(
-    "s, other, align, method, expected",
+    "s, other, align, method, enable_checking, enable_cache, expected",
     [
         # normal case
         (
@@ -90,7 +90,9 @@ def test_error(s, other, align, error):
             "python",
             True,
             None,
-            pd.Series([36, 18]),
+            True,
+            True,
+            pd.Series([36.36, 18.18]),
         ),
         # test method
         (
@@ -98,19 +100,29 @@ def test_error(s, other, align, error):
             "",
             True,
             lambda *xy: sum(map(len, xy)),
+            True,
+            True,
             pd.Series([2, 6]),
         ),
         # test None and nan
         (
-            pd.Series(["hi", "python", None, None, float("nan")]),
-            pd.Series([None, float("nan"), None, float("nan"), float("nan")]),
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
+            pd.Series([None, float("nan"), None, float("nan"), float("nan"), "!"]),
             True,
             None,
-            pd.Series([0] * 5),
+            True,
+            True,
+            pd.Series([0] * 6),
         ),
     ],
 )
-def test_work(s, other, align, method, expected):
+def test_work(s, other, align, method, enable_checking, enable_cache, expected):
     result = textdistance(s, other, align=align, method=method)
 
-    assert_series_equal(result, expected)
+    assert_series_equal(
+        result,
+        expected,
+        check_dtype=False,
+        check_less_precise=True,
+        check_exact=False,
+    )
