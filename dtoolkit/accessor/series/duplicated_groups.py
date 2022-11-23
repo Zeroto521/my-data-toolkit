@@ -17,8 +17,8 @@ def duplicated_groups(s: pd.Series, /) -> pd.Series:
     pandas.Series.duplicated
     pandas.Series.value_counts
 
-    Example
-    -------
+    Examples
+    --------
     >>> import dtoolkit.accessor
     >>> import pandas as pd
     >>> s = pd.Series(["b", "b", "a", "b"])
