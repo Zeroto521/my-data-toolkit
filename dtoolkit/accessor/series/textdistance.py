@@ -41,12 +41,11 @@ def textdistance(
 `rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
 
     enable_checking : bool, default True
-        If True, check the input. If the input is None, nan or empty string the result
-        will be 0.
+        If True, check the input. If the input is None or nan the distance will be 0.
 
     enable_cache : bool, default True
-        If True, cache the result. The text distance algorithm is hrad to be vectorized,
-        and it's a time-consuming operation. Cache the result can speed up the process.
+        If True, cache the distance. The text distance algorithm is hrad to be vectorized,
+        and it's a time-consuming operation. Cache the distance can speed up the process.
 
     Returns
     -------
