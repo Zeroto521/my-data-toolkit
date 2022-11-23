@@ -28,8 +28,8 @@ def textdistance_matrix(
         If None, use ``s``.
 
     method : Callable, default None
-        The method to calculate the distance. If None, use
-        `thefuzz.fuzz.ratio <https://github.com/seatgeek/thefuzz>`_.
+        The method to calculate the distance. If None, use \
+`rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
 
     enable_checking : bool, default True
         If True, check the input. If the input is None, nan or empty string the result
@@ -47,7 +47,7 @@ def textdistance_matrix(
     Raises
     ------
     ModuleNotFoundError
-        If don't have module named 'thefuzz'.
+        If don't have module named 'rapidfuzz'.
 
     TypeError
         - If ``s`` is not string dtype.

@@ -5,7 +5,7 @@ from pandas.testing import assert_frame_equal
 from dtoolkit.accessor.series import textdistance_matrix
 
 
-pytest.importorskip("thefuzz")
+pytest.importorskip("rapidfuzz")
 
 
 @pytest.mark.parametrize(

@@ -38,8 +38,8 @@ def textdistance(
         the order of elements is preserved.
 
     method : Callable, default None
-        The method to calculate the distance. If None, use
-        `thefuzz.fuzz.ratio <https://github.com/seatgeek/thefuzz>`_.
+        The method to calculate the distance. If None, use \
+`rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
 
     enable_checking : bool, default True
         If True, check the input. If the input is None, nan or empty string the result
@@ -57,7 +57,7 @@ def textdistance(
     Raises
     ------
     ModuleNotFoundError
-        If don't have module named 'thefuzz'.
+        If don't have module named 'rapidfuzz'.
 
     TypeError
         - If ``s`` is not string dtype.
@@ -93,7 +93,8 @@ def textdistance(
         raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
 
     if method is None:
-        method = __import__("thefuzz.fuzz").fuzz.ratio
+        # change to
+        method = __import__("rapidfuzz.fuzz").fuzz.ratio
     if enable_checking:
         method = check(method)
     if enable_cache:
@@ -123,7 +124,7 @@ def textdistance(
         #   to make sure pd.isna(other) returns bool
         #   need to other is not array-like
         # - compare to None or nan always returns 0
-        #   the behavior is following thefuzz.fuzz.ratio
+        #   the behavior is following rapidfuzz.fuzz.ratio
         return pd.Series(np.zeros(s.size), name=s.name, index=s.index)
 
     raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")
@@ -133,7 +134,7 @@ def check_none(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         # NOTE: compare to None always returns 0
-        # the behavior is following thefuzz.fuzz.ratio
+        # the behavior is following rapidfuzz.fuzz.ratio
         return 0 if args[0] is None or args[1] is None else func(*args, **kwargs)
 
     return decorator
@@ -143,7 +144,7 @@ def check_nan(func):
     @wraps(func)
     def decorator(*args, **kwargs):
         # NOTE: compare to nan always returns 0
-        # the behavior is following thefuzz.fuzz.ratio
+        # the behavior is following rapidfuzz.fuzz.ratio
         return 0 if pd.isna(args[0]) or pd.isna(args[1]) else func(*args, **kwargs)
 
     return decorator
