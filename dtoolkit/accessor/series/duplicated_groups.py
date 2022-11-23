@@ -5,7 +5,7 @@ from dtoolkit.accessor.series.to_set import to_set
 
 
 @register_series_method
-def duplicated_groups(s: pd.Series) -> pd.Series:
+def duplicated_groups(s: pd.Series, /) -> pd.Series:
     """
     Labels of duplicate elements.
 
