@@ -15,8 +15,6 @@ def textdistance_matrix(
     /,
     other: None | pd.Series = None,
     method: Callable = None,
-    enable_checking: bool = True,
-    enable_cache: bool = True,
 ) -> pd.DataFrame:
     """
     Returns a ``DataFrame`` containing the text distances matrix between in ``s``
@@ -30,13 +28,6 @@ def textdistance_matrix(
     method : Callable, default None
         The method to calculate the distance. If None, use \
 `rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
-
-    enable_checking : bool, default True
-        If True, check the input. If the input is None or nan the distance will be 0.
-
-    enable_cache : bool, default True
-        If True, cache the distance. The text distance algorithm is hrad to be vectorized,
-        and it's a time-consuming operation. Cache the distance can speed up the process.
 
     Returns
     -------
@@ -79,16 +70,7 @@ def textdistance_matrix(
         raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
     return pd.concat(
-        (
-            textdistance(
-                s,
-                o,
-                method=method,
-                enable_checking=enable_checking,
-                enable_cache=enable_cache,
-            )
-            for o in other
-        ),
+        (textdistance(s, o, method=method) for o in other),
         axis=1,
         keys=other.index,
     )

@@ -21,8 +21,6 @@ def textdistance(
     other: None | str | pd.Series = None,
     method: Callable = None,
     align: bool = True,
-    enable_checking: bool = True,
-    enable_cache: bool = True,
 ) -> pd.Series:
     """
     Return a ``Series`` containing the text distance to aligned ``other``.
@@ -39,13 +37,6 @@ def textdistance(
     method : Callable, default None
         The method to calculate the distance. If None, use \
 `rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
-
-    enable_checking : bool, default True
-        If True, check the input. If the input is None or nan the distance will be 0.
-
-    enable_cache : bool, default True
-        If True, cache the distance. The text distance algorithm is hrad to be vectorized,
-        and it's a time-consuming operation. Cache the distance can speed up the process.
 
     Returns
     -------
@@ -92,10 +83,7 @@ def textdistance(
 
     if method is None:
         method = __import__("rapidfuzz.fuzz").fuzz.ratio
-    if enable_checking:
-        method = check(method)
-    if enable_cache:
-        method = lru_cache(method)
+    method = lru_cache(check(method))
 
     if isinstance(other, str):
         return s.apply(method, args=(other,))
