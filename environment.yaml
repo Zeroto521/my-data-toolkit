@@ -14,6 +14,7 @@ dependencies:
   - jenkspy
   - topojson
   - joblib
+  - rapidfuzz
 
   - pip
   - pip:
