@@ -70,9 +70,9 @@ def textdistance(
     1    world
     dtype: object
     >>> s.textdistance("python")
-    0    36
-    1    18
-    dtype: int64
+    0    36.363636
+    1    18.181818
+    dtype: float64
     >>> s.textdistance(pd.Series(["hello", "python"]))
     0    36.363636
     1    18.181818
