@@ -24,7 +24,7 @@ pytest.importorskip("rapidfuzz")
             pd.Series(["hello", "python"], index=["s21", "s22"]),
             None,
             pd.DataFrame(
-                [[100, 36], [20, 18]],
+                [[100, 36.36], [20, 18.18]],
                 index=["s11", "s12"],
                 columns=["s21", "s22"],
             ),
@@ -41,7 +41,13 @@ pytest.importorskip("rapidfuzz")
 def test_work(s, other, method, expected):
     result = s.textdistance_matrix(other, method=method)
 
-    assert_frame_equal(result, expected)
+    assert_frame_equal(
+        result,
+        expected,
+        check_dtype=False,
+        check_less_precise=True,
+        check_exact=False,
+    )
 
 
 @pytest.mark.parametrize(
