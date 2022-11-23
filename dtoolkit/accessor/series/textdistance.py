@@ -149,21 +149,10 @@ def check_nan(func):
     return decorator
 
 
-def check_empty_string(func):
-    @wraps(func)
-    def decorator(*args, **kwargs):
-        # NOTE: compare to empty string always returns 0
-        # the behavior is following thefuzz.fuzz.ratio
-        return 0 if len(args[0]) == 0 or len(args[1]) == 0 else func(*args, **kwargs)
-
-    return decorator
-
-
 def check(func):
     @wraps(func)
     @check_none
     @check_nan
-    @check_empty_string
     def decorator(*args, **kwargs):
         return func(*args, **kwargs)
 
