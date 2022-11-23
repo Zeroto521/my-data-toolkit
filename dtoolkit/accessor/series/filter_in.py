@@ -38,7 +38,7 @@ def filter_in(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(
     ...     ['lama', 'cow', 'lama', 'beetle', 'lama', 'hippo'],
@@ -82,7 +82,7 @@ def invert_or_not(s: pd.Series, /, invert: bool = False) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series([True, False, True])
     >>> s

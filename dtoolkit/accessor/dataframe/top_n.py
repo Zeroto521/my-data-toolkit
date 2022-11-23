@@ -84,7 +84,7 @@ def top_n(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {

@@ -50,7 +50,7 @@ def textdistance_matrix(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(["hello", "world"])
     >>> s
