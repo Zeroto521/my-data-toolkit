@@ -6,8 +6,10 @@ from functools import lru_cache
 from typing import Callable
 from warnings import warn
 
+import numpy as np
 import pandas as pd
 from pandas.api.types import is_string_dtype
+from pandas.api.types import is_list_like
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.util._exception import find_stack_level
@@ -97,9 +99,8 @@ def textdistance(
     if enable_cache:
         method = lru_cache(method)
 
-    if isinstance(other, str) or other is None:
+    if isinstance(other, str):
         return s.apply(method, args=(other,))
-
     elif isinstance(other, pd.Series):
         if not is_string_dtype(other):
             raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
@@ -116,6 +117,14 @@ def textdistance(
             name=s.name,
             index=s.index,
         )
+    elif other is None or (not is_list_like(other) and pd.isna(other)):
+        # NOTE:
+        # - pd.na(Series) returns array-like of bool
+        #   to make sure pd.isna(other) returns bool
+        #   need to other is not array-like
+        # - compare to None or nan always returns 0
+        #   the behavior is following thefuzz.fuzz.ratio
+        return pd.Series(np.zeros(s.size), name=s.name, index=s.index)
 
     raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")
 
