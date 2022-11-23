@@ -100,6 +100,14 @@ def test_error(s, other, align, error):
             lambda *xy: sum(map(len, xy)),
             pd.Series([2, 6]),
         ),
+        # test None and nan
+        (
+            pd.Series(["hi", "python", None, None, float("nan")]),
+            pd.Series([None, float("nan"), None, float("nan"), float("nan")]),
+            True,
+            None,
+            pd.Series([0]*5),
+        ),
     ],
 )
 def test_work(s, other, align, method, expected):
