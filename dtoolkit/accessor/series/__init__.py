@@ -3,6 +3,7 @@ from dtoolkit.accessor.series.change_axis_type import change_axis_type  # noqa: 
 from dtoolkit.accessor.series.cols import cols  # noqa: F401
 from dtoolkit.accessor.series.drop_inf import drop_inf  # noqa: F401
 from dtoolkit.accessor.series.dropna_index import dropna_index  # noqa: F401
+from dtoolkit.accessor.series.duplicated_groups import duplicated_groups  # noqa: F401
 from dtoolkit.accessor.series.equal import equal  # noqa: F401
 from dtoolkit.accessor.series.error_report import error_report  # noqa: F401
 from dtoolkit.accessor.series.eval import eval  # noqa: F401
