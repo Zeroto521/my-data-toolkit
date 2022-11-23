@@ -106,7 +106,7 @@ def test_error(s, other, align, error):
             pd.Series([None, float("nan"), None, float("nan"), float("nan")]),
             True,
             None,
-            pd.Series([0]*5),
+            pd.Series([0] * 5),
         ),
     ],
 )

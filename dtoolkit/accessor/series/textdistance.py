@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from functools import wraps
 from functools import lru_cache
-
+from functools import wraps
 from typing import Callable
 from warnings import warn
 
