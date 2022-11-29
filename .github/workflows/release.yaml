@@ -33,27 +33,6 @@ jobs:
           name: release
           path: dist/
 
-  echo:
-    needs: sdist
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: release
-          path: dist/
-
-      - name: List dist/ Folder
-        run: ls dist/ -l
-
-      - name: Get Asset name
-        run: |
-          export PKG=$(ls dist/ | grep tar)
-          set -- $PKG
-          echo "name=$1" >> $GITHUB_ENV
-
-      - name: echo
-        run: echo ${{ env.name }}
-
   publish-to-TestPyPI:
     needs: sdist
     if: ${{ github.event_name == 'push' }}
