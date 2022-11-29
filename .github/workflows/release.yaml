@@ -36,6 +36,11 @@ jobs:
         id: whl
         run: echo "{file}=$(ls dist/ | grep whl)" >> $GITHUB_OUTPUT
 
+      - name: echo
+        run: |
+          echo ${{ steps.tar.outputs.file }}
+          echo ${{ steps.whl.outputs.file }}
+
       - uses: actions/upload-artifact@v3
         with:
           name: release
