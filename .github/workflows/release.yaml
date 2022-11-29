@@ -30,17 +30,11 @@ jobs:
 
       - name: Get Source Tarball Name
         id: tar
-        run: |
-          export type=tar
-          export file=$(ls dist/ | grep ${type})
-          echo "::set-output name=file::${file}"
+        run: echo "{file}=$(ls dist/ | grep tar)" >> $GITHUB_OUTPUT
 
       - name: Get Binary Wheel Name
         id: whl
-        run: |
-          export type=whl
-          export file=$(ls dist/ | grep ${type})
-          echo "::set-output name=file::${file}"
+        run: echo "{file}=$(ls dist/ | grep whl)" >> $GITHUB_OUTPUT
 
       - uses: actions/upload-artifact@v3
         with:
