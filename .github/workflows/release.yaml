@@ -36,11 +36,6 @@ jobs:
         id: whl
         run: echo "{file}={$(ls dist/ | grep whl)}" >> $GITHUB_OUTPUT
 
-      - name: echo
-        run: |
-          echo ${{ steps.tar.outputs.file }}
-          echo ${{ steps.whl.outputs.file }}
-
       - uses: actions/upload-artifact@v3
         with:
           name: release
@@ -49,6 +44,15 @@ jobs:
     outputs:
       tar: ${{ steps.tar.outputs.file }}
       whl: ${{ steps.whl.outputs.file }}
+
+  echo:
+    needs: sdist
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo
+        run: |
+          echo ${{ needs.build.outputs.tar }}
+          echo ${{ needs.build.outputs.whl }}
 
   publish-to-TestPyPI:
     needs: sdist
