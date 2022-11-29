@@ -63,7 +63,7 @@ def boolean(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame({"a": [True, True, False], "b": [False, True, False]})
     >>> df
