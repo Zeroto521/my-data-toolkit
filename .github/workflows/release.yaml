@@ -30,11 +30,11 @@ jobs:
 
       - name: Get Source Tarball Name
         id: tar
-        run: echo "{file}=$(ls dist/ | grep tar)" >> $GITHUB_OUTPUT
+        run: echo "{file}={$(ls dist/ | grep tar)}" >> $GITHUB_OUTPUT
 
       - name: Get Binary Wheel Name
         id: whl
-        run: echo "{file}=$(ls dist/ | grep whl)" >> $GITHUB_OUTPUT
+        run: echo "{file}={$(ls dist/ | grep whl)}" >> $GITHUB_OUTPUT
 
       - name: echo
         run: |
