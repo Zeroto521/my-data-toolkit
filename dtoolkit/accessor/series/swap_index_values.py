@@ -18,7 +18,7 @@ def swap_index_values(s: pd.Series, /) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(
     ...     [1, 2, 3],

@@ -17,7 +17,7 @@ from dtoolkit.accessor.register import register_series_method
         """
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Expand the *list-like* element.
