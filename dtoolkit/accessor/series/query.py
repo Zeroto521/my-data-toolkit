@@ -34,7 +34,7 @@ def query(s: pd.Series, /, expr: str, **kwargs) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     The ``name`` should be set.
