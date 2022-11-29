@@ -34,7 +34,7 @@ def to_datetime(s: pd.Series, /, **kwargs) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(['20200101', '20200202', '20200303'])
     >>> s

@@ -34,7 +34,7 @@ def jenks_breaks(s: pd.Series, /, bins: int) -> list[float]:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series([1.3, 7.1, 7.3, 2.3, 3.9, 4.1, 7.8, 1.2, 4.3, 7.3, 5.0, 4.3])
     >>> s

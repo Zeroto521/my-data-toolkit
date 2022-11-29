@@ -29,7 +29,7 @@ def groupby_index(df: pd.DataFrame, /, **kwargs) -> pd.core.groupby.DataFrameGro
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame({'a': [1, 1, 1], 'b': [1, 2, 3]}, index=['a', 'b', 'a'])
     >>> df

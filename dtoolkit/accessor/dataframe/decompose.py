@@ -64,7 +64,7 @@ def decompose(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> from sklearn import decomposition
     >>> df = pd.DataFrame(
