@@ -28,31 +28,10 @@ jobs:
       - name: Build sdist
         run: make dist
 
-      - name: Get Source Tarball Name
-        id: tar
-        run: echo "{file}={$(ls dist/ | grep tar)}" >> $GITHUB_OUTPUT
-
-      - name: Get Binary Wheel Name
-        id: whl
-        run: echo "{file}={$(ls dist/ | grep whl)}" >> $GITHUB_OUTPUT
-
       - uses: actions/upload-artifact@v3
         with:
           name: release
           path: dist/
-
-    outputs:
-      tar: ${{ steps.tar.outputs.file }}
-      whl: ${{ steps.whl.outputs.file }}
-
-  echo:
-    needs: sdist
-    runs-on: ubuntu-latest
-    steps:
-      - name: echo
-        run: |
-          echo ${{ needs.build.outputs.tar }}
-          echo ${{ needs.build.outputs.whl }}
 
   publish-to-TestPyPI:
     needs: sdist
@@ -108,9 +87,15 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
+      - name: Get Asset name
+        run: |
+          export PKG=$(ls dist/ | grep tar)
+          set -- $PKG
+          echo "name=$1" >> $GITHUB_ENV
+
       - name: Publish to GitHub
         uses: softprops/action-gh-release@v1
         with:
           draft: true
           prerelease: ${{ contains(github.ref, 'rc') }}
-          files: dist/${{ needs.build.outputs.tar }}
+          files: dist/${{ env.name }}
