@@ -51,7 +51,8 @@ jobs:
           set -- $PKG
           echo "name=$1" >> $GITHUB_ENV
 
-      - run: echo ${{ env.name }}
+      - name: echo
+        run: echo ${{ env.name }}
 
   publish-to-TestPyPI:
     needs: sdist
