@@ -87,4 +87,4 @@ def test_index():
     s = pd.Series([1, 2], "h3")
     df = s.to_geoframe(geometry=geometry)
 
-    assert all(df.geometry != None)
+    assert df.geometry.notnull().all()
