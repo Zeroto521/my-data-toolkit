@@ -84,7 +84,6 @@ def test_type(s, geometry, expected):
 
 def test_index():
     geometry = gpd.GeoSeries([Point(1, 1), Point(2, 2)], index=[1, 2])
-    s = pd.Series([1, 2], "h3")
-    df = s.to_geoframe(geometry=geometry)
+    df = pd.Series([1, 2], name='name').to_geoframe(geometry=geometry)
 
     assert df.geometry.notnull().all()
