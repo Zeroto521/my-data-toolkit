@@ -1,7 +1,6 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
-from geopandas.testing import assert_geodataframe_equal
 from shapely.geometry import Point
 
 from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
@@ -83,7 +82,6 @@ def test_type(s, geometry, expected):
     assert isinstance(result, expected)
 
 
-# https://github.com/geopandas/geopandas/issues/2660
 def test_index():
     geometry = gpd.GeoSeries([Point(1, 1), Point(2, 2)], index=[1, 2])
     s = pd.Series([1, 2], "h3")
