@@ -28,7 +28,8 @@ def to_geoframe(
     Parameters
     ----------
     geometry : GeoSeries, optional
-        It will be prior set as 'geometry' column on GeoDataFrame.
+        It will be prior set as 'geometry' column on GeoDataFrame. If the input
+        is a GeoSeries, its index will be ignored.
 
     crs : CRS, str, int, optional
         Coordinate Reference System of the geometry objects. Can be anything
