@@ -1,35 +1,29 @@
 import pandas as pd
-from typing import Literal
-from pandas.api.types import is_string_dtype
 
-from dtoolkit.accessor.register import register_series_method
+from typing import Hashable
 
-
-LOCALE = Literal[
-    "zh-hans",
-    "zh-hant",
-    "zh-cn",
-    "zh-sg",
-    "zh-tw",
-    "zh-hk",
-    "zh-my",
-    "zh-mo",
-]
+from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.accessor.series.to_zh import to_zh as s_to_zh
+from dtoolkit.accessor.series.to_zh import LOCALE
 
 
-@register_series_method
+@register_dataframe_method
 def to_zh(
-    s: pd.Series,
+    df: pd.DataFrame,
     /,
+    column: Hashable,
     *,
     locale: LOCALE = "zh-cn",
     dictionary: dict = None,
-) -> pd.Series:
+) -> pd.DataFrame:
     """
     Simple conversion and localization between simplified and traditional Chinese.
 
     Parameters
     ----------
+    column : Hashable
+        The column to convert.
+
     locale : {"zh-hans", "zh-hant", "zh-cn", "zh-sg", "zh-tw", "zh-hk", "zh-my", \
 "zh-mo"}, default zh-cn
         Locale to convert to.
@@ -52,26 +46,29 @@ def to_zh(
 
     See Also
     --------
-    dtoolkit.accessor.dataframe.to_zh
+    dtoolkit.accessor.series.to_zh
 
     Examples
     --------
     >>> import dtoolkit
     >>> import pandas as pd
-    >>> s = pd.Series(['漢', '字'])
-    >>> s
-    0    漢
-    1    字
-    dtype: object
-    >>> s.to_zh("zh-cn")
-    0    汉
-    1    字
-    dtype: object
+    >>> df = pd.DataFrame({'zh': ['漢', '字']})
+    >>> df
+       zh
+    0  漢
+    1  字
+    >>> df.to_zh('zh')
+       zh
+    0  汉
+    1  字
     """
 
-    from zhconv import convert
-
-    if not is_string_dtype(s):
-        raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
-
-    return s.apply(convert, locale=locale, update=dictionary)
+    return df.assign(
+        **{
+            column: s_to_zh(
+                df[column],
+                locale=locale,
+                dictionary=dictionary,
+            ),
+        },
+    )
