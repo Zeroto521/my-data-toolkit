@@ -17,7 +17,7 @@ def available_if(check):
         def wrapper(*args, **kwargs):
             if not check(args[0]):
                 raise TypeError(
-                    f"For Non-H3, the '.h3.{func.__name__}' is not available."
+                    f"For Non-H3, the '.h3.{func.__name__}' is not available.",
                 )
             return func(*args, **kwargs)
 
@@ -196,7 +196,7 @@ class H3:
     @property
     @available_if(is_h3)
     def area(self) -> pd.Series:
-        """
+        r"""
         Compute the spherical surface area of a specific H3 cell.
 
         Returns
