@@ -63,7 +63,7 @@ def to_zh(
     0    漢
     1    字
     dtype: object
-    >>> s.to_zh("zh-cn")
+    >>> s.to_zh(locale="zh-cn")
     0    汉
     1    字
     dtype: object
