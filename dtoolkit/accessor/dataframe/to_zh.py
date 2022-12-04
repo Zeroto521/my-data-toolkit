@@ -1,10 +1,10 @@
-import pandas as pd
-
 from typing import Hashable
 
+import pandas as pd
+
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series.to_zh import to_zh as s_to_zh
 from dtoolkit.accessor.series.to_zh import LOCALE
+from dtoolkit.accessor.series.to_zh import to_zh as s_to_zh
 
 
 @register_dataframe_method
