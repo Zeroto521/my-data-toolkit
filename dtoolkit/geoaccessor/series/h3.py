@@ -335,7 +335,7 @@ class H3:
         from h3.api.numpy_int import h3_to_geo_boundary
 
         # TODO: delete pygeos after shapely 2.x released
-        from pygeos import polygons
+        from pygeos import polygons, to_shapely
 
         if not drop and self.s.name is None:
             raise ValueError(
@@ -344,7 +344,7 @@ class H3:
             )
 
         geometry = self.s.apply(h3_to_geo_boundary, geo_json=True).tolist()
-        geometry = gpd.GeoSeries(polygons(geometry), crs=4326)
+        geometry = gpd.GeoSeries(to_shapely(polygons(geometry)), crs=4326)
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
