@@ -3,6 +3,8 @@ import pandas as pd
 import pytest
 from shapely.geometry import Point
 
+from geopandas.testing import assert_geodataframe_equal
+
 from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
 
 
@@ -82,8 +84,23 @@ def test_type(s, geometry, expected):
     assert isinstance(result, expected)
 
 
+@pytest.mark.parametrize(
+    "s, geometry, expected",
+    [
+        # s's index different from geometry's index
+        (
+            pd.Series([1, 2], name="name"),
+            gpd.GeoSeries([Point(1, 1), Point(2, 2)], index=[1, 2]),
+            gpd.GeoDataFrame(
+                {
+                    "name": [1, 2],
+                    "geometry": [None, Point(1, 1)],
+                },
+            ),
+        ),
+    ],
+)
 def test_index():
-    geometry = gpd.GeoSeries([Point(1, 1), Point(2, 2)], index=[1, 2])
-    df = pd.Series([1, 2]).to_geoframe(geometry=geometry)
+    result = to_geoframe(s, geometry=geometry)
 
-    assert df.geometry.notnull().all()
+    assert_geodataframe_equal(result, expected)
