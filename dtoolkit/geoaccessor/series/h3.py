@@ -17,7 +17,7 @@ def available_if(check):
         def wrapper(*args, **kwargs):
             if not check(args[0]):
                 raise TypeError(
-                    f"For Non-H3, the '.h3.{func.__name__}' is not available.",
+                    f"For Non-H3, the '.h3.{func.__name__}' is not available."
                 )
             return func(*args, **kwargs)
 
@@ -78,7 +78,7 @@ class H3:
 
         return self.s.apply(h3_is_valid)
 
-    def _is_h3(self) -> bool:
+    def is_h3(self) -> bool:
         """
         Validate whether the whole series is H3 cell index.
 
@@ -95,7 +95,7 @@ class H3:
         return all(self.is_valid)
 
     @property
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def is_res_class_III(self) -> pd.Series:
         """
         Determine if cell has orientation "Class II" or "Class III".
@@ -125,7 +125,7 @@ class H3:
         return self.s.apply(h3_is_res_class_III)
 
     @property
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def is_pentagon(self) -> pd.Series:
         """
         Identify if an H3 cell is a pentagon.
@@ -147,10 +147,10 @@ class H3:
         # requires h3 < 4
         from h3.api.numpy_int import h3_is_pentagon
 
-        return self.s.apply(is_pentagon)
+        return self.s.apply(h3_is_pentagon)
 
     @property
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def resolution(self) -> pd.Series:
         """
         Return the resolution of an H3 cell.
@@ -175,7 +175,7 @@ class H3:
         return self.s.apply(h3_get_resolution)
 
     @property
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def edge_length(self) -> pd.Series:
         """
         Compute the spherical length of a specific H3 edge.
@@ -194,9 +194,9 @@ class H3:
         return self.s.apply(edge_length, unit="m")
 
     @property
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def area(self) -> pd.Series:
-        r"""
+        """
         Compute the spherical surface area of a specific H3 cell.
 
         Returns
@@ -281,7 +281,7 @@ class H3:
             )
         return self.s.apply(string_to_h3)
 
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def to_points(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         """
         Return the center Point of an H3 cell as a lat/lng pair.
@@ -324,7 +324,7 @@ class H3:
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
         # While h3-py release 4, `cell_to_boundary` is not available.
@@ -348,7 +348,7 @@ class H3:
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def to_children(
         self,
         resolution: int = None,
@@ -384,7 +384,7 @@ class H3:
             axis=1,
         )
 
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def to_parent(
         self,
         resolution: int = None,
@@ -413,7 +413,7 @@ class H3:
             axis=1,
         )
 
-    @available_if(_is_h3)
+    @available_if(is_h3)
     def to_center_child(
         self,
         resolution: int = None,
