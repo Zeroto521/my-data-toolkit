@@ -148,7 +148,7 @@ def test_type(s, geometry, expected):
         ),
     ],
 )
-def test_index():
+def test_index(s, geometry, expected):
     result = to_geoframe(s, geometry=geometry)
 
     assert_geodataframe_equal(result, expected)
