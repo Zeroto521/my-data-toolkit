@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from functools import wraps
-from typing import Literal
+from typing import Hashable
 
 import geopandas as gpd
 import numpy as np
