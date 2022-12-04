@@ -131,8 +131,9 @@ def test_type(s, geometry, expected):
             gpd.GeoDataFrame(
                 {
                     "name": [1, 2],
-                    "geometry": [None, Point(1, 1)],
+                    "geometry": [Point(1, 1), Point(2, 2)],
                 },
+                index=[0, 1],
             ),
         ),
         # s's index is totally different from geometry's index
@@ -142,8 +143,9 @@ def test_type(s, geometry, expected):
             gpd.GeoDataFrame(
                 {
                     "name": [1, 2],
-                    "geometry": [None, None],
+                    "geometry": [Point(1, 1), Point(2, 2)],
                 },
+                index=[0, 1],
             ),
         ),
     ],
