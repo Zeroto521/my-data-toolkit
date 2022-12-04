@@ -1,5 +1,6 @@
-import pandas as pd
 from typing import Literal
+
+import pandas as pd
 from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
