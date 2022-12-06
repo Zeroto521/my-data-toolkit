@@ -5,6 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.series import to_geoframe
@@ -172,10 +173,8 @@ def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
     from h3.api.numpy_int import polyfill
 
     # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
-    return s.apply(
-        lambda geom: polyfill(
-            geom.__geo_interface__,
-            resolution,
-            geo_json_conformant=True,
-        ),
+    return s_getattr(s, "__geo_interface__").apply(
+        polyfill,
+        res=resolution,
+        geo_json_conformant=True,
     )
