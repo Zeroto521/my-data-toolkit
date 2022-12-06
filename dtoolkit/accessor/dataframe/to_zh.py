@@ -3,7 +3,7 @@ from typing import Hashable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.series.to_zh import LOCALE
+from dtoolkit.accessor.series.to_zh import LOCALIZATION
 from dtoolkit.accessor.series.to_zh import to_zh as s_to_zh
 
 
@@ -13,7 +13,7 @@ def to_zh(
     /,
     column: Hashable,
     *,
-    locale: LOCALE = "zh-cn",
+    locale: LOCALIZATION = "zh-cn",
     dictionary: dict = None,
 ) -> pd.DataFrame:
     """
