@@ -8,6 +8,7 @@ import pandas as pd
 from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor.geoseries import xy
 from dtoolkit.geoaccessor.series import to_geoframe
 
 
@@ -157,8 +158,6 @@ def points_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
     # from h3.api.numpy_int import latlng_to_cell
     # requires h3 < 4
     from h3.api.numpy_int import geo_to_h3
-
-    from dtoolkit.geoaccessor.geoseries import xy
 
     return xy(s, reverse=True).apply(lambda yx: geo_to_h3(*yx, resolution))
 
