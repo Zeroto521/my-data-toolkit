@@ -6,7 +6,7 @@ from pandas.api.types import is_string_dtype
 from dtoolkit.accessor.register import register_series_method
 
 
-LOCALE = Literal[
+LOCALIZATION = Literal[
     "zh-hans",
     "zh-hant",
     "zh-cn",
@@ -23,7 +23,7 @@ def to_zh(
     s: pd.Series,
     /,
     *,
-    locale: LOCALE = "zh-cn",
+    locale: LOCALIZATION = "zh-cn",
     dictionary: dict = None,
 ) -> pd.Series:
     """
