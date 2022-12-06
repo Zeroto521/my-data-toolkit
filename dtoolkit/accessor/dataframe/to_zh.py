@@ -25,7 +25,7 @@ def to_zh(
         The column to convert.
 
     locale : {"zh-hans", "zh-hant", "zh-cn", "zh-sg", "zh-tw", "zh-hk", "zh-my", \
-"zh-mo"}, default zh-cn
+"zh-mo"}, default "zh-cn"
         Locale to convert to.
 
     dictionary : dict, default None
