@@ -5,7 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import repeat  # noqa: F401
+from dtoolkit.accessor.dataframe import repeat
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
 from dtoolkit.geoaccessor.geoseries.to_h3 import points_to_h3
@@ -117,7 +117,7 @@ def to_h3(
     elif all(df.geom_type == "Polygon"):
         h3_list = polygons_to_h3(df.geometry, resolution=resolution)
         h3 = h3_list.explode().rename(column)
-        df = df.repeat(s_len(h3_list))
+        df = repeat(df, s_len(h3_list))
     else:
         raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
 
