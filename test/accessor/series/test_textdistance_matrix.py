@@ -5,7 +5,7 @@ from pandas.testing import assert_frame_equal
 from dtoolkit.accessor.series import textdistance_matrix
 
 
-pytest.importorskip("rapidfuzz")
+rapidfuzz = pytest.importorskip("rapidfuzz")
 
 
 @pytest.mark.parametrize(
@@ -33,8 +33,8 @@ pytest.importorskip("rapidfuzz")
         (
             pd.Series(["hello", "world!"]),
             pd.Series(["hi", "pythonista"]),
-            lambda *xy: sum(map(len, xy)),
-            pd.DataFrame([[7, 15], [8, 16]]),
+            rapidfuzz.string_metric.levenshtein,
+            pd.DataFrame([[4, 9], [6, 9]]),
         ),
         # other elements contain None or nan
         (
