@@ -79,7 +79,7 @@ def textdistance_matrix(
         raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
     return pd.DataFrame(
-        cdist(s, other, scorer=method, workers=-1),
+        cdist(s, other, scorer=method, workers=-1, **kwargs),
         index=s.index,
         columns=other.index,
     )
