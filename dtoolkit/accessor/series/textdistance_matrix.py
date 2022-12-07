@@ -49,10 +49,6 @@ def textdistance_matrix(
     --------
     textdistance
 
-    Notes
-    -----
-    Can't handle nan or None type value.
-
     Examples
     --------
     >>> import dtoolkit

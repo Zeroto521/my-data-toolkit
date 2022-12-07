@@ -36,13 +36,6 @@ rapidfuzz = pytest.importorskip("rapidfuzz")
             rapidfuzz.string_metric.levenshtein,
             pd.DataFrame([[4, 9], [6, 9]]),
         ),
-        # other elements contain None or nan
-        (
-            pd.Series(["hello", "world", "!"]),
-            pd.Series(["hi!", None, float("nan")]),
-            None,
-            pd.DataFrame([[25, 0, 0], [0, 0, 0], [50, 0, 0]]),
-        ),
     ],
 )
 def test_work(s, other, method, expected):
