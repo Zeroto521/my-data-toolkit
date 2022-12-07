@@ -57,7 +57,7 @@ def repeat(
     Examples
     --------
     >>> import pandas as pd
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> df = pd.DataFrame({'a': [1, 2], 'b':[3, 4]})
     >>> df
        a  b
