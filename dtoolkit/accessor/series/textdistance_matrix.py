@@ -28,7 +28,7 @@ def textdistance_matrix(
     method : Callable, default None
         The method to calculate the distance. The first and second positional parameters
         will be compared. If None, :meth:`rapidfuzz.fuzz.ratio`. Recommended use methods
-        in :mod:`rapidfuzz.fuzz, :mod:`rapidfuzz.string_metric`, and
+        in :mod:`rapidfuzz.fuzz`, :mod:`rapidfuzz.string_metric`, and
         :mod:`rapidfuzz.distance`.
 
     **kwargs
