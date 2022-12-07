@@ -50,6 +50,9 @@ def textdistance_matrix(
 
     See Also
     --------
+    rapidfuzz.fuzz
+    rapidfuzz.string_metric
+    rapidfuzz.distance
     textdistance
 
     Examples
