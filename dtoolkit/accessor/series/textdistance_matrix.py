@@ -31,6 +31,9 @@ def textdistance_matrix(
         in :mod:`rapidfuzz.fuzz, :mod:`rapidfuzz.string_metric`, and
         :mod:`rapidfuzz.distance`.
 
+    **kwargs
+        Additional keyword arguments passed to ``method``.
+
     Returns
     -------
     DataFrame
