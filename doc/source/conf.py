@@ -129,6 +129,7 @@ intersphinx_mapping = {
     # TODO: delete pygeos after shapely 2.x released
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
+    "rapidfuzz": ("https://maxbachmann.github.io/RapidFuzz/", None),
 }
 
 # extlinks alias
