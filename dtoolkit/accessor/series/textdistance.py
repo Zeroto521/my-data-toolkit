@@ -5,6 +5,7 @@ from typing import Callable
 from warnings import warn
 
 import pandas as pd
+from pandas.api.types import is_list_like
 from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
@@ -15,7 +16,7 @@ from dtoolkit.util._exception import find_stack_level
 def textdistance(
     s: pd.Series,
     /,
-    other: None | str | pd.Series = None,
+    other: str | pd.Series,
     method: Callable = None,
     align: bool = True,
     **kwargs,
@@ -26,7 +27,6 @@ def textdistance(
     Parameters
     ----------
     other : None, str or Series
-        If None or nan, the text distance is 0.
 
     align : bool, default True
         If True, automatically aligns GeoSeries based on their indices. If False,
@@ -91,7 +91,11 @@ def textdistance(
         method = __import__("rapidfuzz").fuzz.ratio
     method = lru_cache(method)
 
-    if isinstance(other, str):
+    if (
+        isinstance(other, str)
+        or other is None
+        or (not is_list_like(other) and pd.isna(other))
+    ):
         return s.apply(method, args=(other,), **kwargs)
 
     elif isinstance(other, pd.Series):
