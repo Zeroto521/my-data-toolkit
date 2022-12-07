@@ -5,7 +5,7 @@ from pandas.testing import assert_series_equal
 from dtoolkit.accessor.series import textdistance
 
 
-pytest.importorskip("rapidfuzz")
+rapidfuzz = pytest.importorskip("rapidfuzz")
 
 
 @pytest.mark.parametrize(
@@ -97,7 +97,7 @@ def test_error(s, other, align, error):
             pd.Series(["hi", "python"]),
             "",
             True,
-            lambda *xy: sum(map(len, xy)),
+            rapidfuzz.string_metric.levenshtein,
             pd.Series([2, 6]),
         ),
         # test None and nan
