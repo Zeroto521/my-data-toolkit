@@ -36,8 +36,12 @@ def textdistance(
 
     method : Callable, default None
         The method to calculate the distance. The first and second positional parameters
-        will be compared. If None, \
-`rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
+        will be compared. If None, :meth:`rapidfuzz.fuzz.ratio`. Recommended use methods
+        in :mod:`rapidfuzz.fuzz, :mod:`rapidfuzz.string_metric`, and
+        :mod:`rapidfuzz.distance`.
+
+    **kwargs
+        Additional keyword arguments passed to ``method``.
 
     Returns
     -------
