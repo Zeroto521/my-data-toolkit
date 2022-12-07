@@ -70,7 +70,7 @@ def textdistance_matrix(
     from rapidfuzz.process import cdist
 
     if method is None:
-        method = __import__("rapidfuzz.fuzz").fuzz.ratio
+        method = __import__("rapidfuzz").fuzz.ratio
 
     if other is None:
         other = s.copy()
