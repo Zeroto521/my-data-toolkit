@@ -55,6 +55,10 @@ def textdistance_matrix(
     rapidfuzz.distance
     textdistance
 
+    Notes
+    -----
+    The result of comparing to None or nan value is depended on the ``method``.
+
     Examples
     --------
     >>> import dtoolkit
