@@ -9,11 +9,11 @@ Highlights of this release:
 
 New features and improvements:
 
-- {pr}`724`: New accessor for Series to calculate text distance {meth}`~dtoolkit.accessor.Series.textdistance`.
-- {pr}`745`: {meth}`~dtoolkit.geoaccessor.GeoDataFrame.duplicated_geometry`'s `predicate` support to directly compare value.
-- {pr}`748`: {meth}`~dtoolkit.geoaccessor.GeoSeries.xy` support to return DataFrame.
-- {pr}`760`: {meth}`~dtoolkit.accessor.DataFrame.repeat` support to use column as the input.
-- {pr}`768`: New accessor {meth}`~dtoolkit.accessor.DataFrame.change_axis_type`.
+- {pr}`724`: New accessor for Series to calculate text distance {meth}`~dtoolkit.accessor.series.textdistance`.
+- {pr}`745`: {meth}`~dtoolkit.geoaccessor.geodataframe.duplicated_geometry`'s `predicate` support to directly compare value.
+- {pr}`748`: {meth}`~dtoolkit.geoaccessor.geoseries.xy` support to return DataFrame.
+- {pr}`760`: {meth}`~dtoolkit.accessor.dataframe.repeat` support to use column as the input.
+- {pr}`768`: New accessor {meth}`~dtoolkit.accessor.dataframe.change_axis_type`.
 
 Small bug-fix:
 
