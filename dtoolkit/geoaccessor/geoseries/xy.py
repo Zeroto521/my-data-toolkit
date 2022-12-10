@@ -78,6 +78,7 @@ def xy(
     --------
     geopandas.GeoSeries.x
     geopandas.GeoSeries.y
+    dtoolkit.geoaccessor.geodataframe.xy
 
     Examples
     --------

@@ -52,6 +52,7 @@ def xy(
     --------
     geopandas.GeoSeries.x
     geopandas.GeoSeries.y
+    dtoolkit.geoaccessor.geoseries.xy
 
     Examples
     --------
