@@ -4,6 +4,9 @@ import pytest
 from dtoolkit.accessor.series.to_zh import to_zh
 
 
+pytest.importorskip("zhconv")
+
+
 @pytest.mark.parametrize(
     "s, error",
     [
