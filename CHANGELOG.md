@@ -47,6 +47,7 @@ Maintenance development:
 - {pr}`775`: Remove `set-output` from github actions yaml files.
 - {pr}`777`, {pr}`785`, {pr}`786`, {pr}`788`: Autoupdate actions.
 - {pr}`791`: Compat with pandas 2.x.
+- {pr}`795`: Use `--pre` option to install prerelease version for shapely instead of a fixed version.
 
 ## [Version 0.0.18] (2022-10-14)
 
