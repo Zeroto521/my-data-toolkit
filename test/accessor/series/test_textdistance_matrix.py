@@ -45,8 +45,7 @@ def test_work(s, other, method, expected):
         result,
         expected,
         check_dtype=False,
-        check_less_precise=True,
-        check_exact=False,
+        rtol=1e-3,
     )
 
 
