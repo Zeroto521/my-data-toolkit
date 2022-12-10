@@ -64,7 +64,7 @@ def error_report(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series([1, 2, 3])
     >>> s.error_report([3, 2, 1])

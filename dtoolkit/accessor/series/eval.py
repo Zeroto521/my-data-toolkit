@@ -38,7 +38,7 @@ def eval(s: pd.Series, /, expr: str, **kwargs):
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     The ``name`` should be set.

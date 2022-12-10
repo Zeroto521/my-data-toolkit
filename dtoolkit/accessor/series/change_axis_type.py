@@ -41,7 +41,7 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Convert Series's index type from int to str:

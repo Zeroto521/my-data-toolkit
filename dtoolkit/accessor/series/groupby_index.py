@@ -29,7 +29,7 @@ def groupby_index(s: pd.Series, /, **kwargs) -> pd.core.groupby.SeriesGroupBy:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series([1, 1, 1], index=['a', 'b', 'a'])
     >>> s
