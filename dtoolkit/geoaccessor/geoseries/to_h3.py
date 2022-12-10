@@ -7,7 +7,7 @@ import pandas as pd
 
 from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.accessor.series import len as s_len
-from dtoolkit.geoaccessor.geoseries import xy
+from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.series import to_geoframe
 
