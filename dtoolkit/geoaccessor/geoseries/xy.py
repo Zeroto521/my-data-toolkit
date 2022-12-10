@@ -114,6 +114,14 @@ def xy(
     0  0.0  1.0
     1  0.0  2.0
     2  0.0  3.0
+
+    Keep the original geometry column.
+
+    >>> s.xy(drop=False)
+         x    y                 geometry
+    0  0.0  1.0  POINT (0.00000 1.00000)
+    1  0.0  2.0  POINT (0.00000 2.00000)
+    2  0.0  3.0  POINT (0.00000 3.00000)
     """
 
     coords = pd.concat((s.x, s.y), axis=1)
