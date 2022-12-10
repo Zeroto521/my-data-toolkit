@@ -2,6 +2,7 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 
+from dtoolkit._compat import PANDAS_GE_20
 from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa: F401
 
 
@@ -32,13 +33,14 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa: F401
         # test single column dataframe
         (
             (
-                pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy(
-                    "x",
-                    "y",
-                    drop=True,
-                )
+                pd.DataFrame(
+                    {
+                        "x": [122, 100],
+                        "y": [55, 1],
+                    },
+                ).from_xy("x", "y", drop=True)
             ),
-            pd.DataFrame(index=[0, 1]),
+            pd.DataFrame(index=[0, 1], columns=[]),
         ),
     ],
 )
