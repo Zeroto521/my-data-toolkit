@@ -68,7 +68,6 @@ def xy(
     0     a  POINT (0.00000 1.00000)
     1     b  POINT (0.00000 2.00000)
     2     c  POINT (0.00000 3.00000)
-    >>> df.xy()
 
     Get the x and y coordinates of each point as a tuple.
 
