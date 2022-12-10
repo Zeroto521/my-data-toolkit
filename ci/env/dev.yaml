@@ -2,33 +2,22 @@ name: test
 channels:
   - conda-forge
 dependencies:
-  - cython
   - packaging
-  # the dependencies of dependencies
-  # computing
-  - numpy
-  - scipy
-  - joblib
-  - threadpoolctl
-  # time
-  - python-dateutil
-  - pytz
-  # geo
-  - geos
-  - fiona
-  - pyproj
-  - shapely
+  # optional
   - pygeos
+
   # testing
   - pytest
   - pytest-cov
   - pytest-xdist
   - codecov
+
   # dev versions of packages
   - pip
   - pip:
-    # required
-    - git+https://github.com/pydata/pandas
-    # optional
-    - git+https://github.com/scikit-learn/scikit-learn
-    - git+https://github.com/geopandas/geopandas
+      # use wheels to speed up setting the env
+      - --pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple
+      - pandas
+      - scikit-learn
+
+      - git+https://github.com/geopandas/geopandas
