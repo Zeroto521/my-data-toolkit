@@ -29,7 +29,7 @@ def xy(
     frame: bool = True,
     drop: bool = True,
     name: Hashable | tuple[Hashable, Hashable] = ("x", "y"),
-) -> pd.DataFram | gpd.GeoDataFrame:
+) -> SeriesOrFrame | gpd.GeoDataFrame:
     """
     Return the x and y location of Point geometries in a GeoSeries.
 
