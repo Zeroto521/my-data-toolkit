@@ -18,7 +18,7 @@ def to_h3(
     df: gpd.GeoDataFrame,
     /,
     resolution: int,
-    column: Hashable = "h3",
+    name: Hashable = "h3",
     drop: bool = True,
 ) -> pd.DataFrame | gpd.GeoDataFrame:
     """
@@ -29,7 +29,7 @@ def to_h3(
     resolution : int
         H3 resolution.
 
-    column : Hashable, default "h3"
+    name : Hashable, default "h3"
         Name of the column to store the H3 cell index.
 
     drop : bool, default True
@@ -113,10 +113,10 @@ def to_h3(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {df.crs!r}.")
 
     if all(df.geom_type == "Point"):
-        h3 = points_to_h3(df.geometry, resolution=resolution).rename(column)
+        h3 = points_to_h3(df.geometry, resolution=resolution).rename(name)
     elif all(df.geom_type == "Polygon"):
         h3_list = polygons_to_h3(df.geometry, resolution=resolution)
-        h3 = h3_list.explode().rename(column)
+        h3 = h3_list.explode().rename(name)
         df = repeat(df, s_len(h3_list))
     else:
         raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
