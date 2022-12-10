@@ -2,7 +2,6 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
 
-from dtoolkit._compat import PANDAS_GE_20
 from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa: F401
 
 
