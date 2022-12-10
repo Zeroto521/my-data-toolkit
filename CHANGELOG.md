@@ -1,5 +1,53 @@
 # Changelog
 
+## [Version 0.0.19] (2022-12-xx)
+
+Highlights of this release:
+
+- {pr}`574`, {pr}`752`, {pr}`757`, {pr}`758`: Supported python 3.11.
+- {pr}`772`: Simplify importing `import dtoolkit` == `import dtoolkit.accessor`.
+
+New features and improvements:
+
+- {pr}`724`: New accessor for Series to calculate text distance {meth}`~dtoolkit.accessor.Series.textdistance`.
+- {pr}`745`: {meth}`~dtoolkit.geoaccessor.GeoDataFrame.duplicated_geometry`'s `predicate` support to directly compare value.
+- {pr}`748`: {meth}`~dtoolkit.geoaccessor.GeoSeries.xy` support to return DataFrame.
+- {pr}`760`: {meth}`~dtoolkit.accessor.DataFrame.repeat` support to use column as the input.
+- {pr}`768`: New accessor {meth}`~dtoolkit.accessor.DataFrame.change_axis_type`.
+
+Small bug-fix:
+
+- {pr}`576`: Fix `DataFrame.append`'s FutureWarning.
+- {pr}`765`: Fix sklearn pipeline visualization can't print `OneHotEncoder`.
+- {pr}`776`: After v0.0.17 github release page don't have tarball file anymore.
+
+API changes:
+
+- {pr}`762`: Drop `columns` arguments for `error_report`.
+
+Documentation:
+
+- {pr}`755`: Update `installtation` documentation.
+- {pr}`766`: Some patches to documentation.
+
+Maintenance development:
+
+- {pr}`726`, {pr}`790`: Compat sklearn 1.2
+- {pr}`737`: Leave TODO marks for deleting pygeos.
+- {pr}`742`, {pr}`754`, {pr}`767`: pre-commit hooks autoupdate.
+- {pr}`744`, {pr}`750`: versioneer autoupdate.
+- {pr}`746`: All envs will get daily test.
+- {pr}`747`: Set a env to test that dtoolkit works with only base dependencies.
+- {pr}`749`: Use `.is_monotonic_increasing` replace `.is_monotonic`.
+- {pr}`751`, {pr}`756`, {pr}`773`, {pr}`781`, {pr}`787`: Compat shapely 2.x.
+- {pr}`753`, {pr}`759`: Lint codes.
+- {pr}`763`: Simplify versioneer updating CI.
+- {pr}`764`: versioneer updating only works on main branch.
+- {pr}`770`: Minimal environments only test base features.
+- {pr}`775`: Remove `set-output` from github actions yaml files.
+- {pr}`777`, {pr}`785`, {pr}`786`, {pr}`788`: Autoupdate actions.
+- {pr}`791`: Compat with pandas 2.x.
+
 ## [Version 0.0.18] (2022-10-14)
 
 New features and improvements:
@@ -613,6 +661,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.19]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.18...v0.0.19
 [Version 0.0.18]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.17...v0.0.18
 [Version 0.0.17]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.16...v0.0.17
 [Version 0.0.16]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.15...v0.0.16
