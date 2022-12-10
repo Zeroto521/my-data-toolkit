@@ -41,7 +41,7 @@ def xy(
     frame : bool, default True
         If True, return a DataFrame.
 
-        .. warning:: 0.0.20
+        .. versionchanged:: 0.0.20
             The default value of ``frame`` is set to True.
 
     drop : bool, default True
