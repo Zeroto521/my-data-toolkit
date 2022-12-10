@@ -148,8 +148,16 @@ def test_error(df, weights, validate, top, error):
         ),
         # test dict
         (
-            pd.DataFrame({"a": [1, 2], "b": [2, 4]}),
-            {"ab": {"a": 0.5, "b": 0.5}, "ab-a": {"ab": 1, "a": 1}},
+            pd.DataFrame(
+                {
+                    "a": [1, 2],
+                    "b": [2, 4],
+                },
+            ),
+            {
+                "ab": {"a": 0.5, "b": 0.5},
+                "ab-a": {"ab": 1, "a": 1},
+            },
             False,
             3,
             False,
@@ -160,7 +168,6 @@ def test_error(df, weights, validate, top, error):
                     "ab-a": [1.25, 2.5],
                     "b": [2, 4],
                 },
-                index=pd.Index([0, 1], dtype="object"),
             ),
         ),
     ],
@@ -172,4 +179,4 @@ def test_work(df, weights, validate, top, drop, expected):
     if isinstance(expected, pd.DataFrame):
         assert_equal = assert_frame_equal
 
-    assert_equal(result, expected)
+    assert_equal(result, expected, check_index_type=False)
