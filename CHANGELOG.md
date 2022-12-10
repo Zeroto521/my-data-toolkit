@@ -39,7 +39,7 @@ Maintenance development:
 - {pr}`746`: All envs will get daily test.
 - {pr}`747`: Set a env to test that dtoolkit works with only base dependencies.
 - {pr}`749`: Use `.is_monotonic_increasing` replace `.is_monotonic`.
-- {pr}`751`, {pr}`756`, {pr}`773`, {pr}`781`, {pr}`787`: Compat shapely 2.x.
+- {pr}`751`, {pr}`756`, {pr}`773`, {pr}`781`, {pr}`787`, {pr}`795`: Compat shapely 2.x.
 - {pr}`753`, {pr}`759`: Lint codes.
 - {pr}`763`: Simplify versioneer updating CI.
 - {pr}`764`: versioneer updating only works on main branch.
@@ -47,7 +47,6 @@ Maintenance development:
 - {pr}`775`: Remove `set-output` from github actions yaml files.
 - {pr}`777`, {pr}`785`, {pr}`786`, {pr}`788`: Autoupdate actions.
 - {pr}`791`: Compat with pandas 2.x.
-- {pr}`795`: Use `--pre` option to install prerelease version for shapely instead of a fixed version.
 
 ## [Version 0.0.18] (2022-10-14)
 
