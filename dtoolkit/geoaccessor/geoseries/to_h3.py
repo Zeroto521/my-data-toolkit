@@ -17,8 +17,8 @@ def to_h3(
     s: gpd.GeoSeries,
     /,
     resolution: int,
-    column: Hashable = "h3",
     drop: bool = True,
+    name: Hashable = "h3",
 ) -> pd.Series | gpd.GeoDataFrame:
     """
     Convert Point or Polygon to H3 cell index.
@@ -28,9 +28,9 @@ def to_h3(
     resolution : int
         H3 resolution.
 
-    column : Hashable, default "h3"
-        Name of the column to store the H3 cell index. If ``s.name`` is set, there will
-        use ``s.name`` as the column name first and then ``column``.
+    name : Hashable, default "h3"
+        Name of the column to store the H3 cell index. If ``name`` is None, there will
+        use ``s.name`` as the column name.
 
     drop : bool, default True
         Whether to drop the geometry column.
@@ -48,7 +48,7 @@ def to_h3(
         If the geometry type is not Point or Polygon.
     ValueError
         - If the CRS is not WGS84 or EPSG:4326.
-        - If ``drop=False`` but ``column=None`` or ``s.name=None``.
+        - If ``drop=False`` but ``name=None`` or ``s.name=None``.
 
     See Also
     --------
@@ -123,15 +123,15 @@ def to_h3(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if not drop and (column is None or s.name is None):
+    if not drop and (name is None or s.name is None):
         raise ValueError(
             "to keep the original data requires setting the 'name' of "
-            f"{s.__class__.__name__!r} or 'column'.",
+            f"{s.__class__.__name__!r} or 'name'.",
         )
 
     if all(s.geom_type == "Point"):
         h3 = points_to_h3(s, resolution=resolution)
-        return h3 if drop else to_geoframe(h3.rename(s.name or column), geometry=s)
+        return h3 if drop else to_geoframe(h3.rename(name or s.name), geometry=s)
 
     elif all(s.geom_type == "Polygon"):
         h3_list = polygons_to_h3(s, resolution=resolution)
@@ -142,7 +142,7 @@ def to_h3(
         return pd.concat(
             (
                 s.repeat(s_len(h3_list)),
-                h3.rename(s.name or column),
+                h3.rename(name or s.name),
             ),
             axis=1,
         )
