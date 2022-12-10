@@ -110,7 +110,7 @@ def xy(
 
     Set ``frame=True`` to return a DataFrame with x and y columns.
 
-    >>> s.xy(frame=True)
+    >>> s.xy()
          x    y
     0  0.0  1.0
     1  0.0  2.0

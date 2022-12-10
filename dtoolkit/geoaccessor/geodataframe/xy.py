@@ -15,7 +15,7 @@ def xy(
     df: gpd.GeoDataFrame,
     /,
     reverse: bool = False,
-    frame: bool = False,
+    frame: bool = True,
     drop: bool = True,
     name: Hashable | tuple[Hashable, Hashable] = ("x", "y"),
 ) -> SeriesOrFrame | gpd.GeoDataFrame:
@@ -88,7 +88,7 @@ def xy(
 
     Set ``frame=True`` to return a DataFrame with x and y columns.
 
-    >>> df.xy(frame=True)
+    >>> df.xy()
          x    y
     0  0.0  1.0
     1  0.0  2.0
