@@ -128,6 +128,4 @@ def to_h3(
     else:
         raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
 
-    if drop:
-        df = drop_geometry(df)
-    return pd.concat((df, h3), axis=1)
+    return pd.concat((df if drop else drop_geometry(df), h3), axis=1)
