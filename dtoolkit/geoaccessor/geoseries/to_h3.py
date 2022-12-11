@@ -137,14 +137,16 @@ def to_h3(
         h3_list = polygons_to_h3(s, resolution=resolution)
         h3 = h3_list.explode()
 
-        if drop:
-            return h3
-        return pd.concat(
-            (
-                s.repeat(s_len(h3_list)),
-                h3.rename(name or s.name),
-            ),
-            axis=1,
+        return (
+            h3
+            if drop
+            else pd.concat(
+                (
+                    s.repeat(s_len(h3_list)),
+                    h3.rename(name or s.name),
+                ),
+                axis=1,
+            )
         )
 
     raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
