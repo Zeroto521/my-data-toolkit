@@ -71,7 +71,7 @@ def xy(
 
     Get the x and y coordinates of each point as a tuple.
 
-    >>> df.xy(frame=False, name=None)
+    >>> df.xy(frame=False, name="geometry")
       label    geometry
     0     a  (0.0, 1.0)
     1     b  (0.0, 2.0)
@@ -79,7 +79,7 @@ def xy(
 
     Set ``reverse=True`` to return (y, x).
 
-    >>> df.xy(reverse=True, frame=False, name=None)
+    >>> df.xy(reverse=True, frame=False, name="geometry")
       label    geometry
     0     a  (1.0, 0.0)
     1     b  (2.0, 0.0)
