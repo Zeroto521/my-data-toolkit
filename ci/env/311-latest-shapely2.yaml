@@ -17,4 +17,5 @@ dependencies:
 
   - pip
   - pip:
-      - shapely==2.0rc2
+      - --pre
+      - shapely
