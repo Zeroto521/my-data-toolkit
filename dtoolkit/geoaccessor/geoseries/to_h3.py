@@ -79,6 +79,13 @@ def to_h3(
     1    614269156845420543
     dtype: int64
 
+    Keep the geometry column.
+
+    >>> s.to_h3(8, drop=False)
+                         h3                    geometry
+    0    612845052823076863  POINT (122.00000 55.00000)
+    1    614269156845420543   POINT (100.00000 1.00000)
+
     Polygons to h3 indexes.
 
     >>> s = pd.Series(
