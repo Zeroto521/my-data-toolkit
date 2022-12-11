@@ -132,7 +132,7 @@ def to_h3(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if not drop and (name is None or s.name is None):
+    if not drop and (name is None and s.name is None):
         raise ValueError(
             "to keep the original data requires setting the 'name' of "
             f"{s.__class__.__name__!r} or 'name'.",
