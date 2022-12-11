@@ -18,6 +18,7 @@ General methods and attributes
     has_hole
     hole_counts
     toposimplify
+    xy
 
 
 Conversion

@@ -23,3 +23,7 @@ dependencies:
   - codecov
   # doctest testing
   - pytest-doctestplus
+
+  - pip
+  - pip:
+    - zhconv
