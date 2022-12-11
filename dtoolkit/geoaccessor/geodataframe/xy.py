@@ -105,7 +105,7 @@ def xy(
     return pd.concat(
         (
             df if drop else drop_geometry(df),
-            s_xy(df.geometry, reverse=reverse, frame=frame, name=name)
+            s_xy(df.geometry, reverse=reverse, frame=frame, name=name),
         ),
         axis=1,
     )
