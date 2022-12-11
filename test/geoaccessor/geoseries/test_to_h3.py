@@ -10,7 +10,7 @@ pytest.importorskip("h3")
 
 
 @pytest.mark.parametrize(
-    "s, resolution, drop, rvname, error",
+    "s, resolution, drop, name, error",
     [
         # crs != 4326
         (
