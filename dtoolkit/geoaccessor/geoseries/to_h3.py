@@ -44,8 +44,10 @@ def to_h3(
     ------
     ModuleNotFoundError
         If don't have module named 'h3'.
+
     TypeError
         If the geometry type is not Point or Polygon.
+
     ValueError
         - If the CRS is not WGS84 or EPSG:4326.
         - If ``drop=False`` but ``name=None`` or ``s.name=None``.
