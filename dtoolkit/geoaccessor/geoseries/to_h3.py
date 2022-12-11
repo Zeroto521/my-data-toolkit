@@ -133,12 +133,10 @@ def to_h3(
 
     if all(s.geom_type == "Point"):
         h3 = points_to_h3(s, resolution=resolution)
-
     elif all(s.geom_type == "Polygon"):
         h3_list = polygons_to_h3(s, resolution=resolution)
         h3 = h3_list.explode()
         s = s.repeat(s_len(h3_list))
-
     else:
         raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
 
