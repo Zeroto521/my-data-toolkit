@@ -5,7 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
 from dtoolkit.geoaccessor.geoseries import xy as s_xy
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
@@ -18,7 +18,7 @@ def xy(
     frame: bool = True,
     drop: bool = True,
     name: Hashable | tuple[Hashable, Hashable] = ("x", "y"),
-) -> SeriesOrFrame | gpd.GeoDataFrame:
+) -> pd.DataFrame | gpd.GeoDataFrame:
     """
     Return the x and y location of Point geometries in a GeoDataFrame.
 
@@ -39,13 +39,13 @@ def xy(
 
     Returns
     -------
-    Series, DataFrame, or GeoDataFrame
-        - If ``drop=Fasle``, return a GeoDataFrame.
+    DataFrame or GeoDataFrame
+        - If ``drop=Fasle``, return a GeoDataFrame with the coordinates.
 
         - If ``drop=True`` and ``frame=True``, return a DataFrame with x and y two
           columns.
 
-        - IF ``drop=True`` and ``frame=False``, return a Series with tuple of
+        - If ``drop=True`` and ``frame=False``, return a DataFrame with tuple of
           coordinate.
 
     See Also
@@ -71,27 +71,27 @@ def xy(
 
     Get the x and y coordinates of each point as a tuple.
 
-    >>> df.xy(frame=False, name=None)
-    0    (0.0, 1.0)
-    1    (0.0, 2.0)
-    2    (0.0, 3.0)
-    dtype: object
+    >>> df.xy(frame=False, name="geometry")
+      label    geometry
+    0     a  (0.0, 1.0)
+    1     b  (0.0, 2.0)
+    2     c  (0.0, 3.0)
 
     Set ``reverse=True`` to return (y, x).
 
-    >>> df.xy(reverse=True, frame=False, name=None)
-    0    (1.0, 0.0)
-    1    (2.0, 0.0)
-    2    (3.0, 0.0)
-    dtype: object
+    >>> df.xy(reverse=True, frame=False, name="geometry")
+      label    geometry
+    0     a  (1.0, 0.0)
+    1     b  (2.0, 0.0)
+    2     c  (3.0, 0.0)
 
     Set ``frame=True`` to return a DataFrame with x and y columns.
 
     >>> df.xy()
-         x    y
-    0  0.0  1.0
-    1  0.0  2.0
-    2  0.0  3.0
+      label    x    y
+    0     a  0.0  1.0
+    1     b  0.0  2.0
+    2     c  0.0  3.0
 
     Keep the original geometry column.
 
@@ -102,5 +102,10 @@ def xy(
     2     c  POINT (0.00000 3.00000)  0.0  3.0
     """
 
-    coords = s_xy(df.geometry, reverse=reverse, frame=frame, name=name)
-    return coords if drop else pd.concat((df, coords), axis=1)
+    return pd.concat(
+        (
+            drop_geometry(df) if drop else df,
+            s_xy(df.geometry, reverse=reverse, frame=frame, name=name),
+        ),
+        axis=1,
+    )
