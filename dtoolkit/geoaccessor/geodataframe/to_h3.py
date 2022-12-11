@@ -18,8 +18,8 @@ def to_h3(
     df: gpd.GeoDataFrame,
     /,
     resolution: int,
-    name: Hashable = "h3",
     drop: bool = True,
+    name: Hashable = "h3",
 ) -> pd.DataFrame | gpd.GeoDataFrame:
     """
     Convert Point to containing H3 cell index.
@@ -29,11 +29,11 @@ def to_h3(
     resolution : int
         H3 resolution.
 
-    name : Hashable, default "h3"
-        Name of the column to store the H3 cell index.
-
     drop : bool, default True
         Whether to drop the geometry column.
+
+    name : Hashable, default "h3"
+        Name of the column to store the H3 cell index.
 
     Returns
     -------
