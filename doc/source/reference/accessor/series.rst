@@ -19,8 +19,10 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
+    change_axis_type
     swap_index_values
     to_datetime
+    to_zh
     to_set
     values_to_dict
 
@@ -51,6 +53,8 @@ Computations / Descriptive Stats
     jenks_breaks
     error_report
     eval
+    textdistance_matrix
+    textdistance
     top_n
 
 

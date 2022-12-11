@@ -1,6 +1,10 @@
 import geopandas as gpd
+import pytest
 
 from dtoolkit.geoaccessor.geodataframe import toposimplify  # noqa: F401
+
+
+pytest.importorskip("topojson")
 
 
 def test_type():

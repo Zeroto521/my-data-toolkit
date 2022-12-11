@@ -6,12 +6,15 @@ dependencies:
   - pandas
   # optional
   - scikit-learn
+  - packaging
   - geopandas
+  # TODO: delete pygeos after shapely 2.x released
   - pygeos
   - geopy
   - jenkspy
   - topojson
   - joblib
+  - rapidfuzz
   # testing
   - pytest
   - pytest-cov
@@ -22,5 +25,4 @@ dependencies:
 
   - pip
   - pip:
-      # optional
-      - simplification
+    - zhconv

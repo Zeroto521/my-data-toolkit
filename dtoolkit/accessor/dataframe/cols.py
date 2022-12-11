@@ -33,7 +33,7 @@ def cols(df: pd.DataFrame, /, to_list: bool = False) -> list[Hashable]:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Get :attr:`~pandas.Series.name`.

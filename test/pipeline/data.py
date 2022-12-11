@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from sklearn.datasets import load_iris
 
-
 iris = load_iris(as_frame=True)
 feature_names = iris.feature_names
 df_iris = iris.data
