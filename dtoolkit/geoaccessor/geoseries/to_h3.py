@@ -131,25 +131,16 @@ def to_h3(
 
     if all(s.geom_type == "Point"):
         h3 = points_to_h3(s, resolution=resolution)
-        return h3 if drop else to_geoframe(h3.rename(name or s.name), geometry=s)
 
     elif all(s.geom_type == "Polygon"):
         h3_list = polygons_to_h3(s, resolution=resolution)
         h3 = h3_list.explode()
+        s = s.repeat(s_len(h3_list))
 
-        return (
-            h3
-            if drop
-            else pd.concat(
-                (
-                    s.repeat(s_len(h3_list)),
-                    h3.rename(name or s.name),
-                ),
-                axis=1,
-            )
-        )
+    else:
+        raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
 
-    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
+    return h3 if drop else to_geoframe(h3.rename(name or s.name), geometry=s)
 
 
 def points_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
