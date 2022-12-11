@@ -71,7 +71,7 @@ def xy(
 
     Get the x and y coordinates of each point as a tuple.
 
-    >>> df.xy(frame=False)
+    >>> df.xy(frame=False, name=None)
       label    geometry
     0     a  (0.0, 1.0)
     1     b  (0.0, 2.0)
