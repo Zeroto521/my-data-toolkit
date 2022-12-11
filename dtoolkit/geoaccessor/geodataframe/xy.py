@@ -5,7 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
 from dtoolkit.geoaccessor.geoseries import xy as s_xy
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
