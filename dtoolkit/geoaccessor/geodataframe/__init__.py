@@ -30,3 +30,4 @@ from dtoolkit.geoaccessor.geodataframe.reverse_geocode import (  # noqa: F401
     reverse_geocode,
 )
 from dtoolkit.geoaccessor.geodataframe.toposimplify import toposimplify  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe.xy import xy  # noqa: F401
