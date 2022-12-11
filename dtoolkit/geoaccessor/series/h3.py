@@ -7,7 +7,10 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
+from pandas.api.types import is_string_dtype
+from pandas.api.types import is_integer_dtype
 
+from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
@@ -239,8 +242,6 @@ class H3:
         # requires h3 < 4
         from h3.api.numpy_int import h3_to_string
 
-        from pandas.api.types import is_integer_dtype
-
         if not is_integer_dtype(self.s):
             raise TypeError(
                 f"The dtype of the series must be 'int', but got {self.s.dtype!r}.",
@@ -272,8 +273,6 @@ class H3:
         # from h3.api.numpy_int import str_to_int
         # requires h3 < 4
         from h3.api.numpy_int import string_to_h3
-
-        from pandas.api.types import is_string_dtype
 
         if not is_string_dtype(self.s):
             raise TypeError(
@@ -364,8 +363,6 @@ class H3:
         # from h3.api.numpy_int import cell_to_children
         # requires h3 < 4
         from h3.api.numpy_int import h3_to_children
-
-        from dtoolkit.accessor.series import len as s_len
 
         h3_list = self.s.apply(h3_to_children, res=resolution)
         h3_children = h3_list.explode(ignore_index=True)
