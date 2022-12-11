@@ -1,7 +1,6 @@
 import geopandas as gpd
-import pandas as pd
 import pytest
-from shapely.geometry import linestring
+from shapely.geometry import LineString
 from shapely.geometry import Point
 
 from dtoolkit.geoaccessor.geoseries import to_h3
