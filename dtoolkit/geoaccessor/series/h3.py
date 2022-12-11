@@ -7,8 +7,8 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
-from pandas.api.types import is_string_dtype
 from pandas.api.types import is_integer_dtype
+from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
