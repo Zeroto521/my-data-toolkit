@@ -102,8 +102,10 @@ def xy(
     2     c  POINT (0.00000 3.00000)  0.0  3.0
     """
 
-    coords = s_xy(df.geometry, reverse=reverse, frame=frame, name=name)
-
-    if drop:
-        df = drop_geometry(df)
-    return pd.concat((df, coords), axis=1)
+    return pd.concat(
+        (
+            df if drop else drop_geometry(df),
+            s_xy(df.geometry, reverse=reverse, frame=frame, name=name)
+        ),
+        axis=1,
+    )
