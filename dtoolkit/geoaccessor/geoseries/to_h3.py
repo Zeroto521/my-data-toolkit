@@ -161,7 +161,9 @@ def points_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
     # requires h3 < 4
     from h3.api.numpy_int import geo_to_h3
 
-    return xy(s, reverse=True).apply(lambda yx: geo_to_h3(*yx, resolution))
+    return xy(s, reverse=True, frame=False, name=None).apply(
+        lambda yx: geo_to_h3(*yx, resolution)
+    )
 
 
 def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
