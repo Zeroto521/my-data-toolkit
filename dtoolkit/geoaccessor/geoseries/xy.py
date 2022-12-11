@@ -71,7 +71,7 @@ def xy(
         - If ``drop=True`` and ``frame=True``, return a DataFrame with x and y two
           columns.
 
-        - IF ``drop=True`` and ``frame=False``, return a Series with tuple of
+        - If ``drop=True`` and ``frame=False``, return a Series with tuple of
           coordinate.
 
     See Also
