@@ -15,6 +15,7 @@ dependencies:
   - topojson
   - joblib
   - rapidfuzz
+  - h3-py
   # testing
   - pytest
   - pytest-cov

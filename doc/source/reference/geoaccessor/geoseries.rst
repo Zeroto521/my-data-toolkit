@@ -21,6 +21,14 @@ General methods and attributes
     xy
 
 
+Conversion
+----------
+.. autosummary::
+    :toctree: ../api/
+
+    to_h3
+
+
 Projection handling
 -------------------
 .. autosummary::
