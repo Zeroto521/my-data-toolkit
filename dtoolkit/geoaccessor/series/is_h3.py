@@ -7,12 +7,12 @@ from dtoolkit.accessor.register import register_series_method
 def is_h3(s: pd.Series, /) -> bool:
     """
     Validate whether the whole series is H3 cell index.
-    
+
     Returns
     -------
     bool
         True if the whole series is H3 cell index else False.
-        
+
     See Also
     --------
     h3.h3_is_valid
