@@ -12,6 +12,7 @@ from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
+from dtoolkit.geoaccessor.series.is_h3 import is_h3
 
 
 def available_if(check):
@@ -80,22 +81,6 @@ class H3:
         from h3.api.numpy_int import h3_is_valid
 
         return self.s.apply(h3_is_valid)
-
-    def is_h3(self) -> bool:
-        """
-        Validate whether the whole series is H3 cell index.
-
-        Returns
-        -------
-        bool
-            True if the whole series is H3 cell index else False.
-
-        See Also
-        --------
-        h3.h3_is_valid
-        """
-
-        return all(self.is_valid)
 
     @property
     @available_if(is_h3)
