@@ -11,8 +11,8 @@ from pandas.api.types import is_integer_dtype
 from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.series import len as s_len
-from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 from dtoolkit.geoaccessor.series.is_h3 import is_h3
+from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
 def available_if(check):
