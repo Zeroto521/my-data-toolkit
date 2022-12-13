@@ -9,7 +9,7 @@ dependencies:
   # optional
   - scikit-learn >= 1.1
   - packaging
-  - geopandas >= 0.10.0
+  - geopandas >= 0.12.1
   - geopy
   - jenkspy
   - topojson
