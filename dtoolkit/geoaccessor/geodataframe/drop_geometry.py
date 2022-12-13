@@ -58,5 +58,4 @@ def drop_geometry(df: gpd.GeoDataFrame, /) -> pd.DataFrame:
     1  100   1    b
     """
 
-
     return df.drop(columns=df.geometry.name)
