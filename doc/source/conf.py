@@ -126,7 +126,6 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
-    # TODO: delete pygeos after shapely 2.x released
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
     "h3": ("https://uber.github.io/h3-py/", None),
