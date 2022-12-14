@@ -11,26 +11,21 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     """
     Gets coordinates from each geometry of :class:`~geopandas.{klass}`.
 
-    A sugary syntax wraps :meth:`pygeos.coordinates.get_coordinates`.
+    A sugary syntax wraps :meth:`shapely.get_coordinates`.
 
     Parameters
     ----------
     **kwargs
-        See the documentation for :meth:`pygeos.coordinates.get_coordinates` for
+        See the documentation for :meth:`shapely.get_coordinates` for
         complete details on the keyword arguments.
 
     Returns
     -------
     Series
 
-    Raises
-    ------
-    ModuleNotFoundError
-        If don't have module named 'pygeos'.
-
     See Also
     --------
-    pygeos.coordinates.get_coordinates
+    shapely.get_coordinates
         The core algorithm of this accessor.
 
     dtoolkit.geoaccessor.geoseries.get_coordinates
@@ -61,16 +56,6 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     2                          []
     Name: geometry, dtype: object
     """
+    from shapely import get_coordinates
 
-    try:
-        from shapely import get_coordinates
-
-        # NOTE: requires shapely>=2.0
-
-        return s.apply(get_coordinates)
-
-    except ImportError:
-        # TODO: delete pygeos after shapely 2.x released
-        from pygeos import from_shapely, get_coordinates
-
-        return s.apply(lambda x: get_coordinates(from_shapely(x), **kwargs))
+    return s.apply(get_coordinates, **kwargs)
