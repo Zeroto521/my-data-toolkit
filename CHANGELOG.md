@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.19] (2022-12-xx)
+## [Version 0.0.19] (2022-12-11)
 
 Highlights of this release:
 

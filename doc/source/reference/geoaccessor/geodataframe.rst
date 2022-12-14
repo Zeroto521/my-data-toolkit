@@ -18,6 +18,15 @@ General methods and attributes
     has_hole
     hole_counts
     toposimplify
+    xy
+
+
+Conversion
+----------
+.. autosummary::
+    :toctree: ../api/
+
+    to_h3
 
 
 Projection handling

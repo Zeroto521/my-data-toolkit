@@ -22,6 +22,7 @@ Conversion
     change_axis_type
     swap_index_values
     to_datetime
+    to_zh
     to_set
     values_to_dict
 
