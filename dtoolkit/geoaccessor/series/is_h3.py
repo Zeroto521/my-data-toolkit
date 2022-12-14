@@ -20,6 +20,14 @@ def is_h3(s: pd.Series, /) -> bool:
     --------
     h3.h3_is_valid
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'h3'.
+
+    TypeError
+        If not Series(string) or Series(int64) dtype.
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
