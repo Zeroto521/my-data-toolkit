@@ -3,8 +3,6 @@ channels:
   - conda-forge
 dependencies:
   - packaging
-  # optional
-  - pygeos
 
   # testing
   - pytest
