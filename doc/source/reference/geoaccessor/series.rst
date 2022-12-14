@@ -29,3 +29,4 @@ H3 (Hexagonal hierarchical geospatial indexing system)
     :toctree: ../api/
 
     H3
+    is_h3
