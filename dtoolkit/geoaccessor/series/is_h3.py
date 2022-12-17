@@ -84,12 +84,14 @@ def method_from_h3(s: pd.Series, method: str, /) -> Callable:
     """
 
     if is_int64_dtype(s):
-        module = __import__("h3.api.numpy_int")
+        # NOTE: Can't use `__import__("h3.api.numpy_int")`
+        # See https://github.com/uber/h3-py/issues/304
+        import h3.api.numpy_int as h3
     elif is_string_dtype(s):
-        module = __import__("h3.api.basic_str")
+        import h3.api.basic_str as h3
     else:
         raise TypeError(
             f"Expected Series(string) or Series(int64), but got {s.dtype!r}",
         )
 
-    return getattr(module, method)
+    return getattr(h3, method)
