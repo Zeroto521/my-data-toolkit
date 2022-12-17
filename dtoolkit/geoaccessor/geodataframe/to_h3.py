@@ -20,6 +20,7 @@ def to_h3(
     resolution: int,
     drop: bool = True,
     name: Hashable = "h3",
+    int_dtype: bool = True,
 ) -> pd.DataFrame | gpd.GeoDataFrame:
     """
     Convert Point to containing H3 cell index.
@@ -35,6 +36,9 @@ def to_h3(
     name : Hashable, default "h3"
         Name of the column to store the H3 cell index.
 
+    int_dtype : bool, default True
+        If True, use `h3.api.numpy_int` else use `h3.api.basic_str`.
+
     Returns
     -------
     DataFrame or GeoDataFrame
@@ -44,8 +48,10 @@ def to_h3(
     ------
     ModuleNotFoundError
         If don't have module named 'h3'.
+
     TypeError
         If the geometry is not Point.
+
     ValueError
         If the CRS is not WGS84 or EPSG:4326.
 
@@ -120,9 +126,17 @@ def to_h3(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {df.crs!r}.")
 
     if all(df.geom_type == "Point"):
-        h3 = points_to_h3(df.geometry, resolution=resolution).rename(name)
+        h3 = points_to_h3(
+            df.geometry,
+            resolution=resolution,
+            int_dtype=int_dtype,
+        ).rename(name)
     elif all(df.geom_type == "Polygon"):
-        h3_list = polygons_to_h3(df.geometry, resolution=resolution)
+        h3_list = polygons_to_h3(
+            df.geometry,
+            resolution=resolution,
+            int_dtype=int_dtype,
+        )
         h3 = h3_list.explode().rename(name)
         df = repeat(df, s_len(h3_list))
     else:
