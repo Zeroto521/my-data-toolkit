@@ -38,16 +38,18 @@ class H3:
 
     A little magic binding H3 for Series.
 
-    Based on ``pandas.Series`` API style, this accessor APIs are designed as follows:
+    Notes
+    -----
+    Based on :obj:`pandas.Series` API style, this accessor APIs are designed as follows:
 
     - Remove the prefix `h3_` of the original H3 API.
-      e.g. :meth:`h3.h3_to_geometh` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
+      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
 
     - Use `to_` prefix for the conversion between H3 cell int and str.
-      e.g. :meth:`h3.h3_to_stringmeth` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
+      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
 
     - Use `is_` prefix for the validation of H3 cell.
-      e.g. :meth:`h3.h3_is_validmeth` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
+      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
     """
 
     def __init__(self, s: pd.Series, /):
