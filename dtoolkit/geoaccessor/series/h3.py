@@ -22,7 +22,7 @@ def available_if(check):
         def wrapper(*args, **kwargs):
             if not check(args[0].s if isinstance(args[0], H3) else args[0]):
                 raise TypeError(
-                    f"For Non-H3, the '.h3.{func.__name__}' is not available."
+                    f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available."
                 )
             return func(*args, **kwargs)
 
