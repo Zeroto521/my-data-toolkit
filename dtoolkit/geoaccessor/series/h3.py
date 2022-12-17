@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from functools import wraps
 from typing import Hashable
+from dataclasses import dataclass
 
 import geopandas as gpd
 import numpy as np
@@ -32,6 +33,7 @@ def available_if(check):
 
 
 @register_series_accessor("h3")
+@dataclass
 class H3:
     """
     Hexagonal hierarchical geospatial indexing system.
@@ -52,8 +54,7 @@ class H3:
       e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
     """
 
-    def __init__(self, s: pd.Series, /):
-        self.s = s
+    s: pd.Series
 
     @property
     def is_valid(self) -> pd.Series:
