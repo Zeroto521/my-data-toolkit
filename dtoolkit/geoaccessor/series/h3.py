@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from functools import wraps
 from typing import Hashable
-from dataclasses import dataclass
 
 import geopandas as gpd
 import numpy as np
