@@ -7,8 +7,8 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
-from pandas.api.types import is_string_dtype
 from pandas.api.types import is_int64_dtype
+from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.is_h3 import is_h3
@@ -22,7 +22,7 @@ def available_if(check):
         def wrapper(*args, **kwargs):
             if not check(args[0].s if isinstance(args[0], H3) else args[0]):
                 raise TypeError(
-                    f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available."
+                    f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
                 )
             return func(*args, **kwargs)
 
@@ -285,7 +285,7 @@ class H3:
                 self.s.apply(
                     method_from_h3(self.s, "h3_to_geo_boundary"),
                     geo_json=True,
-                ).tolist()
+                ).tolist(),
             ),
             crs=4326,
         )
