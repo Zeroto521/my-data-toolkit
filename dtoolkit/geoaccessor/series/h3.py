@@ -69,6 +69,48 @@ class H3:
         See Also
         --------
         h3.h3_is_valid
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+
+        Str type H3 cell index.
+
+        >>> s = pd.Series([0, 'hello', 'world', '88143541bdfffff'])
+        >>> s
+        0                  0
+        1              hello
+        2              world
+        3    88143541bdfffff
+        dtype: object
+        >>> s.h3.is_valid
+        0    False
+        1    False
+        2    False
+        3     True
+        dtype: bool
+
+        Int type H3 cell index.
+
+        >>> s = pd.Series([
+        ...     1,
+        ...     10,
+        ...     100000000000000000,
+        ...     612845052823076863,
+        ... ])
+        >>> s
+        0                     1
+        1                    10
+        2    100000000000000000
+        3    612845052823076863
+        dtype: int64
+        >>> s.h3.is_valid
+        0    False
+        1    False
+        2    False
+        3     True
+        dtype: bool
         """
 
         # TODO: Use `is_valid_cell` instead of `h3_is_valid`
