@@ -40,6 +40,14 @@ class H3:
 
     A little magic binding H3 for Series.
 
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'h3'.
+
+    TypeError
+        If not Series(string) or Series(int64) dtype.
+
     Notes
     -----
     Based on :obj:`pandas.Series` API style, this accessor APIs are designed as follows:
