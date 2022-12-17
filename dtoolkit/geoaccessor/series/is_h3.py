@@ -1,5 +1,6 @@
-import pandas as pd
+from typing import Callable
 
+import pandas as pd
 from pandas.api.types import is_string_dtype
 from pandas.api.types import is_int64_dtype
 
@@ -53,19 +54,42 @@ def is_h3(s: pd.Series, /) -> bool:
     >>> s.is_h3()
     True
     """
+
     # TODO: Use `is_valid_cell` instead of `h3_is_valid`
     # While h3-py release 4, `is_valid_cell` is not available.
+    return s.apply(method_from_h3(s, "h3_is_valid")).all()
 
-    # requires h3 >= 4
-    # from h3.api.numpy_int import is_valid_cell
-    # requires h3 < 4
+
+def method_from_h3(s: pd.Series, method: str, /) -> Callable:
+    """
+    Based on the Series dtype to get the corresponding H3 method.
+
+    Parameters
+    ----------
+    method : str
+        H3 method name.
+
+    Returns
+    -------
+    Callable
+        H3 method.
+
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'h3'.
+
+    TypeError
+        If not Series(string) or Series(int64) dtype.
+    """
+
     if is_int64_dtype(s):
-        is_valid = __import__("h3").api.numpy_int.h3_is_valid
+        module = __import__("h3.api.numpy_int")
     elif is_string_dtype(s):
-        is_valid = __import__("h3").api.basic_str.h3_is_valid
+        module = __import__("h3.api.basic_str")
     else:
         raise TypeError(
             f"Expected Series(string) or Series(int64), but got {s.dtype!r}"
         )
 
-    return s.apply(is_valid).all()
+    return getattr(module, method)
