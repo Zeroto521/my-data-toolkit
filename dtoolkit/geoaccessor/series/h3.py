@@ -48,12 +48,6 @@ class H3:
 
     - Use `is_` prefix for the validation of H3 cell.
       e.g. :meth:`h3.h3_is_validmeth` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
-
-    Notes
-    -----
-    Default use :meth:`h3.api.numpy_intmeth` as the backend. So the IO will use int64.
-    It can be converted to str by :meth:`~dtoolkit.geoaccessor.series.H3.to_str()`
-    and converted to int by :meth:`~dtoolkit.geoaccessor.series.H3.to_int()`.
     """
 
     def __init__(self, s: pd.Series, /):
