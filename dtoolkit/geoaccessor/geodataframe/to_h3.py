@@ -120,6 +120,18 @@ def to_h3(
     1     b  596540746614439935
     1     b  596538195403866111
     1     b  596541030082281471
+
+    Also support str (hexadecimal) format.
+
+    >>> df = pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy('x', 'y', crs=4326)
+    >>> df
+         x   y                    geometry
+    0  122  55  POINT (122.00000 55.00000)
+    1  100   1   POINT (100.00000 1.00000)
+    >>> df.to_h3(8, int_dtype=False)
+         x   y               h3
+    0  122  55  88143541bdfffff
+    1  100   1  886528b2a3fffff
     """
 
     if df.crs != 4326:
