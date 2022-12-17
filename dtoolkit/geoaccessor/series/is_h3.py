@@ -1,8 +1,8 @@
 from typing import Callable
 
 import pandas as pd
-from pandas.api.types import is_string_dtype
 from pandas.api.types import is_int64_dtype
+from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
 
@@ -89,7 +89,7 @@ def method_from_h3(s: pd.Series, method: str, /) -> Callable:
         module = __import__("h3.api.basic_str")
     else:
         raise TypeError(
-            f"Expected Series(string) or Series(int64), but got {s.dtype!r}"
+            f"Expected Series(string) or Series(int64), but got {s.dtype!r}",
         )
 
     return getattr(module, method)
