@@ -180,6 +180,7 @@ class H3:
 
         return self.s.apply(method_from_h3(self.s, "cell_area"), unit="m^2")
 
+    @available_if(is_h3)
     def to_str(self) -> pd.Series:
         """
         Converts a hexadecimal string to an H3 64-bit integer index.
@@ -206,6 +207,7 @@ class H3:
             raise TypeError(f"Expected Series(int64), but got {self.s.dtype!r}.")
         return self.s.apply(h3_to_string)
 
+    @available_if(is_h3)
     def to_int(self) -> pd.Series:
         """
         Converts an H3 64-bit integer index to a hexadecimal string.
