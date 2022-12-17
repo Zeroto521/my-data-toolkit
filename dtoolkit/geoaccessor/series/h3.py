@@ -7,11 +7,12 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
-from pandas.api.types import is_integer_dtype
 from pandas.api.types import is_string_dtype
+from pandas.api.types import is_int64_dtype
 
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.is_h3 import is_h3
+from dtoolkit.geoaccessor.series.is_h3 import method_from_h3
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
@@ -19,9 +20,9 @@ def available_if(check):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if not check(args[0]):
+            if not check(args[0].s if isinstance(args[0], H3) else args[0]):
                 raise TypeError(
-                    f"For Non-H3, the '.h3.{func.__name__}' is not available.",
+                    f"For Non-H3, the '.h3.{func.__name__}' is not available."
                 )
             return func(*args, **kwargs)
 
@@ -72,15 +73,10 @@ class H3:
         --------
         h3.h3_is_valid
         """
+
         # TODO: Use `is_valid_cell` instead of `h3_is_valid`
         # While h3-py release 4, `is_valid_cell` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import is_valid_cell
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_is_valid
-
-        return self.s.apply(h3_is_valid)
+        return self.s.apply(method_from_h3(self.s, "h3_is_valid"))
 
     @property
     @available_if(is_h3)
@@ -102,15 +98,10 @@ class H3:
         --------
         h3.h3_is_res_class_III
         """
+
         # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
         # While h3-py release 4, `is_res_class_III` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import is_res_class_III
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_is_res_class_III
-
-        return self.s.apply(h3_is_res_class_III)
+        return self.s.apply(method_from_h3(self.s, "h3_is_res_class_III"))
 
     @property
     @available_if(is_h3)
@@ -127,15 +118,10 @@ class H3:
         --------
         h3.h3_is_pentagon
         """
+
         # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
         # While h3-py release 4, `is_pentagon` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import is_pentagon
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_is_pentagon
-
-        return self.s.apply(h3_is_pentagon)
+        return self.s.apply(method_from_h3(self.s, "h3_is_pentagon"))
 
     @property
     @available_if(is_h3)
@@ -152,15 +138,10 @@ class H3:
         --------
         h3.h3_get_resolution
         """
+
         # TODO: Use `get_resolution` instead of `h3_get_resolution`
         # While h3-py release 4, `get_resolution` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import get_resolution
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_get_resolution
-
-        return self.s.apply(h3_get_resolution)
+        return self.s.apply(method_from_h3(self.s, "h3_get_resolution"))
 
     @property
     @available_if(is_h3)
@@ -177,9 +158,8 @@ class H3:
         --------
         h3.edge_length
         """
-        from h3.api.numpy_int import edge_length
 
-        return self.s.apply(edge_length, unit="m")
+        return self.s.apply(method_from_h3(self.s, "edge_length"), unit="m")
 
     @property
     @available_if(is_h3)
@@ -197,9 +177,8 @@ class H3:
         --------
         h3.cell_area
         """
-        from h3.api.numpy_int import cell_area
 
-        return self.s.apply(cell_area, unit="m^2")
+        return self.s.apply(method_from_h3(self.s, "cell_area"), unit="m^2")
 
     def to_str(self) -> pd.Series:
         """
@@ -221,16 +200,10 @@ class H3:
         """
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import int_to_str
-        # requires h3 < 4
         from h3.api.numpy_int import h3_to_string
 
-        if not is_integer_dtype(self.s):
-            raise TypeError(
-                f"The dtype of the series must be 'int', but got {self.s.dtype!r}.",
-            )
+        if not is_int64_dtype(self.s):
+            raise TypeError(f"Expected Series(int64), but got {self.s.dtype!r}.")
         return self.s.apply(h3_to_string)
 
     def to_int(self) -> pd.Series:
@@ -253,16 +226,10 @@ class H3:
         """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import str_to_int
-        # requires h3 < 4
         from h3.api.numpy_int import string_to_h3
 
         if not is_string_dtype(self.s):
-            raise TypeError(
-                f"The dtype of the series must be 'str', but got {self.s.dtype!r}.",
-            )
+            raise TypeError(f"Expected Series(string), but got {self.s.dtype!r}.")
         return self.s.apply(string_to_h3)
 
     @available_if(is_h3)
@@ -289,13 +256,6 @@ class H3:
         --------
         h3.h3_to_geo
         """
-        # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
-        # While h3-py release 4, `cell_to_latlng` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import cell_to_latlng
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_to_geo
 
         if not drop and self.s.name is None:
             raise ValueError(
@@ -303,23 +263,16 @@ class H3:
                 f"{self.s.__class__.__name__!r}.",
             )
 
-        yx = np.asarray(self.s.apply(h3_to_geo).tolist())
+        # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
+        # While h3-py release 4, `cell_to_latlng` is not available.
+        yx = np.asarray(self.s.apply(method_from_h3(self.s, "h3_to_geo")).tolist())
         geometry = gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326)
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
     @available_if(is_h3)
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
-        # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
-        # While h3-py release 4, `cell_to_boundary` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import cell_to_boundary
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_to_geo_boundary
-
-        # TODO: delete pygeos after shapely 2.x released
-        from pygeos import polygons, to_shapely
+        from shapely import polygons
 
         if not drop and self.s.name is None:
             raise ValueError(
@@ -327,8 +280,17 @@ class H3:
                 f"{self.s.__class__.__name__!r}.",
             )
 
-        geometry = self.s.apply(h3_to_geo_boundary, geo_json=True).tolist()
-        geometry = gpd.GeoSeries(to_shapely(polygons(geometry)), crs=4326)
+        # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
+        # While h3-py release 4, `cell_to_boundary` is not available.
+        geometry = gpd.GeoSeries(
+            polygons(
+                self.s.apply(
+                    method_from_h3(self.s, "h3_to_geo_boundary"),
+                    geo_json=True,
+                ).tolist()
+            ),
+            crs=4326,
+        )
 
         return geometry if drop else to_geoframe(self.s, geometry=geometry)
 
@@ -343,13 +305,7 @@ class H3:
     ) -> pd.Series | pd.DataFrame:
         # TODO: Use `cell_to_children` instead of `h3_to_children`
         # While h3-py release 4, `cell_to_children` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import cell_to_children
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_to_children
-
-        h3_list = self.s.apply(h3_to_children, res=resolution)
+        h3_list = self.s.apply(method_from_h3(self.s, "h3_to_children"), res=resolution)
         h3_children = h3_list.explode(ignore_index=True)
 
         if drop:
@@ -377,13 +333,7 @@ class H3:
     ) -> pd.Series | pd.DataFrame:
         # TODO: Use `cell_to_parent` instead of `h3_to_children`
         # While h3-py release 4, `cell_to_parent` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import cell_to_parent
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_to_parent
-
-        h3_parent = self.s.apply(h3_to_parent, res=resolution)
+        h3_parent = self.s.apply(method_from_h3(self.s, "h3_to_parent"), res=resolution)
 
         if drop:
             return h3_parent
@@ -406,13 +356,10 @@ class H3:
     ) -> pd.Series | pd.DataFrame:
         # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
         # While h3-py release 4, `cell_to_center_child` is not available.
-
-        # requires h3 >= 4
-        # from h3.api.numpy_int import cell_to_center_child
-        # requires h3 < 4
-        from h3.api.numpy_int import h3_to_center_child
-
-        h3_children = self.s.apply(h3_to_center_child, res=resolution)
+        h3_children = self.s.apply(
+            method_from_h3(self.s, "h3_to_center_child"),
+            res=resolution,
+        )
 
         if drop:
             return h3_children
