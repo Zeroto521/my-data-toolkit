@@ -37,7 +37,7 @@ def to_h3(
         Name of the column to store the H3 cell index.
 
     int_dtype : bool, default True
-        If True, use `h3.api.numpy_int` else use `h3.api.basic_str`.
+        If True, use ``h3.api.numpy_int`` else use ``h3.api.basic_str``.
 
     Returns
     -------
