@@ -504,23 +504,79 @@ class H3:
         partent: Hashable = "partent",
         children: Hashable = "children",
     ) -> pd.Series | pd.DataFrame:
+        """
+        Get the children of a cell.
+
+        Parameters
+        ----------
+        resolution : int, optional
+            The resolution for the children. If None, then use the current
+            ``resolution`` of cell ``+1`` .
+
+        drop : bool, default True
+            Whether to drop the original H3 cell index column.
+
+        partent : Hashable, default "partent"
+            The name of the partent cell column. If ``None`` then use ``s.name``.
+
+        children : Hashable, default "children"
+            The name of the children cell column.
+
+        Returns
+        -------
+        Series or DataFrame
+            If ``drop=True``, return a Series with the children cell index colum, else
+            return a DataFrame with both the partent and children cell index columns.
+
+        See Also
+        --------
+        h3.cell_to_children
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543], name='h3')
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        Name: h3, dtype: int64
+        >>> s.h3.to_children(drop=False, partent=None)
+                            h3            children
+        0   612845052823076863  617348652448612351
+        1   612845052823076863  617348652448874495
+        2   612845052823076863  617348652449136639
+        3   612845052823076863  617348652449398783
+        4   612845052823076863  617348652449660927
+        5   612845052823076863  617348652449923071
+        6   612845052823076863  617348652450185215
+        7   614269156845420543  618772756470956031
+        8   614269156845420543  618772756471218175
+        9   614269156845420543  618772756471480319
+        10  614269156845420543  618772756471742463
+        11  614269156845420543  618772756472004607
+        12  614269156845420543  618772756472266751
+        13  614269156845420543  618772756472528895
+        """
         # TODO: Use `cell_to_children` instead of `h3_to_children`
         # While h3-py release 4, `cell_to_children` is not available.
         h3_list = self.s.apply(method_from_h3(self.s, "h3_to_children"), res=resolution)
         h3_children = h3_list.explode(ignore_index=True)
 
-        if drop:
-            return h3_children
-        return pd.concat(
-            (
+        return (
+            h3_children
+            if drop
+            else pd.concat(
                 (
-                    self.s.repeat(s_len(h3_list))
-                    .reset_index(drop=True)
-                    .rename(self.s.name or partent)
+                    (
+                        self.s.repeat(s_len(h3_list))
+                        .reset_index(drop=True)
+                        .rename(partent or self.s.name)
+                    ),
+                    h3_children.rename(children),
                 ),
-                h3_children.rename(children),
-            ),
-            axis=1,
+                axis=1,
+            )
         )
 
     @available_if(is_h3)
@@ -532,18 +588,62 @@ class H3:
         partent: Hashable = "partent",
         children: Hashable = "children",
     ) -> pd.Series | pd.DataFrame:
-        # TODO: Use `cell_to_parent` instead of `h3_to_children`
+        """
+        Get the parent of a cell.
+
+        Parameters
+        ----------
+        resolution : int, optional
+            The resolution for the children. If None, then use the current
+            ``resolution`` of cell ``-1`` .
+
+        drop : bool, default True
+            Whether to drop the original H3 cell index column.
+
+        partent : Hashable, default "partent"
+            The name of the partent cell column.
+
+        children : Hashable, default "children"
+            The name of the children cell column. If ``None`` then use ``s.name``.
+
+        Returns
+        -------
+        Series or DataFrame
+            If ``drop=True``, return a Series with the parent cell index colum, else
+            return a DataFrame with both the partent and children cell index columns.
+
+        See Also
+        --------
+        h3.cell_to_parent
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543], name='h3')
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        Name: h3, dtype: int64
+        >>> s.h3.to_parent(drop=False, children=None)
+                      partent                  h3
+        0  608341453197803519  612845052823076863
+        1  609765557230632959  614269156845420543
+        """
+        # TODO: Use `cell_to_parent` instead of `h3_to_parent`
         # While h3-py release 4, `cell_to_parent` is not available.
         h3_parent = self.s.apply(method_from_h3(self.s, "h3_to_parent"), res=resolution)
 
-        if drop:
-            return h3_parent
-        return pd.concat(
-            (
-                h3_parent.rename(partent),
-                self.s.rename(self.s.name or children),
-            ),
-            axis=1,
+        return (
+            h3_parent
+            if drop
+            else pd.concat(
+                (
+                    h3_parent.rename(partent),
+                    self.s.rename(children or self.s.name),
+                ),
+                axis=1,
+            )
         )
 
     @available_if(is_h3)
@@ -555,6 +655,48 @@ class H3:
         partent: Hashable = "partent",
         children: Hashable = "children",
     ) -> pd.Series | pd.DataFrame:
+        """
+        Get the center child of a cell at some finer resolution.
+
+        Parameters
+        ----------
+        resolution : int, optional
+            The resolution for the children. If None, then use the current
+            ``resolution`` of cell ``+1`` .
+
+        drop : bool, default True
+            Whether to drop the original H3 cell index column.
+
+        partent : Hashable, default "partent"
+            The name of the partent cell column. If ``None`` then use ``s.name``.
+
+        children : Hashable, default "children"
+            The name of the children cell column.
+
+        Returns
+        -------
+        Series or DataFrame
+            If ``drop=True``, return a Series with the children cell index colum, else
+            return a DataFrame with both the partent and children cell index columns.
+
+        See Also
+        --------
+        h3.cell_to_center_child
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543], name='h3')
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        Name: h3, dtype: int64
+        >>> s.h3.to_center_child(drop=False, partent=None)
+                           h3            children
+        0  612845052823076863  617348652448612351
+        1  614269156845420543  618772756470956031
+        """
         # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
         # While h3-py release 4, `cell_to_center_child` is not available.
         h3_children = self.s.apply(
@@ -562,12 +704,14 @@ class H3:
             res=resolution,
         )
 
-        if drop:
-            return h3_children
-        return pd.concat(
-            (
-                self.s.rename(self.s.name or partent),
-                h3_children.rename(children),
-            ),
-            axis=1,
+        return (
+            h3_children
+            if drop
+            else pd.concat(
+                (
+                    self.s.rename(partent or self.s.name),
+                    h3_children.rename(children),
+                ),
+                axis=1,
+            )
         )
