@@ -32,7 +32,7 @@ H3: hexagonal hierarchical geospatial indexing system.
 and apply several methods to it. These can be accessed like ``Series.h3.<function/property>``.
 
 .. autosummary::
-    :toctree: api/
+    :toctree: ../api/
     :template: autosummary/class_without_autosummary.rst
 
     H3
