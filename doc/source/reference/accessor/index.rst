@@ -10,3 +10,11 @@ Conversion
     :toctree: ../api/
 
     to_set
+
+
+Reindexing / selection / label manipulation
+-------------------------------------------
+.. autosummary::
+    :toctree: ../api/
+
+    filter
