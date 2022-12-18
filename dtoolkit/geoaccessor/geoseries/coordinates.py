@@ -3,8 +3,8 @@ import pandas as pd
 from pandas.util._decorators import doc
 from shapely import get_coordinates
 
-from dtoolkit.util._decorator import warning
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.util._decorator import warning
 
 
 @register_geoseries_method("get_coordinates")
