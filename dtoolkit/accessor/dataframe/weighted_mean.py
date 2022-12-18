@@ -70,7 +70,7 @@ def weighted_mean(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame({"a": [1, 1], "b": [2, 2], "c": [4, 4]})
     >>> df

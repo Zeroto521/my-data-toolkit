@@ -17,7 +17,9 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
+    change_axis_type
     to_series
+    to_zh
     values_to_dict
 
 

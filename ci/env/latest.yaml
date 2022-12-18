@@ -6,12 +6,14 @@ dependencies:
   - pandas
   # optional
   - scikit-learn
+  - packaging
   - geopandas
-  - pygeos
   - geopy
   - jenkspy
   - topojson
   - joblib
+  - rapidfuzz
+  - h3-py
   # testing
   - pytest
   - pytest-cov
@@ -22,5 +24,4 @@ dependencies:
 
   - pip
   - pip:
-      # optional
-      - simplification
+    - zhconv

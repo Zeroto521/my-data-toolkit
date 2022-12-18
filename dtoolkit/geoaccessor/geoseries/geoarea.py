@@ -37,6 +37,7 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     Examples
     --------
     >>> import dtoolkit.geoaccessor
+    >>> import geopandas as gpd
     >>> df = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
     >>> df.head()
            pop_est  ...                                           geometry

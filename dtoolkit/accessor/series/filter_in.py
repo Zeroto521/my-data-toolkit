@@ -3,6 +3,7 @@ from typing import Iterable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series.invert_or_not import invert_or_not  # noqa: F401
 
 
 @register_series_method
@@ -38,7 +39,7 @@ def filter_in(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(
     ...     ['lama', 'cow', 'lama', 'beetle', 'lama', 'hippo'],
@@ -64,42 +65,4 @@ def filter_in(
     Name: animal, dtype: object
     """
 
-    return s[invert_or_not(s.isin(condition), invert=complement)]
-
-
-def invert_or_not(s: pd.Series, /, invert: bool = False) -> pd.Series:
-    """
-    Invert (~) the Series.
-
-    Parameters
-    ----------
-    invert : bool, default is False
-        If True, invert the Series.
-
-    Returns
-    -------
-    Series
-
-    Examples
-    --------
-    >>> import dtoolkit.accessor
-    >>> import pandas as pd
-    >>> s = pd.Series([True, False, True])
-    >>> s
-    0     True
-    1    False
-    2     True
-    dtype: bool
-    >>> s.pipe(invert_or_not)
-    0     True
-    1    False
-    2     True
-    dtype: bool
-    >>> s.pipe(invert_or_not, invert=True)
-    0    False
-    1     True
-    2    False
-    dtype: bool
-    """
-
-    return ~s if invert else s
+    return s[s.isin(condition).invert_or_not(invert=complement)]

@@ -8,6 +8,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit.accessor.series import invert_or_not  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -136,5 +137,4 @@ def _filter_geometry(
             f"Got {predicate=!r}, expected one of {get_args(BINARY_PREDICATE)!r}.",
         )
 
-    mask = getattr(s, predicate)(other, **kwargs)
-    return ~mask if complement else mask
+    return getattr(s, predicate)(other, **kwargs).invert_or_not(invert=complement)
