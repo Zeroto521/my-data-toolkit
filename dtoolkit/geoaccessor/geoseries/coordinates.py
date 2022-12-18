@@ -3,10 +3,16 @@ import pandas as pd
 from pandas.util._decorators import doc
 from shapely import get_coordinates
 
+from dtoolkit.util._decorator import warning
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
+@register_geoseries_method("get_coordinates")
 @register_geoseries_method
+@warning(
+    "'.get_coordinates' is deprecated. Please use `.coordinates` instead. "
+    "(Warning added DToolKit 0.21.0)",
+)
 @doc(klass="GeoSeries")
 def coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     """

@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.testing import assert_series_equal
 
-from dtoolkit.geoaccessor.geodataframe import get_coordinates  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe import coordinates  # noqa: F401
 
 
 def test_work():
@@ -15,7 +15,7 @@ def test_work():
             ],
         )
         .to_frame("geometry")
-        .get_coordinates()
+        .coordinates()
     )
 
     expected = pd.Series(
