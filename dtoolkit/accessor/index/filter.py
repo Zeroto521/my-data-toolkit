@@ -51,7 +51,7 @@ def filter(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> index = pd.Index(['one', 'two', 'three'])
     >>> index
