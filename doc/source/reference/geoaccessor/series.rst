@@ -23,10 +23,8 @@ Address handling
     geocode
 
 
-H3 Accessor
+H3 accessor
 -----------
-
-H3: hexagonal hierarchical geospatial indexing system.
 
 ``Series.h3`` can be used to access the values of the Series(string) or Series(int64)
 and apply several methods to it. These can be accessed like ``Series.h3.<function/property>``.
