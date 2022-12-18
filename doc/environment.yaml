@@ -6,8 +6,8 @@ dependencies:
   # package dependencies
   - pandas
   - scikit-learn
+  - packaging
   - geopandas
-  - pygeos
 
   # doc dependencies
   - sphinx

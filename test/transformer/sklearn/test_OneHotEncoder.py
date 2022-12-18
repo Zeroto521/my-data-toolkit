@@ -5,7 +5,7 @@ from scipy import sparse
 
 from dtoolkit.pipeline import make_pipeline
 from dtoolkit.transformer import OneHotEncoder
-from test.transformer.conftest import df_label
+from test.transformer.data import df_label
 
 
 def test_dataframe_in_dataframe_out():
@@ -23,7 +23,7 @@ def test_return_dataframe_columns():
 
 
 def test_sparse_is_ture():
-    tf = OneHotEncoder(sparse=True)
+    tf = OneHotEncoder(sparse=True, sparse_output=True)
     result = tf.fit_transform(df_label)
 
     assert sparse.isspmatrix(result)

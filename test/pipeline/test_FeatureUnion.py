@@ -10,9 +10,9 @@ from dtoolkit.pipeline import make_pipeline
 from dtoolkit.pipeline import make_union
 from dtoolkit.transformer import GetTF
 from dtoolkit.transformer import OneHotEncoder
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import df_label
-from test.transformer.conftest import df_mixed
+from test.transformer.data import df_iris
+from test.transformer.data import df_label
+from test.transformer.data import df_mixed
 
 
 # include `make_union`
@@ -63,7 +63,7 @@ def test_ndarray_hstack():
         ),
         make_pipeline(
             GetTF(df_label.cols()),
-            OneHotEncoder(sparse=True),
+            OneHotEncoder(sparse=True, sparse_output=True),
         ),
     )
 

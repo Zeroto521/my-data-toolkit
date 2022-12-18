@@ -10,7 +10,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc(s_toposimplify, klass=":class:`~geopandas.GeoDataFrame`")
+@doc(s_toposimplify, klass="GeoDataFrame")
 def toposimplify(
     df: gpd.GeoDataFrame,
     /,

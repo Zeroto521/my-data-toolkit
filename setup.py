@@ -9,5 +9,10 @@ from setuptools import setup
 sys.path.append(os.path.dirname(__file__))
 
 from versioneer import get_cmdclass  # noqa: E402
+from versioneer import get_version  # noqa: E402
 
-setup(cmdclass=get_cmdclass())
+
+setup(
+    version=get_version(),
+    cmdclass=get_cmdclass(),
+)

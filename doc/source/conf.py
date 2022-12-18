@@ -28,8 +28,8 @@ version = release = (
 # fmt: on
 
 project = "My Data Toolkit"
-author = "Zero <@Zeroto521>"
-copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
+author = "@Zeroto521"
+copyright = f"2021-{datetime.now().year} {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
@@ -128,12 +128,13 @@ intersphinx_mapping = {
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
+    "h3": ("https://uber.github.io/h3-py/", None),
 }
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#%s"),
-    "pr": (f"{github_url}/issues/%s", "pr#%s"),
+    "issue": (f"{github_url}/issues/%s", "Issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "PR#%s"),
     "user": (r"https://github.com/%s", "@%s"),
 }
 

@@ -1,8 +1,8 @@
 import pytest
 
 from dtoolkit.transformer._util import transform_array_to_frame
-from test.transformer.conftest import array
-from test.transformer.conftest import df_iris
+from test.transformer.data import array
+from test.transformer.data import df_iris
 
 
 @pytest.mark.parametrize(

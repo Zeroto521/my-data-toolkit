@@ -2,7 +2,6 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pytest
-from shapely.geometry import Point
 
 from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa: F401
 
@@ -45,7 +44,7 @@ def test_distance_length_is_different_to_data():
 
 
 def test_geometry_is_none():
-    s = gpd.GeoSeries([None, Point()], crs="epsg:4326")
+    s = gpd.GeoSeries([None], crs="epsg:4326")
     b = s.geobuffer(10)
 
     assert b[0] is None
@@ -57,5 +56,5 @@ def test_distance_type_is_not_num_type():
 
 
 def test_crs():
-    with pytest.warns(UserWarning):
+    with pytest.raises(ValueError):
         s.to_crs("epsg:3857").geobuffer(10)

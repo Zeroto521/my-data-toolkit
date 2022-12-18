@@ -44,7 +44,7 @@ def to_series(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Convert one column DataFrame to Series.
@@ -117,7 +117,12 @@ def to_series(
     return df
 
 
-def _to_series(df: pd.DataFrame, name: Hashable, value_column: Hashable) -> pd.Series:
+def _to_series(
+    df: pd.DataFrame,
+    /,
+    name: Hashable,
+    value_column: Hashable,
+) -> pd.Series:
     """
     Select one column (`value_column`) of DataFrame and convert to Series.
     The name of Series is set to `name`.

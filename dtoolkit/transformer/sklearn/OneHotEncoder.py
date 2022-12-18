@@ -12,6 +12,8 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
 from dtoolkit.accessor.series import cols  # noqa: F401, F811
+from dtoolkit.transformer._compat import SKLEARN_GE_12
+
 
 if TYPE_CHECKING:
     from scipy.sparse import csr_matrix
@@ -78,6 +80,7 @@ class OneHotEncoder(SKOneHotEncoder):
         self,
         *,
         sparse: bool = False,
+        sparse_output: bool = False,
         categories_with_parent: bool = False,
         categories="auto",
         drop=None,
@@ -86,16 +89,25 @@ class OneHotEncoder(SKOneHotEncoder):
         min_frequency: int | float = None,
         max_categories: int = None,
     ):
+        # TODO: Remove `sparse` in sklearn 1.4.
+        # In the latest (>= 1.1.2) sklearn version, `sparse` is deprecated.
         super().__init__(
-            sparse=sparse,
             categories=categories,
             drop=drop,
             dtype=dtype,
             handle_unknown=handle_unknown,
             min_frequency=min_frequency,
             max_categories=max_categories,
+            **(
+                dict(sparse_output=sparse_output)
+                if SKLEARN_GE_12
+                else dict(sparse=sparse)
+            ),
         )
         self.categories_with_parent = categories_with_parent
+
+        # TODO: Remove the following line in sklearn 1.2.
+        self.sparse_output = sparse_output
 
         # compat with sklearn lower version
         # `_parameter_constraints` comes out at sklearn 1.2
@@ -118,13 +130,18 @@ class OneHotEncoder(SKOneHotEncoder):
 
         Xt = super().transform(X)
 
-        if self.sparse is False and isinstance(X, (pd.Series, pd.DataFrame)):
+        if (
+            SKLEARN_GE_12
+            and not self.sparse_output
+            or not SKLEARN_GE_12
+            and not self.sparse
+        ) and isinstance(X, (pd.Series, pd.DataFrame)):
+            # NOTE: `get_feature_names_out` requires sklearn >= 1.0
             categories = (
                 self.get_feature_names_out(X.cols(to_list=True))
                 if self.categories_with_parent
                 else chain.from_iterable(self.categories_)
             )
-
             return pd.DataFrame(Xt, columns=categories, index=X.index)
 
         return Xt

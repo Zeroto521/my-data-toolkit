@@ -36,7 +36,7 @@ def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series([0, 1, 1.5, "string", ("tuple",), ["list"], {}, object])
     >>> s

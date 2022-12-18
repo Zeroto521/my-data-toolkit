@@ -46,7 +46,7 @@ def values_to_dict(
     Examples
     --------
     >>> import json
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(range(4), index=["a", "b", "a", "c"])
     >>> s
@@ -90,12 +90,12 @@ def values_to_dict(
         return {}
 
     return {
-        key: handle_element(s.loc[s.index == key], unique=unique, to_list=to_list)
+        key: handle_element(s[s.index == key], unique=unique, to_list=to_list)
         for key in s.index.unique()
     }
 
 
-def handle_element(s: pd.Series, unique: bool, to_list: bool):
+def handle_element(s: pd.Series, /, unique: bool, to_list: bool):
     if unique:
         s = s.unique()
 

@@ -1,9 +1,9 @@
+from __future__ import annotations
+
 import geopandas as gpd
 import pandas as pd
 import pytest
 from pandas.testing import assert_series_equal
-from pygeos import count_coordinates
-from pygeos import from_shapely
 
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -11,32 +11,28 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 
 @register_geodataframe_method
 @register_geoseries_method
-def counts(s: gpd.GeoSeries):
-    # Counts the number of coordinate pairs in geometry
+def is_point(s: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
+    """
+    Return a boolean Series denoting whether each geometry is a point.
 
-    return s.geometry.apply(
-        lambda x: count_coordinates(from_shapely(x)),
-    )
+    Parameters
+    ----------
+    s : GeoSeries or GeoDataFrame
 
+    Returns
+    -------
+    Series
+    """
 
-@register_geodataframe_method
-@register_geoseries_method
-def counts_1(s: gpd.GeoSeries):
-    # Counts the number of coordinate pairs in geometry
-
-    return s.geometry.apply(
-        lambda x: count_coordinates(from_shapely(x)),
-    )
+    return s.geometry.geom_type == "Point"
 
 
-@register_geodataframe_method("counts_it")
-@register_geoseries_method("counts_it")
-def counts_2(s: gpd.GeoSeries):
-    # Counts the number of coordinate pairs in geometry
+@register_geodataframe_method("is_point_another")
+@register_geoseries_method("is_point_another")
+def is_point_2(s: gpd.GeoSeries):
+    # Return a boolean Series denoting whether each geometry is a point.
 
-    return s.geometry.apply(
-        lambda x: count_coordinates(from_shapely(x)),
-    )
+    return is_point(s)
 
 
 s = gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (1 1)", None])
@@ -46,12 +42,10 @@ d = s.to_frame("geometry")
 @pytest.mark.parametrize(
     "data, attr",
     [
-        (s, "counts"),
-        (d, "counts"),
-        (s, "counts_1"),
-        (d, "counts_1"),
-        (s, "counts_it"),
-        (d, "counts_it"),
+        (s, "is_point"),
+        (d, "is_point"),
+        (s, "is_point_another"),
+        (d, "is_point_another"),
     ],
 )
 def test_method_hooked_exist(data, attr):
@@ -61,12 +55,10 @@ def test_method_hooked_exist(data, attr):
 @pytest.mark.parametrize(
     "data, name, expected",
     [
-        (s, "counts", pd.Series([1, 1, 0])),
-        (d, "counts", pd.Series([1, 1, 0], name="geometry")),
-        (s, "counts_1", pd.Series([1, 1, 0])),
-        (d, "counts_1", pd.Series([1, 1, 0], name="geometry")),
-        (s, "counts_it", pd.Series([1, 1, 0])),
-        (d, "counts_it", pd.Series([1, 1, 0], name="geometry")),
+        (s, "is_point", pd.Series([True, True, False])),
+        (d, "is_point", pd.Series([True, True, False])),
+        (s, "is_point_another", pd.Series([True, True, False])),
+        (d, "is_point_another", pd.Series([True, True, False])),
     ],
 )
 def test_work(data, name, expected):
@@ -78,18 +70,14 @@ def test_work(data, name, expected):
 @pytest.mark.parametrize(
     "data, name, attr, expected",
     [
-        (s, "counts", "__name__", counts.__name__),
-        (s, "counts", "__doc__", counts.__doc__),
-        (d, "counts", "__name__", counts.__name__),
-        (d, "counts", "__doc__", counts.__doc__),
-        (s, "counts_1", "__name__", counts_1.__name__),
-        (s, "counts_1", "__doc__", counts_1.__doc__),
-        (d, "counts_1", "__name__", counts_1.__name__),
-        (d, "counts_1", "__doc__", counts_1.__doc__),
-        (s, "counts_it", "__name__", counts_2.__name__),
-        (s, "counts_it", "__doc__", counts_2.__doc__),
-        (d, "counts_it", "__name__", counts_2.__name__),
-        (d, "counts_it", "__doc__", counts_2.__doc__),
+        (s, "is_point", "__name__", is_point.__name__),
+        (s, "is_point", "__doc__", is_point.__doc__),
+        (d, "is_point", "__name__", is_point.__name__),
+        (d, "is_point", "__doc__", is_point.__doc__),
+        (s, "is_point_another", "__name__", is_point_2.__name__),
+        (s, "is_point_another", "__doc__", is_point_2.__doc__),
+        (d, "is_point_another", "__name__", is_point_2.__name__),
+        (d, "is_point_another", "__doc__", is_point_2.__doc__),
     ],
 )
 def test_method_hooked_attr(data, name, attr, expected):

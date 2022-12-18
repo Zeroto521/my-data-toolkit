@@ -36,7 +36,7 @@ def cols(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Get :attr:`~pandas.Series.name`.

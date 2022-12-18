@@ -37,7 +37,7 @@ def to_set(index: pd.Index, /, level: int | Hashable = None) -> set:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> index = pd.Index([1, 2, 2])
     >>> index

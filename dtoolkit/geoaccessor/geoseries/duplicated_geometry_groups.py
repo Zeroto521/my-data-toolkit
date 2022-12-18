@@ -90,6 +90,7 @@ def duplicated_geometry_groups(
     dtype: int64
     """
 
+    # NOTE: `predicate` requires geopandas >= 0.10.0
     return (
         s.to_frame("geometry")
         .set_unique_index(drop=True)
@@ -172,7 +173,7 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
     Notes
     -----
     - Only support 2d coordinates, it means data unit is ``(x, y)``.
-    - Only support 'diagonal maxtrix', it means 'x' valeu equal to 'y' value.
+    - Only support 'diagonal maxtrix', it means 'x' value equal to 'y' value.
     - Only support natural numbers of labels.
 
     Examples
