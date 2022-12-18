@@ -145,6 +145,20 @@ class H3:
         See Also
         --------
         h3.is_res_class_III
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543])
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
+        >>> s.h3.is_res_class_III
+        0    False
+        1    False
+        dtype: bool
         """
 
         # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
