@@ -8,8 +8,8 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.accessor.series import invert_or_not  # noqa: F401
+from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 if TYPE_CHECKING:
