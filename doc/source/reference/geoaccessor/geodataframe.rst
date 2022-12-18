@@ -10,6 +10,7 @@ General methods and attributes
     :toctree: ../api/
 
     xy
+    radius
     geoarea
     geodistance
     geodistance_matrix
