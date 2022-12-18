@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Callable
+from functools import wraps
 
 import pandas as pd
 from pandas.api.types import is_string_dtype
@@ -76,7 +77,7 @@ def textdistance_matrix(
     from rapidfuzz.process import cdist
 
     if method is None:
-        method = __import__("rapidfuzz").fuzz.ratio
+        method = check_nan(__import__("rapidfuzz").fuzz.ratio)
 
     if other is None:
         other = s.copy()
@@ -90,3 +91,13 @@ def textdistance_matrix(
         index=s.index,
         columns=other.index,
     )
+
+
+def check_nan(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        # NOTE: compare to nan always returns 0
+        # the behavior is following rapidfuzz.fuzz.ratio
+        return 0 if pd.isna(args[0]) or pd.isna(args[1]) else func(*args, **kwargs)
+
+    return decorator
