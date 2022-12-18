@@ -9,10 +9,10 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
-    from_wkb
     from_wkt
-    to_geoframe
+    from_wkb
     to_geoseries
+    to_geoframe
 
 
 Address handling
