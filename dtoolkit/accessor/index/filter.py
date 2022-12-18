@@ -88,4 +88,4 @@ def filter(
     else:
         raise TypeError("Must pass either `items`, `like`, or `regex`.")
 
-    return index[~condition] if complement else index[condition]
+    return index[~condition if complement else condition]
