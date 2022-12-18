@@ -1,5 +1,5 @@
-import numpy as np
 import geopandas as gpd
+import numpy as np
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
