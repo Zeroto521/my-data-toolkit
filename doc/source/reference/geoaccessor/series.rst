@@ -42,7 +42,7 @@ and apply several methods to it. These can be accessed like ``Series.h3.<functio
 
     is_h3
     H3.area
-    H3.edge_length
+    H3.edge
     H3.resolution
     H3.is_valid
     H3.is_pentagon

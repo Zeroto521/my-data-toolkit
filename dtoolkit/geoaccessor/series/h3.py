@@ -193,7 +193,7 @@ class H3:
 
     @property
     @available_if(is_h3)
-    def edge_length(self) -> pd.Series:
+    def edge(self) -> pd.Series:
         """
         Compute the spherical length of a specific H3 edge.
 
