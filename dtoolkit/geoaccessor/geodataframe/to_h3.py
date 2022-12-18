@@ -20,6 +20,7 @@ def to_h3(
     resolution: int,
     drop: bool = True,
     name: Hashable = "h3",
+    int_dtype: bool = True,
 ) -> pd.DataFrame | gpd.GeoDataFrame:
     """
     Convert Point to containing H3 cell index.
@@ -35,6 +36,9 @@ def to_h3(
     name : Hashable, default "h3"
         Name of the column to store the H3 cell index.
 
+    int_dtype : bool, default True
+        If True, use ``h3.api.numpy_int`` else use ``h3.api.basic_str``.
+
     Returns
     -------
     DataFrame or GeoDataFrame
@@ -44,14 +48,17 @@ def to_h3(
     ------
     ModuleNotFoundError
         If don't have module named 'h3'.
+
     TypeError
         If the geometry is not Point.
+
     ValueError
         If the CRS is not WGS84 or EPSG:4326.
 
     See Also
     --------
     h3.latlon_to_h3
+    h3.polygon_to_cells
     dtoolkit.geoaccessor.geoseries.to_h3
 
     Examples
@@ -114,15 +121,35 @@ def to_h3(
     1     b  596540746614439935
     1     b  596538195403866111
     1     b  596541030082281471
+
+    Also support str (hexadecimal) format.
+
+    >>> df = pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy('x', 'y', crs=4326)
+    >>> df
+         x   y                    geometry
+    0  122  55  POINT (122.00000 55.00000)
+    1  100   1   POINT (100.00000 1.00000)
+    >>> df.to_h3(8, int_dtype=False)
+         x   y               h3
+    0  122  55  88143541bdfffff
+    1  100   1  886528b2a3fffff
     """
 
     if df.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {df.crs!r}.")
 
     if all(df.geom_type == "Point"):
-        h3 = points_to_h3(df.geometry, resolution=resolution).rename(name)
+        h3 = points_to_h3(
+            df.geometry,
+            resolution=resolution,
+            int_dtype=int_dtype,
+        ).rename(name)
     elif all(df.geom_type == "Polygon"):
-        h3_list = polygons_to_h3(df.geometry, resolution=resolution)
+        h3_list = polygons_to_h3(
+            df.geometry,
+            resolution=resolution,
+            int_dtype=int_dtype,
+        )
         h3 = h3_list.explode().rename(name)
         df = repeat(df, s_len(h3_list))
     else:

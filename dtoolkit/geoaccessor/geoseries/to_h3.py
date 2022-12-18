@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Callable
 from typing import Hashable
 
 import geopandas as gpd
@@ -19,6 +20,7 @@ def to_h3(
     resolution: int,
     drop: bool = True,
     name: Hashable = "h3",
+    int_dtype: bool = True,
 ) -> pd.Series | gpd.GeoDataFrame:
     """
     Convert Point or Polygon to H3 cell index.
@@ -34,6 +36,9 @@ def to_h3(
 
     drop : bool, default True
         Whether to drop the geometry column.
+
+    int_dtype : bool, default True
+        If True, use ``h3.api.numpy_int`` else use ``h3.api.basic_str``.
 
     Returns
     -------
@@ -54,7 +59,8 @@ def to_h3(
 
     See Also
     --------
-    h3.geo_to_h3
+    h3.latlon_to_h3
+    h3.polygon_to_cells
     dtoolkit.geoaccessor.geodataframe.to_h3
 
     Examples
@@ -119,6 +125,23 @@ def to_h3(
     1    596538195403866111
     1    596541030082281471
     dtype: object
+
+    Also support str (hexadecimal) format.
+
+    >>> s = pd.Series(
+    ...     [
+    ...         "POINT (122 55)",
+    ...         "POINT (100 1)",
+    ...     ],
+    ... ).from_wkt(crs=4326, drop=True)
+    >>> s
+    0    POINT (122.00000 55.00000)
+    1     POINT (100.00000 1.00000)
+    dtype: geometry
+    >>> s.to_h3(8, int_dtype=False)
+    0    88143541bdfffff
+    1    886528b2a3fffff
+    dtype: object
     """
 
     # TODO: Advices for h3-pandas
@@ -139,9 +162,9 @@ def to_h3(
         )
 
     if all(s.geom_type == "Point"):
-        h3 = points_to_h3(s, resolution=resolution)
+        h3 = points_to_h3(s, resolution=resolution, int_dtype=int_dtype)
     elif all(s.geom_type == "Polygon"):
-        h3_list = polygons_to_h3(s, resolution=resolution)
+        h3_list = polygons_to_h3(s, resolution=resolution, int_dtype=int_dtype)
         h3 = h3_list.explode()
         s = s.repeat(s_len(h3_list))
     else:
@@ -150,28 +173,20 @@ def to_h3(
     return h3 if drop else to_geoframe(h3.rename(name or s.name), geometry=s)
 
 
-def points_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
+def points_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
     # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
     # While h3-py release 4, `latlon_to_h3` is not available.
-
-    # requires h3 >= 4
-    # from h3.api.numpy_int import latlng_to_cell
-    # requires h3 < 4
-    from h3.api.numpy_int import geo_to_h3
+    geo_to_h3 = method_from_h3("geo_to_h3", int_dtype=int_dtype)
 
     return xy(s, reverse=True, frame=False, name=None).apply(
         lambda yx: geo_to_h3(*yx, resolution),
     )
 
 
-def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
+def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
     # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
     # While h3-py release 4, `polygon_to_cells` is not available.
-
-    # requires h3 >= 4
-    # from h3.api.numpy_int import polygon_to_cells
-    # requires h3 < 4
-    from h3.api.numpy_int import polyfill
+    polyfill = method_from_h3("polyfill", int_dtype=int_dtype)
 
     # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
     return s_getattr(s, "__geo_interface__").apply(
@@ -179,3 +194,12 @@ def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int) -> pd.Series:
         res=resolution,
         geo_json_conformant=True,
     )
+
+
+def method_from_h3(method: str, int_dtype: bool = True) -> Callable:
+    if int_dtype:
+        import h3.api.numpy_int as h3
+    else:
+        import h3.api.basic_str as h3
+
+    return getattr(h3, method)

@@ -64,6 +64,7 @@ Reindexing / Selection
     :toctree: ../api/
 
     filter_in
+    invert_or_not
     query
     set_unique_index
 
