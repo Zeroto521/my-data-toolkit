@@ -98,26 +98,24 @@ class H3:
 
         return self.s.apply(method_from_h3(self.s, "cell_area"), unit="m^2")
 
-    @property
-    @available_if(is_h3)
-    def edge(self) -> pd.Series:
-        """
-        Compute the spherical length of a specific H3 edge.
+    # TODO: Available only for h3 release 4.
+    # @property
+    # @available_if(is_h3)
+    # def edge(self) -> pd.Series:
+    #     """
+    #     Compute the spherical length of a specific H3 edge.
 
-        .. warning::
-            Available only for h3 release 4.
+    #     Returns
+    #     -------
+    #     Series
+    #         Float (unit is m) Series indicating the spherical length of the H3 edge.
 
-        Returns
-        -------
-        Series
-            Float (unit is m) Series indicating the spherical length of the H3 edge.
+    #     See Also
+    #     --------
+    #     h3.edge_length
+    #     """
 
-        See Also
-        --------
-        h3.edge_length
-        """
-
-        return self.s.apply(method_from_h3(self.s, "edge_length"), unit="m")
+    #     return self.s.apply(method_from_h3(self.s, "edge_length"), unit="m")
 
     @property
     @available_if(is_h3)
