@@ -144,7 +144,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_is_res_class_III
+        h3.is_res_class_III
         """
 
         # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
@@ -164,7 +164,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_is_pentagon
+        h3.is_pentagon
         """
 
         # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
@@ -184,7 +184,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_get_resolution
+        h3.get_resolution
         """
 
         # TODO: Use `get_resolution` instead of `h3_get_resolution`
@@ -245,7 +245,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_to_string
+        h3.int_to_str
         """
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
@@ -272,7 +272,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_to_int
+        h3.str_to_int
         """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
@@ -304,7 +304,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_to_geo
+        h3.cell_to_latlng
         """
 
         if not drop and self.s.name is None:
