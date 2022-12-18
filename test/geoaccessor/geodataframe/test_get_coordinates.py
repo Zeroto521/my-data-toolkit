@@ -2,6 +2,8 @@ import geopandas as gpd
 import pandas as pd
 from pandas.testing import assert_series_equal
 
+import pytest
+
 from dtoolkit.geoaccessor.geodataframe import get_coordinates
 
 
