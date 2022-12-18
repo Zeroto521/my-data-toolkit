@@ -4,8 +4,8 @@ from typing import Literal
 
 import geopandas as gpd
 
-from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.accessor.series import invert_or_not
+from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 GEOM_TYPE = Literal[

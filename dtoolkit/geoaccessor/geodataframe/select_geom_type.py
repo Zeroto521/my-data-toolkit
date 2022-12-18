@@ -1,9 +1,8 @@
 import geopandas as gpd
 
+from dtoolkit.accessor.series import invert_or_not
 from dtoolkit.geoaccessor.geoseries.select_geom_type import GEOM_TYPE
 from dtoolkit.geoaccessor.register import register_geodataframe_method
-
-from dtoolkit.accessor.series import invert_or_not
 
 
 @register_geodataframe_method
