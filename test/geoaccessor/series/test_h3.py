@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.series import H3
+from dtoolkit.geoaccessor.series import H3  # noqa: F401
 
 
 pytest.importorskip("h3")
