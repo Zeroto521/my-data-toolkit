@@ -76,7 +76,7 @@ class H3:
 
         See Also
         --------
-        h3.h3_is_valid
+        h3.is_valid_cell
         dtoolkit.geoaccessor.series.is_h3
 
         Examples
