@@ -133,6 +133,7 @@ class H3:
         See Also
         --------
         h3.get_resolution
+        dtoolkit.geoaccessor.series.H3.is_res_class_III
 
         Examples
         --------
@@ -268,6 +269,7 @@ class H3:
         See Also
         --------
         h3.is_res_class_III
+        dtoolkit.geoaccessor.series.H3.resolution
 
         Examples
         --------
@@ -306,6 +308,7 @@ class H3:
         See Also
         --------
         h3.str_to_int
+        dtoolkit.geoaccessor.series.H3.to_str
 
         Examples
         --------
@@ -347,6 +350,7 @@ class H3:
         See Also
         --------
         h3.int_to_str
+        dtoolkit.geoaccessor.series.H3.to_int
 
         Examples
         --------
@@ -406,6 +410,7 @@ class H3:
         See Also
         --------
         h3.cell_to_center_child
+        dtoolkit.geoaccessor.series.H3.to_children
 
         Examples
         --------
@@ -476,6 +481,8 @@ class H3:
         See Also
         --------
         h3.cell_to_children
+        dtoolkit.geoaccessor.series.H3.to_center_child
+        dtookit.geoaccessor.series.H3.to_parent
 
         Examples
         --------
@@ -560,6 +567,7 @@ class H3:
         See Also
         --------
         h3.cell_to_parent
+        dtookit.geoaccessor.series.H3.to_children
 
         Examples
         --------
@@ -614,6 +622,7 @@ class H3:
         See Also
         --------
         h3.cell_to_latlng
+        dtookit.geoaccessor.series.H3.to_polygons
 
         Examples
         --------
@@ -666,6 +675,7 @@ class H3:
         See Also
         --------
         h3.cell_to_boundary
+        dtookit.geoaccessor.series.H3.to_points
 
         Examples
         --------
