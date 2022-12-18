@@ -68,7 +68,7 @@ class H3:
     @property
     @available_if(is_h3)
     def area(self) -> pd.Series:
-        """
+        r"""
         Compute the spherical surface area of a specific H3 cell.
 
         Returns
