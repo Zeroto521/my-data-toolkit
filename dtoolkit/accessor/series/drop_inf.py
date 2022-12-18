@@ -61,10 +61,7 @@ def drop_inf(
     dtype: float64
     """
 
-    inf_range = get_inf_range(inf)
-    mask = s.isin(inf_range)
-
-    return s[~mask]
+    return s[~s.isin(get_inf_range(inf))]
 
 
 def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> set[float]:
