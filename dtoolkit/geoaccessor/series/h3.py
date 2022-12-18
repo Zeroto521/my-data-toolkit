@@ -91,8 +91,8 @@ class H3:
         1    614269156845420543
         dtype: int64
         >>> s.h3.area
-        0    710781.770905
-        1    852134.191672
+        0    710781.770906
+        1    852134.191671
         dtype: float64
         """
 
@@ -115,20 +115,6 @@ class H3:
         See Also
         --------
         h3.edge_length
-
-        Examples
-        --------
-        >>> import dtoolkit.geoaccessor
-        >>> import pandas as pd
-        >>> s = pd.Series([612845052823076863, 614269156845420543])
-        >>> s
-        0    612845052823076863
-        1    614269156845420543
-        dtype: int64
-        >>> s.h3.edge
-        0    8
-        1    8
-        dtype: int64
         """
 
         return self.s.apply(method_from_h3(self.s, "edge_length"), unit="m")
@@ -330,7 +316,7 @@ class H3:
         0    88143541bdfffff
         1    886528b2a3fffff
         dtype: object
-        >>> s.h3.to_str()
+        >>> s.h3.to_int()
         0    612845052823076863
         1    614269156845420543
         dtype: int64
