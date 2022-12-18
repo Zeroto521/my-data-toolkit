@@ -51,7 +51,7 @@ class H3:
 
     Notes
     -----
-    Based on :obj:`pandas.Series` API style, this accessor APIs are designed as follows:
+    Based on :obj:`~pandas.Series` style, APIs are designed as follows:
 
     - Remove the prefix `h3_` of the original H3 API.
       e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
