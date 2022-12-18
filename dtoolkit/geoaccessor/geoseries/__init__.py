@@ -22,6 +22,9 @@ from dtoolkit.geoaccessor.geoseries.get_coordinates import get_coordinates  # no
 from dtoolkit.geoaccessor.geoseries.has_hole import has_hole  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.hole_counts import hole_counts  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.reverse_geocode import reverse_geocode  # noqa: F401
+from dtoolkit.geoaccessor.geoseries.select_geom_type import (  # noqa: F401
+    select_geom_type,
+)
 from dtoolkit.geoaccessor.geoseries.to_h3 import to_h3  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.toposimplify import toposimplify  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.xy import xy  # noqa: F401
