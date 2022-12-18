@@ -387,7 +387,7 @@ class H3:
     @available_if(is_h3)
     def to_points(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         """
-        Return the center Point of an H3 cell as a lat/lng pair.
+        Return the center :obj:`~shapely.Point` of an H3 cell.
 
         Parameters
         ----------
@@ -439,7 +439,7 @@ class H3:
     @available_if(is_h3)
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
         """
-        Return tuple of lng/lat pairs describing the cell boundary.
+        Return :obj:`~shapely.Polygon` to describe the cell boundary.
 
         Parameters
         ----------
