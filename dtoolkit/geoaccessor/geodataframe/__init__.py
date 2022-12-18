@@ -26,6 +26,7 @@ from dtoolkit.geoaccessor.geodataframe.get_coordinates import (  # noqa: F401
 )
 from dtoolkit.geoaccessor.geodataframe.has_hole import has_hole  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.hole_counts import hole_counts  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe.radius import radius  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.reverse_geocode import (  # noqa: F401
     reverse_geocode,
 )
