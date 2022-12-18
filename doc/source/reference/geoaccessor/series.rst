@@ -31,14 +31,9 @@ and apply several methods to it. These can be accessed like ``Series.h3.<functio
 
 .. autosummary::
     :toctree: ../api/
-    :template: autosummary/class_without_autosummary.rst
-
-    H3
-
-.. autosummary::
-    :toctree: ../api/
 
     is_h3
+    H3
     H3.area
     H3.edge
     H3.resolution
