@@ -1,7 +1,6 @@
 import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
-from shapely import count_coordinates
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
@@ -52,5 +51,6 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     2    0
     Name: geometry, dtype: int64
     """
+    from shapely import count_coordinates
 
     return s.apply(count_coordinates)
