@@ -58,6 +58,7 @@ def to_h3(
     See Also
     --------
     h3.latlon_to_h3
+    h3.polygon_to_cells
     dtoolkit.geoaccessor.geoseries.to_h3
 
     Examples
