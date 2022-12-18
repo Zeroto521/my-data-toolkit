@@ -9,16 +9,16 @@ General methods and attributes
 .. autosummary::
     :toctree: ../api/
 
-    count_coordinates
+    xy
     geoarea
-    geobuffer
-    geodistance_matrix
     geodistance
+    geodistance_matrix
+    geobuffer
     get_coordinates
+    count_coordinates
     has_hole
     hole_counts
     toposimplify
-    xy
 
 
 Conversion
