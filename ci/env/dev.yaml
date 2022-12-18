@@ -1,0 +1,21 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - packaging
+
+  # testing
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - codecov
+
+  # dev versions of packages
+  - pip
+  - pip:
+      # use wheels to speed up setting the env
+      - --pre --extra-index https://pypi.anaconda.org/scipy-wheels-nightly/simple
+      - pandas
+      - scikit-learn
+
+      - git+https://github.com/geopandas/geopandas

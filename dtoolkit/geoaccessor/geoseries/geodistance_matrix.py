@@ -115,11 +115,11 @@ def geodistance_matrix(
         if other.crs != 4326:
             raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-        Y = np.radians(xy(other.geometry, reverse=True).tolist())
+        Y = np.radians(xy(other.geometry, reverse=True))
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    X = np.radians(xy(s, reverse=True).tolist())
+    X = np.radians(xy(s, reverse=True))
     return pd.DataFrame(
         radius * haversine_distances(X, Y),
         index=s.index,

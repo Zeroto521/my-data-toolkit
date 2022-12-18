@@ -46,7 +46,7 @@ def values_to_dict(
     Examples
     --------
     >>> import json
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(range(4), index=["a", "b", "a", "c"])
     >>> s

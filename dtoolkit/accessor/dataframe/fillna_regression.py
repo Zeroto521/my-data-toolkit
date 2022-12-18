@@ -76,7 +76,7 @@ def fillna_regression(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> from sklearn.linear_model import LinearRegression
 

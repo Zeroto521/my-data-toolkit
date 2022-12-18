@@ -9,9 +9,9 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
-    from_wkb
-    from_wkt
     from_xy
+    from_wkt
+    from_wkb
     to_geoframe
 
 

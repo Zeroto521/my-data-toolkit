@@ -44,7 +44,7 @@ def to_series(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Convert one column DataFrame to Series.

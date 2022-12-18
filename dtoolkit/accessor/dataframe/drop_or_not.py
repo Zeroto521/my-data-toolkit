@@ -32,7 +32,7 @@ def drop_or_not(df: pd.DataFrame, /, drop: bool = True, **kwargs) -> pd.DataFram
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     >>> df

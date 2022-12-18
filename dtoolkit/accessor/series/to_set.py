@@ -27,7 +27,7 @@ def to_set(s: pd.Series, /) -> set:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series([1, 2, 2])
     >>> s

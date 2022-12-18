@@ -12,20 +12,15 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     Counts the number of coordinate pairs in each geometry of
     :class:`~geopandas.{klass}`.
 
-    A sugary syntax wraps :meth:`pygeos.coordinates.count_coordinates`.
+    A sugary syntax wraps :meth:`shapely.count_coordinates`.
 
     Returns
     -------
     Series
 
-    Raises
-    ------
-    ModuleNotFoundError
-        If don't have module named 'pygeos'.
-
     See Also
     --------
-    pygeos.coordinates.count_coordinates
+    shapely.count_coordinates
         The core algorithm of this accessor.
 
     dtoolkit.geoaccessor.geoseries.count_coordinates
@@ -56,7 +51,6 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     2    0
     Name: geometry, dtype: int64
     """
-    # TODO: delete pygeos after shapely 2.x released
-    from pygeos import count_coordinates, from_shapely
+    from shapely import count_coordinates
 
-    return s.apply(lambda x: count_coordinates(from_shapely(x)))
+    return s.apply(count_coordinates)
