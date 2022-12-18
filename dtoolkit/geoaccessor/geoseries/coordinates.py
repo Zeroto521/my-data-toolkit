@@ -1,13 +1,14 @@
 import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
+from shapely import get_coordinates
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
 @register_geoseries_method
 @doc(klass="GeoSeries")
-def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
+def coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     """
     Gets coordinates from each geometry of :class:`~geopandas.{klass}`.
 
@@ -28,10 +29,10 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     shapely.get_coordinates
         The core algorithm of this accessor.
 
-    dtoolkit.geoaccessor.geoseries.get_coordinates
+    dtoolkit.geoaccessor.geoseries.coordinates
         Gets coordinates from each geometry of GeoSeries.
 
-    dtoolkit.geoaccessor.geodataframe.get_coordinates
+    dtoolkit.geoaccessor.geodataframe.coordinates
         Gets coordinates from each geometry of GeoDataFrame.
 
     Examples
@@ -50,12 +51,11 @@ def get_coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     0                        POINT (0.00000 0.00000)
     1  LINESTRING (2.00000 2.00000, 4.00000 4.00000)
     2                                           None
-    >>> df.get_coordinates()
+    >>> df.coordinates()
     0                [[0.0, 0.0]]
     1    [[2.0, 2.0], [4.0, 4.0]]
     2                          []
     Name: geometry, dtype: object
     """
-    from shapely import get_coordinates
 
     return s.apply(get_coordinates, **kwargs)

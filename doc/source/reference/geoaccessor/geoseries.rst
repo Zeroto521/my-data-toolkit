@@ -15,7 +15,7 @@ General methods and attributes
     geodistance
     geodistance_matrix
     geobuffer
-    get_coordinates
+    coordinates
     count_coordinates
     has_hole
     hole_counts
