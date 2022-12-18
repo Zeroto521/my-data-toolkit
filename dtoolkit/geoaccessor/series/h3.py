@@ -400,7 +400,7 @@ class H3:
         Returns
         -------
         Series or DataFrame
-            If ``drop=True``, return a Series with the children cell index colum, else
+            If ``drop=True``, return a Series with the children cell index column, else
             return a DataFrame with both the partent and children cell index columns.
 
         See Also
@@ -470,7 +470,7 @@ class H3:
         Returns
         -------
         Series or DataFrame
-            If ``drop=True``, return a Series with the children cell index colum, else
+            If ``drop=True``, return a Series with the children cell index column, else
             return a DataFrame with both the partent and children cell index columns.
 
         See Also
@@ -554,7 +554,7 @@ class H3:
         Returns
         -------
         Series or DataFrame
-            If ``drop=True``, return a Series with the parent cell index colum, else
+            If ``drop=True``, return a Series with the parent cell index column, else
             return a DataFrame with both the partent and children cell index columns.
 
         See Also
