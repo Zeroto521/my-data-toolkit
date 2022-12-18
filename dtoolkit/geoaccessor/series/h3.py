@@ -438,6 +438,43 @@ class H3:
 
     @available_if(is_h3)
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
+        """
+        Return tuple of lng/lat pairs describing the cell boundary.
+
+        Parameters
+        ----------
+        drop : bool, default False
+            Whether to drop the original H3 cell index column.
+
+        Returns
+        -------
+        GeoSeries or GeoDataFrame
+            If True, return a GeoSeries with the original H3 cell index column dropped.
+
+        Raises
+        ------
+        ValueError
+            If ``drop=False`` and the original H3 cell index column is not named.
+
+        See Also
+        --------
+        h3.cell_to_boundary
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543], name='h3')
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        Name: h3, dtype: int64
+        >>> s.h3.to_polygons()
+                           h3                                           geometry
+        0  612845052823076863  POLYGON ((121.98797 55.00408, 121.99122 54.999...
+        1  614269156845420543  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
+        """
+
         if not drop and self.s.name is None:
             raise ValueError(
                 "to keep the original data requires setting the 'name' of "
