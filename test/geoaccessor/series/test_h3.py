@@ -10,9 +10,9 @@ pytest.importorskip("h3")
 @pytest.mark.parametrize(
     "s, error",
     [
-        # str to int
+        # int to int
         (
-            pd.Series(["88143541bdfffff", "886528b2a3fffff"]),
+            pd.Series([612845052823076863, 614269156845420543]),
             TypeError,
         ),
         # bool to int
@@ -35,9 +35,9 @@ def test_to_int_error(s, error):
 @pytest.mark.parametrize(
     "s, error",
     [
-        # int to str
+        # str to str
         (
-            pd.Series([612845052823076863, 614269156845420543]),
+            pd.Series(["88143541bdfffff", "886528b2a3fffff"]),
             TypeError,
         ),
         # bool to str
