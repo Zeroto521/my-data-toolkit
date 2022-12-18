@@ -48,6 +48,14 @@ Active geometry handling
     duplicated_geometry_groups
 
 
+Selection
+---------
+.. autosummary::
+    :toctree: ../api/
+
+    select_geom_type
+
+
 Binary operator functions
 -------------------------
 .. autosummary::
