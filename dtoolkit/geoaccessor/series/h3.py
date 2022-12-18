@@ -10,6 +10,7 @@ import pandas as pd
 from pandas.api.extensions import register_series_accessor
 from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
+from shapely import polygons
 
 from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.series.is_h3 import is_h3
@@ -179,6 +180,20 @@ class H3:
         See Also
         --------
         h3.is_pentagon
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543])
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
+        >>> s.h3.is_pentagon
+        0    False
+        1    False
+        dtype: bool
         """
 
         # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
@@ -199,6 +214,20 @@ class H3:
         See Also
         --------
         h3.get_resolution
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543])
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
+        >>> s.h3.resolution
+        0    8
+        1    8
+        dtype: int64
         """
 
         # TODO: Use `get_resolution` instead of `h3_get_resolution`
@@ -211,6 +240,9 @@ class H3:
         """
         Compute the spherical length of a specific H3 edge.
 
+        .. warning::
+            Available only for h3 release 4.
+
         Returns
         -------
         Series
@@ -219,6 +251,20 @@ class H3:
         See Also
         --------
         h3.edge_length
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543])
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
+        >>> s.h3.edge
+        0    8
+        1    8
+        dtype: int64
         """
 
         return self.s.apply(method_from_h3(self.s, "edge_length"), unit="m")
@@ -226,7 +272,7 @@ class H3:
     @property
     @available_if(is_h3)
     def area(self) -> pd.Series:
-        r"""
+        """
         Compute the spherical surface area of a specific H3 cell.
 
         Returns
@@ -238,6 +284,20 @@ class H3:
         See Also
         --------
         h3.cell_area
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543])
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
+        >>> s.h3.area
+        0    710781.770905
+        1    852134.191672
+        dtype: float64
         """
 
         return self.s.apply(method_from_h3(self.s, "cell_area"), unit="m^2")
@@ -255,11 +315,25 @@ class H3:
         Raises
         ------
         TypeError
-            If the Series is not int type H3 cell index.
+            If the dtype of the Series is not int64.
 
         See Also
         --------
         h3.int_to_str
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543])
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
+        >>> s.h3.to_str()
+        0    88143541bdfffff
+        1    886528b2a3fffff
+        dtype: object
         """
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
@@ -282,11 +356,25 @@ class H3:
         Raises
         ------
         TypeError
-            If the Series is not str type H3 cell index.
+            If the dtype of the Series is not string.
 
         See Also
         --------
         h3.str_to_int
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series(['88143541bdfffff', '886528b2a3fffff'])
+        >>> s
+        0    88143541bdfffff
+        1    886528b2a3fffff
+        dtype: object
+        >>> s.h3.to_str()
+        0    612845052823076863
+        1    614269156845420543
+        dtype: int64
         """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
@@ -319,6 +407,20 @@ class H3:
         See Also
         --------
         h3.cell_to_latlng
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> s = pd.Series([612845052823076863, 614269156845420543], name='h3')
+        >>> s
+        0    612845052823076863
+        1    614269156845420543
+        Name: h3, dtype: int64
+        >>> s.h3.to_points()
+                           h3                    geometry
+        0  612845052823076863  POINT (121.99637 55.00331)
+        1  614269156845420543    POINT (99.99611 0.99919)
         """
 
         if not drop and self.s.name is None:
@@ -336,8 +438,6 @@ class H3:
 
     @available_if(is_h3)
     def to_polygons(self, drop: bool = False) -> gpd.GeoSeries | gpd.GeoDataFrame:
-        from shapely import polygons
-
         if not drop and self.s.name is None:
             raise ValueError(
                 "to keep the original data requires setting the 'name' of "
