@@ -1,6 +1,6 @@
-==============================
-Series Accessor (to GeoPandas)
-==============================
+===============
+Series Accessor
+===============
 .. currentmodule:: dtoolkit.geoaccessor.series
 
 
