@@ -35,7 +35,7 @@ def is_h3(s: pd.Series, /) -> bool:
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
 
-    Str type H3 cell index.
+    String type H3 cell index.
 
     >>> s = pd.Series(['88143541bdfffff', '886528b2a3fffff'])
     >>> s

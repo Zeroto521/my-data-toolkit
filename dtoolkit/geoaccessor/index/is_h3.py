@@ -17,7 +17,7 @@ def is_h3(index: pd.Index, /) -> bool:
     Returns
     -------
     bool
-        True if the whole series is H3 cell index else False.
+        True if the whole Index is H3 cell index else False.
 
     See Also
     --------
@@ -36,7 +36,7 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
 
-    Str type H3 cell index.
+    String type H3 cell index.
 
     >>> index = pd.Index(['88143541bdfffff', '886528b2a3fffff'])
     >>> index
