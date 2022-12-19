@@ -16,7 +16,7 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(int64)
 
     See Also
     --------

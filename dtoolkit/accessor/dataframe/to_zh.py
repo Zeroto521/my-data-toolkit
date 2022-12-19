@@ -34,7 +34,7 @@ def to_zh(
 
     Returns
     -------
-    Series
+    Series(string)
 
     Raises
     ------

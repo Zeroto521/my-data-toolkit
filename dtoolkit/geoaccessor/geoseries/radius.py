@@ -12,7 +12,7 @@ def radius(s: gpd.GeoSeries, /) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(float64)
         The unit is meters.
 
     See Also

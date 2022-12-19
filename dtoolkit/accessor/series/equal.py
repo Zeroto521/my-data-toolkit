@@ -32,7 +32,7 @@ def equal(s: pd.Series, /, other, align: bool = True, **kwargs) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(bool)
 
     Warns
     -----

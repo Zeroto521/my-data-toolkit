@@ -24,7 +24,7 @@ def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(int64)
 
     Notes
     -----

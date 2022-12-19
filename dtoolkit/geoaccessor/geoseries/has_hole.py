@@ -14,7 +14,7 @@ def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(bool)
 
     See Also
     --------

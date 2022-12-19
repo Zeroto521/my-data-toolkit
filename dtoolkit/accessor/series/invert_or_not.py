@@ -15,7 +15,7 @@ def invert_or_not(s: pd.Series, /, invert: bool = False) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(bool)
 
     Examples
     --------
