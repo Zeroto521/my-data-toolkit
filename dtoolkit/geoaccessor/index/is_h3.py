@@ -9,7 +9,7 @@ from pandas.api.types import is_string_dtype
 from dtoolkit.accessor.register import register_index_method
 
 
-@register_series_method
+@register_index_method
 def is_h3(index: pd.Index, /) -> bool:
     """
     Validate whether the whole :obj:`~pandas.Index` is H3 cell index.
