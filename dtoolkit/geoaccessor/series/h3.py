@@ -13,8 +13,8 @@ from pandas.api.types import is_string_dtype
 from shapely import polygons
 
 from dtoolkit.accessor.series import len as s_len
+from dtoolkit.geoaccessor.index.is_h3 import method_from_h3
 from dtoolkit.geoaccessor.series.is_h3 import is_h3
-from dtoolkit.geoaccessor.series.is_h3 import method_from_h3
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
