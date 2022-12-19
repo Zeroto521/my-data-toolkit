@@ -19,7 +19,7 @@ def to_datetime(s: pd.Series, /, **kwargs) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(datetime64[ns])
 
     See Also
     --------

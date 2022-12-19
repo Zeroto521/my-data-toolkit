@@ -16,7 +16,7 @@ def hole_counts(s: gpd.GeoSeries, /) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(int64)
         Except for Polygon and MultiPolygon, others will get ``NaN``.
 
     See Also
