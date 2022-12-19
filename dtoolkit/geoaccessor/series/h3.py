@@ -108,7 +108,7 @@ class h3:
     #     Returns
     #     -------
     #     Series
-    #         Float (unit is m) Series indicating the spherical length of the H3 edge.
+    #         Its values are the spherical length of the H3 edge and unit is m.
 
     #     See Also
     #     --------
@@ -172,7 +172,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
 
-        Str type H3 cell index.
+        String type H3 cell index.
 
         >>> s = pd.Series([0, 'hello', 'world', '88143541bdfffff'])
         >>> s
