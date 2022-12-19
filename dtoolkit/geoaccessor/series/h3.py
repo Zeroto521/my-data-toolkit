@@ -22,7 +22,7 @@ def available_if(check):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if not check(args[0].s if isinstance(args[0], H3) else args[0]):
+            if not check(args[0].s if isinstance(args[0], h3) else args[0]):
                 raise TypeError(
                     f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
                 )
@@ -35,7 +35,7 @@ def available_if(check):
 
 @register_series_accessor("h3")
 @dataclass
-class H3:
+class h3:
     """
     Hexagonal hierarchical geospatial indexing system.
 
@@ -54,13 +54,13 @@ class H3:
     Based on :obj:`~pandas.Series` style, APIs are designed as follows:
 
     - Remove the prefix `h3_` of the original H3 API.
-      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
+      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.h3.to_points`
 
     - Use `to_` prefix for the conversion between H3 cell int and str.
-      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
+      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.series.h3.to_str`
 
     - Use `is_` prefix for the validation of H3 cell.
-      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
+      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.h3.is_valid`
     """
 
     s: pd.Series
@@ -131,7 +131,7 @@ class H3:
         See Also
         --------
         h3.get_resolution
-        dtoolkit.geoaccessor.series.H3.is_res_class_III
+        dtoolkit.geoaccessor.series.h3.is_res_class_III
 
         Examples
         --------
@@ -267,7 +267,7 @@ class H3:
         See Also
         --------
         h3.is_res_class_III
-        dtoolkit.geoaccessor.series.H3.resolution
+        dtoolkit.geoaccessor.series.h3.resolution
 
         Examples
         --------
@@ -306,7 +306,7 @@ class H3:
         See Also
         --------
         h3.str_to_int
-        dtoolkit.geoaccessor.series.H3.to_str
+        dtoolkit.geoaccessor.series.h3.to_str
 
         Examples
         --------
@@ -348,7 +348,7 @@ class H3:
         See Also
         --------
         h3.int_to_str
-        dtoolkit.geoaccessor.series.H3.to_int
+        dtoolkit.geoaccessor.series.h3.to_int
 
         Examples
         --------
@@ -408,7 +408,7 @@ class H3:
         See Also
         --------
         h3.cell_to_center_child
-        dtoolkit.geoaccessor.series.H3.to_children
+        dtoolkit.geoaccessor.series.h3.to_children
 
         Examples
         --------
@@ -479,8 +479,8 @@ class H3:
         See Also
         --------
         h3.cell_to_children
-        dtoolkit.geoaccessor.series.H3.to_center_child
-        dtookit.geoaccessor.series.H3.to_parent
+        dtoolkit.geoaccessor.series.h3.to_center_child
+        dtookit.geoaccessor.series.h3.to_parent
 
         Examples
         --------
@@ -565,7 +565,7 @@ class H3:
         See Also
         --------
         h3.cell_to_parent
-        dtookit.geoaccessor.series.H3.to_children
+        dtookit.geoaccessor.series.h3.to_children
 
         Examples
         --------
@@ -620,7 +620,7 @@ class H3:
         See Also
         --------
         h3.cell_to_latlng
-        dtookit.geoaccessor.series.H3.to_polygons
+        dtookit.geoaccessor.series.h3.to_polygons
 
         Examples
         --------
@@ -673,7 +673,7 @@ class H3:
         See Also
         --------
         h3.cell_to_boundary
-        dtookit.geoaccessor.series.H3.to_points
+        dtookit.geoaccessor.series.h3.to_points
 
         Examples
         --------
