@@ -149,8 +149,6 @@ def to_h3(
     # 2. compat with h3-py 4
     # 3. requires crs is 4326
     # 4. consider h3-py as the accessor of Series
-    # 5. use h3 cell index as the index of DataFrame, this may be a problem,
-    # cause it is not unique actually.
     # 6. Speed up creating points / polygons via pygeos
 
     if s.crs != 4326:
