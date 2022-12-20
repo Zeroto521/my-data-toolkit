@@ -21,7 +21,8 @@ def is_h3(index: pd.Index, /) -> bool:
 
     See Also
     --------
-    dtoolkit.geoaccessor.index.H3.is_valid
+    dtoolkit.geoaccessor.series.is_h3
+    dtoolkit.geoaccessor.index.h3.is_valid
 
     Raises
     ------
