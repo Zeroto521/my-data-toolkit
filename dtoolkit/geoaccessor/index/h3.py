@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import partial
 from functools import wraps
 from typing import Hashable
-from functools import partial
 
 import geopandas as gpd
 import numpy as np
 import pandas as pd
+from pandas._libs.reshape import explode
 from pandas.api.extensions import register_index_accessor
 from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
@@ -15,7 +16,6 @@ from shapely import polygons
 
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
 from dtoolkit.geoaccessor.index.is_h3 import method_from_h3
-from pandas._libs.reshape import explode
 
 
 def available_if(check):
@@ -98,7 +98,7 @@ class h3:
                 partial(
                     method_from_h3(self.index, "cell_area"),
                     unit="m^2",
-                )
+                ),
             ),
             index=self.index,
         )
@@ -415,7 +415,7 @@ class h3:
                 partial(
                     method_from_h3(self.index, "h3_to_center_child"),
                     res=resolution,
-                )
+                ),
             ),
             index=self.index,
         )
@@ -473,8 +473,8 @@ class h3:
                 partial(
                     method_from_h3(self.index, "h3_to_children"),
                     res=resolution,
-                )
-            ).to_numpy()
+                ),
+            ).to_numpy(),
         )
         return pd.Series(values, index=self.index.repeat(counts))
 
@@ -518,7 +518,7 @@ class h3:
                 partial(
                     method_from_h3(self.index, "h3_to_parent"),
                     res=resolution,
-                )
+                ),
             ),
             index=self.index,
         )
@@ -552,7 +552,7 @@ class h3:
         # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
         # While h3-py release 4, `cell_to_latlng` is not available.
         yx = np.asarray(
-            self.index.map(method_from_h3(self.index, "h3_to_geo")).tolist()
+            self.index.map(method_from_h3(self.index, "h3_to_geo")).tolist(),
         )
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
@@ -590,7 +590,7 @@ class h3:
                     partial(
                         method_from_h3(self.index, "h3_to_geo_boundary"),
                         geo_json=True,
-                    )
+                    ),
                 ).tolist(),
             ),
             crs=4326,
