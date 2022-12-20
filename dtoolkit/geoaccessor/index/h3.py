@@ -370,9 +370,9 @@ class h3:
         # While h3-py release 4, `int_to_str` is not available.
         from h3.api.numpy_int import h3_to_string
 
-        if not is_int64_dtype(self.s):
+        if not is_int64_dtype(self.index):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
-        return self.s.apply(h3_to_string)
+        return self.index.map(h3_to_string)
 
     @available_if(is_h3)
     def to_center_child(self, resolution: int = None) -> pd.Series:
