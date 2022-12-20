@@ -3,7 +3,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import partial
 from functools import wraps
-from functools import partial
 
 import geopandas as gpd
 import numpy as np
