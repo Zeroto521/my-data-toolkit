@@ -53,13 +53,13 @@ class h3:
     -----
     Based on :obj:`~pandas.Series` style, APIs are designed as follows:
 
-    - Remove the prefix `h3_` of the original H3 API.
+    - Remove the prefix ``h3_`` of the original H3 API.
       e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.h3.to_points`
 
-    - Use `to_` prefix for the conversion between H3 cell int and str.
+    - Use ``to_`` prefix for the conversion between H3 cell int and str.
       e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.series.h3.to_str`
 
-    - Use `is_` prefix for the validation of H3 cell.
+    - Use ``is_`` prefix for the validation of H3 cell.
       e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.h3.is_valid`
     """
 
