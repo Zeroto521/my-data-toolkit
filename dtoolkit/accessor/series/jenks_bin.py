@@ -21,7 +21,7 @@ def jenks_bin(s: pd.Series, /, bins: int, **kwargs) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(float64)
 
     Raises
     ------

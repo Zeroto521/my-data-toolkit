@@ -1,15 +1,13 @@
-from __future__ import annotations
-
 import pandas as pd
-from pandas.api.types import is_number
 
+from dtoolkit.accessor.index.len import length
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
 def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
     """
-    Return the length of each element in the series.
+    Return the length of each element in the Series.
 
     Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
     the length of other types will as ``NaN``.
@@ -24,12 +22,16 @@ def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(int64)
+
+    See Also
+    --------
+    dtoolkit.accessor.index.len
 
     Notes
     -----
-    - To keep the Python naming style, so use this accessor via
-      ``Series.len`` rather than ``Series.lens``.
+    - To keep the Python naming style, so use this accessor via ``Series.len``
+      rather than ``Series.lens``.
 
     - Different to :meth:`pandas.Series.str.len`. It only returns
       :class:`collections.abc.Iterable` type length. Other type will return `NaN`.
@@ -74,13 +76,4 @@ def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
     dtype: int64
     """
 
-    return s.apply(_wrap_len, number=number, other=other)
-
-
-def _wrap_len(x, number: int, other: int | None) -> int | None:
-    if hasattr(x, "__len__"):
-        return x.__len__()
-    elif is_number(x):
-        return number
-
-    return other
+    return s.apply(length, number=number, other=other)

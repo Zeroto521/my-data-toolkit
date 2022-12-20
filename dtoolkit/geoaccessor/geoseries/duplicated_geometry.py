@@ -45,7 +45,7 @@ def duplicated_geometry(
 
     Returns
     -------
-    Series
+    Series(bool)
 
     See Also
     --------

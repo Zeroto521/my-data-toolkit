@@ -21,7 +21,7 @@ def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(Categorical)
 
     See Also
     --------

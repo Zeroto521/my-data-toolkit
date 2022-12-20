@@ -39,7 +39,7 @@ def duplicated_geometry_groups(
 
     Returns
     -------
-    Series
+    Series(int64)
         ``index`` is the index of inputting, ``values`` is the labels of groups.
         And labels are natural numbers.
 
@@ -167,7 +167,7 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(int64)
         index is the original ``index``, ``values`` is the label of group.
 
     Notes
