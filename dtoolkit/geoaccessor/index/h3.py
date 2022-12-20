@@ -41,6 +41,9 @@ class h3:
 
     A little magic binding H3 for Index.
 
+    Default return Series, its index is the H3 cell index and its values are the result
+    of the H3 method.
+
     Raises
     ------
     ModuleNotFoundError
