@@ -7,7 +7,7 @@ from dtoolkit.accessor.register import register_series_method
 @register_series_method
 def len(s: pd.Series, /, number: int = 1, other: int = None) -> pd.Series:
     """
-    Return the length of each element in the series.
+    Return the length of each element in the Series.
 
     Equals to ``s.apply(len)``, but the length of ``number`` type will as ``1``,
     the length of other types will as ``NaN``.
