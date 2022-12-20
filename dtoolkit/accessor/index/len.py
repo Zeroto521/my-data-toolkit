@@ -47,12 +47,12 @@ def len(index: pd.Index, /, number: int = 1, other: int = None) -> pd.Index:
     >>> index = pd.Index([0, 1.5, "str", ("tuple",), ["list"], {}, object])
     >>> index
     Index([0, 1.5, 'str', ('tuple',), ['list'], {}, <class 'object'>], dtype='object')
-    >>> s.len()
+    >>> index.len()
     Float64Index([1.0, 1.0, 3.0, 1.0, 1.0, 0.0, nan], dtype='float64')
 
     Set `number` and `other` default return.
 
-    >>> s.len(number=0, other=0)
+    >>> index.len(number=0, other=0)
     Int64Index([0, 0, 3, 1, 1, 0, 0], dtype='int64')
     """
 
