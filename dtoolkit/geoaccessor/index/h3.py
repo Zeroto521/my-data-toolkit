@@ -13,7 +13,7 @@ from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
 from shapely import polygons
 
-from dtoolkit.accessor.series import len as s_len
+from dtoolkit.accessor.index import len as i_len
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
 from dtoolkit.geoaccessor.index.is_h3 import method_from_h3
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
@@ -94,29 +94,43 @@ class h3:
         dtype: float64
         """
 
-        func = partial(method_from_h3(self.index, "cell_area"), unit="m^2")
-        return pd.Series(self.index.map(func), index=self.index)
+        return pd.Series(
+            self.index.map(
+                partial(
+                    method_from_h3(self.index, "cell_area"),
+                    unit="m^2",
+                )
+            ),
+            index=self.index,
+        )
 
-    # TODO: Available only for h3 release 4.
-    # @property
-    # @available_if(is_h3)
-    # def edge(self) -> pd.Series:
-    #     """
-    #     Compute the spherical length of a specific H3 edge.
+        # TODO: Available only for h3 release 4.
+        # @property
+        # @available_if(is_h3)
+        # def edge(self) -> pd.Series:
+        #     """
+        #     Compute the spherical length of a specific H3 edge.
 
-    #     Returns
-    #     -------
-    #     Series(float64)
-    #         With H3 cell as the its index. Its values are the spherical length
-    #         of the H3 edge and unit is m.
+        #     Returns
+        #     -------
+        #     Series(float64)
+        #         With H3 cell as the its index. Its values are the spherical length
+        #         of the H3 edge and unit is m.
 
-    #     See Also
-    #     --------
-    #     h3.edge_length
-    #     """
+        #     See Also
+        #     --------
+        #     h3.edge_length
+        #     """
 
-    #     func = partial(method_from_h3(self.index, "edge_length"), unit="m")
-    #     return pd.Series(self.index.map(func), index=self.index)
+        #     return pd.Series(
+        #         self.index.map(
+        #             partial(
+        #                 method_from_h3(self.index, "edge_length"),
+        #                 unit="m",
+        #             )
+        #         ),
+        #         index=self.index,
+        #     )
 
     @property
     @available_if(is_h3)
@@ -209,7 +223,6 @@ class h3:
             index=self.index,
         )
 
-
     @property
     @available_if(is_h3)
     def is_pentagon(self) -> pd.Series:
@@ -287,7 +300,6 @@ class h3:
             self.index.map(method_from_h3(self.index, "h3_is_res_class_III")),
             index=self.index,
         )
-
 
     @available_if(is_h3)
     def to_int(self) -> pd.Index:
