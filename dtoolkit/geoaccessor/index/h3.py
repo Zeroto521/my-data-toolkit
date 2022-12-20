@@ -13,10 +13,9 @@ from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
 from shapely import polygons
 
-from dtoolkit.accessor.index import len as i_len
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
 from dtoolkit.geoaccessor.index.is_h3 import method_from_h3
-from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
+from pandas._libs.reshape import explode
 
 
 def available_if(check):
@@ -374,3 +373,226 @@ class h3:
         if not is_int64_dtype(self.s):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
         return self.s.apply(h3_to_string)
+
+    @available_if(is_h3)
+    def to_center_child(self, resolution: int = None) -> pd.Series:
+        """
+        Get the center child of a cell at some finer resolution.
+
+        Parameters
+        ----------
+        resolution : int, optional
+            The resolution for the children. If None, then use the current
+            ``resolution`` of cell ``+1`` .
+
+        Returns
+        -------
+        Series
+            Its index is the old H3 parent cell, and values are the corresponding new
+            H3 center child cell.
+
+        See Also
+        --------
+        h3.cell_to_center_child
+        dtoolkit.geoaccessor.index.h3.to_children
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> index = pd.Index([612845052823076863, 614269156845420543])
+        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        >>> index.h3.to_center_child()
+        612845052823076863    617348652448612351
+        614269156845420543    618772756470956031
+        dtype: int64
+        """
+
+        # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
+        # While h3-py release 4, `cell_to_center_child` is not available.
+        return pd.Series(
+            self.index.map(
+                partial(
+                    method_from_h3(self.index, "h3_to_center_child"),
+                    res=resolution,
+                )
+            ),
+            index=self.index,
+        )
+
+    @available_if(is_h3)
+    def to_children(self, resolution: int = None) -> pd.Series:
+        """
+        Get the children of a cell.
+
+        Parameters
+        ----------
+        resolution : int, optional
+            The resolution for the children. If None, then use the current
+            ``resolution`` of cell ``+1`` .
+
+        Returns
+        -------
+        Series
+            Its index is the old H3 parent cell, and values are the corresponding new
+            H3 children cells.
+
+        See Also
+        --------
+        h3.cell_to_children
+        dtoolkit.geoaccessor.index.h3.to_center_child
+        dtookit.geoaccessor.index.h3.to_parent
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> index = pd.Index([612845052823076863, 614269156845420543])
+        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        >>> index.h3.to_children()
+        612845052823076863    617348652448612351
+        612845052823076863    617348652448874495
+        612845052823076863    617348652449136639
+        612845052823076863    617348652449398783
+        612845052823076863    617348652449660927
+        612845052823076863    617348652449923071
+        612845052823076863    617348652450185215
+        614269156845420543    618772756470956031
+        614269156845420543    618772756471218175
+        614269156845420543    618772756471480319
+        614269156845420543    618772756471742463
+        614269156845420543    618772756472004607
+        614269156845420543    618772756472266751
+        614269156845420543    618772756472528895
+        dtype: object
+        """
+        # TODO: Use `cell_to_children` instead of `h3_to_children`
+        # While h3-py release 4, `cell_to_children` is not available.
+        values, counts = explode(
+            self.index.map(
+                partial(
+                    method_from_h3(self.index, "h3_to_children"),
+                    res=resolution,
+                )
+            ).to_numpy()
+        )
+        return pd.Series(values, index=self.index.repeat(counts))
+
+    @available_if(is_h3)
+    def to_parent(self, resolution: int = None) -> pd.Series:
+        """
+        Get the parent of a cell.
+
+        Parameters
+        ----------
+        resolution : int, optional
+            The resolution for the children. If None, then use the current
+            ``resolution`` of cell ``-1`` .
+
+        Returns
+        -------
+        Series
+            Its index is the old H3 children cells, and values are the corresponding new
+            H3 parent cell.
+
+        See Also
+        --------
+        h3.cell_to_parent
+        dtookit.geoaccessor.index.h3.to_children
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> index = pd.Index([612845052823076863, 614269156845420543])
+        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        >>> index.h3.to_parent()
+        608341453197803519  612845052823076863
+        609765557230632959  614269156845420543
+        dtype: int64
+        """
+        # TODO: Use `cell_to_parent` instead of `h3_to_parent`
+        # While h3-py release 4, `cell_to_parent` is not available.
+        return pd.Series(
+            self.index.map(
+                partial(
+                    method_from_h3(self.index, "h3_to_parent"),
+                    res=resolution,
+                )
+            ),
+            index=self.index,
+        )
+
+    @available_if(is_h3)
+    def to_points(self) -> gpd.GeoSeries:
+        """
+        Return the center :obj:`~shapely.Point` of an H3 cell.
+
+        Returns
+        -------
+        GeoSeries
+            With H3 cell as the its index.
+
+        See Also
+        --------
+        h3.cell_to_latlng
+        dtookit.geoaccessor.index.h3.to_polygons
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> index = pd.Index([6128450528-23076863, 614269156845420543])
+        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        >>> index.h3.to_points()
+        612845052823076863  POINT (121.99637 55.00331)
+        614269156845420543    POINT (99.99611 0.99919)
+        dtype: geometry
+        """
+        # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
+        # While h3-py release 4, `cell_to_latlng` is not available.
+        yx = np.asarray(
+            self.index.map(method_from_h3(self.index, "h3_to_geo")).tolist()
+        )
+        return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
+
+    @available_if(is_h3)
+    def to_polygons(self) -> gpd.GeoSeries:
+        """
+        Return :obj:`~shapely.Polygon` to describe the cell boundary.
+
+        Returns
+        -------
+        GeoSeries
+            With H3 cell as the its index.
+
+        See Also
+        --------
+        h3.cell_to_boundary
+        dtookit.geoaccessor.index.h3.to_points
+
+        Examples
+        --------
+        >>> import dtoolkit.geoaccessor
+        >>> import pandas as pd
+        >>> index = pd.Index([6128450528-23076863, 614269156845420543])
+        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        >>> index.h3.to_polygons()
+        612845052823076863  POLYGON ((121.98797 55.00408, 121.99122 54.999...
+        614269156845420543  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
+        dtype: geometry
+        """
+        # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
+        # While h3-py release 4, `cell_to_boundary` is not available.
+        return gpd.GeoSeries(
+            polygons(
+                self.index.map(
+                    partial(
+                        method_from_h3(self.index, "h3_to_geo_boundary"),
+                        geo_json=True,
+                    )
+                ).tolist(),
+            ),
+            crs=4326,
+            index=self.index,
+        )
