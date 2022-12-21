@@ -89,6 +89,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.area
         612845052823076863    710781.770906
@@ -155,6 +156,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.resolution
         612845052823076863    8
@@ -404,6 +406,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_center_child()
         612845052823076863    617348652448612351
@@ -451,6 +454,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_children()
         612845052823076863    617348652448612351
@@ -508,6 +512,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_parent()
         608341453197803519  612845052823076863
@@ -546,6 +551,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([6128450528-23076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_points()
         612845052823076863  POINT (121.99637 55.00331)
@@ -579,6 +585,7 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([6128450528-23076863, 614269156845420543])
+        >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_polygons()
         612845052823076863  POLYGON ((121.98797 55.00408, 121.99122 54.999...
