@@ -365,8 +365,8 @@ class h3:
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index
+        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_str()
         Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
         """

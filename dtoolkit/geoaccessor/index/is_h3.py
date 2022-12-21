@@ -48,6 +48,7 @@ def is_h3(index: pd.Index, /) -> bool:
     Int type H3 cell index.
 
     >>> index = pd.Index([612845052823076863, 614269156845420543])
+    >>> index
     Int64Index([612845052823076863, 614269156845420543], dtype='int64')
     >>> index.is_h3()
     True
