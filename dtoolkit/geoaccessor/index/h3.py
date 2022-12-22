@@ -29,7 +29,7 @@ def available_if(check):
 
 
 @register_index_accessor("h3")
-class h3(NoNewAttributesMixin):
+class H3(NoNewAttributesMixin):
     """
     Hexagonal hierarchical geospatial indexing system.
 
@@ -48,13 +48,13 @@ class h3(NoNewAttributesMixin):
     Based on :obj:`~pandas.Index` style, APIs are designed as follows:
 
     - Remove the prefix ``h3_`` of the original H3 API.
-      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.index.h3.to_points`
+      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.index.H3.to_points`
 
     - Use ``to_`` prefix for the conversion between H3 cell int and str.
-      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.index.h3.to_str`
+      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.index.H3.to_str`
 
     - Use ``is_`` prefix for the validation of H3 cell.
-      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.index.h3.is_valid`
+      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.index.H3.is_valid`
     """
 
     def __init__(self, index: pd.Index, /):
@@ -77,8 +77,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_area
-        dtoolkit.geoaccessor.index.h3.area
-        dtoolkit.geoaccessor.series.h3.area
+        dtoolkit.geoaccessor.index.H3.area
+        dtoolkit.geoaccessor.series.H3.area
 
         Examples
         --------
@@ -116,8 +116,8 @@ class h3(NoNewAttributesMixin):
         #     See Also
         #     --------
         #     h3.edge_length
-        #     dtoolkit.geoaccessor.index.edge
-        #     dtoolkit.geoaccessor.series.edge
+        #     dtoolkit.geoaccessor.index.H3.edge
+        #     dtoolkit.geoaccessor.series.H3.edge
         #     """
 
         #     return pd.Series(
@@ -139,10 +139,10 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.get_resolution
-        dtoolkit.geoaccessor.index.h3.resolution
-        dtoolkit.geoaccessor.series.h3.resolution
-        dtoolkit.geoaccessor.index.h3.is_res_class_III
-        dtoolkit.geoaccessor.series.h3.is_res_class_III
+        dtoolkit.geoaccessor.index.H3.resolution
+        dtoolkit.geoaccessor.series.H3.resolution
+        dtoolkit.geoaccessor.index.H3.is_res_class_III
+        dtoolkit.geoaccessor.series.H3.is_res_class_III
 
         Examples
         --------
@@ -224,7 +224,7 @@ class h3(NoNewAttributesMixin):
         10                    b
         100000000000000000    c
         612845052823076863    d
-        dtype: int64
+        dtype: object
         >>> s.h3.is_valid
         1                     False
         10                    False
@@ -298,10 +298,10 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.is_res_class_III
-        dtoolkit.geoaccessor.index.h3.resolution
-        dtoolkit.geoaccessor.series.h3.resolution
-        dtoolkit.geoaccessor.index.h3.is_res_class_III
-        dtoolkit.geoaccessor.series.h3.is_res_class_III
+        dtoolkit.geoaccessor.index.H3.resolution
+        dtoolkit.geoaccessor.series.H3.resolution
+        dtoolkit.geoaccessor.index.H3.is_res_class_III
+        dtoolkit.geoaccessor.series.H3.is_res_class_III
 
         Examples
         --------
@@ -341,8 +341,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.str_to_int
-        dtoolkit.geoaccessor.index.h3.to_str
-        dtoolkit.geoaccessor.series.h3.to_int
+        dtoolkit.geoaccessor.index.H3.to_str
+        dtoolkit.geoaccessor.series.H3.to_int
 
         Examples
         --------
@@ -379,8 +379,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.int_to_str
-        dtoolkit.geoaccessor.index.h3.to_int
-        dtoolkit.geoaccessor.series.h3.to_str
+        dtoolkit.geoaccessor.index.H3.to_int
+        dtoolkit.geoaccessor.series.H3.to_str
 
         Examples
         --------
@@ -419,8 +419,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_center_child
-        dtoolkit.geoaccessor.index.h3.to_children
-        dtoolkit.geoaccessor.series.h3.to_center_child
+        dtoolkit.geoaccessor.index.H3.to_children
+        dtoolkit.geoaccessor.series.H3.to_center_child
 
         Examples
         --------
@@ -455,9 +455,9 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_children
-        dtoolkit.geoaccessor.index.h3.to_center_child
-        dtoolkit.geoaccessor.index.h3.to_parent
-        dtoolkit.geoaccessor.series.h3.to_children
+        dtoolkit.geoaccessor.index.H3.to_center_child
+        dtoolkit.geoaccessor.index.H3.to_parent
+        dtoolkit.geoaccessor.series.H3.to_children
 
         Examples
         --------
@@ -491,8 +491,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_parent
-        dtoolkit.geoaccessor.index.h3.to_children
-        dtoolkit.geoaccessor.series.h3.to_parent
+        dtoolkit.geoaccessor.index.H3.to_children
+        dtoolkit.geoaccessor.series.H3.to_parent
 
         Examples
         --------
@@ -523,8 +523,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_latlng
-        dtoolkit.geoaccessor.index.h3.to_polygons
-        dtoolkit.geoaccessor.series.h3.to_points
+        dtoolkit.geoaccessor.index.H3.to_polygons
+        dtoolkit.geoaccessor.series.H3.to_points
 
         Examples
         --------
@@ -556,8 +556,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_boundary
-        dtoolkit.geoaccessor.index.h3.to_points
-        dtoolkit.geoaccessor.series.h3.to_polygons
+        dtoolkit.geoaccessor.index.H3.to_points
+        dtoolkit.geoaccessor.series.H3.to_polygons
 
         Examples
         --------
