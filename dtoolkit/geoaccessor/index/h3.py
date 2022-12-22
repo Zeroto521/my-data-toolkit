@@ -14,7 +14,7 @@ from pandas.api.types import is_string_dtype
 from shapely import polygons
 
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
-from dtoolkit.geoaccessor.index.is_h3 import method_from_h3
+from dtoolkit.geoaccessor.index.is_h3 import apply_h3
 
 
 def available_if(check):
@@ -40,9 +40,6 @@ class h3:
 
     A little magic binding H3 for Index.
 
-    Default return Series, its index is the H3 cell index and its values are the result
-    of the H3 method.
-
     Raises
     ------
     ModuleNotFoundError
@@ -65,7 +62,10 @@ class h3:
       e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.index.h3.is_valid`
     """
 
-    index: pd.Index
+    def __init__(self, index: pd.Index, /):
+        self.index = index
+
+        self._freeze()
 
     @property
     @available_if(is_h3)
@@ -97,12 +97,7 @@ class h3:
         """
 
         return pd.Series(
-            self.index.map(
-                partial(
-                    method_from_h3(self.index, "cell_area"),
-                    unit="m^2",
-                ),
-            ),
+            apply_h3(self.index, "cell_area", unit="m^2"),
             index=self.index,
         )
 
@@ -125,12 +120,7 @@ class h3:
         #     """
 
         #     return pd.Series(
-        #         self.index.map(
-        #             partial(
-        #                 method_from_h3(self.index, "edge_length"),
-        #                 unit="m",
-        #             )
-        #         ),
+        #         apply_h3(self.index, "edge_length", unit="m"),
         #         index=self.index,
         #     )
 
@@ -162,11 +152,10 @@ class h3:
         614269156845420543    8
         dtype: int64
         """
-
         # TODO: Use `get_resolution` instead of `h3_get_resolution`
         # While h3-py release 4, `get_resolution` is not available.
         return pd.Series(
-            self.index.map(method_from_h3(self.index, "h3_get_resolution")),
+            apply_h3(self.index, "h3_get_resolution"),
             index=self.index,
         )
 
@@ -178,7 +167,8 @@ class h3:
         Returns
         -------
         Series(bool)
-            Its values indicating whether the H3 cell is valid.
+            With H3 cell as the its index. Its values indicating whether the H3 cell is
+            valid.
 
         See Also
         --------
@@ -218,11 +208,10 @@ class h3:
         612845052823076863     True
         dtype: bool
         """
-
         # TODO: Use `is_valid_cell` instead of `h3_is_valid`
         # While h3-py release 4, `is_valid_cell` is not available.
         return pd.Series(
-            self.index.map(method_from_h3(self.index, "h3_is_valid")),
+            apply_h3(self.index, "h3_is_valid"),
             index=self.index,
         )
 
@@ -254,11 +243,10 @@ class h3:
         614269156845420543    False
         dtype: bool
         """
-
         # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
         # While h3-py release 4, `is_pentagon` is not available.
         return pd.Series(
-            self.index.map(method_from_h3(self.index, "h3_is_pentagon")),
+            apply_h3(self.index, "h3_is_pentagon"),
             index=self.index,
         )
 
@@ -296,18 +284,17 @@ class h3:
         614269156845420543    False
         dtype: bool
         """
-
         # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
         # While h3-py release 4, `is_res_class_III` is not available.
         return pd.Series(
-            self.index.map(method_from_h3(self.index, "h3_is_res_class_III")),
+            apply_h3(self.index, "h3_is_res_class_III"),
             index=self.index,
         )
 
     @available_if(is_h3)
     def to_int(self) -> pd.Index:
         """
-        Converts an H3 64-bit integer index to a hexadecimal string.
+        Converts 64-bit integer H3 cell index to hexadecimal string.
 
         Returns
         -------
@@ -316,7 +303,7 @@ class h3:
         Raises
         ------
         TypeError
-            If the dtype of the Index is not string.
+            If the Index dtype is not string.
 
         See Also
         --------
@@ -342,9 +329,9 @@ class h3:
         return self.index.map(string_to_h3)
 
     @available_if(is_h3)
-    def to_str(self) -> pd.Series:
+    def to_str(self) -> pd.Index:
         """
-        Converts a hexadecimal string to an H3 64-bit integer index.
+        Converts hexadecimal string H3 cell index to 64-bit integer.
 
         Returns
         -------
@@ -353,7 +340,7 @@ class h3:
         Raises
         ------
         TypeError
-            If the dtype of the Index is not int64.
+            If the Index dtype is not int64.
 
         See Also
         --------
@@ -379,9 +366,9 @@ class h3:
         return self.index.map(h3_to_string)
 
     @available_if(is_h3)
-    def to_center_child(self, resolution: int = None) -> pd.Series:
+    def to_center_child(self, resolution: int = None) -> pd.Index:
         """
-        Get the center child of a cell at some finer resolution.
+        Get the center child of a cell.
 
         Parameters
         ----------
@@ -391,9 +378,8 @@ class h3:
 
         Returns
         -------
-        Series
-            Its index is the old H3 parent cell, and values are the corresponding new
-            H3 center child cell.
+        Index
+            New H3 center child cell.
 
         See Also
         --------
@@ -408,25 +394,14 @@ class h3:
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_center_child()
-        612845052823076863    617348652448612351
-        614269156845420543    618772756470956031
-        dtype: int64
+        Int64Index([617348652448612351, 618772756470956031], dtype='int64')
         """
-
         # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
         # While h3-py release 4, `cell_to_center_child` is not available.
-        return pd.Series(
-            self.index.map(
-                partial(
-                    method_from_h3(self.index, "h3_to_center_child"),
-                    res=resolution,
-                ),
-            ),
-            index=self.index,
-        )
+        return apply_h3(self.index, "h3_to_center_child", res=resolution)
 
     @available_if(is_h3)
-    def to_children(self, resolution: int = None) -> pd.Series:
+    def to_children(self, resolution: int = None) -> pd.Index:
         """
         Get the children of a cell.
 
@@ -438,9 +413,8 @@ class h3:
 
         Returns
         -------
-        Series
-            Its index is the old H3 parent cell, and values are the corresponding new
-            H3 children cells.
+        Index
+            New H3 children cells.
 
         See Also
         --------
@@ -456,36 +430,13 @@ class h3:
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_children()
-        612845052823076863    617348652448612351
-        612845052823076863    617348652448874495
-        612845052823076863    617348652449136639
-        612845052823076863    617348652449398783
-        612845052823076863    617348652449660927
-        612845052823076863    617348652449923071
-        612845052823076863    617348652450185215
-        614269156845420543    618772756470956031
-        614269156845420543    618772756471218175
-        614269156845420543    618772756471480319
-        614269156845420543    618772756471742463
-        614269156845420543    618772756472004607
-        614269156845420543    618772756472266751
-        614269156845420543    618772756472528895
-        dtype: object
         """
         # TODO: Use `cell_to_children` instead of `h3_to_children`
         # While h3-py release 4, `cell_to_children` is not available.
-        values, counts = explode(
-            self.index.map(
-                partial(
-                    method_from_h3(self.index, "h3_to_children"),
-                    res=resolution,
-                ),
-            ).to_numpy(),
-        )
-        return pd.Series(values, index=self.index.repeat(counts))
+        return apply_h3(self.index, "h3_to_children", res=resolution)
 
     @available_if(is_h3)
-    def to_parent(self, resolution: int = None) -> pd.Series:
+    def to_parent(self, resolution: int = None) -> pd.Index:
         """
         Get the parent of a cell.
 
@@ -497,9 +448,8 @@ class h3:
 
         Returns
         -------
-        Series
-            Its index is the old H3 children cells, and values are the corresponding new
-            H3 parent cell.
+        Index
+            New H3 parent cell.
 
         See Also
         --------
@@ -520,15 +470,7 @@ class h3:
         """
         # TODO: Use `cell_to_parent` instead of `h3_to_parent`
         # While h3-py release 4, `cell_to_parent` is not available.
-        return pd.Series(
-            self.index.map(
-                partial(
-                    method_from_h3(self.index, "h3_to_parent"),
-                    res=resolution,
-                ),
-            ),
-            index=self.index,
-        )
+        return apply_h3(self.index, "h3_to_parent", res=resolution)
 
     @available_if(is_h3)
     def to_points(self) -> gpd.GeoSeries:
@@ -559,9 +501,7 @@ class h3:
         """
         # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
         # While h3-py release 4, `cell_to_latlng` is not available.
-        yx = np.asarray(
-            self.index.map(method_from_h3(self.index, "h3_to_geo")).tolist(),
-        )
+        yx = np.asarray(apply_h3(self.index, "h3_to_geo").tolist())
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
     @available_if(is_h3)
@@ -595,12 +535,11 @@ class h3:
         # While h3-py release 4, `cell_to_boundary` is not available.
         return gpd.GeoSeries(
             polygons(
-                self.index.map(
-                    partial(
-                        method_from_h3(self.index, "h3_to_geo_boundary"),
-                        geo_json=True,
-                    ),
-                ).tolist(),
+                apply_h3(
+                    self.index,
+                    "h3_to_geo_boundary",
+                    geo_json=True,
+                ).tolist()
             ),
             crs=4326,
             index=self.index,

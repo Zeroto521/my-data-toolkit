@@ -60,46 +60,6 @@ def is_h3(index: pd.Index, /) -> bool:
     return apply_h3(index, "h3_is_valid").all()
 
 
-def method_from_h3(data: pd.Index | pd.Series, method: str, /) -> Callable:
-    """
-    Based on the Series dtype to get the corresponding H3 method.
-
-    Parameters
-    ----------
-    data : :obj:`~pandas.Index` or :obj:`~pandas.Series`
-        The data to be validated.
-
-    method : str
-        H3 method name.
-
-    Returns
-    -------
-    Callable
-        H3 method.
-
-    Raises
-    ------
-    ModuleNotFoundError
-        If don't have module named 'h3'.
-
-    TypeError
-        If not Series(string) or Series(int64) dtype.
-    """
-
-    if is_int64_dtype(data):
-        # NOTE: Can't use `__import__("h3.api.numpy_int")`
-        # See https://github.com/uber/h3-py/issues/304
-        import h3.api.numpy_int as h3
-    elif is_string_dtype(data):
-        import h3.api.basic_str as h3
-    else:
-        raise TypeError(
-            f"Expected Index(string) or Index(int64), but got {data.dtype!r}",
-        )
-
-    return getattr(h3, method)
-
-
 def apply_h3(index: pd.Index, /, method: str, **kwargs):
     """
     Apply H3 method to :obj:`~pandas.Index`.
@@ -132,4 +92,4 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs):
             f"Expected Index(string) or Index(int64), but got {data.dtype!r}",
         )
 
-    return index.map(partial(getattr(h3, method), *args, **kwargs))
+    return index.map(partial(getattr(h3, method), **kwargs))
