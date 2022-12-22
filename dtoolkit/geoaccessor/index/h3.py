@@ -10,8 +10,8 @@ from pandas.api.types import is_string_dtype
 from pandas.core.base import NoNewAttributesMixin
 from shapely import polygons
 
-from dtoolkit.geoaccessor.index.is_h3 import is_h3
 from dtoolkit.geoaccessor.index.is_h3 import apply_h3
+from dtoolkit.geoaccessor.index.is_h3 import is_h3
 
 
 def available_if(check):
@@ -579,7 +579,7 @@ class h3(NoNewAttributesMixin):
                     self.index,
                     "h3_to_geo_boundary",
                     geo_json=True,
-                ).tolist()
+                ).tolist(),
             ),
             crs=4326,
             index=self.index,
