@@ -91,7 +91,7 @@ class H3(NoNewAttributesMixin):
         dtype: object
         >>> s.h3.area
         612845052823076863    710781.770906
-        612845052823076863    852134.191671
+        614269156845420543    852134.191671
         dtype: float64
         """
 
@@ -466,7 +466,7 @@ class H3(NoNewAttributesMixin):
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
-        >>> index.h3.to_children()
+        >>> index.h3.to_children()  # doctest: +SKIP
         Index(
             [
                 [
