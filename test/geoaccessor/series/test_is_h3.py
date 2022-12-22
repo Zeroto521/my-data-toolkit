@@ -10,7 +10,7 @@ pytest.importorskip("h3")
 @pytest.mark.parametrize(
     "s, error",
     [
-        (pd.Series([True, False]), TypeError),
+        (pd.Series(index=[True, False]), TypeError),
     ],
 )
 def test_error(s, error):
