@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.index import h3  # noqa: F401
+from dtoolkit.geoaccessor.index import H3
 
 
 pytest.importorskip("h3")
@@ -29,7 +29,7 @@ pytest.importorskip("h3")
 )
 def test_to_int_error(index, error):
     with pytest.raises(error):
-        index.h3.to_int()
+        H3(index).to_int()
 
 
 @pytest.mark.parametrize(
@@ -54,4 +54,4 @@ def test_to_int_error(index, error):
 )
 def test_to_str_error(index, error):
     with pytest.raises(error):
-        index.h3.to_str()
+        H3(index).to_str()
