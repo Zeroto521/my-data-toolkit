@@ -1,5 +1,4 @@
 from functools import wraps
-from typing import Hashable
 
 import geopandas as gpd
 import pandas as pd
@@ -8,7 +7,6 @@ from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 from pandas._libs.reshape import explode
 
-from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.index import h3 as i_h3
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
