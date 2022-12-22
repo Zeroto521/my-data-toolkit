@@ -1,9 +1,9 @@
 import geopandas as gpd
 import pandas as pd
+from pandas._libs.reshape import explode
 from pandas.api.extensions import register_series_accessor
 from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
-from pandas._libs.reshape import explode
 
 from dtoolkit.geoaccessor.index import h3 as i_h3
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
