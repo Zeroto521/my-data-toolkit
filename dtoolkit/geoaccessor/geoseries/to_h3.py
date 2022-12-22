@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import Callable
 from typing import Hashable
 
 import geopandas as gpd
@@ -193,7 +192,7 @@ def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.
     )
 
 
-def method_from_h3(method: str, int_dtype: bool = True) -> Callable:
+def method_from_h3(method: str, int_dtype: bool = True) -> callable:
     if int_dtype:
         import h3.api.numpy_int as h3
     else:
