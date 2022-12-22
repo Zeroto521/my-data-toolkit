@@ -8,44 +8,30 @@ pytest.importorskip("h3")
 
 
 @pytest.mark.parametrize(
-    "s, drop, error",
+    "s, error",
     [
         # without name
         (
             pd.Series([612845052823076863, 614269156845420543]),
-            False,
             ValueError,
-        ),
-        # not H3 int
-        (
-            pd.Series([1, 2]),
-            True,
-            TypeError,
         ),
     ],
 )
-def test_to_points_error(s, drop, error):
+def test_to_points_error(s, error):
     with pytest.raises(error):
-        H3(s).to_points(drop=drop)
+        H3(s).to_points()
 
 
 @pytest.mark.parametrize(
-    "s, drop, error",
+    "s, error",
     [
         # without name
         (
             pd.Series([612845052823076863, 614269156845420543]),
-            False,
             ValueError,
-        ),
-        # not H3 int
-        (
-            pd.Series([1, 2]),
-            True,
-            TypeError,
         ),
     ],
 )
-def test_to_polygons_error(s, drop, error):
+def test_to_polygons_error(s, error):
     with pytest.raises(error):
-        H3(s).to_polygons(drop=drop)
+        H3(s).to_polygons()
