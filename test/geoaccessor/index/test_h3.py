@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
-from pandas.testing import assert_index_equal
 from pandas._libs.reshape import explode
+from pandas.testing import assert_index_equal
 
 from dtoolkit.geoaccessor.index import H3
 
