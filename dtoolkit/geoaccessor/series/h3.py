@@ -1,6 +1,5 @@
 import geopandas as gpd
 import pandas as pd
-from pandas._libs.reshape import explode
 from pandas.api.extensions import register_series_accessor
 from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
@@ -240,6 +239,8 @@ class H3(NoNewAttributesMixin):
         618772756472528895    b
         dtype: object
         """
+        from pandas._libs.reshape import explode
+
         # TODO: Use `cell_to_children` instead of `h3_to_children`
         # While h3-py release 4, `cell_to_children` is not available.
         values, counts = explode(self.s.index.h3.to_children(resolution).to_numpy())
