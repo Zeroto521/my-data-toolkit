@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import partial
 from typing import Callable
 
 import pandas as pd
@@ -56,7 +57,7 @@ def is_h3(index: pd.Index, /) -> bool:
 
     # TODO: Use `is_valid_cell` instead of `h3_is_valid`
     # While h3-py release 4, `is_valid_cell` is not available.
-    return index.map(method_from_h3(index, "h3_is_valid")).all()
+    return apply_h3(index, "h3_is_valid").all()
 
 
 def method_from_h3(data: pd.Index | pd.Series, method: str, /) -> Callable:
@@ -97,3 +98,38 @@ def method_from_h3(data: pd.Index | pd.Series, method: str, /) -> Callable:
         )
 
     return getattr(h3, method)
+
+
+def apply_h3(index: pd.Index, /, method: str, **kwargs):
+    """
+    Apply H3 method to :obj:`~pandas.Index`.
+
+    Parameters
+    ----------
+    method : str
+        H3 method name.
+
+    *args, **kwargs
+        Additional keyword arguments are passed to ``h3.{method}``.
+
+    Raises
+    ------
+    ModuleNotFoundError
+        If don't have module named 'h3'.
+
+    TypeError
+        If not Index(string) or Index(int64) dtype.
+    """
+
+    if is_int64_dtype(index):
+        # NOTE: Can't use `__import__("h3.api.numpy_int")`
+        # See https://github.com/uber/h3-py/issues/304
+        import h3.api.numpy_int as h3
+    elif is_string_dtype(index):
+        import h3.api.basic_str as h3
+    else:
+        raise TypeError(
+            f"Expected Index(string) or Index(int64), but got {data.dtype!r}",
+        )
+
+    return index.map(partial(getattr(h3, method), *args, **kwargs))
