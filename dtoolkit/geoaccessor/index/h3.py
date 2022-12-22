@@ -4,10 +4,7 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_index_accessor
-from pandas.api.types import is_int64_dtype
-from pandas.api.types import is_string_dtype
 from pandas.core.base import NoNewAttributesMixin
-from shapely import polygons
 
 from dtoolkit.geoaccessor.index.is_h3 import apply_h3
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
@@ -356,6 +353,7 @@ class H3(NoNewAttributesMixin):
         """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
+        from pandas.api.types import is_string_dtype
         from h3.api.numpy_int import string_to_h3
 
         if not is_string_dtype(self.index):
@@ -394,6 +392,7 @@ class H3(NoNewAttributesMixin):
         """
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
+        from pandas.api.types import is_int64_dtype
         from h3.api.numpy_int import h3_to_string
 
         if not is_int64_dtype(self.index):
@@ -592,6 +591,8 @@ class H3(NoNewAttributesMixin):
         614269156845420543  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
         dtype: geometry
         """
+        from shapely import polygons
+
         # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
         # While h3-py release 4, `cell_to_boundary` is not available.
         return gpd.GeoSeries(
