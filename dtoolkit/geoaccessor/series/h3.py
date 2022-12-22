@@ -310,7 +310,7 @@ class H3(NoNewAttributesMixin):
         >>> s = pd.Series(
         ...     ['a', 'b'],
         ...     index=[612845052823076863, 614269156845420543],
-        ...     name='label'
+        ...     name='label',
         ... )
         >>> s
         612845052823076863    a

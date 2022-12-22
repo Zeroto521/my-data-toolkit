@@ -467,6 +467,29 @@ class H3(NoNewAttributesMixin):
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_children()
+        Index(
+            [
+                [
+                    617348652448612351,
+                    617348652448874495,
+                    617348652449136639,
+                    617348652449398783,
+                    617348652449660927,
+                    617348652449923071,
+                    617348652450185215
+                ],
+                [
+                    618772756470956031,
+                    618772756471218175,
+                    618772756471480319,
+                    618772756471742463,
+                    618772756472004607,
+                    618772756472266751,
+                    618772756472528895
+                ]
+            ]
+            dtype='object'
+        )
         """
         # TODO: Use `cell_to_children` instead of `h3_to_children`
         # While h3-py release 4, `cell_to_children` is not available.
@@ -502,9 +525,7 @@ class H3(NoNewAttributesMixin):
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_parent()
-        608341453197803519  612845052823076863
-        609765557230632959  614269156845420543
-        dtype: int64
+        Int64Index([608341453197803519, 609765557230632959], dtype='int64')
         """
         # TODO: Use `cell_to_parent` instead of `h3_to_parent`
         # While h3-py release 4, `cell_to_parent` is not available.
@@ -530,7 +551,7 @@ class H3(NoNewAttributesMixin):
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
-        >>> index = pd.Index([6128450528-23076863, 614269156845420543])
+        >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_points()
@@ -563,7 +584,7 @@ class H3(NoNewAttributesMixin):
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
-        >>> index = pd.Index([6128450528-23076863, 614269156845420543])
+        >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
         Int64Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_polygons()
