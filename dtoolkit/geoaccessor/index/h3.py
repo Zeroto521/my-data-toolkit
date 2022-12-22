@@ -6,7 +6,6 @@ from functools import wraps
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pandas._libs.reshape import explode
 from pandas.api.extensions import register_index_accessor
 from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
@@ -81,17 +80,21 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_area
+        dtoolkit.geoaccessor.index.h3.area
+        dtoolkit.geoaccessor.series.h3.area
 
         Examples
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
-        >>> index = pd.Index([612845052823076863, 614269156845420543])
-        >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
-        >>> index.h3.area
+        >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+        >>> s
+        612845052823076863    a
+        614269156845420543    b
+        dtype: object
+        >>> s.h3.area
         612845052823076863    710781.770906
-        614269156845420543    852134.191671
+        612845052823076863    852134.191671
         dtype: float64
         """
 
@@ -116,6 +119,8 @@ class h3(NoNewAttributesMixin):
         #     See Also
         #     --------
         #     h3.edge_length
+        #     dtoolkit.geoaccessor.index.edge
+        #     dtoolkit.geoaccessor.series.edge
         #     """
 
         #     return pd.Series(
@@ -127,7 +132,7 @@ class h3(NoNewAttributesMixin):
     @available_if(is_h3)
     def resolution(self) -> pd.Series:
         """
-        Return the resolution of an H3 cell.
+        Return the resolution of H3 cell.
 
         Returns
         -------
@@ -137,16 +142,21 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.get_resolution
+        dtoolkit.geoaccessor.index.h3.resolution
+        dtoolkit.geoaccessor.series.h3.resolution
         dtoolkit.geoaccessor.index.h3.is_res_class_III
+        dtoolkit.geoaccessor.series.h3.is_res_class_III
 
         Examples
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
-        >>> index = pd.Index([612845052823076863, 614269156845420543])
-        >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
-        >>> index.h3.resolution
+        >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+        >>> s
+        612845052823076863    a
+        614269156845420543    b
+        dtype: object
+        >>> s.h3.resolution
         612845052823076863    8
         614269156845420543    8
         dtype: int64
@@ -161,7 +171,7 @@ class h3(NoNewAttributesMixin):
     @property
     def is_valid(self) -> pd.Series:
         """
-        Validates an H3 cell (hexagon or pentagon).
+        Validates H3 cell (hexagon or pentagon).
 
         Returns
         -------
@@ -173,6 +183,9 @@ class h3(NoNewAttributesMixin):
         --------
         h3.is_valid_cell
         dtoolkit.geoaccessor.index.is_h3
+        dtoolkit.geoaccessor.series.is_h3
+        dtoolkit.geoaccessor.index.is_valid
+        dtoolkit.geoaccessor.series.is_valid
 
         Examples
         --------
@@ -181,26 +194,41 @@ class h3(NoNewAttributesMixin):
 
         String type H3 cell index.
 
-        >>> index = pd.Index([0, 'hello', 'world', '88143541bdfffff'])
-        >>> index
-        Index([0, 'hello', 'world', '88143541bdfffff'], dtype='object')
-        >>> index.h3.is_valid
+        >>> s = pd.Series(
+        ...     ['a', 'b', 'c', 'd'],
+        ...     index=[0, 'hello', 'world', '88143541bdfffff'],
+        ... )
+        >>> s
+        0                  a
+        hello              b
+        world              c
+        88143541bdfffff    d
+        dtype: object
+        >>> s.h3.is_valid
         0                  False
         hello              False
         world              False
         88143541bdfffff     True
         dtype: bool
+
         Int type H3 cell index.
 
-        >>> index = pd.Index([
-        ...     1,
-        ...     10,
-        ...     100000000000000000,
-        ...     612845052823076863,
-        ... ])
-        >>> index
-        Int64Index([1, 10, 100000000000000000, 612845052823076863], dtype='int64')
-        >>> index.h3.is_valid
+        >>> s = pd.Series(
+        ...     ['a', 'b', 'c', 'd'],
+        ...     index=[
+        ...         1,
+        ...         10,
+        ...         100000000000000000,
+        ...         612845052823076863,
+        ...     ],
+        ... )
+        >>> s
+        1                     a
+        10                    b
+        100000000000000000    c
+        612845052823076863    d
+        dtype: int64
+        >>> s.h3.is_valid
         1                     False
         10                    False
         100000000000000000    False
@@ -218,7 +246,7 @@ class h3(NoNewAttributesMixin):
     @available_if(is_h3)
     def is_pentagon(self) -> pd.Series:
         """
-        Identify if an H3 cell is a pentagon.
+        Identify if H3 cell is a pentagon.
 
         Returns
         -------
@@ -229,15 +257,19 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.is_pentagon
+        dtoolkit.geoaccessor.index.is_pentagon
+        dtoolkit.geoaccessor.series.is_pentagon
 
         Examples
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
-        >>> index = pd.Index([612845052823076863, 614269156845420543])
-        >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
-        >>> index.h3.is_pentagon
+        >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+        >>> s
+        612845052823076863    a
+        614269156845420543    b
+        dtype: object
+        >>> s.h3.is_pentagon
         612845052823076863    False
         614269156845420543    False
         dtype: bool
@@ -270,15 +302,20 @@ class h3(NoNewAttributesMixin):
         --------
         h3.is_res_class_III
         dtoolkit.geoaccessor.index.h3.resolution
+        dtoolkit.geoaccessor.series.h3.resolution
+        dtoolkit.geoaccessor.index.h3.is_res_class_III
+        dtoolkit.geoaccessor.series.h3.is_res_class_III
 
         Examples
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
-        >>> index = pd.Series([612845052823076863, 614269156845420543])
-        >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
-        >>> index.h3.is_res_class_III
+        >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+        >>> s
+        612845052823076863    a
+        614269156845420543    b
+        dtype: object
+        >>> s.h3.is_res_class_III
         612845052823076863    False
         614269156845420543    False
         dtype: bool
@@ -308,6 +345,7 @@ class h3(NoNewAttributesMixin):
         --------
         h3.str_to_int
         dtoolkit.geoaccessor.index.h3.to_str
+        dtoolkit.geoaccessor.series.h3.to_int
 
         Examples
         --------
@@ -345,6 +383,7 @@ class h3(NoNewAttributesMixin):
         --------
         h3.int_to_str
         dtoolkit.geoaccessor.index.h3.to_int
+        dtoolkit.geoaccessor.series.h3.to_str
 
         Examples
         --------
@@ -367,7 +406,7 @@ class h3(NoNewAttributesMixin):
     @available_if(is_h3)
     def to_center_child(self, resolution: int = None) -> pd.Index:
         """
-        Get the center child of a cell.
+        Get the center child of cell.
 
         Parameters
         ----------
@@ -384,6 +423,7 @@ class h3(NoNewAttributesMixin):
         --------
         h3.cell_to_center_child
         dtoolkit.geoaccessor.index.h3.to_children
+        dtoolkit.geoaccessor.series.h3.to_center_child
 
         Examples
         --------
@@ -402,7 +442,7 @@ class h3(NoNewAttributesMixin):
     @available_if(is_h3)
     def to_children(self, resolution: int = None) -> pd.Index:
         """
-        Get the children of a cell.
+        Get the children of cell.
 
         Parameters
         ----------
@@ -419,7 +459,8 @@ class h3(NoNewAttributesMixin):
         --------
         h3.cell_to_children
         dtoolkit.geoaccessor.index.h3.to_center_child
-        dtookit.geoaccessor.index.h3.to_parent
+        dtoolkit.geoaccessor.index.h3.to_parent
+        dtoolkit.geoaccessor.series.h3.to_children
 
         Examples
         --------
@@ -437,7 +478,7 @@ class h3(NoNewAttributesMixin):
     @available_if(is_h3)
     def to_parent(self, resolution: int = None) -> pd.Index:
         """
-        Get the parent of a cell.
+        Get the parent of cell.
 
         Parameters
         ----------
@@ -453,7 +494,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_parent
-        dtookit.geoaccessor.index.h3.to_children
+        dtoolkit.geoaccessor.index.h3.to_children
+        dtoolkit.geoaccessor.series.h3.to_parent
 
         Examples
         --------
@@ -474,7 +516,7 @@ class h3(NoNewAttributesMixin):
     @available_if(is_h3)
     def to_points(self) -> gpd.GeoSeries:
         """
-        Return the center :obj:`~shapely.Point` of an H3 cell.
+        Return the center :obj:`~shapely.Point` of H3 cell.
 
         Returns
         -------
@@ -484,7 +526,8 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_latlng
-        dtookit.geoaccessor.index.h3.to_polygons
+        dtoolkit.geoaccessor.index.h3.to_polygons
+        dtoolkit.geoaccessor.series.h3.to_points
 
         Examples
         --------
@@ -516,7 +559,7 @@ class h3(NoNewAttributesMixin):
         See Also
         --------
         h3.cell_to_boundary
-        dtookit.geoaccessor.index.h3.to_points
+        dtoolkit.geoaccessor.index.h3.to_points
 
         Examples
         --------
