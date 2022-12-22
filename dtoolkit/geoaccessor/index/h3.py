@@ -557,6 +557,7 @@ class h3(NoNewAttributesMixin):
         --------
         h3.cell_to_boundary
         dtoolkit.geoaccessor.index.h3.to_points
+        dtoolkit.geoaccessor.series.h3.to_polygons
 
         Examples
         --------

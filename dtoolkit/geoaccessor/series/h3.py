@@ -223,7 +223,7 @@ class h3(NoNewAttributesMixin):
         612845052823076863    a
         614269156845420543    b
         dtype: object
-        >>> s.h3.to_children(drop=False, partent=None)
+        >>> s.h3.to_children()
         617348652448612351    a
         617348652448874495    a
         617348652449136639    a
@@ -275,7 +275,7 @@ class h3(NoNewAttributesMixin):
         612845052823076863    a
         614269156845420543    b
         dtype: object
-        >>> s.h3.to_parent(drop=False, children=None)
+        >>> s.h3.to_parent()
         608341453197803519    a
         609765557230632959    b
         """
@@ -289,6 +289,7 @@ class h3(NoNewAttributesMixin):
         Returns
         -------
         GeoDataFrame
+            With H3 cell as the its index.
 
         Raises
         ------
@@ -328,28 +329,24 @@ class h3(NoNewAttributesMixin):
 
         return to_geoframe(self.s, geometry=self.s.index.h3.to_points())
 
-    def to_polygons(self, drop: bool = False) -> gpd.GeoDataFrame:
+    def to_polygons(self) -> gpd.GeoDataFrame:
         """
         Return :obj:`~shapely.Polygon` to describe the cell boundary.
 
-        Parameters
-        ----------
-        drop : bool, default False
-            Whether to drop the original H3 cell index column.
-
         Returns
         -------
-        GeoSeries or GeoDataFrame
-            If True, return a GeoSeries with the original H3 cell index column dropped.
+        GeoDataFrame
+            With H3 cell as the its index.
 
         Raises
         ------
         ValueError
-            If ``drop=False`` and the original H3 cell index column is not named.
+            If name of Series is None.
 
         See Also
         --------
         h3.cell_to_boundary
+        dtoolkit.geoaccessor.index.h3.to_polygons
         dtoolkit.geoaccessor.series.h3.to_points
 
         Examples
