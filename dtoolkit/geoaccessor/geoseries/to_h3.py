@@ -174,21 +174,20 @@ def to_h3(
 def points_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
     # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
     # While h3-py release 4, `latlon_to_h3` is not available.
-    geo_to_h3 = method_from_h3("geo_to_h3", int_dtype=int_dtype)
+    method = method_from_h3("geo_to_h3", int_dtype=int_dtype)
 
     return xy(s, reverse=True, frame=False, name=None).apply(
-        lambda yx: geo_to_h3(*yx, resolution),
+        lambda yx: method(*yx, resolution),
     )
 
 
 def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
     # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
     # While h3-py release 4, `polygon_to_cells` is not available.
-    polyfill = method_from_h3("polyfill", int_dtype=int_dtype)
 
     # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
     return s_getattr(s, "__geo_interface__").apply(
-        polyfill,
+        method_from_h3("polyfill", int_dtype=int_dtype),
         res=resolution,
         geo_json_conformant=True,
     )
