@@ -1,10 +1,10 @@
-from dataclasses import dataclass
 from functools import wraps
 from typing import Hashable
 
 import geopandas as gpd
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
+from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 from pandas._libs.reshape import explode
 
@@ -14,8 +14,7 @@ from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
 @register_series_accessor("h3")
-@dataclass
-class h3:
+class h3(NoNewAttributesMixin):
     """
     Hexagonal hierarchical geospatial indexing system.
 
@@ -43,7 +42,10 @@ class h3:
       e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.h3.is_valid`
     """
 
-    s: pd.Series
+    def __init__(self, s: pd.Series):
+        self.s = s
+
+        self._freeze()
 
     @property
     @doc(i_h3.area)
