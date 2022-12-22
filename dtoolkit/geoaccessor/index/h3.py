@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from functools import partial
 from functools import wraps
 
@@ -11,6 +10,7 @@ from pandas._libs.reshape import explode
 from pandas.api.extensions import register_index_accessor
 from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
+from pandas.core.base import NoNewAttributesMixin
 from shapely import polygons
 
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
@@ -33,8 +33,7 @@ def available_if(check):
 
 
 @register_index_accessor("h3")
-@dataclass
-class h3:
+class h3(NoNewAttributesMixin):
     """
     Hexagonal hierarchical geospatial indexing system.
 
