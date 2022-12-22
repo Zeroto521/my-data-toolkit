@@ -17,7 +17,7 @@ def available_if(check):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if not check(args[0].index if isinstance(args[0], h3) else args[0]):
+            if not check(args[0].index if isinstance(args[0], H3) else args[0]):
                 raise TypeError(
                     f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
                 )
