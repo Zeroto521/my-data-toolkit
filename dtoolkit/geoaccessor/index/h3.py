@@ -1,4 +1,3 @@
-from functools import partial
 from functools import wraps
 
 import geopandas as gpd

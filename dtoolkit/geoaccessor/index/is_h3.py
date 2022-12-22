@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from functools import partial
-from typing import Callable
 
 import pandas as pd
 from pandas.api.types import is_int64_dtype
@@ -89,7 +88,7 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs):
         import h3.api.basic_str as h3
     else:
         raise TypeError(
-            f"Expected Index(string) or Index(int64), but got {data.dtype!r}",
+            f"Expected Index(string) or Index(int64), but got {index.dtype!r}",
         )
 
     return index.map(partial(getattr(h3, method), **kwargs))

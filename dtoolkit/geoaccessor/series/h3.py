@@ -1,5 +1,3 @@
-from functools import wraps
-
 import geopandas as gpd
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
