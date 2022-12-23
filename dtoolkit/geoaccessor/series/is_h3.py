@@ -17,7 +17,7 @@ def is_h3(s: pd.Series, /) -> bool:
     See Also
     --------
     dtoolkit.geoaccessor.index.is_h3
-    dtoolkit.geoaccessor.series.h3.is_valid
+    dtoolkit.geoaccessor.series.H3.is_valid
 
     Raises
     ------
