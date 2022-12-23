@@ -1,6 +1,6 @@
-=================================
-DataFrame Accessor (to GeoPandas)
-=================================
+==================
+DataFrame Accessor
+==================
 .. currentmodule:: dtoolkit.geoaccessor.dataframe
 
 
