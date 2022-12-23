@@ -61,6 +61,7 @@ def to_geoframe(
     ...             "POINT (2 2)",
     ...             "POINT (3 3)",
     ...         ],
+    ...         name="wkt",
     ...     )
     ...     .from_wkt(crs=4326)
     ...     .geometry

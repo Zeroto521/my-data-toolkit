@@ -74,6 +74,7 @@ def to_h3(
     ...         "POINT (122 55)",
     ...         "POINT (100 1)",
     ...     ],
+    ...     name="wkt",
     ... ).from_wkt(crs=4326).geometry
     >>> s
     0    POINT (122.00000 55.00000)
@@ -98,6 +99,7 @@ def to_h3(
     ...         "POLYGON ((1 0, 1 1, 0 1, 0 0, 1 0))",
     ...         "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1))",
     ...     ],
+    ...     name="wkt",
     ... ).from_wkt(crs=4326).geometry
     >>> s
     0    POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
@@ -132,6 +134,7 @@ def to_h3(
     ...         "POINT (122 55)",
     ...         "POINT (100 1)",
     ...     ],
+    ...     name="wkt",
     ... ).from_wkt(crs=4326).geometry
     >>> s
     0    POINT (122.00000 55.00000)
