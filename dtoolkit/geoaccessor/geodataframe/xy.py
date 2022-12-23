@@ -5,6 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
+from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
 from dtoolkit.geoaccessor.geoseries import xy as s_xy
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 from dtoolkit.util._decorator import warning
@@ -74,31 +75,31 @@ def xy(
     Set ``frame=True`` to return a GeoDataFrame with x and y columns.
 
     >>> df.xy()
-      label                 geometry    x    y
-    0     a  POINT (0.00000 1.00000)  0.0  1.0
-    1     b  POINT (0.00000 2.00000)  0.0  2.0
-    2     c  POINT (0.00000 3.00000)  0.0  3.0
+      label    x    y                 geometry
+    0     a  0.0  1.0  POINT (0.00000 1.00000)
+    1     b  0.0  2.0  POINT (0.00000 2.00000)
+    2     c  0.0  3.0  POINT (0.00000 3.00000)
 
     Get the x and y coordinates of each point as a tuple.
 
     >>> df.xy(frame=False, name="coord")
-      label                 geometry       coord
-    0     a  POINT (0.00000 1.00000)  (0.0, 1.0)
-    1     b  POINT (0.00000 2.00000)  (0.0, 2.0)
-    2     c  POINT (0.00000 3.00000)  (0.0, 3.0)
+      label       coord                 geometry
+    0     a  (0.0, 1.0)  POINT (0.00000 1.00000)
+    1     b  (0.0, 2.0)  POINT (0.00000 2.00000)
+    2     c  (0.0, 3.0)  POINT (0.00000 3.00000)
 
     Set ``reverse=True`` to return (y, x).
 
     >>> df.xy(reverse=True, frame=False, name="coord")
-      label                 geometry       coord
-    0     a  POINT (0.00000 1.00000)  (1.0, 0.0)
-    1     b  POINT (0.00000 2.00000)  (2.0, 0.0)
-    2     c  POINT (0.00000 3.00000)  (3.0, 0.0)
+      label       coord                 geometry
+    0     a  (1.0, 0.0)  POINT (0.00000 1.00000)
+    1     b  (2.0, 0.0)  POINT (0.00000 2.00000)
+    2     c  (3.0, 0.0)  POINT (0.00000 3.00000)
     """
 
     return pd.concat(
         (
-            df,
+            drop_geometry(df),
             s_xy(df.geometry, reverse=reverse, frame=frame, name=name),
         ),
         axis=1,

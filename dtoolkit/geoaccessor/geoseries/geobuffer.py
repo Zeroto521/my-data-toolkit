@@ -84,8 +84,8 @@ def geobuffer(
     ...         "x",
     ...         "y",
     ...         crs=4326,
-    ...         drop=True,
     ...     )
+    ...     .drop(columns=["x", "y"])
     ... )
     >>> df
        distance              where                    geometry
