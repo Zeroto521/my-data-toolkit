@@ -53,7 +53,8 @@ def to_geoframe(
     >>> import pandas as pd
     >>> df_point = (
     ...     pd.DataFrame({"x": [122, 100], "y":[55, 1]})
-    ...     .from_xy("x", "y", drop=True, crs=4326)
+    ...     .from_xy("x", "y", crs=4326)
+    ...     .drop(columns=["x", "y"])
     ... )
     >>> df_point
                          geometry
