@@ -6,8 +6,9 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.geoaccessor.dataframe.to_geoframe import to_geoframe
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -15,6 +16,12 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
+@warning(
+    "The keyword argument 'drop' is deprecated, please use "
+    "'.drop(columns=[...])' method instead. (Warning added DToolKit 0.0.20)",
+    category=DeprecationWarning,
+    stacklevel=3,
+)
 def from_xy(
     df: pd.DataFrame,
     /,
@@ -22,7 +29,6 @@ def from_xy(
     y: Hashable,
     z: Hashable = None,
     crs: CRS | str | int = None,
-    drop: bool = False,
 ) -> gpd.GeoDataFrame:
     """
     Generate :obj:`~geopandas.GeoDataFrame` of :obj:`~shapely.geometry.Point`
@@ -47,7 +53,11 @@ def from_xy(
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
     drop : bool, default False
-        Don't contain ``x``, ``y`` and ``z`` anymore.
+        Don't contain ``x``, ``y`` and ``z`` columns anymore.
+
+        .. deprecated:: 0.0.20
+            If you want to drop ``x``, ``y`` and ``z`` columns, please use
+            ``.drop(columns=[...])`` method instead.
 
     Returns
     -------
@@ -77,26 +87,16 @@ def from_xy(
          x   y                    geometry
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
-
-    Drop original 'x' and 'y' columns.
-
-    >>> df.points_from_xy("x", "y", drop=True, crs=4326)
-                         geometry
-    0  POINT (122.00000 55.00000)
-    1   POINT (100.00000 1.00000)
     """
 
     # Avoid mutating the original DataFrame.
     # https://github.com/geopandas/geopandas/issues/1179
-    return gpd.GeoDataFrame(
-        df.copy().drop_or_not(
-            drop=drop,
-            columns=[x, y] if z is None else [x, y, z],
-        ),
+    return to_geoframe(
+        df.copy(),
         geometry=gpd.points_from_xy(
             df[x],
             df[y],
             z=df[z] if z is not None else z,
+            crs=crs,
         ),
-        crs=crs,
     )
