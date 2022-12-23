@@ -36,7 +36,10 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True),
+                    name="wkt",
+                )
+                .from_wkt()
+                .geometry,
             ),
             None,
             pd.Series(
@@ -45,7 +48,10 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                     "POINT (2 2)",
                     "POINT (3 3)",
                 ],
-            ).from_wkt(drop=True),
+                name="wkt",
+            )
+            .from_wkt()
+            .geometry,
         ),
         # test crs
         (
@@ -56,7 +62,10 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True),
+                    name="wkt",
+                )
+                .from_wkt()
+                .geometry,
             ),
             4326,
             pd.Series(
@@ -65,7 +74,10 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                     "POINT (2 2)",
                     "POINT (3 3)",
                 ],
-            ).from_wkt(drop=True, crs=4326),
+                name="wkt",
+            )
+            .from_wkt(crs=4326)
+            .geometry,
         ),
         (
             pd.Series(
@@ -75,7 +87,10 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True, crs=4326),
+                    name="wkt",
+                )
+                .from_wkt(crs=4326)
+                .geometry,
             ),
             4326,
             (
@@ -85,7 +100,10 @@ from dtoolkit.geoaccessor.series import to_geoseries  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True, crs=4326)
+                    name="wkt",
+                )
+                .from_wkt(crs=4326)
+                .geometry
             ),
         ),
     ],
