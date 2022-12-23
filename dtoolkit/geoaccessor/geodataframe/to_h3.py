@@ -95,7 +95,7 @@ def to_h3(
     ...             "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1))",
     ...         ],
     ...     },
-    ... ).from_wkt("wkt", crs=4326, drop=True)
+    ... ).from_wkt("wkt", crs=4326).drop(columns="wkt")
     >>> df
       label                                           geometry
     0     a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....

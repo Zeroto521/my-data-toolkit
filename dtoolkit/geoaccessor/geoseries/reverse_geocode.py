@@ -44,6 +44,7 @@ def reverse_geocode(s: gpd.GeoSeries, /, **kwargs) -> gpd.GeoDataFrame:
     ...             "POINT (-71.0594869 42.3584697)",
     ...             "POINT (-77.0365305 38.8977332)",
     ...         ],
+    ...         name="wkt",
     ...     )
     ...     .from_wkt(crs=4326)
     ...     .geometry
