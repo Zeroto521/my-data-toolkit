@@ -4,14 +4,13 @@ from pandas.api.extensions import register_dataframe_accessor
 from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.index import H3 as i_H3
 from dtoolkit.geoaccessor.dataframe.to_geoframe import to_geoframe
+from dtoolkit.geoaccessor.index import H3 as i_H3
 
 
 @register_dataframe_accessor("h3")
 @doc(i_H3, klass="DataFrame")
 class H3(NoNewAttributesMixin):
-
     def __init__(self, df: pd.DataFrame, /):
         self.df = df
 
