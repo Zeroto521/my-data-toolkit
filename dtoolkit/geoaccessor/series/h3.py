@@ -42,7 +42,6 @@ class H3(H3Base):
 
 
 class H3Base(NoNewAttributesMixin):
-
     @property
     @doc(i_H3.area)
     def area(self) -> pd.Series:
