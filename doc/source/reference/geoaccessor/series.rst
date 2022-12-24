@@ -26,7 +26,7 @@ Address handling
 H3 accessor
 -----------
 
-``Series.h3`` can be used to access the values of the Series(string) or Series(int64)
+``Series.h3`` can be used to access the index of string or int64
 and apply several methods to it. These can be accessed like ``Series.h3.<function/property>``.
 
 .. autosummary::
