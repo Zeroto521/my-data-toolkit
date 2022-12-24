@@ -6,7 +6,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
 @register_geodataframe_method
-@doc(klass="GeoDataFrame")
+@doc(s_to_h3, klass="GeoDataFrame")
 def to_h3(
     df: gpd.GeoDataFrame,
     /,
