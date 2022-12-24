@@ -215,8 +215,6 @@ class H3(NoNewAttributesMixin):
         """
         from pandas._libs.reshape import explode
 
-        # TODO: Use `cell_to_children` instead of `h3_to_children`
-        # While h3-py release 4, `cell_to_children` is not available.
         h3, counts = explode(self.s.index.h3.to_children(resolution).to_numpy())
         return self.s.repeat(counts).set_axis(h3)
 
