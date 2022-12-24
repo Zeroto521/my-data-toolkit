@@ -392,9 +392,9 @@ class H3Base(NoNewAttributesMixin):
         612845052823076863     a
         614269156845420543     b
         >>> df.h3.to_points()
-                            label                    geometry
-        612845052823076863      a  POINT (121.99637 55.00331)
-        614269156845420543      b    POINT (99.99611 0.99919)
+                           label                    geometry
+        612845052823076863     a  POINT (121.99637 55.00331)
+        614269156845420543     b    POINT (99.99611 0.99919)
         """
 
         if isinstance(self.data, pd.Series) and self.data.name is None:
@@ -446,9 +446,9 @@ class H3Base(NoNewAttributesMixin):
         612845052823076863     a
         614269156845420543     b
         >>> df.h3.to_polygons()
-                            label                                           geometry
-        612845052823076863      a  POLYGON ((121.98797 55.00408, 121.99122 54.999...
-        614269156845420543      b  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
+                           label                                           geometry
+        612845052823076863     a  POLYGON ((121.98797 55.00408, 121.99122 54.999...
+        614269156845420543     b  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
         """
 
         if isinstance(self.data, pd.Series) and self.data.name is None:
