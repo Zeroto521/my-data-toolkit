@@ -140,7 +140,7 @@ def to_h3(
         return s.set_axis(
             xy(s.geometry, reverse=True, frame=False, name=None)
             .apply(lambda yx: getattr(h3, "geo_to_h3")(*yx, resolution))
-            .to_numpy()
+            .to_numpy(),
         )
     elif all(s.geom_type == "Polygon"):
         # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
@@ -149,7 +149,7 @@ def to_h3(
         h3, counts = explode(
             s_getattr(s.geometry, "__geo_interface__")
             .apply(getattr(h3, "polyfill"), res=resolution, geo_json_conformant=True)
-            .to_numpy()
+            .to_numpy(),
         )
         return s.repeat(counts).set_axis(h3)
 
