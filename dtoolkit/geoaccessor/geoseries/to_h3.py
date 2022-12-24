@@ -1,9 +1,9 @@
 import geopandas as gpd
 import pandas as pd
+from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import getattr as s_getattr
-from dtoolkit.accessor.series import len as s_len
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.series import to_geoframe
@@ -145,12 +145,12 @@ def to_h3(
     elif all(s.geom_type == "Polygon"):
         # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
         # While h3-py release 4, `polygon_to_cells` is not available.
-        h3_list = s_getattr(s.geometry, "__geo_interface__").apply(
-            getattr(h3, "polyfill"),
-            res=resolution,
-            # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
-            geo_json_conformant=True,
+        # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
+        h3, counts = explode(
+            s_getattr(s.geometry, "__geo_interface__")
+            .apply(getattr(h3, "polyfill"), res=resolution, geo_json_conformant=True)
+            .to_numpy()
         )
-        return s.repeat(s_len(h3_list)).set_axis(h3_list.explode().to_numpy())
+        return s.repeat(counts).set_axis(h3)
 
     raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
