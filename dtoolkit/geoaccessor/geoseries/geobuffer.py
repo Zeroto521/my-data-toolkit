@@ -136,10 +136,10 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.xy(frame=False, name=None).apply(wgs_to_utm).to_numpy()
+        utms = s.centroid.xy(frame=False, drop=True, name=None).apply(wgs_to_utm)
 
     s = s.copy()
-    for utm in pd.unique(utms):
+    for utm in utms.unique():
         if utm is None:
             continue
 
