@@ -28,7 +28,9 @@ pytest.importorskip("h3")
                         "LINESTRING (122 55, 100 1)",
                     ],
                 },
-            ).from_wkt("wkt", crs=4326).drop(columns="wkt"),
+            )
+            .from_wkt("wkt", crs=4326)
+            .drop(columns="wkt"),
             8,
             True,
             None,
