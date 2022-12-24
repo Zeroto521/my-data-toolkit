@@ -37,7 +37,9 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa: F401
                         "x": [122, 100],
                         "y": [55, 1],
                     },
-                ).from_xy("x", "y", drop=True)
+                )
+                .from_xy("x", "y")
+                .drop(columns=["x", "y"])
             ),
             pd.DataFrame(index=[0, 1], columns=[]),
         ),

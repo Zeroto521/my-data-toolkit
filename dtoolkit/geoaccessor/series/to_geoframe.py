@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
-import numpy as np
 import pandas as pd
 from geopandas.base import is_geometry_type
 
@@ -61,14 +60,16 @@ def to_geoframe(
     ...             "POINT (2 2)",
     ...             "POINT (3 3)",
     ...         ],
+    ...         name="wkt",
     ...     )
-    ...     .from_wkt(drop=True, crs=4326)
+    ...     .from_wkt(crs=4326)
+    ...     .geometry
     ... )
     >>> s
     0    POINT (1.00000 1.00000)
     1    POINT (2.00000 2.00000)
     2    POINT (3.00000 3.00000)
-    dtype: geometry
+    Name: geometry, dtype: geometry
     >>> type(s)
     <class 'pandas.core.series.Series'>
     >>> gs = s.to_geoframe()
@@ -84,7 +85,7 @@ def to_geoframe(
     if geometry is not None:
         # FIXME: https://github.com/geopandas/geopandas/issues/2660
         if isinstance(geometry, gpd.GeoSeries):
-            geometry = np.asarray(geometry)
+            geometry = geometry.set_axis(s.index)
         return gpd.GeoDataFrame(s, geometry=geometry, crs=crs, **kwargs)
     elif is_geometry_type(s):
         return gpd.GeoDataFrame(geometry=s, crs=crs, **kwargs)
