@@ -59,7 +59,7 @@ def xy(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> df = gpd.GeoDataFrame({
     ...     "label": ["a", "b", "c"],
     ...     "geometry": [Point(0, 1), Point(0, 2), Point(0, 3)],

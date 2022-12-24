@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import pytest
 from geopandas.testing import assert_geodataframe_equal
-from shapely.geometry import Point
+from shapely import Point
 
 from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
 

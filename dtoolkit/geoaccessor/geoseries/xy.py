@@ -84,7 +84,7 @@ def xy(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> s = gpd.GeoSeries([Point(0, 1), Point(0, 2), Point(0, 3)])
     >>> s
     0    POINT (0.00000 1.00000)

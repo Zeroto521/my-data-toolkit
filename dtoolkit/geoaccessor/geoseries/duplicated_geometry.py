@@ -56,7 +56,7 @@ def duplicated_geometry(
 
     Drop duplicated geometries by value equal.
 
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> df = gpd.GeoDataFrame(geometry=[Point(0, 0), Point(0, 0), Point(1, 1)])
     >>> df
                       geometry
@@ -71,7 +71,7 @@ def duplicated_geometry(
 
     Drop duplicated geometries by sptial relation.
 
-    >>> from shapely.geometry import Polygon
+    >>> from shapely import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),

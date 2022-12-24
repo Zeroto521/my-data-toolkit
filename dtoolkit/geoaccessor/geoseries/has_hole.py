@@ -28,7 +28,7 @@ def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import LineString, Point, Polygon
+    >>> from shapely import LineString, Point, Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon(
