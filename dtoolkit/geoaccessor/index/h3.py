@@ -53,13 +53,13 @@ class H3(NoNewAttributesMixin):
     Based on pandas style, APIs are designed as follows:
 
     - Remove the prefix ``h3_`` of the original H3 API.
-      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
+      e.g. :meth:`h3.cell_to_latlng` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
 
     - Use ``to_`` prefix for the conversion between H3 cell int and str.
-      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
+      e.g. :meth:`h3.int_to_str` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
 
     - Use ``is_`` prefix for the validation of H3 cell.
-      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
+      e.g. :meth:`h3.is_valid_cell` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
     """
 
     def __init__(self, index: pd.Index, /):
