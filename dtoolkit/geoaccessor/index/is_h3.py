@@ -21,8 +21,11 @@ def is_h3(index: pd.Index, /) -> bool:
 
     See Also
     --------
+    dtoolkit.geoaccessor.index.is_h3
     dtoolkit.geoaccessor.series.is_h3
+    dtoolkit.geoaccessor.dataframe.is_h3
     dtoolkit.geoaccessor.index.H3.is_valid
+    dtoolkit.geoaccessor.series.H3.is_valid
     dtoolkit.geoaccessor.dataframe.H3.is_valid
 
     Raises
@@ -31,7 +34,7 @@ def is_h3(index: pd.Index, /) -> bool:
         If don't have module named 'h3'.
 
     TypeError
-        If not Index(string) or Index(int64) dtype.
+        If the Index dtype is not string or int64.
 
     Examples
     --------
@@ -52,6 +55,16 @@ def is_h3(index: pd.Index, /) -> bool:
     dtype: object
     >>> s.is_h3()
     True
+    >>> df = pd.DataFrame(
+    ...     {{'label': ['a', 'b']}},
+    ...     index=['88143541bdfffff', '886528b2a3fffff'],
+    ... )
+    >>> df
+                    label
+    88143541bdfffff     a
+    886528b2a3fffff     b
+    >>> df.is_h3()
+    True
 
     Int type H3 cell index.
 
@@ -66,6 +79,16 @@ def is_h3(index: pd.Index, /) -> bool:
     614269156845420543    b
     dtype: object
     >>> s.is_h3()
+    True
+    >>> df = pd.DataFrame(
+    ...     {{'label': ['a', 'b']}},
+    ...     index=[612845052823076863, 614269156845420543],
+    ... )
+    >>> df
+                        label
+    612845052823076863     a
+    614269156845420543     b
+    >>> df.is_h3()
     True
     """
 
