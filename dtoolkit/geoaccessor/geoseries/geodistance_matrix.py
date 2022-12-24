@@ -123,5 +123,5 @@ def geodistance_matrix(
             np.radians(xy(other.geometry, reverse=True)),
         ),
         index=s.index,
-        columns=other.index if other is not None else s.index,
+        columns=other.index,
     )
