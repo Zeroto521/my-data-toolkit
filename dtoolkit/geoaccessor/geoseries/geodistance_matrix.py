@@ -107,7 +107,7 @@ def geodistance_matrix(
     from sklearn.metrics.pairwise import haversine_distances
 
     if other is None:
-        Y = other.copy()
+        other = s.copy()
 
     if not isinstance(other, gpd.base.GeoPandasBase):
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
