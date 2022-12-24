@@ -60,7 +60,7 @@ def duplicated_geometry_groups(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Polygon
+    >>> from shapely import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),

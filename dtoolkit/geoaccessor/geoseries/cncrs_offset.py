@@ -133,7 +133,7 @@ def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
     -------
     Series(bool)
     """
-    from shapely.geometry import box
+    from shapely import box
 
     return s.covered_by(box(73.66, 3.86, 135.05, 53.55))
 
