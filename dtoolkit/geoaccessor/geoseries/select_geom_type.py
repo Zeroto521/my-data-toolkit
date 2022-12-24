@@ -53,16 +53,19 @@ def select_geom_type(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> s = pd.Series([
-    ...     "POINT (1 1)",
-    ...     "MULTIPOINT (1 1, 2 2)",
-    ...     "LINESTRING (1 1, 2 2)",
-    ...     "LINEARRING (0 0, 0 1, 1 1, 1 0, 0 0)",
-    ...     "MULTILINESTRING ((1 1, 2 2), (3 3, 4 4))",
-    ...     "POLYGON ((0 0, 0 1, 1 1, 1 0, 0 0))",
-    ...     "MULTIPOLYGON (((0 0, 0 1, 1 1, 1 0, 0 0)))",
-    ...     "GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (1 1, 2 2))",
-    ... ]).from_wkt("wkt", drop=True)
+    >>> s = pd.Series(
+    ...     [
+    ...         "POINT (1 1)",
+    ...         "MULTIPOINT (1 1, 2 2)",
+    ...         "LINESTRING (1 1, 2 2)",
+    ...         "LINEARRING (0 0, 0 1, 1 1, 1 0, 0 0)",
+    ...         "MULTILINESTRING ((1 1, 2 2), (3 3, 4 4))",
+    ...         "POLYGON ((0 0, 0 1, 1 1, 1 0, 0 0))",
+    ...         "MULTIPOLYGON (((0 0, 0 1, 1 1, 1 0, 0 0)))",
+    ...         "GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (1 1, 2 2))",
+    ...     ],
+    ...     name="wkt",
+    ... ).from_wkt("wkt").geometry
     >>> s
     0                                  POINT (1.000 1.000)
     1                MULTIPOINT (1.000 1.000, 2.000 2.000)
@@ -72,10 +75,10 @@ def select_geom_type(
     5    POLYGON ((0.000 0.000, 0.000 1.000, 1.000 1.00...
     6    MULTIPOLYGON (((0.000 0.000, 0.000 1.000, 1.00...
     7    GEOMETRYCOLLECTION (POINT (1.000 1.000), LINES...
-    dtype: geometry
+    Name: geometry, dtype: geometry
     >>> s.select_geom_type("Point")
     0    POINT (1.000 1.000)
-    dtype: geometry
+    Name: geometry, dtype: geometry
     """
 
     return s[invert_or_not(s.geom_type == geom_type, invert=complement)]

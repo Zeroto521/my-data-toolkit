@@ -19,7 +19,10 @@ from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True),
+                    name="wkt",
+                )
+                .from_wkt()
+                .geometry,
             ),
             None,
             gpd.GeoDataFrame,
@@ -32,7 +35,10 @@ from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True),
+                    name="wkt",
+                )
+                .from_wkt()
+                .geometry,
             ),
             (
                 pd.Series(
@@ -41,7 +47,10 @@ from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True)
+                    name="wkt",
+                )
+                .from_wkt()
+                .geometry
             ),
             gpd.GeoDataFrame,
         ),
@@ -60,7 +69,10 @@ from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
                         "POINT (2 2)",
                         "POINT (3 3)",
                     ],
-                ).from_wkt(drop=True)
+                    name="wkt",
+                )
+                .from_wkt()
+                .geometry
             ),
             gpd.GeoDataFrame,
         ),

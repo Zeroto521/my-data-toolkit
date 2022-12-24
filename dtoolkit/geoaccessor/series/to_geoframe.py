@@ -60,14 +60,16 @@ def to_geoframe(
     ...             "POINT (2 2)",
     ...             "POINT (3 3)",
     ...         ],
+    ...         name="wkt",
     ...     )
-    ...     .from_wkt(drop=True, crs=4326)
+    ...     .from_wkt(crs=4326)
+    ...     .geometry
     ... )
     >>> s
     0    POINT (1.00000 1.00000)
     1    POINT (2.00000 2.00000)
     2    POINT (3.00000 3.00000)
-    dtype: geometry
+    Name: geometry, dtype: geometry
     >>> type(s)
     <class 'pandas.core.series.Series'>
     >>> gs = s.to_geoframe()

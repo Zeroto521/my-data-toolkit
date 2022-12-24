@@ -74,11 +74,12 @@ def to_h3(
     ...         "POINT (122 55)",
     ...         "POINT (100 1)",
     ...     ],
-    ... ).from_wkt(crs=4326, drop=True)
+    ...     name="wkt",
+    ... ).from_wkt(crs=4326).geometry
     >>> s
     0    POINT (122.00000 55.00000)
     1     POINT (100.00000 1.00000)
-    dtype: geometry
+    Name: geometry, dtype: geometry
     >>> s.to_h3(8)
     0    612845052823076863
     1    614269156845420543
@@ -98,11 +99,12 @@ def to_h3(
     ...         "POLYGON ((1 0, 1 1, 0 1, 0 0, 1 0))",
     ...         "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1))",
     ...     ],
-    ... ).from_wkt(crs=4326, drop=True)
+    ...     name="wkt",
+    ... ).from_wkt(crs=4326).geometry
     >>> s
     0    POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
     1    POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    dtype: geometry
+    Name: geometry, dtype: geometry
     >>> s.to_h3(4)
     0    596538839648960511
     0    596538693620072447
@@ -123,7 +125,7 @@ def to_h3(
     1    596540746614439935
     1    596538195403866111
     1    596541030082281471
-    dtype: object
+    Name: geometry, dtype: object
 
     Also support str (hexadecimal) format.
 
@@ -132,11 +134,12 @@ def to_h3(
     ...         "POINT (122 55)",
     ...         "POINT (100 1)",
     ...     ],
-    ... ).from_wkt(crs=4326, drop=True)
+    ...     name="wkt",
+    ... ).from_wkt(crs=4326).geometry
     >>> s
     0    POINT (122.00000 55.00000)
     1     POINT (100.00000 1.00000)
-    dtype: geometry
+    Name: geometry, dtype: geometry
     >>> s.to_h3(8, int_dtype=False)
     0    88143541bdfffff
     1    886528b2a3fffff
