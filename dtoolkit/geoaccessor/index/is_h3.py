@@ -5,11 +5,13 @@ from functools import partial
 import pandas as pd
 from pandas.api.types import is_int64_dtype
 from pandas.api.types import is_string_dtype
+from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_index_method
 
 
 @register_index_method
+@doc(klass="Index")
 def is_h3(index: pd.Index, /) -> bool:
     """
     Validate whether the {klass} is H3 cell index.
@@ -56,7 +58,7 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> s.is_h3()
     True
     >>> df = pd.DataFrame(
-    ...     {'label': ['a', 'b']},
+    ...     {{'label': ['a', 'b']}},
     ...     index=['88143541bdfffff', '886528b2a3fffff'],
     ... )
     >>> df
@@ -81,7 +83,7 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> s.is_h3()
     True
     >>> df = pd.DataFrame(
-    ...     {'label': ['a', 'b']},
+    ...     {{'label': ['a', 'b']}},
     ...     index=[612845052823076863, 614269156845420543],
     ... )
     >>> df
