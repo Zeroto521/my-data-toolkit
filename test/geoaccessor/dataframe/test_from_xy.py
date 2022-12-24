@@ -4,7 +4,7 @@ import pytest
 from geopandas.testing import assert_geodataframe_equal
 from pandas.testing import assert_frame_equal
 from pyproj.crs import CRSError
-from shapely.geometry import Point
+from shapely import Point
 
 from dtoolkit.geoaccessor.dataframe import from_xy
 

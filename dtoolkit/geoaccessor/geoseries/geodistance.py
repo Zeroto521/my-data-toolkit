@@ -81,7 +81,7 @@ def geodistance(
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> df = (
     ...     pd.DataFrame({"x": [122, 100], "y":[55, 1]})
     ...     .from_xy("x", "y", crs=4326)
