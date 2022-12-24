@@ -191,9 +191,9 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.is_h3
         dtoolkit.geoaccessor.series.is_h3
         dtoolkit.geoaccessor.dataframe.is_h3
-        dtoolkit.geoaccessor.index.is_valid
-        dtoolkit.geoaccessor.series.is_valid
-        dtoolkit.geoaccessor.dataframe.is_valid
+        dtoolkit.geoaccessor.index.H3.is_valid
+        dtoolkit.geoaccessor.series.H3.is_valid
+        dtoolkit.geoaccessor.dataframe.H3.is_valid
 
         Examples
         --------
@@ -265,9 +265,9 @@ class H3(NoNewAttributesMixin):
         See Also
         --------
         h3.is_pentagon
-        dtoolkit.geoaccessor.index.is_pentagon
-        dtoolkit.geoaccessor.series.is_pentagon
-        dtoolkit.geoaccessor.dataframe.is_pentagon
+        dtoolkit.geoaccessor.index.H3.is_pentagon
+        dtoolkit.geoaccessor.series.H3.is_pentagon
+        dtoolkit.geoaccessor.dataframe.H3.is_pentagon
 
         Examples
         --------
