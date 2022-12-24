@@ -348,6 +348,7 @@ class H3(NoNewAttributesMixin):
         h3.str_to_int
         dtoolkit.geoaccessor.index.H3.to_str
         dtoolkit.geoaccessor.series.H3.to_int
+        dtoolkit.geoaccessor.dataframe.H3.to_int
 
         Examples
         --------
@@ -387,6 +388,7 @@ class H3(NoNewAttributesMixin):
         h3.int_to_str
         dtoolkit.geoaccessor.index.H3.to_int
         dtoolkit.geoaccessor.series.H3.to_str
+        dtoolkit.geoaccessor.dataframe.H3.to_str
 
         Examples
         --------
@@ -428,6 +430,7 @@ class H3(NoNewAttributesMixin):
         h3.cell_to_center_child
         dtoolkit.geoaccessor.index.H3.to_children
         dtoolkit.geoaccessor.series.H3.to_center_child
+        dtoolkit.geoaccessor.dataframe.H3.to_center_child
 
         Examples
         --------
@@ -465,6 +468,7 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.H3.to_center_child
         dtoolkit.geoaccessor.index.H3.to_parent
         dtoolkit.geoaccessor.series.H3.to_children
+        dtoolkit.geoaccessor.dataframe.H3.to_children
 
         Examples
         --------
@@ -523,6 +527,7 @@ class H3(NoNewAttributesMixin):
         h3.cell_to_parent
         dtoolkit.geoaccessor.index.H3.to_children
         dtoolkit.geoaccessor.series.H3.to_parent
+        dtoolkit.geoaccessor.dataframe.H3.to_parent
 
         Examples
         --------
@@ -553,6 +558,7 @@ class H3(NoNewAttributesMixin):
         h3.cell_to_latlng
         dtoolkit.geoaccessor.index.H3.to_polygons
         dtoolkit.geoaccessor.series.H3.to_points
+        dtoolkit.geoaccessor.dataframe.H3.to_polygons
 
         Examples
         --------
@@ -586,6 +592,7 @@ class H3(NoNewAttributesMixin):
         h3.cell_to_boundary
         dtoolkit.geoaccessor.index.H3.to_points
         dtoolkit.geoaccessor.series.H3.to_polygons
+        dtoolkit.geoaccessor.dataframe.H3.to_points
 
         Examples
         --------
