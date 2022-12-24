@@ -18,10 +18,8 @@ def to_h3(
     df: gpd.GeoDataFrame,
     /,
     resolution: int,
-    drop: bool = True,
-    name: Hashable = "h3",
     int_dtype: bool = True,
-) -> pd.DataFrame | gpd.GeoDataFrame:
+) -> gpd.GeoDataFrame:
     """
     Convert Point to containing H3 cell index.
 
@@ -30,19 +28,13 @@ def to_h3(
     resolution : int
         H3 resolution.
 
-    drop : bool, default True
-        Whether to drop the geometry column.
-
-    name : Hashable, default "h3"
-        Name of the column to store the H3 cell index.
-
     int_dtype : bool, default True
         If True, use ``h3.api.numpy_int`` else use ``h3.api.basic_str``.
 
     Returns
     -------
-    DataFrame or GeoDataFrame
-        DataFrame if drop is True else GeoDataFrame.
+    GeoDataFrame
+        With H3 cell as the its index.
 
     Raises
     ------
@@ -74,16 +66,9 @@ def to_h3(
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
     >>> df.to_h3(8)
-         x   y                  h3
-    0  122  55  612845052823076863
-    1  100   1  614269156845420543
-
-    Keep the geometry column.
-
-    >>> df.to_h3(8, drop=False)
-         x   y                    geometry                  h3
-    0  122  55  POINT (122.00000 55.00000)  612845052823076863
-    1  100   1   POINT (100.00000 1.00000)  614269156845420543
+                          x   y                    geometry
+    612845052823076863  122  55  POINT (122.00000 55.00000)
+    614269156845420543  100   1   POINT (100.00000 1.00000)
 
     Polygons to h3 indexes.
 
@@ -101,26 +86,26 @@ def to_h3(
     0     a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
     1     b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
     >>> df.to_h3(4)
-      label                  h3
-    0     a  596538839648960511
-    0     a  596538693620072447
-    0     a  596538685030137855
-    0     a  596538848238895103
-    0     a  596537920525959167
-    0     a  596538813879156735
-    0     a  596538856828829695
-    0     a  596538805289222143
-    1     b  596538229763604479
-    1     b  596537946295762943
-    1     b  596540780974178303
-    1     b  596540729434570751
-    1     b  596540772384243711
-    1     b  596538212583735295
-    1     b  596540763794309119
-    1     b  596537954885697535
-    1     b  596540746614439935
-    1     b  596538195403866111
-    1     b  596541030082281471
+                        label                                           geometry
+    596538839648960511      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538693620072447      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538685030137855      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538848238895103      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596537920525959167      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538813879156735      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538856828829695      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538805289222143      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538229763604479      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596537946295762943      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540780974178303      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540729434570751      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540772384243711      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596538212583735295      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540763794309119      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596537954885697535      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540746614439935      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596538195403866111      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596541030082281471      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
 
     Also support str (hexadecimal) format.
 
@@ -130,29 +115,28 @@ def to_h3(
     0  122  55  POINT (122.00000 55.00000)
     1  100   1   POINT (100.00000 1.00000)
     >>> df.to_h3(8, int_dtype=False)
-         x   y               h3
-    0  122  55  88143541bdfffff
-    1  100   1  886528b2a3fffff
+                       x   y                    geometry
+    88143541bdfffff  122  55  POINT (122.00000 55.00000)
+    886528b2a3fffff  100   1   POINT (100.00000 1.00000)
     """
 
     if df.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {df.crs!r}.")
 
     if all(df.geom_type == "Point"):
-        h3 = points_to_h3(
-            df.geometry,
-            resolution=resolution,
-            int_dtype=int_dtype,
-        ).rename(name)
+        return df.set_axis(
+            points_to_h3(
+                df.geometry,
+                resolution=resolution,
+                int_dtype=int_dtype,
+            )
+        )
     elif all(df.geom_type == "Polygon"):
         h3_list = polygons_to_h3(
             df.geometry,
             resolution=resolution,
             int_dtype=int_dtype,
         )
-        h3 = h3_list.explode().rename(name)
-        df = repeat(df, s_len(h3_list))
-    else:
-        raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
+        return repeat(df, s_len(h3_list)).set_axis(h3_list.explode())
 
-    return pd.concat((drop_geometry(df) if drop else df, h3), axis=1)
+    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
