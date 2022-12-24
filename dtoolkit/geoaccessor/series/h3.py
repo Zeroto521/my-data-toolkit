@@ -7,40 +7,6 @@ from pandas.util._decorators import doc
 from dtoolkit.geoaccessor.index import H3 as i_H3
 
 
-@register_series_accessor("h3")
-@doc(i_H3, klass="Series")
-class H3(H3Base):
-    def __init__(self, s: pd.Series, /):
-        self.data = s
-
-        self._freeze()
-
-    @doc(H3Base.to_int, klass="Series(int64)")
-    def to_int(self) -> pd.Series:
-
-        return super().to_int()
-
-    @doc(H3Base.to_str, klass="Series(string)")
-    def to_str(self) -> pd.Series:
-
-        return super().to_str()
-
-    @doc(H3Base.to_center_child, klass="Series")
-    def to_center_child(self, resolution: int = None) -> pd.Series:
-
-        return super().to_center_child(resolution)
-
-    @doc(H3Base.to_children, klass="Series")
-    def to_children(self, resolution: int = None) -> pd.Series:
-
-        return super().to_children(resolution)
-
-    @doc(H3Base.to_parent, klass="Series")
-    def to_parent(self, resolution: int = None) -> pd.Series:
-
-        return super().to_parent(resolution)
-
-
 class H3Base(NoNewAttributesMixin):
     @property
     @doc(i_H3.area)
@@ -457,3 +423,37 @@ class H3Base(NoNewAttributesMixin):
             )
 
         return self.data.to_geoframe(geometry=self.data.index.h3.to_polygons())
+
+
+@register_series_accessor("h3")
+@doc(i_H3, klass="Series")
+class H3(H3Base):
+    def __init__(self, s: pd.Series, /):
+        self.data = s
+
+        self._freeze()
+
+    @doc(H3Base.to_int, klass="Series(int64)")
+    def to_int(self) -> pd.Series:
+
+        return super().to_int()
+
+    @doc(H3Base.to_str, klass="Series(string)")
+    def to_str(self) -> pd.Series:
+
+        return super().to_str()
+
+    @doc(H3Base.to_center_child, klass="Series")
+    def to_center_child(self, resolution: int = None) -> pd.Series:
+
+        return super().to_center_child(resolution)
+
+    @doc(H3Base.to_children, klass="Series")
+    def to_children(self, resolution: int = None) -> pd.Series:
+
+        return super().to_children(resolution)
+
+    @doc(H3Base.to_parent, klass="Series")
+    def to_parent(self, resolution: int = None) -> pd.Series:
+
+        return super().to_parent(resolution)

@@ -1,7 +1,5 @@
-import geopandas as gpd
 import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
-from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.index import H3 as i_H3
