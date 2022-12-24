@@ -5,67 +5,89 @@ from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.index import H3 as i_H3
-from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
 
 @register_series_accessor("h3")
 @doc(i_H3, klass="Series")
-class H3(NoNewAttributesMixin):
-    def __init__(self, s: pd.Series):
-        self.s = s
+class H3(H3Base):
+    def __init__(self, s: pd.Series, /):
+        self.data = s
 
         self._freeze()
+
+    @doc(H3Base.to_int, klass="Series(int64)")
+    def to_int(self) -> pd.Series:
+
+        return super().to_int()
+
+    @doc(H3Base.to_str, klass="Series(string)")
+    def to_str(self) -> pd.Series:
+
+        return super().to_str()
+
+    @doc(H3Base.to_center_child, klass="Series")
+    def to_center_child(self, resolution: int = None) -> pd.Series:
+
+        return super().to_center_child(resolution)
+
+    @doc(H3Base.to_children, klass="Series")
+    def to_children(self, resolution: int = None) -> pd.Series:
+
+        return super().to_children(resolution)
+
+    @doc(H3Base.to_parent, klass="Series")
+    def to_parent(self, resolution: int = None) -> pd.Series:
+
+        return super().to_parent(resolution)
+
+
+class H3Base(NoNewAttributesMixin):
 
     @property
     @doc(i_H3.area)
     def area(self) -> pd.Series:
 
-        return self.s.index.h3.area
+        return self.data.index.h3.area
 
     # TODO: Available only for h3 release 4.
     # @property
     # @doc(i_H3.edge)
     # def edge(self) -> pd.Series:
 
-    #     return self.s.index.h3.edge
+    #     return self.data.index.h3.edge
 
     @property
     @doc(i_H3.resolution)
     def resolution(self) -> pd.Series:
 
-        return self.s.index.h3.resolution
+        return self.data.index.h3.resolution
 
     @property
     @doc(i_H3.resolution)
     def is_valid(self) -> pd.Series:
 
-        return self.s.index.h3.is_valid
+        return self.data.index.h3.is_valid
 
     @property
     @doc(i_H3.resolution)
     def is_pentagon(self) -> pd.Series:
 
-        return self.s.index.h3.is_pentagon
+        return self.data.index.h3.is_pentagon
 
     @property
     @doc(i_H3.resolution)
     def is_res_class_III(self) -> pd.Series:
 
-        return self.s.index.h3.is_res_class_III
+        return self.data.index.h3.is_res_class_III
 
-    def to_int(self) -> pd.Series:
+    def to_int(self):
         """
         Converts 64-bit integer H3 cell index to hexadecimal string.
 
         Returns
         -------
-        Series(int64)
+        {klass}
             With new H3 cell as the its index.
-
-        Raises
-        ------
-        TypeError
-            If the Series dtype is not string.
 
         See Also
         --------
@@ -86,23 +108,30 @@ class H3(NoNewAttributesMixin):
         612845052823076863    a
         614269156845420543    b
         dtype: object
+        >>> df = pd.DataFrame(
+        ...     {{'label': ['a', 'b']}},
+        ...     index=['88143541bdfffff', '886528b2a3fffff'],
+        ... )
+        >>> df
+                        label
+        88143541bdfffff     a
+        886528b2a3fffff     b
+        >>> df.h3.to_int()
+                           label
+        612845052823076863     a
+        614269156845420543     b
         """
 
-        return self.s.set_axis(self.s.index.h3.to_int())
+        return self.data.set_axis(self.data.index.h3.to_int())
 
-    def to_str(self) -> pd.Series:
+    def to_str(self):
         """
         Converts hexadecimal string H3 cell index to 64-bit integer.
 
         Returns
         -------
-        Series(string)
+        {klass}
             With new H3 cell as the its index.
-
-        Raises
-        ------
-        TypeError
-            If the Series dtype is not int64.
 
         See Also
         --------
@@ -123,11 +152,23 @@ class H3(NoNewAttributesMixin):
         88143541bdfffff    a
         886528b2a3fffff    b
         dtype: object
+        >>> df = pd.DataFrame(
+        ...     {{'label': ['a', 'b']}},
+        ...     index=[612845052823076863, 614269156845420543],
+        ... )
+        >>> df
+                           label
+        612845052823076863     a
+        614269156845420543     b
+        >>> df.h3.to_str()
+                        label
+        88143541bdfffff     a
+        886528b2a3fffff     b
         """
 
-        return self.s.set_axis(self.s.index.h3.to_str())
+        return self.data.set_axis(self.data.index.h3.to_str())
 
-    def to_center_child(self, resolution: int = None) -> pd.Series:
+    def to_center_child(self, resolution: int = None):
         """
         Get the center child of cell.
 
@@ -139,7 +180,7 @@ class H3(NoNewAttributesMixin):
 
         Returns
         -------
-        Series
+        {klass}
             With new H3 center child cell.
 
         See Also
@@ -161,11 +202,23 @@ class H3(NoNewAttributesMixin):
         617348652448612351    a
         618772756470956031    b
         dtype: object
+        >>> df = pd.DataFrame(
+        ...     {{'label': ['a', 'b']}},
+        ...     index=[612845052823076863, 614269156845420543],
+        ... )
+        >>> df
+                           label
+        612845052823076863     a
+        614269156845420543     b
+        >>> df.h3.to_center_child()
+                           label
+        617348652448612351     a
+        618772756470956031     b
         """
 
-        return self.s.set_axis(self.s.index.h3.to_center_child(resolution))
+        return self.data.set_axis(self.data.index.h3.to_center_child(resolution))
 
-    def to_children(self, resolution: int = None) -> pd.Series:
+    def to_children(self, resolution: int = None):
         """
         Get the children of cell.
 
@@ -177,7 +230,7 @@ class H3(NoNewAttributesMixin):
 
         Returns
         -------
-        Series
+        {klass}
             With new H3 children cells.
 
         See Also
@@ -212,13 +265,37 @@ class H3(NoNewAttributesMixin):
         618772756472266751    b
         618772756472528895    b
         dtype: object
+        >>> df = pd.DataFrame(
+        ...     {{'label': ['a', 'b']}},
+        ...     index=[612845052823076863, 614269156845420543],
+        ... )
+        >>> df
+                           label
+        612845052823076863     a
+        614269156845420543     b
+        >>> df.h3.to_children()
+                           label
+        617348652448612351     a
+        617348652448874495     a
+        617348652449136639     a
+        617348652449398783     a
+        617348652449660927     a
+        617348652449923071     a
+        617348652450185215     a
+        618772756470956031     b
+        618772756471218175     b
+        618772756471480319     b
+        618772756471742463     b
+        618772756472004607     b
+        618772756472266751     b
+        618772756472528895     b
         """
         from pandas._libs.reshape import explode
 
-        h3, counts = explode(self.s.index.h3.to_children(resolution).to_numpy())
-        return self.s.repeat(counts).set_axis(h3)
+        index, counts = explode(self.data.index.h3.to_children(resolution).to_numpy())
+        return self.data.repeat(counts).set_axis(index)
 
-    def to_parent(self, resolution: int = None) -> pd.Series:
+    def to_parent(self, resolution: int = None):
         """
         Get the parent of cell.
 
@@ -230,7 +307,7 @@ class H3(NoNewAttributesMixin):
 
         Returns
         -------
-        Series
+        {klass}
             With new H3 parent cell.
 
         See Also
@@ -243,6 +320,9 @@ class H3(NoNewAttributesMixin):
         --------
         >>> import dtoolkit.geoaccessor
         >>> import pandas as pd
+
+        Series Example.
+
         >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
         >>> s
         612845052823076863    a
@@ -252,9 +332,24 @@ class H3(NoNewAttributesMixin):
         608341453197803519    a
         609765557230632959    b
         dtype: object
+
+        DataFrame Example.
+
+        >>> df = pd.DataFrame(
+        ...     {{'label': ['a', 'b']}},
+        ...     index=[612845052823076863, 614269156845420543],
+        ... )
+        >>> df
+                           label
+        612845052823076863     a
+        614269156845420543     b
+        >>> df.h3.to_parent()
+                           label
+        608341453197803519     a
+        609765557230632959     b
         """
 
-        return self.s.set_axis(self.s.index.h3.to_parent(resolution))
+        return self.data.set_axis(self.data.index.h3.to_parent(resolution))
 
     def to_points(self) -> gpd.GeoDataFrame:
         """
@@ -264,11 +359,6 @@ class H3(NoNewAttributesMixin):
         -------
         GeoDataFrame
             With H3 cell as the its index.
-
-        Raises
-        ------
-        ValueError
-            If name of Series is None.
 
         See Also
         --------
@@ -290,18 +380,30 @@ class H3(NoNewAttributesMixin):
         614269156845420543    b
         Name: label, dtype: object
         >>> s.h3.to_points()
+                           label                    geometry
+        612845052823076863     a  POINT (121.99637 55.00331)
+        614269156845420543     b    POINT (99.99611 0.99919)
+        >>> df = pd.DataFrame(
+        ...     {'label': ['a', 'b']},
+        ...     index=[612845052823076863, 614269156845420543],
+        ... )
+        >>> df
+                           label
+        612845052823076863     a
+        614269156845420543     b
+        >>> df.h3.to_points()
                             label                    geometry
         612845052823076863      a  POINT (121.99637 55.00331)
         614269156845420543      b    POINT (99.99611 0.99919)
         """
 
-        if self.s.name is None:
+        if isinstance(self.data, pd.Series) and self.data.name is None:
             raise ValueError(
                 "to keep the original data requires setting the 'name' of "
-                f"{self.s.__class__.__name__!r}.",
+                f"{self.data.__class__.__name__!r}.",
             )
 
-        return to_geoframe(self.s, geometry=self.s.index.h3.to_points())
+        return self.data.to_geoframe(geometry=self.data.index.h3.to_points())
 
     def to_polygons(self) -> gpd.GeoDataFrame:
         """
@@ -311,11 +413,6 @@ class H3(NoNewAttributesMixin):
         -------
         GeoDataFrame
             With H3 cell as the its index.
-
-        Raises
-        ------
-        ValueError
-            If name of Series is None.
 
         See Also
         --------
@@ -337,15 +434,27 @@ class H3(NoNewAttributesMixin):
         614269156845420543    b
         Name: label, dtype: object
         >>> s.h3.to_polygons()
+                           label                                           geometry
+        612845052823076863     a  POLYGON ((121.98797 55.00408, 121.99122 54.999...
+        614269156845420543     b  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
+        >>> df = pd.DataFrame(
+        ...     {'label': ['a', 'b']},
+        ...     index=[612845052823076863, 614269156845420543],
+        ... )
+        >>> df
+                           label
+        612845052823076863     a
+        614269156845420543     b
+        >>> df.h3.to_polygons()
                             label                                           geometry
         612845052823076863      a  POLYGON ((121.98797 55.00408, 121.99122 54.999...
         614269156845420543      b  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
         """
 
-        if self.s.name is None:
+        if isinstance(self.data, pd.Series) and self.data.name is None:
             raise ValueError(
                 "to keep the original data requires setting the 'name' of "
-                f"{self.s.__class__.__name__!r}.",
+                f"{self.data.__class__.__name__!r}.",
             )
 
-        return to_geoframe(self.s, geometry=self.s.index.h3.to_polygons())
+        return self.data.to_geoframe(geometry=self.data.index.h3.to_polygons())
