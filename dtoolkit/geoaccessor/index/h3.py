@@ -123,6 +123,7 @@ class H3(NoNewAttributesMixin):
         #     h3.edge_length
         #     dtoolkit.geoaccessor.index.H3.edge
         #     dtoolkit.geoaccessor.series.H3.edge
+        #     dtoolkit.geoaccessor.dataframe.H3.edge
         #     """
 
         #     return pd.Series(
