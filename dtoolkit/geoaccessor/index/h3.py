@@ -84,6 +84,7 @@ class H3(NoNewAttributesMixin):
         h3.cell_area
         dtoolkit.geoaccessor.index.H3.area
         dtoolkit.geoaccessor.series.H3.area
+        dtoolkit.geoaccessor.dataframe.H3.area
 
         Examples
         --------
@@ -147,8 +148,10 @@ class H3(NoNewAttributesMixin):
         h3.get_resolution
         dtoolkit.geoaccessor.index.H3.resolution
         dtoolkit.geoaccessor.series.H3.resolution
+        dtoolkit.geoaccessor.dataframe.H3.resolution
         dtoolkit.geoaccessor.index.H3.is_res_class_III
         dtoolkit.geoaccessor.series.H3.is_res_class_III
+        dtoolkit.geoaccessor.dataframe.H3.is_res_class_III
 
         Examples
         --------
@@ -187,8 +190,10 @@ class H3(NoNewAttributesMixin):
         h3.is_valid_cell
         dtoolkit.geoaccessor.index.is_h3
         dtoolkit.geoaccessor.series.is_h3
+        dtoolkit.geoaccessor.dataframe.is_h3
         dtoolkit.geoaccessor.index.is_valid
         dtoolkit.geoaccessor.series.is_valid
+        dtoolkit.geoaccessor.dataframe.is_valid
 
         Examples
         --------
@@ -262,6 +267,7 @@ class H3(NoNewAttributesMixin):
         h3.is_pentagon
         dtoolkit.geoaccessor.index.is_pentagon
         dtoolkit.geoaccessor.series.is_pentagon
+        dtoolkit.geoaccessor.dataframe.is_pentagon
 
         Examples
         --------
@@ -306,8 +312,10 @@ class H3(NoNewAttributesMixin):
         h3.is_res_class_III
         dtoolkit.geoaccessor.index.H3.resolution
         dtoolkit.geoaccessor.series.H3.resolution
+        dtoolkit.geoaccessor.dataframe.H3.resolution
         dtoolkit.geoaccessor.index.H3.is_res_class_III
         dtoolkit.geoaccessor.series.H3.is_res_class_III
+        dtoolkit.geoaccessor.dataframe.H3.is_res_class_III
 
         Examples
         --------
