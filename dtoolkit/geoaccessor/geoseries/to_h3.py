@@ -1,5 +1,6 @@
 import geopandas as gpd
 import pandas as pd
+from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.accessor.series import len as s_len
@@ -9,6 +10,7 @@ from dtoolkit.geoaccessor.series import to_geoframe
 
 
 @register_geoseries_method
+@doc(klass="GeoSeries")
 def to_h3(
     s: gpd.GeoSeries,
     /,
@@ -28,7 +30,7 @@ def to_h3(
 
     Returns
     -------
-    GeoSeries
+    {klass}
         With H3 cell as the its index.
 
     Raises
@@ -46,6 +48,7 @@ def to_h3(
     --------
     h3.latlon_to_h3
     h3.polygon_to_cells
+    dtoolkit.geoaccessor.series.to_h3
     dtoolkit.geoaccessor.series.H3
     dtoolkit.geoaccessor.geodataframe.to_h3
 
@@ -56,75 +59,66 @@ def to_h3(
 
     Points to h3 indexes.
 
-    >>> s = pd.Series(
-    ...     [
-    ...         "POINT (122 55)",
-    ...         "POINT (100 1)",
-    ...     ],
-    ...     name="wkt",
-    ... ).from_wkt(crs=4326).geometry
-    >>> s
-    0    POINT (122.00000 55.00000)
-    1     POINT (100.00000 1.00000)
-    Name: geometry, dtype: geometry
-    >>> s.to_h3(8)
-    612845052823076863  POINT (122.00000 55.00000)
-    614269156845420543   POINT (100.00000 1.00000)
-    dtype: geometry
+    >>> df = pd.DataFrame({{"x": [122, 100], "y": [55, 1]}}).from_xy('x', 'y', crs=4326)
+    >>> df
+         x   y                    geometry
+    0  122  55  POINT (122.00000 55.00000)
+    1  100   1   POINT (100.00000 1.00000)
+    >>> df.to_h3(8)
+                          x   y                    geometry
+    612845052823076863  122  55  POINT (122.00000 55.00000)
+    614269156845420543  100   1   POINT (100.00000 1.00000)
 
     Polygons to h3 indexes.
 
-    >>> s = pd.Series(
-    ...     [
-    ...         "POLYGON ((1 0, 1 1, 0 1, 0 0, 1 0))",
-    ...         "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1))",
-    ...     ],
-    ...     name="wkt",
-    ... ).from_wkt(crs=4326).geometry
-    >>> s
-    0    POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    1    POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    Name: geometry, dtype: geometry
-    >>> s.to_h3(4)
-    596538839648960511  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538693620072447  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538685030137855  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538848238895103  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596537920525959167  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538813879156735  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538856828829695  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538805289222143  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
-    596538229763604479  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596537946295762943  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596540780974178303  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596540729434570751  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596540772384243711  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596538212583735295  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596540763794309119  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596537954885697535  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596540746614439935  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596538195403866111  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    596541030082281471  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
-    dtype: geometry
+    >>> df = pd.DataFrame(
+    ...     {{
+    ...         "label": ["a", "b"],
+    ...         "wkt": [
+    ...             "POLYGON ((1 0, 1 1, 0 1, 0 0, 1 0))",
+    ...             "POLYGON ((2 1, 2 2, 1 2, 1 1, 2 1))",
+    ...         ],
+    ...     }},
+    ... ).from_wkt("wkt", crs=4326).drop(columns="wkt")
+    >>> df
+      label                                           geometry
+    0     a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    1     b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    >>> df.to_h3(4)
+                        label                                           geometry
+    596538839648960511      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538693620072447      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538685030137855      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538848238895103      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596537920525959167      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538813879156735      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538856828829695      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538805289222143      a  POLYGON ((1.00000 0.00000, 1.00000 1.00000, 0....
+    596538229763604479      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596537946295762943      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540780974178303      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540729434570751      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540772384243711      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596538212583735295      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540763794309119      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596537954885697535      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596540746614439935      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596538195403866111      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
+    596541030082281471      b  POLYGON ((2.00000 1.00000, 2.00000 2.00000, 1....
 
     Also support str (hexadecimal) format.
 
-    >>> s = pd.Series(
-    ...     [
-    ...         "POINT (122 55)",
-    ...         "POINT (100 1)",
-    ...     ],
-    ...     name="wkt",
-    ... ).from_wkt(crs=4326).geometry
-    >>> s
-    0    POINT (122.00000 55.00000)
-    1     POINT (100.00000 1.00000)
-    Name: geometry, dtype: geometry
-    >>> s.to_h3(8, int_dtype=False)
-    88143541bdfffff    POINT (122.00000 55.00000)
-    886528b2a3fffff     POINT (100.00000 1.00000)
-    dtype: geometry
+    >>> df = pd.DataFrame({{"x": [122, 100], "y": [55, 1]}}).from_xy('x', 'y', crs=4326)
+    >>> df
+         x   y                    geometry
+    0  122  55  POINT (122.00000 55.00000)
+    1  100   1   POINT (100.00000 1.00000)
+    >>> df.to_h3(8, int_dtype=False)
+                       x   y                    geometry
+    88143541bdfffff  122  55  POINT (122.00000 55.00000)
+    886528b2a3fffff  100   1   POINT (100.00000 1.00000)
     """
+
     # TODO: Advices for h3-pandas
     # 1. use `import h3.api.numpy_int as h3` instead of `import h3`
     # 2. compat with h3-py 4
@@ -151,7 +145,7 @@ def to_h3(
     elif all(s.geom_type == "Polygon"):
         # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
         # While h3-py release 4, `polygon_to_cells` is not available.
-        h3_list = s_getattr(s, "__geo_interface__").apply(
+        h3_list = s_getattr(s.geometry, "__geo_interface__").apply(
             getattr(h3, "polyfill"),
             res=resolution,
             # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
