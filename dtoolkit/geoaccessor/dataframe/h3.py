@@ -173,7 +173,7 @@ class H3(NoNewAttributesMixin):
         618772756470956031     b
         """
 
-        return self.s.set_axis(self.s.index.h3.to_center_child(resolution))
+        return self.df.set_axis(self.df.index.h3.to_center_child(resolution))
 
     def to_children(self, resolution: int = None) -> pd.DataFrame:
         """
