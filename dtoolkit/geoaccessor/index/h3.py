@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_index_accessor
 from pandas.core.base import NoNewAttributesMixin
+from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.index.is_h3 import apply_h3
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
@@ -26,11 +27,12 @@ def available_if(check):
 
 
 @register_index_accessor("h3")
+@doc(klass="Index")
 class H3(NoNewAttributesMixin):
     """
     Hexagonal hierarchical geospatial indexing system.
 
-    A little magic binding H3 for Index.
+    A little magic binding H3 for :obj:`~pandas.{klass}`.
 
     Raises
     ------
@@ -40,18 +42,24 @@ class H3(NoNewAttributesMixin):
     TypeError
         If not Index(string) or Index(int64) dtype.
 
+    See Also
+    --------
+    dtoolkit.geoaccessor.index.H3
+    dtoolkit.geoaccessor.series.H3
+    dtoolkit.geoaccessor.dataframe.H3
+
     Notes
     -----
-    Based on :obj:`~pandas.Index` style, APIs are designed as follows:
+    Based on pandas style, APIs are designed as follows:
 
     - Remove the prefix ``h3_`` of the original H3 API.
-      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.index.H3.to_points`
+      e.g. :meth:`h3.h3_to_geo` → :meth:`~dtoolkit.geoaccessor.series.H3.to_points`
 
     - Use ``to_`` prefix for the conversion between H3 cell int and str.
-      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.index.H3.to_str`
+      e.g. :meth:`h3.h3_to_string` → :meth:`~dtoolkit.geoaccessor.series.H3.to_str`
 
     - Use ``is_`` prefix for the validation of H3 cell.
-      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.index.H3.is_valid`
+      e.g. :meth:`h3.h3_is_valid` → :meth:`~dtoolkit.geoaccessor.series.H3.is_valid`
     """
 
     def __init__(self, index: pd.Index, /):
