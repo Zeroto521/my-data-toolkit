@@ -125,7 +125,7 @@ def to_h3(
     1    596540746614439935
     1    596538195403866111
     1    596541030082281471
-    dtype: object
+    Name: geometry, dtype: object
 
     Also support str (hexadecimal) format.
 
@@ -143,7 +143,7 @@ def to_h3(
     >>> s.to_h3(8, int_dtype=False)
     0    88143541bdfffff
     1    886528b2a3fffff
-    dtype: object
+    Name: geometry, dtype: object
     """
 
     # TODO: Advices for h3-pandas
