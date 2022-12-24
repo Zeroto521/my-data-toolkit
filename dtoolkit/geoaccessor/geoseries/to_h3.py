@@ -134,15 +134,12 @@ def to_h3(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     if all(s.geom_type == "Point"):
-        h3 = points_to_h3(s, resolution=resolution, int_dtype=int_dtype)
+        return s.set_axis(points_to_h3(s, resolution=resolution, int_dtype=int_dtype))
     elif all(s.geom_type == "Polygon"):
         h3_list = polygons_to_h3(s, resolution=resolution, int_dtype=int_dtype)
-        h3 = h3_list.explode()
-        s = s.repeat(s_len(h3_list))
-    else:
-        raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
+        return s.repeat(s_len(h3_list)).set_axis(h3_list.explode())
 
-    return s.set_axis(h3)
+    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
 
 
 def points_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
