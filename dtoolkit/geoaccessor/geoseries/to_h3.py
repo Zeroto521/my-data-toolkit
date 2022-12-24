@@ -1,7 +1,3 @@
-from __future__ import annotations
-
-from typing import Hashable
-
 import geopandas as gpd
 import pandas as pd
 
@@ -17,10 +13,8 @@ def to_h3(
     s: gpd.GeoSeries,
     /,
     resolution: int,
-    drop: bool = True,
-    name: Hashable = "h3",
     int_dtype: bool = True,
-) -> pd.Series | gpd.GeoDataFrame:
+) -> gpd.GeoSeries:
     """
     Convert Point or Polygon to H3 cell index.
 
@@ -29,20 +23,13 @@ def to_h3(
     resolution : int
         H3 resolution.
 
-    name : Hashable, default "h3"
-        Name of the column to store the H3 cell index. If ``name`` is None, there will
-        use ``s.name`` as the column name.
-
-    drop : bool, default True
-        Whether to drop the geometry column.
-
     int_dtype : bool, default True
         If True, use ``h3.api.numpy_int`` else use ``h3.api.basic_str``.
 
     Returns
     -------
-    Series or GeoDataFrame
-        Series if drop is True else GeoDataFrame.
+    GeoSeries
+        With H3 cell as the its index.
 
     Raises
     ------
@@ -53,8 +40,7 @@ def to_h3(
         If the geometry type is not Point or Polygon.
 
     ValueError
-        - If the CRS is not WGS84 or EPSG:4326.
-        - If ``drop=False`` but ``name=None`` or ``s.name=None``.
+        If the CRS is not WGS84 or EPSG:4326.
 
     See Also
     --------
@@ -153,11 +139,6 @@ def to_h3(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if not drop and name is None and s.name is None:
-        raise ValueError(
-            "to keep the original data requires setting the 'name' of "
-            f"{s.__class__.__name__!r} or 'name'.",
-        )
 
     if all(s.geom_type == "Point"):
         h3 = points_to_h3(s, resolution=resolution, int_dtype=int_dtype)
