@@ -84,7 +84,7 @@ def to_geoframe(
     if geometry is not None:
         # FIXME: https://github.com/geopandas/geopandas/issues/2660
         if isinstance(geometry, gpd.GeoSeries):
-            geometry = np.asarray(geometry)
+            geometry = geometry.set_axis(s.index)
         return gpd.GeoDataFrame(s, geometry=geometry, crs=crs, **kwargs)
     elif is_geometry_type(s):
         return gpd.GeoDataFrame(geometry=s, crs=crs, **kwargs)
