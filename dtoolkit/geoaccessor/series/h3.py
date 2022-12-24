@@ -4,6 +4,7 @@ from pandas.api.extensions import register_series_accessor
 from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 
+from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.index import H3 as i_H3
 
 
@@ -45,7 +46,8 @@ class H3Base(NoNewAttributesMixin):
 
         return self.data.index.h3.is_res_class_III
 
-    def to_int(self):
+    @doc(klass="Series or DataFrame")
+    def to_int(self) -> SeriesOrFrame:
         """
         Converts 64-bit integer H3 cell index to hexadecimal string.
 
@@ -74,7 +76,7 @@ class H3Base(NoNewAttributesMixin):
         614269156845420543    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {'label': ['a', 'b']},
+        ...     {{'label': ['a', 'b']}},
         ...     index=['88143541bdfffff', '886528b2a3fffff'],
         ... )
         >>> df
@@ -89,7 +91,8 @@ class H3Base(NoNewAttributesMixin):
 
         return self.data.set_axis(self.data.index.h3.to_int())
 
-    def to_str(self):
+    @doc(klass="Series or DataFrame")
+    def to_str(self) -> SeriesOrFrame:
         """
         Converts hexadecimal string H3 cell index to 64-bit integer.
 
@@ -118,7 +121,7 @@ class H3Base(NoNewAttributesMixin):
         886528b2a3fffff    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {'label': ['a', 'b']},
+        ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
@@ -133,7 +136,8 @@ class H3Base(NoNewAttributesMixin):
 
         return self.data.set_axis(self.data.index.h3.to_str())
 
-    def to_center_child(self, resolution: int = None):
+    @doc(klass="Series or DataFrame")
+    def to_center_child(self, resolution: int = None) -> SeriesOrFrame:
         """
         Get the center child of cell.
 
@@ -168,7 +172,7 @@ class H3Base(NoNewAttributesMixin):
         618772756470956031    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {'label': ['a', 'b']},
+        ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
@@ -183,7 +187,8 @@ class H3Base(NoNewAttributesMixin):
 
         return self.data.set_axis(self.data.index.h3.to_center_child(resolution))
 
-    def to_children(self, resolution: int = None):
+    @doc(klass="Series or DataFrame")
+    def to_children(self, resolution: int = None) -> SeriesOrFrame:
         """
         Get the children of cell.
 
@@ -231,7 +236,7 @@ class H3Base(NoNewAttributesMixin):
         618772756472528895    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {'label': ['a', 'b']},
+        ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
@@ -260,7 +265,8 @@ class H3Base(NoNewAttributesMixin):
         index, counts = explode(self.data.index.h3.to_children(resolution).to_numpy())
         return self.data.repeat(counts).set_axis(index)
 
-    def to_parent(self, resolution: int = None):
+    @doc(klass="Series or DataFrame")
+    def to_parent(self, resolution: int = None) -> SeriesOrFrame:
         """
         Get the parent of cell.
 
@@ -301,7 +307,7 @@ class H3Base(NoNewAttributesMixin):
         DataFrame Example.
 
         >>> df = pd.DataFrame(
-        ...     {'label': ['a', 'b']},
+        ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
