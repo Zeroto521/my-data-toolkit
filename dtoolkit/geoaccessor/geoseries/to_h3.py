@@ -125,7 +125,6 @@ def to_h3(
     886528b2a3fffff     POINT (100.00000 1.00000)
     dtype: geometry
     """
-
     # TODO: Advices for h3-pandas
     # 1. use `import h3.api.numpy_int as h3` instead of `import h3`
     # 2. compat with h3-py 4
@@ -133,44 +132,31 @@ def to_h3(
     # 4. consider h3-py as the accessor of Series
     # 6. Speed up creating points / polygons via shapely 2.x
 
-    if s.crs != 4326:
-        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-
-    if all(s.geom_type == "Point"):
-        return s.set_axis(points_to_h3(s, resolution=resolution, int_dtype=int_dtype))
-    elif all(s.geom_type == "Polygon"):
-        h3_list = polygons_to_h3(s, resolution=resolution, int_dtype=int_dtype)
-        return s.repeat(s_len(h3_list)).set_axis(h3_list.explode())
-
-    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
-
-
-def points_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
-    # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
-    # While h3-py release 4, `latlon_to_h3` is not available.
-    method = method_from_h3("geo_to_h3", int_dtype=int_dtype)
-
-    return xy(s, reverse=True, frame=False, name=None).apply(
-        lambda yx: method(*yx, resolution),
-    )
-
-
-def polygons_to_h3(s: gpd.GeoSeries, /, resolution: int, int_dtype: bool) -> pd.Series:
-    # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
-    # While h3-py release 4, `polygon_to_cells` is not available.
-
-    # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
-    return s_getattr(s, "__geo_interface__").apply(
-        method_from_h3("polyfill", int_dtype=int_dtype),
-        res=resolution,
-        geo_json_conformant=True,
-    )
-
-
-def method_from_h3(method: str, int_dtype: bool = True) -> callable:
     if int_dtype:
         import h3.api.numpy_int as h3
     else:
         import h3.api.basic_str as h3
 
-    return getattr(h3, method)
+    if s.crs != 4326:
+        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+
+    if all(s.geom_type == "Point"):
+        # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
+        # While h3-py release 4, `latlon_to_h3` is not available.
+        return s.set_axis(
+            xy(s.geometry, reverse=True, frame=False, name=None)
+            .apply(lambda yx: getattr(h3, "geo_to_h3")(*yx, resolution))
+            .to_numpy()
+        )
+    elif all(s.geom_type == "Polygon"):
+        # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
+        # While h3-py release 4, `polygon_to_cells` is not available.
+        h3_list = s_getattr(s, "__geo_interface__").apply(
+            getattr(h3, "polyfill"),
+            res=resolution,
+            # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
+            geo_json_conformant=True,
+        )
+        return s.repeat(s_len(h3_list)).set_axis(h3_list.explode().to_numpy())
+
+    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")

@@ -5,11 +5,7 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import repeat
-from dtoolkit.accessor.series import len as s_len
-from dtoolkit.geoaccessor.geodataframe.drop_geometry import drop_geometry
-from dtoolkit.geoaccessor.geoseries.to_h3 import points_to_h3
-from dtoolkit.geoaccessor.geoseries.to_h3 import polygons_to_h3
+from dtoolkit.geoaccessor.geoseries import to_h3 as s_to_h3
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 
@@ -120,23 +116,4 @@ def to_h3(
     886528b2a3fffff  100   1   POINT (100.00000 1.00000)
     """
 
-    if df.crs != 4326:
-        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {df.crs!r}.")
-
-    if all(df.geom_type == "Point"):
-        return df.set_axis(
-            points_to_h3(
-                df.geometry,
-                resolution=resolution,
-                int_dtype=int_dtype,
-            )
-        )
-    elif all(df.geom_type == "Polygon"):
-        h3_list = polygons_to_h3(
-            df.geometry,
-            resolution=resolution,
-            int_dtype=int_dtype,
-        )
-        return repeat(df, s_len(h3_list)).set_axis(h3_list.explode())
-
-    raise TypeError("Only support 'Point' or 'Polygon' geometry type.")
+    return s_to_h3(df, resolution=resolution, int_dtype=int_dtype)
