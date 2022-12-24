@@ -11,7 +11,6 @@ from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 @register_series_accessor("h3")
 @doc(i_H3, klass="Series")
 class H3(NoNewAttributesMixin):
-
     def __init__(self, s: pd.Series):
         self.s = s
 
