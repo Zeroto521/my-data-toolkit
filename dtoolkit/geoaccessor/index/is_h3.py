@@ -56,7 +56,7 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> s.is_h3()
     True
     >>> df = pd.DataFrame(
-    ...     {{'label': ['a', 'b']}},
+    ...     {'label': ['a', 'b']},
     ...     index=['88143541bdfffff', '886528b2a3fffff'],
     ... )
     >>> df

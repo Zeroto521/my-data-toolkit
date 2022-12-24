@@ -74,7 +74,7 @@ class H3Base(NoNewAttributesMixin):
         614269156845420543    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {{'label': ['a', 'b']}},
+        ...     {'label': ['a', 'b']},
         ...     index=['88143541bdfffff', '886528b2a3fffff'],
         ... )
         >>> df
@@ -118,7 +118,7 @@ class H3Base(NoNewAttributesMixin):
         886528b2a3fffff    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {{'label': ['a', 'b']}},
+        ...     {'label': ['a', 'b']},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
@@ -168,7 +168,7 @@ class H3Base(NoNewAttributesMixin):
         618772756470956031    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {{'label': ['a', 'b']}},
+        ...     {'label': ['a', 'b']},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
@@ -231,7 +231,7 @@ class H3Base(NoNewAttributesMixin):
         618772756472528895    b
         dtype: object
         >>> df = pd.DataFrame(
-        ...     {{'label': ['a', 'b']}},
+        ...     {'label': ['a', 'b']},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
@@ -301,7 +301,7 @@ class H3Base(NoNewAttributesMixin):
         DataFrame Example.
 
         >>> df = pd.DataFrame(
-        ...     {{'label': ['a', 'b']}},
+        ...     {'label': ['a', 'b']},
         ...     index=[612845052823076863, 614269156845420543],
         ... )
         >>> df
