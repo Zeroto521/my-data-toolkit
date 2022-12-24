@@ -45,7 +45,7 @@ def xy(
             The default value of ``frame`` is set to True.
 
     drop : bool, default True
-        If True, drop the original geometry column.
+        If True, only return the new generated coordinates.
 
     name : Hashable or a tuple of Hashable, default ('x', 'y')
         If ``frame=True``, the column names of the returned DataFrame,
@@ -116,7 +116,7 @@ def xy(
     1  0.0  2.0
     2  0.0  3.0
 
-    Keep the original geometry column.
+    Keep the geometry column.
 
     >>> s.xy(drop=False)
          x    y                 geometry
