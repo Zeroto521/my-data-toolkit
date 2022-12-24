@@ -1,12 +1,10 @@
 import geopandas as gpd
-import pandas as pd
 from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.geoaccessor.series import to_geoframe
 
 
 @register_geoseries_method
