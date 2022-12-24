@@ -143,7 +143,7 @@ def to_h3(
     >>> s.to_h3(8, int_dtype=False)
     0    88143541bdfffff
     1    886528b2a3fffff
-    Name: geometry, dtype: object
+    dtype: object
     """
 
     # TODO: Advices for h3-pandas
