@@ -12,17 +12,18 @@ from dtoolkit.accessor.register import register_index_method
 @register_index_method
 def is_h3(index: pd.Index, /) -> bool:
     """
-    Validate whether the whole :obj:`~pandas.Index` is H3 cell index.
+    Validate whether the {klass} is H3 cell index.
 
     Returns
     -------
     bool
-        True if the whole Index is H3 cell index else False.
+        True if the {klass} is H3 cell index else False.
 
     See Also
     --------
     dtoolkit.geoaccessor.series.is_h3
     dtoolkit.geoaccessor.index.H3.is_valid
+    dtoolkit.geoaccessor.dataframe.H3.is_valid
 
     Raises
     ------
@@ -44,6 +45,13 @@ def is_h3(index: pd.Index, /) -> bool:
     Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
     >>> index.is_h3()
     True
+    >>> s = pd.Series(['a', 'b'], index=['88143541bdfffff', '886528b2a3fffff'])
+    >>> s
+    88143541bdfffff    a
+    886528b2a3fffff    b
+    dtype: object
+    >>> s.is_h3()
+    True
 
     Int type H3 cell index.
 
@@ -51,6 +59,13 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> index
     Int64Index([612845052823076863, 614269156845420543], dtype='int64')
     >>> index.is_h3()
+    True
+    >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+    >>> s
+    612845052823076863    a
+    614269156845420543    b
+    dtype: object
+    >>> s.is_h3()
     True
     """
 
