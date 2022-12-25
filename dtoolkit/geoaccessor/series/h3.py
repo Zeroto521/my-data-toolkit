@@ -29,19 +29,19 @@ class H3Base(NoNewAttributesMixin):
         return self.data.index.h3.resolution
 
     @property
-    @doc(i_H3.resolution)
+    @doc(i_H3.is_valid)
     def is_valid(self) -> pd.Series:
 
         return self.data.index.h3.is_valid
 
     @property
-    @doc(i_H3.resolution)
+    @doc(i_H3.is_pentagon)
     def is_pentagon(self) -> pd.Series:
 
         return self.data.index.h3.is_pentagon
 
     @property
-    @doc(i_H3.resolution)
+    @doc(i_H3.is_res_class_III)
     def is_res_class_III(self) -> pd.Series:
 
         return self.data.index.h3.is_res_class_III
