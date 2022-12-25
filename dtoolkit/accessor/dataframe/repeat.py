@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Hashable
 
-import numpy as np
 import pandas as pd
 from pandas.api.types import is_number
 
@@ -99,9 +98,4 @@ def repeat(
     if not is_number(repeats) and isinstance(repeats, Hashable):
         repeats = df[repeats]
 
-    axis = df._get_axis_number(axis)
-    return pd.DataFrame(
-        np.repeat(df._values, repeats, axis=axis),
-        index=df.index.repeat(repeats) if axis == 0 else df.index,
-        columns=df.columns.repeat(repeats) if axis == 1 else df.columns,
-    )
+    return df.reindex(df._get_axis(axis).repeat(repeats), axis=axis)
