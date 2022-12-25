@@ -1,9 +1,8 @@
 import geopandas as gpd
-import pandas as pd
 import pytest
 from shapely import Point
 
-from dtoolkit.geoaccessor.series import H3
+from dtoolkit.geoaccessor.series import H3  # noqa: F401
 
 
 pytest.importorskip("h3")
