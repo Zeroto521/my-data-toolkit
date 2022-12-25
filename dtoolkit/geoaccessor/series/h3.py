@@ -440,12 +440,12 @@ class H3(H3Base):
 
         self._freeze()
 
-    @doc(H3Base.to_int, klass="Series(int64)")
+    @doc(H3Base.to_int, klass="Series")
     def to_int(self) -> pd.Series:
 
         return super().to_int()
 
-    @doc(H3Base.to_str, klass="Series(string)")
+    @doc(H3Base.to_str, klass="Series")
     def to_str(self) -> pd.Series:
 
         return super().to_str()
