@@ -5,7 +5,7 @@
 HAS_GEOPANDAS = None
 
 try:
-    import geopandas
+    import geopandas  # noqa: F401
 
     HAS_GEOPANDAS = True
 
