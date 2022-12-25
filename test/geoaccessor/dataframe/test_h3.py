@@ -1,6 +1,6 @@
+import geopandas as gpd
 import pandas as pd
 import pytest
-import geopandas as gpd
 from shapely import Point
 
 from dtoolkit.geoaccessor.series import H3
