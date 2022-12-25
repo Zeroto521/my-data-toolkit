@@ -61,7 +61,10 @@ def test_error(axis):
 
 
 # https://github.com/Zeroto521/my-data-toolkit/issues/823
-@pytest.mark.skif(not HAS_GEOPANDAS)
+@pytest.mark.skipif(
+    not HAS_GEOPANDAS,
+    reason="could not import 'geopandas': No module named 'geopandas'",
+)
 def test_inputing_geodataframe_return_geodataframe():
     import geopandas as gpd
     from shapely import Point
