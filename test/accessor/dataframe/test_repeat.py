@@ -3,6 +3,7 @@ import pytest
 from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.dataframe import repeat
+from test._compat import HAS_GEOPANDAS
 
 
 @pytest.mark.parametrize(
@@ -57,3 +58,21 @@ def test_error(axis):
     df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     with pytest.raises(ValueError):
         repeat(df, 2, axis)
+
+
+# https://github.com/Zeroto521/my-data-toolkit/issues/823
+@pytest.mark.skif(not HAS_GEOPANDAS)
+def test_inputing_geodataframe_return_geodataframe():
+    import geopandas as gpd
+    from shapely import Point
+
+    df = gpd.GeoDataFrame(
+        {
+            "label": ["a", "b"],
+            "geometry": [Point(100, 1), Point(122, 55)],
+        },
+        crs=4326,
+    ).repeat(2)
+
+    assert isinstance(df, gpd.GeoDataFrame)
+    assert df.crs == 4326
