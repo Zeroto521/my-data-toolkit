@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import partial
 
 import pandas as pd
-from pandas.api.types import is_int64_dtype
+from pandas.api.types import is_integer_dtype
 from pandas.api.types import is_string_dtype
 from pandas.util._decorators import doc
 
@@ -120,7 +120,7 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs):
         If not Index(string) or Index(int64) dtype.
     """
 
-    if is_int64_dtype(index):
+    if is_integer_dtype(index):
         # NOTE: Can't use `__import__("h3.api.numpy_int")`
         # See https://github.com/uber/h3-py/issues/304
         import h3.api.numpy_int as h3

@@ -411,10 +411,10 @@ class H3(NoNewAttributesMixin):
         """
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
-        from pandas.api.types import is_int64_dtype
+        from pandas.api.types import is_integer_dtype
         from h3.api.numpy_int import h3_to_string
 
-        if not is_int64_dtype(self.index):
+        if not is_integer_dtype(self.index):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
         return self.index.map(h3_to_string)
 
