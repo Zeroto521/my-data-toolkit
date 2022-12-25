@@ -341,7 +341,7 @@ class H3(NoNewAttributesMixin):
     @available_if(is_h3)
     def to_int(self) -> pd.Index:
         """
-        Converts 64-bit integer H3 cell index to hexadecimal string.
+        Converts hexadecimal string H3 cell index to 64-bit integer.
 
         Returns
         -------
@@ -381,7 +381,7 @@ class H3(NoNewAttributesMixin):
     @available_if(is_h3)
     def to_str(self) -> pd.Index:
         """
-        Converts hexadecimal string H3 cell index to 64-bit integer.
+        Converts 64-bit integer H3 cell index to hexadecimal string.
 
         Returns
         -------

@@ -49,7 +49,7 @@ class H3Base(NoNewAttributesMixin):
     @doc(klass="Series or DataFrame")
     def to_int(self) -> SeriesOrFrame:
         """
-        Converts 64-bit integer H3 cell index to hexadecimal string.
+        Converts hexadecimal string H3 cell index to 64-bit integer.
 
         Returns
         -------
@@ -94,7 +94,7 @@ class H3Base(NoNewAttributesMixin):
     @doc(klass="Series or DataFrame")
     def to_str(self) -> SeriesOrFrame:
         """
-        Converts hexadecimal string H3 cell index to 64-bit integer.
+        Converts 64-bit integer H3 cell index to hexadecimal string.
 
         Returns
         -------
