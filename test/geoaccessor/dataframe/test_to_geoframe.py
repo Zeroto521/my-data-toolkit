@@ -27,6 +27,7 @@ def test_original_dataframe_type():
     assert_frame_equal(df, df_copy)
 
 
+# https://github.com/Zeroto521/my-data-toolkit/issues/820
 def test_replace_old_geoemtry():
     df = gpd.GeoDataFrame(
         {
@@ -41,6 +42,6 @@ def test_replace_old_geoemtry():
         ),
     )
 
-    assert df.crs == 3857
     assert df.geometry.x.tolist() == [0, 1]
     assert df.geometry.y.tolist() == [0, 1]
+    assert df.crs == 3857
