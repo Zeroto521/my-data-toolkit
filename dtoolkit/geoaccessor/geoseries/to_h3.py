@@ -144,11 +144,11 @@ def to_h3(
         # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
         # While h3-py release 4, `polygon_to_cells` is not available.
         # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
-        h3, counts = explode(
+        index, counts = explode(
             s_getattr(s.geometry, "__geo_interface__")
             .apply(getattr(h3, "polyfill"), res=resolution, geo_json_conformant=True)
             .to_numpy(),
         )
-        return s.repeat(counts).set_axis(h3)
+        return s.repeat(counts).set_axis(index)
 
     raise TypeError("Only support 'Point' or 'Polygon' geometry type.")

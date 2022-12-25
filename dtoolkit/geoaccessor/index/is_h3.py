@@ -3,26 +3,32 @@ from __future__ import annotations
 from functools import partial
 
 import pandas as pd
-from pandas.api.types import is_int64_dtype
+from pandas.api.types import is_integer_dtype
 from pandas.api.types import is_string_dtype
+from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_index_method
 
 
 @register_index_method
+@doc(klass="Index")
 def is_h3(index: pd.Index, /) -> bool:
     """
-    Validate whether the whole :obj:`~pandas.Index` is H3 cell index.
+    Validate whether the {klass} is H3 cell index.
 
     Returns
     -------
     bool
-        True if the whole Index is H3 cell index else False.
+        True if the {klass} is H3 cell index else False.
 
     See Also
     --------
+    dtoolkit.geoaccessor.index.is_h3
     dtoolkit.geoaccessor.series.is_h3
+    dtoolkit.geoaccessor.dataframe.is_h3
     dtoolkit.geoaccessor.index.H3.is_valid
+    dtoolkit.geoaccessor.series.H3.is_valid
+    dtoolkit.geoaccessor.dataframe.H3.is_valid
 
     Raises
     ------
@@ -30,7 +36,7 @@ def is_h3(index: pd.Index, /) -> bool:
         If don't have module named 'h3'.
 
     TypeError
-        If not Index(string) or Index(int64) dtype.
+        If the Index dtype is not string or int64.
 
     Examples
     --------
@@ -44,6 +50,23 @@ def is_h3(index: pd.Index, /) -> bool:
     Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
     >>> index.is_h3()
     True
+    >>> s = pd.Series(['a', 'b'], index=['88143541bdfffff', '886528b2a3fffff'])
+    >>> s
+    88143541bdfffff    a
+    886528b2a3fffff    b
+    dtype: object
+    >>> s.is_h3()
+    True
+    >>> df = pd.DataFrame(
+    ...     {{'label': ['a', 'b']}},
+    ...     index=['88143541bdfffff', '886528b2a3fffff'],
+    ... )
+    >>> df
+                    label
+    88143541bdfffff     a
+    886528b2a3fffff     b
+    >>> df.is_h3()
+    True
 
     Int type H3 cell index.
 
@@ -51,6 +74,23 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> index
     Int64Index([612845052823076863, 614269156845420543], dtype='int64')
     >>> index.is_h3()
+    True
+    >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+    >>> s
+    612845052823076863    a
+    614269156845420543    b
+    dtype: object
+    >>> s.is_h3()
+    True
+    >>> df = pd.DataFrame(
+    ...     {{'label': ['a', 'b']}},
+    ...     index=[612845052823076863, 614269156845420543],
+    ... )
+    >>> df
+                        label
+    612845052823076863     a
+    614269156845420543     b
+    >>> df.is_h3()
     True
     """
 
@@ -80,7 +120,7 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs):
         If not Index(string) or Index(int64) dtype.
     """
 
-    if is_int64_dtype(index):
+    if is_integer_dtype(index):
         # NOTE: Can't use `__import__("h3.api.numpy_int")`
         # See https://github.com/uber/h3-py/issues/304
         import h3.api.numpy_int as h3
