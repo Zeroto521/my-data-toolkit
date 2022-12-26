@@ -337,6 +337,7 @@ class H3Base(NoNewAttributesMixin):
         h3.cell_to_latlng
         dtoolkit.geoaccessor.series.H3.to_polygons
         dtoolkit.geoaccessor.dataframe.H3.to_points
+        dtoolkit.geoaccessor.geodataframe.to_h3
 
         Examples
         --------
@@ -391,6 +392,7 @@ class H3Base(NoNewAttributesMixin):
         h3.cell_to_boundary
         dtoolkit.geoaccessor.series.H3.to_points
         dtoolkit.geoaccessor.dataframe.H3.to_polygons
+        dtoolkit.geoaccessor.geodataframe.to_h3
 
         Examples
         --------
