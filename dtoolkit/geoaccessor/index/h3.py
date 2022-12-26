@@ -568,6 +568,7 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.H3.to_polygons
         dtoolkit.geoaccessor.series.H3.to_points
         dtoolkit.geoaccessor.dataframe.H3.to_polygons
+        dtoolkit.geoaccessor.geoseries.to_h3
 
         Examples
         --------
@@ -602,6 +603,7 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.H3.to_points
         dtoolkit.geoaccessor.series.H3.to_polygons
         dtoolkit.geoaccessor.dataframe.H3.to_points
+        dtoolkit.geoaccessor.geoseries.to_h3
 
         Examples
         --------
