@@ -3,16 +3,18 @@ from typing import Hashable
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.geoaccessor.series import geocode as s_geocode
 
 
 @register_dataframe_method
 def geocode(
     df: pd.DataFrame,
     /,
-    address: Hashable,
-    drop: bool = False,
+    provider: str | "geopy.geocoder" = "photon",
+    min_delay_seconds: float = 0,
+    max_retries: int = 2,
+    error_wait_seconds: float = 5,
     **kwargs,
 ) -> gpd.GeoDataFrame:
     """
@@ -24,12 +26,20 @@ def geocode(
     address : Hashable
         The name of the column to geocode.
 
-    drop : bool, default False
-        Don't contain the original data anymore.
+    provider : str or geopy.geocoder, default "photon"
+        Specifies geocoding service to use. Default will use "photon", see the Photon's
+        terms of service at: https://photon.komoot.io. Either the string name used by
+        geopy (as specified in ``geopy.geocoders.SERVICE_TO_GEOCODER``) or a geopy
+        Geocoder instance (e.g., :obj:`~geopy.geocoders.Photon`) may be used. Some
+        providers require additional arguments such as access keys, please see each
+        geocoder's specific parameters in :mod:`geopy.geocoders`.
+
+    min_delay_seconds, max_retries, error_wait_seconds
+        See the documentation for :func:`~geopy.extra.rate_limiter.RateLimiter` for
+        complete details on these arguments.
 
     **kwargs
-        See the documentation for :func:`~geopandas.tools.geocode` for complete details
-        on the keyword arguments.
+        Additional keyword arguments to pass to the geocoder.
 
     Returns
     -------
@@ -51,26 +61,33 @@ def geocode(
     >>> import pandas as pd
     >>> df = pd.DataFrame(
     ...     {
-    ...         "name": [
+    ...         "address": [
     ...             "boston, ma",
     ...             "1600 pennsylvania ave. washington, dc",
     ...         ],
     ...     }
     ... )
     >>> df
-                                        name
+                                     address
     0                             boston, ma
     1  1600 pennsylvania ave. washington, dc
-    >>> df.geocode("name", drop=True)
-                         geometry                                            address
-    0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
-    1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
+    >>> df.geocode("address")
+                                                 address                    geometry
+    0               Boston, Massachusetts, United States  POINT (-71.06051 42.35543)
+    1  White House, 1600, Pennsylvania Avenue Northwe...  POINT (-77.03655 38.89770)
     """
 
     return pd.concat(
         (
-            gpd.tools.geocode(df[address], **kwargs),
-            drop_or_not(df, drop=drop, columns=address),
+            df.drop(columns=address),
+            s_geocode(
+                df[address],
+                provider=provider,
+                min_delay_seconds=min_delay_seconds,
+                max_retries=max_retries,
+                error_wait_seconds=error_wait_seconds,
+                **kwargs,
+            ),
         ),
         axis=1,
-    )
+    ).to_geoframe()

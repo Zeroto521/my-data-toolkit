@@ -63,15 +63,16 @@ def geocode(
     ...         "boston, ma",
     ...         "1600 pennsylvania ave. washington, dc",
     ...     ],
+    ...     name="address",
     ... )
     >>> s
     0                               boston, ma
     1    1600 pennsylvania ave. washington, dc
-    dtype: object
-    >>> s.geocode(drop=True)
-                         geometry                                            address
-    0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
-    1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
+    Name: address, dtype: object
+    >>> s.geocode()
+                                                 address                    geometry
+    0               Boston, Massachusetts, United States  POINT (-71.06051 42.35543)
+    1  White House, 1600, Pennsylvania Avenue Northwe...  POINT (-77.03655 38.89770)
     """
 
     if s.name is None:
