@@ -1,22 +1,41 @@
+from __future__ import annotations
+
 import geopandas as gpd
 import pandas as pd
+from shapely import points
 
 from dtoolkit.accessor.register import register_series_method
 
 
 @register_series_method
-def geocode(s: pd.Series, /, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
+def geocode(
+    s: pd.Series,
+    /,
+    provider: str | "geopy.geocoder" = "photon",
+    min_delay_seconds: float = 0,
+    max_retries: int = 2,
+    error_wait_seconds: float = 5,
+    **kwargs,
+) -> gpd.GeoDataFrame:
     """
     Geocode string type Series and get a GeoDataFrame of the resulting points.
 
     Parameters
     ----------
-    drop : bool, default False
-        Don't contain the original data anymore.
+    provider : str or geopy.geocoder, default "photon"
+        Specifies geocoding service to use. Default will use "photon", see the Photon's
+        terms of service at: https://photon.komoot.io. Either the string name used by
+        geopy (as specified in ``geopy.geocoders.SERVICE_TO_GEOCODER``) or a geopy
+        Geocoder instance (e.g., :obj:`~geopy.geocoders.Photon`) may be used. Some
+        providers require additional arguments such as access keys, please see each
+        geocoder's specific parameters in :mod:`geopy.geocoders`.
+
+    min_delay_seconds, max_retries, error_wait_seconds
+        See the documentation for :func:`~geopy.extra.rate_limiter.RateLimiter` for
+        complete details on these arguments.
 
     **kwargs
-        See the documentation for :func:`~geopandas.tools.geocode` for complete details
-        on the keyword arguments.
+        Additional keyword arguments to pass to the geocoder.
 
     Returns
     -------
@@ -55,11 +74,47 @@ def geocode(s: pd.Series, /, drop: bool = False, **kwargs) -> gpd.GeoDataFrame:
     1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
     """
 
-    if not drop and s.name is None:
+    if s.name is None:
         raise ValueError(
             "to keep the original data requires setting the 'name' of "
             f"{s.__class__.__name__!r}",
         )
 
-    df = gpd.tools.geocode(s, **kwargs)
-    return df if drop else pd.concat((df, s), axis=1)
+    geolocate = geolocator(
+        provider, True, min_delay_seconds, max_retries, error_wait_seconds, **kwargs
+    )
+    return s.to_geoframe(points(s.apply(query, geolocate=geolocate).tolist()), crs=4326)
+
+
+def query(address: str, geolocate) -> tuple[float, float] | tuple[None, None]:
+    from geopy.geocoders.base import GeocoderQueryError
+
+    try:
+        loc = geolocate(address)
+        return loc.longitude, loc.latitude
+
+    except (GeocoderQueryError, ValueError):
+        return None, None
+
+
+def geolocator(
+    provider: str | "geopy.geocoder",
+    forward: bool,
+    min_delay_seconds: float,
+    max_retries: int,
+    error_wait_seconds: float,
+    **kwargs,
+):
+    from geopy.extra.rate_limiter import RateLimiter
+    from geopy.geocoders import get_geocoder_for_service
+
+    # Get the actual 'geocoder' from the provider name
+    if isinstance(provider, str):
+        provider = get_geocoder_for_service(provider)
+
+    return RateLimiter(
+        getattr(provider(**kwargs), "geocode" if forward else "reverse"),
+        min_delay_seconds=min_delay_seconds,
+        max_retries=max_retries,
+        error_wait_seconds=error_wait_seconds,
+    )
