@@ -78,17 +78,16 @@ def reverse_geocode(
     ...         name="wkt",
     ...     )
     ...     .from_wkt(crs=4326)
-    ...     .geometry
-    ...     .to_frame("geometry")
+    ...     .geometry.to_geoframe()
     ... )
     >>> df
                          geometry
     0  POINT (-71.05949 42.35847)
     1  POINT (-77.03653 38.89773)
     >>> df.reverse_geocode()
-                         geometry                                            address
-    0  POINT (-71.05977 42.35860)  18-32, Tremont Street, 02108, Tremont Street, ...
-    1  POINT (-77.03655 38.89772)  Pennsylvania Avenue Northwest, 20006, Pennsylv...
+                                                 address                    geometry
+    0  18-32, Tremont Street, 02108, Tremont Street, ...  POINT (-71.05977 42.35860)
+    1  Pennsylvania Avenue Northwest, 20006, Pennsylv...  POINT (-77.03655 38.89772)
     """
 
     if s.crs != 4326:
