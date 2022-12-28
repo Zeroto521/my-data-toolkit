@@ -23,7 +23,7 @@ Hightly support H3 (Hexagonal hierarchical geospatial indexing system) via `.to_
 612845052823076863  122  55  POINT (122.00000 55.00000)
 614269156845420543  100   1   POINT (100.00000 1.00000)
 
-# Calculate h3 cell area.
+# Calculate h3 cell area
 
 >>> df_with_h3.h3.area
 612845052823076863    710781.770906
