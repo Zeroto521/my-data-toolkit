@@ -47,7 +47,7 @@ New features and improvements:
 
 - {pr}`739`, {pr}`800`, {pr}`817`, {pr}`825`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.to_h3` to convert geometry to h3 index.
 - {pr}`778`: Speed up {meth}`~dtoolkit.accessor.series.textdistance_matrix`.
-- {pr}`779`, {pr}`811`, {pr}`819`: New geoaccessor {meth}`~dtoolkit.accessor.dataframe.H3` to handle h3's geohash.
+- {pr}`779`, {pr}`811`, {pr}`819`: New geoaccessor {obj}`~dtoolkit.accessor.dataframe.H3` to handle h3's geohash.
 - {pr}`784`: New accessor {meth}`~dtoolkit.accessor.series.to_zh`.
 - {pr}`794`, {pr}`797`: New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geodataframe.xy`.
 - {pr}`801`: New accessor for Series {meth}`~dtoolkit.accessor.series.invert_or_not`.
