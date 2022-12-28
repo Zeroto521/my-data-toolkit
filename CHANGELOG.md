@@ -57,7 +57,7 @@ New features and improvements:
 
 Small bug-fix:
 
-{pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geoemtry.
+{pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geometry.
 {pr}`824`: Fix inputting `GeoDataFrame` but {meth}`~dtoolkit.accessor.dataframe.repeat` return `DataFrame`.
 {pr}`780`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe`'s geometry is `GeoSeries`.
 {pr}`816`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` result CRS is missing.
@@ -80,7 +80,7 @@ Maintenance development:
 {pr}`806`: Compat pandas 2.x.
 {pr}`810`: Remove `dtoolkit.accessor.series._getattr_helper.py`.
 {pr}`812`: Add blank lines.
-{pr}`813`: Remove 0.0.19 version warning inforamtion.
+{pr}`813`: Remove 0.0.19 version warning information.
 {pr}`818`: Simplify import shapely object ``from shapely.geometry import xxx`` -> ``from shapely import xxx``.
 
 ## [Version 0.0.19] (2022-12-11)
