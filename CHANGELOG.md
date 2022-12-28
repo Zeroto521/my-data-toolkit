@@ -6,6 +6,43 @@ Highlights of this release:
 
 Hightly support H3 (Hexagonal hierarchical geospatial indexing system) via `.to_h3` and `.H3.*`.
 
+```python
+>>> import dtoolkit.geoaccessor
+>>> import pandas as pd
+>>> df = pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy('x', 'y', crs=4326)
+>>> df
+     x   y                    geometry
+0  122  55  POINT (122.00000 55.00000)
+1  100   1   POINT (100.00000 1.00000)
+
+# GeoDataFrame -> h3 cell
+
+>>> df_with_h3 = df.to_h3(8)
+>>> df_with_h3
+                      x   y                    geometry
+612845052823076863  122  55  POINT (122.00000 55.00000)
+614269156845420543  100   1   POINT (100.00000 1.00000)
+
+# Calculate h3 cell area.
+
+>>> df_with_h3.h3.area
+612845052823076863    710781.770906
+614269156845420543    852134.191671
+dtype: float64
+
+# h3 cell -> GeoDataFrame
+
+>>> df_parent_cell = df_with_h3.h3.to_parent()
+>>> df_parent_cell
+                      x   y                    geometry
+608341453197803519  122  55  POINT (122.00000 55.00000)
+609765557230632959  100   1   POINT (100.00000 1.00000)
+>>> df_parent_cell.h3.to_points()
+                      x   y                    geometry
+608341453197803519  122  55  POINT (122.00991 55.00606)
+609765557230632959  100   1   POINT (100.00504 0.99852)
+```
+
 New features and improvements:
 
 {pr}`739`, {pr}`800`, {pr}`817`, {pr}`825`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.to_h3` to convert geometry to h3 index.
