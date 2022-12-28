@@ -45,43 +45,43 @@ dtype: float64
 
 New features and improvements:
 
-{pr}`739`, {pr}`800`, {pr}`817`, {pr}`825`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.to_h3` to convert geometry to h3 index.
-{pr}`778`: Speed up {meth}`~dtoolkit.accessor.series.textdistance_matrix`.
-{pr}`779`, {pr}`811`, {pr}`819`: New geoaccessor {meth}`~dtoolkit.accessor.dataframe.H3` to handle h3's geohash.
-{pr}`784`: New accessor {meth}`~dtoolkit.accessor.series.to_zh`.
-{pr}`794`, {pr}`797`: New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geodataframe.xy`.
-{pr}`801`: New accessor for Series {meth}`~dtoolkit.accessor.series.invert_or_not`.
-{pr}`803`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.select_geom_type`.
-{pr}`804`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.radius`.
-{pr}`809`: New accessor for Index {meth}`~dtoolkit.accessor.index.len`.
+- {pr}`739`, {pr}`800`, {pr}`817`, {pr}`825`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.to_h3` to convert geometry to h3 index.
+- {pr}`778`: Speed up {meth}`~dtoolkit.accessor.series.textdistance_matrix`.
+- {pr}`779`, {pr}`811`, {pr}`819`: New geoaccessor {meth}`~dtoolkit.accessor.dataframe.H3` to handle h3's geohash.
+- {pr}`784`: New accessor {meth}`~dtoolkit.accessor.series.to_zh`.
+- {pr}`794`, {pr}`797`: New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geodataframe.xy`.
+- {pr}`801`: New accessor for Series {meth}`~dtoolkit.accessor.series.invert_or_not`.
+- {pr}`803`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.select_geom_type`.
+- {pr}`804`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.radius`.
+- {pr}`809`: New accessor for Index {meth}`~dtoolkit.accessor.index.len`.
 
 Small bug-fix:
 
-{pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geometry.
-{pr}`824`: Fix inputting `GeoDataFrame` but {meth}`~dtoolkit.accessor.dataframe.repeat` return `DataFrame`.
-{pr}`780`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe`'s geometry is `GeoSeries`.
-{pr}`816`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` result CRS is missing.
+- {pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geometry.
+- {pr}`824`: Fix inputting `GeoDataFrame` but {meth}`~dtoolkit.accessor.dataframe.repeat` return `DataFrame`.
+- {pr}`780`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe`'s geometry is `GeoSeries`.
+- {pr}`816`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` result CRS is missing.
 
 API changes:
 
-{pr}`807`: {meth}`~dtoolkit.geoaccessor.geodataframe.get_coordinates` -> {meth}`~dtoolkit.geoaccessor.geodataframe.coordinates`.
-{pr}`814`: Drop keyword argument `drop`.
+- {pr}`807`: {meth}`~dtoolkit.geoaccessor.geodataframe.get_coordinates` -> {meth}`~dtoolkit.geoaccessor.geodataframe.coordinates`.
+- {pr}`814`: Drop keyword argument `drop`.
 
 Documentation:
 
-{pr}`802`: Reorder methods via function first then name.
-{pr}`808`: Mark Series dtype.
+- {pr}`802`: Reorder methods via function first then name.
+- {pr}`808`: Mark Series dtype.
 
 Maintenance development:
 
-{pr}`774`: pre-commit hooks autoupdate.
-{pr}`798`: Remove pygeos dependency from dtoolkit.
-{pr}`805`: Remove `ci/env/311-latest-shapely2.yaml`.
-{pr}`806`: Compat pandas 2.x.
-{pr}`810`: Remove `dtoolkit.accessor.series._getattr_helper.py`.
-{pr}`812`: Add blank lines.
-{pr}`813`: Remove 0.0.19 version warning information.
-{pr}`818`: Simplify import shapely object ``from shapely.geometry import xxx`` -> ``from shapely import xxx``.
+- {pr}`774`: pre-commit hooks autoupdate.
+- {pr}`798`: Remove pygeos dependency from dtoolkit.
+- {pr}`805`: Remove `ci/env/311-latest-shapely2.yaml`.
+- {pr}`806`: Compat pandas 2.x.
+- {pr}`810`: Remove `dtoolkit.accessor.series._getattr_helper.py`.
+- {pr}`812`: Add blank lines.
+- {pr}`813`: Remove 0.0.19 version warning information.
+- {pr}`818`: Simplify import shapely object ``from shapely.geometry import xxx`` -> ``from shapely import xxx``.
 
 ## [Version 0.0.19] (2022-12-11)
 
