@@ -11,7 +11,7 @@ from dtoolkit.accessor.register import register_series_method
 def geocode(
     s: pd.Series,
     /,
-    provider: str | "geopy.geocoder" = "photon",
+    provider: str | geopy.geocoder = "photon",
     min_delay_seconds: float = 0,
     max_retries: int = 2,
     error_wait_seconds: float = 5,
@@ -99,7 +99,7 @@ def query(address: str, geolocate) -> tuple[float, float] | tuple[None, None]:
 
 
 def geolocator(
-    provider: str | "geopy.geocoder",
+    provider: str | geopy.geocoder,
     forward: bool,
     min_delay_seconds: float,
     max_retries: int,

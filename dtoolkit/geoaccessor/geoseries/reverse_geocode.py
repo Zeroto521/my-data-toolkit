@@ -14,7 +14,7 @@ from dtoolkit.geoaccessor.series.geocode import geolocator
 def reverse_geocode(
     s: gpd.GeoSeries,
     /,
-    provider: str | "geopy.geocoder" = "photon",
+    provider: str | geopy.geocoder = "photon",
     address: Hashable = "address",
     min_delay_seconds: float = 0,
     max_retries: int = 2,
