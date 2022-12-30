@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.20] (2023-1-x)
+## [Version 0.0.20] (2022-12-30)
 
 Highlights of this release:
 
@@ -57,10 +57,10 @@ New features and improvements:
 
 Small bug-fix:
 
-- {pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geometry.
-- {pr}`824`: Fix inputting `GeoDataFrame` but {meth}`~dtoolkit.accessor.dataframe.repeat` return `DataFrame`.
 - {pr}`780`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe`'s geometry is `GeoSeries`.
 - {pr}`816`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` result CRS is missing.
+- {pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geometry.
+- {pr}`824`: Fix inputting `GeoDataFrame` but {meth}`~dtoolkit.accessor.dataframe.repeat` return `DataFrame`.
 
 API changes:
 
