@@ -8,7 +8,7 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.dataframe.to_geoframe import to_geoframe
-from dtoolkit.util._decorator import warning
+
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -16,12 +16,6 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
-@warning(
-    "The keyword argument 'drop' is deprecated, please use "
-    "'.drop(columns=[...])' method instead. (Warning added DToolKit 0.0.20)",
-    category=DeprecationWarning,
-    stacklevel=3,
-)
 def from_xy(
     df: pd.DataFrame,
     /,

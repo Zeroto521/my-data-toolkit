@@ -7,21 +7,9 @@ import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.util._decorator import warning
 
 
 @register_geoseries_method
-@warning(
-    "The keyword argument 'x' and 'y' is deprecated, "
-    "please use 'names' instead. (Warning added DToolKit 0.0.20)",
-    category=DeprecationWarning,
-    stacklevel=3,
-)
-@warning(
-    "The keyword argument 'frame' is set to True by default. "
-    "(Warning added DToolKit 0.0.20)",
-    stacklevel=3,
-)
 def xy(
     s: gpd.GeoSeries,
     /,
