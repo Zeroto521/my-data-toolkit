@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.20] (2023-1-x)
+## [Version 0.0.20] (2022-12-30)
 
 Highlights of this release:
 
