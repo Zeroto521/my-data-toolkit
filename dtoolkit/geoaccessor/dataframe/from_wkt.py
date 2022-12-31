@@ -37,13 +37,6 @@ def from_wkt(
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
-    drop : bool, default False
-        Don't contain original 'WKT' column anymore.
-
-        .. deprecated:: 0.0.20
-            If you want to drop 'WkT' column, please use
-            ``.drop(columns=[...])`` method instead.
-
     Returns
     -------
     GeoDataFrame

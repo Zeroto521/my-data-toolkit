@@ -39,18 +39,6 @@ def xy(
         If ``frame=True``, the column names of the returned DataFrame,
         else the name of the returned Series.
 
-    x : str, default 'x'
-        Name of the x column if frame=True.
-
-        .. deprecated:: 0.0.20
-            Please use 'name' instead.
-
-    y : str, default 'y'
-        Name of the y column if frame=True.
-
-        .. deprecated:: 0.0.20
-            Please use 'name' instead.
-
     Returns
     -------
     Series, DataFrame, or GeoDataFrame
