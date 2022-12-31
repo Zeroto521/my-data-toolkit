@@ -8,6 +8,7 @@ from pandas.api.types import is_string_dtype
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_index_method
+from dtoolkit.geoaccessor._compat import h3_3or4
 
 
 @register_index_method
@@ -96,7 +97,7 @@ def is_h3(index: pd.Index, /) -> bool:
 
     # TODO: Use `is_valid_cell` instead of `h3_is_valid`
     # While h3-py release 4, `is_valid_cell` is not available.
-    return apply_h3(index, "h3_is_valid").all()
+    return apply_h3(index, h3_3or4("h3_is_valid", "is_valid_cell")).all()
 
 
 def apply_h3(index: pd.Index, /, method: str, **kwargs):
