@@ -5,6 +5,7 @@ from pandas.util._decorators import doc
 from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor._compat import h3_3or4
 
 
 @register_geoseries_method
@@ -138,7 +139,11 @@ def to_h3(
         # While h3-py release 4, `latlon_to_h3` is not available.
         return s.set_axis(
             xy(s.geometry, reverse=True, frame=False, name=None)
-            .apply(lambda yx: getattr(h3, "geo_to_h3")(*yx, resolution))
+            .apply(
+                lambda yx: getattr(h3, h3_3or4("geo_to_h3", "latlon_to_h3"))(
+                    *yx, resolution
+                )
+            )
             .to_numpy(),
         )
     elif all(s.geom_type == "Polygon"):
@@ -147,7 +152,11 @@ def to_h3(
         # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
         index, counts = explode(
             s_getattr(s.geometry, "__geo_interface__")
-            .apply(getattr(h3, "polyfill"), res=resolution, geo_json_conformant=True)
+            .apply(
+                getattr(h3, h3_3or4("geo_to_h3", "polygon_to_cells")),
+                res=resolution,
+                geo_json_conformant=True,
+            )
             .to_numpy(),
         )
         return s.repeat(counts).set_axis(index)
