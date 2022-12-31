@@ -3,9 +3,9 @@ from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import getattr as s_getattr
+from dtoolkit.geoaccessor._compat import h3_3or4
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.geoaccessor._compat import h3_3or4
 
 
 @register_geoseries_method
@@ -142,7 +142,7 @@ def to_h3(
             .apply(
                 lambda yx: getattr(h3, h3_3or4("geo_to_h3", "latlon_to_h3"))(
                     *yx, resolution
-                )
+                ),
             )
             .to_numpy(),
         )
