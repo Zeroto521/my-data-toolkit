@@ -31,6 +31,10 @@ def geocentroid(s: gpd.GeoSeries, /, max_iter: int = 500, tol: float = 1e-5) -> 
     TypeError
         If the geometry is not a Point.
 
+    See Also
+    --------
+    geopandas.GeoSeries.centroid
+
     Examples
     --------
     >>> import dtoolkit.geoaccessor
