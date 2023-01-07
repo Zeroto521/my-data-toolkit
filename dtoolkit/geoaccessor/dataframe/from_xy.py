@@ -8,7 +8,7 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.dataframe.to_geoframe import to_geoframe
-from dtoolkit.util._decorator import warning
+
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -16,12 +16,6 @@ if TYPE_CHECKING:
 
 @register_dataframe_method("points_from_xy")
 @register_dataframe_method
-@warning(
-    "The keyword argument 'drop' is deprecated, please use "
-    "'.drop(columns=[...])' method instead. (Warning added DToolKit 0.0.20)",
-    category=DeprecationWarning,
-    stacklevel=3,
-)
 def from_xy(
     df: pd.DataFrame,
     /,
@@ -51,13 +45,6 @@ def from_xy(
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
-
-    drop : bool, default False
-        Don't contain ``x``, ``y`` and ``z`` columns anymore.
-
-        .. deprecated:: 0.0.20
-            If you want to drop ``x``, ``y`` and ``z`` columns, please use
-            ``.drop(columns=[...])`` method instead.
 
     Returns
     -------
