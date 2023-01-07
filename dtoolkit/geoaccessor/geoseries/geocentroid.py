@@ -14,13 +14,14 @@ def geocentroid(s: gpd.GeoSeries, /, max_iter: int = 300, tol: float = 1e-4) -> 
         raise TypeError("Only support 'Point' geometry type.")
 
     coord = xy(s)
-    x, y = coord.mean().tolist()
+    X = coord.mean()
     for _ in range(max_iter):
-        dis = geodistance(s, Point(x, y))
-        x_, y_ = (coord.mul(dis, axis=0).sum() / dis.sum()).tolist()
+        dis = geodistance(s, Point(*X.tolist()))
+        Xt = coord.mul(dis, axis=0).sum() / dis.sum()
 
-        if abs(x - x_) <= tol and abs(y - y_) <= tol:
+        if ((X - Xt).abs() <= tol).all():
             break
-        x, y = x_, y_
 
-    return Point(x, y)
+        X = Xt
+
+    return Point(*X.tolist())
