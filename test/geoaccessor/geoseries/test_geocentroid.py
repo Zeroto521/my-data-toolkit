@@ -25,7 +25,7 @@ def test_error(s, error):
         geocentroid(s)
 
 
-def test_work():
+def test_tol():
     # test `tol` parameter
     result = gpd.GeoSeries([Point(100, 50), Point(120, 50)], crs=4326).geocentroid()
 
