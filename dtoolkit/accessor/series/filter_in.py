@@ -3,7 +3,7 @@ from typing import Iterable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
-from dtoolkit.accessor.series.invert_or_not import invert_or_not  # noqa: F401
+from dtoolkit.accessor.series.invert_or_not import invert_or_not
 
 
 @register_series_method
@@ -65,4 +65,4 @@ def filter_in(
     Name: animal, dtype: object
     """
 
-    return s[s.isin(condition).invert_or_not(invert=complement)]
+    return s[invert_or_not(s.isin(condition), invert=complement)]
