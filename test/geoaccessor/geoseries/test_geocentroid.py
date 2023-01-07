@@ -14,7 +14,7 @@ from dtoolkit.geoaccessor.geoseries import geocentroid
                     Point(100, 32),
                     Point(120, 50),
                     Point(122, 55),
-                ]
+                ],
             ),
             ValueError,
         ),
