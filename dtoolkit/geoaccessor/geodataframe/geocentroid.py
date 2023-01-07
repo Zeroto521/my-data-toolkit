@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Hashable
 
 import geopandas as gpd
+import pandas as pd
 from pandas.util._decorators import doc
 from shapely import Point
 

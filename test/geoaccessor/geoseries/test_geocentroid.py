@@ -1,7 +1,6 @@
 import geopandas as gpd
-from shapely import Point
-
 import pytest
+from shapely import Point
 
 from dtoolkit.geoaccessor.geoseries import geocentroid
 
