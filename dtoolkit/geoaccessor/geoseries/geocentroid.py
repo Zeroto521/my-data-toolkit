@@ -41,9 +41,6 @@ def geocentroid(
     ValueError
         If the CRS is not ``ESGP:4326``.
 
-    TypeError
-        If the geometry is not a Point.
-
     See Also
     --------
     geopandas.GeoSeries.centroid
@@ -78,8 +75,6 @@ def geocentroid(
 
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-    if not all(s.geom_type == "Point"):
-        raise TypeError("Only support 'Point' geometry type.")
 
     weights = np.asarray(weights) if weights is not None else 1
     coord = xy(s)
