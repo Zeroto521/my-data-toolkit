@@ -1,6 +1,6 @@
 import geopandas as gpd
-
 from shapely import Point
+
 from dtoolkit.geoaccessor.geoseries.geodistance import geodistance
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
