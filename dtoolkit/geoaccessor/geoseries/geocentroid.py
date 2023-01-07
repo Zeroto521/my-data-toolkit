@@ -44,6 +44,8 @@ def geocentroid(
     See Also
     --------
     geopandas.GeoSeries.centroid
+    dtoolkit.geoaccessor.geoseries.geocentroid
+    dtoolkit.geoaccessor.geodataframe.geocentroid
 
     Examples
     --------
