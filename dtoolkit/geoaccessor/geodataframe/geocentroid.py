@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Hashable
+
 import geopandas as gpd
 from pandas.util._decorators import doc
 from shapely import Point
@@ -11,8 +15,11 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 def geocentroid(
     df: gpd.GeoDataFrame,
     /,
-    max_iter: int = 500,
-    tol: float = 1e-5,
+    weights: Hashable | pd.Series = None,
+    max_iter: int = 300,
+    tol: float = 1e-4,
 ) -> Point:
+    if weights is not None and isinstance(weights, Hashable):
+        weights = df[weights]
 
-    return s_geocentroid(df.geometry, max_iter=max_iter, tol=tol)
+    return s_geocentroid(df.geometry, weights=weights, max_iter=max_iter, tol=tol)
