@@ -18,6 +18,7 @@ from dtoolkit.geoaccessor.geodataframe.filter_geometry import (  # noqa: F401
 )
 from dtoolkit.geoaccessor.geodataframe.geoarea import geoarea  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.geobuffer import geobuffer  # noqa: F401
+from dtoolkit.geoaccessor.geodataframe.geocentroid import geocentroid  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.geodistance import geodistance  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.geodistance_matrix import (  # noqa: F401
     geodistance_matrix,
