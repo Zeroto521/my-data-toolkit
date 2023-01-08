@@ -21,19 +21,13 @@ def geocentroid(
 
     .. math::
 
-        \begin{array}{l}
-            \left\{\begin{matrix}
-                \bar{x}_0 = \frac{\sum w_i x_i}{\sum w_i} \\
-                \bar{y}_0 = \frac{\sum w_i y_i}{\sum w_i} \\
-            \end{matrix}\right. \\
-
-            d_i = distance(Point(\bar{x}_n,\bar{y}_n), Point(x_i,y_i))  \\
-
-            \left\{\begin{matrix}
-                \bar{x}_{n+1} = \frac{\sum w_i x_i / d_i}{\sum w_i / d_i} \\
-                \bar{y}_{n+1} = \frac{\sum w_i y_i / d_i}{\sum w_i / d_i} \\
-            \end{matrix}\right.
-        \end{array}
+        \left\{\begin{matrix}
+            d_i &=& D(P(\bar{x}_n, \bar{y}_n), P(x_i,y_i))  \\
+            \bar{x}_0 &=& \frac{\sum w_i x_i}{\sum w_i} \\
+            \bar{y}_0 &=& \frac{\sum w_i y_i}{\sum w_i} \\
+            \bar{x}_{n+1} &=& \frac{\sum w_i x_i / d_i}{\sum w_i / d_i} \\
+            \bar{y}_{n+1} &=& \frac{\sum w_i y_i / d_i}{\sum w_i / d_i} \\
+        \end{matrix}\right.
 
     Parameters
     ----------
