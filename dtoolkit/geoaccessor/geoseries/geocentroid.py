@@ -36,11 +36,6 @@ def geocentroid(
     -------
     Point
 
-    Raises
-    ------
-    ValueError
-        If the CRS is not ``ESGP:4326``.
-
     See Also
     --------
     geopandas.GeoSeries.centroid
@@ -74,10 +69,6 @@ def geocentroid(
     >>> df.geocentroid([1, 2, 3])
     <POINT (114.516 46.675)>
     """
-
-    if s.crs != 4326:
-        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
-
     weights = np.asarray(weights) if weights is not None else 1
     coord = xy(s)
     X = coord.mean()
