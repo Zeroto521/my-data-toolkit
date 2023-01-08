@@ -16,28 +16,24 @@ def geocentroid(
     max_iter: int = 300,
     tol: float = 1e-5,
 ) -> Point:
-    """
+    r"""
     Return the centroid of all points via the center of gravity method.
 
     .. math::
 
         \begin{array}{l}
-            d_i = distance(Point(\bar{x},\bar{y}),Point(x_i,y_i))  \\
+            \left\{\begin{matrix}
+                \bar{x}_0 = \frac{\sum w_i x_i}{\sum w_i} \\
+                \bar{y}_0 = \frac{\sum w_i y_i}{\sum w_i} \\
+            \end{matrix}\right. \\
 
-            \\left\\{\begin{matrix}
-                \bar{x} = \frac{
-                    \\sum_{i}^{n}{\frac{weight_i \times x_i}{d_i}}
-                }{
-                    \\sum_{i}^{n}{\frac{weight_i}{d_i}}
-                } \\
+            d_i = distance(Point(\bar{x}_n,\bar{y}_n), Point(x_i,y_i))  \\
 
-                \bar{y} = \frac{
-                    \\sum_{i}^{n}{\frac{weight_i \times y_i}{d_i}}
-                }{
-                    \\sum_{i}^{n}{\frac{weight_i}{d_i}}
-                } \\
-            \\end{matrix}\right.
-        \\end{array}
+            \left\{\begin{matrix}
+                \bar{x}_{n+1} = \frac{\sum w_i x_i / d_i}{\sum w_i / d_i} \\
+                \bar{y}_{n+1} = \frac{\sum w_i y_i / d_i}{\sum w_i / d_i} \\
+            \end{matrix}\right.
+        \end{array}
 
     Parameters
     ----------
