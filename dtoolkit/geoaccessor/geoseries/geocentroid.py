@@ -60,20 +60,21 @@ def geocentroid(
     1        2  POINT (120.00000 50.00000)
     2        3  POINT (122.00000 55.00000)
     >>> df.geocentroid()
-    <POINT (112.375 44.276)>
+    <POINT (120 50)>
 
     Set weights for each point.
 
     >>> df.geocentroid("weights")
-    <POINT (114.516 46.675)>
+    <POINT (121.998 54.997)>
     >>> df.geocentroid([1, 2, 3])
-    <POINT (114.516 46.675)>
+    <POINT (121.998 54.997)>
     """
+
     weights = np.asarray(weights) if weights is not None else 1
     coord = xy(s)
     X = coord.mean()
     for _ in range(max_iter):
-        dis = geodistance(s, Point(*X.tolist())).mul(weights, axis=0)
+        dis = geodistance(s, Point(*X.tolist())).rdiv(1).mul(weights, axis=0)
         Xt = coord.mul(dis, axis=0).sum() / dis.sum()
 
         if ((X - Xt).abs() <= tol).all():
