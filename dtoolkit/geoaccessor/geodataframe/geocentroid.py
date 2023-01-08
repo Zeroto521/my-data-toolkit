@@ -18,7 +18,7 @@ def geocentroid(
     /,
     weights: Hashable | pd.Series = None,
     max_iter: int = 300,
-    tol: float = 1e-4,
+    tol: float = 1e-5,
 ) -> Point:
     if weights is not None and isinstance(weights, Hashable):
         weights = df[weights]
