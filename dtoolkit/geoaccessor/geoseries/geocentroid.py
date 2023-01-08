@@ -81,9 +81,9 @@ def geocentroid(
     Set weights for each point.
 
     >>> df.geocentroid("weights")
-    <POINT (121.998 54.997)>
+    <POINT (121.999 54.998)>
     >>> df.geocentroid([1, 2, 3])
-    <POINT (121.998 54.997)>
+    <POINT (121.999 54.998)>
     """
 
     weights = np.asarray(weights) if weights is not None else 1
