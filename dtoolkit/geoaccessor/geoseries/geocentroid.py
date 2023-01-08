@@ -24,20 +24,20 @@ def geocentroid(
         \begin{array}{l}
             d_i = distance(Point(\bar{x},\bar{y}),Point(x_i,y_i))  \\
 
-            \left\{\begin{matrix}
+            \\left\\{\begin{matrix}
                 \bar{x} = \frac{
-                    \sum_{i}^{n}{\frac{weight_i \times x_i}{d_i}}
+                    \\sum_{i}^{n}{\frac{weight_i \times x_i}{d_i}}
                 }{
-                    \sum_{i}^{n}{\frac{weight_i}{d_i}}
+                    \\sum_{i}^{n}{\frac{weight_i}{d_i}}
                 } \\
 
                 \bar{y} = \frac{
-                    \sum_{i}^{n}{\frac{weight_i \times y_i}{d_i}}
+                    \\sum_{i}^{n}{\frac{weight_i \times y_i}{d_i}}
                 }{
-                    \sum_{i}^{n}{\frac{weight_i}{d_i}}
+                    \\sum_{i}^{n}{\frac{weight_i}{d_i}}
                 } \\
-            \end{matrix}\right.
-        \end{array}
+            \\end{matrix}\right.
+        \\end{array}
 
     Parameters
     ----------
