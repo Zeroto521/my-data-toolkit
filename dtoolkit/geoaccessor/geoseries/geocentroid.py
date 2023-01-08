@@ -14,7 +14,7 @@ def geocentroid(
     /,
     weights: pd.Series = None,
     max_iter: int = 300,
-    tol: float = 1e-4,
+    tol: float = 1e-5,
 ) -> Point:
     """
     Return the centroid of all points via the center of gravity method.
@@ -29,7 +29,7 @@ def geocentroid(
     max_iter : int, default 300
         Maximum number of iterations to perform.
 
-    tol : float, default 1e-4
+    tol : float, default 1e-5
         Tolerance for convergence.
 
     Returns
