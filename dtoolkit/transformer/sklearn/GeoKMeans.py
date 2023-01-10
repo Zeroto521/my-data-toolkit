@@ -18,18 +18,27 @@ from sklearn.metrics.pairwise import haversine_distances
 
 class GeoKMeans(KMeans):
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+    def _validate_coordinate(X):
+        if not (
+            x.ndim == 2
+            and x.shape[1] == 2
+            and all(-180 <= X[:, 0] <= 180)
+            and all(-90 <= X[:, 1] <= 90)
+        ):
+            raise ValueError("'X' must be in the form of [(longitude, latitude)]")
+
     def fit(self, X, y=None, sample_weight=None):
         """
         Compute k-means clustering.
 
         Parameters
         ----------
-        X : {array-like, sparse matrix} of shape (n_samples, n_features)
-            Training instances to cluster. It must be noted that the data
-            will be converted to C ordering, which will cause a memory
-            copy if the given data is not C-contiguous.
-            If a sparse matrix is passed, a copy will be made if it's not in
-            CSR format.
+        X : {array-like, sparse matrix} of shape (n_samples, 2)
+            Array of geospatial coordinates in the form of [(longitude, latitude)].
+            Training instances to cluster. It must be noted that the data will be
+            converted to C ordering, which will cause a memory copy if the given data
+            is not C-contiguous. If a sparse matrix is passed, a copy will be made
+            if it's not in CSR format.
 
         y : Ignored
             Not used, present here for API consistency by convention.
@@ -46,7 +55,7 @@ class GeoKMeans(KMeans):
         Raises
         ------
         ValueError
-            If the shape of 'X' isn't (n_samples, 2).
+            If the X is not in the form of [(longitude, latitude)].
         """
 
         self._validate_params()
@@ -59,9 +68,7 @@ class GeoKMeans(KMeans):
             copy=self.copy_x,
             accept_large_sparse=False,
         )
-        if x.ndim != 2 or x.shape[1] != 2:
-            raise ValueError("The shape of X must be (n_samples, 2)")
-
+        self._validate_coordinate(X)
         self._check_params_vs_input(X)
 
         random_state = check_random_state(self.random_state)
