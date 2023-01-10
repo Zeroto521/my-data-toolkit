@@ -17,7 +17,6 @@ from sklearn.metrics.pairwise import haversine_distances
 
 
 class GeoKMeans(KMeans):
-    # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
     def _validate_coordinate(X):
         if not (
             x.ndim == 2
@@ -27,6 +26,72 @@ class GeoKMeans(KMeans):
         ):
             raise ValueError("'X' must be in the form of [(longitude, latitude)]")
 
+    # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+    def _init_centroids(
+        self,
+        X,
+        x_radians,
+        init,
+        random_state,
+        init_size=None,
+        n_centroids=None,
+    ):
+        """Compute the initial centroids.
+
+        Parameters
+        ----------
+        X : {ndarray, sparse matrix} of shape (n_samples, n_features)
+            The input samples.
+
+        x_radians : ndarray of shape (n_samples,)
+            Radian of each data point. Pass it if you have it at hands already to avoid
+            it being recomputed here.
+
+        init : {'k-means++', 'random'}, callable or ndarray of shape \
+               (n_clusters, n_features)
+            Method for initialization.
+
+        random_state : RandomState instance
+            Determines random number generation for centroid initialization.
+            See :term:`Glossary <random_state>`.
+
+        init_size : int, default=None
+            Number of samples to randomly sample for speeding up the
+            initialization (sometimes at the expense of accuracy).
+
+        n_centroids : int, default=None
+            Number of centroids to initialize.
+            If left to 'None' the number of centroids will be equal to
+            number of clusters to form (self.n_clusters)
+
+        Returns
+        -------
+        centers : ndarray of shape (n_clusters, n_features)
+        """
+        n_samples = X.shape[0]
+        n_clusters = self.n_clusters if n_centroids is None else n_centroids
+
+        if init_size is not None and init_size < n_samples:
+            init_indices = random_state.randint(0, n_samples, init_size)
+            X = X[init_indices]
+            x_radians = x_radians[init_indices]
+            n_samples = X.shape[0]
+
+        if isinstance(init, str) and init == "k-means++":
+            centers, _ = _kmeans_plusplus(X, n_clusters, random_state, x_radians)
+        elif isinstance(init, str) and init == "random":
+            seeds = random_state.permutation(n_samples)[:n_clusters]
+            centers = X[seeds]
+        elif _is_arraylike_not_scalar(self.init):
+            centers = init
+        elif callable(init):
+            centers = init(X, n_clusters, random_state=random_state)
+            centers = check_array(centers, dtype=X.dtype, copy=False, order="C")
+            self._validate_center_shape(X, centers)
+
+        return centers.toarray() if sp.issparse(centers) else centers
+
+    # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
     def fit(self, X, y=None, sample_weight=None):
         """
         Compute k-means clustering.
@@ -91,8 +156,8 @@ class GeoKMeans(KMeans):
             if init_is_array_like:
                 init -= X_mean
 
-        # precompute squared norms of data points
-        x_squared_norms = row_norms(X, squared=True)
+        # precompute radian of data points
+        x_radians = np.radians(X)
 
         if self._algorithm == "elkan":
             kmeans_single = _kmeans_single_elkan
@@ -104,12 +169,7 @@ class GeoKMeans(KMeans):
 
         for _ in range(self._n_init):
             # Initialize centers
-            centers_init = self._init_centroids(
-                X,
-                x_squared_norms=x_squared_norms,
-                init=init,
-                random_state=random_state,
-            )
+            centers_init = self._init_centroids(X, x_radians, init, random_state)
             if self.verbose:
                 print("Initialization complete")
 
@@ -160,6 +220,12 @@ class GeoKMeans(KMeans):
         self.n_iter_ = best_n_iter
 
         return self
+
+    def _transform(self, X):
+        """Guts of transform method; no input validation."""
+
+        self._validate_coordinate(X)
+        return haversine_distances(np.radians(X), np.radians(self.cluster_centers_))
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
@@ -278,9 +344,7 @@ def _kmeans_single_elkan(
         # compute new pairwise distances between centers and closest other
         # center of each center for next iterations
         center_half_distances = haversine_distances(np.radians(centers_new)) / 2
-        distance_next_center = np.partition(
-            np.asarray(center_half_distances), kth=1, axis=0
-        )[1]
+        distance_next_center = np.partition(center_half_distances, kth=1, axis=0)[1]
 
         if verbose:
             inertia = _inertia(X, sample_weight, centers, labels, n_threads)
@@ -326,7 +390,6 @@ def _kmeans_single_elkan(
         )
 
     inertia = _inertia(X, sample_weight, centers, labels, n_threads)
-
     return labels, inertia, centers, i + 1
 
 
@@ -464,3 +527,88 @@ def _kmeans_single_lloyd(
 
     inertia = _inertia(X, sample_weight, centers, labels, n_threads)
     return labels, inertia, centers, i + 1
+
+
+# based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None):
+    """
+    Computational component for initialization of n_clusters by k-means++.
+    Prior validation of data is assumed.
+
+    Parameters
+    ----------
+    X : {ndarray, sparse matrix} of shape (n_samples, n_features)
+        The data to pick seeds for.
+
+    n_clusters : int
+        The number of seeds to choose.
+
+    x_radians : ndarray of shape (n_samples,)
+        Radian of each data point.
+
+    random_state : RandomState instance
+        The generator used to initialize the centers.
+        See :term:`Glossary <random_state>`.
+
+    n_local_trials : int, default=None
+        The number of seeding trials for each center (except the first),
+        of which the one reducing inertia the most is greedily chosen.
+        Set to None to make the number of trials depend logarithmically
+        on the number of seeds (2+log(k)); this is the default.
+
+    Returns
+    -------
+    centers : ndarray of shape (n_clusters, n_features)
+        The initial centers for k-means.
+
+    indices : ndarray of shape (n_clusters,)
+        The index location of the chosen centers in the data array X. For a
+        given index and center, X[index] = center.
+    """
+
+    centers = np.empty(X.shape, dtype=X.dtype)
+
+    # Set the number of local seeding trials if none is given
+    if n_local_trials is None:
+        # This is what Arthur/Vassilvitskii tried, but did not report
+        # specific results for other than mentioning in the conclusion
+        # that it helped.
+        n_local_trials = 2 + int(np.log(n_clusters))
+
+    # Pick first center randomly and track index of point
+    center_id = random_state.randint(X.shape[0])
+    indices = np.full(n_clusters, -1, dtype=int)
+    centers[0] = X[center_id].toarray() if sp.issparse(X) else X[center_id]
+    indices[0] = center_id
+
+    # Initialize list of closest distances and calculate current potential
+    closest_dist_sq = haversine_distances(np.radians(centers[0, np.newaxis]), x_radians)
+    current_pot = closest_dist_sq.sum()
+
+    # Pick the remaining n_clusters-1 points
+    for c in range(1, n_clusters):
+        # Choose center candidates by sampling with probability proportional
+        # to the squared distance to the closest existing center
+        rand_vals = random_state.uniform(size=n_local_trials) * current_pot
+        cand_ids = np.searchsorted(stable_cumsum(closest_dist_sq), rand_vals)
+        # XXX: numerical imprecision can result in a candidate_id out of range
+        np.clip(cand_ids, None, closest_dist_sq.size - 1, out=cand_ids)
+
+        # Compute distances to center candidates
+        distance_to_cands = haversine_distances(x_radians[cand_ids], x_radians)
+
+        # update closest distances squared and potential for each candidate
+        np.minimum(closest_dist_sq, distance_to_cands, out=distance_to_cands)
+        cands_pot = distance_to_cands.sum(axis=1)
+
+        # Decide which candidate is the best
+        best_cand = np.argmin(cands_pot)
+        current_pot = cands_pot[best_cand]
+        closest_dist_sq = distance_to_cands[best_cand]
+        best_cand = cand_ids[best_cand]
+
+        # Permanently add best center candidate found in local tries
+        centers[c] = X[best_cand].toarray() if sp.issparse(X) else X[best_cand]
+        indices[c] = best_cand
+
+    return centers, indices
