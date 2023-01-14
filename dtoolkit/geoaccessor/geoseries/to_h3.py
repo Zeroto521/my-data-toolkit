@@ -146,7 +146,7 @@ def to_h3(
             .to_numpy(),
         )
     elif all(s.geom_type == "Polygon"):
-        # TODO: Use `polygon_to_cells` instead of `geo_to_h3`
+        # TODO: Use `polygon_to_cells` instead of `polyfill`
         # While h3-py release 4, `polygon_to_cells` is not available.
         # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
         index, counts = explode(
