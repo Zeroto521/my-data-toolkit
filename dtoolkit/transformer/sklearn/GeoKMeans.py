@@ -438,7 +438,8 @@ def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None
         given index and center, X[index] = center.
     """
 
-    centers = np.empty(X.shape, dtype=X.dtype)
+    n_samples, n_features = X.shape
+    centers = np.empty((n_clusters, n_features), dtype=X.dtype)
 
     # Set the number of local seeding trials if none is given
     if n_local_trials is None:
@@ -448,7 +449,7 @@ def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None
         n_local_trials = 2 + int(np.log(n_clusters))
 
     # Pick first center randomly and track index of point
-    center_id = random_state.randint(X.shape[0])
+    center_id = random_state.randint(n_samples)
     indices = np.full(n_clusters, -1, dtype=int)
     centers[0] = X[center_id].toarray() if sp.issparse(X) else X[center_id]
     indices[0] = center_id
