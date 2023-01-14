@@ -154,7 +154,7 @@ def to_h3(
             .apply(
                 getattr(h3, h3_3or4("geo_to_h3", "polygon_to_cells")),
                 resolution,
-                geo_json_conformant=True,
+                True,
             )
             .to_numpy(),
         )
