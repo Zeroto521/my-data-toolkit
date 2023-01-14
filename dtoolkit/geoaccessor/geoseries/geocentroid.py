@@ -14,10 +14,20 @@ def geocentroid(
     /,
     weights: pd.Series = None,
     max_iter: int = 300,
-    tol: float = 1e-4,
+    tol: float = 1e-5,
 ) -> Point:
-    """
+    r"""
     Return the centroid of all points via the center of gravity method.
+
+    .. math::
+
+        \left\{\begin{matrix}
+            d_i &=& D(P(\bar{x}_n, \bar{y}_n), P(x_i, y_i))  \\
+            \bar{x}_0 &=& \frac{\sum w_i x_i}{\sum w_i} \\
+            \bar{y}_0 &=& \frac{\sum w_i y_i}{\sum w_i} \\
+            \bar{x}_{n+1} &=& \frac{\sum w_i x_i / d_i}{\sum w_i / d_i} \\
+            \bar{y}_{n+1} &=& \frac{\sum w_i y_i / d_i}{\sum w_i / d_i} \\
+        \end{matrix}\right.
 
     Parameters
     ----------
@@ -29,17 +39,12 @@ def geocentroid(
     max_iter : int, default 300
         Maximum number of iterations to perform.
 
-    tol : float, default 1e-4
+    tol : float, default 1e-5
         Tolerance for convergence.
 
     Returns
     -------
     Point
-
-    Raises
-    ------
-    ValueError
-        If the CRS is not ``ESGP:4326``.
 
     See Also
     --------
@@ -65,24 +70,25 @@ def geocentroid(
     1        2  POINT (120.00000 50.00000)
     2        3  POINT (122.00000 55.00000)
     >>> df.geocentroid()
-    <POINT (112.375 44.276)>
+    <POINT (120 50)>
 
     Set weights for each point.
 
     >>> df.geocentroid("weights")
-    <POINT (114.516 46.675)>
+    <POINT (121.999 54.999)>
     >>> df.geocentroid([1, 2, 3])
-    <POINT (114.516 46.675)>
+    <POINT (121.999 54.999)>
     """
 
-    if s.crs != 4326:
-        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+    coord = xy(s)
+    if len(coord) == 1:
+        return Point(coord.iloc[0])
 
     weights = np.asarray(weights) if weights is not None else 1
-    coord = xy(s)
-    X = coord.mean()
+    X = coord.mul(weights, axis=0).mean()
+
     for _ in range(max_iter):
-        dis = geodistance(s, Point(*X.tolist())).mul(weights, axis=0)
+        dis = geodistance(s, Point(X)).rdiv(1).mul(weights, axis=0)
         Xt = coord.mul(dis, axis=0).sum() / dis.sum()
 
         if ((X - Xt).abs() <= tol).all():
@@ -91,4 +97,4 @@ def geocentroid(
 
         X = Xt
 
-    return Point(*X.tolist())
+    return Point(X)
