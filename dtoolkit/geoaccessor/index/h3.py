@@ -373,11 +373,11 @@ class H3(NoNewAttributesMixin):
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
         from pandas.api.types import is_string_dtype
-        from h3.api.numpy_int import string_to_h3
+        # from h3.api.numpy_int import str_to_int
 
         if not is_string_dtype(self.index):
             raise TypeError(f"Expected Index(string), but got {self.index.dtype!r}.")
-        return self.index.map(string_to_h3)
+        return apply_h3(self.index, h3_3or4("string_to_h3", "str_to_int"))
 
     @available_if(is_h3)
     def to_str(self) -> pd.Index:
@@ -413,11 +413,11 @@ class H3(NoNewAttributesMixin):
         # TODO: Use `int_to_str` instead of `h3_to_string`
         # While h3-py release 4, `int_to_str` is not available.
         from pandas.api.types import is_integer_dtype
-        from h3.api.numpy_int import h3_to_string
+        # from h3.api.numpy_int import h3_to_string
 
         if not is_integer_dtype(self.index):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
-        return self.index.map(h3_to_string)
+        return apply_h3(self.index, h3_3or4("h3_to_string", "int_to_str"))
 
     @available_if(is_h3)
     def to_center_child(self, resolution: int = None) -> pd.Index:
