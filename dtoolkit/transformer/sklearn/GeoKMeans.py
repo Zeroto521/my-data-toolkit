@@ -1,6 +1,7 @@
 from warnings import warn
 
 import numpy as np
+import scipy.sparse as sp
 from sklearn.cluster import KMeans
 from sklearn.cluster._k_means_common import (
     _inertia_dense,
@@ -15,6 +16,10 @@ from sklearn.cluster._k_means_elkan import (
 )
 from sklearn.cluster._kmeans import _kmeans_single_lloyd
 from sklearn.metrics.pairwise import haversine_distances
+from sklearn.utils import check_random_state
+from sklearn.utils._openmp_helpers import _openmp_effective_n_threads
+from sklearn.utils.extmath import stable_cumsum
+from sklearn.utils.validation import _check_sample_weight, _is_arraylike_not_scalar
 
 
 class GeoKMeans(KMeans):
@@ -81,7 +86,7 @@ class GeoKMeans(KMeans):
             n_samples = X.shape[0]
 
         if isinstance(init, str) and init == "k-means++":
-            centers, _ = _kmeans_plusplus(X, n_clusters, random_state, x_radians)
+            centers, _ = _kmeans_plusplus(X, n_clusters, x_radians, random_state)
         elif isinstance(init, str) and init == "random":
             seeds = random_state.permutation(n_samples)[:n_clusters]
             centers = X[seeds]
