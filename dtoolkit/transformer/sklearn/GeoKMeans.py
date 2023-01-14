@@ -11,7 +11,9 @@ from sklearn.cluster._k_means_elkan import elkan_iter_chunked_sparse
 from sklearn.cluster._k_means_elkan import init_bounds_dense
 from sklearn.cluster._k_means_elkan import init_bounds_sparse
 from sklearn.cluster._kmeans import _kmeans_single_lloyd
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.metrics.pairwise import haversine_distances
+from sklearn.utils import check_array
 from sklearn.utils import check_random_state
 from sklearn.utils._openmp_helpers import _openmp_effective_n_threads
 from sklearn.utils.extmath import stable_cumsum
