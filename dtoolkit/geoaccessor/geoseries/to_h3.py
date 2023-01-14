@@ -44,7 +44,7 @@ def to_h3(
 
     See Also
     --------
-    h3.latlon_to_h3
+    h3.latlng_to_cell
     h3.polygon_to_cells
     dtoolkit.geoaccessor.series.H3
     dtoolkit.geoaccessor.dataframe.H3
@@ -134,12 +134,12 @@ def to_h3(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     if all(s.geom_type == "Point"):
-        # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
-        # While h3-py release 4, `latlon_to_h3` is not available.
+        # TODO: Use `latlng_to_cell` instead of `geo_to_h3`
+        # While h3-py release 4, `latlng_to_cell` is not available.
         return s.set_axis(
             xy(s.geometry, reverse=True, frame=False, name=None)
             .apply(
-                lambda yx: getattr(h3, h3_3or4("geo_to_h3", "latlon_to_h3"))(
+                lambda yx: getattr(h3, h3_3or4("geo_to_h3", "latlng_to_cell"))(
                     *yx, resolution
                 ),
             )
