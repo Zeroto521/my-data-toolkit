@@ -8,7 +8,7 @@ from packaging.version import Version
 try:
     from h3 import __version__ as h3_version
 
-    H3_GE_4 = Version(h3_version) >= Version("4.0.0")
+    H3_GE_4 = Version(h3_version) >= Version("4.0.0a")
 
 except ImportError:
 
