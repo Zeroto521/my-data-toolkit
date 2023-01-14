@@ -152,9 +152,9 @@ def to_h3(
         index, counts = explode(
             s.geometry.getattr("__geo_interface__")
             .apply(
-                getattr(h3, h3_3or4("geo_to_h3", "polygon_to_cells")),
-                resolution,
-                True,
+                getattr(h3, h3_3or4("polyfill", "polygon_to_cells")),
+                res=resolution,
+                geo_json_conformant=True,
             )
             .to_numpy(),
         )
