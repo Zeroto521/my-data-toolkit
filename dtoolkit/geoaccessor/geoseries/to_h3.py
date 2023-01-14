@@ -2,7 +2,6 @@ import geopandas as gpd
 from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
-from dtoolkit.accessor.series import getattr as s_getattr
 from dtoolkit.geoaccessor._compat import h3_3or4
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -151,7 +150,7 @@ def to_h3(
         # While h3-py release 4, `polygon_to_cells` is not available.
         # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
         index, counts = explode(
-            s_getattr(s.geometry, "__geo_interface__")
+            s.geometry.getattr("__geo_interface__")
             .apply(
                 getattr(h3, h3_3or4("geo_to_h3", "polygon_to_cells")),
                 res=resolution,
