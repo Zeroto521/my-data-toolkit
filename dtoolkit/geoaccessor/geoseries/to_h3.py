@@ -117,14 +117,7 @@ def to_h3(
     88143541bdfffff  122  55  POINT (122.00000 55.00000)
     886528b2a3fffff  100   1   POINT (100.00000 1.00000)
     """
-
-    # TODO: Advices for h3-pandas
-    # 1. use `import h3.api.numpy_int as h3` instead of `import h3`
-    # 2. compat with h3-py 4
-    # 3. requires crs is 4326
-    # 4. consider h3-py as the accessor of Series
-    # 6. Speed up creating points / polygons via shapely 2.x
-
+4
     if int_dtype:
         import h3.api.numpy_int as h3
     else:
