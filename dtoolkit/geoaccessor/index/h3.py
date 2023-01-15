@@ -13,6 +13,8 @@ from dtoolkit.geoaccessor.index.is_h3 import is_h3
 
 
 def available_if(func):
+    """Check the index is H3-dtype or not."""
+
     @wraps(func)
     def decorator(*args, **kwargs):
         if not is_h3(args[0].index if isinstance(args[0], H3) else args[0]):
