@@ -12,17 +12,14 @@ from dtoolkit.geoaccessor.index.is_h3 import apply_h3
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
 
 
-def available_if(check):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            if not check(args[0].index if isinstance(args[0], H3) else args[0]):
-                raise TypeError(
-                    f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
-                )
-            return func(*args, **kwargs)
-
-        return wrapper
+def available_if(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        if not is_h3(args[0].index if isinstance(args[0], H3) else args[0]):
+            raise TypeError(
+                f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
+            )
+        return func(*args, **kwargs)
 
     return decorator
 
@@ -69,7 +66,7 @@ class H3(NoNewAttributesMixin):
         self._freeze()
 
     @property
-    @available_if(is_h3)
+    @available_if
     def area(self) -> pd.Series:
         r"""
         Compute the spherical surface area of a specific H3 cell.
@@ -109,7 +106,7 @@ class H3(NoNewAttributesMixin):
 
         # TODO: Available only for h3 release 4.
         # @property
-        # @available_if(is_h3)
+        # @available_if
         # def edge(self) -> pd.Series:
         #     """
         #     Compute the spherical length of a specific H3 edge.
@@ -134,7 +131,7 @@ class H3(NoNewAttributesMixin):
         #     )
 
     @property
-    @available_if(is_h3)
+    @available_if
     def resolution(self) -> pd.Series:
         """
         Return the resolution of H3 cell.
@@ -252,7 +249,7 @@ class H3(NoNewAttributesMixin):
         )
 
     @property
-    @available_if(is_h3)
+    @available_if
     def is_pentagon(self) -> pd.Series:
         """
         Identify if H3 cell is a pentagon.
@@ -292,7 +289,7 @@ class H3(NoNewAttributesMixin):
         )
 
     @property
-    @available_if(is_h3)
+    @available_if
     def is_res_class_III(self) -> pd.Series:
         """
         Determine if cell has orientation "Class II" or "Class III".
@@ -339,7 +336,7 @@ class H3(NoNewAttributesMixin):
             index=self.index,
         )
 
-    @available_if(is_h3)
+    @available_if
     def to_int(self) -> pd.Index:
         """
         Converts hexadecimal string H3 cell index to 64-bit integer.
@@ -380,7 +377,7 @@ class H3(NoNewAttributesMixin):
             raise TypeError(f"Expected Index(string), but got {self.index.dtype!r}.")
         return apply_h3(self.index, h3_3or4("string_to_h3", "str_to_int"))
 
-    @available_if(is_h3)
+    @available_if
     def to_str(self) -> pd.Index:
         """
         Converts 64-bit integer H3 cell index to hexadecimal string.
@@ -421,7 +418,7 @@ class H3(NoNewAttributesMixin):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
         return apply_h3(self.index, h3_3or4("h3_to_string", "int_to_str"))
 
-    @available_if(is_h3)
+    @available_if
     def to_center_child(self, resolution: int = None) -> pd.Index:
         """
         Get the center child of cell.
@@ -462,7 +459,7 @@ class H3(NoNewAttributesMixin):
             res=resolution,
         )
 
-    @available_if(is_h3)
+    @available_if
     def to_children(self, resolution: int = None) -> pd.Index:
         """
         Get the children of cell.
@@ -526,7 +523,7 @@ class H3(NoNewAttributesMixin):
             res=resolution,
         )
 
-    @available_if(is_h3)
+    @available_if
     def to_parent(self, resolution: int = None) -> pd.Index:
         """
         Get the parent of cell.
@@ -567,7 +564,7 @@ class H3(NoNewAttributesMixin):
             res=resolution,
         )
 
-    @available_if(is_h3)
+    @available_if
     def to_points(self) -> gpd.GeoSeries:
         """
         Return the center :obj:`~shapely.Point` of H3 cell.
@@ -604,7 +601,7 @@ class H3(NoNewAttributesMixin):
         )
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
-    @available_if(is_h3)
+    @available_if
     def to_polygons(self) -> gpd.GeoSeries:
         """
         Return :obj:`~shapely.Polygon` to describe the cell boundary.
