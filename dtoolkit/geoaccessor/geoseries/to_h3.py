@@ -117,7 +117,7 @@ def to_h3(
     88143541bdfffff  122  55  POINT (122.00000 55.00000)
     886528b2a3fffff  100   1   POINT (100.00000 1.00000)
     """
-4
+
     if int_dtype:
         import h3.api.numpy_int as h3
     else:
