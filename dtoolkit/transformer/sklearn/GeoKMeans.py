@@ -69,11 +69,11 @@ class GeoKMeans(KMeans):
     ...     [113.48768, 37.872603],
     ...     [113.477766, 37.868846],
     ... ]
-    >>> kmeans = KMeans(n_clusters=2, random_state=0, n_init="auto").fit(X)
-    >>> kmeans.labels_
+    >>> geokmeans = GeoKMeans(n_clusters=2, random_state=0, n_init="auto").fit(X)
+    >>> geokmeans.labels_
     array([1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0],
           dtype=int32)
-    >>> kmeans.cluster_centers_
+    >>> geokmeans.cluster_centers_
     array([[113.5559405 ,  37.92384087],
            [113.62108545,  37.85671727]])
     """
