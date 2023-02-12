@@ -14,5 +14,4 @@ def dropna_index(
     /,
     how: Literal["any", "all"] = "any",
 ) -> pd.DataFrame:
-
     return s_dropna_index(df, how=how)

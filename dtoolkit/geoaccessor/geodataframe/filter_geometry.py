@@ -25,7 +25,6 @@ def filter_geometry(
     complement: bool = False,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-
     return df[
         _filter_geometry(
             df,

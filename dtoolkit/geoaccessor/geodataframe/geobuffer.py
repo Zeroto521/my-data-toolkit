@@ -19,7 +19,6 @@ def geobuffer(
     /,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-
     # NOTE: Require pandas >= 1.3.0 to support `isinstance(SeriesOrDataFrame, Hashable)`
     if isinstance(distance, Hashable) and distance in df.columns:
         distance = df[distance]
