@@ -11,7 +11,6 @@ try:
     H3_GE_4 = Version(h3_version) >= Version("4.0.0a")
 
 except ImportError:
-
     H3_GE_4 = None
 
 
