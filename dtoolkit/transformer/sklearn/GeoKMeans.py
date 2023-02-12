@@ -66,10 +66,11 @@ class GeoKMeans(KMeans):
     ... ]
     >>> kmeans = KMeans(n_clusters=2, random_state=0, n_init="auto").fit(X)
     >>> kmeans.labels_
-    [1 0 1 0 1 0 1 1 1 0 1 0 0 1 1 1 1 0 0]
+    array([1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0],
+          dtype=int32)
     >>> kmeans.cluster_centers_
-    [[113.5559405   37.92384087]
-     [113.62108545  37.85671727]]
+    array([[113.5559405   37.92384087],
+           [113.62108545  37.85671727]])
     """
 
     def _validate_coordinate(self, X):
@@ -84,6 +85,7 @@ class GeoKMeans(KMeans):
             raise ValueError("'X' must be in the form of [(longitude, latitude)]")
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+    # pragma: no cover
     @doc(KMeans._init_centroids)
     def _init_centroids(
         self,
@@ -118,6 +120,7 @@ class GeoKMeans(KMeans):
         return centers.toarray() if sp.issparse(centers) else centers
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+    # pragma: no cover
     @doc(KMeans.fit)
     def fit(self, X, y=None, sample_weight=None):
         self._validate_params()
@@ -218,6 +221,7 @@ class GeoKMeans(KMeans):
 
         return self
 
+    # pragma: no cover
     def _transform(self, X):
         """Guts of transform method; no input validation."""
 
@@ -226,6 +230,7 @@ class GeoKMeans(KMeans):
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+# pragma: no cover
 @doc(sklearn_kmeans_single_elkan)
 def _kmeans_single_elkan(
     X,
@@ -345,6 +350,7 @@ def _kmeans_single_elkan(
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+# pragma: no cover
 @doc(sklearn_kmeans_plusplus)
 def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None):
     n_samples, n_features = X.shape
