@@ -26,9 +26,9 @@ class GeoKMeans(KMeans):
         if not (
             X.ndim == 2
             and X.shape[1] == 2
-            and all(-180 <= X[:, 0])
+            and all(X[:, 0] >= -180)
             and all(X[:, 0] <= 180)
-            and all(-90 <= X[:, 1])
+            and all(X[:, 1] >= -90)
             and all(X[:, 1] <= 90)
         ):
             raise ValueError("'X' must be in the form of [(longitude, latitude)]")
