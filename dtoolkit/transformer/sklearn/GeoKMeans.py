@@ -11,6 +11,8 @@ from sklearn.cluster._k_means_elkan import elkan_iter_chunked_sparse
 from sklearn.cluster._k_means_elkan import init_bounds_dense
 from sklearn.cluster._k_means_elkan import init_bounds_sparse
 from sklearn.cluster._kmeans import _kmeans_single_lloyd
+from sklearn.cluster._kmeans import _kmeans_single_elkan as sklearn_kmeans_single_elkan
+from sklearn.cluster._kmeans import _kmeans_plusplus as sklearn_kmeans_plusplus
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.metrics.pairwise import haversine_distances
 from sklearn.utils import check_array
@@ -19,6 +21,7 @@ from sklearn.utils._openmp_helpers import _openmp_effective_n_threads
 from sklearn.utils.extmath import stable_cumsum
 from sklearn.utils.validation import _check_sample_weight
 from sklearn.utils.validation import _is_arraylike_not_scalar
+from pandas.util._decorators import doc
 
 
 class GeoKMeans(KMeans):
@@ -81,6 +84,7 @@ class GeoKMeans(KMeans):
             raise ValueError("'X' must be in the form of [(longitude, latitude)]")
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+    @doc(KMeans._init_centroids)
     def _init_centroids(
         self,
         X,
@@ -90,38 +94,6 @@ class GeoKMeans(KMeans):
         init_size=None,
         n_centroids=None,
     ):
-        """Compute the initial centroids.
-
-        Parameters
-        ----------
-        X : {ndarray, sparse matrix} of shape (n_samples, n_features)
-            The input samples.
-
-        x_radians : ndarray of shape (n_samples,)
-            Radian of each data point. Pass it if you have it at hands already to avoid
-            it being recomputed here.
-
-        init : {'k-means++', 'random'}, callable or ndarray of shape \
-               (n_clusters, n_features)
-            Method for initialization.
-
-        random_state : RandomState instance
-            Determines random number generation for centroid initialization.
-            See :term:`Glossary <random_state>`.
-
-        init_size : int, default=None
-            Number of samples to randomly sample for speeding up the
-            initialization (sometimes at the expense of accuracy).
-
-        n_centroids : int, default=None
-            Number of centroids to initialize.
-            If left to 'None' the number of centroids will be equal to
-            number of clusters to form (self.n_clusters)
-
-        Returns
-        -------
-        centers : ndarray of shape (n_clusters, n_features)
-        """
         n_samples = X.shape[0]
         n_clusters = self.n_clusters if n_centroids is None else n_centroids
 
@@ -146,37 +118,8 @@ class GeoKMeans(KMeans):
         return centers.toarray() if sp.issparse(centers) else centers
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+    @doc(KMeans.fit)
     def fit(self, X, y=None, sample_weight=None):
-        """
-        Compute k-means clustering.
-
-        Parameters
-        ----------
-        X : {array-like, sparse matrix} of shape (n_samples, 2)
-            Array of geospatial coordinates in the form of [(longitude, latitude)].
-            Training instances to cluster. It must be noted that the data will be
-            converted to C ordering, which will cause a memory copy if the given data
-            is not C-contiguous. If a sparse matrix is passed, a copy will be made
-            if it's not in CSR format.
-
-        y : Ignored
-            Not used, present here for API consistency by convention.
-
-        sample_weight : array-like of shape (n_samples,), default=None
-            The weights for each observation in X. If None, all observations
-            are assigned equal weight.
-
-        Returns
-        -------
-        self : object
-            Fitted estimator.
-
-        Raises
-        ------
-        ValueError
-            If the X is not in the form of [(longitude, latitude)].
-        """
-
         self._validate_params()
 
         X = self._validate_data(
@@ -283,6 +226,7 @@ class GeoKMeans(KMeans):
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+@doc(sklearn_kmeans_single_elkan)
 def _kmeans_single_elkan(
     X,
     sample_weight,
@@ -292,55 +236,6 @@ def _kmeans_single_elkan(
     tol=1e-4,
     n_threads=1,
 ):
-    """
-    A single run of k-means elkan, assumes preparation completed prior.
-
-    Parameters
-    ----------
-    X : {ndarray, sparse matrix} of shape (n_samples, n_features)
-        The observations to cluster. If sparse matrix, must be in CSR format.
-
-    sample_weight : array-like of shape (n_samples,)
-        The weights for each observation in X.
-
-    centers_init : ndarray of shape (n_clusters, n_features)
-        The initial centers.
-
-    max_iter : int, default=300
-        Maximum number of iterations of the k-means algorithm to run.
-
-    verbose : bool, default=False
-        Verbosity mode.
-
-    tol : float, default=1e-4
-        Relative tolerance with regards to Frobenius norm of the difference
-        in the cluster centers of two consecutive iterations to declare
-        convergence.
-        It's not advised to set `tol=0` since convergence might never be
-        declared due to rounding errors. Use a very small number instead.
-
-    n_threads : int, default=1
-        The number of OpenMP threads to use for the computation. Parallelism is
-        sample-wise on the main cython loop which assigns each sample to its
-        closest center.
-
-    Returns
-    -------
-    centroid : ndarray of shape (n_clusters, n_features)
-        Centroids found at the last iteration of k-means.
-
-    label : ndarray of shape (n_samples,)
-        label[i] is the code or index of the centroid the
-        i'th observation is closest to.
-
-    inertia : float
-        The final value of the inertia criterion (sum of squared distances to
-        the closest centroid for all observations in the training set).
-
-    n_iter : int
-        Number of iterations run.
-    """
-
     n_samples = X.shape[0]
     n_clusters = centers_init.shape[0]
 
@@ -450,42 +345,8 @@ def _kmeans_single_elkan(
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
+@doc(sklearn_kmeans_plusplus)
 def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None):
-    """
-    Computational component for initialization of n_clusters by k-means++.
-    Prior validation of data is assumed.
-
-    Parameters
-    ----------
-    X : {ndarray, sparse matrix} of shape (n_samples, n_features)
-        The data to pick seeds for.
-
-    n_clusters : int
-        The number of seeds to choose.
-
-    x_radians : ndarray of shape (n_samples,)
-        Radian of each data point.
-
-    random_state : RandomState instance
-        The generator used to initialize the centers.
-        See :term:`Glossary <random_state>`.
-
-    n_local_trials : int, default=None
-        The number of seeding trials for each center (except the first),
-        of which the one reducing inertia the most is greedily chosen.
-        Set to None to make the number of trials depend logarithmically
-        on the number of seeds (2+log(k)); this is the default.
-
-    Returns
-    -------
-    centers : ndarray of shape (n_clusters, n_features)
-        The initial centers for k-means.
-
-    indices : ndarray of shape (n_clusters,)
-        The index location of the chosen centers in the data array X. For a
-        given index and center, X[index] = center.
-    """
-
     n_samples, n_features = X.shape
     centers = np.empty((n_clusters, n_features), dtype=X.dtype)
 
