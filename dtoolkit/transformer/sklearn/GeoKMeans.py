@@ -22,6 +22,53 @@ from sklearn.utils.validation import _is_arraylike_not_scalar
 
 
 class GeoKMeans(KMeans):
+    """
+    Spatial K-Means clustering.
+
+    The distance is calculated by haversine formula.
+    Parameters and attributes are the same as :class:`sklearn.cluster.KMeans`.
+
+    Raises
+    ------
+    ValueError
+        If the input is not in the form of ``[(longitude, latitude)]``.
+
+    See Also
+    --------
+    sklearn.cluster.KMeans : Original implementation of K-Means clustering.
+
+    Examples
+    --------
+    >>> from dtoolkit.transformer import GeoKMeans
+    >>> X = [
+    ...     [113.615822, 37.844797],
+    ...     [113.586288, 37.917018],
+    ...     [113.630711, 37.865369],
+    ...     [113.590684, 37.948056],
+    ...     [113.631483, 37.862634],
+    ...     [113.57413, 37.968669],
+    ...     [113.663159, 37.848446],
+    ...     [113.586941, 37.868116],
+    ...     [113.679381, 37.875028],
+    ...     [113.5706, 37.973542],
+    ...     [113.585504, 37.879261],
+    ...     [113.584412, 37.935521],
+    ...     [113.575964, 37.906472],
+    ...     [113.593658, 37.848911],
+    ...     [113.633605, 37.869107],
+    ...     [113.582298, 37.857025],
+    ...     [113.629378, 37.805196],
+    ...     [113.48768, 37.872603],
+    ...     [113.477766, 37.868846],
+    ... ]
+    >>> kmeans = KMeans(n_clusters=2, random_state=0, n_init="auto").fit(X)
+    >>> kmeans.labels_
+    [1 0 1 0 1 0 1 1 1 0 1 0 0 1 1 1 1 0 0]
+    >>> kmeans.cluster_centers_
+    [[113.5559405   37.92384087]
+     [113.62108545  37.85671727]]
+    """
+
     def _validate_coordinate(self, X):
         if not (
             X.ndim == 2
