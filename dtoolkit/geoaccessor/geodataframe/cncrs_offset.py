@@ -14,7 +14,6 @@ def cncrs_offset(
     from_crs: CHINA_CRS,
     to_crs: CHINA_CRS,
 ) -> gpd.GeoDataFrame:
-
     return df.assign(
         **{
             df.geometry.name: s_cncrs_offset(

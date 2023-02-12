@@ -16,25 +16,20 @@ class H3(H3Base):
 
     @doc(H3Base.to_int, klass="DataFrame")
     def to_int(self) -> pd.DataFrame:
-
         return super().to_int()
 
     @doc(H3Base.to_str, klass="DataFrame")
     def to_str(self) -> pd.DataFrame:
-
         return super().to_str()
 
     @doc(H3Base.to_center_child, klass="DataFrame")
     def to_center_child(self, resolution: int = None) -> pd.DataFrame:
-
         return super().to_center_child(resolution)
 
     @doc(H3Base.to_children, klass="DataFrame")
     def to_children(self, resolution: int = None) -> pd.DataFrame:
-
         return super().to_children(resolution)
 
     @doc(H3Base.to_parent, klass="DataFrame")
     def to_parent(self, resolution: int = None) -> pd.DataFrame:
-
         return super().to_parent(resolution)

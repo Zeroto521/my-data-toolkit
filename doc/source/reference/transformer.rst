@@ -24,6 +24,7 @@ Sklearn Transformer
 .. autosummary::
     :toctree: api/
 
+    GeoKMeans
     OneHotEncoder
 
 

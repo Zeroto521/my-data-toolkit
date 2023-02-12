@@ -18,5 +18,4 @@ def geodistance(
     align: bool = True,
     radius: float = 6371008.7714150598,
 ) -> pd.Series:
-
     return s_geodistance(df.geometry, other=other, align=align, radius=radius)
