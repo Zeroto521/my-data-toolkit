@@ -73,6 +73,33 @@ class GeoKMeans(KMeans):
            [113.62108545  37.85671727]])
     """
 
+    def __init__(
+        self,
+        n_clusters=8,
+        *,
+        init="k-means++",
+        n_init="warn",
+        max_iter=300,
+        tol=1e-4,
+        verbose=0,
+        random_state=None,
+        copy_x=True,
+        algorithm="elkan",
+    ):
+        super().__init__(
+            n_clusters=n_clusters,
+            init=init,
+            n_init=n_init,
+            max_iter=max_iter,
+            tol=tol,
+            verbose=verbose,
+            random_state=random_state,
+            copy_x=copy_x,
+            # NOTE: algorithm is always "elkan", because only "elkan" supports
+            # haversine distance.
+            algorithm="elkan",
+        )
+
     def _validate_coordinate(self, X):
         if not (
             X.ndim == 2
