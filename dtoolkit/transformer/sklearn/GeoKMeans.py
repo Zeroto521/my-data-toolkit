@@ -40,6 +40,11 @@ class GeoKMeans(KMeans):
     --------
     sklearn.cluster.KMeans : Original implementation of K-Means clustering.
 
+    Notes
+    -----
+    ``algorithm`` is fixed to ``"elkan"``. Because only elkan algorithm can support
+    custom distance.
+
     Examples
     --------
     >>> from dtoolkit.transformer import GeoKMeans
