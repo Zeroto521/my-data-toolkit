@@ -13,5 +13,4 @@ def to_h3(
     resolution: int,
     int_dtype: bool = True,
 ) -> gpd.GeoDataFrame:
-
     return s_to_h3(df, resolution=resolution, int_dtype=int_dtype)
