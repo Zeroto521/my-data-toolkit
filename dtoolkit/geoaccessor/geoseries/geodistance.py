@@ -130,13 +130,7 @@ def geodistance(
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
     return pd.Series(
-        radius
-        * haversine(
-            s.x.to_numpy(),
-            s.y.to_numpy(),
-            x2,
-            y2,
-        ),
+        radius * haversine(s.x.to_numpy(), s.y.to_numpy(), x2, y2),
         index=s.index,
     )
 
