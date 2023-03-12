@@ -1,5 +1,5 @@
-from typing import Literal
 from typing import Hashable
+from typing import Literal
 from typing import Sequence
 
 import pandas as pd
