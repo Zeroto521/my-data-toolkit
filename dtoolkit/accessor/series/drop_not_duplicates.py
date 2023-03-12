@@ -22,6 +22,7 @@ def drop_not_duplicates(
     ----------
     keep : {'first', 'last', False}, default ``False``
         Method to handle duplicates:
+
         - 'first' : Keep duplicates except for the first occurrence.
         - 'last' : Keep duplicates except for the last occurrence.
         - ``False`` : Keep all duplicates.
