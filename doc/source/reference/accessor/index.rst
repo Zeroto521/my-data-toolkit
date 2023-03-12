@@ -18,11 +18,3 @@ Conversion
     :toctree: ../api/
 
     to_set
-
-
-Missing values
---------------
-.. autosummary::
-    :toctree: ../api/
-
-    drop_not_duplicates
