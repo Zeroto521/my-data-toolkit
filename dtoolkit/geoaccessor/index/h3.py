@@ -632,3 +632,11 @@ class H3(NoNewAttributesMixin):
             crs=4326,
             index=self.index,
         )
+
+    @available_if(is_h3)
+    def distance(self, other: str | int | pd.Index, /) -> pd.Index:
+        ...
+
+    @available_if(is_h3)
+    def distance_matrix(self, other: pd.Index, /) -> pd.DataFrame:
+        ...
