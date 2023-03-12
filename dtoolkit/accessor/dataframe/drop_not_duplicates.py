@@ -46,6 +46,8 @@ def drop_not_duplicates(
 
     Examples
     --------
+    >>> import dtoolkit
+    >>> import pandas as pd
     >>> df = pd.DataFrame({
     ...     'brand': ['Yum Yum', 'Yum Yum', 'Indomie', 'Indomie', 'Indomie'],
     ...     'style': ['cup', 'cup', 'cup', 'pack', 'pack'],
