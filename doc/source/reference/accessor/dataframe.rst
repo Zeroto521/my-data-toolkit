@@ -66,6 +66,7 @@ Missing values
     :toctree: ../api/
 
     drop_inf
+    drop_not_duplicates
     drop_or_not
     dropna_index
     fillna_regression
