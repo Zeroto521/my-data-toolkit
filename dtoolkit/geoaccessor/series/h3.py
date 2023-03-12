@@ -257,7 +257,6 @@ class H3Base(NoNewAttributesMixin):
         """
         from pandas._libs.reshape import explode
 
-        # BUG: `GeoDataFrame.repeat` will return `DataFrame` not `GeoDataFrame`
         index, counts = explode(self.data.index.h3.to_children(resolution).to_numpy())
         return self.data.repeat(counts).set_axis(index)
 
