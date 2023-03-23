@@ -47,7 +47,4 @@ def dropna_index(s: pd.Series, /, how: Literal["any", "all"] = "any") -> pd.Seri
     0.0  2  4
     """
 
-    if how not in {"any", "all"}:
-        raise ValueError(f"invalid how option: {how!r}")
-
-    return s[~s.index._isnan] if s.index.hasnans else s
+    return s.loc[s.index.dropna(how=how)]
