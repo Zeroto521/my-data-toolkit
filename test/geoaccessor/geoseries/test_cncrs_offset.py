@@ -38,96 +38,70 @@ def test_error(s, from_crs, to_crs, error):
 @pytest.mark.parametrize(
     "s, from_crs, to_crs, expected",
     [
-        # out of China
-        (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)"], crs=4326),
-            "wgs84",
-            "gcj02",
-            gpd.GeoSeries.from_wkt(["POINT (0 0)"], crs=4326),
-        ),
         # wgs84 to gcj02
         (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
             "wgs84",
             "gcj02",
             gpd.GeoSeries.from_wkt(
-                [
-                    "POINT (0 0)",
-                    "POINT (128.54820547949757 37.065651049489816)",
-                ],
+                ["POINT (128.54820547949757 37.065651049489816)"],
                 crs=4326,
             ),
         ),
         # wgs84 to bd09
         (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
             "wgs84",
             "bd09",
             gpd.GeoSeries.from_wkt(
-                [
-                    "POINT (0 0)",
-                    "POINT (128.55468192918485 37.07168344938498)",
-                ],
+                ["POINT (128.55468192918485 37.07168344938498)"],
                 crs=4326,
             ),
         ),
         # gcj02 to wgs84
         (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
             "gcj02",
             "wgs84",
             gpd.GeoSeries.from_wkt(
-                [
-                    "POINT (0 0)",
-                    "POINT (128.53779452050244 37.06434895051018)",
-                ],
+                ["POINT (128.53779452050244 37.06434895051018)"],
                 crs=4326,
             ),
         ),
         # gcj02 to bd09
         (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
             "gcj02",
             "bd09",
             gpd.GeoSeries.from_wkt(
-                [
-                    "POINT (0 0)",
-                    "POINT (128.54944656269413 37.07113427883019)",
-                ],
+                ["POINT (128.54944656269413 37.07113427883019)"],
                 crs=4326,
             ),
         ),
         # bd09 to wgs84
         (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
             "bd09",
             "wgs84",
             gpd.GeoSeries.from_wkt(
-                [
-                    "POINT (0 0)",
-                    "POINT (128.53136876750008 37.0580926428705)",
-                ],
+                ["POINT (128.53136876750008 37.0580926428705)"],
                 crs=4326,
             ),
         ),
         # bd09 to gcj02
         (
-            gpd.GeoSeries.from_wkt(["POINT (0 0)", "POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
             "bd09",
             "gcj02",
             gpd.GeoSeries.from_wkt(
-                [
-                    "POINT (0 0)",
-                    "POINT (128.5365893261212 37.058754503281534)",
-                ],
+                ["POINT (128.5365893261212 37.058754503281534)"],
                 crs=4326,
             ),
         ),
-        # bd09 to gcj02, but only one validate point
+        # bd09 to gcj02, and also work to other geometry types
         (
             gpd.GeoSeries.from_wkt(
                 [
-                    "POINT (0 0)",
                     "POINT (128.543 37.065)",
                     "LINESTRING (120 30, 122 33)",
                 ],
@@ -137,9 +111,8 @@ def test_error(s, from_crs, to_crs, error):
             "gcj02",
             gpd.GeoSeries.from_wkt(
                 [
-                    "POINT (0 0)",
                     "POINT (128.5365893261212 37.058754503281534)",
-                    "LINESTRING (120 30, 122 33)",
+                    "LINESTRING (119.9935908161529 29.99366216605467, 121.99343069916875 32.994279907228055)",
                 ],
                 crs=4326,
             ),
