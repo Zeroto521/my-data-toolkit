@@ -126,7 +126,7 @@ def wgs84_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.ar
 
 
 def wgs84_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    return gcj02_to_bd09(wgs84_to_gcj02(x, y, z))
+    return gcj02_to_bd09(*wgs84_to_gcj02(x, y, z), z)
 
 
 # based on https://github.com/wandergis/coordTransform_py
@@ -185,7 +185,7 @@ def gcj02_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 
 def bd09_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    return gcj02_to_wgs84(bd09_to_gcj02(x, y, z))
+    return gcj02_to_wgs84(*bd09_to_gcj02(x, y, z), z)
 
 
 # based on https://github.com/wandergis/coordTransform_py
