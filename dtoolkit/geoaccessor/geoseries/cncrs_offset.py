@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import get_args
 from typing import Literal
 
