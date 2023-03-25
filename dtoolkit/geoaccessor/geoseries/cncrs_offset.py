@@ -80,7 +80,7 @@ def cncrs_offset(
                 x         y                    geometry
     0  114.218927  29.57543  POINT (114.21243 29.56938)
     1  128.543000  37.06500  POINT (128.53659 37.05875)
-    2    1.000000   1.00000     POINT (1.00000 1.00000)
+    2    1.000000   1.00000     POINT (0.99349 0.99399)
     """
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
