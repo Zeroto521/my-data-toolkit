@@ -4,8 +4,8 @@ from typing import Literal
 import geopandas as gpd
 import numpy as np
 import pandas as pd
-from pandas.util._decorators import doc
 from geopandas._vectorized import transform
+from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
