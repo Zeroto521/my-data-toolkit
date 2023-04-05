@@ -39,7 +39,7 @@ rapidfuzz = pytest.importorskip("rapidfuzz")
         # other elements contain None or nan
         (
             pd.Series(["hello", "world", "!"]),
-            pd.Series(["hi!", None, float("nan")]),
+            pd.Series(["hi!", None, float("nan")]).fillna(""),
             None,
             pd.DataFrame([[25, 0, 0], [0, 0, 0], [50, 0, 0]]),
         ),
