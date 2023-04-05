@@ -65,7 +65,7 @@ def select_geom_type(
     ...         "GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (1 1, 2 2))",
     ...     ],
     ...     name="wkt",
-    ... ).from_wkt("wkt").geometry
+    ... ).from_wkt().geometry
     >>> s
     0                                  POINT (1.000 1.000)
     1                MULTIPOINT (1.000 1.000, 2.000 2.000)
