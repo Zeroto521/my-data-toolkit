@@ -34,8 +34,8 @@ def select_geom_type(
 
     Parameters
     ----------
-    geom_type : {{"Point", "MultiPoint", "LineString", "LinearRing", "MultiLineString", \
-"Polygon", "MultiPolygon", "GeometryCollection"}}
+    geom_type : {{"Point", "MultiPoint", "LineString", "LinearRing", \
+"MultiLineString", "Polygon", "MultiPolygon", "GeometryCollection"}}
         Geometry type.
 
     complement : bool, default False
