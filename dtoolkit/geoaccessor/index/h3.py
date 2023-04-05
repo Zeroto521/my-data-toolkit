@@ -202,14 +202,13 @@ class H3(NoNewAttributesMixin):
         String type H3 cell index.
 
         >>> s = pd.Series(
-        ...     ['a', 'b', 'c', 'd'],
-        ...     index=[0, 'hello', 'world', '88143541bdfffff'],
+        ...     ['a', 'b', 'c'],
+        ...     index=['hello', 'world', '88143541bdfffff'],
         ... )
         >>> s
-        0                  a
-        hello              b
-        world              c
-        88143541bdfffff    d
+        hello              a
+        world              b
+        88143541bdfffff    c
         dtype: object
         >>> s.h3.is_valid
         0                  False
