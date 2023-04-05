@@ -53,7 +53,7 @@ def len(index: pd.Index, /, number: int = 1, other: int = None) -> pd.Index:
     Set `number` and `other` default return.
 
     >>> index.len(number=0, other=0)
-    Int64Index([0, 0, 3, 1, 1, 0, 0], dtype='int64')
+    Index([0, 0, 3, 1, 1, 0, 0], dtype='int64')
     """
 
     return index.map(partial(length, number=number, other=other))
