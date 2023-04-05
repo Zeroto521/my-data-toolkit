@@ -5,7 +5,6 @@ from typing import Callable
 from warnings import warn
 
 import pandas as pd
-from pandas.api.types import is_list_like
 from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
