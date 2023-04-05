@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Literal
 
 import geopandas as gpd
+from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import invert_or_not
 from dtoolkit.geoaccessor.register import register_geoseries_method
@@ -21,6 +22,7 @@ GEOM_TYPE = Literal[
 
 
 @register_geoseries_method
+@doc(klass="GeoSeries")
 def select_geom_type(
     s: gpd.GeoSeries,
     geom_type: GEOM_TYPE,
@@ -41,20 +43,21 @@ def select_geom_type(
 
     Returns
     -------
-    GeoSeries
-        GeoSeries with selected geometries.
+    {klass}
+        Return selected geometries.
 
     See Also
     --------
     geopandas.GeoSeries.geom_type
+    dtoolkit.geoaccessor.geoseries.select_geom_type
     dtoolkit.geoaccessor.geodataframe.select_geom_type
 
     Examples
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> s = pd.Series(
-    ...     [
+    >>> df = pd.DataFrame({
+    ...     "wkt": [
     ...         "POINT (1 1)",
     ...         "MULTIPOINT (1 1, 2 2)",
     ...         "LINESTRING (1 1, 2 2)",
@@ -64,21 +67,20 @@ def select_geom_type(
     ...         "MULTIPOLYGON (((0 0, 0 1, 1 1, 1 0, 0 0)))",
     ...         "GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (1 1, 2 2))",
     ...     ],
-    ...     name="wkt",
-    ... ).from_wkt().geometry
-    >>> s
-    0                                  POINT (1.000 1.000)
-    1                MULTIPOINT (1.000 1.000, 2.000 2.000)
-    2                LINESTRING (1.000 1.000, 2.000 2.000)
-    3    LINEARRING (0.000 0.000, 0.000 1.000, 1.000 1....
-    4    MULTILINESTRING ((1.000 1.000, 2.000 2.000), (...
-    5    POLYGON ((0.000 0.000, 0.000 1.000, 1.000 1.00...
-    6    MULTIPOLYGON (((0.000 0.000, 0.000 1.000, 1.00...
-    7    GEOMETRYCOLLECTION (POINT (1.000 1.000), LINES...
-    Name: geometry, dtype: geometry
-    >>> s.select_geom_type("Point")
-    0    POINT (1.000 1.000)
-    Name: geometry, dtype: geometry
+    ... }).from_wkt("wkt").drop(columns="wkt")
+    >>> df
+                                                geometry
+    0                            POINT (1.00000 1.00000)
+    1      MULTIPOINT (1.00000 1.00000, 2.00000 2.00000)
+    2      LINESTRING (1.00000 1.00000, 2.00000 2.00000)
+    3  LINEARRING (0.00000 0.00000, 0.00000 1.00000, ...
+    4  MULTILINESTRING ((1.00000 1.00000, 2.00000 2.0...
+    5  POLYGON ((0.00000 0.00000, 0.00000 1.00000, 1....
+    6  MULTIPOLYGON (((0.00000 0.00000, 0.00000 1.000...
+    7  GEOMETRYCOLLECTION (POINT (1.00000 1.00000), L...
+    >>> df.select_geom_type("Point")
+                      geometry
+    0  POINT (1.00000 1.00000)
     """
 
     return s[invert_or_not(s.geom_type == geom_type, invert=complement)]
