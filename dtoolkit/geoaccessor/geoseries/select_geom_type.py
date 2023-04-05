@@ -56,7 +56,7 @@ def select_geom_type(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> df = pd.DataFrame({
+    >>> df = pd.DataFrame({{
     ...     "wkt": [
     ...         "POINT (1 1)",
     ...         "MULTIPOINT (1 1, 2 2)",
@@ -67,7 +67,7 @@ def select_geom_type(
     ...         "MULTIPOLYGON (((0 0, 0 1, 1 1, 1 0, 0 0)))",
     ...         "GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (1 1, 2 2))",
     ...     ],
-    ... }).from_wkt("wkt").drop(columns="wkt")
+    ... }}).from_wkt("wkt").drop(columns="wkt")
     >>> df
                                                 geometry
     0                            POINT (1.00000 1.00000)
