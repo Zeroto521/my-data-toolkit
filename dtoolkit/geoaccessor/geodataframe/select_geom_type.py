@@ -16,5 +16,4 @@ def select_geom_type(
     /,
     complement: bool = False,
 ) -> gpd.GeoDataFrame:
-
     return s_select_geom_type(df, geom_type, complement=complement)
