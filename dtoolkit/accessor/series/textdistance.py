@@ -5,7 +5,6 @@ from typing import Callable
 from warnings import warn
 
 import pandas as pd
-from pandas.api.types import is_list_like
 from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
@@ -67,7 +66,7 @@ def textdistance(
 
     Notes
     -----
-    The result of comparing to None or nan value is depended on the ``method``.
+    Doesn't support to compare `None` or `nan` value.
 
     Examples
     --------
@@ -95,11 +94,7 @@ def textdistance(
         method = __import__("rapidfuzz").fuzz.ratio
     method = lru_cache(method)
 
-    if (
-        isinstance(other, str)
-        or other is None
-        or (not is_list_like(other) and pd.isna(other))
-    ):
+    if isinstance(other, str):
         return s.apply(method, args=(other,), **kwargs)
 
     elif isinstance(other, pd.Series):
