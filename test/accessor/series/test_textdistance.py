@@ -103,7 +103,9 @@ def test_error(s, other, align, error):
         # test None and nan
         (
             pd.Series(["hi", "python", None, None, float("nan"), "?"]).fillna(""),
-            pd.Series([None, float("nan"), None, float("nan"), float("nan"), "!"]).fillna(""),
+            pd.Series(
+                [None, float("nan"), None, float("nan"), float("nan"), "!"]
+            ).fillna(""),
             True,
             None,
             pd.Series([0] * 6),
