@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from functools import wraps
 from typing import Callable
 
 import pandas as pd
@@ -58,7 +57,7 @@ def textdistance_matrix(
 
     Notes
     -----
-    The result of comparing to None or nan value is depended on the ``method``.
+    Doesn't support to compare `None` or `nan` value.
 
     Examples
     --------
@@ -73,11 +72,18 @@ def textdistance_matrix(
            0          1
     0  100.0  36.363636
     1   20.0  18.181818
+
+    Convert `nan` / `None` to `""` empty string before getting distance.
+
+    >>> s.textdistance_matrix(pd.Series(["hello", None, float("nan")]).fillna(""))
+           0    1    2
+    0  100.0  0.0  0.0
+    1   20.0  0.0  0.0
     """
     from rapidfuzz.process import cdist
 
     if method is None:
-        method = check_nan(__import__("rapidfuzz").fuzz.ratio)
+        method = __import__("rapidfuzz").fuzz.ratio
 
     if other is None:
         other = s.copy()
@@ -91,13 +97,3 @@ def textdistance_matrix(
         index=s.index,
         columns=other.index,
     )
-
-
-def check_nan(func):
-    @wraps(func)
-    def decorator(*args, **kwargs):
-        # NOTE: compare to nan always returns 0
-        # the behavior is following rapidfuzz.fuzz.ratio
-        return 0 if pd.isna(args[0]) or pd.isna(args[1]) else func(*args, **kwargs)
-
-    return decorator
