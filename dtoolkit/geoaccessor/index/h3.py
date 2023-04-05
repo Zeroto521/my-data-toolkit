@@ -211,7 +211,6 @@ class H3(NoNewAttributesMixin):
         88143541bdfffff    c
         dtype: object
         >>> s.h3.is_valid
-        0                  False
         hello              False
         world              False
         88143541bdfffff     True
