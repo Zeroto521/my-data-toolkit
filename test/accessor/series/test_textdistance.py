@@ -104,7 +104,7 @@ def test_error(s, other, align, error):
         (
             pd.Series(["hi", "python", None, None, float("nan"), "?"]).fillna(""),
             pd.Series(
-                [None, float("nan"), None, float("nan"), float("nan"), "!"]
+                [None, float("nan"), None, float("nan"), float("nan"), "!"],
             ).fillna(""),
             True,
             None,
