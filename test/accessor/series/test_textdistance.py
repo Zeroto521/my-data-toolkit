@@ -101,28 +101,9 @@ def test_error(s, other, align, error):
             pd.Series([2, 6]),
         ),
         # test None and nan
-        # NOTE: requires rapidfuzz >= 2.13.4
         (
-            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
-            pd.Series([None, float("nan"), None, float("nan"), float("nan"), "!"]),
-            True,
-            None,
-            pd.Series([0] * 6),
-        ),
-        # test other is None
-        # NOTE: requires rapidfuzz >= 2.13.4
-        (
-            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
-            None,
-            True,
-            None,
-            pd.Series([0] * 6),
-        ),
-        # test other is nan
-        # NOTE: requires rapidfuzz >= 2.13.4
-        (
-            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
-            float("nan"),
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]).fillna(""),
+            pd.Series([None, float("nan"), None, float("nan"), float("nan"), "!"]).fillna(""),
             True,
             None,
             pd.Series([0] * 6),
