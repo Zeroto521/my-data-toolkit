@@ -202,17 +202,15 @@ class H3(NoNewAttributesMixin):
         String type H3 cell index.
 
         >>> s = pd.Series(
-        ...     ['a', 'b', 'c', 'd'],
-        ...     index=[0, 'hello', 'world', '88143541bdfffff'],
+        ...     ['a', 'b', 'c'],
+        ...     index=['hello', 'world', '88143541bdfffff'],
         ... )
         >>> s
-        0                  a
-        hello              b
-        world              c
-        88143541bdfffff    d
+        hello              a
+        world              b
+        88143541bdfffff    c
         dtype: object
         >>> s.h3.is_valid
-        0                  False
         hello              False
         world              False
         88143541bdfffff     True
@@ -366,7 +364,7 @@ class H3(NoNewAttributesMixin):
         >>> index
         Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
         >>> index.h3.to_int()
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
@@ -404,7 +402,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_str()
         Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
         """
@@ -446,9 +444,9 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_center_child()
-        Int64Index([617348652448612351, 618772756470956031], dtype='int64')
+        Index([617348652448612351, 618772756470956031], dtype='int64')
         """
         # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
         # While h3-py release 4, `cell_to_center_child` is not available.
@@ -484,7 +482,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_children()  # doctest: +SKIP
         Index(
             [
@@ -543,9 +541,9 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_parent()
-        Int64Index([608341453197803519, 609765557230632959], dtype='int64')
+        Index([608341453197803519, 609765557230632959], dtype='int64')
         """
         # TODO: Use `cell_to_parent` instead of `h3_to_parent`
         # While h3-py release 4, `cell_to_parent` is not available.
@@ -575,7 +573,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_points()
         612845052823076863  POINT (121.99637 55.00331)
         614269156845420543    POINT (99.99611 0.99919)
@@ -610,7 +608,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_polygons()
         612845052823076863  POLYGON ((121.98797 55.00408, 121.99122 54.999...
         614269156845420543  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
