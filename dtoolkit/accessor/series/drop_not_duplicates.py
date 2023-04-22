@@ -42,18 +42,18 @@ def drop_not_duplicates(
     --------
     >>> import dtoolkit
     >>> import pandas as pd
-    >>> animals = pd.Series(['lama', 'cow', 'lama', 'beetle', 'lama'])
+    >>> animals = pd.Series(['llama', 'cow', 'llama', 'beetle', 'llama'])
     >>> animals
-    0      lama
+    0      llama
     1       cow
-    2      lama
+    2      llama
     3    beetle
-    4      lama
+    4      llama
     dtype: object
     >>> animals.drop_not_duplicates()
-    0      lama
-    2      lama
-    4      lama
+    0      llama
+    2      llama
+    4      llama
     dtype: object
     """
 

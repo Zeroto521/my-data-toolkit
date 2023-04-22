@@ -36,6 +36,7 @@ def toposimplify(
 
     simplify_algorithm : {{'dp', 'vw'}}, default 'dp'
         ``vw`` will only be selected if ``simplify_with`` is set to ``simplification``.
+
             - ``dp`` : Douglas-Peucker
             - ``vw`` : Visvalingam-Whyatt
 
