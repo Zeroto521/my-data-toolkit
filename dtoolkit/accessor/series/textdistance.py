@@ -5,6 +5,7 @@ from typing import Callable
 from warnings import warn
 
 import pandas as pd
+from pandas.api.types import is_list_like
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.util._exception import find_stack_level
@@ -88,7 +89,11 @@ def textdistance(
         method = __import__("rapidfuzz").fuzz.ratio
     method = lru_cache(method)
 
-    if isinstance(other, str) or pd.isna(other):
+    if (
+        isinstance(other, str)
+        or other is None
+        or (not is_list_like(other) and pd.isna(other))
+    ):
         return s.apply(method, args=(other,), **kwargs)
 
     elif isinstance(other, pd.Series):
