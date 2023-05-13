@@ -1,6 +1,7 @@
 import geopandas as gpd
 import pytest
-from shapely import LineString, Point
+from shapely import LineString
+from shapely import Point
 
 from dtoolkit.geoaccessor.geoseries import voronoi
 

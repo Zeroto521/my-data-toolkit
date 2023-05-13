@@ -20,5 +20,4 @@ def voronoi(
     bounary: Polygon | MultiPolygon = None,
     only_edges: bool = False,
 ) -> gpd.GeoSeries:
-
     return s_voronoi(df.geometry, bounary=bounary, only_edges=only_edges)
