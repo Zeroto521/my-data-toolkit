@@ -33,7 +33,7 @@ rapidfuzz = pytest.importorskip("rapidfuzz")
         (
             pd.Series(["hello", "world!"]),
             pd.Series(["hi", "pythonista"]),
-            rapidfuzz.distance.levenshtein,
+            rapidfuzz.distance.Levenshtein,
             pd.DataFrame([[4, 9], [6, 9]]),
         ),
         # other elements contain None or nan
