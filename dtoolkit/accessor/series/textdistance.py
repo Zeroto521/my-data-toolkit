@@ -5,7 +5,7 @@ from typing import Callable
 from warnings import warn
 
 import pandas as pd
-from pandas.api.types import is_string_dtype
+from pandas.api.types import is_list_like
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.util._exception import find_stack_level
@@ -64,7 +64,7 @@ def textdistance(
 
     Notes
     -----
-    Doesn't support to compare `None` or `nan` value.
+    The result of comparing to None or nan value is depended on the ``method``.
 
     Examples
     --------
@@ -85,20 +85,18 @@ def textdistance(
     dtype: float64
     """
 
-    if not is_string_dtype(s):
-        raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
-
     if method is None:
         method = __import__("rapidfuzz").fuzz.ratio
     method = lru_cache(method)
 
-    if isinstance(other, str):
+    if (
+        isinstance(other, str)
+        or other is None
+        or (not is_list_like(other) and pd.isna(other))
+    ):
         return s.apply(method, args=(other,), **kwargs)
 
     elif isinstance(other, pd.Series):
-        if not is_string_dtype(other):
-            raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
-
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)
