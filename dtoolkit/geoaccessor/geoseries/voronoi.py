@@ -8,7 +8,8 @@ from shapely import voronoi_polygons
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 if TYPE_CHECKING:
-    from shapely import MultiPolygon, Polygon
+    from shapely import MultiPolygon
+    from shapely import Polygon
 
 
 @register_geoseries_method
