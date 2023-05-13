@@ -97,7 +97,7 @@ def test_error(s, other, align, error):
             pd.Series(["hi", "python"]),
             "",
             True,
-            rapidfuzz.string_metric.levenshtein,
+            rapidfuzz.distance.Levenshtein.distance,
             pd.Series([2, 6]),
         ),
     ],
