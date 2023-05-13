@@ -29,4 +29,5 @@ from dtoolkit.geoaccessor.geoseries.select_geom_type import (  # noqa: F401
 )
 from dtoolkit.geoaccessor.geoseries.to_h3 import to_h3  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.toposimplify import toposimplify  # noqa: F401
+from dtoolkit.geoaccessor.geoseries.voronoi import voronoi  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.xy import xy  # noqa: F401
