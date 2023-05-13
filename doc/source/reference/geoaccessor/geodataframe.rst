@@ -29,6 +29,7 @@ Conversion
     :toctree: ../api/
 
     to_h3
+    voronoi
 
 
 Projection handling
