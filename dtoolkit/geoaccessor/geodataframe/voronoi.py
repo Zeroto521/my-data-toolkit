@@ -17,8 +17,8 @@ if TYPE_CHECKING:
 def voronoi(
     df: gpd.GeoDataFrame,
     /,
-    bounary: Polygon | MultiPolygon = None,
+    boundary: Polygon | MultiPolygon = None,
     only_edges: bool = False,
 ) -> gpd.GeoSeries:
 
-    return s_voronoi(df.geometry, bounary=bounary, only_edges=only_edges)
+    return s_voronoi(df.geometry, boundary=boundary, only_edges=only_edges)

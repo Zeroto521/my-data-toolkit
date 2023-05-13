@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 def voronoi(
     s,
     /,
-    bounary: Polygon | MultiPolygon = None,
+    boundary: Polygon | MultiPolygon = None,
     only_edges: bool = False,
 ) -> gpd.GeoSeries:
     """
@@ -23,7 +23,7 @@ def voronoi(
 
     Parameters
     ----------
-    bounary : Polygon or MultiPolygon, optional
+    boundary : Polygon or MultiPolygon, optional
         The outer boundary of the diagram. If None, use the convex hull of the inputs.
 
     only_edges : bool, default False
@@ -80,4 +80,4 @@ def voronoi(
             ).geoms
         ),
         crs=s.crs,
-    ).clip(bounary or s.unary_union.convex_hull)
+    ).clip(boundary or s.unary_union.convex_hull)
