@@ -19,7 +19,7 @@ from dtoolkit.geoaccessor.geoseries import voronoi
         ),
         (
             gpd.GeoSeries(),
-            IndexError,
+            TypeError,
         ),
         (
             gpd.GeoSeries([LineString([(122, 55), (100, 1)])]),
