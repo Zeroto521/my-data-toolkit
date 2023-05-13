@@ -45,7 +45,7 @@ def voronoi(
     See Also
     --------
     dtoolkit.geoaccessor.geoseries.voronoi
-    dtollkit.geoaccessor.geodataframe.voronoi
+    dtoolkit.geoaccessor.geodataframe.voronoi
 
     Notes
     -----
