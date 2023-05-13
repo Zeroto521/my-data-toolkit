@@ -78,7 +78,7 @@ def voronoi(
             voronoi_polygons(
                 s.unary_union,
                 only_edges=only_edges,
-            ).geoms
+            ).geoms,
         ),
         crs=s.crs,
     ).clip(boundary or s.unary_union.convex_hull)

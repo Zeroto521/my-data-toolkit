@@ -21,5 +21,4 @@ def voronoi(
     boundary: Polygon | MultiPolygon = None,
     only_edges: bool = False,
 ) -> gpd.GeoSeries:
-
     return s_voronoi(df.geometry, boundary=boundary, only_edges=only_edges)
