@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Callable
 
 import pandas as pd
-from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
 
@@ -57,7 +56,7 @@ def textdistance_matrix(
 
     Notes
     -----
-    Doesn't support to compare `None` or `nan` value.
+    The result of comparing to None or nan value is depended on the ``method``.
 
     Examples
     --------
@@ -72,13 +71,6 @@ def textdistance_matrix(
            0          1
     0  100.0  36.363636
     1   20.0  18.181818
-
-    Convert `nan` / `None` to `""` empty string before getting distance.
-
-    >>> s.textdistance_matrix(pd.Series(["hello", None, float("nan")]).fillna(""))
-           0    1    2
-    0  100.0  0.0  0.0
-    1   20.0  0.0  0.0
     """
     from rapidfuzz.process import cdist
 
@@ -89,8 +81,6 @@ def textdistance_matrix(
         other = s.copy()
     if not isinstance(other, pd.Series):
         raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")
-    if not is_string_dtype(other):
-        raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
     return pd.DataFrame(
         cdist(s, other, scorer=method, workers=-1, **kwargs),

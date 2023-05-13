@@ -100,6 +100,33 @@ def test_error(s, other, align, error):
             rapidfuzz.string_metric.levenshtein,
             pd.Series([2, 6]),
         ),
+        # test None and nan
+        # NOTE: requires rapidfuzz >= 3.x
+        (
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
+            pd.Series([None, float("nan"), None, float("nan"), float("nan"), "!"]),
+            True,
+            None,
+            pd.Series([0] * 6),
+        ),
+        # test other is None
+        # NOTE: requires rapidfuzz >= 3.x
+        (
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
+            None,
+            True,
+            None,
+            pd.Series([0] * 6),
+        ),
+        # test other is nan
+        # NOTE: requires rapidfuzz >= 3.x
+        (
+            pd.Series(["hi", "python", None, None, float("nan"), "?"]),
+            float("nan"),
+            True,
+            None,
+            pd.Series([0] * 6),
+        ),
     ],
 )
 def test_work(s, other, align, method, expected):
