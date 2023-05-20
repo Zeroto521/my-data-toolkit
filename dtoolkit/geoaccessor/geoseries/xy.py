@@ -7,9 +7,17 @@ import pandas as pd
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.util._decorator import warning
 
 
 @register_geoseries_method
+@warning(
+    "The 'coordinates' is deprecated and will be removed in 0.0.22. "
+    "Please use 'GeoSeries.get_coordinates' in geopandas 0.13 instead."
+    "(Warning added DToolKit 0.0.21)",
+    DeprecationWarning,
+    stacklevel=3,
+)
 def xy(
     s: gpd.GeoSeries,
     /,
