@@ -117,7 +117,6 @@ class GeoKMeans(KMeans):
             raise ValueError("'X' must be in the form of [(longitude, latitude)]")
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
-    # pragma: no cover
     @doc(KMeans._init_centroids)
     def _init_centroids(
         self,
@@ -152,7 +151,6 @@ class GeoKMeans(KMeans):
         return centers.toarray() if sp.issparse(centers) else centers
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
-    # pragma: no cover
     @doc(KMeans.fit)
     def fit(self, X, y=None, sample_weight=None):
         self._validate_params()
@@ -262,7 +260,6 @@ class GeoKMeans(KMeans):
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
-# pragma: no cover
 @doc(sklearn_kmeans_single_elkan)
 def _kmeans_single_elkan(
     X,
@@ -382,7 +379,6 @@ def _kmeans_single_elkan(
 
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
-# pragma: no cover
 @doc(sklearn_kmeans_plusplus)
 def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None):
     n_samples, n_features = X.shape
