@@ -75,6 +75,7 @@ Missing values
     :toctree: ../api/
 
     drop_inf
+    drop_not_duplicates
     dropna_index
 
 

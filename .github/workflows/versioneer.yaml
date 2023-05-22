@@ -38,7 +38,7 @@ jobs:
           name: versioneer
           path: versioneer.py
 
-      - uses: peter-evans/create-pull-request@v4
+      - uses: peter-evans/create-pull-request@v5
         with:
           commit-message: |
             BOT: versioneer autoupdate

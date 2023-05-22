@@ -68,12 +68,11 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: mamba-org/provision-with-micromamba@v15
         with:
-          miniforge-variant: Mambaforge
           environment-file: ${{ matrix.env }}
-          python-version: ${{ matrix.python-version }}
-          use-mamba: true
+          extra-specs: |
+            python=${{ matrix.python-version }}
 
       - name: Check and Log Environment
         run: make info

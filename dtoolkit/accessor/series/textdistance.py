@@ -6,7 +6,6 @@ from warnings import warn
 
 import pandas as pd
 from pandas.api.types import is_list_like
-from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.util._exception import find_stack_level
@@ -35,8 +34,7 @@ def textdistance(
     method : Callable, default None
         The method to calculate the distance. The first and second positional parameters
         will be compared. If None, :meth:`rapidfuzz.fuzz.ratio`. Recommended use methods
-        in :mod:`rapidfuzz.fuzz`, :mod:`rapidfuzz.string_metric`, and
-        :mod:`rapidfuzz.distance`.
+        in :mod:`rapidfuzz.fuzz`, and :mod:`rapidfuzz.distance`.
 
     **kwargs
         Additional keyword arguments passed to ``method``.
@@ -61,7 +59,6 @@ def textdistance(
     See Also
     --------
     rapidfuzz.fuzz
-    rapidfuzz.string_metric
     rapidfuzz.distance
     textdistance_matrix
 
@@ -88,9 +85,6 @@ def textdistance(
     dtype: float64
     """
 
-    if not is_string_dtype(s):
-        raise TypeError(f"Expected string dtype, but got {s.dtype!r}.")
-
     if method is None:
         method = __import__("rapidfuzz").fuzz.ratio
     method = lru_cache(method)
@@ -103,9 +97,6 @@ def textdistance(
         return s.apply(method, args=(other,), **kwargs)
 
     elif isinstance(other, pd.Series):
-        if not is_string_dtype(other):
-            raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
-
         if align and not s.index.equals(other.index):
             warn("The indices are different.", stacklevel=find_stack_level())
             s, other = s.align(other)

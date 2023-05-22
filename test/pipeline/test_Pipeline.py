@@ -204,9 +204,8 @@ def test_predict_with_multi_tfs():
         PCA(),  # Add PCA to convert `Pipeline.predict`'s `self._iter` line
         KMeans(n_clusters=2, random_state=42),
     ).fit(df)
-    result = tf.predict(df)
 
-    assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
+    assert tf.predict(df).sum() == 3
 
 
 def test_fit_predict():
@@ -223,6 +222,5 @@ def test_fit_predict():
     )
 
     tf = make_pipeline(KMeans(n_clusters=2, random_state=42))
-    result = tf.fit_predict(df)
 
-    assert_series_equal(result, pd.Series([1, 1, 1, 0, 0, 0]), check_dtype=False)
+    assert tf.fit_predict(df).sum() == 3

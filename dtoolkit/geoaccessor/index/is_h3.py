@@ -73,7 +73,7 @@ def is_h3(index: pd.Index, /) -> bool:
 
     >>> index = pd.Index([612845052823076863, 614269156845420543])
     >>> index
-    Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+    Index([612845052823076863, 614269156845420543], dtype='int64')
     >>> index.is_h3()
     True
     >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
@@ -88,7 +88,7 @@ def is_h3(index: pd.Index, /) -> bool:
     ...     index=[612845052823076863, 614269156845420543],
     ... )
     >>> df
-                        label
+                       label
     612845052823076863     a
     614269156845420543     b
     >>> df.is_h3()
@@ -100,7 +100,7 @@ def is_h3(index: pd.Index, /) -> bool:
     return apply_h3(index, h3_3or4("h3_is_valid", "is_valid_cell")).all()
 
 
-def apply_h3(index: pd.Index, /, method: str, **kwargs):
+def apply_h3(index: pd.Index, /, method: str, **kwargs) -> pd.Index:
     """
     Apply H3 method to :obj:`~pandas.Index`.
 
@@ -109,8 +109,12 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs):
     method : str
         H3 method name.
 
-    *args, **kwargs
+    **kwargs
         Additional keyword arguments are passed to ``h3.{method}``.
+
+    Returns
+    -------
+    Index
 
     Raises
     ------

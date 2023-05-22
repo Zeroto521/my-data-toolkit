@@ -3,6 +3,9 @@ from dtoolkit.accessor.dataframe.change_axis_type import change_axis_type  # noq
 from dtoolkit.accessor.dataframe.cols import cols  # noqa: F401
 from dtoolkit.accessor.dataframe.decompose import decompose  # noqa: F401
 from dtoolkit.accessor.dataframe.drop_inf import drop_inf  # noqa: F401
+from dtoolkit.accessor.dataframe.drop_not_duplicates import (  # noqa: F401
+    drop_not_duplicates,
+)
 from dtoolkit.accessor.dataframe.drop_or_not import drop_or_not  # noqa: F401
 from dtoolkit.accessor.dataframe.dropna_index import dropna_index  # noqa: F401
 from dtoolkit.accessor.dataframe.equal import equal  # noqa: F401
