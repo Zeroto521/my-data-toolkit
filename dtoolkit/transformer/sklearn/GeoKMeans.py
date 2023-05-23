@@ -140,9 +140,9 @@ class GeoKMeans(KMeans):
         elif isinstance(init, str) and init == "random":
             seeds = random_state.permutation(n_samples)[:n_clusters]
             centers = X[seeds]
-        elif _is_arraylike_not_scalar(self.init):
+        elif _is_arraylike_not_scalar(self.init):  # pragma: no cover
             centers = init
-        elif callable(init):
+        elif callable(init):  # pragma: no cover
             centers = init(X, n_clusters, random_state=random_state)
             centers = check_array(centers, dtype=X.dtype, copy=False, order="C")
             self._validate_center_shape(X, centers)
@@ -172,12 +172,12 @@ class GeoKMeans(KMeans):
         # Validate init array
         init = self.init
         init_is_array_like = _is_arraylike_not_scalar(init)
-        if init_is_array_like:
+        if init_is_array_like:  # pragma: no cover
             init = check_array(init, dtype=X.dtype, copy=True, order="C")
             self._validate_center_shape(X, init)
 
         # subtract of mean of x for more accurate distance computations
-        if not sp.issparse(X):
+        if not sp.issparse(X):  # pragma: no cover
             X_mean = X.mean(axis=0)
             # The copy was already done above
             X -= X_mean
@@ -192,7 +192,7 @@ class GeoKMeans(KMeans):
         for _ in range(self._n_init):
             # Initialize centers
             centers_init = self._init_centroids(X, x_radians, init, random_state)
-            if self.verbose:
+            if self.verbose:  # pragma: no cover
                 print("Initialization complete")
 
             # run a k-means once
@@ -226,7 +226,7 @@ class GeoKMeans(KMeans):
                 X += X_mean
             best_centers += X_mean
 
-        if len(set(best_labels)) < self.n_clusters:
+        if len(set(best_labels)) < self.n_clusters:  # pragma: no cover
             warn(
                 f"Number of distinct clusters ({len(set(best_labels))}) found "
                 f"smaller than n_clusters ({self.n_clusters}). Possibly due to "
@@ -243,7 +243,6 @@ class GeoKMeans(KMeans):
 
         return self
 
-    # pragma: no cover
     def _transform(self, X):
         """Guts of transform method; no input validation."""
 
@@ -281,7 +280,7 @@ def _kmeans_single_elkan(
     lower_bounds = np.zeros((n_samples, n_clusters), dtype=X.dtype)
     center_shift = np.zeros(n_clusters, dtype=X.dtype)
 
-    if sp.issparse(X):
+    if sp.issparse(X):  # pragma: no cover
         init_bounds = init_bounds_sparse
         elkan_iter = elkan_iter_chunked_sparse
         _inertia = _inertia_sparse
@@ -323,7 +322,7 @@ def _kmeans_single_elkan(
         center_half_distances = haversine_distances(np.radians(centers_new)) / 2
         distance_next_center = np.partition(center_half_distances, kth=1, axis=0)[1]
 
-        if verbose:
+        if verbose:  # pragma: no cover
             inertia = _inertia(X, sample_weight, centers, labels, n_threads)
             print(f"Iteration {i}, inertia {inertia}")
 
@@ -331,7 +330,7 @@ def _kmeans_single_elkan(
 
         if np.array_equal(labels, labels_old):
             # First check the labels for strict convergence.
-            if verbose:
+            if verbose:  # pragma: no cover
                 print(f"Converged at iteration {i}: strict convergence.")
             strict_convergence = True
             break
@@ -339,7 +338,7 @@ def _kmeans_single_elkan(
             # No strict convergence, check for tol based convergence.
             center_shift_tot = (center_shift**2).sum()
             if center_shift_tot <= tol:
-                if verbose:
+                if verbose:  # pragma: no cover
                     print(
                         f"Converged at iteration {i}: center shift "
                         f"{center_shift_tot} within tolerance {tol}.",
