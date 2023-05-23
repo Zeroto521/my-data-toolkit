@@ -13,7 +13,6 @@ from sklearn.cluster._k_means_elkan import init_bounds_dense
 from sklearn.cluster._k_means_elkan import init_bounds_sparse
 from sklearn.cluster._kmeans import _kmeans_plusplus as sklearn_kmeans_plusplus
 from sklearn.cluster._kmeans import _kmeans_single_elkan as sklearn_kmeans_single_elkan
-from sklearn.cluster._kmeans import _kmeans_single_lloyd
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.metrics.pairwise import haversine_distances
 from sklearn.utils import check_array
@@ -188,13 +187,6 @@ class GeoKMeans(KMeans):
 
         # precompute radian of data points
         x_radians = np.radians(X)
-
-        if self._algorithm == "elkan":
-            kmeans_single = _kmeans_single_elkan
-        else:
-            kmeans_single = _kmeans_single_lloyd
-            self._check_mkl_vcomp(X, X.shape[0])
-
         best_inertia, best_labels = None, None
 
         for _ in range(self._n_init):
@@ -204,7 +196,7 @@ class GeoKMeans(KMeans):
                 print("Initialization complete")
 
             # run a k-means once
-            labels, inertia, centers, n_iter_ = kmeans_single(
+            labels, inertia, centers, n_iter_ = _kmeans_single_elkan(
                 X,
                 sample_weight,
                 centers_init,
