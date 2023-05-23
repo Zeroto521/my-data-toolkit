@@ -64,7 +64,7 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: mamba-org/provision-with-micromamba@v15
+      - uses: mamba-org/provision-with-micromamba@v16
         with:
           environment-file: ${{ matrix.env }}
           extra-specs: |
