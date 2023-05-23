@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 
 from dtoolkit.transformer import GeoKMeans
@@ -69,7 +70,7 @@ def test_validate_coordinate(X, error):
                 [113.477766, 37.868846],
             ],
             "k-means++",
-            [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0]
+            [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0],
         ),
         (
             [
@@ -94,7 +95,7 @@ def test_validate_coordinate(X, error):
                 [113.477766, 37.868846],
             ],
             "random",
-            [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0]
+            [1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0],
         ),
     ],
 )
@@ -102,3 +103,17 @@ def test_init_paramter(X, init, expected):
     result = GeoKMeans(n_clusters=2, init=init, random_state=0, n_init="auto").fit(X)
 
     assert result.labels_.tolist() == expected
+
+
+def test_transform():
+    result = (
+        GeoKMeans(
+            n_clusters=2,
+            random_state=0,
+            n_init="auto",
+        )
+        .fit_transform(np.asarray([[-180, -90], [180, 90]]))
+        .tolist()
+    )
+
+    assert result == [[0.0, 3.141592653589793], [3.141592653589793, 0.0]]
