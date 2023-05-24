@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.series import geocode  # noqa: F401
+from dtoolkit.geoaccessor.series import geocode
 
 
 pytest.importorskip("geopy")
@@ -25,7 +25,7 @@ pytest.importorskip("geopy")
 )
 def test_error(s, drop, error):
     with pytest.raises(error):
-        s.geocode(drop=drop)
+        geocode(s, drop=drop)
 
 
 def test_type():
