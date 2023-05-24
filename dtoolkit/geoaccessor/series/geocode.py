@@ -1,10 +1,15 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import geopandas as gpd
 import pandas as pd
 from shapely import points
 
 from dtoolkit.accessor.register import register_series_method
+
+if TYPE_CHECKING:
+    import geopy.geocoders
 
 
 @register_series_method

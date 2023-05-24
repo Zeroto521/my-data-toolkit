@@ -98,6 +98,8 @@ def reverse_geocode(
         provider, False, min_delay_seconds, max_retries, error_wait_seconds, **kwargs
     )
     return (
+        # TODO: use `get_coordinates` in geopandas 0.13
+        # `xy` is deprecated in dtoolkit 0.0.21
         s.xy(reverse=True, frame=False, name=address)
         .apply(query, geolocate=geolocate)
         .to_geoframe(s)
