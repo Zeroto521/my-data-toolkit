@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
 def geocode(
     s: pd.Series,
     /,
+    address: Hashable = "address",
     provider: str | geopy.geocoder = "photon",
     min_delay_seconds: float = 0,
     max_retries: int = 2,
@@ -23,10 +25,16 @@ def geocode(
     **kwargs,
 ) -> gpd.GeoDataFrame:
     """
-    Geocode string type Series and get a GeoDataFrame of the resulting points.
+    Geocode Series(string) and get a GeoDataFrame of the resulting points.
 
     Parameters
     ----------
+    address : Hashable
+        The name of the column to geocode.
+
+        .. note::
+            This parameter only work for DataFrame.
+
     provider : str or geopy.geocoder, default "photon"
         Specifies geocoding service to use. Default will use "photon", see the Photon's
         terms of service at: https://photon.komoot.io. Either the string name used by
@@ -51,30 +59,29 @@ def geocode(
     ModuleNotFoundError
         If don't have module named 'geopy'.
 
-    ValueError
-        If 'drop' is True and the name of Series is empty.
-
     See Also
     --------
     geopandas.tools.geocode
+    dtoolkit.geoaccessor.series.geocode
     dtoolkit.geoaccessor.dataframe.geocode
 
     Examples
     --------
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
-    >>> s = pd.Series(
-    ...     [
-    ...         "boston, ma",
-    ...         "1600 pennsylvania ave. washington, dc",
-    ...     ],
-    ...     name="address",
+    >>> df = pd.DataFrame(
+    ...     {
+    ...         "address": [
+    ...             "boston, ma",
+    ...             "1600 pennsylvania ave. washington, dc",
+    ...         ],
+    ...     }
     ... )
-    >>> s
-    0                               boston, ma
-    1    1600 pennsylvania ave. washington, dc
-    Name: address, dtype: object
-    >>> s.geocode()
+    >>> df
+                                     address
+    0                             boston, ma
+    1  1600 pennsylvania ave. washington, dc
+    >>> df.geocode("address")
                                                  address                    geometry
     0               Boston, Massachusetts, United States  POINT (-71.06051 42.35543)
     1  White House, 1600, Pennsylvania Avenue Northwe...  POINT (-77.03655 38.89770)
