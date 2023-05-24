@@ -354,16 +354,10 @@ def _kmeans_single_elkan(
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
 @doc(sklearn_kmeans_plusplus)
-def _kmeans_plusplus(X, n_clusters, x_radians, random_state, n_local_trials=None):
+def _kmeans_plusplus(X, n_clusters, x_radians, random_state):
     n_samples, n_features = X.shape
     centers = np.empty((n_clusters, n_features), dtype=X.dtype)
-
-    # Set the number of local seeding trials if none is given
-    if n_local_trials is None:
-        # This is what Arthur/Vassilvitskii tried, but did not report
-        # specific results for other than mentioning in the conclusion
-        # that it helped.
-        n_local_trials = 2 + int(np.log(n_clusters))
+    n_local_trials = 2 + int(np.log(n_clusters))
 
     # Pick first center randomly and track index of point
     center_id = random_state.randint(n_samples)
