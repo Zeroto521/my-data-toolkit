@@ -11,17 +11,16 @@ from dtoolkit.geoaccessor.index.is_h3 import apply_h3
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
 
 
-def available_if(check):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            if not check(args[0].index if isinstance(args[0], H3) else args[0]):
-                raise TypeError(
-                    f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
-                )
-            return func(*args, **kwargs)
+def available_if(func):
+    """Check the index is H3-dtype or not."""
 
-        return wrapper
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        if not is_h3(args[0].index if isinstance(args[0], H3) else args[0]):
+            raise TypeError(
+                f"For Non-H3 dtype, the '.h3.{func.__name__}' is not available.",
+            )
+        return func(*args, **kwargs)
 
     return decorator
 
@@ -68,7 +67,7 @@ class H3(NoNewAttributesMixin):
         self._freeze()
 
     @property
-    @available_if(is_h3)
+    @available_if
     def area(self) -> pd.Series:
         r"""
         Compute the spherical surface area of a specific H3 cell.
@@ -108,7 +107,7 @@ class H3(NoNewAttributesMixin):
 
         # TODO: Available only for h3 release 4.
         # @property
-        # @available_if(is_h3)
+        # @available_if
         # def edge(self) -> pd.Series:
         #     """
         #     Compute the spherical length of a specific H3 edge.
@@ -133,7 +132,7 @@ class H3(NoNewAttributesMixin):
         #     )
 
     @property
-    @available_if(is_h3)
+    @available_if
     def resolution(self) -> pd.Series:
         """
         Return the resolution of H3 cell.
@@ -203,17 +202,15 @@ class H3(NoNewAttributesMixin):
         String type H3 cell index.
 
         >>> s = pd.Series(
-        ...     ['a', 'b', 'c', 'd'],
-        ...     index=[0, 'hello', 'world', '88143541bdfffff'],
+        ...     ['a', 'b', 'c'],
+        ...     index=['hello', 'world', '88143541bdfffff'],
         ... )
         >>> s
-        0                  a
-        hello              b
-        world              c
-        88143541bdfffff    d
+        hello              a
+        world              b
+        88143541bdfffff    c
         dtype: object
         >>> s.h3.is_valid
-        0                  False
         hello              False
         world              False
         88143541bdfffff     True
@@ -251,7 +248,7 @@ class H3(NoNewAttributesMixin):
         )
 
     @property
-    @available_if(is_h3)
+    @available_if
     def is_pentagon(self) -> pd.Series:
         """
         Identify if H3 cell is a pentagon.
@@ -291,7 +288,7 @@ class H3(NoNewAttributesMixin):
         )
 
     @property
-    @available_if(is_h3)
+    @available_if
     def is_res_class_III(self) -> pd.Series:
         """
         Determine if cell has orientation "Class II" or "Class III".
@@ -338,7 +335,7 @@ class H3(NoNewAttributesMixin):
             index=self.index,
         )
 
-    @available_if(is_h3)
+    @available_if
     def to_int(self) -> pd.Index:
         """
         Converts hexadecimal string H3 cell index to 64-bit integer.
@@ -367,7 +364,7 @@ class H3(NoNewAttributesMixin):
         >>> index
         Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
         >>> index.h3.to_int()
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         """
         # TODO: Use `str_to_int` instead of `string_to_h3`
         # While h3-py release 4, `str_to_int` is not available.
@@ -378,7 +375,7 @@ class H3(NoNewAttributesMixin):
             raise TypeError(f"Expected Index(string), but got {self.index.dtype!r}.")
         return self.index.map(string_to_h3)
 
-    @available_if(is_h3)
+    @available_if
     def to_str(self) -> pd.Index:
         """
         Converts 64-bit integer H3 cell index to hexadecimal string.
@@ -405,7 +402,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_str()
         Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
         """
@@ -418,7 +415,7 @@ class H3(NoNewAttributesMixin):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
         return self.index.map(h3_to_string)
 
-    @available_if(is_h3)
+    @available_if
     def to_center_child(self, resolution: int = None) -> pd.Index:
         """
         Get the center child of cell.
@@ -447,15 +444,15 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_center_child()
-        Int64Index([617348652448612351, 618772756470956031], dtype='int64')
+        Index([617348652448612351, 618772756470956031], dtype='int64')
         """
         # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
         # While h3-py release 4, `cell_to_center_child` is not available.
         return apply_h3(self.index, "h3_to_center_child", res=resolution)
 
-    @available_if(is_h3)
+    @available_if
     def to_children(self, resolution: int = None) -> pd.Index:
         """
         Get the children of cell.
@@ -485,7 +482,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_children()  # doctest: +SKIP
         Index(
             [
@@ -515,7 +512,7 @@ class H3(NoNewAttributesMixin):
         # While h3-py release 4, `cell_to_children` is not available.
         return apply_h3(self.index, "h3_to_children", res=resolution)
 
-    @available_if(is_h3)
+    @available_if
     def to_parent(self, resolution: int = None) -> pd.Index:
         """
         Get the parent of cell.
@@ -544,15 +541,15 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_parent()
-        Int64Index([608341453197803519, 609765557230632959], dtype='int64')
+        Index([608341453197803519, 609765557230632959], dtype='int64')
         """
         # TODO: Use `cell_to_parent` instead of `h3_to_parent`
         # While h3-py release 4, `cell_to_parent` is not available.
         return apply_h3(self.index, "h3_to_parent", res=resolution)
 
-    @available_if(is_h3)
+    @available_if
     def to_points(self) -> gpd.GeoSeries:
         """
         Return the center :obj:`~shapely.Point` of H3 cell.
@@ -568,6 +565,7 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.H3.to_polygons
         dtoolkit.geoaccessor.series.H3.to_points
         dtoolkit.geoaccessor.dataframe.H3.to_polygons
+        dtoolkit.geoaccessor.geoseries.to_h3
 
         Examples
         --------
@@ -575,7 +573,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_points()
         612845052823076863  POINT (121.99637 55.00331)
         614269156845420543    POINT (99.99611 0.99919)
@@ -586,7 +584,7 @@ class H3(NoNewAttributesMixin):
         yx = np.asarray(apply_h3(self.index, "h3_to_geo").tolist())
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
-    @available_if(is_h3)
+    @available_if
     def to_polygons(self) -> gpd.GeoSeries:
         """
         Return :obj:`~shapely.Polygon` to describe the cell boundary.
@@ -602,6 +600,7 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.H3.to_points
         dtoolkit.geoaccessor.series.H3.to_polygons
         dtoolkit.geoaccessor.dataframe.H3.to_points
+        dtoolkit.geoaccessor.geoseries.to_h3
 
         Examples
         --------
@@ -609,7 +608,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index([612845052823076863, 614269156845420543])
         >>> index
-        Int64Index([612845052823076863, 614269156845420543], dtype='int64')
+        Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_polygons()
         612845052823076863  POLYGON ((121.98797 55.00408, 121.99122 54.999...
         614269156845420543  POLYGON ((100.00035 0.99630, 100.00080 1.00141...

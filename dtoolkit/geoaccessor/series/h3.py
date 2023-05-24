@@ -12,7 +12,6 @@ class H3Base(NoNewAttributesMixin):
     @property
     @doc(i_H3.area)
     def area(self) -> pd.Series:
-
         return self.data.index.h3.area
 
     # TODO: Available only for h3 release 4.
@@ -25,25 +24,21 @@ class H3Base(NoNewAttributesMixin):
     @property
     @doc(i_H3.resolution)
     def resolution(self) -> pd.Series:
-
         return self.data.index.h3.resolution
 
     @property
     @doc(i_H3.is_valid)
     def is_valid(self) -> pd.Series:
-
         return self.data.index.h3.is_valid
 
     @property
     @doc(i_H3.is_pentagon)
     def is_pentagon(self) -> pd.Series:
-
         return self.data.index.h3.is_pentagon
 
     @property
     @doc(i_H3.is_res_class_III)
     def is_res_class_III(self) -> pd.Series:
-
         return self.data.index.h3.is_res_class_III
 
     @doc(klass="Series or DataFrame")
@@ -262,7 +257,6 @@ class H3Base(NoNewAttributesMixin):
         """
         from pandas._libs.reshape import explode
 
-        # BUG: `GeoDataFrame.repeat` will return `DataFrame` not `GeoDataFrame`
         index, counts = explode(self.data.index.h3.to_children(resolution).to_numpy())
         return self.data.repeat(counts).set_axis(index)
 
@@ -337,6 +331,7 @@ class H3Base(NoNewAttributesMixin):
         h3.cell_to_latlng
         dtoolkit.geoaccessor.series.H3.to_polygons
         dtoolkit.geoaccessor.dataframe.H3.to_points
+        dtoolkit.geoaccessor.geodataframe.to_h3
 
         Examples
         --------
@@ -391,6 +386,7 @@ class H3Base(NoNewAttributesMixin):
         h3.cell_to_boundary
         dtoolkit.geoaccessor.series.H3.to_points
         dtoolkit.geoaccessor.dataframe.H3.to_polygons
+        dtoolkit.geoaccessor.geodataframe.to_h3
 
         Examples
         --------
@@ -442,25 +438,20 @@ class H3(H3Base):
 
     @doc(H3Base.to_int, klass="Series")
     def to_int(self) -> pd.Series:
-
         return super().to_int()
 
     @doc(H3Base.to_str, klass="Series")
     def to_str(self) -> pd.Series:
-
         return super().to_str()
 
     @doc(H3Base.to_center_child, klass="Series")
     def to_center_child(self, resolution: int = None) -> pd.Series:
-
         return super().to_center_child(resolution)
 
     @doc(H3Base.to_children, klass="Series")
     def to_children(self, resolution: int = None) -> pd.Series:
-
         return super().to_children(resolution)
 
     @doc(H3Base.to_parent, klass="Series")
     def to_parent(self, resolution: int = None) -> pd.Series:
-
         return super().to_parent(resolution)

@@ -16,5 +16,4 @@ def geodistance_matrix(
     other: gpd.GeoSeries | gpd.GeoDataFrame | None = None,
     radius: float = 6371008.7714150598,
 ) -> pd.DataFrame:
-
     return s_geodistance_matrix(df.geometry, other=other, radius=radius)

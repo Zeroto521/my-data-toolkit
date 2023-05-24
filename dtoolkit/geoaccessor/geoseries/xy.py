@@ -12,14 +12,10 @@ from dtoolkit.util._decorator import warning
 
 @register_geoseries_method
 @warning(
-    "The keyword argument 'x' and 'y' is deprecated, "
-    "please use 'names' instead. (Warning added DToolKit 0.0.20)",
-    category=DeprecationWarning,
-    stacklevel=3,
-)
-@warning(
-    "The keyword argument 'frame' is set to True by default. "
-    "(Warning added DToolKit 0.0.20)",
+    "The 'coordinates' is deprecated and will be removed in 0.0.22. "
+    "Please use 'GeoSeries.get_coordinates' in geopandas 0.13 instead."
+    "(Warning added DToolKit 0.0.21)",
+    DeprecationWarning,
     stacklevel=3,
 )
 def xy(
@@ -50,18 +46,6 @@ def xy(
     name : Hashable or a tuple of Hashable, default ('x', 'y')
         If ``frame=True``, the column names of the returned DataFrame,
         else the name of the returned Series.
-
-    x : str, default 'x'
-        Name of the x column if frame=True.
-
-        .. deprecated:: 0.0.20
-            Please use 'name' instead.
-
-    y : str, default 'y'
-        Name of the y column if frame=True.
-
-        .. deprecated:: 0.0.20
-            Please use 'name' instead.
 
     Returns
     -------

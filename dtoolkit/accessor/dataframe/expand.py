@@ -74,7 +74,6 @@ def expand(
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
-
     return pd.concat(
         (
             s_expand(

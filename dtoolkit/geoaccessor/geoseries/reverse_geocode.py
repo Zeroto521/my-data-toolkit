@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 from typing import Hashable
 
 import geopandas as gpd
@@ -7,6 +8,9 @@ from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.series.geocode import geolocator
+
+if TYPE_CHECKING:
+    import geopy.geocoders
 
 
 @register_geoseries_method
@@ -73,7 +77,6 @@ def reverse_geocode(
     ...     pd.Series(
     ...         [
     ...             "POINT (-71.0594869 42.3584697)",
-    ...             "POINT (-77.0365305 38.8977332)",
     ...         ],
     ...         name="wkt",
     ...     )
@@ -83,11 +86,9 @@ def reverse_geocode(
     >>> df
                          geometry
     0  POINT (-71.05949 42.35847)
-    1  POINT (-77.03653 38.89773)
     >>> df.reverse_geocode()
-                                                 address                    geometry
-    0  18-32, Tremont Street, 02108, Tremont Street, ...  POINT (-71.05977 42.35860)
-    1  Pennsylvania Avenue Northwest, 20006, Pennsylv...  POINT (-77.03655 38.89772)
+                         geometry                                            address
+    0  POINT (-71.05977 42.35860)  18-32, Tremont Street, 02108, Tremont Street, ...
     """
 
     if s.crs != 4326:
