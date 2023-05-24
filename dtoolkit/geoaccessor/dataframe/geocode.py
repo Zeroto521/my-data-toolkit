@@ -27,7 +27,6 @@ def geocode(
     error_wait_seconds: float = 5,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-
     return pd.concat(
         (
             df.drop(columns=address),
