@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
 from typing import Hashable
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
@@ -25,7 +25,7 @@ def reverse_geocode(
     min_delay_seconds: float = 0,
     max_retries: int = 2,
     error_wait_seconds: float = 5,
-    **kwargs
+    **kwargs,
 ) -> gpd.GeoDataFrame:
     return pd.concat(
         (
@@ -37,9 +37,8 @@ def reverse_geocode(
                 min_delay_seconds=min_delay_seconds,
                 max_retries=max_retries,
                 error_wait_seconds=error_wait_seconds,
-                **kwargs
+                **kwargs,
             ),
         ),
         axis=1,
     ).to_geoframe()
-
