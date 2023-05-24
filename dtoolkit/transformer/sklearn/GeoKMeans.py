@@ -205,7 +205,7 @@ class GeoKMeans(KMeans):
                 best_n_iter = n_iter_
 
         if not sp.issparse(X):
-            if not self.copy_x:
+            if not self.copy_x:  # pragma: no cover
                 X += X_mean
             best_centers += X_mean
 
