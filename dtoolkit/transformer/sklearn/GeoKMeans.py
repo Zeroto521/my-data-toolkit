@@ -117,33 +117,16 @@ class GeoKMeans(KMeans):
 
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
     @doc(KMeans._init_centroids)
-    def _init_centroids(
-        self,
-        X,
-        x_radians,
-        init,
-        random_state,
-        init_size=None,
-        n_centroids=None,
-    ):
-        n_samples = X.shape[0]
-        n_clusters = self.n_clusters if n_centroids is None else n_centroids
-
-        if init_size is not None and init_size < n_samples:
-            init_indices = random_state.randint(0, n_samples, init_size)
-            X = X[init_indices]
-            x_radians = x_radians[init_indices]
-            n_samples = X.shape[0]
-
+    def _init_centroids(self, X, x_radians, init, random_state):
         if isinstance(init, str) and init == "k-means++":
-            centers, _ = _kmeans_plusplus(X, n_clusters, x_radians, random_state)
+            centers, _ = _kmeans_plusplus(X, self.n_clusters, x_radians, random_state)
         elif isinstance(init, str) and init == "random":
-            seeds = random_state.permutation(n_samples)[:n_clusters]
+            seeds = random_state.permutation(X.shape[0])[: self.n_clusters]
             centers = X[seeds]
         elif _is_arraylike_not_scalar(self.init):  # pragma: no cover
             centers = init
         elif callable(init):  # pragma: no cover
-            centers = init(X, n_clusters, random_state=random_state)
+            centers = init(X, self.n_clusters, random_state=random_state)
             centers = check_array(centers, dtype=X.dtype, copy=False, order="C")
             self._validate_center_shape(X, centers)
 
