@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from typing import Hashable
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
@@ -7,11 +10,15 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.series import geocode as s_geocode
 
 
+if TYPE_CHECKING:
+    import geopy.geocoders
+
+
 @register_dataframe_method
 def geocode(
     df: pd.DataFrame,
     /,
-    provider: str | "geopy.geocoder" = "photon",
+    provider: str | geopy.geocoder = "photon",
     min_delay_seconds: float = 0,
     max_retries: int = 2,
     error_wait_seconds: float = 5,
