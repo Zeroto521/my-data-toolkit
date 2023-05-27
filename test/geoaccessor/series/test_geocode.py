@@ -44,7 +44,7 @@ def test_type():
 
 
 def test_work():
-    s = pd.Series([".", "South Pole"], name="address").geocode()
+    result = pd.Series([".", "South Pole"], name="address").geocode()
     expected = gpd.GeoDataFrame(
         {
             "address": [".", "South Pole"],
