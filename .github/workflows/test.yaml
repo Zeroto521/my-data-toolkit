@@ -64,11 +64,10 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: mamba-org/provision-with-micromamba@v16
+      - uses: mamba-org/setup-micromamba@v1.4.1
         with:
           environment-file: ${{ matrix.env }}
-          extra-specs: |
-            python=${{ matrix.python-version }}
+          create-args: python=${{ matrix.python-version }}
 
       - name: Check and Log Environment
         run: make info
