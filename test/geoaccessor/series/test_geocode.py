@@ -1,7 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
-from geopandas import assert_geodataframe_equal
+from geopandas.testing import assert_geodataframe_equal
 
 from dtoolkit.geoaccessor.series import geocode
 
