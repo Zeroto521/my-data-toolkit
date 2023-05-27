@@ -62,7 +62,7 @@ def test_geolocator():
     from geopy.geocoders import get_geocoder_for_service
 
     result = pd.Series(["South Pole"], name="address").geocode(
-        provider=get_geocoder_for_service("photon")
+        provider=get_geocoder_for_service("photon"),
     )
     expected = gpd.GeoDataFrame(
         {
