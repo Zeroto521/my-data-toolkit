@@ -1,6 +1,7 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from geopandas import assert_geodataframe_equal
 
 from dtoolkit.geoaccessor.series import geocode
 
@@ -40,3 +41,17 @@ def test_type():
     result = s.geocode()
 
     assert isinstance(result, gpd.GeoDataFrame)
+
+
+def test_work():
+    s = pd.Series([None, "South Pole"], name="address")
+    expected = gpd.GeoDataFrame(
+        {
+            "address": [None, "South Pole"],
+            "geometry": gpd.GeoSeries.from_wkt(
+                ["POINT (-90 0)", "POINT (-180 -90)"], crs=4326
+            ),
+        }
+    )
+
+    assert_geodataframe_equal(s.geocode(), expected)

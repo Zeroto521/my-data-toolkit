@@ -106,7 +106,7 @@ def query(address: str, geolocate) -> tuple[float, float] | tuple[None, None]:
         loc = geolocate(address)
         return loc.longitude, loc.latitude
 
-    except (GeocoderQueryError, ValueError):
+    except (GeocoderQueryError, ValueError, AttributeError):
         return None, None
 
 

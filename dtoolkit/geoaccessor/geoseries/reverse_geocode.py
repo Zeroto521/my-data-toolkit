@@ -112,5 +112,5 @@ def query(point: tuple[float, float], geolocate) -> str | None:
     try:
         return geolocate(point).address
 
-    except (GeocoderQueryError, ValueError):
+    except (GeocoderQueryError, ValueError, AttributeError):
         return None
