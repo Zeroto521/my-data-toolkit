@@ -82,9 +82,9 @@ def geocode(
     0                             boston, ma
     1  1600 pennsylvania ave. washington, dc
     >>> df.geocode("address")
-                                                 address                    geometry
-    0               Boston, Massachusetts, United States  POINT (-71.06051 42.35543)
-    1  White House, 1600, Pennsylvania Avenue Northwe...  POINT (-77.03655 38.89770)
+                                     address                    geometry
+    0                             boston, ma  POINT (-71.06051 42.35543)
+    1  1600 pennsylvania ave. washington, dc  POINT (-77.03655 38.89770)
     """
 
     if s.name is None:

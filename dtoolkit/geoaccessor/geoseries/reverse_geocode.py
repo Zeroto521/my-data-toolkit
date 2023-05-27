@@ -87,8 +87,8 @@ def reverse_geocode(
                          geometry
     0  POINT (-71.05949 42.35847)
     >>> df.reverse_geocode()
-                         geometry                                            address
-    0  POINT (-71.05977 42.35860)  18-32, Tremont Street, 02108, Tremont Street, ...
+                                                 address                    geometry
+    0  18-32, Tremont Street, 02108, Tremont Street, ...  POINT (-71.05949 42.35847)
     """
 
     if s.crs != 4326:
