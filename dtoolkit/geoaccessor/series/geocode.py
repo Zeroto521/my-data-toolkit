@@ -33,7 +33,7 @@ def geocode(
         The name of the column to geocode.
 
         .. note::
-            This parameter only work for DataFrame.
+            This parameter only works for DataFrame.
 
     provider : str or geopy.geocoder, default "photon"
         Specifies geocoding service to use. Default will use "photon", see the Photon's
