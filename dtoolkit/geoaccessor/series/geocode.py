@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
-from shapely import points
+from shapely import Point
 
 from dtoolkit.accessor.register import register_series_method
 
@@ -96,18 +96,18 @@ def geocode(
     geolocate = geolocator(
         provider, True, min_delay_seconds, max_retries, error_wait_seconds, **kwargs
     )
-    return s.to_geoframe(points(s.apply(query, geolocate=geolocate).tolist()), crs=4326)
+    return s.to_geoframe(s.apply(query, geolocate=geolocate), crs=4326)
 
 
-def query(address: str, geolocate) -> tuple[float, float] | tuple[None, None]:
+def query(address: str, geolocate) -> None | Point:
     from geopy.geocoders.base import GeocoderQueryError
 
     try:
         loc = geolocate(address)
-        return loc.longitude, loc.latitude
+        return Point(loc.longitude, loc.latitude)
 
     except (GeocoderQueryError, ValueError, AttributeError):
-        return None, None
+        return None
 
 
 def geolocator(

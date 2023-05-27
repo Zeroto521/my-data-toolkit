@@ -44,12 +44,12 @@ def test_type():
 
 
 def test_work():
-    s = pd.Series([None, "South Pole"], name="address")
+    s = pd.Series([".", "South Pole"], name="address")
     expected = gpd.GeoDataFrame(
         {
-            "address": [None, "South Pole"],
+            "address": [".", "South Pole"],
             "geometry": gpd.GeoSeries.from_wkt(
-                ["POINT (-90 0)", "POINT (-180 -90)"],
+                [None, "POINT (0 -90)"],
                 crs=4326,
             ),
         },
