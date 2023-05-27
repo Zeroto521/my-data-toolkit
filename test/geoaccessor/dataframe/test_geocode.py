@@ -17,6 +17,6 @@ def test_type():
             ],
         },
     )
-    result = geocode(df, "name", drop=True)
+    result = geocode(df, "name")
 
     assert isinstance(result, gpd.GeoDataFrame)
