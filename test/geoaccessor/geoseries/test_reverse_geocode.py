@@ -5,6 +5,9 @@ from geopandas.testing import assert_geodataframe_equal
 from dtoolkit.geoaccessor.geoseries import reverse_geocode
 
 
+pytest.importorskip("geopy")
+
+
 @pytest.mark.parametrize(
     "s, error",
     [
