@@ -49,9 +49,10 @@ def test_work():
         {
             "address": [None, "South Pole"],
             "geometry": gpd.GeoSeries.from_wkt(
-                ["POINT (-90 0)", "POINT (-180 -90)"], crs=4326
+                ["POINT (-90 0)", "POINT (-180 -90)"],
+                crs=4326,
             ),
-        }
+        },
     )
 
     assert_geodataframe_equal(s.geocode(), expected)
