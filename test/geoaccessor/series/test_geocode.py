@@ -44,7 +44,7 @@ def test_type():
 
 
 def test_work():
-    s = pd.Series([".", "South Pole"], name="address")
+    s = pd.Series([".", "South Pole"], name="address").geocode()
     expected = gpd.GeoDataFrame(
         {
             "address": [".", "South Pole"],
@@ -55,4 +55,21 @@ def test_work():
         },
     )
 
-    assert_geodataframe_equal(s.geocode(), expected)
+    assert_geodataframe_equal(result, expected)
+
+
+def test_geolocator():
+    from geopy.geocoders import get_geocoder_for_service
+
+    result = (
+        pd.Series(["South Pole"], name="address")
+        .geocode(provider=get_geocoder_for_service("photon"))
+    )
+    expected = gpd.GeoDataFrame(
+        {
+            "address": ["South Pole"],
+            "geometry": gpd.GeoSeries.from_wkt(["POINT (0 -90)"], crs=4326),
+        },
+    )
+
+    assert_geodataframe_equal(, expected)
