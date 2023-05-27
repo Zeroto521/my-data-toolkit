@@ -72,4 +72,4 @@ def test_geolocator():
         },
     )
 
-    assert_geodataframe_equal(, expected)
+    assert_geodataframe_equal(result, expected)
