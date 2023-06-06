@@ -15,4 +15,5 @@ from dtoolkit.transformer.pandas import GetTF  # noqa: F401
 from dtoolkit.transformer.pandas import QueryTF  # noqa: F401
 from dtoolkit.transformer.pandas import ReplaceTF  # noqa: F401
 from dtoolkit.transformer.pandas import SelectDtypesTF  # noqa: F401
+from dtoolkit.transformer.sklearn import GeoKMeans  # noqa: F401
 from dtoolkit.transformer.sklearn import OneHotEncoder  # noqa: F401
