@@ -94,7 +94,12 @@ def geocode(
         )
 
     geolocate = geolocator(
-        provider, True, min_delay_seconds, max_retries, error_wait_seconds, **kwargs
+        provider,
+        True,
+        min_delay_seconds,
+        max_retries,
+        error_wait_seconds,
+        **kwargs,
     )
     return s.to_geoframe(s.apply(query, geolocate=geolocate), crs=4326)
 

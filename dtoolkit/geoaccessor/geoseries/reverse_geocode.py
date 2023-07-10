@@ -95,7 +95,12 @@ def reverse_geocode(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     geolocate = geolocator(
-        provider, False, min_delay_seconds, max_retries, error_wait_seconds, **kwargs
+        provider,
+        False,
+        min_delay_seconds,
+        max_retries,
+        error_wait_seconds,
+        **kwargs,
     )
     return (
         # TODO: use `get_coordinates` in geopandas 0.13
