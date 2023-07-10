@@ -28,5 +28,5 @@ def toposimplify(
                 simplify_with=simplify_with,
                 prevent_oversimplify=prevent_oversimplify,
             ),
-        }
+        },
     )
