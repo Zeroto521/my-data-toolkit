@@ -30,5 +30,5 @@ def geobuffer(
                 distance,
                 **kwargs,
             ),
-        }
+        },
     )
