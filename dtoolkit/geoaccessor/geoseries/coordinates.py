@@ -67,7 +67,7 @@ def coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     0                [[0.0, 0.0]]
     1    [[2.0, 2.0], [4.0, 4.0]]
     2                          []
-    Name: geometry, dtype: object
+    dtype: object
     """
 
     return s.apply(get_coordinates, **kwargs)

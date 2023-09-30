@@ -67,7 +67,7 @@ def duplicated_geometry(
     0    False
     1     True
     2    False
-    Name: geometry, dtype: bool
+    dtype: bool
 
     Drop duplicated geometries by sptial relation.
 
