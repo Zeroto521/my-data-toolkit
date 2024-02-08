@@ -18,7 +18,6 @@ from sklearn.utils.metadata_routing import process_routing
 from dtoolkit._typing import OneDimArray
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.transformer import Transformer
-from dtoolkit.transformer._compat import SKLEARN_GE_14
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
