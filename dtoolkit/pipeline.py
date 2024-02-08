@@ -12,6 +12,8 @@ from sklearn.pipeline import Pipeline as SKPipeline
 from sklearn.utils import _print_elapsed_time
 from sklearn.utils.metaestimators import available_if
 from sklearn.utils.validation import check_memory
+from sklearn.utils.metadata_routing import _raise_for_params
+from sklearn.utils.metadata_routing import process_routing
 
 from dtoolkit._typing import OneDimArray
 from dtoolkit._typing import SeriesOrFrame
@@ -20,6 +22,7 @@ from dtoolkit.transformer._compat import SKLEARN_GE_14
 from dtoolkit.transformer._util import transform_array_to_frame
 from dtoolkit.transformer._util import transform_frame_to_series
 from dtoolkit.transformer._util import transform_series_to_frame
+
 
 __all__ = (
     "Pipeline",
@@ -52,7 +55,7 @@ class Pipeline(SKPipeline):
     """
 
     @doc(SKPipeline._fit)
-    def _fit(self, X, y=None, **fit_params_steps) -> np.ndarray | SeriesOrFrame:
+    def _fit(self, X, y=None, routed_params=None) -> np.ndarray | SeriesOrFrame:
         # shallow copy of steps - this should really be steps_
         self.steps = list(self.steps)
         self._validate_steps()
@@ -69,13 +72,7 @@ class Pipeline(SKPipeline):
                 with _print_elapsed_time("Pipeline", self._log_message(step_idx)):
                     continue
 
-            if (
-                hasattr(memory, "location")
-                and memory.location is None
-                or not hasattr(memory, "location")
-                and hasattr(memory, "cachedir")
-                and memory.cachedir is None
-            ):
+            if hasattr(memory, "location") and memory.location is None:
                 # we do not clone when caching is disabled to
                 # preserve backward compatibility
                 cloned_transformer = transformer
@@ -90,7 +87,7 @@ class Pipeline(SKPipeline):
                 None,
                 message_clsname="Pipeline",
                 message=self._log_message(step_idx),
-                **fit_params_steps[name],
+                params=routed_params[name],
             )
             X = transform_array_to_frame(Xt, X)
 
@@ -106,20 +103,27 @@ class Pipeline(SKPipeline):
 
     @available_if(_can_transform)
     @doc(SKPipeline.transform)
-    def transform(self, X) -> np.ndarray | SeriesOrFrame:
+    def transform(self, X, **params) -> np.ndarray | SeriesOrFrame:
+        _raise_for_params(params, self, "transform")
+
+        # not branching here since params is only available if
+        # enable_metadata_routing=True
+        routed_params = process_routing(self, "transform", **params)
+
         Xt = X
-        for _, _, transformer in self._iter():
-            Xt = transform_series_to_frame(Xt)
-            Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
+        for _, name, transformer in self._iter():
+            Xt = transform_array_to_frame(
+                transformer.transform(transform_series_to_frame(Xt)),
+                **routed_params[name].transform,
+            )
 
         return transform_frame_to_series(Xt)
 
     @doc(SKPipeline.fit_transform)
-    def fit_transform(self, X, y=None, **fit_params) -> np.ndarray | SeriesOrFrame:
-        fit_params_steps = self._check_method_params("fit_predict", fit_params)
+    def fit_transform(self, X, y=None, **params) -> np.ndarray | SeriesOrFrame:
+        routed_params = self._check_method_params(method="fit_transform", props=params)
 
-        X = transform_series_to_frame(X)  # transform fit's input to DataFrame
-        X = self._fit(X, y, **fit_params_steps)
+        X = self._fit(transform_series_to_frame(X), y, routed_params)
         X = transform_series_to_frame(X)  # transform fit's output to DataFrame
 
         last_step = self._final_estimator
@@ -127,58 +131,79 @@ class Pipeline(SKPipeline):
             if last_step == "passthrough":
                 return X
 
-            fit_params_last_step = fit_params_steps[self.steps[-1][0]]
+            last_step_params = routed_params[self.steps[-1][0]]
             if hasattr(last_step, "fit_transform"):
-                Xt = last_step.fit_transform(X, y, **fit_params_last_step)
+                Xt = last_step.fit_transform(X, y, **last_step_params["fit_transform"])
             else:
-                Xt = last_step.fit(X, y, **fit_params_last_step).transform(X)
+                Xt = last_step.fit(Xt, y, **last_step_params["fit"]).transform(
+                    X, **last_step_params["transform"]
+                )
 
-            Xt = transform_array_to_frame(Xt, X)
-            return transform_frame_to_series(Xt)
+            return transform_frame_to_series(transform_array_to_frame(Xt, X))
 
     def _can_inverse_transform(self):
         return super()._can_inverse_transform()
 
     @available_if(_can_inverse_transform)
     @doc(SKPipeline.inverse_transform)
-    def inverse_transform(self, Xt) -> np.ndarray | SeriesOrFrame:
+    def inverse_transform(self, Xt, **params) -> np.ndarray | SeriesOrFrame:
+        _raise_for_params(params, self, "inverse_transform")
+
+        # we don't have to branch here, since params is only non-empty if
+        # enable_metadata_routing=True.
+        routed_params = process_routing(self, "inverse_transform", **params)
         reverse_iter = reversed(list(self._iter()))
 
-        for _, _, transformer in reverse_iter:
-            Xt = transform_series_to_frame(Xt)
-            Xt = transform_array_to_frame(transformer.inverse_transform(Xt), Xt)
+        for _, name, transformer in reverse_iter:
+            Xt = transform_array_to_frame(
+                transformer.inverse_transform(transform_series_to_frame(Xt)),
+                **routed_params[name].inverse_transform,
+            )
 
         return transform_frame_to_series(Xt)
 
     @available_if(_final_estimator_has("predict"))
     @doc(SKPipeline.predict)
-    def predict(self, X, **predict_params) -> OneDimArray:
+    def predict(self, X, **params) -> OneDimArray:
         Xt = X
-        for _, _, transformer in self._iter(with_final=False):
-            Xt = transform_series_to_frame(Xt)
-            Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
+
+        if not _routing_enabled():
+            for _, name, transform in self._iter(with_final=False):
+                Xt = transform_series_to_frame(Xt)
+                Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
+
+        else:
+            # metadata routing enabled
+            routed_params = process_routing(self, "predict", **params)
+            for _, name, transform in self._iter(with_final=False):
+                Xt = transform_series_to_frame(Xt)
+                Xt = transform_array_to_frame(
+                    transform.transform(Xt, **routed_params[name].transform), Xt
+                )
+
+            params = routed_params[self.steps[-1][0]].predict
 
         Xt = transform_series_to_frame(Xt)
         Xt = transform_array_to_frame(
-            self.steps[-1][1].predict(Xt, **predict_params),
+            self.steps[-1][1].predict(Xt, **params),
             Xt,
         )
         return transform_frame_to_series(Xt, drop_name=True)
 
     @available_if(_final_estimator_has("fit_predict"))
     @doc(SKPipeline.predict)
-    def fit_predict(self, X, y=None, **fit_params) -> OneDimArray:
-        fit_params_steps = self._check_method_params("fit_predict", fit_params)
-        Xt = self._fit(X, y, **fit_params_steps)
+    def fit_predict(self, X, y=None, **params) -> OneDimArray:
+        routed_params = self._check_method_params(method="fit_predict", props=params)
+        Xt = self._fit(X, y, routed_params)
 
-        fit_params_last_step = fit_params_steps[self.steps[-1][0]]
+        params_last_step = routed_params[self.steps[-1][0]]
         with _print_elapsed_time("Pipeline", self._log_message(len(self.steps) - 1)):
             y_pred = self.steps[-1][1].fit_predict(
                 transform_series_to_frame(Xt),
-                y or X,  # if y is None use X to transform y_pred
+                y,
                 **fit_params_last_step,
             )
-            y_pred = transform_array_to_frame(y_pred, y or X)
+            y_pred = transform_array_to_frame(y_pred, y or Xt)
 
         return transform_frame_to_series(y_pred)
 
