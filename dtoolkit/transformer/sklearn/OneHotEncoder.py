@@ -28,7 +28,7 @@ class OneHotEncoder(SKOneHotEncoder):
         Returned column would hook parent labels if ``True`` else
         would be ``categories``.
 
-    sparse : bool, default False
+    sparse_out : bool, default False
         Will return sparse matrix if ``True`` else will return an array.
 
     Other parameters
@@ -87,8 +87,6 @@ class OneHotEncoder(SKOneHotEncoder):
         min_frequency: int | float = None,
         max_categories: int = None,
     ):
-        # TODO: Remove `sparse` in sklearn 1.4.
-        # In the latest (>= 1.1.2) sklearn version, `sparse` is deprecated.
         super().__init__(
             categories=categories,
             drop=drop,
