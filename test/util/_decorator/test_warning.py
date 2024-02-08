@@ -1,5 +1,6 @@
 import pytest
 
+from warnings import catch_warnings
 from dtoolkit.util._decorator import warning
 
 
@@ -20,7 +21,7 @@ def test_work(args, kwargs, message, exception):
     def func(*args, **kwargs):
         return dict(args=args, kwargs=kwargs)
 
-    with pytest.catch_warnings(exception, match=message):
+    with catch_warnings(exception, match=message):
         result = func(*args, **kwargs)
 
     assert isinstance(result, dict)
