@@ -10,10 +10,10 @@ from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.pipeline import Pipeline as SKPipeline
 from sklearn.utils import _print_elapsed_time
-from sklearn.utils.metaestimators import available_if
-from sklearn.utils.validation import check_memory
 from sklearn.utils.metadata_routing import _raise_for_params
 from sklearn.utils.metadata_routing import process_routing
+from sklearn.utils.metaestimators import available_if
+from sklearn.utils.validation import check_memory
 
 from dtoolkit._typing import OneDimArray
 from dtoolkit._typing import SeriesOrFrame
@@ -135,7 +135,8 @@ class Pipeline(SKPipeline):
                 Xt = last_step.fit_transform(X, y, **last_step_params["fit_transform"])
             else:
                 Xt = last_step.fit(Xt, y, **last_step_params["fit"]).transform(
-                    X, **last_step_params["transform"]
+                    X,
+                    **last_step_params["transform"],
                 )
 
             return transform_frame_to_series(transform_array_to_frame(Xt, X))
@@ -177,7 +178,8 @@ class Pipeline(SKPipeline):
             for _, name, transform in self._iter(with_final=False):
                 Xt = transform_series_to_frame(Xt)
                 Xt = transform_array_to_frame(
-                    transform.transform(Xt, **routed_params[name].transform), Xt
+                    transform.transform(Xt, **routed_params[name].transform),
+                    Xt,
                 )
 
             params = routed_params[self.steps[-1][0]].predict
