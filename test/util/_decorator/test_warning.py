@@ -1,6 +1,7 @@
+from warnings import catch_warnings
+
 import pytest
 
-from warnings import catch_warnings
 from dtoolkit.util._decorator import warning
 
 
