@@ -32,6 +32,7 @@ jobs:
           - "3.9"
           - "3.10"
           - "3.11"
+          - "3.12"
         env: [ci/env/latest.yaml]
         include:
           - env: ci/env/38-minimal.yaml
