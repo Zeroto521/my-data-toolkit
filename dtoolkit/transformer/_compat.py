@@ -1,6 +1,5 @@
 from packaging.version import Version
 from pandas import __version__ as pandas_version
-from sklearn import __version__ as sklearn_version
 
 
 # -----------------------------------------------------------------------------
