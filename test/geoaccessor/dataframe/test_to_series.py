@@ -2,6 +2,7 @@
 This is a test for `dtoolkit.accessor.dataframe.to_series`,
 while the input is `GeoDataFrame`.
 """
+
 import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
