@@ -112,9 +112,9 @@ class Pipeline(SKPipeline):
 
         Xt = X
         for _, name, transformer in self._iter():
+            Xt = transform_series_to_frame(Xt)
             Xt = transform_array_to_frame(
-                transformer.transform(transform_series_to_frame(Xt)),
-                **routed_params[name].transform,
+                transformer.transform(Xt, **routed_params[name].transform), Xt
             )
 
         return transform_frame_to_series(Xt)
