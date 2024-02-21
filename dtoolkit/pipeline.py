@@ -11,6 +11,7 @@ from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.pipeline import Pipeline as SKPipeline
 from sklearn.utils import _print_elapsed_time
 from sklearn.utils.metadata_routing import _raise_for_params
+from sklearn.utils.metadata_routing import _routing_enabled
 from sklearn.utils.metadata_routing import process_routing
 from sklearn.utils.metaestimators import available_if
 from sklearn.utils.validation import check_memory
