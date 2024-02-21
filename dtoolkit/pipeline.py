@@ -172,7 +172,7 @@ class Pipeline(SKPipeline):
         Xt = X
 
         if not _routing_enabled():
-            for _, name, transform in self._iter(with_final=False):
+            for _, _, transformer in self._iter(with_final=False):
                 Xt = transform_series_to_frame(Xt)
                 Xt = transform_array_to_frame(transformer.transform(Xt), Xt)
 
