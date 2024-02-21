@@ -203,7 +203,7 @@ class Pipeline(SKPipeline):
             y_pred = self.steps[-1][1].fit_predict(
                 transform_series_to_frame(Xt),
                 y,
-                **fit_params_last_step,
+                **params_last_step.get("fit_predict", {}),
             )
             y_pred = transform_array_to_frame(y_pred, y or Xt)
 
