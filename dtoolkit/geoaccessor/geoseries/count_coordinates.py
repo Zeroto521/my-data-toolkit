@@ -49,7 +49,7 @@ def count_coordinates(s: gpd.GeoSeries, /) -> pd.Series:
     0    1
     1    2
     2    0
-    dtype: int64
+    Name: geometry, dtype: int64
     """
     from shapely import count_coordinates
 
