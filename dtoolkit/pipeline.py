@@ -123,20 +123,24 @@ class Pipeline(SKPipeline):
     def fit_transform(self, X, y=None, **params) -> np.ndarray | SeriesOrFrame:
         routed_params = self._check_method_params(method="fit_transform", props=params)
 
-        Xt = self._fit(transform_series_to_frame(X), y, routed_params)
-        Xt = transform_series_to_frame(Xt)  # transform fit's output to DataFrame
+        X = self._fit(transform_series_to_frame(X), y, routed_params)
+        X = transform_series_to_frame(X)  # transform fit's output to DataFrame
 
         last_step = self._final_estimator
         with _print_elapsed_time("Pipeline", self._log_message(len(self.steps) - 1)):
             if last_step == "passthrough":
-                return Xt
+                return X
 
             last_step_params = routed_params[self.steps[-1][0]]
             if hasattr(last_step, "fit_transform"):
-                Xt = last_step.fit_transform(Xt, y, **last_step_params["fit_transform"])
+                Xt = last_step.fit_transform(X, y, **last_step_params["fit_transform"])
             else:
-                Xt = last_step.fit(Xt, y, **last_step_params["fit"]).transform(
-                    Xt,
+                Xt = last_step.fit(
+                    X,
+                    y,
+                    **last_step_params["fit"],
+                ).transform(
+                    X,
                     **last_step_params["transform"],
                 )
 
