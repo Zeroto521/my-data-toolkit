@@ -46,6 +46,10 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.11"
+          - env: ci/env/312-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.12"
           - env: ci/env/latest-base.yaml
             os: ubuntu-latest
             dev: false
