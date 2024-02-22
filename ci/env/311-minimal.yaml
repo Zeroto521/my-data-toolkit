@@ -6,7 +6,7 @@ dependencies:
   # required
   - pandas=1.5.1
   # optional
-  - scikit-learn=1.2
+  - scikit-learn=1.4
   - packaging
   - geopandas=0.12.1
   # testing
