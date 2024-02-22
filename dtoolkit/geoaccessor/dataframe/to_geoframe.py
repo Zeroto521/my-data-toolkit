@@ -53,7 +53,8 @@ def to_geoframe(
     >>> import pandas as pd
     >>> df_point = (
     ...     pd.DataFrame({"x": [122, 100], "y":[55, 1]})
-    ...     .from_xy("x", "y", drop=True, crs=4326)
+    ...     .from_xy("x", "y", crs=4326)
+    ...     .drop(columns=["x", "y"])
     ... )
     >>> df_point
                          geometry
@@ -100,15 +101,6 @@ def to_geoframe(
     - Prime Meridian: Greenwich
     """
 
-    return (
-        gpd.GeoDataFrame(
-            # Avoid mutating the original DataFrame.
-            # https://github.com/geopandas/geopandas/issues/1179
-            df.copy(),
-            crs=crs,
-            geometry=geometry,
-            **kwargs,
-        )
-        if not isinstance(df, gpd.GeoDataFrame)
-        else df
-    )
+    # Use `.copy` to avoid mutating the original DataFrame.
+    # https://github.com/geopandas/geopandas/issues/1179
+    return gpd.GeoDataFrame(df.copy(), geometry=geometry, crs=crs, **kwargs)

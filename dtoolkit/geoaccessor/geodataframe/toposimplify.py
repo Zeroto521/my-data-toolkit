@@ -19,7 +19,6 @@ def toposimplify(
     simplify_with: Literal["shapely", "simplification"] = "shapely",
     prevent_oversimplify: bool = True,
 ) -> gpd.GeoDataFrame:
-
     return df.assign(
         **{
             df.geometry.name: s_toposimplify(
@@ -29,5 +28,5 @@ def toposimplify(
                 simplify_with=simplify_with,
                 prevent_oversimplify=prevent_oversimplify,
             ),
-        }
+        },
     )

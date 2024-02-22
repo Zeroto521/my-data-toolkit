@@ -49,7 +49,7 @@ def geodistance(
 
     Returns
     -------
-    Series
+    Series(float64)
         The values are the great-circle distances and its unit is meters.
 
     Raises
@@ -81,7 +81,7 @@ def geodistance(
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> df = (
     ...     pd.DataFrame({"x": [122, 100], "y":[55, 1]})
     ...     .from_xy("x", "y", crs=4326)
@@ -129,9 +129,14 @@ def geodistance(
     else:
         raise TypeError(f"Unknown type: {type(other).__name__!r}.")
 
-    x1, y1 = s.x.to_numpy(), s.y.to_numpy()
     return pd.Series(
-        radius * haversine(x1, y1, x2, y2),
+        radius
+        * haversine(
+            s.x.to_numpy(),
+            s.y.to_numpy(),
+            x2,
+            y2,
+        ),
         index=s.index,
     )
 

@@ -1,11 +1,11 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.series import from_wkt  # noqa: F401
+from dtoolkit.geoaccessor.series import from_wkt
 
 
 @pytest.mark.parametrize(
-    "s, drop, error",
+    "s, error",
     [
         (
             pd.Series(
@@ -15,11 +15,10 @@ from dtoolkit.geoaccessor.series import from_wkt  # noqa: F401
                     "POINT (3 3)",
                 ],
             ),
-            False,
             ValueError,
         ),
     ],
 )
-def test_error(s, drop, error):
+def test_error(s, error):
     with pytest.raises(error):
-        s.from_wkt(drop=drop)
+        from_wkt(s)

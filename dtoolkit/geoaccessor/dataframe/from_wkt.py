@@ -6,8 +6,9 @@ from typing import TYPE_CHECKING
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.accessor.dataframe import drop_or_not  # noqa: F401
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.geoaccessor.dataframe.to_geoframe import to_geoframe
+
 
 if TYPE_CHECKING:
     from pyproj import CRS
@@ -19,7 +20,6 @@ def from_wkt(
     /,
     geometry: Hashable,
     crs: CRS | str | int = None,
-    drop: bool = False,
 ) -> gpd.GeoDataFrame:
     """
     Generate :obj:`~geopandas.GeoDataFrame` of geometries from 'WKT' column of
@@ -36,9 +36,6 @@ def from_wkt(
         Coordinate Reference System of the geometry objects. Can be anything
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
-
-    drop : bool, default False
-        Don't contain original 'WKT' column anymore.
 
     Returns
     -------
@@ -78,20 +75,12 @@ def from_wkt(
     0  POINT (1 1)  POINT (1.00000 1.00000)
     1  POINT (2 2)  POINT (2.00000 2.00000)
     2  POINT (3 3)  POINT (3.00000 3.00000)
-
-    Drop original 'wkt' column.
-
-    >>> df.from_wkt("wkt", drop=True)
-                      geometry
-    0  POINT (1.00000 1.00000)
-    1  POINT (2.00000 2.00000)
-    2  POINT (3.00000 3.00000)
     """
 
     # Avoid mutating the original DataFrame.
     # https://github.com/geopandas/geopandas/issues/1179
-    return gpd.GeoDataFrame(
-        df.copy().drop_or_not(drop=drop, columns=geometry),
+    return to_geoframe(
+        df.copy(),
         geometry=gpd.GeoSeries.from_wkt(df[geometry]),
         crs=crs,
     )

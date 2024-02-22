@@ -2,12 +2,12 @@ name: dtoolkit-dev
 channels:
   - conda-forge
 dependencies:
-  - python >= 3.8
+  - python >= 3.9
 
   # required
   - pandas >= 1.5.1
   # optional
-  - scikit-learn >= 1.1
+  - scikit-learn >= 1.2
   - packaging
   - geopandas >= 0.12.1
   - geopy

@@ -117,5 +117,4 @@ def register_geoseries_accessor(name: str):
 
 @doc(register_geoseries_accessor, klass=":class:`~geopandas.GeoDataFrame`")
 def register_geodataframe_accessor(name: str):
-
     return _register_accessor(name, gpd.GeoDataFrame)

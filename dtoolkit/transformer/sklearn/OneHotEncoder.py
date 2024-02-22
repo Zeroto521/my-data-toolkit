@@ -12,7 +12,6 @@ from sklearn.preprocessing import OneHotEncoder as SKOneHotEncoder
 from dtoolkit._typing import TwoDimArray
 from dtoolkit.accessor.dataframe import cols  # noqa: F401
 from dtoolkit.accessor.series import cols  # noqa: F401, F811
-from dtoolkit.transformer._compat import SKLEARN_GE_12
 
 
 if TYPE_CHECKING:
@@ -29,7 +28,7 @@ class OneHotEncoder(SKOneHotEncoder):
         Returned column would hook parent labels if ``True`` else
         would be ``categories``.
 
-    sparse : bool, default False
+    sparse_out : bool, default False
         Will return sparse matrix if ``True`` else will return an array.
 
     Other parameters
@@ -79,7 +78,6 @@ class OneHotEncoder(SKOneHotEncoder):
     def __init__(
         self,
         *,
-        sparse: bool = False,
         sparse_output: bool = False,
         categories_with_parent: bool = False,
         categories="auto",
@@ -89,8 +87,6 @@ class OneHotEncoder(SKOneHotEncoder):
         min_frequency: int | float = None,
         max_categories: int = None,
     ):
-        # TODO: Remove `sparse` in sklearn 1.4.
-        # In the latest (>= 1.1.2) sklearn version, `sparse` is deprecated.
         super().__init__(
             categories=categories,
             drop=drop,
@@ -98,16 +94,9 @@ class OneHotEncoder(SKOneHotEncoder):
             handle_unknown=handle_unknown,
             min_frequency=min_frequency,
             max_categories=max_categories,
-            **(
-                dict(sparse_output=sparse_output)
-                if SKLEARN_GE_12
-                else dict(sparse=sparse)
-            ),
+            sparse_output=sparse_output,
         )
         self.categories_with_parent = categories_with_parent
-
-        # TODO: Remove the following line in sklearn 1.2.
-        self.sparse_output = sparse_output
 
         # compat with sklearn lower version
         # `_parameter_constraints` comes out at sklearn 1.2
@@ -130,12 +119,7 @@ class OneHotEncoder(SKOneHotEncoder):
 
         Xt = super().transform(X)
 
-        if (
-            SKLEARN_GE_12
-            and not self.sparse_output
-            or not SKLEARN_GE_12
-            and not self.sparse
-        ) and isinstance(X, (pd.Series, pd.DataFrame)):
+        if not self.sparse_output and isinstance(X, (pd.Series, pd.DataFrame)):
             # NOTE: `get_feature_names_out` requires sklearn >= 1.0
             categories = (
                 self.get_feature_names_out(X.cols(to_list=True))

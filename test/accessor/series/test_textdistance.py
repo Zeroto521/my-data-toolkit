@@ -5,7 +5,7 @@ from pandas.testing import assert_series_equal
 from dtoolkit.accessor.series import textdistance
 
 
-pytest.importorskip("rapidfuzz")
+rapidfuzz = pytest.importorskip("rapidfuzz")
 
 
 @pytest.mark.parametrize(
@@ -97,10 +97,11 @@ def test_error(s, other, align, error):
             pd.Series(["hi", "python"]),
             "",
             True,
-            lambda *xy: sum(map(len, xy)),
+            rapidfuzz.distance.Levenshtein.distance,
             pd.Series([2, 6]),
         ),
         # test None and nan
+        # NOTE: requires rapidfuzz >= 3.x
         (
             pd.Series(["hi", "python", None, None, float("nan"), "?"]),
             pd.Series([None, float("nan"), None, float("nan"), float("nan"), "!"]),
@@ -109,6 +110,7 @@ def test_error(s, other, align, error):
             pd.Series([0] * 6),
         ),
         # test other is None
+        # NOTE: requires rapidfuzz >= 3.x
         (
             pd.Series(["hi", "python", None, None, float("nan"), "?"]),
             None,
@@ -117,6 +119,7 @@ def test_error(s, other, align, error):
             pd.Series([0] * 6),
         ),
         # test other is nan
+        # NOTE: requires rapidfuzz >= 3.x
         (
             pd.Series(["hi", "python", None, None, float("nan"), "?"]),
             float("nan"),
@@ -133,6 +136,5 @@ def test_work(s, other, align, method, expected):
         result,
         expected,
         check_dtype=False,
-        check_less_precise=True,
-        check_exact=False,
+        rtol=1e-3,
     )

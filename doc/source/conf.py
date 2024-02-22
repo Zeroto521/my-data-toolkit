@@ -129,6 +129,8 @@ intersphinx_mapping = {
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
     "h3": ("https://uber.github.io/h3-py/", None),
+    "rapidfuzz": ("https://maxbachmann.github.io/RapidFuzz/", None),
+    "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
 }
 
 # extlinks alias

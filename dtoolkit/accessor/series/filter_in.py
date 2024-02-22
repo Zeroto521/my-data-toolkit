@@ -3,7 +3,7 @@ from typing import Iterable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
-from dtoolkit.accessor.series.invert_or_not import invert_or_not  # noqa: F401
+from dtoolkit.accessor.series.invert_or_not import invert_or_not
 
 
 @register_series_method
@@ -42,27 +42,27 @@ def filter_in(
     >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(
-    ...     ['lama', 'cow', 'lama', 'beetle', 'lama', 'hippo'],
+    ...     ['llama', 'cow', 'llama', 'beetle', 'llama', 'hippo'],
     ...     name='animal',
     ... )
     >>> s
-    0      lama
+    0      llama
     1       cow
-    2      lama
+    2      llama
     3    beetle
-    4      lama
+    4      llama
     5     hippo
     Name: animal, dtype: object
-    >>> s.filter_in(['cow', 'lama'])
-    0      lama
+    >>> s.filter_in(['cow', 'llama'])
+    0      llama
     1       cow
-    2      lama
-    4      lama
+    2      llama
+    4      llama
     Name: animal, dtype: object
-    >>> s.filter_in(['cow', 'lama'], complement=True)
+    >>> s.filter_in(['cow', 'llama'], complement=True)
     3    beetle
     5     hippo
     Name: animal, dtype: object
     """
 
-    return s[s.isin(condition).invert_or_not(invert=complement)]
+    return s[invert_or_not(s.isin(condition), invert=complement)]

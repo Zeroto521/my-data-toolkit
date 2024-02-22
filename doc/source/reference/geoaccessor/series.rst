@@ -1,6 +1,6 @@
-==============================
-Series Accessor (to GeoPandas)
-==============================
+===============
+Series Accessor
+===============
 .. currentmodule:: dtoolkit.geoaccessor.series
 
 
@@ -26,7 +26,7 @@ Address handling
 H3 accessor
 -----------
 
-``Series.h3`` can be used to access the values of the Series(string) or Series(int64)
+``Series.h3`` can be used to access the index of string or int64
 and apply several methods to it. These can be accessed like ``Series.h3.<function/property>``.
 
 .. autosummary::
@@ -38,7 +38,7 @@ and apply several methods to it. These can be accessed like ``Series.h3.<functio
     H3.resolution
     H3.is_valid
     H3.is_pentagon
-    H3.is_res_class_III
+    H3.is_res_class_iii
     H3.to_int
     H3.to_str
     H3.to_center_child

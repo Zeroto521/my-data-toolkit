@@ -10,14 +10,9 @@ from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import (
     duplicated_geometry_groups,
 )
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.util._decorator import warning
 
 
 @register_geoseries_method
-@warning(
-    "`Geo(Series|DataFrame).duplicated_geometry`'s `predicate` default value is "
-    "changed from `'intersects'` to `None`. (Warning added DToolKit 0.0.19)",
-)
 def duplicated_geometry(
     s: gpd.GeoDataFrame,
     /,
@@ -45,7 +40,7 @@ def duplicated_geometry(
 
     Returns
     -------
-    Series
+    Series(bool)
 
     See Also
     --------
@@ -61,7 +56,7 @@ def duplicated_geometry(
 
     Drop duplicated geometries by value equal.
 
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> df = gpd.GeoDataFrame(geometry=[Point(0, 0), Point(0, 0), Point(1, 1)])
     >>> df
                       geometry
@@ -76,7 +71,7 @@ def duplicated_geometry(
 
     Drop duplicated geometries by sptial relation.
 
-    >>> from shapely.geometry import Polygon
+    >>> from shapely import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),

@@ -12,7 +12,7 @@ from pandas.util._decorators import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor.geoseries.xy import xy  # noqa: F401
+from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -84,8 +84,8 @@ def geobuffer(
     ...         "x",
     ...         "y",
     ...         crs=4326,
-    ...         drop=True,
     ...     )
+    ...     .drop(columns=["x", "y"])
     ... )
     >>> df
        distance              where                    geometry
@@ -136,10 +136,10 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.xy(frame=False, name=None).apply(wgs_to_utm).to_numpy()
+        utms = xy(s.centroid, frame=False, drop=True, name=None).apply(wgs_to_utm)
 
     s = s.copy()
-    for utm in pd.unique(utms):
+    for utm in utms.unique():
         if utm is None:
             continue
 

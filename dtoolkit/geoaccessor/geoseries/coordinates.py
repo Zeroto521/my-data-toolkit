@@ -7,18 +7,24 @@ from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.util._decorator import warning
 
 
-@register_geoseries_method("get_coordinates")
 @register_geoseries_method
-@warning(
-    "'.get_coordinates' is deprecated. Please use `.coordinates` instead. "
-    "(Warning added DToolKit 0.20.0)",
-)
 @doc(klass="GeoSeries")
+@warning(
+    "The 'coordinates' is deprecated and will be removed in 0.0.22. "
+    "Please use 'GeoSeries.get_coordinates' in geopandas 0.13 instead."
+    "(Warning added DToolKit 0.0.21)",
+    DeprecationWarning,
+    stacklevel=3,
+)
 def coordinates(s: gpd.GeoSeries, /, **kwargs) -> pd.Series:
     """
     Gets coordinates from each geometry of :class:`~geopandas.{klass}`.
 
     A sugary syntax wraps :meth:`shapely.get_coordinates`.
+
+    .. deprecated:: 0.0.22
+        The 'coordinates' is deprecated.
+        Please use 'GeoSeries.get_coordinates' in geopandas 0.13 instead.
 
     Parameters
     ----------

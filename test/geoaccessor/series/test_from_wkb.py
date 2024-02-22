@@ -1,11 +1,11 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.geoaccessor.series import from_wkb  # noqa: F401
+from dtoolkit.geoaccessor.series import from_wkb
 
 
 @pytest.mark.parametrize(
-    "s, drop, error",
+    "s, error",
     [
         (
             pd.Series(
@@ -15,11 +15,10 @@ from dtoolkit.geoaccessor.series import from_wkb  # noqa: F401
                     b"\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x08@\x00\x00\x00\x00\x00\x00\x08@",  # noqa: E501
                 ],
             ),
-            False,
             ValueError,
         ),
     ],
 )
-def test_error(s, drop, error):
+def test_error(s, error):
     with pytest.raises(error):
-        s.from_wkb(drop=drop)
+        from_wkb(s)

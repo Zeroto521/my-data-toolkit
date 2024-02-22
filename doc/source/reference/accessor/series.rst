@@ -53,8 +53,8 @@ Computations / Descriptive Stats
     jenks_breaks
     error_report
     eval
-    textdistance_matrix
     textdistance
+    textdistance_matrix
     top_n
 
 
@@ -75,6 +75,7 @@ Missing values
     :toctree: ../api/
 
     drop_inf
+    drop_not_duplicates
     dropna_index
 
 

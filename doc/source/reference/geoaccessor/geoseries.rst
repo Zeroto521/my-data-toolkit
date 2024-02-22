@@ -15,6 +15,7 @@ General methods and attributes
     geodistance
     geodistance_matrix
     geobuffer
+    geocentroid
     coordinates
     count_coordinates
     has_hole
@@ -28,6 +29,7 @@ Conversion
     :toctree: ../api/
 
     to_h3
+    voronoi
 
 
 Projection handling

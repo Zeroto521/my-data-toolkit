@@ -106,22 +106,22 @@ def geodistance_matrix(
     """
     from sklearn.metrics.pairwise import haversine_distances
 
+    if other is None:
+        other = s.copy()
+
+    if not isinstance(other, gpd.base.GeoPandasBase):
+        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+    if other.crs != 4326:
+        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-    if other is None:
-        Y = None
-    elif isinstance(other, gpd.base.GeoPandasBase):
-        if other.crs != 4326:
-            raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
-
-        Y = np.radians(xy(other.geometry, reverse=True))
-    else:
-        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
-
-    X = np.radians(xy(s, reverse=True))
     return pd.DataFrame(
-        radius * haversine_distances(X, Y),
+        radius
+        * haversine_distances(
+            np.radians(xy(s, reverse=True)),
+            np.radians(xy(other.geometry, reverse=True)),
+        ),
         index=s.index,
-        columns=other.index if other is not None else s.index,
+        columns=other.index,
     )

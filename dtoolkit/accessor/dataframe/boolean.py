@@ -49,7 +49,7 @@ def boolean(
 
     Returns
     -------
-    Series
+    Series(bool)
 
     Raises
     ------

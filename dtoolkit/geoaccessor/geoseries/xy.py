@@ -12,14 +12,10 @@ from dtoolkit.util._decorator import warning
 
 @register_geoseries_method
 @warning(
-    "The keyword argument 'x' and 'y' is deprecated, "
-    "please use 'names' instead. (Warning added DToolKit 0.0.20)",
-    category=DeprecationWarning,
-    stacklevel=3,
-)
-@warning(
-    "The keyword argument 'frame' is set to True by default. "
-    "(Warning added DToolKit 0.0.20)",
+    "The 'coordinates' is deprecated and will be removed in 0.0.22. "
+    "Please use 'GeoSeries.get_coordinates' in geopandas 0.13 instead."
+    "(Warning added DToolKit 0.0.21)",
+    DeprecationWarning,
     stacklevel=3,
 )
 def xy(
@@ -45,28 +41,16 @@ def xy(
             The default value of ``frame`` is set to True.
 
     drop : bool, default True
-        If True, drop the original geometry column.
+        If True, only return the new generated coordinates.
 
     name : Hashable or a tuple of Hashable, default ('x', 'y')
         If ``frame=True``, the column names of the returned DataFrame,
         else the name of the returned Series.
 
-    x : str, default 'x'
-        Name of the x column if frame=True.
-
-        .. deprecated:: 0.0.20
-            Please use 'name' instead.
-
-    y : str, default 'y'
-        Name of the y column if frame=True.
-
-        .. deprecated:: 0.0.20
-            Please use 'name' instead.
-
     Returns
     -------
     Series, DataFrame, or GeoDataFrame
-        - If ``drop=Fasle``, return a GeoDataFrame.
+        - If ``drop=False``, return a GeoDataFrame.
 
         - If ``drop=True`` and ``frame=True``, return a DataFrame with x and y two
           columns.
@@ -84,7 +68,7 @@ def xy(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> s = gpd.GeoSeries([Point(0, 1), Point(0, 2), Point(0, 3)])
     >>> s
     0    POINT (0.00000 1.00000)
@@ -116,7 +100,7 @@ def xy(
     1  0.0  2.0
     2  0.0  3.0
 
-    Keep the original geometry column.
+    Keep the geometry column.
 
     >>> s.xy(drop=False)
          x    y                 geometry

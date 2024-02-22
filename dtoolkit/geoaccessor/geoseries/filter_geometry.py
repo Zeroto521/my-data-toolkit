@@ -77,7 +77,7 @@ def filter_geometry(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Polygon, LineString, Point, box
+    >>> from shapely import Polygon, LineString, Point, box
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0, 0), (1, 1), (0, 1)]),

@@ -1,5 +1,88 @@
 # Changelog
 
+## [Version 0.0.20] (2022-12-30)
+
+Highlights of this release:
+
+Hightly support H3 (Hexagonal hierarchical geospatial indexing system) via `.to_h3` and `.H3.*`.
+
+```python
+>>> import dtoolkit.geoaccessor
+>>> import pandas as pd
+>>> df = pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy('x', 'y', crs=4326)
+>>> df
+     x   y                    geometry
+0  122  55  POINT (122.00000 55.00000)
+1  100   1   POINT (100.00000 1.00000)
+
+# GeoDataFrame -> h3 cell
+
+>>> df_with_h3 = df.to_h3(8)
+>>> df_with_h3
+                      x   y                    geometry
+612845052823076863  122  55  POINT (122.00000 55.00000)
+614269156845420543  100   1   POINT (100.00000 1.00000)
+
+# Calculate h3 cell area
+
+>>> df_with_h3.h3.area
+612845052823076863    710781.770906
+614269156845420543    852134.191671
+dtype: float64
+
+# h3 cell -> GeoDataFrame
+
+>>> df_parent_cell = df_with_h3.h3.to_parent()
+>>> df_parent_cell
+                      x   y                    geometry
+608341453197803519  122  55  POINT (122.00000 55.00000)
+609765557230632959  100   1   POINT (100.00000 1.00000)
+>>> df_parent_cell.h3.to_points()
+                      x   y                    geometry
+608341453197803519  122  55  POINT (122.00991 55.00606)
+609765557230632959  100   1   POINT (100.00504 0.99852)
+```
+
+New features and improvements:
+
+- {pr}`739`, {pr}`800`, {pr}`817`, {pr}`825`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.to_h3` to convert geometry to h3 index.
+- {pr}`778`: Speed up {meth}`~dtoolkit.accessor.series.textdistance_matrix`.
+- {pr}`779`, {pr}`811`, {pr}`819`: New geoaccessor {obj}`~dtoolkit.geoaccessor.dataframe.H3` to handle h3's geohash.
+- {pr}`784`: New accessor {meth}`~dtoolkit.accessor.series.to_zh`.
+- {pr}`794`, {pr}`797`: New geoaccessor for GeoDataFrame {meth}`~dtoolkit.geoaccessor.geodataframe.xy`.
+- {pr}`801`: New accessor for Series {meth}`~dtoolkit.accessor.series.invert_or_not`.
+- {pr}`803`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.select_geom_type`.
+- {pr}`804`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.radius`.
+- {pr}`809`: New accessor for Index {meth}`~dtoolkit.accessor.index.len`.
+
+Small bug-fix:
+
+- {pr}`780`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe`'s geometry is `GeoSeries`.
+- {pr}`816`: Fix {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` result CRS is missing.
+- {pr}`822`: {meth}`~dtoolkit.geoaccessor.dataframe.to_geoframe` supports replacing old geometry.
+- {pr}`824`: Fix inputting `GeoDataFrame` but {meth}`~dtoolkit.accessor.dataframe.repeat` return `DataFrame`.
+
+API changes:
+
+- {pr}`807`: {meth}`~dtoolkit.geoaccessor.geodataframe.get_coordinates` -> {meth}`~dtoolkit.geoaccessor.geodataframe.coordinates`.
+- {pr}`814`: Drop keyword argument `drop`.
+
+Documentation:
+
+- {pr}`802`: Reorder methods via function first then name.
+- {pr}`808`: Mark Series dtype.
+
+Maintenance development:
+
+- {pr}`774`: pre-commit hooks autoupdate.
+- {pr}`798`: Remove pygeos dependency from dtoolkit.
+- {pr}`805`: Remove `ci/env/311-latest-shapely2.yaml`.
+- {pr}`806`: Compat pandas 2.x.
+- {pr}`810`: Remove `dtoolkit.accessor.series._getattr_helper.py`.
+- {pr}`812`: Add blank lines.
+- {pr}`813`: Remove 0.0.19 version warning information.
+- {pr}`818`: Simplify import shapely object ``from shapely.geometry import xxx`` -> ``from shapely import xxx``.
+
 ## [Version 0.0.19] (2022-12-11)
 
 Highlights of this release:
@@ -91,7 +174,7 @@ Documentation:
 
 Maintenance development:
 
-- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive postional argument).
+- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive positional argument).
 - {pr}`720`: Add comment for why updating the version of dependencies.
 - {pr}`717`: Compat Python 3.7 / 3.8 which requires pandas >= 1.2.
 - {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
@@ -165,7 +248,7 @@ Maintenance development:
 - Set timeout for updating versioneer CI ({pr}`657`).
 - `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
 - Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
-- Rename arguments of methodes ({pr}`647`).
+- Rename arguments of methods ({pr}`647`).
 - Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
 - Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
 - Use `topn` as {meth}`~dtoolkit.accessor.series.top_n`'s alias ({pr}`617`).
@@ -661,6 +744,7 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+[Version 0.0.20]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.19...v0.0.20
 [Version 0.0.19]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.18...v0.0.19
 [Version 0.0.18]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.17...v0.0.18
 [Version 0.0.17]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.16...v0.0.17

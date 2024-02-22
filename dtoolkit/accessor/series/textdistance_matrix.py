@@ -3,10 +3,8 @@ from __future__ import annotations
 from typing import Callable
 
 import pandas as pd
-from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
-from dtoolkit.accessor.series.textdistance import textdistance
 
 
 @register_series_method
@@ -15,6 +13,7 @@ def textdistance_matrix(
     /,
     other: None | pd.Series = None,
     method: Callable = None,
+    **kwargs,
 ) -> pd.DataFrame:
     """
     Returns a ``DataFrame`` containing the text distances matrix between in ``s``
@@ -27,8 +26,11 @@ def textdistance_matrix(
 
     method : Callable, default None
         The method to calculate the distance. The first and second positional parameters
-        will be compared. If None, \
-`rapidfuzz.fuzz.ratio <https://maxbachmann.github.io/RapidFuzz/Usage/fuzz.html#ratio>`_.
+        will be compared. If None, :meth:`rapidfuzz.fuzz.ratio`. Recommended use methods
+        in :mod:`rapidfuzz.fuzz`, and :mod:`rapidfuzz.distance`.
+
+    **kwargs
+        Additional keyword arguments passed to ``method``.
 
     Returns
     -------
@@ -46,7 +48,13 @@ def textdistance_matrix(
 
     See Also
     --------
+    rapidfuzz.fuzz
+    rapidfuzz.distance
     textdistance
+
+    Notes
+    -----
+    The result of comparing to None or nan value is depended on the ``method``.
 
     Examples
     --------
@@ -62,16 +70,18 @@ def textdistance_matrix(
     0  100.0  36.363636
     1   20.0  18.181818
     """
+    from rapidfuzz.process import cdist
+
+    if method is None:
+        method = __import__("rapidfuzz").fuzz.ratio
 
     if other is None:
         other = s.copy()
     if not isinstance(other, pd.Series):
         raise TypeError(f"Expected Series(string), but got {type(other).__name__!r}.")
-    if not is_string_dtype(other):
-        raise TypeError(f"Expected Series(string), but got {other.dtype!r}.")
 
-    return pd.concat(
-        (textdistance(s, o, method=method) for o in other),
-        axis=1,
-        keys=other.index,
+    return pd.DataFrame(
+        cdist(s, other, scorer=method, workers=-1, **kwargs),
+        index=s.index,
+        columns=other.index,
     )
