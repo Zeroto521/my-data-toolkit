@@ -50,7 +50,7 @@ def xy(
     Returns
     -------
     Series, DataFrame, or GeoDataFrame
-        - If ``drop=Fasle``, return a GeoDataFrame.
+        - If ``drop=False``, return a GeoDataFrame.
 
         - If ``drop=True`` and ``frame=True``, return a DataFrame with x and y two
           columns.

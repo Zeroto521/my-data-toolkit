@@ -174,7 +174,7 @@ Documentation:
 
 Maintenance development:
 
-- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive postional argument).
+- {pr}`730`, {pr}`731`: Simplify codes (directly select DataFrame, rename Series, and add `/` for method to only receive positional argument).
 - {pr}`720`: Add comment for why updating the version of dependencies.
 - {pr}`717`: Compat Python 3.7 / 3.8 which requires pandas >= 1.2.
 - {pr}`710`, {pr}`727`: Lint codes (includes {meth}`~dtoolkit.accessor.dataframe.top_n`, {meth}`~dtoolkit.util._decorator.warning`, and {meth}`~dtoolkit.accessor.series.filter_in`).
@@ -248,7 +248,7 @@ Maintenance development:
 - Set timeout for updating versioneer CI ({pr}`657`).
 - `drop_inf/get_inf_range` returns `set` instead of `list` ({pr}`656`).
 - Remove 'fkirc/skip-duplicate-actions' ({pr}`655`).
-- Rename arguments of methodes ({pr}`647`).
+- Rename arguments of methods ({pr}`647`).
 - Remove 'geopy' from `*-minmal.yaml` env ({pr}`621`).
 - Use `cut` as {meth}`~dtoolkit.accessor.series.bin`'s alias ({pr}`619`).
 - Use `topn` as {meth}`~dtoolkit.accessor.series.top_n`'s alias ({pr}`617`).
