@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.series import values_to_dict  # noqa
+from dtoolkit.accessor.series import values_to_dict  # noqa: F401
 
 
 @pytest.mark.parametrize(
@@ -38,3 +38,10 @@ def test_work(s, kwargs, expected):
     result = s.values_to_dict(**kwargs)
 
     assert result == expected
+
+
+@pytest.mark.parametrize("s", [pd.Series(), pd.Series(None)])
+def test_empty(s):
+    result = s.values_to_dict()
+
+    assert result == {}

@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Literal
+
 import pandas as pd
 
 from dtoolkit.accessor.register import register_dataframe_method
@@ -6,7 +10,8 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def boolean(
     df: pd.DataFrame,
-    how: str = "any",
+    /,
+    how: Literal["any", "all"] = "any",
     complement: bool = False,
     **kwargs,
 ) -> pd.Series:
@@ -42,6 +47,15 @@ def boolean(
         See the documentation for :meth:`~pandas.DataFrame.any` and
         :attr:`~pandas.DataFrame.all` for complete details on the keyword arguments.
 
+    Returns
+    -------
+    Series(bool)
+
+    Raises
+    ------
+    ValueError
+        If ``how`` isn't "any" or "all".
+
     See Also
     --------
     pandas.DataFrame.any
@@ -49,7 +63,7 @@ def boolean(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame({"a": [True, True, False], "b": [False, True, False]})
     >>> df

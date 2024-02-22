@@ -19,27 +19,12 @@ Base transformer class for all transformers.
     methodtf_factory
 
 
-Pipeline
--------------------
-
-.. deprecated:: 0.0.17
-    The :mod:`dtoolkit.transformer.pipeline` package will be moved into
-    :mod:`dtoolkit.pipeline` in 0.0.17. (Warning added DToolKit 0.0.16)
-
-.. autosummary::
-    :toctree: api/
-
-    Pipeline
-    make_pipeline
-    FeatureUnion
-    make_union
-
-
 Sklearn Transformer
 -------------------
 .. autosummary::
     :toctree: api/
 
+    GeoKMeans
     OneHotEncoder
 
 

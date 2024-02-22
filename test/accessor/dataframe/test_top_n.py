@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
 import pytest
+from pandas.testing import assert_frame_equal
 
-from dtoolkit.accessor.dataframe import top_n  # noqa
+from dtoolkit.accessor.dataframe import top_n  # noqa: F401
 
 
 @pytest.mark.parametrize(
@@ -114,7 +115,8 @@ def test_single_index_work(
     )
 
     expected = pd.DataFrame(expected)
-    assert result.equals(expected)
+
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(
@@ -147,10 +149,10 @@ def test_duplicate_dataframe(n, keep, expected):
         },
     )
 
-    result = df.top_n(n=n, keep=keep, element="both")
+    result = df.top_n(n, keep=keep, element="both")
     expected = pd.DataFrame(expected)
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
 
 
 @pytest.mark.parametrize(
@@ -195,7 +197,7 @@ def test_multi_index(df, n, expected):
     result = df.top_n(n=n, element="both")
     expected = pd.DataFrame(expected)
 
-    assert result.equals(expected)
+    assert_frame_equal(result, expected)
 
 
 def test_element_error():

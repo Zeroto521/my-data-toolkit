@@ -1,11 +1,10 @@
-from test.transformer.conftest import array
-from test.transformer.conftest import df_iris
-from test.transformer.conftest import s
-
 import pandas as pd
 import pytest
 
 from dtoolkit.transformer import RavelTF
+from test.transformer.data import array
+from test.transformer.data import df_iris
+from test.transformer.data import s
 
 
 @pytest.mark.parametrize("data", [array, df_iris, s, s.tolist()])

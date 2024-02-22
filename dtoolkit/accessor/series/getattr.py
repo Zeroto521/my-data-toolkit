@@ -1,11 +1,13 @@
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
-from dtoolkit.accessor.series._getattr_helper import get_attr
+
+
+get_attr = getattr
 
 
 @register_series_method
-def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
+def getattr(s: pd.Series, name: str, /, *args, **kwargs) -> pd.Series:
     """
     Return the value of the named attribute of Series element.
 
@@ -34,7 +36,7 @@ def getattr(s: pd.Series, name: str, *args, **kwargs) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(["hello", "world"])
 

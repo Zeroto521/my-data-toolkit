@@ -6,89 +6,88 @@
 
 Required Dependencies:
 
-- Python (>= 3.7)
-- Pandas (>= 1.3.4)
+- Python (>= 3.9)
+- pandas (>= 1.5.1)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - Scikit-learn (>= 1.0 )
+  - Scikit-learn (>= 1.4)
+  - packaging
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
-  - GeoPandas (>= 0.9.0)
-  - PyGEOS (>= 0.11.1)
+  - GeoPandas (>= 0.12.1)
 
 ### Different Python Version Minimal Dependencies
 
-Dtoolkit support Python version from 3.7 to 3.10.
+Dtoolkit support Python version from 3.9 to 3.10.
 Therefore each version supports minimal dependencies is different.
 You could check the dependencies list from following.
 
-- [Python 3.7 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/37-minimal.yaml)
-- [Python 3.8 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/38-minimal.yaml)
-- [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/39-minimal.yaml)
-- [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/master/ci/env/310-minimal.yaml)
+- [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/39-minimal.yaml)
+- [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/310-minimal.yaml)
+- [Python 3.11 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/311-minimal.yaml)
 
-## Install with Conda
+### DToolKit Requires Python Version History
 
-To install all DToolKit's dependencies, we recommend to use [the conda package manager](https://conda.io).
-The advantage of using the conda package manager is that it provides pre-built binaries for all the required and optional dependencies of DToolKit for all platforms.
+- DToolKit 0.0.1 requires Python 3.7 or 3.8.
+- DToolKit 0.0.2 to 0.0.5 require Python 3.7 to 3.9.
+- DToolKit 0.0.6 to 0.0.16 require Python 3.7 to 3.10.
+- DToolKit 0.0.17 and 0.0.18 require Python 3.8 to 3.10.
+- DToolKit 0.0.19 and later require Python 3.8 or 3.11.
+- DToolKit 0.0.21 and later require Python 3.9 or newer.
 
-Conda will help you get out of many troubles such as the versions of dependencies,
+## Install with Mamba
+
+To install all DToolKit's dependencies, we recommend to use [Mamba: The Fast Cross-Platform Package Manager](https://mamba.readthedocs.io/).
+The advantage of using the mamba is that it provides pre-built binaries for all the
+required and optional dependencies of DToolKit for all platforms and faster to download them.
+
+Mamba will help you get out of many troubles such as the versions of dependencies,
 conflicts from channels or environment itself, downloading from where or speed, and so on.
 
-You always can delete a problem conda environment and swift to another good environment.
+You always can delete that problem environment and swift to another good environment.
 
 The following commands create a new environment with the name `dtoolkit_env`,
-configures it to install packages always from `conda-forge` channel,
-and installs dependencies and DToolKit in it:
+then installs dependencies and DToolKit in it:
 
 ### From Command
 
-```bash
-conda create -n dtoolkit_env
-conda activate dtoolkit_env
-conda config --env --add channels conda-forge
-conda config --env --set channel_priority strict
-conda install python=3 pandas scikit-learn geopandas pygeos
-pip install my-data-toolkit
+```console
+$ mamba create -n dtoolkit_env
+$ mamba activate dtoolkit_env
+$ mamba install python=3 pandas scikit-learn packaging geopandas
+(dtoolkit_env)$ pip install my-data-toolkit
 ```
 
 ### From YAML
 
-Save the following `dtoolkit_env.yaml` YAML to local.
+Save the following [environment.yaml](../../../environment.yaml) YAML file to local.
 
-```yaml
-name: dtoolkit_env
-channels:
-  - conda-forge
-dependencies:
-  - python=3
-  - pandas
-  - scikit-learn
-  - geopandas
-  - pygeos
-  - pip
-  - pip:
-      - my-data-toolkit
+```{literalinclude} ../../../environment.yaml
+:language: yaml
 ```
 
 Create the environment from YAML.
 
-```bash
-conda env create -f dtoolkit_env.yaml
+```console
+$ mamba env create -f environment.yaml
 ```
 
 ## Install from PyPI
 
-```bash
-pip install my-data-toolkit
+```console
+$ pip install my-data-toolkit
 ```
 
 ## Install from Source
 
-```bash
-pip install git+https://github.com/Zeroto521/my-data-toolkit
+```{warning}
+This's a latest version but not a stable version.
+```
+
+```console
+$ pip install git+https://github.com/Zeroto521/my-data-toolkit
 ```

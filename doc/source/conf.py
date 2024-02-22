@@ -19,14 +19,17 @@ from datetime import datetime
 
 import dtoolkit
 
-version = release = dtoolkit.__version__
-version = version.replace(".dev0", "")
-version = version.replace(".post0", "")
-
+# fmt: off
+version = release = (
+    dtoolkit.__version__
+    .replace(".dev0", "")
+    .replace(".post0", "")
+)
+# fmt: on
 
 project = "My Data Toolkit"
-author = "Zero <@Zeroto521>"
-copyright = f"2021-{datetime.now().year}, {author}"  # pylint: disable=redefined-builtin
+author = "@Zeroto521"
+copyright = f"2021-{datetime.now().year} {author}"  # pylint: disable=redefined-builtin
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 
@@ -45,6 +48,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
     "sphinx_toggleprompt",
+    "matplotlib.sphinxext.plot_directive",
     "IPython.sphinxext.ipython_console_highlighting",
     "IPython.sphinxext.ipython_directive",
     "nbsphinx",
@@ -54,7 +58,7 @@ extensions = [
 source_suffix = [".rst", ".md"]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ["_templates"]
+templates_path = ["_template"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -123,13 +127,17 @@ intersphinx_mapping = {
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
+    "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
+    "h3": ("https://uber.github.io/h3-py/", None),
+    "rapidfuzz": ("https://maxbachmann.github.io/RapidFuzz/", None),
+    "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
 }
 
 # extlinks alias
 extlinks = {
-    "issue": (f"{github_url}/issues/%s", "issue#"),
-    "pr": (f"{github_url}/issues/%s", "pr#"),
-    "user": (r"https://github.com/%s", "@"),
+    "issue": (f"{github_url}/issues/%s", "Issue#%s"),
+    "pr": (f"{github_url}/issues/%s", "PR#%s"),
+    "user": (r"https://github.com/%s", "@%s"),
 }
 
 myst_enable_extensions = [

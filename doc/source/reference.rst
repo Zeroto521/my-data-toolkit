@@ -11,4 +11,5 @@ functions and methods implemented in DToolKit.
     Accessor <reference/accessor>
     GeoAccessor <reference/geoaccessor>
     Transformer <reference/transformer>
+    Pipeline <reference/pipeline>
     Utility <reference/utility>

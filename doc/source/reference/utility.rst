@@ -6,6 +6,13 @@ Utility
     :mod:`dtoolkit.util._decorator` and :mod:`dtoolkit.util._exception` are dtoolkit's inner packages.
 
 
+.. currentmodule:: dtoolkit.util
+.. autosummary::
+    :toctree: api/
+
+    parallelize
+
+
 _decorator
 ----------
 .. currentmodule:: dtoolkit.util._decorator

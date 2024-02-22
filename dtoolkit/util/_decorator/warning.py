@@ -8,7 +8,7 @@ def warning(
     message: str,
     category: Exception = None,
     stacklevel: int = find_stack_level(),
-    **kwargs
+    **kwargs,
 ):
     """
     A warning decorator.
@@ -44,10 +44,10 @@ def warning(
 
     def decorator(func):
         @wraps(func)
-        def wrapper(*func_args, **func_kwargs):
+        def wrapper(*f_args, **f_kwargs):
             warn(message, category=category, stacklevel=stacklevel, **kwargs)
 
-            return func(*func_args, **func_kwargs)
+            return func(*f_args, **f_kwargs)
 
         return wrapper
 

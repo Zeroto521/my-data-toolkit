@@ -1,14 +1,16 @@
 import geopandas as gpd
 import pandas as pd
 import pytest
+from geopandas.testing import assert_geodataframe_equal
+from pandas.testing import assert_frame_equal
 from pyproj.crs import CRSError
-from shapely.geometry import Point
+from shapely import Point
 
-from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
+from dtoolkit.geoaccessor.dataframe import from_xy
 
 
 @pytest.mark.parametrize(
-    "data, x, y, z, crs, drop, expected",
+    "data, x, y, z, crs, expected",
     [
         # normal
         (
@@ -21,7 +23,6 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
             "y",
             "z",
             "EPSG:4326",
-            False,
             gpd.GeoDataFrame(
                 {
                     "x": [122, 100, 0],
@@ -47,7 +48,6 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
             "y",
             None,
             "EPSG:4326",
-            False,
             gpd.GeoDataFrame(
                 {
                     "x": [122, 100, 0],
@@ -73,7 +73,6 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
             "y",
             None,
             "EPSG:3857",
-            False,
             gpd.GeoDataFrame(
                 {
                     "x": [122, 100, 0],
@@ -99,7 +98,6 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
             "y",
             None,
             None,
-            False,
             gpd.GeoDataFrame(
                 {
                     "x": [122, 100, 0],
@@ -113,56 +111,15 @@ from dtoolkit.geoaccessor.dataframe import from_xy  # noqa
                 },
             ),
         ),
-        # test drop is True
-        (
-            {
-                "x": [122, 100, 0],
-                "y": [55, 1, 0],
-                "z": [0, 0, 0],
-            },
-            "x",
-            "y",
-            "z",
-            None,
-            True,
-            gpd.GeoSeries(
-                [
-                    Point(122, 55, 0),
-                    Point(100, 1, 0),
-                    Point(0, 0, 0),
-                ],
-                name="Geometry",
-            ),
-        ),
-        # test drop is True
-        (
-            {
-                "x": [122, 100, 0],
-                "y": [55, 1, 0],
-                "z": [0, 0, 0],
-            },
-            "x",
-            "y",
-            None,
-            None,
-            True,
-            gpd.GeoDataFrame(
-                {
-                    "z": [0, 0, 0],
-                    "geometry": [
-                        Point(122, 55),
-                        Point(100, 1),
-                        Point(0, 0),
-                    ],
-                },
-            ),
-        ),
     ],
 )
-def test_work(data, x, y, z, crs, drop, expected):
-    result = pd.DataFrame(data).points_from_xy(x, y, z, crs, drop)
+def test_work(data, x, y, z, crs, expected):
+    df = pd.DataFrame(data)
+    result = from_xy(df, x, y, z=z, crs=crs)
 
-    assert result.equals(expected)
+    # test the original data is not changed
+    assert_frame_equal(df, pd.DataFrame(data))
+    assert_geodataframe_equal(result, expected)
 
 
 @pytest.mark.parametrize(
@@ -184,4 +141,4 @@ def test_error(error, x, y, z, crs):
     )
 
     with pytest.raises(error):
-        df.points_from_xy(x, y, z, crs)
+        from_xy(df, x, y, z, crs)

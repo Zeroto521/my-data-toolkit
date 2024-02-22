@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+from typing import Hashable
+from typing import Literal
 from typing import TYPE_CHECKING
 
 import pandas as pd
 
-from dtoolkit._typing import IntOrStr
 from dtoolkit.accessor.register import register_dataframe_method
 
 if TYPE_CHECKING:
@@ -14,9 +15,10 @@ if TYPE_CHECKING:
 @register_dataframe_method
 def fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
-    columns: dict[IntOrStr, IntOrStr | list[IntOrStr] | pd.Index],
-    how: str = "na",
+    columns: dict[Hashable, Hashable | list[Hashable] | pd.Index],
+    how: Literal["na", "all"] = "na",
     **kwargs,
 ) -> pd.DataFrame:
     """
@@ -41,6 +43,11 @@ def fillna_regression(
     Returns
     -------
     DataFrame
+
+    Raises
+    ------
+    ValueError
+        If ``how`` isn't "na" or "all".
 
     See Also
     --------
@@ -69,7 +76,7 @@ def fillna_regression(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> from sklearn.linear_model import LinearRegression
 
@@ -107,6 +114,7 @@ def fillna_regression(
     if how not in {"na", "all"}:
         raise ValueError(f"invalid inf option: {how!r}")
 
+    df = df.copy()  # avoid mutating the original dataframe
     for y, X in columns.items():
         df = _fillna_regression(df, method, y, X, how=how, **kwargs)
 
@@ -115,10 +123,11 @@ def fillna_regression(
 
 def _fillna_regression(
     df: pd.DataFrame,
+    /,
     method: RegressorMixin,
-    y: IntOrStr,
-    X: IntOrStr | list[IntOrStr] | pd.Index,
-    how: str = "na",
+    y: Hashable,
+    X: Hashable | list[Hashable] | pd.Index,
+    how: Literal["na", "all"],
     **kwargs,
 ):
     """Fill single na column at once."""
@@ -126,16 +135,13 @@ def _fillna_regression(
     if isinstance(X, (str, int)):
         X = [X]
 
-    index_notnull = df[df[y].notnull()].index
-    model = method(**kwargs).fit(
-        df.loc[index_notnull, X],
-        df.loc[index_notnull, y],
-    )
+    data = df[df[y].notnull()]
+    model = method(**kwargs).fit(data[X], data[y])
 
     if how == "all":
         df[y] = model.predict(df[X])
     elif how == "na":
-        index_null = df[df[y].isnull()].index
+        index_null = df[y].isnull()
         df.loc[index_null, y] = model.predict(df.loc[index_null, X])
 
     return df

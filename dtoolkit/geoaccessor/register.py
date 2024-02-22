@@ -29,19 +29,20 @@ def register_geoseries_method(name: str = None):
     --------
     In your library code::
 
+        from __future__ import annotations
+
         import geopandas as gpd
+        import pandas as pd
 
-        from pygeos import count_coordinates, from_shapely
 
-        @register_geodataframe_method(name="count_it")
-        @register_geoseries_method(name="count_it")  # Support alias name also.
+        @register_geodataframe_method("is_p")  # Support alias name also.
+        @register_geoseries_method("is_p")  # Only receive positional-only argument.
         @register_geodataframe_method
         @register_geoseries_method  # Use accessor method `__name__` as the entrance.
-        def counts(s: gpd.GeoSeries):
-            # Counts the number of coordinate pairs in geometry
+        def is_point(s: gpd.GeoSeries | gpd.GeoDataFrame) -> pd.Series:
+            # Return a boolean Series denoting whether each geometry is a point.
 
-            func = lambda x: count_coordinates(from_shapely(x))
-            return s.geometry.apply(func)
+            return self._obj.geometry.geom_type == "Point"
 
     Back in an interactive IPython session:
 
@@ -58,40 +59,40 @@ def register_geoseries_method(name: str = None):
         2                       None
         dtype: geometry
 
-        In [4]: s.counts()
+        In [4]: s.is_point()
         Out[4]:
-        0    1
-        1    1
-        2    0
-        dtype: int64
+        0     True
+        1     True
+        2    False
+        dtype: bool
 
         In [5]: d = s.to_frame("geometry")
         Out[5]:
-                        geometry
+                          geometry
         0  POINT (0.00000 0.00000)
         1  POINT (1.00000 1.00000)
         2                     None
 
-        In [6]: d.counts()
+        In [6]: d.is_point()
         Out[6]:
-        0    1
-        1    1
-        2    0
-        Name: geometry, dtype: int64
+        0     True
+        1     True
+        2    False
+        dtype: bool
 
-        In [7]: s.count_it()
+        In [7]: s.is_p()
         Out[7]:
-        0    1
-        1    1
-        2    0
-        dtype: int64
+        0     True
+        1     True
+        2    False
+        dtype: bool
 
-        In [8]: d.count_it()
+        In [8]: d.is_p()
         Out[8]:
-        0    1
-        1    1
-        2    0
-        Name: geometry, dtype: int64
+        0     True
+        1     True
+        2    False
+        dtype: bool
 
     """
     return register_geoseries_accessor(name)

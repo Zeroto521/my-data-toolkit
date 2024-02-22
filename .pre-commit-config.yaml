@@ -5,29 +5,31 @@ ci:
     for more information, see https://pre-commit.ci
   autoupdate_commit_msg: "BOT: pre-commit hooks autoupdate"
 
+exclude: versioneer.py|dtoolkit/_version.py|\.(html|svg)$
+
 repos:
   # import
   - repo: https://github.com/MarcoGorelli/absolufy-imports
     rev: v0.3.1
     hooks:
       - id: absolufy-imports
-  - repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.1.0
+  - repo: https://github.com/asottile/reorder-python-imports
+    rev: v3.12.0
     hooks:
       - id: reorder-python-imports
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.32.1
+    rev: v3.15.1
     hooks:
       - id: pyupgrade
   # text
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.3
+    rev: v3.1.0
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.5.0
     hooks:
       # python
       - id: check-ast
@@ -39,33 +41,40 @@ repos:
       - id: check-merge-conflict
       # yaml
       - id: check-yaml
+      # toml
+      - id: check-toml
       # text
       - id: end-of-file-fixer
       - id: trailing-whitespace
+      # other
+      - id: detect-private-key
   # code style
   - repo: https://github.com/psf/black
-    rev: 22.3.0
+    rev: 24.2.0
     hooks:
       - id: black
       - id: black-jupyter
   - repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 7.0.0
     hooks:
       - id: flake8
         exclude: ^(example|doc)/
   # jupyter
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.5.0
+    rev: 0.7.1
     hooks:
       - id: nbstripout
   # doc
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: v1.10.0
     hooks:
+      - id: python-check-blanket-noqa
+      - id: python-use-type-annotations
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+      - id: text-unicode-replacement-char
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.2.6
     hooks:
       - id: codespell

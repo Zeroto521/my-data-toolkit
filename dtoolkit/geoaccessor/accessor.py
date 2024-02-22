@@ -55,21 +55,25 @@ def register_geoseries_accessor(name: str):
     --------
     In your library code::
 
-        from pygeos import count_coordinates, from_shapely
+        from __future__ import annotations
 
-        @register_geodataframe_accessor("coords")
-        @register_geoseries_accessor("coords")
-        class CoordinateAccessor:
-            def __init__(self, gpd_obj):
-                self._obj = gpd_obj
-                self.geometry = gpd_obj.geometry
+        from dataclasses import dataclass
+
+        import pandas as pd
+
+
+        @register_geodataframe_accessor("gtype")
+        @register_geoseries_accessor("gtype")
+        @dataclass
+        class GeoAccessor:
+
+            _obj: gpd.GeoSeries | gpd.GeoDataFrame
 
             @property
-            def count_coordinates(self):
-                # Counts the number of coordinate pairs in geometry
+            def is_point(self) -> pd.Series:
+                # Return a boolean Series denoting whether each geometry is a point.
 
-                foo = lambda x: count_coordinates(from_shapely(x))
-                return self.geometry.apply(foo)
+                return self._obj.geometry.geom_type == "Point"
 
     Back in an interactive IPython session:
 
@@ -86,26 +90,26 @@ def register_geoseries_accessor(name: str):
         2                       None
         dtype: geometry
 
-        In [4]: s.coords.count_coordinates
+        In [4]: s.gtype.is_point
         Out[4]:
-        0    1
-        1    1
-        2    0
-        dtype: int64
+        0     True
+        1     True
+        2    False
+        dtype: bool
 
         In [5]: d = s.to_frame("geometry")
         Out[5]:
-                        geometry
+                          geometry
         0  POINT (0.00000 0.00000)
         1  POINT (1.00000 1.00000)
         2                     None
 
-        In [6]: d.coords.count_coordinates
+        In [6]: d.gtype.is_point
         Out[6]:
-        0    1
-        1    1
-        2    0
-        Name: geometry, dtype: int64
+        0     True
+        1     True
+        2    False
+        dtype: bool
     """
 
     return _register_accessor(name, gpd.GeoSeries)
@@ -113,5 +117,4 @@ def register_geoseries_accessor(name: str):
 
 @doc(register_geoseries_accessor, klass=":class:`~geopandas.GeoDataFrame`")
 def register_geodataframe_accessor(name: str):
-
     return _register_accessor(name, gpd.GeoDataFrame)

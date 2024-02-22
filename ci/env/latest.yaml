@@ -4,9 +4,16 @@ channels:
 dependencies:
   # required
   - pandas
+  # optional
   - scikit-learn
+  - packaging
   - geopandas
-  - pygeos
+  - geopy
+  - jenkspy
+  - topojson
+  - joblib
+  - rapidfuzz
+  - h3-py
   # testing
   - pytest
   - pytest-cov
@@ -14,3 +21,7 @@ dependencies:
   - codecov
   # doctest testing
   - pytest-doctestplus
+
+  - pip
+  - pip:
+    - zhconv

@@ -1,0 +1,24 @@
+name: dtoolkit-doc
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.9
+  # package dependencies
+  - pandas
+  - scikit-learn
+  - packaging
+  - geopandas
+
+  # doc dependencies
+  - sphinx
+  - pydata-sphinx-theme
+  - myst-parser
+  - numpydoc
+  - ipython
+
+  # jupyter
+  - nbsphinx
+  - ipykernel
+  - pip
+  - pip:
+      - sphinx-toggleprompt
