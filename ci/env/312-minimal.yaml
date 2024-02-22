@@ -4,7 +4,7 @@ channels:
 dependencies:
   - python=3.12
   # required
-  - pandas=1.5.1
+  - pandas=1.5.3
   # optional
   - scikit-learn=1.4
   - packaging
