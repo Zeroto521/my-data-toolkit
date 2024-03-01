@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
@@ -33,12 +33,12 @@ jobs:
           git reset -- setup.py dtoolkit/__init__.py
           git checkout -- setup.py dtoolkit/__init__.py
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: versioneer
           path: versioneer.py
 
-      - uses: peter-evans/create-pull-request@v5
+      - uses: peter-evans/create-pull-request@v6
         with:
           commit-message: |
             BOT: versioneer autoupdate
