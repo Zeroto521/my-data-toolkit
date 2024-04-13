@@ -8,7 +8,7 @@ def warning(
     message: str,
     category: Exception = None,
     stacklevel: int = find_stack_level(),
-    **kwargs
+    **kwargs,
 ):
     """
     A warning decorator.

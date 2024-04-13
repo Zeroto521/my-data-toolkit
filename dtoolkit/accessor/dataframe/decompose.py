@@ -19,10 +19,12 @@ def decompose(
     df: pd.DataFrame,
     /,
     method: TransformerMixin,
-    columns: None
-    | dict[Hashable | tuple[Hashable], Hashable | list[Hashable] | tuple[Hashable]]
-    | list[Hashable]
-    | pd.Index = None,
+    columns: (
+        None
+        | dict[Hashable | tuple[Hashable], Hashable | list[Hashable] | tuple[Hashable]]
+        | list[Hashable]
+        | pd.Index
+    ) = None,
     drop: bool = False,
     **kwargs,
 ) -> pd.DataFrame:

@@ -276,7 +276,7 @@ tree = pytest.importorskip("sklearn.tree")
 def test_work(df, method, columns, how, kwargs, expected):
     result = df.fillna_regression(method, columns, how=how, **kwargs)
 
-    assert_frame_equal(result, expected, check_dtype=False)
+    assert_frame_equal(result, expected.astype(result.dtypes))
 
 
 def test_error():
