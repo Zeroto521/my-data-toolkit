@@ -133,7 +133,8 @@ def to_h3(
             xy(s.geometry, reverse=True, frame=False, name=None)
             .apply(
                 lambda yx: getattr(h3, h3_3or4("geo_to_h3", "latlng_to_cell"))(
-                    *yx, resolution
+                    *yx,
+                    resolution,
                 ),
             )
             .to_numpy(),
