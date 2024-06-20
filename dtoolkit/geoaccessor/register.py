@@ -29,7 +29,7 @@ def register_geoseries_method(name: str = None):
     --------
     In your library code::
 
-        from __future__ import annotations
+
 
         import geopandas as gpd
         import pandas as pd
