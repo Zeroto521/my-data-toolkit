@@ -88,18 +88,18 @@ def filter_geometry(
     ...     ],
     ... )
     >>> df
-                                                geometry
-    0  POLYGON ((0.00000 0.00000, 1.00000 1.00000, 0....
-    1      LINESTRING (0.00000 0.00000, 0.00000 2.00000)
-    2      LINESTRING (0.00000 0.00000, 0.00000 1.00000)
-    3                            POINT (0.00000 1.00000)
-    4                          POINT (-1.00000 -1.00000)
+                             geometry
+    0  POLYGON ((0 0, 1 1, 0 1, 0 0))
+    1           LINESTRING (0 0, 0 2)
+    2           LINESTRING (0 0, 0 1)
+    3                     POINT (0 1)
+    4                   POINT (-1 -1)
 
     Filter the geometries out of the bounding ``box(0, 0, 2, 2)``.
 
     >>> df.filter_geometry(box(0, 0, 2, 2), "covered_by", complement=True)
-                          geometry
-    4    POINT (-1.00000 -1.00000)
+              geometry
+    4    POINT (-1 -1)
 
     This method is actually faster than the following one::
 

@@ -9,15 +9,12 @@ General methods and attributes
 .. autosummary::
     :toctree: ../api/
 
-    xy
     radius
     geoarea
     geodistance
     geodistance_matrix
     geobuffer
     geocentroid
-    coordinates
-    count_coordinates
     has_hole
     hole_counts
     toposimplify

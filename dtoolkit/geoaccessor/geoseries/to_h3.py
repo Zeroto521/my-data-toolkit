@@ -3,7 +3,6 @@ from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import getattr as s_getattr
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -137,7 +136,9 @@ def to_h3(
         # TODO: Use `latlon_to_h3` instead of `geo_to_h3`
         # While h3-py release 4, `latlon_to_h3` is not available.
         return s.set_axis(
-            xy(s.geometry, reverse=True, frame=False, name=None)
+            s.get_coordinates()
+            .loc[:, ["y", "x"]]
+            .apply(tuple, axis=1)
             .apply(lambda yx: getattr(h3, "geo_to_h3")(*yx, resolution))
             .to_numpy(),
         )
