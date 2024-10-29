@@ -8,7 +8,6 @@ from pandas.api.types import is_string_dtype
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_index_method
-from dtoolkit.geoaccessor._compat import h3_3or4
 
 
 @register_index_method
