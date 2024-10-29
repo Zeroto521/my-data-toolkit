@@ -101,7 +101,8 @@ class H3(NoNewAttributesMixin):
         """
 
         return pd.Series(
-            apply_h3(self.index, "cell_area", unit="m^2"), index=self.index
+            apply_h3(self.index, "cell_area", unit="m^2"),
+            index=self.index,
         )
 
     @property
@@ -125,7 +126,8 @@ class H3(NoNewAttributesMixin):
         """
 
         return pd.Series(
-            apply_h3(self.index, "edge_length", unit="m"), index=self.index
+            apply_h3(self.index, "edge_length", unit="m"),
+            index=self.index,
         )
 
     @property

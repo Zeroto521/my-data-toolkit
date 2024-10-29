@@ -135,7 +135,7 @@ def to_h3(
         index, counts = explode(
             s.geometry.getattr("__geo_interface__")
             .apply(h3.geo_to_cells, res=resolution)
-            .to_numpy()
+            .to_numpy(),
         )
         return s.repeat(counts).set_axis(index)
 
