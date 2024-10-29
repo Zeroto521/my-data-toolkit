@@ -8,7 +8,7 @@ dependencies:
   # optional
   - scikit-learn=1.4
   - packaging
-  - geopandas=0.12.1
+  - geopandas=1.0.0
   # testing
   - pytest
   - pytest-cov
