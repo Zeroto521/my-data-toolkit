@@ -47,7 +47,7 @@ jobs:
         run: ls dist/ -l
 
       - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@v1.8.12
+        uses: pypa/gh-action-pypi-publish@v1.8.14
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
         run: ls dist/ -l
 
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.8.12
+        uses: pypa/gh-action-pypi-publish@v1.8.14
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
@@ -94,7 +94,7 @@ jobs:
           echo "name=$1" >> $GITHUB_ENV
 
       - name: Publish to GitHub
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           draft: true
           prerelease: ${{ contains(github.ref, 'rc') }}

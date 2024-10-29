@@ -20,7 +20,7 @@ repos:
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.1
+    rev: v3.15.2
     hooks:
       - id: pyupgrade
   # text
@@ -29,7 +29,7 @@ repos:
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v4.6.0
     hooks:
       # python
       - id: check-ast
@@ -50,7 +50,7 @@ repos:
       - id: detect-private-key
   # code style
   - repo: https://github.com/psf/black
-    rev: 24.2.0
+    rev: 24.4.0
     hooks:
       - id: black
       - id: black-jupyter
