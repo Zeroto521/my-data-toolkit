@@ -1,8 +1,5 @@
 from dtoolkit.geoaccessor.geoseries.cncrs_offset import cncrs_offset  # noqa: F401
 from dtoolkit.geoaccessor.geoseries.coordinates import coordinates  # noqa: F401
-from dtoolkit.geoaccessor.geoseries.count_coordinates import (  # noqa: F401
-    count_coordinates,
-)
 from dtoolkit.geoaccessor.geoseries.drop_duplicates_geometry import (  # noqa: F401
     drop_duplicates_geometry,
 )

@@ -17,7 +17,6 @@ General methods and attributes
     geobuffer
     geocentroid
     coordinates
-    count_coordinates
     has_hole
     hole_counts
     toposimplify
