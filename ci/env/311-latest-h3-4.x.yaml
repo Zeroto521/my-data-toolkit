@@ -17,5 +17,4 @@ dependencies:
 
   - pip
   - pip:
-      - --pre
-      - h3
+      - h3 == 4.*
