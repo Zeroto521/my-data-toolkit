@@ -104,31 +104,29 @@ class H3(NoNewAttributesMixin):
             apply_h3(self.index, "cell_area", unit="m^2"), index=self.index
         )
 
-        # TODO: Available only for h3 release 4.
-        # @property
-        # @available_if
-        # def edge(self) -> pd.Series:
-        #     """
-        #     Compute the spherical length of a specific H3 edge.
+    @property
+    @available_if
+    def edge(self) -> pd.Series:
+        """
+        Compute the spherical length of a specific H3 edge.
 
-        #     Returns
-        #     -------
-        #     Series(float64)
-        #         With H3 cell as the its index. Its values are the spherical length
-        #         of the H3 edge and unit is m.
+        Returns
+        -------
+        Series(float64)
+            With H3 cell as the its index. Its values are the spherical length
+            of the H3 edge and unit is m.
 
-        #     See Also
-        #     --------
-        #     h3.edge_length
-        #     dtoolkit.geoaccessor.index.H3.edge
-        #     dtoolkit.geoaccessor.series.H3.edge
-        #     dtoolkit.geoaccessor.dataframe.H3.edge
-        #     """
+        See Also
+        --------
+        h3.edge_length
+        dtoolkit.geoaccessor.index.H3.edge
+        dtoolkit.geoaccessor.series.H3.edge
+        dtoolkit.geoaccessor.dataframe.H3.edge
+        """
 
-        #     return pd.Series(
-        #         apply_h3(self.index, "edge_length", unit="m"),
-        #         index=self.index,
-        #     )
+        return pd.Series(
+            apply_h3(self.index, "edge_length", unit="m"), index=self.index
+        )
 
     @property
     @available_if

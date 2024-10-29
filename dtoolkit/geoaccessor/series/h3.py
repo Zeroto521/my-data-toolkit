@@ -14,12 +14,11 @@ class H3Base(NoNewAttributesMixin):
     def area(self) -> pd.Series:
         return self.data.index.h3.area
 
-    # TODO: Available only for h3 release 4.
-    # @property
-    # @doc(i_H3.edge)
-    # def edge(self) -> pd.Series:
+    @property
+    @doc(i_H3.edge)
+    def edge(self) -> pd.Series:
 
-    #     return self.data.index.h3.edge
+        return self.data.index.h3.edge
 
     @property
     @doc(i_H3.resolution)
