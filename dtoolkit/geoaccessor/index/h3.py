@@ -7,7 +7,6 @@ from pandas.api.extensions import register_index_accessor
 from pandas.core.base import NoNewAttributesMixin
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor._compat import h3_3or4
 from dtoolkit.geoaccessor.index.is_h3 import apply_h3
 from dtoolkit.geoaccessor.index.is_h3 import is_h3
 
@@ -102,8 +101,7 @@ class H3(NoNewAttributesMixin):
         """
 
         return pd.Series(
-            apply_h3(self.index, "cell_area", unit="m^2"),
-            index=self.index,
+            apply_h3(self.index, "cell_area", unit="m^2"), index=self.index
         )
 
         # TODO: Available only for h3 release 4.
@@ -167,12 +165,7 @@ class H3(NoNewAttributesMixin):
         614269156845420543    8
         dtype: int64
         """
-        # TODO: Use `get_resolution` instead of `h3_get_resolution`
-        # While h3-py release 4, `get_resolution` is not available.
-        return pd.Series(
-            apply_h3(self.index, h3_3or4("h3_get_resolution", "get_resolution")),
-            index=self.index,
-        )
+        return pd.Series(apply_h3(self.index, "get_resolution"), index=self.index)
 
     @property
     def is_valid(self) -> pd.Series:
@@ -241,12 +234,8 @@ class H3(NoNewAttributesMixin):
         612845052823076863     True
         dtype: bool
         """
-        # TODO: Use `is_valid_cell` instead of `h3_is_valid`
-        # While h3-py release 4, `is_valid_cell` is not available.
-        return pd.Series(
-            apply_h3(self.index, h3_3or4("h3_is_valid", "is_valid_cell")),
-            index=self.index,
-        )
+
+        return pd.Series(apply_h3(self.index, "is_valid_cell"), index=self.index)
 
     @property
     @available_if
@@ -281,12 +270,8 @@ class H3(NoNewAttributesMixin):
         614269156845420543    False
         dtype: bool
         """
-        # TODO: Use `is_pentagon` instead of `h3_is_pentagon`
-        # While h3-py release 4, `is_pentagon` is not available.
-        return pd.Series(
-            apply_h3(self.index, h3_3or4("h3_is_pentagon", "is_pentagon")),
-            index=self.index,
-        )
+
+        return pd.Series(apply_h3(self.index, "is_pentagon"), index=self.index)
 
     @property
     @available_if
@@ -329,12 +314,8 @@ class H3(NoNewAttributesMixin):
         614269156845420543    False
         dtype: bool
         """
-        # TODO: Use `is_res_class_III` instead of `h3_is_res_class_III`
-        # While h3-py release 4, `is_res_class_III` is not available.
-        return pd.Series(
-            apply_h3(self.index, h3_3or4("h3_is_res_class_III", "is_res_class_III")),
-            index=self.index,
-        )
+
+        return pd.Series(apply_h3(self.index, "is_res_class_III"), index=self.index)
 
     @available_if
     def to_int(self) -> pd.Index:
@@ -367,15 +348,11 @@ class H3(NoNewAttributesMixin):
         >>> index.h3.to_int()
         Index([612845052823076863, 614269156845420543], dtype='int64')
         """
-        # TODO: Use `str_to_int` instead of `string_to_h3`
-        # While h3-py release 4, `str_to_int` is not available.
         from pandas.api.types import is_string_dtype
-
-        # from h3.api.numpy_int import str_to_int
 
         if not is_string_dtype(self.index):
             raise TypeError(f"Expected Index(string), but got {self.index.dtype!r}.")
-        return apply_h3(self.index, h3_3or4("string_to_h3", "str_to_int"))
+        return apply_h3(self.index, "str_to_int")
 
     @available_if
     def to_str(self) -> pd.Index:
@@ -408,15 +385,11 @@ class H3(NoNewAttributesMixin):
         >>> index.h3.to_str()
         Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
         """
-        # TODO: Use `int_to_str` instead of `h3_to_string`
-        # While h3-py release 4, `int_to_str` is not available.
         from pandas.api.types import is_integer_dtype
-
-        # from h3.api.numpy_int import h3_to_string
 
         if not is_integer_dtype(self.index):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
-        return apply_h3(self.index, h3_3or4("h3_to_string", "int_to_str"))
+        return apply_h3(self.index, "int_to_str")
 
     @available_if
     def to_center_child(self, resolution: int = None) -> pd.Index:
@@ -451,13 +424,8 @@ class H3(NoNewAttributesMixin):
         >>> index.h3.to_center_child()
         Index([617348652448612351, 618772756470956031], dtype='int64')
         """
-        # TODO: Use `cell_to_center_child` instead of `h3_to_center_child`
-        # While h3-py release 4, `cell_to_center_child` is not available.
-        return apply_h3(
-            self.index,
-            h3_3or4("h3_to_center_child", "cell_to_center_child"),
-            res=resolution,
-        )
+
+        return apply_h3(self.index, "cell_to_center_child", res=resolution)
 
     @available_if
     def to_children(self, resolution: int = None) -> pd.Index:
@@ -515,13 +483,8 @@ class H3(NoNewAttributesMixin):
             dtype='object'
         )
         """
-        # TODO: Use `cell_to_children` instead of `h3_to_children`
-        # While h3-py release 4, `cell_to_children` is not available.
-        return apply_h3(
-            self.index,
-            h3_3or4("h3_to_children", "cell_to_children"),
-            res=resolution,
-        )
+
+        return apply_h3(self.index, "cell_to_children", res=resolution)
 
     @available_if
     def to_parent(self, resolution: int = None) -> pd.Index:
@@ -556,13 +519,8 @@ class H3(NoNewAttributesMixin):
         >>> index.h3.to_parent()
         Index([608341453197803519, 609765557230632959], dtype='int64')
         """
-        # TODO: Use `cell_to_parent` instead of `h3_to_parent`
-        # While h3-py release 4, `cell_to_parent` is not available.
-        return apply_h3(
-            self.index,
-            h3_3or4("h3_to_parent", "cell_to_parent"),
-            res=resolution,
-        )
+
+        return apply_h3(self.index, "cell_to_parent", res=resolution)
 
     @available_if
     def to_points(self) -> gpd.GeoSeries:
@@ -594,11 +552,8 @@ class H3(NoNewAttributesMixin):
         614269156845420543    POINT (99.99611 0.99919)
         dtype: geometry
         """
-        # TODO: Use `cell_to_latlng` instead of `h3_to_geo`
-        # While h3-py release 4, `cell_to_latlng` is not available.
-        yx = np.asarray(
-            apply_h3(self.index, h3_3or4("h3_to_geo", "cell_to_latlng")).tolist(),
-        )
+
+        yx = np.asarray(apply_h3(self.index, "cell_to_latlng").tolist())
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
     @available_if
@@ -633,16 +588,8 @@ class H3(NoNewAttributesMixin):
         """
         from shapely import polygons
 
-        # TODO: Use `cell_to_boundary` instead of `h3_to_geo_boundary`
-        # While h3-py release 4, `cell_to_boundary` is not available.
         return gpd.GeoSeries(
-            polygons(
-                apply_h3(
-                    self.index,
-                    h3_3or4("h3_to_geo_boundary", "cell_to_boundary"),
-                    geo_json=True,
-                ).tolist(),
-            ),
+            polygons(apply_h3(self.index, "cell_to_boundary").tolist()),
             crs=4326,
             index=self.index,
         )

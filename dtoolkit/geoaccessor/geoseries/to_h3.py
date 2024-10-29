@@ -2,7 +2,6 @@ import geopandas as gpd
 from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor._compat import h3_3or4
 from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
@@ -127,30 +126,16 @@ def to_h3(
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
 
     if all(s.geom_type == "Point"):
-        # TODO: Use `latlng_to_cell` instead of `geo_to_h3`
-        # While h3-py release 4, `latlng_to_cell` is not available.
         return s.set_axis(
             xy(s.geometry, reverse=True, frame=False, name=None)
-            .apply(
-                lambda yx: getattr(h3, h3_3or4("geo_to_h3", "latlng_to_cell"))(
-                    *yx,
-                    resolution,
-                ),
-            )
+            .apply(lambda yx: h3.latlng_to_cell(*yx, resolution))
             .to_numpy(),
         )
     elif all(s.geom_type == "Polygon"):
-        # TODO: Use `polygon_to_cells` instead of `polyfill`
-        # While h3-py release 4, `polygon_to_cells` is not available.
-        # If `geo_json_conformant` is True, the coordinate could be (lon, lat).
         index, counts = explode(
             s.geometry.getattr("__geo_interface__")
-            .apply(
-                getattr(h3, h3_3or4("polyfill", "polygon_to_cells")),
-                res=resolution,
-                geo_json_conformant=True,
-            )
-            .to_numpy(),
+            .apply(h3.geo_to_cells, res=resolution)
+            .to_numpy()
         )
         return s.repeat(counts).set_axis(index)
 

@@ -95,9 +95,7 @@ def is_h3(index: pd.Index, /) -> bool:
     True
     """
 
-    # TODO: Use `is_valid_cell` instead of `h3_is_valid`
-    # While h3-py release 4, `is_valid_cell` is not available.
-    return apply_h3(index, h3_3or4("h3_is_valid", "is_valid_cell")).all()
+    return apply_h3(index, "is_valid_cell").all()
 
 
 def apply_h3(index: pd.Index, /, method: str, **kwargs) -> pd.Index:
