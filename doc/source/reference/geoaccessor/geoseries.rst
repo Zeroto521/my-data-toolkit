@@ -9,7 +9,6 @@ General methods and attributes
 .. autosummary::
     :toctree: ../api/
 
-    xy
     radius
     geoarea
     geodistance

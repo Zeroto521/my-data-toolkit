@@ -4,7 +4,6 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -119,8 +118,8 @@ def geodistance_matrix(
     return pd.DataFrame(
         radius
         * haversine_distances(
-            np.radians(xy(s, reverse=True)),
-            np.radians(xy(other.geometry, reverse=True)),
+            np.radians(s.get_coordinates().loc[:, ["y", "x"]]),
+            np.radians(other.get_coordinates().loc[:, ["y", "x"]]),
         ),
         index=s.index,
         columns=other.index,

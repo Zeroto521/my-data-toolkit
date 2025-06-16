@@ -12,7 +12,6 @@ from pandas.util._decorators import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -136,14 +135,14 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = xy(s.centroid, frame=False, drop=True, name=None).apply(wgs_to_utm)
+        utms = s.centroid.get_coordinates().apply(tuple, axis=1).apply(wgs_to_utm)
 
     s = s.copy()
     for utm in utms.unique():
         if utm is None:
             continue
 
-        mask = utms == utm
+        mask := utms == utm
         dis = distance[mask] if distance_is_list else distance
         s[mask] = s[mask].to_crs(utm).buffer(dis, **kwargs).to_crs(4326)
 

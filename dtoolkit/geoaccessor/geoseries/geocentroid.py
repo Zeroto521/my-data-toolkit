@@ -4,7 +4,6 @@ import pandas as pd
 from shapely import Point
 
 from dtoolkit.geoaccessor.geoseries.geodistance import geodistance
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -80,7 +79,7 @@ def geocentroid(
     <POINT (121.999 54.999)>
     """
 
-    coord = xy(s)
+    coord = s.get_coordinates()
     if len(coord) == 1:
         return Point(coord.iloc[0])
 
