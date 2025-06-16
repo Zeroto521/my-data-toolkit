@@ -64,10 +64,10 @@ def geocentroid(
     ...     crs=4326,
     ... )
     >>> df
-       weights                    geometry
-    0        1  POINT (100.00000 32.00000)
-    1        2  POINT (120.00000 50.00000)
-    2        3  POINT (122.00000 55.00000)
+       weights        geometry
+    0        1  POINT (100 32)
+    1        2  POINT (120 50)
+    2        3  POINT (122 55)
     >>> df.geocentroid()
     <POINT (120 50)>
 

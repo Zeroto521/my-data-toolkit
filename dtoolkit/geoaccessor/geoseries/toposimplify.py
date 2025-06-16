@@ -107,8 +107,7 @@ def toposimplify(
             simplify_with=simplify_with,
             prevent_oversimplify=prevent_oversimplify,
         )
-        # `to_gdf` return is a GeoDataFrame, require GeoSeries
-        .to_gdf(crs=s.crs).to_series()
-        # To fix https://github.com/mattijn/topojson/issues/164
-        .set_axis(s.index)
+        .to_gdf(crs=s.crs)  # Return is a GeoDataFrame, require a GeoSeries
+        .to_series()
+        .set_axis(s.index)  # To fix https://github.com/mattijn/topojson/issues/164
     )

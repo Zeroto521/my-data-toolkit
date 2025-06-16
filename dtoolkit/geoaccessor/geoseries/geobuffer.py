@@ -87,9 +87,9 @@ def geobuffer(
     ...     .drop(columns=["x", "y"])
     ... )
     >>> df
-       distance              where                    geometry
-    0         0   close to equator  POINT (122.00000 55.00000)
-    1        10  away from equator   POINT (100.00000 1.00000)
+       distance              where        geometry
+    0         0   close to equator  POINT (122 55)
+    1        10  away from equator   POINT (100 1)
     >>> df.geobuffer(100)
        distance  ...                                           geometry
     0         0  ...  POLYGON ((122.00156 55.00001, 122.00156 54.999...

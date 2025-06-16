@@ -83,10 +83,10 @@ def geodistance_matrix(
     ...     },
     ... ).from_xy("x", "y", crs=4326)
     >>> df
-         x   y                    geometry
-    0  120  30  POINT (120.00000 30.00000)
-    1  122  55  POINT (122.00000 55.00000)
-    2  100   1   POINT (100.00000 1.00000)
+         x   y        geometry
+    0  120  30  POINT (120 30)
+    1  122  55  POINT (122 55)
+    2  100   1   POINT (100 1)
     >>> other = pd.DataFrame(
     ...     {
     ...         "x": [120, 110],
@@ -94,9 +94,9 @@ def geodistance_matrix(
     ...     },
     ... ).from_xy("x", "y", crs=4326)
     >>> other
-         x   y                    geometry
-    0  120  30  POINT (120.00000 30.00000)
-    1  110  40  POINT (110.00000 40.00000)
+         x   y        geometry
+    0  120  30  POINT (120 30)
+    1  110  40  POINT (110 40)
     >>> df.geodistance_matrix(other)
                   0             1
     0  0.000000e+00  1.435335e+06
