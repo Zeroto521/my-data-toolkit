@@ -16,7 +16,6 @@ General methods and attributes
     geodistance_matrix
     geobuffer
     geocentroid
-    coordinates
     has_hole
     hole_counts
     toposimplify
