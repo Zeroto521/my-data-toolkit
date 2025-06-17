@@ -582,14 +582,14 @@ class H3(NoNewAttributesMixin):
         >>> index
         Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_polygons()
-        612845052823076863    POLYGON ((55.00408 121.98797, 54.99981 121.991...
-        614269156845420543    POLYGON ((0.9963 100.00035, 1.00141 100.0008, ...
+        612845052823076863    POLYGON ((121.98797 55.00408, 121.991 54.99981...
+        614269156845420543    POLYGON ((100.00035 0.9963, 100.0008 1.00141, ...
         dtype: geometry
         """
         from shapely import polygons
 
         return gpd.GeoSeries(
-            polygons(apply_h3(self.index, "cell_to_boundary").tolist()),
+            polygons(apply_h3(self.index, "cell_to_boundary").map(reversed).map(list)),
             crs=4326,
             index=self.index,
         )
