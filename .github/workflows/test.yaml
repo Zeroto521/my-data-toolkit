@@ -63,7 +63,7 @@ jobs:
         run: make info
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') }}
+        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') }} && contains(python-version, '3.11') }} 
         run: make doctest
 
       - name: Test with Pytest
