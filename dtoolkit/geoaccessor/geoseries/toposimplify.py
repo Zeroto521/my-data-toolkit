@@ -74,28 +74,12 @@ def toposimplify(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> df = (
-    ...     gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-    ...     .query('continent == "Africa"')
-    ... )
-    >>> df.head()
-           pop_est  ...                                           geometry
-    1   58005463.0  ...  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...
-    2     603253.0  ...  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...
-    11  86790567.0  ...  POLYGON ((29.34000 -4.49998, 29.51999 -5.41998...
-    12  10192317.3  ...  POLYGON ((41.58513 -1.68325, 40.99300 -0.85829...
-    13  52573973.0  ...  POLYGON ((39.20222 -4.67677, 37.76690 -3.67712...
-    <BLANKLINE>
-    [5 rows x 6 columns]
-    >>> df.toposimplify(0.1).head()
-           pop_est  ...                                           geometry
-    1   58005463.0  ...  POLYGON ((33.90358 -0.94984, 30.76987 -1.01479...
-    2     603253.0  ...  POLYGON ((-8.66587 27.65614, -8.81778 27.65614...
-    11  86790567.0  ...  POLYGON ((29.34014 -4.49988, 29.27690 -3.29392...
-    12  10192317.3  ...  POLYGON ((41.58493 -1.68309, 42.04203 -0.91881...
-    13  52573973.0  ...  POLYGON ((39.20182 -4.67669, 39.60462 -4.34688...
-    <BLANKLINE>
-    [5 rows x 6 columns]
+    >>> from shapely import Point
+    >>> df = gpd.GeoSeries([Point(120, 50)], crs=4326).to_geoframe().geobuffer(10)
+    >>> df.geometry.iloc[0]
+    <POLYGON ((120 50, 120 50, 120 50, 120 50, 120 50, 120 50, 120 50, 120 50, 1...>
+    >>> df.geometry.toposimplify(1).iloc[0]
+    <POLYGON ((120 50, 120 50, 120 50, 120 50, 120 50))>
     """
     from topojson import Topology
 
