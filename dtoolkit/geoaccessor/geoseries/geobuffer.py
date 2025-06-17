@@ -102,7 +102,7 @@ def geobuffer(
     >>> df.geobuffer("distance")
        distance  ...                                           geometry
     0         0  ...                                      POLYGON EMPTY
-    1        10  ...  POLYGON ((100.0009 1, 100.00089 0.99991, 100.0...
+    1        10  ...  POLYGON ((100.00009 1, 100.00009 0.99999, 100....
     <BLANKLINE>
     [2 rows x 3 columns]
     """
