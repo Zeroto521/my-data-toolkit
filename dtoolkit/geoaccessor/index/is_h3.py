@@ -56,7 +56,7 @@ def is_h3(index: pd.Index, /) -> bool:
     886528b2a3fffff    b
     dtype: object
     >>> s.is_h3()
-    True
+    np.True_
     >>> df = pd.DataFrame(
     ...     {{'label': ['a', 'b']}},
     ...     index=['88143541bdfffff', '886528b2a3fffff'],
@@ -66,7 +66,7 @@ def is_h3(index: pd.Index, /) -> bool:
     88143541bdfffff     a
     886528b2a3fffff     b
     >>> df.is_h3()
-    True
+    np.True_
 
     Int type H3 cell index.
 
@@ -74,14 +74,14 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> index
     Index([612845052823076863, 614269156845420543], dtype='int64')
     >>> index.is_h3()
-    True
+    np.True_
     >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
     >>> s
     612845052823076863    a
     614269156845420543    b
     dtype: object
     >>> s.is_h3()
-    True
+    np.True_
     >>> df = pd.DataFrame(
     ...     {{'label': ['a', 'b']}},
     ...     index=[612845052823076863, 614269156845420543],
@@ -91,7 +91,7 @@ def is_h3(index: pd.Index, /) -> bool:
     612845052823076863     a
     614269156845420543     b
     >>> df.is_h3()
-    True
+    np.True_
     """
 
     return apply_h3(index, "is_valid_cell").all()

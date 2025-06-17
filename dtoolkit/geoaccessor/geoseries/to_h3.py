@@ -107,13 +107,13 @@ def to_h3(
 
     >>> df = pd.DataFrame({{"x": [122, 100], "y": [55, 1]}}).from_xy('x', 'y', crs=4326)
     >>> df
-         x   y                    geometry
-    0  122  55  POINT (122.00000 55.00000)
-    1  100   1   POINT (100.00000 1.00000)
+         x   y        geometry
+    0  122  55  POINT (122 55)
+    1  100   1   POINT (100 1)
     >>> df.to_h3(8, int_dtype=False)
-                       x   y                    geometry
-    88143541bdfffff  122  55  POINT (122.00000 55.00000)
-    886528b2a3fffff  100   1   POINT (100.00000 1.00000)
+                       x   y        geometry
+    88143541bdfffff  122  55  POINT (122 55)
+    886528b2a3fffff  100   1   POINT (100 1)
     """
 
     if int_dtype:
