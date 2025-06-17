@@ -2,7 +2,6 @@ import geopandas as gpd
 from pandas._libs.reshape import explode
 from pandas.util._decorators import doc
 
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -127,7 +126,9 @@ def to_h3(
 
     if all(s.geom_type == "Point"):
         return s.set_axis(
-            xy(s.geometry, reverse=True, frame=False, name=None)
+            s.get_coordinates()
+            .loc[:, ["y", "x"]]
+            .apply(tuple, axis=1)
             .apply(lambda yx: h3.latlng_to_cell(*yx, resolution))
             .to_numpy(),
         )

@@ -28,15 +28,10 @@ jobs:
           - ubuntu-latest
         dev: [false]
         python-version:
-          - "3.9"
           - "3.10"
           - "3.11"
         env: [ci/env/latest.yaml]
         include:
-          - env: ci/env/39-minimal.yaml
-            os: ubuntu-latest
-            dev: false
-            python-version: "3.9"
           - env: ci/env/310-minimal.yaml
             os: ubuntu-latest
             dev: false
@@ -72,7 +67,7 @@ jobs:
         run: make info
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') }}
+        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') && matrix.python-version == '3.11' }}
         run: make doctest
 
       - name: Test with Pytest

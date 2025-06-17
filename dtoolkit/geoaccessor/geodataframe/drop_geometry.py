@@ -37,9 +37,9 @@ def drop_geometry(df: gpd.GeoDataFrame, /) -> pd.DataFrame:
     ...     },
     ... ).from_xy("x", "y", crs=4326)
     >>> df
-         x   y name                    geometry
-    0  122  55    a  POINT (122.00000 55.00000)
-    1  100   1    b   POINT (100.00000 1.00000)
+         x   y name        geometry
+    0  122  55    a  POINT (122 55)
+    1  100   1    b   POINT (100 1)
     >>> df.drop_geometry()
          x   y name
     0  122  55    a
@@ -49,9 +49,9 @@ def drop_geometry(df: gpd.GeoDataFrame, /) -> pd.DataFrame:
 
     >>> df_new = df.rename_geometry("geom")
     >>> df_new
-         x   y name                        geom
-    0  122  55    a  POINT (122.00000 55.00000)
-    1  100   1    b   POINT (100.00000 1.00000)
+         x   y name            geom
+    0  122  55    a  POINT (122 55)
+    1  100   1    b   POINT (100 1)
     >>> df_new.drop_geometry()
          x   y name
     0  122  55    a

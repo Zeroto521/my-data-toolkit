@@ -61,17 +61,17 @@ def to_geoseries(
     ...     .geometry
     ... )
     >>> s
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
+    0    POINT (1 1)
+    1    POINT (2 2)
+    2    POINT (3 3)
     Name: geometry, dtype: geometry
     >>> type(s)
     <class 'pandas.core.series.Series'>
     >>> gs = s.to_geoseries()
     >>> gs
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
+    0    POINT (1 1)
+    1    POINT (2 2)
+    2    POINT (3 3)
     Name: geometry, dtype: geometry
     >>> type(gs)
     <class 'geopandas.geoseries.GeoSeries'>

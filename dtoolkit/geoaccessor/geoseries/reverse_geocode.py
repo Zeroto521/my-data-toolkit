@@ -88,7 +88,7 @@ def reverse_geocode(
     0  POINT (-71.05949 42.35847)
     >>> df.reverse_geocode()
                                                  address                    geometry
-    0  18-32, Tremont Street, 02108, Tremont Street, ...  POINT (-71.05949 42.35847)
+    0  Unity Street, 02113, Boston, Massachusetts, Un...  POINT (-71.05949 42.35847)
     """
 
     if s.crs != 4326:
@@ -103,9 +103,10 @@ def reverse_geocode(
         **kwargs,
     )
     return (
-        # TODO: use `get_coordinates` in geopandas 0.13
-        # `xy` is deprecated in dtoolkit 0.0.21
-        s.xy(reverse=True, frame=False, name=address)
+        s.get_coordinates()
+        .loc[:, ["y", "x"]]
+        .apply(tuple, axis=1)
+        .rename(address)
         .apply(query, geolocate=geolocate)
         .to_geoframe(s)
     )
