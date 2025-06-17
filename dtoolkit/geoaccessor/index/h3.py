@@ -588,8 +588,11 @@ class H3(NoNewAttributesMixin):
         """
         from shapely import polygons
 
+        def yx_to_xy(tuple_of_array: tuple[tuple[float, float]]) -> np.ndarray:
+            return np.asarray(tuple_of_array)[:, ::-1]
+
         return gpd.GeoSeries(
-            polygons(apply_h3(self.index, "cell_to_boundary").map(reversed).map(list)),
+            polygons(apply_h3(self.index, "cell_to_boundary").map(yx_to_xy).tolist()),
             crs=4326,
             index=self.index,
         )
