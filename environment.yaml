@@ -11,7 +11,7 @@ dependencies:
   - geopy
   - jenkspy
   - topojson
-  - h3-py
+  - h3-py >= 4.1.2
   - joblib
   - rapidfuzz
 
