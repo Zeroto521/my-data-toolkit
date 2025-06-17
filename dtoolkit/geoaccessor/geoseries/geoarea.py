@@ -38,6 +38,7 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
+    >>> from shapely import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),
