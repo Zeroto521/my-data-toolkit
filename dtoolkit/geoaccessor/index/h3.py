@@ -123,6 +123,17 @@ class H3(NoNewAttributesMixin):
         dtoolkit.geoaccessor.index.H3.edge
         dtoolkit.geoaccessor.series.H3.edge
         dtoolkit.geoaccessor.dataframe.H3.edge
+
+        Examples
+        --------
+        >>> import pandas as pd
+        >>> import dtoolkit.geoaccessor
+        >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
+        >>> s
+        612845052823076863    a
+        614269156845420543    b
+        >>> s.h3.edge
+        612845052823076863    111319.490793
         """
 
         return pd.Series(
