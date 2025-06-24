@@ -76,9 +76,9 @@ def voronoi(
     return gpd.GeoSeries(
         list(
             voronoi_polygons(
-                s.unary_union,
+                s.union_all(),
                 only_edges=only_edges,
             ).geoms,
         ),
         crs=s.crs,
-    ).clip(boundary or s.unary_union.convex_hull)
+    ).clip(boundary or s.union_all().convex_hull)
