@@ -9,7 +9,7 @@ from sklearn.pipeline import _fit_transform_one
 from sklearn.pipeline import _name_estimators
 from sklearn.pipeline import FeatureUnion as SKFeatureUnion
 from sklearn.pipeline import Pipeline as SKPipeline
-from sklearn.utils import _print_elapsed_time
+from sklearn.utils._user_interface import _print_elapsed_time
 from sklearn.utils.metadata_routing import _raise_for_params
 from sklearn.utils.metadata_routing import _routing_enabled
 from sklearn.utils.metadata_routing import process_routing
