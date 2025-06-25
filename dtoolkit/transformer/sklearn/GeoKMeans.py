@@ -235,6 +235,7 @@ class GeoKMeans(KMeans):
         """Guts of transform method; no input validation."""
 
         self._validate_coordinate(X)
+        # !!!: GeoKMeans different from KMeans
         return haversine_distances(np.radians(X), np.radians(self.cluster_centers_))
 
 
@@ -392,6 +393,7 @@ def _kmeans_plusplus(
     indices[0] = center_id
 
     # Initialize list of closest distances and calculate current potential
+    # !!!: GeoKMeans different from KMeans
     closest_dist_sq = haversine_distances(np.radians(centers[0, np.newaxis]), x_radians)
     current_pot = closest_dist_sq @ sample_weight
 
@@ -408,9 +410,9 @@ def _kmeans_plusplus(
         np.clip(candidate_ids, None, closest_dist_sq.size - 1, out=candidate_ids)
 
         # Compute distances to center candidates
+        # !!!: GeoKMeans different from KMeans
         distance_to_candidates = haversine_distances(
-            x_radians[candidate_ids],
-            x_radians,
+            x_radians[candidate_ids], x_radians
         )
 
         # update closest distances squared and potential for each candidate
