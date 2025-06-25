@@ -4,23 +4,29 @@ import numpy as np
 import scipy.sparse as sp
 from pandas.util._decorators import doc
 from sklearn.cluster import KMeans
-from sklearn.cluster._k_means_common import _inertia_dense
-from sklearn.cluster._k_means_common import _inertia_sparse
-from sklearn.cluster._k_means_common import _is_same_clustering
-from sklearn.cluster._k_means_elkan import elkan_iter_chunked_dense
-from sklearn.cluster._k_means_elkan import elkan_iter_chunked_sparse
-from sklearn.cluster._k_means_elkan import init_bounds_dense
-from sklearn.cluster._k_means_elkan import init_bounds_sparse
+from sklearn.cluster._k_means_common import (
+    _inertia_dense,
+    _inertia_sparse,
+    _is_same_clustering,
+)
+from sklearn.cluster._k_means_elkan import (
+    elkan_iter_chunked_dense,
+    elkan_iter_chunked_sparse,
+    init_bounds_dense,
+    init_bounds_sparse,
+)
 from sklearn.cluster._kmeans import _kmeans_plusplus as sklearn_kmeans_plusplus
 from sklearn.cluster._kmeans import _kmeans_single_elkan as sklearn_kmeans_single_elkan
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.metrics.pairwise import haversine_distances
-from sklearn.utils import check_array
-from sklearn.utils import check_random_state
+from sklearn.utils import check_array, check_random_state
 from sklearn.utils._openmp_helpers import _openmp_effective_n_threads
 from sklearn.utils.extmath import stable_cumsum
-from sklearn.utils.validation import _check_sample_weight
-from sklearn.utils.validation import _is_arraylike_not_scalar
+from sklearn.utils.validation import (
+    _check_sample_weight,
+    _is_arraylike_not_scalar,
+    validate_data,
+)
 
 
 class GeoKMeans(KMeans):
@@ -82,7 +88,7 @@ class GeoKMeans(KMeans):
         n_clusters=8,
         *,
         init="k-means++",
-        n_init="warn",
+        n_init="auto",
         max_iter=300,
         tol=1e-4,
         verbose=0,
@@ -101,10 +107,10 @@ class GeoKMeans(KMeans):
             copy_x=copy_x,
             # NOTE: algorithm is always "elkan", because only "elkan" supports
             # haversine distance.
-            algorithm="elkan",
+            algorithm="elkan",  # !!!: GeoKMeans different from KMeans
         )
 
-    def _validate_coordinate(self, X):
+    def _validate_coordinate(self, X):  # !!!: GeoKMeans different from KMeans
         if not (
             X.ndim == 2
             and X.shape[1] == 2
@@ -135,9 +141,8 @@ class GeoKMeans(KMeans):
     # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
     @doc(KMeans.fit)
     def fit(self, X, y=None, sample_weight=None):
-        self._validate_params()
-
-        X = self._validate_params(
+        X = validate_data(
+            self,
             X,
             accept_sparse="csr",
             dtype=[np.float64, np.float32],
@@ -145,7 +150,8 @@ class GeoKMeans(KMeans):
             copy=self.copy_x,
             accept_large_sparse=False,
         )
-        self._validate_coordinate(X)
+
+        self._validate_coordinate(X)  # !!!: GeoKMeans different from KMeans
         self._check_params_vs_input(X)
 
         random_state = check_random_state(self.random_state)
@@ -155,12 +161,11 @@ class GeoKMeans(KMeans):
         # Validate init array
         init = self.init
         init_is_array_like = _is_arraylike_not_scalar(init)
-        if init_is_array_like:  # pragma: no cover
+        if init_is_array_like:
             init = check_array(init, dtype=X.dtype, copy=True, order="C")
             self._validate_center_shape(X, init)
-
         # subtract of mean of x for more accurate distance computations
-        if not sp.issparse(X):  # pragma: no cover
+        if not sp.issparse(X):
             X_mean = X.mean(axis=0)
             # The copy was already done above
             X -= X_mean
@@ -169,13 +174,16 @@ class GeoKMeans(KMeans):
                 init -= X_mean
 
         # precompute radian of data points
-        x_radians = np.radians(X)
+        x_radians = np.radians(X)  # !!!: GeoKMeans different from KMeans
+
         best_inertia, best_labels = None, None
 
         for _ in range(self._n_init):
             # Initialize centers
-            centers_init = self._init_centroids(X, x_radians, init, random_state)
-            if self.verbose:  # pragma: no cover
+            centers_init = self._init_centroids(  # !!!: GeoKMeans different from KMeans
+                X, x_radians, init, random_state, sample_weight
+            )
+            if self.verbose:
                 print("Initialization complete")
 
             # run a k-means once
@@ -194,9 +202,8 @@ class GeoKMeans(KMeans):
             # different from the best so far (it's possible that the inertia is
             # slightly better even if the clustering is the same with potentially
             # permuted labels, due to rounding errors)
-            if (
-                best_inertia is None
-                or inertia < best_inertia
+            if best_inertia is None or (
+                inertia < best_inertia
                 and not _is_same_clustering(labels, best_labels, self.n_clusters)
             ):
                 best_labels = labels
@@ -205,15 +212,14 @@ class GeoKMeans(KMeans):
                 best_n_iter = n_iter_
 
         if not sp.issparse(X):
-            if not self.copy_x:  # pragma: no cover
+            if not self.copy_x:
                 X += X_mean
             best_centers += X_mean
 
-        if len(set(best_labels)) < self.n_clusters:  # pragma: no cover
+        if (distinct_clusters := len(set(best_labels))) < self.n_clusters:
             warn(
-                f"Number of distinct clusters ({len(set(best_labels))}) found "
-                f"smaller than n_clusters ({self.n_clusters}). Possibly due to "
-                "duplicate points in X.",
+                f"Number of distinct clusters ({distinct_clusters}) found smaller than "
+                f"n_clusters ({self.n_clusters}). Possibly due to duplicate points in X.",
                 ConvergenceWarning,
                 stacklevel=2,
             )
@@ -253,17 +259,16 @@ def _kmeans_single_elkan(
     weight_in_clusters = np.zeros(n_clusters, dtype=X.dtype)
     labels = np.full(n_samples, -1, dtype=np.int32)
     labels_old = labels.copy()
+    # !!!: GeoKMeans different from KMeans
     center_half_distances = haversine_distances(np.radians(centers)) / 2
     distance_next_center = np.partition(
-        np.asarray(center_half_distances),
-        kth=1,
-        axis=0,
+        np.asarray(center_half_distances), kth=1, axis=0
     )[1]
     upper_bounds = np.zeros(n_samples, dtype=X.dtype)
     lower_bounds = np.zeros((n_samples, n_clusters), dtype=X.dtype)
     center_shift = np.zeros(n_clusters, dtype=X.dtype)
 
-    if sp.issparse(X):  # pragma: no cover
+    if sp.issparse(X):
         init_bounds = init_bounds_sparse
         elkan_iter = elkan_iter_chunked_sparse
         _inertia = _inertia_sparse
@@ -302,10 +307,12 @@ def _kmeans_single_elkan(
 
         # compute new pairwise distances between centers and closest other
         # center of each center for next iterations
-        center_half_distances = haversine_distances(np.radians(centers_new)) / 2
-        distance_next_center = np.partition(center_half_distances, kth=1, axis=0)[1]
+        # !!!: GeoKMeans different from KMeans
+        distance_next_center = np.partition(
+            np.asarray(haversine_distances(np.radians(centers_new)) / 2), kth=1, axis=0
+        )[1]
 
-        if verbose:  # pragma: no cover
+        if verbose:
             inertia = _inertia(X, sample_weight, centers, labels, n_threads)
             print(f"Iteration {i}, inertia {inertia}")
 
@@ -313,7 +320,7 @@ def _kmeans_single_elkan(
 
         if np.array_equal(labels, labels_old):
             # First check the labels for strict convergence.
-            if verbose:  # pragma: no cover
+            if verbose:
                 print(f"Converged at iteration {i}: strict convergence.")
             strict_convergence = True
             break
@@ -321,10 +328,10 @@ def _kmeans_single_elkan(
             # No strict convergence, check for tol based convergence.
             center_shift_tot = (center_shift**2).sum()
             if center_shift_tot <= tol:
-                if verbose:  # pragma: no cover
+                if verbose:
                     print(
                         f"Converged at iteration {i}: center shift "
-                        f"{center_shift_tot} within tolerance {tol}.",
+                        f"{center_shift_tot} within tolerance {tol}."
                     )
                 break
 
@@ -354,45 +361,63 @@ def _kmeans_single_elkan(
 
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
 @doc(sklearn_kmeans_plusplus)
-def _kmeans_plusplus(X, n_clusters, x_radians, random_state):
+def _kmeans_plusplus(
+    X, n_clusters, x_radians, sample_weight, random_state, n_local_trials=None
+):
     n_samples, n_features = X.shape
     centers = np.empty((n_clusters, n_features), dtype=X.dtype)
-    n_local_trials = 2 + int(np.log(n_clusters))
+
+    # Set the number of local seeding trials if none is given
+    if n_local_trials is None:
+        # This is what Arthur/Vassilvitskii tried, but did not report
+        # specific results for other than mentioning in the conclusion
+        # that it helped.
+        n_local_trials = 2 + int(np.log(n_clusters))
 
     # Pick first center randomly and track index of point
-    center_id = random_state.randint(n_samples)
+    center_id = random_state.choice(n_samples, p=sample_weight / sample_weight.sum())
     indices = np.full(n_clusters, -1, dtype=int)
-    centers[0] = X[center_id].toarray() if sp.issparse(X) else X[center_id]
+    if sp.issparse(X):
+        centers[0] = X[[center_id]].toarray()
+    else:
+        centers[0] = X[center_id]
     indices[0] = center_id
 
     # Initialize list of closest distances and calculate current potential
     closest_dist_sq = haversine_distances(np.radians(centers[0, np.newaxis]), x_radians)
-    current_pot = closest_dist_sq.sum()
+    current_pot = closest_dist_sq @ sample_weight
 
     # Pick the remaining n_clusters-1 points
     for c in range(1, n_clusters):
         # Choose center candidates by sampling with probability proportional
         # to the squared distance to the closest existing center
         rand_vals = random_state.uniform(size=n_local_trials) * current_pot
-        cand_ids = np.searchsorted(stable_cumsum(closest_dist_sq), rand_vals)
+        candidate_ids = np.searchsorted(
+            stable_cumsum(sample_weight * closest_dist_sq), rand_vals
+        )
         # XXX: numerical imprecision can result in a candidate_id out of range
-        np.clip(cand_ids, None, closest_dist_sq.size - 1, out=cand_ids)
+        np.clip(candidate_ids, None, closest_dist_sq.size - 1, out=candidate_ids)
 
         # Compute distances to center candidates
-        distance_to_cands = haversine_distances(x_radians[cand_ids], x_radians)
+        distance_to_candidates = haversine_distances(
+            x_radians[candidate_ids], x_radians
+        )
 
         # update closest distances squared and potential for each candidate
-        np.minimum(closest_dist_sq, distance_to_cands, out=distance_to_cands)
-        cands_pot = distance_to_cands.sum(axis=1)
+        np.minimum(closest_dist_sq, distance_to_candidates, out=distance_to_candidates)
+        candidates_pot = distance_to_candidates @ sample_weight.reshape(-1, 1)
 
         # Decide which candidate is the best
-        best_cand = np.argmin(cands_pot)
-        current_pot = cands_pot[best_cand]
-        closest_dist_sq = distance_to_cands[best_cand]
-        best_cand = cand_ids[best_cand]
+        best_candidate = np.argmin(candidates_pot)
+        current_pot = candidates_pot[best_candidate]
+        closest_dist_sq = distance_to_candidates[best_candidate]
+        best_candidate = candidate_ids[best_candidate]
 
         # Permanently add best center candidate found in local tries
-        centers[c] = X[best_cand].toarray() if sp.issparse(X) else X[best_cand]
-        indices[c] = best_cand
+        if sp.issparse(X):
+            centers[c] = X[[best_candidate]].toarray()
+        else:
+            centers[c] = X[best_candidate]
+        indices[c] = best_candidate
 
     return centers, indices
