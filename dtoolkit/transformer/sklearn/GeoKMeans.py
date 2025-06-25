@@ -4,29 +4,24 @@ import numpy as np
 import scipy.sparse as sp
 from pandas.util._decorators import doc
 from sklearn.cluster import KMeans
-from sklearn.cluster._k_means_common import (
-    _inertia_dense,
-    _inertia_sparse,
-    _is_same_clustering,
-)
-from sklearn.cluster._k_means_elkan import (
-    elkan_iter_chunked_dense,
-    elkan_iter_chunked_sparse,
-    init_bounds_dense,
-    init_bounds_sparse,
-)
+from sklearn.cluster._k_means_common import _inertia_dense
+from sklearn.cluster._k_means_common import _inertia_sparse
+from sklearn.cluster._k_means_common import _is_same_clustering
+from sklearn.cluster._k_means_elkan import elkan_iter_chunked_dense
+from sklearn.cluster._k_means_elkan import elkan_iter_chunked_sparse
+from sklearn.cluster._k_means_elkan import init_bounds_dense
+from sklearn.cluster._k_means_elkan import init_bounds_sparse
 from sklearn.cluster._kmeans import _kmeans_plusplus as sklearn_kmeans_plusplus
 from sklearn.cluster._kmeans import _kmeans_single_elkan as sklearn_kmeans_single_elkan
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.metrics.pairwise import haversine_distances
-from sklearn.utils import check_array, check_random_state
+from sklearn.utils import check_array
+from sklearn.utils import check_random_state
 from sklearn.utils._openmp_helpers import _openmp_effective_n_threads
 from sklearn.utils.extmath import stable_cumsum
-from sklearn.utils.validation import (
-    _check_sample_weight,
-    _is_arraylike_not_scalar,
-    validate_data,
-)
+from sklearn.utils.validation import _check_sample_weight
+from sklearn.utils.validation import _is_arraylike_not_scalar
+from sklearn.utils.validation import validate_data
 
 
 class GeoKMeans(KMeans):
@@ -181,7 +176,11 @@ class GeoKMeans(KMeans):
         for _ in range(self._n_init):
             # Initialize centers
             centers_init = self._init_centroids(  # !!!: GeoKMeans different from KMeans
-                X, x_radians, init, random_state, sample_weight
+                X,
+                x_radians,
+                init,
+                random_state,
+                sample_weight,
             )
             if self.verbose:
                 print("Initialization complete")
@@ -262,7 +261,9 @@ def _kmeans_single_elkan(
     # !!!: GeoKMeans different from KMeans
     center_half_distances = haversine_distances(np.radians(centers)) / 2
     distance_next_center = np.partition(
-        np.asarray(center_half_distances), kth=1, axis=0
+        np.asarray(center_half_distances),
+        kth=1,
+        axis=0,
     )[1]
     upper_bounds = np.zeros(n_samples, dtype=X.dtype)
     lower_bounds = np.zeros((n_samples, n_clusters), dtype=X.dtype)
@@ -309,7 +310,9 @@ def _kmeans_single_elkan(
         # center of each center for next iterations
         # !!!: GeoKMeans different from KMeans
         distance_next_center = np.partition(
-            np.asarray(haversine_distances(np.radians(centers_new)) / 2), kth=1, axis=0
+            np.asarray(haversine_distances(np.radians(centers_new)) / 2),
+            kth=1,
+            axis=0,
         )[1]
 
         if verbose:
@@ -331,7 +334,7 @@ def _kmeans_single_elkan(
                 if verbose:
                     print(
                         f"Converged at iteration {i}: center shift "
-                        f"{center_shift_tot} within tolerance {tol}."
+                        f"{center_shift_tot} within tolerance {tol}.",
                     )
                 break
 
@@ -362,7 +365,12 @@ def _kmeans_single_elkan(
 # based on github.com/scikit-learn/scikit-learn/blob/main/sklearn/cluster/_kmeans.py
 @doc(sklearn_kmeans_plusplus)
 def _kmeans_plusplus(
-    X, n_clusters, x_radians, sample_weight, random_state, n_local_trials=None
+    X,
+    n_clusters,
+    x_radians,
+    sample_weight,
+    random_state,
+    n_local_trials=None,
 ):
     n_samples, n_features = X.shape
     centers = np.empty((n_clusters, n_features), dtype=X.dtype)
@@ -393,14 +401,16 @@ def _kmeans_plusplus(
         # to the squared distance to the closest existing center
         rand_vals = random_state.uniform(size=n_local_trials) * current_pot
         candidate_ids = np.searchsorted(
-            stable_cumsum(sample_weight * closest_dist_sq), rand_vals
+            stable_cumsum(sample_weight * closest_dist_sq),
+            rand_vals,
         )
         # XXX: numerical imprecision can result in a candidate_id out of range
         np.clip(candidate_ids, None, closest_dist_sq.size - 1, out=candidate_ids)
 
         # Compute distances to center candidates
         distance_to_candidates = haversine_distances(
-            x_radians[candidate_ids], x_radians
+            x_radians[candidate_ids],
+            x_radians,
         )
 
         # update closest distances squared and potential for each candidate
