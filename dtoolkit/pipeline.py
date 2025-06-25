@@ -56,7 +56,11 @@ class Pipeline(SKPipeline):
 
     @doc(SKPipeline._fit)
     def _fit(
-        self, X, y=None, routed_params=None, raw_params=None
+        self,
+        X,
+        y=None,
+        routed_params=None,
+        raw_params=None,
     ) -> np.ndarray | SeriesOrFrame:
         # shallow copy of steps - this should really be steps_
         self.steps = list(self.steps)
