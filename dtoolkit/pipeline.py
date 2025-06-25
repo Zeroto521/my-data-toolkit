@@ -241,8 +241,8 @@ class FeatureUnion(SKFeatureUnion, Transformer):
     ...                       ("svd", TruncatedSVD(n_components=2))])
     >>> X = [[0., 1., 3], [2., 2., 5]]
     >>> union.fit_transform(X)
-    array([[ 1.5       ,  3.0...,  0.8...],
-           [-1.5       ,  5.7..., -0.4...]])
+    array([[-1.5       ,  3.03954967, -0.87243213],
+           [ 1.5       ,  5.72586357,  0.46312679]])
     """
 
     def _hstack(self, Xs):
