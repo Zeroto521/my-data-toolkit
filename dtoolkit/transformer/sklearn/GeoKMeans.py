@@ -248,7 +248,8 @@ class GeoKMeans(KMeans):
         if (distinct_clusters := len(set(best_labels))) < self.n_clusters:
             warn(
                 f"Number of distinct clusters ({distinct_clusters}) found smaller than "
-                f"n_clusters ({self.n_clusters}). Possibly due to duplicate points in X.",
+                f"n_clusters ({self.n_clusters}). Possibly due to duplicate points in "
+                "X.",
                 ConvergenceWarning,
                 stacklevel=2,
             )
