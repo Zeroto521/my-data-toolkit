@@ -55,13 +55,16 @@ class Pipeline(SKPipeline):
     """
 
     @doc(SKPipeline._fit)
-    def _fit(self, X, y=None, routed_params=None) -> np.ndarray | SeriesOrFrame:
+    def _fit(
+        self, X, y=None, routed_params=None, raw_params=None
+    ) -> np.ndarray | SeriesOrFrame:
         # shallow copy of steps - this should really be steps_
         self.steps = list(self.steps)
         self._validate_steps()
 
         # Setup the memory
         memory = check_memory(self.memory)
+
         fit_transform_one_cached = memory.cache(_fit_transform_one)
 
         for step_idx, name, transformer in self._iter(
@@ -80,16 +83,23 @@ class Pipeline(SKPipeline):
                 cloned_transformer = clone(transformer)
 
             # Fit or load from cache the current transformer
+            step_params = self._get_metadata_for_step(
+                step_idx=step_idx,
+                step_params=routed_params[name],
+                all_params=raw_params,
+            )
+
+            # Fit or load from cache the current transformer
             Xt, fitted_transformer = fit_transform_one_cached(
                 cloned_transformer,
-                transform_series_to_frame(X),
+                transform_series_to_frame(X),  # !!!: Different to Pipeline._fit
                 y,
-                None,
+                weight=None,
                 message_clsname="Pipeline",
                 message=self._log_message(step_idx),
-                params=routed_params[name],
+                params=step_params,
             )
-            X = transform_array_to_frame(Xt, X)
+            X = transform_array_to_frame(Xt, X)  # !!!: Different to Pipeline._fit
 
             # Replace the transformer of the step with the fitted
             # transformer. This is necessary when loading the transformer
