@@ -137,7 +137,7 @@ class GeoKMeans(KMeans):
     def fit(self, X, y=None, sample_weight=None):
         self._validate_params()
 
-        X = self._validate_data(
+        X = self._validate_params(
             X,
             accept_sparse="csr",
             dtype=[np.float64, np.float32],
