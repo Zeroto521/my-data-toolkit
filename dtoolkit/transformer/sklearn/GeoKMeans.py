@@ -442,7 +442,8 @@ def _kmeans_plusplus(
         # Compute distances to center candidates
         # !!!: GeoKMeans different from KMeans
         distance_to_candidates = haversine_distances(
-            x_radians[candidate_ids], x_radians
+            x_radians[candidate_ids],
+            x_radians,
         )
 
         # update closest distances squared and potential for each candidate
