@@ -15,12 +15,6 @@ class H3Base(NoNewAttributesMixin):
         return self.data.index.h3.area
 
     @property
-    @doc(i_H3.edge)
-    def edge(self) -> pd.Series:
-
-        return self.data.index.h3.edge
-
-    @property
     @doc(i_H3.resolution)
     def resolution(self) -> pd.Series:
         return self.data.index.h3.resolution

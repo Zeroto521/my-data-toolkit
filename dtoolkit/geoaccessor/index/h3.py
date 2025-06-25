@@ -107,42 +107,6 @@ class H3(NoNewAttributesMixin):
 
     @property
     @available_if
-    def edge(self) -> pd.Series:
-        """
-        Compute the spherical length of a specific H3 edge.
-
-        Returns
-        -------
-        Series(float64)
-            With H3 cell as the its index. Its values are the spherical length
-            of the H3 edge and unit is m.
-
-        See Also
-        --------
-        h3.edge_length
-        dtoolkit.geoaccessor.index.H3.edge
-        dtoolkit.geoaccessor.series.H3.edge
-        dtoolkit.geoaccessor.dataframe.H3.edge
-
-        Examples
-        --------
-        >>> import pandas as pd
-        >>> import dtoolkit.geoaccessor
-        >>> s = pd.Series(['a', 'b'], index=[612845052823076863, 614269156845420543])
-        >>> s
-        612845052823076863    a
-        614269156845420543    b
-        >>> s.h3.edge
-        612845052823076863    111319.490793
-        """
-
-        return pd.Series(
-            apply_h3(self.index, "edge_length", unit="m"),
-            index=self.index,
-        )
-
-    @property
-    @available_if
     def resolution(self) -> pd.Series:
         """
         Return the resolution of H3 cell.
