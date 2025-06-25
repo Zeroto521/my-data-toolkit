@@ -158,7 +158,8 @@ class Pipeline(SKPipeline):
                 Xt = last_step.fit_transform(Xt, y, **last_step_params["fit_transform"])
             else:
                 Xt = last_step.fit(Xt, y, **last_step_params["fit"]).transform(
-                    Xt, **last_step_params["transform"]
+                    Xt,
+                    **last_step_params["transform"],
                 )
 
             # !!!: Different to Pipeline
