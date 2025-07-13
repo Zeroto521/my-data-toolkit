@@ -57,14 +57,14 @@ def voronoi(
     >>> import geopandas as gpd
     >>> df = gpd.GeoDataFrame(geometry=gpd.points_from_xy([0, 1, 2], [0, 1, 0]))
     >>> df
-                      geometry
-    0  POINT (0.00000 0.00000)
-    1  POINT (1.00000 1.00000)
-    2  POINT (2.00000 0.00000)
+          geometry
+    0  POINT (0 0)
+    1  POINT (1 1)
+    2  POINT (2 0)
     >>> df.voronoi()
-    0    POLYGON ((1.00000 0.00000, 0.00000 0.00000, 0....
-    2    POLYGON ((1.50000 0.50000, 2.00000 0.00000, 1....
-    1    POLYGON ((1.00000 0.00000, 0.50000 0.50000, 1....
+    0             POLYGON ((1 0, 0 0, 0.5 0.5, 1 0))
+    2         POLYGON ((1.5 0.5, 2 0, 1 0, 1.5 0.5))
+    1    POLYGON ((1 0, 0.5 0.5, 1 1, 1.5 0.5, 1 0))
     dtype: geometry
     """
 

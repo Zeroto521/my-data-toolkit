@@ -42,10 +42,11 @@ def has_hole(s: gpd.GeoSeries, /) -> pd.Series:
     ... )
     >>> df
                                                 geometry
-    0  POLYGON ((0.00000 0.00000, 0.00000 5.00000, 5....
-    1  POLYGON ((1.00000 0.00000, 2.00000 1.00000, 0....
-    2  LINESTRING (0.00000 0.00000, 0.00000 5.00000, ...
-    3                            POINT (0.00000 0.00000)
+    0  POLYGON ((0 0, 0 5, 5 5, 5 0, 0 0), (1 1, 2 1,...
+    1                     POLYGON ((1 0, 2 1, 0 0, 1 0))
+    2                    LINESTRING (0 0, 0 5, 5 5, 5 0)
+    3                                        POINT (0 0)
+
     >>> df.has_hole()
     0     True
     1    False
