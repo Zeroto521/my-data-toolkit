@@ -7,8 +7,12 @@ from sklearn.cluster import KMeans
 from sklearn.cluster._k_means_common import _inertia_dense  # pylint: disable=E0611
 from sklearn.cluster._k_means_common import _inertia_sparse  # pylint: disable=E0611
 from sklearn.cluster._k_means_common import _is_same_clustering  # pylint: disable=E0611
-from sklearn.cluster._k_means_elkan import elkan_iter_chunked_dense  # pylint: disable=E0611
-from sklearn.cluster._k_means_elkan import elkan_iter_chunked_sparse  # pylint: disable=E0611
+from sklearn.cluster._k_means_elkan import (
+    elkan_iter_chunked_dense,
+)  # pylint: disable=E0611
+from sklearn.cluster._k_means_elkan import (
+    elkan_iter_chunked_sparse,
+)  # pylint: disable=E0611
 from sklearn.cluster._k_means_elkan import init_bounds_dense  # pylint: disable=E0611
 from sklearn.cluster._k_means_elkan import init_bounds_sparse  # pylint: disable=E0611
 from sklearn.cluster._kmeans import _kmeans_plusplus as sklearn_kmeans_plusplus
@@ -17,7 +21,9 @@ from sklearn.exceptions import ConvergenceWarning
 from sklearn.metrics.pairwise import haversine_distances
 from sklearn.utils import check_array
 from sklearn.utils import check_random_state
-from sklearn.utils._openmp_helpers import _openmp_effective_n_threads  # pylint: disable=E0611
+from sklearn.utils._openmp_helpers import (
+    _openmp_effective_n_threads,
+)  # pylint: disable=E0611
 from sklearn.utils.extmath import stable_cumsum
 from sklearn.utils.validation import _check_sample_weight
 from sklearn.utils.validation import _is_arraylike_not_scalar
