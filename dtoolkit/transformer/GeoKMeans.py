@@ -69,7 +69,7 @@ class GeoKMeans(KMeans):
     ...     [113.48768, 37.872603],
     ...     [113.477766, 37.868846],
     ... ]
-    >>> geokmeans = GeoKMeans(n_clusters=2, random_state=0, n_init="auto").fit(X)
+    >>> geokmeans = GeoKMeans(n_clusters=2, random_state=0).fit(X)
     >>> geokmeans.labels_
     array([0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0],
           dtype=int32)
