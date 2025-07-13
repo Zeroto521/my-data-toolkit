@@ -88,7 +88,7 @@ def reverse_geocode(
     0  POINT (-71.05949 42.35847)
     >>> df.reverse_geocode()
                                                  address                    geometry
-    0  Unity Street, 02113, Boston, Massachusetts, Un...  POINT (-71.05949 42.35847)
+    0  18-32, Tremont Street, 02108, Tremont Street, ...  POINT (-71.05949 42.35847)
     """
 
     if s.crs != 4326:
