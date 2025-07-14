@@ -5,17 +5,10 @@ from typing import Literal
 
 import geopandas as gpd
 import numpy as np
+from geopandas.array import transform
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
-
-try:
-    from geopandas._vectorized import transform
-except ImportError:
-    # compat for geopandas > 0.14.3
-    # https://github.com/geopandas/geopandas/pull/3013
-    from geopandas.array import transform
-
 
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
 a = 6378245  # Semi major axis of the earth.
