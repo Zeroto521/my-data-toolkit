@@ -17,7 +17,6 @@ General methods and attributes
     geocentroid
     has_hole
     hole_counts
-    toposimplify
 
 
 Conversion
