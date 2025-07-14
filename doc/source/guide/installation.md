@@ -22,13 +22,14 @@ Optional Dependencies:
 
 ### Different Python Version Minimal Dependencies
 
-Dtoolkit support Python version from 3.10 to 3.11.
+Dtoolkit support Python version from 3.10 to 3.13.
 Therefore each version supports minimal dependencies is different.
 You could check the dependencies list from following.
 
-- [Python 3.9 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/39-minimal.yaml)
 - [Python 3.10 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/310-minimal.yaml)
 - [Python 3.11 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/311-minimal.yaml)
+- [Python 3.12 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/312-minimal.yaml)
+- [Python 3.13 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/313-minimal.yaml)
 
 ### DToolKit Requires Python Version History
 
@@ -36,8 +37,8 @@ You could check the dependencies list from following.
 - DToolKit 0.0.2 to 0.0.5 require Python 3.7 to 3.9.
 - DToolKit 0.0.6 to 0.0.16 require Python 3.7 to 3.10.
 - DToolKit 0.0.17 and 0.0.18 require Python 3.8 to 3.10.
-- DToolKit 0.0.19 and later require Python 3.8 or 3.11.
-- DToolKit 0.0.21 and later require Python 3.9 or newer.
+- DToolKit 0.0.19 and later require Python 3.8 to 3.11.
+- DToolKit 0.0.21 and later require Python 3.10 to newer.
 
 ## Install with Mamba
 
