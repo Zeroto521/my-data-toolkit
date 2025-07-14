@@ -69,9 +69,9 @@ def from_xy(
     0  122  55
     1  100   1
     >>> df.from_xy("x", "y", crs="EPSG:4326")
-         x   y                    geometry
-    0  122  55  POINT (122.00000 55.00000)
-    1  100   1   POINT (100.00000 1.00000)
+         x   y        geometry
+    0  122  55  POINT (122 55)
+    1  100   1   POINT (100 1)
     """
 
     # Avoid mutating the original DataFrame.

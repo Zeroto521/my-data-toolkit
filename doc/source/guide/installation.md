@@ -6,23 +6,23 @@
 
 Required Dependencies:
 
-- Python (>= 3.9)
-- pandas (>= 1.5.1)
+- Python (>= 3.10)
+- pandas (>= 2.0.3)
 
 Optional Dependencies:
 
 - {mod}`dtoolkit.transformer` requires dependencies
 
-  - Scikit-learn (>= 1.4)
+  - Scikit-learn (>= 1.7)
   - packaging
 
 - {mod}`dtoolkit.geoaccessor` requires dependencies
 
-  - GeoPandas (>= 0.12.1)
+  - GeoPandas (>= 1.1.0)
 
 ### Different Python Version Minimal Dependencies
 
-Dtoolkit support Python version from 3.9 to 3.10.
+Dtoolkit support Python version from 3.10 to 3.11.
 Therefore each version supports minimal dependencies is different.
 You could check the dependencies list from following.
 

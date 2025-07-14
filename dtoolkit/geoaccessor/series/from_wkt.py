@@ -61,10 +61,10 @@ def from_wkt(s: pd.Series, /, crs: CRS | str | int = None) -> gpd.GeoDataFrame:
     2    POINT (3 3)
     Name: wkt, dtype: object
     >>> s.from_wkt(crs=4326)
-               wkt                 geometry
-    0  POINT (1 1)  POINT (1.00000 1.00000)
-    1  POINT (2 2)  POINT (2.00000 2.00000)
-    2  POINT (3 3)  POINT (3.00000 3.00000)
+               wkt     geometry
+    0  POINT (1 1)  POINT (1 1)
+    1  POINT (2 2)  POINT (2 2)
+    2  POINT (3 3)  POINT (3 3)
     """
 
     if s.name is None:

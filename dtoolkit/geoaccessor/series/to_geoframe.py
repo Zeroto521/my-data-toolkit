@@ -64,18 +64,18 @@ def to_geoframe(
     ...     .geometry
     ... )
     >>> s
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
+    0    POINT (1 1)
+    1    POINT (2 2)
+    2    POINT (3 3)
     Name: geometry, dtype: geometry
     >>> type(s)
     <class 'pandas.core.series.Series'>
     >>> gs = s.to_geoframe()
     >>> gs
-                        geometry
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
+            geometry
+    0    POINT (1 1)
+    1    POINT (2 2)
+    2    POINT (3 3)
     >>> type(gs)
     <class 'geopandas.geodataframe.GeoDataFrame'>
     """

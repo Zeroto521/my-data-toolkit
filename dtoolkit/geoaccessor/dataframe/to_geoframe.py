@@ -55,15 +55,15 @@ def to_geoframe(
     ...     .drop(columns=["x", "y"])
     ... )
     >>> df_point
-                         geometry
-    0  POINT (122.00000 55.00000)
-    1   POINT (100.00000 1.00000)
+             geometry
+    0  POINT (122 55)
+    1   POINT (100 1)
     >>> df_data = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
     >>> df = pd.concat((df_data, df_point), axis=1)
     >>> df
-       a  b                    geometry
-    0  1  3  POINT (122.00000 55.00000)
-    1  2  4   POINT (100.00000 1.00000)
+       a  b        geometry
+    0  1  3  POINT (122 55)
+    1  2  4   POINT (100 1)
 
     ``df`` is DataFrame type not GeoDataFrame type.
 
@@ -72,9 +72,9 @@ def to_geoframe(
 
     >>> df = df.to_geoframe()
     >>> df
-       a  b                    geometry
-    0  1  3  POINT (122.00000 55.00000)
-    1  2  4   POINT (100.00000 1.00000)
+       a  b        geometry
+    0  1  3  POINT (122 55)
+    1  2  4   POINT (100 1)
 
     ``df`` is GeoDataFrame type at present.
 

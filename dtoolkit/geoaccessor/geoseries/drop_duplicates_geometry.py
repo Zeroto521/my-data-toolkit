@@ -61,25 +61,25 @@ def drop_duplicates_geometry(
     ...     ],
     ... )
     >>> df
-                                                geometry
-    0  POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
-    1  POLYGON ((1.00000 1.00000, 2.00000 1.00000, 2....
-    2  POLYGON ((2.00000 2.00000, 3.00000 2.00000, 3....
-    3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
+                                  geometry
+    0  POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))
+    1  POLYGON ((1 1, 2 1, 2 2, 1 2, 1 1))
+    2  POLYGON ((2 2, 3 2, 3 3, 2 3, 2 2))
+    3       POLYGON ((2 0, 3 0, 3 1, 2 0))
 
     Work for GeoSeries.
 
     >>> df.geometry.drop_duplicates_geometry('intersects')
-    0    POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
-    3    POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
+    0  POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))
+    3       POLYGON ((2 0, 3 0, 3 1, 2 0))
     Name: geometry, dtype: geometry
 
     Work for GeoDataFrame too.
 
     >>> df.drop_duplicates_geometry('intersects')
-                                                geometry
-    0  POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
-    3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
+                                  geometry
+    0  POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))
+    3       POLYGON ((2 0, 3 0, 3 1, 2 0))
     """
 
     return s[~duplicated_geometry(s, predicate=predicate, keep=keep)]

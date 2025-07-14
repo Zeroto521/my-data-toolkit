@@ -50,7 +50,7 @@ def jenks_breaks(s: pd.Series, /, bins: int) -> list[float]:
     11    4.3
     dtype: float64
     >>> s.jenks_breaks(3)
-    [1.2, 2.3, 5.0, 7.8]
+    [np.float64(1.2), np.float64(2.3), np.float64(5.0), np.float64(7.8)]
     """
     from jenkspy import jenks_breaks
 

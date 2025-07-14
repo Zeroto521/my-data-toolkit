@@ -10,7 +10,6 @@ from pandas.util._decorators import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -86,13 +85,13 @@ def geobuffer(
     ...     .drop(columns=["x", "y"])
     ... )
     >>> df
-       distance              where                    geometry
-    0         0   close to equator  POINT (122.00000 55.00000)
-    1        10  away from equator   POINT (100.00000 1.00000)
+       distance              where        geometry
+    0         0   close to equator  POINT (122 55)
+    1        10  away from equator   POINT (100 1)
     >>> df.geobuffer(100)
        distance  ...                                           geometry
     0         0  ...  POLYGON ((122.00156 55.00001, 122.00156 54.999...
-    1        10  ...  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
+    1        10  ...  POLYGON ((100.0009 1, 100.00089 0.99991, 100.0...
     <BLANKLINE>
     [2 rows x 3 columns]
 
@@ -101,7 +100,7 @@ def geobuffer(
     >>> df.geobuffer("distance")
        distance  ...                                           geometry
     0         0  ...                                      POLYGON EMPTY
-    1        10  ...  POLYGON ((100.00009 1.00000, 100.00009 0.99999...
+    1        10  ...  POLYGON ((100.00009 1, 100.00009 0.99999, 100....
     <BLANKLINE>
     [2 rows x 3 columns]
     """
@@ -134,7 +133,7 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = xy(s.centroid, frame=False, drop=True, name=None).apply(wgs_to_utm)
+        utms = s.centroid.get_coordinates().apply(tuple, axis=1).apply(wgs_to_utm)
 
     s = s.copy()
     for utm in utms.unique():

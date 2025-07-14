@@ -101,9 +101,10 @@ def reverse_geocode(
         **kwargs,
     )
     return (
-        # TODO: use `get_coordinates` in geopandas 0.13
-        # `xy` is deprecated in dtoolkit 0.0.21
-        s.xy(reverse=True, frame=False, name=address)
+        s.get_coordinates()
+        .loc[:, ["y", "x"]]
+        .apply(tuple, axis=1)
+        .rename(address)
         .apply(query, geolocate=geolocate)
         .to_geoframe(s)
     )

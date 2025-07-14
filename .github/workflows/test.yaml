@@ -28,15 +28,9 @@ jobs:
           - ubuntu-latest
         dev: [false]
         python-version:
-          - "3.9"
-          - "3.10"
           - "3.11"
         env: [ci/env/latest.yaml]
         include:
-          - env: ci/env/39-minimal.yaml
-            os: ubuntu-latest
-            dev: false
-            python-version: "3.9"
           - env: ci/env/310-minimal.yaml
             os: ubuntu-latest
             dev: false
@@ -59,7 +53,7 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: mamba-org/setup-micromamba@v1.6.0
+      - uses: mamba-org/setup-micromamba@v1.9.0
         with:
           environment-file: ${{ matrix.env }}
           create-args: python=${{ matrix.python-version }}
@@ -68,10 +62,14 @@ jobs:
         run: make info
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') }}
+        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') && matrix.python-version == '3.11' }}
         run: make doctest
 
       - name: Test with Pytest
         run: make test
 
       - uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true

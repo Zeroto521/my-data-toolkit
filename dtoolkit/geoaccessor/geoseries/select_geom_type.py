@@ -68,17 +68,17 @@ def select_geom_type(
     ... }}).from_wkt("wkt").drop(columns="wkt")
     >>> df
                                                 geometry
-    0                            POINT (1.00000 1.00000)
-    1  MULTIPOINT ((1.00000 1.00000), (2.00000 2.00000))
-    2      LINESTRING (1.00000 1.00000, 2.00000 2.00000)
-    3  LINEARRING (0.00000 0.00000, 0.00000 1.00000, ...
-    4  MULTILINESTRING ((1.00000 1.00000, 2.00000 2.0...
-    5  POLYGON ((0.00000 0.00000, 0.00000 1.00000, 1....
-    6  MULTIPOLYGON (((0.00000 0.00000, 0.00000 1.000...
-    7  GEOMETRYCOLLECTION (POINT (1.00000 1.00000), L...
+    0                                        POINT (1 1)
+    1                          MULTIPOINT ((1 1), (2 2))
+    2                              LINESTRING (1 1, 2 2)
+    3               LINEARRING (0 0, 0 1, 1 1, 1 0, 0 0)
+    4           MULTILINESTRING ((1 1, 2 2), (3 3, 4 4))
+    5                POLYGON ((0 0, 0 1, 1 1, 1 0, 0 0))
+    6         MULTIPOLYGON (((0 0, 0 1, 1 1, 1 0, 0 0)))
+    7  GEOMETRYCOLLECTION (POINT (1 1), LINESTRING (1...
     >>> df.select_geom_type("Point")
-                      geometry
-    0  POINT (1.00000 1.00000)
+          geometry
+    0  POINT (1 1)
     """
 
     return s[invert_or_not(s.geom_type == geom_type, invert=complement)]
