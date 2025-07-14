@@ -98,7 +98,7 @@ def boolean(
     Get the bool value from the entire data.
 
     >>> df.boolean(how="all", axis=None)
-    False
+    np.False_
     """
 
     if how not in {"any", "all"}:

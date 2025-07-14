@@ -14,13 +14,6 @@ class H3Base(NoNewAttributesMixin):
     def area(self) -> pd.Series:
         return self.data.index.h3.area
 
-    # TODO: Available only for h3 release 4.
-    # @property
-    # @doc(i_H3.edge)
-    # def edge(self) -> pd.Series:
-
-    #     return self.data.index.h3.edge
-
     @property
     @doc(i_H3.resolution)
     def resolution(self) -> pd.Series:
@@ -404,7 +397,7 @@ class H3Base(NoNewAttributesMixin):
         >>> s.h3.to_polygons()
                            label                                           geometry
         612845052823076863     a  POLYGON ((121.98797 55.00408, 121.99122 54.999...
-        614269156845420543     b  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
+        614269156845420543     b  POLYGON ((100.00035 0.9963, 100.0008 1.00141, ...
         >>> df = pd.DataFrame(
         ...     {'label': ['a', 'b']},
         ...     index=[612845052823076863, 614269156845420543],
@@ -416,7 +409,7 @@ class H3Base(NoNewAttributesMixin):
         >>> df.h3.to_polygons()
                            label                                           geometry
         612845052823076863     a  POLYGON ((121.98797 55.00408, 121.99122 54.999...
-        614269156845420543     b  POLYGON ((100.00035 0.99630, 100.00080 1.00141...
+        614269156845420543     b  POLYGON ((100.00035 0.9963, 100.0008 1.00141, ...
         """
 
         if isinstance(self.data, pd.Series) and self.data.name is None:

@@ -87,9 +87,9 @@ def geodistance(
     ...     .from_xy("x", "y", crs=4326)
     ... )
     >>> df
-         x   y                    geometry
-    0  122  55  POINT (122.00000 55.00000)
-    1  100   1   POINT (100.00000 1.00000)
+         x   y        geometry
+    0  122  55  POINT (122 55)
+    1  100   1   POINT (100 1)
     >>> df.geodistance(Point(120, 30)) / 1e6
     0    2.784435
     1    3.855604
@@ -99,8 +99,8 @@ def geodistance(
 
     >>> s = gpd.GeoSeries([Point(120, 30), Point(120, 50)], index=[1, 2], crs=4326)
     >>> s
-    1    POINT (120.00000 30.00000)
-    2    POINT (120.00000 50.00000)
+    1    POINT (120 30)
+    2    POINT (120 50)
     dtype: geometry
     >>> df.geodistance(s) / 1e6
     0         NaN
