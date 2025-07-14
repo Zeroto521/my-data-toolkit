@@ -47,11 +47,11 @@ jobs:
         run: ls dist/ -l
 
       - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@v1.9.0
+        uses: pypa/gh-action-pypi-publish@v1.12.0
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
           verbose: true
 
   publish-to-PyPI:
@@ -68,7 +68,7 @@ jobs:
         run: ls dist/ -l
 
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.9.0
+        uses: pypa/gh-action-pypi-publish@v1.12.0
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
