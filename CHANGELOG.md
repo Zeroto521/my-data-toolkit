@@ -503,7 +503,7 @@ Maintenance development:
 - Fix words, a -> an ({pr}`387`).
 - Pre-commit hooks autoupdate ({pr}`384`).
 
-Contribuing development:
+Contributing development:
 
 - Add pull request template ({pr}`361`).
 
