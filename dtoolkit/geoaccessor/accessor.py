@@ -8,13 +8,6 @@ def register_geoseries_accessor(name: str):
     """
     Register a custom accessor on {klass} objects.
 
-    This is a temparatory solution to hook method into
-    :class:`~geopandas.GeoSeries` or :class:`~geopandas.GeoDataFrame`.
-    If `geopandas#1952`_ done, it would be removed from
-    :mod:`dtoolkit.geoaccessor`.
-
-    .. _geopandas#1952: https://github.com/geopandas/geopandas/pull/1952
-
     Parameters
     ----------
     name : str
