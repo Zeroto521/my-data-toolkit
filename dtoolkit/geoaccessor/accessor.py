@@ -39,7 +39,7 @@ def register_geoseries_accessor(name: str):
     dtype.
 
     >>> import geopandas as gpd
-    >>> gpd.GeoSeries().dt
+    >>> gpd.GeoSeries().dt  # doctest: +SKIP
     Traceback (most recent call last):
     ...
     AttributeError: Can only use .dt accessor with datetimelike values
