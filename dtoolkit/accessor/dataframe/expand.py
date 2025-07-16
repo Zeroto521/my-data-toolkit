@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from textwrap import dedent
 from collections.abc import Hashable
+from textwrap import dedent
 
 import pandas as pd
 from pandas.util._decorators import doc
