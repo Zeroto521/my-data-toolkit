@@ -1,5 +1,5 @@
 import pandas as pd
-
+from collections.abc import Hashable
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.accessor.register import register_dataframe_method
 
