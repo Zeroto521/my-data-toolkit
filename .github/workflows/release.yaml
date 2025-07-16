@@ -46,8 +46,7 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@v1.12.0
+      - uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
@@ -67,8 +66,7 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.12.0
+      - uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
@@ -93,8 +91,7 @@ jobs:
           set -- $PKG
           echo "name=$1" >> $GITHUB_ENV
 
-      - name: Publish to GitHub
-        uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v2
         with:
           draft: true
           prerelease: ${{ contains(github.ref, 'rc') }}

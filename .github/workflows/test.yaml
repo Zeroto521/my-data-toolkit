@@ -28,7 +28,7 @@ jobs:
           - ubuntu-latest
         dev: [false]
         python-version:
-          - "3.11"
+          - "3.13"
         env: [ci/env/latest.yaml]
         include:
           - env: ci/env/310-minimal.yaml
@@ -39,21 +39,29 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.11"
+          - env: ci/env/312-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.12"
+          - env: ci/env/313-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.13"
           - env: ci/env/latest-base.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "3.11"
+            python-version: "3.13"
           - env: ci/env/dev.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "3.11"
+            python-version: "3.13"
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: mamba-org/setup-micromamba@v1.9.0
+      - uses: mamba-org/setup-micromamba@v2.0.5
         with:
           environment-file: ${{ matrix.env }}
           create-args: python=${{ matrix.python-version }}
@@ -62,13 +70,13 @@ jobs:
         run: make info
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') && matrix.python-version == '3.11' }}
+        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') && matrix.python-version == '3.13' }}
         run: make doctest
 
       - name: Test with Pytest
         run: make test
 
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
