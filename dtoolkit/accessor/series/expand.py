@@ -115,7 +115,7 @@ def expand(
     s_list = s.apply(_wrap_collapse, flatten=flatten)
     s_len = s_list.len()
     if all(s_len == 1):
-        return s
+        return s.apply(lambda x: x[0] if isinstance(x, Iterable) else x).to_frame()
 
     if s.name is None:
         raise ValueError("the column name should be specified.")
