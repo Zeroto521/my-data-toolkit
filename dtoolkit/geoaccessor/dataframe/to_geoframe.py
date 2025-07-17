@@ -1,4 +1,4 @@
-from typing import Hashable
+from collections.abc import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
