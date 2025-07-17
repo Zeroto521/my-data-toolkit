@@ -26,7 +26,7 @@ def select_geom_type(
     geom_type: GEOM_TYPE,
     /,
     complement: bool = False,
-) -> gpd.GeoSeires:
+) -> gpd.GeoSeries:
     """
     Select geometries by geometry type.
 
