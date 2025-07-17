@@ -125,8 +125,8 @@ def expand(
 
     return pd.DataFrame(
         s_list.tolist(),
-        s.index,
-        (suffix or range(max_len))[:max_len],
+        index=s.index,
+        columns=(suffix or range(max_len))[:max_len],
     ).add_prefix(s.name + delimiter)
 
 
