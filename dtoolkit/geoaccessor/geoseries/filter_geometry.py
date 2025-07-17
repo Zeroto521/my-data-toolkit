@@ -8,6 +8,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.util._decorators import doc
 
+from dtoolkit.accessor.series import invert_or_not  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -76,7 +77,7 @@ def filter_geometry(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Polygon, LineString, Point, box
+    >>> from shapely import Polygon, LineString, Point, box
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0, 0), (1, 1), (0, 1)]),
@@ -87,18 +88,18 @@ def filter_geometry(
     ...     ],
     ... )
     >>> df
-                                                geometry
-    0  POLYGON ((0.00000 0.00000, 1.00000 1.00000, 0....
-    1      LINESTRING (0.00000 0.00000, 0.00000 2.00000)
-    2      LINESTRING (0.00000 0.00000, 0.00000 1.00000)
-    3                            POINT (0.00000 1.00000)
-    4                          POINT (-1.00000 -1.00000)
+                             geometry
+    0  POLYGON ((0 0, 1 1, 0 1, 0 0))
+    1           LINESTRING (0 0, 0 2)
+    2           LINESTRING (0 0, 0 1)
+    3                     POINT (0 1)
+    4                   POINT (-1 -1)
 
     Filter the geometries out of the bounding ``box(0, 0, 2, 2)``.
 
     >>> df.filter_geometry(box(0, 0, 2, 2), "covered_by", complement=True)
-                          geometry
-    4    POINT (-1.00000 -1.00000)
+              geometry
+    4    POINT (-1 -1)
 
     This method is actually faster than the following one::
 
@@ -136,5 +137,4 @@ def _filter_geometry(
             f"Got {predicate=!r}, expected one of {get_args(BINARY_PREDICATE)!r}.",
         )
 
-    mask = getattr(s, predicate)(other, **kwargs)
-    return ~mask if complement else mask
+    return getattr(s, predicate)(other, **kwargs).invert_or_not(invert=complement)

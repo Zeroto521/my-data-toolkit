@@ -14,11 +14,11 @@ jobs:
   sdist:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history for all tags and branches
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
@@ -28,35 +28,17 @@ jobs:
       - name: Build sdist
         run: make dist
 
-      - name: Get Source Tarball Name
-        id: tar
-        run: |
-          export type=tar
-          export file=$(ls dist/ | grep ${type})
-          echo "::set-output name=file::${file}"
-
-      - name: Get Binary Wheel Name
-        id: whl
-        run: |
-          export type=whl
-          export file=$(ls dist/ | grep ${type})
-          echo "::set-output name=file::${file}"
-
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: release
           path: dist/
-
-    outputs:
-      tar: ${{ steps.tar.outputs.file }}
-      whl: ${{ steps.whl.outputs.file }}
 
   publish-to-TestPyPI:
     needs: sdist
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: release
           path: dist/
@@ -64,40 +46,19 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@v1.5.1
+      - uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+          repository-url: https://test.pypi.org/legacy/
           verbose: true
-
-  publish-to-Github:
-    needs: sdist
-    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: release
-          path: dist/
-
-      - name: List dist/ Folder
-        run: ls dist/ -l
-
-      - name: Publish to GitHub
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          prerelease: ${{ contains(github.ref, 'rc')  }}
-          files: dist/${{ needs.build.outputs.tar }}
 
   publish-to-PyPI:
     needs: sdist
     if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: release
           path: dist/
@@ -105,9 +66,33 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.5.1
+      - uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           verbose: true
+
+  publish-to-GitHub:
+    needs: sdist
+    if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: release
+          path: dist/
+
+      - name: List dist/ Folder
+        run: ls dist/ -l
+
+      - name: Get Asset name
+        run: |
+          export PKG=$(ls dist/ | grep tar)
+          set -- $PKG
+          echo "name=$1" >> $GITHUB_ENV
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          prerelease: ${{ contains(github.ref, 'rc') }}
+          files: dist/${{ env.name }}

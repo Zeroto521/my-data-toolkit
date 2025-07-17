@@ -2,7 +2,7 @@ import geopandas as gpd
 import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
-from shapely.geometry import Point
+from shapely import Point
 
 from dtoolkit.geoaccessor.geoseries import geodistance_matrix
 

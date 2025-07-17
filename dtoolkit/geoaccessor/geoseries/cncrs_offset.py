@@ -5,14 +5,14 @@ from typing import Literal
 
 import geopandas as gpd
 import numpy as np
-import pandas as pd
-from geopandas.base import GeometryArray
+from geopandas.array import transform
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
-
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
+a = 6378245  # Semi major axis of the earth.
+ee = 0.00669342162296594323  # Eccentricity\ :sup:`2`.
 
 
 @register_geoseries_method
@@ -22,8 +22,6 @@ def cncrs_offset(
     /,
     from_crs: CHINA_CRS,
     to_crs: CHINA_CRS,
-    a: float = 6378245,
-    ee: float = 0.00669342162296594323,
 ) -> gpd.GeoSeries:
     r"""
     Fix the offset of the coordinates in China.
@@ -45,12 +43,6 @@ def cncrs_offset(
     ----------
     from_crs, to_crs : {{'wgs84', 'gcj02', 'bd09'}}
         The CRS of the input and output.
-
-    a : float, default 6378245
-        Semi major axis of the earth.
-
-    ee : float, default 0.00669342162296594323
-        Eccentricity\ :sup:`2`.
 
     Returns
     -------
@@ -81,13 +73,13 @@ def cncrs_offset(
     >>> df
                 x         y                    geometry
     0  114.218927  29.57543  POINT (114.21893 29.57543)
-    1  128.543000  37.06500  POINT (128.54300 37.06500)
-    2    1.000000   1.00000     POINT (1.00000 1.00000)
+    1  128.543000  37.06500      POINT (128.543 37.065)
+    2    1.000000   1.00000                 POINT (1 1)
     >>> df.cncrs_offset(from_crs="bd09", to_crs="gcj02")
                 x         y                    geometry
     0  114.218927  29.57543  POINT (114.21243 29.56938)
     1  128.543000  37.06500  POINT (128.53659 37.05875)
-    2    1.000000   1.00000     POINT (1.00000 1.00000)
+    2    1.000000   1.00000     POINT (0.99349 0.99399)
     """
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
@@ -102,90 +94,54 @@ def cncrs_offset(
             f"Unknown 'to_crs': {to_crs!r}, must be in {get_args(CHINA_CRS)!r}.",
         )
 
-    s = s.copy()
-    mask = (s.geom_type == "Point") & (is_in_china(s))
     if from_crs == "wgs84" and to_crs == "gcj02":
-        s[mask] = wgs84_to_gcj02(s[mask], a=a, ee=ee)
+        transformer = wgs84_to_gcj02
     elif from_crs == "wgs84" and to_crs == "bd09":
-        s[mask] = wgs84_to_bd09(s[mask], a=a, ee=ee)
+        transformer = wgs84_to_bd09
     elif from_crs == "gcj02" and to_crs == "wgs84":
-        s[mask] = gcj02_to_wgs84(s[mask], a=a, ee=ee)
+        transformer = gcj02_to_wgs84
     elif from_crs == "gcj02" and to_crs == "bd09":
-        s[mask] = gcj02_to_bd09(s[mask])
+        transformer = gcj02_to_bd09
     elif from_crs == "bd09" and to_crs == "wgs84":
-        s[mask] = bd09_to_wgs84(s[mask], a=a, ee=ee)
+        transformer = bd09_to_wgs84
     elif from_crs == "bd09" and to_crs == "gcj02":
-        s[mask] = bd09_to_gcj02(s[mask])
+        transformer = bd09_to_gcj02
 
-    return s
-
-
-def is_in_china(s: gpd.GeoSeries, /) -> pd.Series:
-    """
-    Based on China boundary to judge whether a point is in China.
-
-    Parameters
-    ----------
-    GeoSeries
-        The ESGP:4326 coordinates of the point.
-
-    Returns
-    -------
-    Series of bool
-    """
-    from shapely.geometry import box
-
-    return s.covered_by(box(73.66, 3.86, 135.05, 53.55))
-
-
-# based on https://github.com/wandergis/coordTransform_py
-def wgs84_to_gcj02(
-    s: gpd.GeoSeries | GeometryArray,
-    /,
-    a: float,
-    ee: float,
-) -> GeometryArray:
-    rad_y = s.y / 180 * np.pi
-    magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
-
-    dx = transform_x(s) * 180 / (a / magic * np.cos(rad_y) * np.pi)
-    dy = transform_y(s) * 180 / (a * (1 - ee) / magic**3 * np.pi)
-    return gpd.points_from_xy(
-        x=s.x + dx,
-        y=s.y + dy,
-    )
-
-
-def wgs84_to_bd09(
-    s: gpd.GeoSeries | GeometryArray,
-    /,
-    a: float,
-    ee: float,
-) -> GeometryArray:
-    return gcj02_to_bd09(wgs84_to_gcj02(s, a=a, ee=ee))
-
-
-# based on https://github.com/wandergis/coordTransform_py
-def gcj02_to_wgs84(
-    s: gpd.GeoSeries | GeometryArray,
-    /,
-    a: float,
-    ee: float,
-) -> GeometryArray:
-    rad_y = s.y / 180 * np.pi
-    magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
-
-    dx = transform_x(s) * 180 / (a / magic * np.cos(rad_y) * np.pi)
-    dy = transform_y(s) * 180 / ((a * (1 - ee)) / magic**3 * np.pi)
-    return gpd.points_from_xy(
-        x=s.x - dx,
-        y=s.y - dy,
+    return gpd.GeoSeries(
+        transform(s, transformer),
+        crs=s.crs,
+        index=s.index,
+        name=s.name,
     )
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def transform_x(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
-    x, y = s.x - 105, s.y - 35
+def wgs84_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
+    rad_y = y / 180 * np.pi
+    magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
+
+    dx = transform_x(x, y) * 180 / (a / magic * np.cos(rad_y) * np.pi)
+    dy = transform_y(x, y) * 180 / (a * (1 - ee) / magic**3 * np.pi)
+    return x + dx, y + dy
+
+
+def wgs84_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
+    return gcj02_to_bd09(*wgs84_to_gcj02(x, y, z), z)
+
+
+# based on https://github.com/wandergis/coordTransform_py
+def gcj02_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
+    rad_y = y / 180 * np.pi
+    magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
+
+    dx = transform_x(x, y) * 180 / (a / magic * np.cos(rad_y) * np.pi)
+    dy = transform_y(x, y) * 180 / (a * (1 - ee) / magic**3 * np.pi)
+    return x - dx, y - dy
+
+
+# based on https://github.com/wandergis/coordTransform_py
+def transform_x(x: np.array, y: np.array, /) -> np.array:
+    x, y = x - 105, y - 35
     x_dot_pi = x * np.pi
 
     return (
@@ -202,8 +158,8 @@ def transform_x(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def transform_y(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
-    x, y = s.x - 105, s.y - 35
+def transform_y(x: np.array, y: np.array, /) -> np.array:
+    x, y = x - 105, y - 35
     x_dot_pi, y_dot_pi = x * np.pi, y * np.pi
 
     return (
@@ -220,34 +176,23 @@ def transform_y(s: gpd.GeoSeries | GeometryArray, /) -> pd.Series:
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def gcj02_to_bd09(s: gpd.GeoSeries | GeometryArray, /) -> GeometryArray:
+def gcj02_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
     PI = np.pi * 3000 / 180
-    z = np.sqrt(s.x**2 + s.y**2) + 2e-5 * np.sin(s.y * PI)
+    d = np.sqrt(x**2 + y**2) + 2e-5 * np.sin(y * PI)
 
-    theta = np.arctan2(s.y, s.x) + 3e-6 * np.cos(s.x * PI)
-    return gpd.points_from_xy(
-        x=z * np.cos(theta) + 0.0065,
-        y=z * np.sin(theta) + 0.006,
-    )
+    theta = np.arctan2(y, x) + 3e-6 * np.cos(x * PI)
+    return d * np.cos(theta) + 0.0065, d * np.sin(theta) + 0.006
 
 
-def bd09_to_wgs84(
-    s: gpd.GeoSeries | GeometryArray,
-    /,
-    a: float,
-    ee: float,
-) -> GeometryArray:
-    return gcj02_to_wgs84(bd09_to_gcj02(s), a=a, ee=ee)
+def bd09_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
+    return gcj02_to_wgs84(*bd09_to_gcj02(x, y, z), z)
 
 
 # based on https://github.com/wandergis/coordTransform_py
-def bd09_to_gcj02(s: gpd.GeoSeries, /) -> GeometryArray:
+def bd09_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
     PI = np.pi * 3000 / 180
-    x, y = s.x - 0.0065, s.y - 0.006
-    z = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
+    x, y = x - 0.0065, y - 0.006
+    d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
     theta = np.arctan2(y, x) - 3e-6 * np.cos(x * PI)
-    return gpd.points_from_xy(
-        x=z * np.cos(theta),
-        y=z * np.sin(theta),
-    )
+    return d * np.cos(theta), d * np.sin(theta)

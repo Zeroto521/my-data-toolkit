@@ -43,7 +43,7 @@ def drop_inf(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> import numpy as np
     >>> s = pd.Series([1., 2., np.inf])
@@ -61,10 +61,7 @@ def drop_inf(
     dtype: float64
     """
 
-    inf_range = get_inf_range(inf)
-    mask = s.isin(inf_range)
-
-    return s[~mask]
+    return s[~s.isin(get_inf_range(inf))]
 
 
 def get_inf_range(inf: Literal["all", "pos", "+", "neg", "-"] = "all") -> set[float]:

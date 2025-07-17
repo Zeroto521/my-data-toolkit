@@ -21,7 +21,7 @@ def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(Categorical)
 
     See Also
     --------
@@ -34,7 +34,7 @@ def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
 
     Create **score** samples:

@@ -17,7 +17,9 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
+    change_axis_type
     to_series
+    to_zh
     values_to_dict
 
 
@@ -64,6 +66,7 @@ Missing values
     :toctree: ../api/
 
     drop_inf
+    drop_not_duplicates
     drop_or_not
     dropna_index
     fillna_regression

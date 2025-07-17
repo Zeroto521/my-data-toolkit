@@ -17,7 +17,7 @@ from dtoolkit.accessor.series import expand as s_expand
         """
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> import numpy as np
 
@@ -74,7 +74,6 @@ def expand(
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
-
     return pd.concat(
         (
             s_expand(

@@ -49,7 +49,7 @@ def boolean(
 
     Returns
     -------
-    Series
+    Series(bool)
 
     Raises
     ------
@@ -63,7 +63,7 @@ def boolean(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> df = pd.DataFrame({"a": [True, True, False], "b": [False, True, False]})
     >>> df
@@ -98,7 +98,7 @@ def boolean(
     Get the bool value from the entire data.
 
     >>> df.boolean(how="all", axis=None)
-    False
+    np.False_
     """
 
     if how not in {"any", "all"}:

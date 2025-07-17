@@ -1,76 +1,43 @@
+from __future__ import annotations
+
 from typing import Hashable
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
+from pandas.util._decorators import doc
 
-from dtoolkit.accessor.dataframe import drop_or_not
 from dtoolkit.accessor.register import register_dataframe_method
+from dtoolkit.geoaccessor.series import geocode as s_geocode
+
+
+if TYPE_CHECKING:
+    import geopy.geocoders
 
 
 @register_dataframe_method
+@doc(s_geocode)
 def geocode(
     df: pd.DataFrame,
     /,
-    address: Hashable,
-    drop: bool = False,
+    address: Hashable = "address",
+    provider: str | geopy.geocoder = "photon",
+    min_delay_seconds: float = 0,
+    max_retries: int = 2,
+    error_wait_seconds: float = 5,
     **kwargs,
 ) -> gpd.GeoDataFrame:
-    """
-    Geocode a string type column from a DataFrame and get a GeoDataFrame of the
-    resulting points.
-
-    Parameters
-    ----------
-    address : Hashable
-        The name of the column to geocode.
-
-    drop : bool, default False
-        Don't contain the original data anymore.
-
-    **kwargs
-        See the documentation for :func:`~geopandas.tools.geocode` for complete details
-        on the keyword arguments.
-
-    Returns
-    -------
-    GeoDataFrame
-
-    Raises
-    ------
-    ModuleNotFoundError
-        If don't have module named 'geopy'.
-
-    See Also
-    --------
-    geopandas.tools.geocode
-    dtoolkit.geoaccessor.series.geocode
-
-    Examples
-    --------
-    >>> import dtoolkit.geoaccessor
-    >>> import pandas as pd
-    >>> df = pd.DataFrame(
-    ...     {
-    ...         "name": [
-    ...             "boston, ma",
-    ...             "1600 pennsylvania ave. washington, dc",
-    ...         ],
-    ...     }
-    ... )
-    >>> df
-                                        name
-    0                             boston, ma
-    1  1600 pennsylvania ave. washington, dc
-    >>> df.geocode("name", drop=True)
-                         geometry                                            address
-    0  POINT (-71.06051 42.35543)               Boston, Massachusetts, United States
-    1  POINT (-77.03655 38.89770)  White House, 1600, Pennsylvania Avenue Northwe...
-    """
-
     return pd.concat(
         (
-            gpd.tools.geocode(df[address], **kwargs),
-            drop_or_not(df, drop=drop, columns=address),
+            df.drop(columns=address),
+            s_geocode(
+                df[address],
+                provider=provider,
+                min_delay_seconds=min_delay_seconds,
+                max_retries=max_retries,
+                error_wait_seconds=error_wait_seconds,
+                **kwargs,
+            ),
         ),
         axis=1,
-    )
+    ).to_geoframe()

@@ -10,14 +10,9 @@ from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import (
     duplicated_geometry_groups,
 )
 from dtoolkit.geoaccessor.register import register_geoseries_method
-from dtoolkit.util._decorator import warning
 
 
 @register_geoseries_method
-@warning(
-    "`Geo(Series|DataFrame).duplicated_geometry`'s `predicate` default value is "
-    "changed from `'intersects'` to `None`. (Warning added DToolKit 0.0.19)",
-)
 def duplicated_geometry(
     s: gpd.GeoDataFrame,
     /,
@@ -45,7 +40,7 @@ def duplicated_geometry(
 
     Returns
     -------
-    Series
+    Series(bool)
 
     See Also
     --------
@@ -61,13 +56,13 @@ def duplicated_geometry(
 
     Drop duplicated geometries by value equal.
 
-    >>> from shapely.geometry import Point
+    >>> from shapely import Point
     >>> df = gpd.GeoDataFrame(geometry=[Point(0, 0), Point(0, 0), Point(1, 1)])
     >>> df
-                      geometry
-    0  POINT (0.00000 0.00000)
-    1  POINT (0.00000 0.00000)
-    2  POINT (1.00000 1.00000)
+          geometry
+    0  POINT (0 0)
+    1  POINT (0 0)
+    2  POINT (1 1)
     >>> df.duplicated_geometry()
     0    False
     1     True
@@ -76,7 +71,7 @@ def duplicated_geometry(
 
     Drop duplicated geometries by sptial relation.
 
-    >>> from shapely.geometry import Polygon
+    >>> from shapely import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),
@@ -86,11 +81,11 @@ def duplicated_geometry(
     ...     ],
     ... )
     >>> df
-                                                geometry
-    0  POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
-    1  POLYGON ((1.00000 1.00000, 2.00000 1.00000, 2....
-    2  POLYGON ((2.00000 2.00000, 3.00000 2.00000, 3....
-    3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
+                                  geometry
+    0  POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))
+    1  POLYGON ((1 1, 2 1, 2 2, 1 2, 1 1))
+    2  POLYGON ((2 2, 3 2, 3 3, 2 3, 2 2))
+    3       POLYGON ((2 0, 3 0, 3 1, 2 0))
     >>> df.duplicated_geometry('intersects')
     0    False
     1     True

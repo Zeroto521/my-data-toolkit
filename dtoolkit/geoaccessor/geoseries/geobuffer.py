@@ -12,7 +12,6 @@ from pandas.util._decorators import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray
-from dtoolkit.geoaccessor.geoseries.xy import xy  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -57,9 +56,9 @@ def geobuffer(
 
     IndexError
         - If ``distance`` is a list-like but its length does not match the length of
-         ``{alias}``.
+          ``{alias}``.
         - If ``distance`` is a Series but its index does not match the index of
-         ``{alias}``.
+          ``{alias}``.
 
     See Also
     --------
@@ -72,29 +71,29 @@ def geobuffer(
     >>> import dtoolkit.geoaccessor
     >>> import pandas as pd
     >>> df = (
-    ...      pd.DataFrame(
-    ...          {{
-    ...              "distance": [0, 10],
-    ...              "where": ["close to equator", "away from equator"],
-    ...              "x": [122, 100],
-    ...              "y": [55, 1],
-    ...          }},
-    ...      )
-    ...      .from_xy(
-    ...          "x",
-    ...          "y",
-    ...          crs=4326,
-    ...          drop=True,
+    ...     pd.DataFrame(
+    ...         {{
+    ...             "distance": [0, 10],
+    ...             "where": ["close to equator", "away from equator"],
+    ...             "x": [122, 100],
+    ...             "y": [55, 1],
+    ...         }},
     ...     )
+    ...     .from_xy(
+    ...         "x",
+    ...         "y",
+    ...         crs=4326,
+    ...     )
+    ...     .drop(columns=["x", "y"])
     ... )
     >>> df
-       distance              where                    geometry
-    0         0   close to equator  POINT (122.00000 55.00000)
-    1        10  away from equator   POINT (100.00000 1.00000)
+       distance              where        geometry
+    0         0   close to equator  POINT (122 55)
+    1        10  away from equator   POINT (100 1)
     >>> df.geobuffer(100)
        distance  ...                                           geometry
     0         0  ...  POLYGON ((122.00156 55.00001, 122.00156 54.999...
-    1        10  ...  POLYGON ((100.00090 1.00000, 100.00089 0.99991...
+    1        10  ...  POLYGON ((100.0009 1, 100.00089 0.99991, 100.0...
     <BLANKLINE>
     [2 rows x 3 columns]
 
@@ -103,7 +102,7 @@ def geobuffer(
     >>> df.geobuffer("distance")
        distance  ...                                           geometry
     0         0  ...                                      POLYGON EMPTY
-    1        10  ...  POLYGON ((100.00009 1.00000, 100.00009 0.99999...
+    1        10  ...  POLYGON ((100.00009 1, 100.00009 0.99999, 100....
     <BLANKLINE>
     [2 rows x 3 columns]
     """
@@ -136,10 +135,10 @@ def geobuffer(
     with catch_warnings():
         # Ignore UserWarning ("Geometry is in a geographic CRS")
         simplefilter("ignore", UserWarning)
-        utms = s.centroid.xy().apply(wgs_to_utm).to_numpy()
+        utms = s.centroid.get_coordinates().apply(tuple, axis=1).apply(wgs_to_utm)
 
     s = s.copy()
-    for utm in pd.unique(utms):
+    for utm in utms.unique():
         if utm is None:
             continue
 

@@ -4,7 +4,6 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 
-from dtoolkit.geoaccessor.geoseries.xy import xy
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
 
@@ -84,10 +83,10 @@ def geodistance_matrix(
     ...     },
     ... ).from_xy("x", "y", crs=4326)
     >>> df
-         x   y                    geometry
-    0  120  30  POINT (120.00000 30.00000)
-    1  122  55  POINT (122.00000 55.00000)
-    2  100   1   POINT (100.00000 1.00000)
+         x   y        geometry
+    0  120  30  POINT (120 30)
+    1  122  55  POINT (122 55)
+    2  100   1   POINT (100 1)
     >>> other = pd.DataFrame(
     ...     {
     ...         "x": [120, 110],
@@ -95,9 +94,9 @@ def geodistance_matrix(
     ...     },
     ... ).from_xy("x", "y", crs=4326)
     >>> other
-         x   y                    geometry
-    0  120  30  POINT (120.00000 30.00000)
-    1  110  40  POINT (110.00000 40.00000)
+         x   y        geometry
+    0  120  30  POINT (120 30)
+    1  110  40  POINT (110 40)
     >>> df.geodistance_matrix(other)
                   0             1
     0  0.000000e+00  1.435335e+06
@@ -106,22 +105,22 @@ def geodistance_matrix(
     """
     from sklearn.metrics.pairwise import haversine_distances
 
+    if other is None:
+        other = s.copy()
+
+    if not isinstance(other, gpd.base.GeoPandasBase):
+        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
     if s.crs != 4326:
         raise ValueError(f"Only support 'EPSG:4326' CRS, but got {s.crs!r}.")
+    if other.crs != 4326:
+        raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
 
-    if other is None:
-        Y = None
-    elif isinstance(other, gpd.base.GeoPandasBase):
-        if other.crs != 4326:
-            raise ValueError(f"Only support 'EPSG:4326' CRS, but got {other.crs!r}.")
-
-        Y = np.radians(xy(other.geometry, reverse=True).tolist())
-    else:
-        raise TypeError(f"Unknown type: {type(other).__name__!r}.")
-
-    X = np.radians(xy(s, reverse=True).tolist())
     return pd.DataFrame(
-        radius * haversine_distances(X, Y),
+        radius
+        * haversine_distances(
+            np.radians(s.get_coordinates().loc[:, ["y", "x"]]),
+            np.radians(other.get_coordinates().loc[:, ["y", "x"]]),
+        ),
         index=s.index,
-        columns=other.index if other is not None else s.index,
+        columns=other.index,
     )

@@ -3,6 +3,7 @@ from typing import Iterable
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.series.invert_or_not import invert_or_not
 
 
 @register_series_method
@@ -38,68 +39,30 @@ def filter_in(
 
     Examples
     --------
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> import pandas as pd
     >>> s = pd.Series(
-    ...     ['lama', 'cow', 'lama', 'beetle', 'lama', 'hippo'],
+    ...     ['llama', 'cow', 'llama', 'beetle', 'llama', 'hippo'],
     ...     name='animal',
     ... )
     >>> s
-    0      lama
+    0      llama
     1       cow
-    2      lama
+    2      llama
     3    beetle
-    4      lama
+    4      llama
     5     hippo
     Name: animal, dtype: object
-    >>> s.filter_in(['cow', 'lama'])
-    0      lama
+    >>> s.filter_in(['cow', 'llama'])
+    0      llama
     1       cow
-    2      lama
-    4      lama
+    2      llama
+    4      llama
     Name: animal, dtype: object
-    >>> s.filter_in(['cow', 'lama'], complement=True)
+    >>> s.filter_in(['cow', 'llama'], complement=True)
     3    beetle
     5     hippo
     Name: animal, dtype: object
     """
 
     return s[invert_or_not(s.isin(condition), invert=complement)]
-
-
-def invert_or_not(s: pd.Series, /, invert: bool = False) -> pd.Series:
-    """
-    Invert (~) the Series.
-
-    Parameters
-    ----------
-    invert : bool, default is False
-        If True, invert the Series.
-
-    Returns
-    -------
-    Series
-
-    Examples
-    --------
-    >>> import dtoolkit.accessor
-    >>> import pandas as pd
-    >>> s = pd.Series([True, False, True])
-    >>> s
-    0     True
-    1    False
-    2     True
-    dtype: bool
-    >>> s.pipe(invert_or_not)
-    0     True
-    1    False
-    2     True
-    dtype: bool
-    >>> s.pipe(invert_or_not, invert=True)
-    0    False
-    1     True
-    2    False
-    dtype: bool
-    """
-
-    return ~s if invert else s

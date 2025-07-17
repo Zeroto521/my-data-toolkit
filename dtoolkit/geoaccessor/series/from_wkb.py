@@ -6,18 +6,15 @@ import geopandas as gpd
 import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
+
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
 @register_series_method
-def from_wkb(
-    s: pd.Series,
-    /,
-    crs: CRS | str | int = None,
-    drop: bool = False,
-) -> gpd.GeoSeries | gpd.GeoDataFrame:
+def from_wkb(s: pd.Series, /, crs: CRS | str | int = None) -> gpd.GeoDataFrame:
     """
     Generate :obj:`~geopandas.GeoDataFrame` of geometries from :obj:`~pandas.Series`.
 
@@ -30,18 +27,14 @@ def from_wkb(
         accepted by :meth:`~pyproj.crs.CRS.from_user_input`, such as an authority
         string (eg "EPSG:4326" / 4326) or a WKT string.
 
-    drop : bool, default False
-        Don't contain original WKB anymore.
-
     Returns
     -------
-    GeoSeries or GeoDataFrame
-        GeoSeries if `drop` is True else GeoDataFrame.
+    GeoDataFrame
 
     Raises
     ------
     ValueError
-        If ``drop`` is False and the name of Series is empty.
+        If the name of Series is empty.
 
     See Also
     --------
@@ -72,7 +65,7 @@ def from_wkb(
     1    POINT (2 2)
     2    POINT (3 3)
     Name: wkt, dtype: object
-    >>> s_wkb = s.from_wkt(crs=4326, drop=True).to_wkb().rename('wkb')
+    >>> s_wkb = s.from_wkt(crs=4326).geometry.to_wkb().rename('wkb')
     >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     1    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
@@ -88,24 +81,12 @@ def from_wkb(
     2  b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'  POINT (3.00000 3.00000)
     >>> type(gdf)
     <class 'geopandas.geodataframe.GeoDataFrame'>
-
-    Drop original 'wkb' column.
-
-    >>> gs = s_wkb.from_wkb(crs=4326, drop=True)
-    >>> gs
-    0    POINT (1.00000 1.00000)
-    1    POINT (2.00000 2.00000)
-    2    POINT (3.00000 3.00000)
-    dtype: geometry
-    >>> type(gs)
-    <class 'geopandas.geoseries.GeoSeries'>
     """
 
-    if not drop and s.name is None:
+    if s.name is None:
         raise ValueError(
             "to keep the original data requires setting the 'name' of "
             f"{s.__class__.__name__!r}",
         )
 
-    geometry = gpd.GeoSeries.from_wkb(s, crs=crs)
-    return geometry if drop else gpd.GeoDataFrame(s, geometry=geometry)
+    return to_geoframe(s, geometry=gpd.GeoSeries.from_wkb(s, crs=crs))

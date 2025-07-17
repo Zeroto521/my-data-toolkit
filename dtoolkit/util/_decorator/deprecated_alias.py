@@ -7,7 +7,7 @@ from dtoolkit.util._exception import find_stack_level
 # based on https://stackoverflow.com/a/49802489/9155078
 def deprecated_alias(
     warning_msg: str = (
-        "'{func_name}'s paramerter '{old_alias}' is deprecated, "
+        "'{func_name}'s parameter '{old_alias}' is deprecated, "
         "please use the parameter '{new_alias}'."
     ),
     error_msg: str = (

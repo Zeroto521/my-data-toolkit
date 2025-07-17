@@ -19,8 +19,10 @@ Conversion
 .. autosummary::
     :toctree: ../api/
 
+    change_axis_type
     swap_index_values
     to_datetime
+    to_zh
     to_set
     values_to_dict
 
@@ -51,6 +53,8 @@ Computations / Descriptive Stats
     jenks_breaks
     error_report
     eval
+    textdistance
+    textdistance_matrix
     top_n
 
 
@@ -60,6 +64,7 @@ Reindexing / Selection
     :toctree: ../api/
 
     filter_in
+    invert_or_not
     query
     set_unique_index
 
@@ -70,6 +75,7 @@ Missing values
     :toctree: ../api/
 
     drop_inf
+    drop_not_duplicates
     dropna_index
 
 

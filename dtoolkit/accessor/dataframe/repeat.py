@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-import numpy as np
+from typing import Hashable
+
 import pandas as pd
+from pandas.api.types import is_number
 
 from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
@@ -10,7 +12,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 @register_dataframe_method
 def repeat(
     df: pd.DataFrame,
-    repeats: int | list[int],
+    repeats: int | Hashable | list[int],
     /,
     axis: Axis = 0,
 ) -> pd.DataFrame:
@@ -24,10 +26,17 @@ def repeat(
 
     Parameters
     ----------
-    repeats : int or array of ints
-        The number of repetitions for each element. This should be a
-        non-negative integer. Repeating 0 times will return an empty
-        :obj:`~pandas.DataFrame`.
+    repeats : int, Hashable or array of ints
+        The number of repetitions for each element. This should be a non-negative
+        integer. Repeating 0 times will return an empty :obj:`~pandas.DataFrame`.
+        The order of priority type is ``int`` > ``Hashable``.
+
+        * int : the row or column will be repeated ``repeats`` times.
+
+        * array of int : the row or column at the i-th position will be repeated.
+          Its length must be the same as the axis being repeated.
+
+        * Hahsable : the row or column will be repeated by with the given column.
 
     axis : {0 or 'index', 1 or 'columns'}, default 0
         The axis along which to repeat.
@@ -47,7 +56,7 @@ def repeat(
     Examples
     --------
     >>> import pandas as pd
-    >>> import dtoolkit.accessor
+    >>> import dtoolkit
     >>> df = pd.DataFrame({'a': [1, 2], 'b':[3, 4]})
     >>> df
        a  b
@@ -76,14 +85,17 @@ def repeat(
        a  b  b
     0  1  3  3
     1  2  4  4
+
+    Use the 'a' column to repeat the row.
+
+    >>> df.repeat('a')
+       a  b
+    0  1  3
+    1  2  4
+    1  2  4
     """
 
-    return pd.DataFrame(
-        np.repeat(
-            df._values,
-            repeats,
-            axis=df._get_axis_number(axis),
-        ),
-        index=df.index.repeat(repeats) if axis == 0 else df.index,
-        columns=df.columns.repeat(repeats) if axis == 1 else df.columns,
-    )
+    if not is_number(repeats) and isinstance(repeats, Hashable):
+        repeats = df[repeats]
+
+    return df.reindex(df._get_axis(axis).repeat(repeats), axis=axis)

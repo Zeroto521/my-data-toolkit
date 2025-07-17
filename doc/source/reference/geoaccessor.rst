@@ -6,8 +6,9 @@ GeoAccessor
 .. toctree::
     :maxdepth: 2
 
-    Series Accessor (to GeoPandas) <geoaccessor/series>
-    DataFrame Accessor (to GeoPandas) <geoaccessor/dataframe>
+    Index Accessor <geoaccessor/index>
+    Series Accessor <geoaccessor/series>
+    DataFrame Accessor <geoaccessor/dataframe>
     GeoSeries Accessor <geoaccessor/geoseries>
     GeoDataFrame Accessor <geoaccessor/geodataframe>
     GeoPandas Method Registering <geoaccessor/register>

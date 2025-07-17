@@ -39,7 +39,7 @@ def duplicated_geometry_groups(
 
     Returns
     -------
-    Series
+    Series(int64)
         ``index`` is the index of inputting, ``values`` is the labels of groups.
         And labels are natural numbers.
 
@@ -60,7 +60,7 @@ def duplicated_geometry_groups(
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> from shapely.geometry import Polygon
+    >>> from shapely import Polygon
     >>> df = gpd.GeoDataFrame(
     ...     geometry=[
     ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),
@@ -70,11 +70,11 @@ def duplicated_geometry_groups(
     ...     ],
     ... )
     >>> df
-                                                geometry
-    0  POLYGON ((0.00000 0.00000, 1.00000 0.00000, 1....
-    1  POLYGON ((1.00000 1.00000, 2.00000 1.00000, 2....
-    2  POLYGON ((2.00000 2.00000, 3.00000 2.00000, 3....
-    3  POLYGON ((2.00000 0.00000, 3.00000 0.00000, 3....
+                                  geometry
+    0  POLYGON ((0 0, 1 0, 1 1, 0 1, 0 0))
+    1  POLYGON ((1 1, 2 1, 2 2, 1 2, 1 1))
+    2  POLYGON ((2 2, 3 2, 3 3, 2 3, 2 2))
+    3       POLYGON ((2 0, 3 0, 3 1, 2 0))
 
     - 0 and 1 are intersecting.
     - 1 and 2 are intersecting.
@@ -90,7 +90,6 @@ def duplicated_geometry_groups(
     dtype: int64
     """
 
-    # NOTE: `predicate` requires geopandas >= 0.10.0
     return (
         s.to_frame("geometry")
         .set_unique_index(drop=True)
@@ -167,7 +166,7 @@ def group_shared_xy(s: pd.Series, /, size: int) -> pd.Series:
 
     Returns
     -------
-    Series
+    Series(int64)
         index is the original ``index``, ``values`` is the label of group.
 
     Notes

@@ -9,16 +9,23 @@ General methods and attributes
 .. autosummary::
     :toctree: ../api/
 
-    count_coordinates
+    radius
     geoarea
-    geobuffer
-    geodistance_matrix
     geodistance
-    get_coordinates
+    geodistance_matrix
+    geobuffer
+    geocentroid
     has_hole
     hole_counts
-    toposimplify
-    xy
+
+
+Conversion
+----------
+.. autosummary::
+    :toctree: ../api/
+
+    to_h3
+    voronoi
 
 
 Projection handling
@@ -37,6 +44,14 @@ Active geometry handling
     drop_duplicates_geometry
     duplicated_geometry
     duplicated_geometry_groups
+
+
+Selection
+---------
+.. autosummary::
+    :toctree: ../api/
+
+    select_geom_type
 
 
 Binary operator functions

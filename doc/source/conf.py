@@ -76,7 +76,6 @@ html_theme = "pydata_sphinx_theme"
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    "search_bar_position": "sidebar",
     "github_url": github_url,
     "icon_links": [
         {
@@ -126,9 +125,11 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "shapely": ("https://shapely.readthedocs.io/en/stable/", None),
     "pyproj": ("https://pyproj4.github.io/pyproj/stable/", None),
-    # TODO: delete pygeos after shapely 2.x released
     "pygeos": ("https://pygeos.readthedocs.io/en/stable/", None),
     "joblib": ("https://joblib.readthedocs.io/en/latest/", None),
+    "h3": ("https://uber.github.io/h3-py/", None),
+    "rapidfuzz": ("https://maxbachmann.github.io/RapidFuzz/", None),
+    "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
 }
 
 # extlinks alias

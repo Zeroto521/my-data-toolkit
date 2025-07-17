@@ -32,13 +32,16 @@ from dtoolkit.geoaccessor.geodataframe import drop_geometry  # noqa: F401
         # test single column dataframe
         (
             (
-                pd.DataFrame({"x": [122, 100], "y": [55, 1]}).from_xy(
-                    "x",
-                    "y",
-                    drop=True,
+                pd.DataFrame(
+                    {
+                        "x": [122, 100],
+                        "y": [55, 1],
+                    },
                 )
+                .from_xy("x", "y")
+                .drop(columns=["x", "y"])
             ),
-            pd.DataFrame(index=[0, 1]),
+            pd.DataFrame(index=[0, 1], columns=[]),
         ),
     ],
 )

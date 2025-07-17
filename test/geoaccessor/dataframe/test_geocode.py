@@ -1,7 +1,11 @@
 import geopandas as gpd
 import pandas as pd
+import pytest
 
-from dtoolkit.geoaccessor.dataframe import geocode  # noqa: F401
+from dtoolkit.geoaccessor.dataframe import geocode
+
+
+pytest.importorskip("geopy")
 
 
 def test_type():
@@ -13,6 +17,6 @@ def test_type():
             ],
         },
     )
-    result = df.geocode("name", drop=True)
+    result = geocode(df, "name")
 
     assert isinstance(result, gpd.GeoDataFrame)
