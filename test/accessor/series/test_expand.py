@@ -141,8 +141,7 @@ def test_error(suffix, data, name, error):
 
 
 def test_not_list_like_type():
-    s = pd.Series([1, 2, 3], name="item")
-    result = s.expand()
+    result = pd.Series([1, 2, 3], name="item").expand()
     expected = pd.DataFrame({"item": [1, 2, 3]})
 
-    assert assert_frame_equal(result, expected)
+    assert_frame_equal(result, expected)
