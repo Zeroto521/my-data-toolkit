@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Hashable
 from textwrap import dedent
-from typing import Hashable
 from typing import Iterable
 
 import pandas as pd
