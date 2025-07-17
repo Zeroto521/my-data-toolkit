@@ -96,17 +96,20 @@ from dtoolkit.accessor.series import expand  # noqa: F401
                 "item_2": [np.nan, 5, np.nan],
             },
         ),
+        (
+            None,
+            "_",
+            False,
+            [[1], [2]],
+            "item",
+            {"item": [1, 2]},
+        ),
     ],
 )
 def test_work(suffix, delimiter, flatten, data, name, expected):
     s = pd.Series(data, name=name)
     expected = pd.DataFrame(expected)
-
-    result = s.expand(
-        suffix=suffix,
-        delimiter=delimiter,
-        flatten=flatten,
-    )
+    result = s.expand(suffix=suffix, delimiter=delimiter, flatten=flatten)
 
     assert_frame_equal(result, expected)
 
