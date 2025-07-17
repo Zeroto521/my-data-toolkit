@@ -122,11 +122,8 @@ def expand(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
 
-    columns = suffix or range(max_len)
     return pd.DataFrame(
-        s_list.tolist(),
-        index=s.index,
-        columns=columns[:max_len],
+        s_list.tolist(), s.index, (suffix or range(max_len))[:max_len]
     ).add_prefix(s.name + delimiter)
 
 
