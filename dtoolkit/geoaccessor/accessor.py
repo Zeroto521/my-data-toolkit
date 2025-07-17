@@ -48,8 +48,6 @@ def register_geoseries_accessor(name: str):
     --------
     In your library code::
 
-        from __future__ import annotations
-
         from dataclasses import dataclass
 
         import pandas as pd
