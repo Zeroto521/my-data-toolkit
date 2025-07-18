@@ -10,8 +10,6 @@
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
-from __future__ import annotations
-
 import inspect
 import os
 import sys
@@ -76,7 +74,6 @@ html_theme = "pydata_sphinx_theme"
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-    "search_bar_position": "sidebar",
     "github_url": github_url,
     "icon_links": [
         {

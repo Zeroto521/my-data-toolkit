@@ -24,25 +24,13 @@ def radius(s: gpd.GeoSeries, /) -> pd.Series:
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-
-    An example to get the radius of cities/provinces/countries/continents.
-
-    >>> df = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-    >>> df.head()
-           pop_est  ...                                           geometry
-    0     889953.0  ...  MULTIPOLYGON (((180.00000 -16.06713, 180.00000...
-    1   58005463.0  ...  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...
-    2     603253.0  ...  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...
-    3   37589262.0  ...  MULTIPOLYGON (((-122.84000 49.00000, -122.9742...
-    4  328239523.0  ...  MULTIPOLYGON (((-122.84000 49.00000, -120.0000...
-    <BLANKLINE>
-    [5 rows x 6 columns]
-    >>> df.radius().head()
-    0    7.835455e+04
-    1    5.448971e+05
-    2    1.754160e+05
-    3    1.787487e+06
-    4    1.739850e+06
+    >>> from shapely import Point
+    >>> df = gpd.GeoSeries([Point(120, 50)], crs=4326).to_geoframe().geobuffer(10)
+    >>> df
+                                                geometry
+    0  POLYGON ((120.00014 50, 120.00014 49.99999, 12...
+    >>> df.radius()
+    0    9.990294
     dtype: float64
     """
 

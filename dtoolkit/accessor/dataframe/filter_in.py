@@ -1,6 +1,4 @@
-from __future__ import annotations
-
-from typing import Hashable
+from collections.abc import Hashable
 from typing import Iterable
 from typing import Literal
 

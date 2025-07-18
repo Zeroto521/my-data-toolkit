@@ -7,15 +7,15 @@ from dtoolkit.accessor.series import expand  # noqa: F401
 
 
 @pytest.mark.parametrize(
-    "suffix, delimiter, data, name, flatten, expected",
+    "suffix, delimiter, flatten, data, name, expected",
     [
         # test default parameters
         (
             None,
             "_",
+            False,
             [(1, 2), (3, 4)],
             "item",
-            False,
             {
                 "item_0": [1, 3],
                 "item_1": [2, 4],
@@ -25,9 +25,9 @@ from dtoolkit.accessor.series import expand  # noqa: F401
         (
             None,
             "-",
+            False,
             [(1, 2), (3, 4)],
             "item",
-            False,
             {
                 "item-0": [1, 3],
                 "item-1": [2, 4],
@@ -37,9 +37,9 @@ from dtoolkit.accessor.series import expand  # noqa: F401
         (
             ["a", "b"],
             "_",
+            False,
             [(1, 2), (3, 4)],
             "item",
-            False,
             {
                 "item_a": [1, 3],
                 "item_b": [2, 4],
@@ -49,9 +49,9 @@ from dtoolkit.accessor.series import expand  # noqa: F401
         (
             ["a", "b", "c"],
             "_",
+            False,
             [(1, 2), (3, 4)],
             "item",
-            False,
             {
                 "item_a": [1, 3],
                 "item_b": [2, 4],
@@ -61,9 +61,9 @@ from dtoolkit.accessor.series import expand  # noqa: F401
         (
             None,
             "_",
+            False,
             [(1, 2), (3, 4, 5)],
             "item",
-            False,
             {
                 "item_0": [1, 3],
                 "item_1": [2, 4],
@@ -74,9 +74,9 @@ from dtoolkit.accessor.series import expand  # noqa: F401
         (
             ["a", "b", "c", "d"],
             "_",
+            False,
             [(1, 2), (3, 4, 5)],
             "item",
-            False,
             {
                 "item_a": [1, 3],
                 "item_b": [2, 4],
@@ -87,26 +87,29 @@ from dtoolkit.accessor.series import expand  # noqa: F401
         (
             None,
             "_",
+            True,
             [(1, 2), (3, [4, 5]), [[6]]],
             "item",
-            True,
             {
                 "item_0": [1, 3, 6],
                 "item_1": [2, 4, np.nan],
                 "item_2": [np.nan, 5, np.nan],
             },
         ),
+        (
+            None,
+            "_",
+            False,
+            [[1], [2]],
+            "item",
+            {"item": [1, 2]},
+        ),
     ],
 )
 def test_work(suffix, delimiter, flatten, data, name, expected):
     s = pd.Series(data, name=name)
     expected = pd.DataFrame(expected)
-
-    result = s.expand(
-        suffix=suffix,
-        delimiter=delimiter,
-        flatten=flatten,
-    )
+    result = s.expand(suffix=suffix, delimiter=delimiter, flatten=flatten)
 
     assert_frame_equal(result, expected)
 
@@ -138,7 +141,7 @@ def test_error(suffix, data, name, error):
 
 
 def test_not_list_like_type():
-    s = pd.Series([1, 2, 3])
-    result = s.expand()
+    result = pd.Series([1, 2, 3], name="item").expand()
+    expected = pd.DataFrame({"item": [1, 2, 3]})
 
-    assert s is result
+    assert_frame_equal(result, expected)

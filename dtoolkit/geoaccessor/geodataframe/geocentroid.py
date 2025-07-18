@@ -1,6 +1,4 @@
-from __future__ import annotations
-
-from typing import Hashable
+from collections.abc import Hashable
 
 import geopandas as gpd
 import pandas as pd

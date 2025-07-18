@@ -1,21 +1,12 @@
-from __future__ import annotations
-
 from typing import get_args
 from typing import Literal
 
 import geopandas as gpd
 import numpy as np
+from geopandas.array import transform
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
-
-try:
-    from geopandas._vectorized import transform
-except ImportError:
-    # compat for geopandas > 0.14.3
-    # https://github.com/geopandas/geopandas/pull/3013
-    from geopandas.array import transform
-
 
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
 a = 6378245  # Semi major axis of the earth.
@@ -80,8 +71,8 @@ def cncrs_offset(
     >>> df
                 x         y                    geometry
     0  114.218927  29.57543  POINT (114.21893 29.57543)
-    1  128.543000  37.06500  POINT (128.54300 37.06500)
-    2    1.000000   1.00000     POINT (1.00000 1.00000)
+    1  128.543000  37.06500      POINT (128.543 37.065)
+    2    1.000000   1.00000                 POINT (1 1)
     >>> df.cncrs_offset(from_crs="bd09", to_crs="gcj02")
                 x         y                    geometry
     0  114.218927  29.57543  POINT (114.21243 29.56938)

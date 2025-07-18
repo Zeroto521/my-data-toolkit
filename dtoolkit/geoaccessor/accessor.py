@@ -8,13 +8,6 @@ def register_geoseries_accessor(name: str):
     """
     Register a custom accessor on {klass} objects.
 
-    This is a temparatory solution to hook method into
-    :class:`~geopandas.GeoSeries` or :class:`~geopandas.GeoDataFrame`.
-    If `geopandas#1952`_ done, it would be removed from
-    :mod:`dtoolkit.geoaccessor`.
-
-    .. _geopandas#1952: https://github.com/geopandas/geopandas/pull/1952
-
     Parameters
     ----------
     name : str
@@ -46,7 +39,7 @@ def register_geoseries_accessor(name: str):
     dtype.
 
     >>> import geopandas as gpd
-    >>> gpd.GeoSeries().dt
+    >>> gpd.GeoSeries().dt  # doctest: +SKIP
     Traceback (most recent call last):
     ...
     AttributeError: Can only use .dt accessor with datetimelike values
@@ -54,8 +47,6 @@ def register_geoseries_accessor(name: str):
     Examples
     --------
     In your library code::
-
-        from __future__ import annotations
 
         from dataclasses import dataclass
 

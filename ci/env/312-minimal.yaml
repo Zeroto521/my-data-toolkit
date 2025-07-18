@@ -2,9 +2,9 @@ name: test
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python=3.12
   # required
-  - pandas=2.0.3
+  - pandas=2.1.4
   # optional
   - scikit-learn=1.7
   - packaging

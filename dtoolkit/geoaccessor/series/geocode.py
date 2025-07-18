@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Hashable
+from collections.abc import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
@@ -84,7 +84,7 @@ def geocode(
     >>> df.geocode("address")
                                      address                    geometry
     0                             boston, ma  POINT (-71.06051 42.35543)
-    1  1600 pennsylvania ave. washington, dc  POINT (-77.03655 38.89770)
+    1  1600 pennsylvania ave. washington, dc   POINT (-77.03655 38.8977)
     """
 
     if s.name is None:

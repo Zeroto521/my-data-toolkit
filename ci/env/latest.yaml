@@ -10,7 +10,6 @@ dependencies:
   - geopandas
   - geopy
   - jenkspy
-  - topojson
   - joblib
   - rapidfuzz
   - h3-py

@@ -1,7 +1,5 @@
-from __future__ import annotations
-
+from collections.abc import Hashable
 from textwrap import dedent
-from typing import Hashable
 from typing import Iterable
 
 import pandas as pd
@@ -113,24 +111,22 @@ def expand(
     """
 
     s_list = s.apply(_wrap_collapse, flatten=flatten)
-    s_len = s_list.len()
-    if all(s_len == 1):
-        return s
+    if all((s_len := s_list.len()) == 1):
+        return s.apply(lambda x: x[0] if isinstance(x, Iterable) else x).to_frame()
 
     if s.name is None:
         raise ValueError("the column name should be specified.")
 
-    max_len = s_len.max()
+    max_len: int = s_len.max()
     if suffix and len(suffix) < max_len:
         raise ValueError(
             f"suffix length is less than the max size of {s.name!r} elements.",
         )
 
-    columns = suffix or range(max_len)
     return pd.DataFrame(
         s_list.tolist(),
         index=s.index,
-        columns=columns[:max_len],
+        columns=(suffix or range(max_len))[:max_len],
     ).add_prefix(s.name + delimiter)
 
 

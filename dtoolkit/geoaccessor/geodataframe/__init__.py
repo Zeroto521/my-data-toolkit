@@ -1,8 +1,4 @@
 from dtoolkit.geoaccessor.geodataframe.cncrs_offset import cncrs_offset  # noqa: F401
-from dtoolkit.geoaccessor.geodataframe.coordinates import coordinates  # noqa: F401
-from dtoolkit.geoaccessor.geodataframe.count_coordinates import (  # noqa: F401
-    count_coordinates,
-)
 from dtoolkit.geoaccessor.geodataframe.drop_duplicates_geometry import (  # noqa: F401
     drop_duplicates_geometry,
 )
@@ -33,6 +29,4 @@ from dtoolkit.geoaccessor.geodataframe.select_geom_type import (  # noqa: F401
     select_geom_type,
 )
 from dtoolkit.geoaccessor.geodataframe.to_h3 import to_h3  # noqa: F401
-from dtoolkit.geoaccessor.geodataframe.toposimplify import toposimplify  # noqa: F401
 from dtoolkit.geoaccessor.geodataframe.voronoi import voronoi  # noqa: F401
-from dtoolkit.geoaccessor.geodataframe.xy import xy  # noqa: F401

@@ -38,22 +38,21 @@ def geoarea(s: gpd.GeoSeries, /) -> pd.Series:
     --------
     >>> import dtoolkit.geoaccessor
     >>> import geopandas as gpd
-    >>> df = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
-    >>> df.head()
-           pop_est  ...                                           geometry
-    0     889953.0  ...  MULTIPOLYGON (((180.00000 -16.06713, 180.00000...
-    1   58005463.0  ...  POLYGON ((33.90371 -0.95000, 34.07262 -1.05982...
-    2     603253.0  ...  POLYGON ((-8.66559 27.65643, -8.66512 27.58948...
-    3   37589262.0  ...  MULTIPOLYGON (((-122.84000 49.00000, -122.9742...
-    4  328239523.0  ...  MULTIPOLYGON (((-122.84000 49.00000, -120.0000...
-    <BLANKLINE>
-    [5 rows x 6 columns]
-    >>> df.geoarea().head()
-    0    1.928760e+10
-    1    9.327793e+11
-    2    9.666925e+10
-    3    1.003773e+13
-    4    9.509851e+12
+    >>> from shapely import Polygon
+    >>> df = gpd.GeoDataFrame(
+    ...     geometry=[
+    ...         Polygon([(0,0), (1,0), (1,1), (0,1)]),
+    ...         Polygon([(1,1), (2,1), (2,2), (1,2)]),
+    ...         Polygon([(2,2), (3,2), (3,3), (2,3)]),
+    ...         Polygon([(2, 0), (3, 0), (3, 1)]),
+    ...     ],
+    ...     crs="EPSG:4326",
+    ... )
+    >>> df.geoarea()
+    0    1.230846e+10
+    1    1.230481e+10
+    2    1.229752e+10
+    3    6.154232e+09
     dtype: float64
     """
 

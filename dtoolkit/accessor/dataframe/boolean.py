@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Literal
 
 import pandas as pd
@@ -98,7 +96,7 @@ def boolean(
     Get the bool value from the entire data.
 
     >>> df.boolean(how="all", axis=None)
-    False
+    np.False_
     """
 
     if how not in {"any", "all"}:
