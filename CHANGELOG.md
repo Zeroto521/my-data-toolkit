@@ -1,5 +1,41 @@
 # Changelog
 
+## [Version 0.0.21] (2025-07-xx)
+
+1. Compacts with new changes from upstream package (Pandas 2.x, GeoPandas 1.1, SciKit-Learn 1.7, rapidfuzz 3.x, and H3 4.x).
+2. Deprated {mod}`dtoolkit.transformer` and {mod}`dtoolkit.pipeline`.
+
+New features and improvements:
+
+- {pr}`861`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.voronoi` to get a Voronoi diagram from points.
+- {pr}`851`: {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offest` supports transform all geometry types.
+- {pr}`844`: New accessor {meth}`~dtoolkit.accessor.series.drop_not_duplicates`.
+- {pr}`836`: {class}`~dtoolkit.transformer.GeoKMeans` cluster calculates distance via haversine distance.
+- {pr}`832`, {pr}`833`, {pr}`834`, {pr}`835`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geocentroid` to get the center point of points.
+- {pr}`827`: Wrap {meth}`~dtoolkit.geoaccessor.geoseries.geocode` with `RateLimiter`.
+
+Small bug-fix:
+
+- {pr}`918`: {meth}`~dtoolkit.accessor.series.expand` returns `DataFrame` for single-element iterables.- :  can't handle one point condition.
+
+API changes:
+
+- {pr}`908`: Remove most of methods from {mod}`dtoolkit.transformer` and {mod}`dtoolkit.pipeline`. Only left {class}`~dtoolkit.transformer.GeoKMeans`.
+- {pr}`862`: Remove {meth}`~dtoolkit.geoaccessor.geoseries.xy`, {meth}`~dtoolkit.geoaccessor.geoseries.coordinates`, {meth}`~dtoolkit.geoaccessor.geoseries.toposimplify`, {meth}`~dtoolkit.geoaccessor.geoseries.count_coordinates`.
+
+Maintenance development:
+
+- {pr}`917`: Import `Hashable` from `collections.abc` instead of `typing`.
+- {pr}`889`, {pr}`909`: Compact with geopandas from 0.15 to 1.1.
+- {pr}`864`, {pr}`887`, : Compact sklearn from 1.2 to 1.7.
+- {pr}`860`: Added {meth}`~dtoolkit.accessor.series.textdistance` supports to handles `nan` and `None`.
+- {pr}`859`: Compact with rapidfuzz 3.x.
+- {pr}`855`, {pr}`888`, {pr}`916`: Compact pandas 2.x.
+- {pr}`830`: Compact with H3 4.
+- {pr}`572`: Remove `__futre__` and `Union`.
+- {pr}`885`: Supports Python 3.12 and 3.13.
+- {pr}`863`: Speed up tests by using mamba-org micromamba action.
+
 ## [Version 0.0.20] (2022-12-30)
 
 Highlights of this release:
@@ -744,6 +780,8 @@ Maintenance development:
 - Drop useless comments in test files, these comments are overtime ({pr}`187`).
 - Simplify `setup.py` contents ({pr}`185`).
 
+
+[Version 0.0.21]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.20...v0.0.20
 [Version 0.0.20]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.19...v0.0.20
 [Version 0.0.19]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.18...v0.0.19
 [Version 0.0.18]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.17...v0.0.18
