@@ -16,7 +16,7 @@ New features and improvements:
 - {pr}`844`: New accessor {meth}`~dtoolkit.accessor.series.drop_not_duplicates`.
 - {pr}`836`: {class}`~dtoolkit.transformer.GeoKMeans` cluster calculates distance via haversine distance.
 - {pr}`832`, {pr}`833`, {pr}`834`, {pr}`835`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geocentroid` to get the center point of points.
-- {pr}`827`: Wrap {meth}`~dtoolkit.geoaccessor.geoseries.geocode` with `RateLimiter`.
+- {pr}`827`: Wrap {meth}`~dtoolkit.geoaccessor.series.geocode` with `RateLimiter`.
 
 Small bug-fix:
 
