@@ -12,7 +12,7 @@ Highlights of this release:
 New features and improvements:
 
 - {pr}`861`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.voronoi` to get a Voronoi diagram from points.
-- {pr}`851`: {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offest` supports transform all geometry types.
+- {pr}`851`: {meth}`~dtoolkit.geoaccessor.geoseries.cncrs_offset` supports transform all geometry types.
 - {pr}`844`: New accessor {meth}`~dtoolkit.accessor.series.drop_not_duplicates`.
 - {pr}`836`: {class}`~dtoolkit.transformer.GeoKMeans` cluster calculates distance via haversine distance.
 - {pr}`832`, {pr}`833`, {pr}`834`, {pr}`835`: New geoaccessor {meth}`~dtoolkit.geoaccessor.geoseries.geocentroid` to get the center point of points.
