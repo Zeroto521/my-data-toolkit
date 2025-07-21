@@ -7,7 +7,7 @@
 Highlights of this release:
 
 1. Compacts with new changes from upstream package (Pandas 2.x, GeoPandas 1.1, SciKit-Learn 1.7, rapidfuzz 3.x, and H3 4.x).
-2. Deprated {mod}`dtoolkit.transformer` and {mod}`dtoolkit.pipeline`.
+2. Deprecated {mod}`dtoolkit.transformer` and {mod}`dtoolkit.pipeline`.
 
 New features and improvements:
 
