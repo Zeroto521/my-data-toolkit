@@ -2,7 +2,7 @@
 
 ## Version 0.0.22 (20xx-xx-xx)
 
-## [Version 0.0.21] (2025-07-xx)
+## [Version 0.0.21] (2025-07-21)
 
 Highlights of this release:
 
