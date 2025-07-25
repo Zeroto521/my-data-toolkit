@@ -6,13 +6,17 @@ import geopandas as gpd
 from shapely import voronoi_polygons
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.util._decorator import warning
 
 if TYPE_CHECKING:
-    from shapely import MultiPolygon
-    from shapely import Polygon
+    from shapely import MultiPolygon, Polygon
 
 
 @register_geoseries_method
+@warning(
+    "'.voronoi' is deprecated. Please use `.voronoi_polygons` instead. "
+    "(Warning added DToolKit 0.0.22, will be removed in 0.0.23)",
+)
 def voronoi(
     s,
     /,
