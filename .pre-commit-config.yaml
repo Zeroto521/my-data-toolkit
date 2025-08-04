@@ -49,16 +49,11 @@ repos:
       # other
       - id: detect-private-key
   # code style
-  - repo: https://github.com/psf/black
-    rev: 25.1.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.7
     hooks:
-      - id: black
-      - id: black-jupyter
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.3.0
-    hooks:
-      - id: flake8
-        exclude: ^(example|doc)/
+      - id: ruff-check
+      - id: ruff-format
   # jupyter
   - repo: https://github.com/kynan/nbstripout
     rev: 0.8.1
