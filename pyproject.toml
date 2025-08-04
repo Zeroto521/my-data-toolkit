@@ -99,3 +99,7 @@ omit = ["dtoolkit/_version.py", "*/test/*", "*/site-packages/*"]
 
 [tool.codespell]
 ignore-words-list = "ba, filterin"
+
+[tool.ruff]
+line-length = 88
+fix = true
