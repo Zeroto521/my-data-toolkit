@@ -26,6 +26,10 @@ def voronoi(
     """
     Computes a Voronoi diagram from Point geometry.
 
+    .. deprecated:: 0.0.22
+        The 'voronoi' is deprecated.
+        Please use 'GeoSeries.voronoi_polygons' in geopandas 1.1 instead.
+
     Parameters
     ----------
     boundary : Polygon or MultiPolygon, optional
