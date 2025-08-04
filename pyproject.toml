@@ -9,18 +9,21 @@ dynamic = ["version"]
 authors = [{ name = "Zero <@Zeroto521>", email = "Zeroto521@gmail.com" }]
 description = "Face the engineering of data preprocessing."
 readme = "README.md"
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 dependencies = ["pandas>=2.0.3"]
 classifiers = [
     "Development Status :: 3 - Alpha",
+
     "Intended Audience :: Developers",
     "Intended Audience :: Education",
     "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
+
     "Operating System :: Microsoft :: Windows",
     "Operating System :: MacOS",
     "Operating System :: Unix",
+
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -28,6 +31,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: GIS",
     "Topic :: Scientific/Engineering :: Information Analysis",
@@ -37,7 +41,6 @@ classifiers = [
 Documentation = "https://my-data-toolkit.readthedocs.io"
 Repository = "https://github.com/Zeroto521/my-data-toolkit"
 Changelog = "https://my-data-toolkit.readthedocs.io/en/latest/changelog.html"
-
 
 
 # See the docstring in versioneer.py for instructions. Note that you must
