@@ -13,3 +13,6 @@ versionfile_source = "dtoolkit/_version.py"
 versionfile_build = "dtoolkit/_version.py"
 tag_prefix = "v"
 parentdir_prefix = "dtoolkit-"
+
+[tool.codespell]
+ignore-words-list = "ba, filterin"
