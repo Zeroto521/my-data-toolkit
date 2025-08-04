@@ -61,7 +61,6 @@ sdist = ["build", "twine"]
 [tool.setuptools.packages.find]
 include = ["dtoolkit", "dtoolkit.*"]
 
-
 # See the docstring in versioneer.py for instructions. Note that you must
 # re-run 'versioneer.py setup' after changing this section, and commit the
 # resulting files.
@@ -72,6 +71,31 @@ versionfile_source = "dtoolkit/_version.py"
 versionfile_build = "dtoolkit/_version.py"
 tag_prefix = "v"
 parentdir_prefix = "dtoolkit-"
+
+[tool.coverage.run]
+source = ["dtoolkit"]
+branch = true
+
+[tool.coverage.report]
+ignore_errors = false
+show_missing = true
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    "pragma: no cover",
+    # Don't complain about missing debug-only code:s
+    "def __repr__",
+    "if self.debug",
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "AbstractMethodError",
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+omit = ["dtoolkit/_version.py", "*/test/*", "*/site-packages/*"]
 
 [tool.codespell]
 ignore-words-list = "ba, filterin"
