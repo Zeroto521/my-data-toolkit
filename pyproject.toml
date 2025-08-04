@@ -42,6 +42,25 @@ Documentation = "https://my-data-toolkit.readthedocs.io"
 Repository = "https://github.com/Zeroto521/my-data-toolkit"
 Changelog = "https://my-data-toolkit.readthedocs.io/en/latest/changelog.html"
 
+[project.optional-dependencies]
+opt = ["scikit-learn >= 1.7", "packaging", "geopandas >= 1.1.0"]
+test = ["pytest", "pytest-xdist", "pytest-cov", "pytest-doctestplus", "codecov"]
+doc = [
+    "sphinx",
+    "pydata-sphinx-theme",
+    "sphinx-toggleprompt",
+    "myst-parser",
+    "numpydoc",
+    "ipython",
+    "ipykernel",
+    "nbsphinx",
+]
+sdist = ["build", "twine"]
+
+
+[tool.setuptools.packages.find]
+include = ["dtoolkit", "dtoolkit.*"]
+
 
 # See the docstring in versioneer.py for instructions. Note that you must
 # re-run 'versioneer.py setup' after changing this section, and commit the
