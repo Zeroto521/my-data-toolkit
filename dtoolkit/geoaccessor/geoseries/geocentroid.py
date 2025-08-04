@@ -79,8 +79,7 @@ def geocentroid(
     <POINT (121.999 54.999)>
     """
 
-    coord = s.get_coordinates()
-    if len(coord) == 1:
+    if len(coord := s.get_coordinates()) == 1:
         return Point(coord.iloc[0])
 
     weights = np.asarray(weights) if weights is not None else 1
