@@ -27,8 +27,7 @@ jobs:
           - macos-latest
           - ubuntu-latest
         dev: [false]
-        python-version:
-          - "3.13"
+        python-version: ["3.13"]
         env: [ci/env/latest.yaml]
         include:
           - env: ci/env/310-minimal.yaml
