@@ -7,10 +7,13 @@ import geopandas as gpd
 import pandas as pd
 from shapely import LineString
 
+from dtoolkit.accessor.register import register_dataframe_method
+
 if TYPE_CHECKING:
     from pyproj import CRS
 
 
+@register_dataframe_method
 def to_line(
     df: pd.DataFrame,
     /,
