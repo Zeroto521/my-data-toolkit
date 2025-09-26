@@ -13,6 +13,7 @@ Conversion
     from_wkt
     from_wkb
     to_geoframe
+    to_line
 
 
 Address handling
