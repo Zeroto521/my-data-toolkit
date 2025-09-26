@@ -68,7 +68,7 @@ def to_line(
                x1  ...                                           geometry
     0  113.030592  ...  LINESTRING (113.03059 23.10861, 113.10078 117....
     1  117.060651  ...   LINESTRING (117.06065 39.13939, 23.0462 39.3783)
-
+    <BLANKLINE>
     [2 rows x 5 columns]
     """
 
