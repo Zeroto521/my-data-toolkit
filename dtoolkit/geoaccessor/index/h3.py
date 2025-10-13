@@ -327,7 +327,7 @@ class H3(NoNewAttributesMixin):
 
         if not is_string_dtype(self.index):
             raise TypeError(f"Expected Index(string), but got {self.index.dtype!r}.")
-        return apply_h3(self.index, "str_to_int")
+        return pd.Index(apply_h3(self.index, "str_to_int"))
 
     @available_if
     def to_str(self) -> pd.Index:
@@ -364,7 +364,7 @@ class H3(NoNewAttributesMixin):
 
         if not is_integer_dtype(self.index):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
-        return apply_h3(self.index, "int_to_str")
+        return pd.Index(apply_h3(self.index, "int_to_str"))
 
     @available_if
     def to_center_child(self, resolution: int = None) -> pd.Index:
@@ -400,7 +400,7 @@ class H3(NoNewAttributesMixin):
         Index([617348652448612351, 618772756470956031], dtype='int64')
         """
 
-        return apply_h3(self.index, "cell_to_center_child", res=resolution)
+        return pd.Index(apply_h3(self.index, "cell_to_center_child", res=resolution))
 
     @available_if
     def to_children(self, resolution: int = None) -> pd.Index:
@@ -459,7 +459,7 @@ class H3(NoNewAttributesMixin):
         )
         """
 
-        return apply_h3(self.index, "cell_to_children", res=resolution)
+        return pd.Index(apply_h3(self.index, "cell_to_children", res=resolution))
 
     @available_if
     def to_parent(self, resolution: int = None) -> pd.Index:
@@ -495,7 +495,7 @@ class H3(NoNewAttributesMixin):
         Index([608341453197803519, 609765557230632959], dtype='int64')
         """
 
-        return apply_h3(self.index, "cell_to_parent", res=resolution)
+        return pd.Index(apply_h3(self.index, "cell_to_parent", res=resolution))
 
     @available_if
     def to_points(self) -> gpd.GeoSeries:
