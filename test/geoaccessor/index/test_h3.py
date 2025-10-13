@@ -99,7 +99,7 @@ def test_to_children(index, expected):
     assert_index_equal(result, expected)
 
 
-def test_to_polygons(index):
+def test_to_polygons():
     # The first h3 index has 7 coordinates, but the second has 6 coordinates.
     # Directly converting GeoSeries from `shapely.polygons` will raise ValueError.
     # Because the shape of geometry is different.
