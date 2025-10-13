@@ -92,10 +92,10 @@ def is_h3(index: pd.Index, /) -> bool:
     np.True_
     """
 
-    return apply_h3(index, "is_valid_cell").all()
+    return all(apply_h3(index, "is_valid_cell"))
 
 
-def apply_h3(index: pd.Index, /, method: str, **kwargs) -> pd.Index:
+def apply_h3(index: pd.Index, /, method: str, **kwargs) -> list:
     """
     Apply H3 method to :obj:`~pandas.Index`.
 
@@ -109,7 +109,7 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs) -> pd.Index:
 
     Returns
     -------
-    Index
+    list
 
     Raises
     ------
@@ -131,4 +131,5 @@ def apply_h3(index: pd.Index, /, method: str, **kwargs) -> pd.Index:
             f"Expected Index(string) or Index(int64), but got {index.dtype!r}",
         )
 
-    return index.map(partial(getattr(h3, method), **kwargs))
+    func = partial(getattr(h3, method), **kwargs)
+    return list(map(func, index))
