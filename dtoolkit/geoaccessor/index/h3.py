@@ -528,7 +528,7 @@ class H3(NoNewAttributesMixin):
         dtype: geometry
         """
 
-        yx = np.asarray(apply_h3(self.index, "cell_to_latlng").tolist())
+        yx = np.asarray(apply_h3(self.index, "cell_to_latlng"))
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
     @available_if
