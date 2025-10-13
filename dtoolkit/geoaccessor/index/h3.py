@@ -327,7 +327,7 @@ class H3(NoNewAttributesMixin):
 
         if not is_string_dtype(self.index):
             raise TypeError(f"Expected Index(string), but got {self.index.dtype!r}.")
-        return apply_h3(self.index, "str_to_int")
+        return pd.Index(apply_h3(self.index, "str_to_int"))
 
     @available_if
     def to_str(self) -> pd.Index:
@@ -364,7 +364,7 @@ class H3(NoNewAttributesMixin):
 
         if not is_integer_dtype(self.index):
             raise TypeError(f"Expected Index(int64), but got {self.index.dtype!r}.")
-        return apply_h3(self.index, "int_to_str")
+        return pd.Index(apply_h3(self.index, "int_to_str"))
 
     @available_if
     def to_center_child(self, resolution: int = None) -> pd.Index:
@@ -400,7 +400,7 @@ class H3(NoNewAttributesMixin):
         Index([617348652448612351, 618772756470956031], dtype='int64')
         """
 
-        return apply_h3(self.index, "cell_to_center_child", res=resolution)
+        return pd.Index(apply_h3(self.index, "cell_to_center_child", res=resolution))
 
     @available_if
     def to_children(self, resolution: int = None) -> pd.Index:
@@ -459,7 +459,7 @@ class H3(NoNewAttributesMixin):
         )
         """
 
-        return apply_h3(self.index, "cell_to_children", res=resolution)
+        return pd.Index(apply_h3(self.index, "cell_to_children", res=resolution))
 
     @available_if
     def to_parent(self, resolution: int = None) -> pd.Index:
@@ -495,7 +495,7 @@ class H3(NoNewAttributesMixin):
         Index([608341453197803519, 609765557230632959], dtype='int64')
         """
 
-        return apply_h3(self.index, "cell_to_parent", res=resolution)
+        return pd.Index(apply_h3(self.index, "cell_to_parent", res=resolution))
 
     @available_if
     def to_points(self) -> gpd.GeoSeries:
@@ -528,7 +528,7 @@ class H3(NoNewAttributesMixin):
         dtype: geometry
         """
 
-        yx = np.asarray(apply_h3(self.index, "cell_to_latlng").tolist())
+        yx = np.asarray(apply_h3(self.index, "cell_to_latlng"))
         return gpd.GeoSeries.from_xy(yx[:, 1], yx[:, 0], crs=4326, index=self.index)
 
     @available_if
@@ -561,13 +561,13 @@ class H3(NoNewAttributesMixin):
         614269156845420543    POLYGON ((100.00035 0.9963, 100.0008 1.00141, ...
         dtype: geometry
         """
-        from shapely import polygons
+        from shapely import Polygon
 
         def yx_to_xy(tuple_of_array: tuple[tuple[float, float]]) -> np.ndarray:
             return np.asarray(tuple_of_array)[:, ::-1]
 
         return gpd.GeoSeries(
-            polygons(apply_h3(self.index, "cell_to_boundary").map(yx_to_xy).tolist()),
+            map(Polygon, map(yx_to_xy, apply_h3(self.index, "cell_to_boundary"))),
             crs=4326,
             index=self.index,
         )
