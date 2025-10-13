@@ -97,3 +97,11 @@ def test_to_children(index, expected):
     result = pd.Index(result, dtype=index.dtype)
 
     assert_index_equal(result, expected)
+
+
+def test_to_polygons(index):
+    # The first h3 index has 7 coordinates, but the second has 6 coordinates.
+    # Directly converting GeoSeries from `shapely.polygons` will raise ValueError.
+    # Because the shape of geometry is different.
+    index = pd.Index(["854196d7fffffff", "854196bbfffffff"])
+    index.h3.to_polygons()
