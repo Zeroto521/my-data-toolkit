@@ -561,13 +561,13 @@ class H3(NoNewAttributesMixin):
         614269156845420543    POLYGON ((100.00035 0.9963, 100.0008 1.00141, ...
         dtype: geometry
         """
-        from shapely import polygons
+        from shapely import Polygon
 
         def yx_to_xy(tuple_of_array: tuple[tuple[float, float]]) -> np.ndarray:
             return np.asarray(tuple_of_array)[:, ::-1]
 
         return gpd.GeoSeries(
-            map(polygons, map(yx_to_xy, apply_h3(self.index, "cell_to_boundary"))),
+            map(Polygon, map(yx_to_xy, apply_h3(self.index, "cell_to_boundary"))),
             crs=4326,
             index=self.index,
         )
