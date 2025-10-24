@@ -33,7 +33,7 @@ jobs:
           git reset -- setup.py dtoolkit/__init__.py
           git checkout -- setup.py dtoolkit/__init__.py
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: versioneer
           path: versioneer.py
