@@ -73,7 +73,6 @@ def geocode(
     ...     {
     ...         "address": [
     ...             "boston, ma",
-    ...             "1600 pennsylvania ave. washington, dc",
     ...         ],
     ...     }
     ... )
