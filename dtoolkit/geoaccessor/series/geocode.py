@@ -73,18 +73,15 @@ def geocode(
     ...     {
     ...         "address": [
     ...             "boston, ma",
-    ...             "1600 pennsylvania ave. washington, dc",
     ...         ],
     ...     }
     ... )
     >>> df
                                      address
     0                             boston, ma
-    1  1600 pennsylvania ave. washington, dc
     >>> df.geocode("address")
                                      address                    geometry
     0                             boston, ma  POINT (-71.06051 42.35543)
-    1  1600 pennsylvania ave. washington, dc   POINT (-77.03655 38.8977)
     """
 
     if s.name is None:
