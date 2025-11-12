@@ -30,6 +30,7 @@ You could check the dependencies list from following.
 - [Python 3.11 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/311-minimal.yaml)
 - [Python 3.12 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/312-minimal.yaml)
 - [Python 3.13 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/313-minimal.yaml)
+- [Python 3.14 minimal dependencies](https://github.com/Zeroto521/my-data-toolkit/blob/main/ci/env/314-minimal.yaml)
 
 ### DToolKit Requires Python Version History
 
