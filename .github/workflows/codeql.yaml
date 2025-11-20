@@ -12,7 +12,7 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # Initializes the CodeQL tools for scanning.
       - uses: github/codeql-action/init@v4
