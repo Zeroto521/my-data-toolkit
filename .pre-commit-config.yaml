@@ -20,7 +20,7 @@ repos:
         exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.21.1
+    rev: v3.21.2
     hooks:
       - id: pyupgrade
   # text
@@ -50,13 +50,13 @@ repos:
       - id: detect-private-key
   # code style
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.4
+    rev: v0.14.6
     hooks:
       - id: ruff-check
       - id: ruff-format
   # jupyter
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.8.1
+    rev: 0.8.2
     hooks:
       - id: nbstripout
   # doc
