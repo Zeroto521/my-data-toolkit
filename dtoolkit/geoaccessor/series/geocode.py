@@ -80,8 +80,8 @@ def geocode(
                                      address
     0                             boston, ma
     >>> df.geocode("address")
-                                     address                    geometry
-    0                             boston, ma  POINT (-71.06051 42.35543)
+          address                    geometry
+    0  boston, ma  POINT (-71.05783 42.35883)
     """
 
     if s.name is None:
