@@ -45,14 +45,14 @@ def getattr(s: pd.Series, name: str, /, *args, **kwargs) -> pd.Series:
     >>> s.getattr("__doc__")
     0    str(object='') -> str\\nstr(bytes_or_buffer[, e...
     1    str(object='') -> str\\nstr(bytes_or_buffer[, e...
-    dtype: object
+    dtype: str
 
     Get a don't exist attribute.
 
     >>> s.getattr("whatever")
     0    None
     1    None
-    dtype: object
+    dtype: str
 
     Get a method attribute and call it.
 

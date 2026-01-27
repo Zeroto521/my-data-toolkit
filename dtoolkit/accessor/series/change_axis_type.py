@@ -50,7 +50,7 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     >>> s
     0    a
     1    b
-    dtype: object
+    dtype: str
     >>> s.index
     RangeIndex(start=0, stop=2, step=1)
     >>> s.change_axis_type(str).index

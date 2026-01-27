@@ -93,7 +93,7 @@ class H3(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.area
         612845052823076863    710781.770904
         614269156845420543    852134.191671
@@ -134,7 +134,7 @@ class H3(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.resolution
         612845052823076863    8
         614269156845420543    8
@@ -178,7 +178,7 @@ class H3(NoNewAttributesMixin):
         hello              a
         world              b
         88143541bdfffff    c
-        dtype: object
+        dtype: str
         >>> s.h3.is_valid
         hello              False
         world              False
@@ -239,7 +239,7 @@ class H3(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.is_pentagon
         612845052823076863    False
         614269156845420543    False
@@ -283,7 +283,7 @@ class H3(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.is_res_class_III
         612845052823076863    False
         614269156845420543    False
