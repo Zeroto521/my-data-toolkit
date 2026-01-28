@@ -69,7 +69,7 @@ def from_wkb(
     0    POINT (1 1)
     1    POINT (2 2)
     2    POINT (3 3)
-    Name: wkt, dtype: object
+    Name: wkt, dtype: str
     >>> s_wkb = s.from_wkt(crs=4326).geometry.to_wkb().rename('wkb')
     >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
