@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 0.0.22] (2026-xx-xx)
+## [Version 0.0.22] (2026-01-30)
 
 Support NumPy 2.x, Pandas 3.x, and Python 3.14.
 
