@@ -6,7 +6,7 @@
 
 Highlights of this release:
 
-1. Compacts with new changes from upstream package (Pandas 2.x, GeoPandas 1.1, SciKit-Learn 1.7, rapidfuzz 3.x, and H3 4.x).
+1. Compatible with new changes from upstream package (Pandas 2.x, GeoPandas 1.1, SciKit-Learn 1.7, rapidfuzz 3.x, and H3 4.x).
 2. Deprecated {mod}`dtoolkit.transformer` and {mod}`dtoolkit.pipeline`.
 
 New features and improvements:
@@ -30,12 +30,12 @@ API changes:
 Maintenance development:
 
 - {pr}`917`: Import `Hashable` from `collections.abc` instead of `typing`.
-- {pr}`889`, {pr}`909`: Compact with geopandas from 0.15 to 1.1.
-- {pr}`864`, {pr}`887`, : Compact sklearn from 1.2 to 1.7.
+- {pr}`889`, {pr}`909`: Compatible with geopandas from 0.15 to 1.1.
+- {pr}`864`, {pr}`887`: Supports sklearn from 1.2 to 1.7.
 - {pr}`860`: Added {meth}`~dtoolkit.accessor.series.textdistance` supports to handles `nan` and `None`.
-- {pr}`859`: Compact with rapidfuzz 3.x.
-- {pr}`855`, {pr}`888`, {pr}`916`: Compact pandas 2.x.
-- {pr}`830`: Compact with H3 4.
+- {pr}`859`: Compatible with rapidfuzz 3.x.
+- {pr}`855`, {pr}`888`, {pr}`916`: Compatible pandas 2.x.
+- {pr}`830`: Compatible with H3 4.
 - {pr}`572`: Remove `__futre__` and `Union`.
 - {pr}`885`: Supports Python 3.12 and 3.13.
 - {pr}`863`: Speed up tests by using mamba-org micromamba action.
