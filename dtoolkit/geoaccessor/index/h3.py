@@ -201,7 +201,7 @@ class H3(NoNewAttributesMixin):
         10                    b
         100000000000000000    c
         612845052823076863    d
-        dtype: object
+        dtype: str
         >>> s.h3.is_valid
         1                     False
         10                    False
@@ -319,7 +319,7 @@ class H3(NoNewAttributesMixin):
         >>> import pandas as pd
         >>> index = pd.Index(['88143541bdfffff', '886528b2a3fffff'])
         >>> index
-        Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
+        Index(['88143541bdfffff', '886528b2a3fffff'], dtype='str')
         >>> index.h3.to_int()
         Index([612845052823076863, 614269156845420543], dtype='int64')
         """
@@ -358,7 +358,7 @@ class H3(NoNewAttributesMixin):
         >>> index
         Index([612845052823076863, 614269156845420543], dtype='int64')
         >>> index.h3.to_str()
-        Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
+        Index(['88143541bdfffff', '886528b2a3fffff'], dtype='str')
         """
         from pandas.api.types import is_integer_dtype
 

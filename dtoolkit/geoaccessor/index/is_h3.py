@@ -45,7 +45,7 @@ def is_h3(index: pd.Index, /) -> bool:
 
     >>> index = pd.Index(['88143541bdfffff', '886528b2a3fffff'])
     >>> index
-    Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
+    Index(['88143541bdfffff', '886528b2a3fffff'], dtype='str')
     >>> index.is_h3()
     True
     >>> s = pd.Series(['a', 'b'], index=['88143541bdfffff', '886528b2a3fffff'])
