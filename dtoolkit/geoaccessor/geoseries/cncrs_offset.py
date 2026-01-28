@@ -8,6 +8,8 @@ from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
+
+PI = np.pi * 3000 / 180
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
 a = 6378245  # Semi major axis of the earth.
 ee = 0.00669342162296594323  # Eccentricity\ :sup:`2`.
@@ -188,7 +190,6 @@ def bd09_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 # based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    PI = np.pi * 3000 / 180
     x, y = x - 0.0065, y - 0.006
     d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
