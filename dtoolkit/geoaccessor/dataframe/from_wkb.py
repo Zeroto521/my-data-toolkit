@@ -77,7 +77,7 @@ def from_wkb(
     2    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     Name: wkb, dtype: object
     >>> type(s_wkb)
-    <class 'pandas.core.series.Series'>
+    <class 'pandas.Series'>
     >>> gdf = s_wkb.to_frame().from_wkb("wkb", crs=4326)
     >>> gdf  # doctest: +SKIP
                                                       wkb                 geometry
