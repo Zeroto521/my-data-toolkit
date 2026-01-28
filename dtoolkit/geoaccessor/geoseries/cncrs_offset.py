@@ -107,7 +107,7 @@ def cncrs_offset(
         transformer = bd09_to_gcj02
 
     return gpd.GeoSeries(
-        transform(s, transformer),
+        transform(s.values, transformer),
         crs=s.crs,
         index=s.index,
         name=s.name,
@@ -115,7 +115,7 @@ def cncrs_offset(
 
 
 # based on geopandas.array.transform, fixed for NumPy 2.0 compatibility
-def transform(data, func: callable) -> np.ndarray:
+def transform(data: np.ndarray, func: callable) -> np.ndarray:
     data_copy = np.array(data, copy=True)  # Create a copy to avoid mutation
     coords = shapely.get_coordinates(data_copy, include_z=True)
     new_x, new_y = func(coords[:, 0], coords[:, 1])
