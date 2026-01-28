@@ -179,4 +179,4 @@ def test_work(df, weights, validate, top, drop, expected):
     if isinstance(expected, pd.DataFrame):
         assert_equal = assert_frame_equal
 
-    assert_equal(result, expected, check_index_type=False)
+    assert_equal(result, expected, check_index_type=False, check_like=True)

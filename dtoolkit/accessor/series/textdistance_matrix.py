@@ -62,7 +62,7 @@ def textdistance_matrix(
     >>> s
     0    hello
     1    world
-    dtype: object
+    dtype: str
     >>> s.textdistance_matrix(pd.Series(["hello", "python"]))
            0          1
     0  100.0  36.363636

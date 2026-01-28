@@ -50,11 +50,11 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     >>> s
     0    a
     1    b
-    dtype: object
+    dtype: str
     >>> s.index
     RangeIndex(start=0, stop=2, step=1)
     >>> s.change_axis_type(str).index
-    Index(['0', '1'], dtype='object')
+    Index(['0', '1'], dtype='str')
 
     Convert DataFrame's index type from int to str:
 
@@ -66,14 +66,14 @@ def change_axis_type(s: pd.Series, dtype: type, axis: Axis = 0) -> pd.Series:
     >>> df.index
     RangeIndex(start=0, stop=2, step=1)
     >>> df.change_axis_type(str).index
-    Index(['0', '1'], dtype='object')
+    Index(['0', '1'], dtype='str')
 
     Convert DataFrame's columns type from str to int:
 
     >>> df.columns
     RangeIndex(start=0, stop=2, step=1)
     >>> df.change_axis_type(str, axis=1).columns
-    Index(['0', '1'], dtype='object')
+    Index(['0', '1'], dtype='str')
     """
 
     s = s.copy()  # Avoid mutating the original Series

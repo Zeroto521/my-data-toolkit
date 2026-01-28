@@ -64,7 +64,7 @@ def from_wkb(s: pd.Series, /, crs: CRS | str | int = None) -> gpd.GeoDataFrame:
     0    POINT (1 1)
     1    POINT (2 2)
     2    POINT (3 3)
-    Name: wkt, dtype: object
+    Name: wkt, dtype: str
     >>> s_wkb = s.from_wkt(crs=4326).geometry.to_wkb().rename('wkb')
     >>> s_wkb  # doctest: +SKIP
     0    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
@@ -72,7 +72,7 @@ def from_wkb(s: pd.Series, /, crs: CRS | str | int = None) -> gpd.GeoDataFrame:
     2    b'\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00...'
     Name: wkb, dtype: object
     >>> type(s_wkb)
-    <class 'pandas.core.series.Series'>
+    <class 'pandas.Series'>
     >>> gdf = s_wkb.from_wkb(crs=4326)
     >>> gdf  # doctest: +SKIP
                                                       wkb                 geometry
