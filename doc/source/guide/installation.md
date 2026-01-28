@@ -22,7 +22,7 @@ Optional Dependencies:
 
 ### Different Python Version Minimal Dependencies
 
-Dtoolkit support Python version from 3.10 to 3.13.
+Dtoolkit support Python version from 3.10 to 3.14.
 Therefore each version supports minimal dependencies is different.
 You could check the dependencies list from following.
 
