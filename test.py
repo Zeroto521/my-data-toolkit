@@ -1,7 +1,7 @@
 import numpy as np
-import dtoolkit.geoaccessor
 import pandas as pd
 import shapely
+
 
 df = pd.DataFrame(
     {
