@@ -106,7 +106,6 @@ def cncrs_offset(
     elif from_crs == "bd09" and to_crs == "gcj02":
         transformer = bd09_to_gcj02
 
-    s = s.copy()
     return gpd.GeoSeries(
         transform(s, transformer),
         crs=s.crs,
