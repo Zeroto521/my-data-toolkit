@@ -40,41 +40,41 @@ def test_error(s, from_crs, to_crs, error):
     [
         # wgs84 to gcj02
         (
-            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065 0)"], crs=4326),
             "wgs84",
             "gcj02",
             gpd.GeoSeries.from_wkt(
-                ["POINT (128.54820547949757 37.065651049489816)"],
+                ["POINT (128.54820547949757 37.065651049489816 0)"],
                 crs=4326,
             ),
         ),
         # wgs84 to bd09
         (
-            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065 0)"], crs=4326),
             "wgs84",
             "bd09",
             gpd.GeoSeries.from_wkt(
-                ["POINT (128.55468192918485 37.07168344938498)"],
+                ["POINT (128.55468192918485 37.07168344938498 0)"],
                 crs=4326,
             ),
         ),
         # gcj02 to wgs84
         (
-            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065 0)"], crs=4326),
             "gcj02",
             "wgs84",
             gpd.GeoSeries.from_wkt(
-                ["POINT (128.53779452050244 37.06434895051018)"],
+                ["POINT (128.53779452050244 37.06434895051018 0)"],
                 crs=4326,
             ),
         ),
         # gcj02 to bd09
         (
-            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065)"], crs=4326),
+            gpd.GeoSeries.from_wkt(["POINT (128.543 37.065 0)"], crs=4326),
             "gcj02",
             "bd09",
             gpd.GeoSeries.from_wkt(
-                ["POINT (128.54944656269413 37.07113427883019)"],
+                ["POINT (128.54944656269413 37.07113427883019 0)"],
                 crs=4326,
             ),
         ),

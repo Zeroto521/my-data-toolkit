@@ -70,7 +70,7 @@ def to_geoframe(
     ``df`` is DataFrame type not GeoDataFrame type.
 
     >>> type(df)
-    <class 'pandas.core.frame.DataFrame'>
+    <class 'pandas.DataFrame'>
 
     >>> df = df.to_geoframe()
     >>> df
