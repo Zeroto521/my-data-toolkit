@@ -127,7 +127,7 @@ def transform(data, func: callable) -> np.ndarray:
 
     # Ensure array is writable and C-contiguous for NumPy 2.0 compatibility
     new_coords = np.ascontiguousarray(new_coords, dtype=np.float64)
-    res[:] = shapely.set_coordinates(data.copy(), new_coords)
+    res[:] = shapely.set_coordinates(np.array(data, copy=True), new_coords)
     return res
 
 
