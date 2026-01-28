@@ -181,8 +181,8 @@ def transform_y(x: np.array, y: np.array, /) -> np.array:
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    d = np.sqrt(x**2 + y**2) + 2e-5 * np.sin(y * PI)
 
+    d = np.sqrt(x**2 + y**2) + 2e-5 * np.sin(y * PI)
     theta = np.arctan2(y, x) + 3e-6 * np.cos(x * PI)
     return d * np.cos(theta) + 0.0065, d * np.sin(theta) + 0.006
 
@@ -196,7 +196,7 @@ def bd09_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
     x = np.array(x, copy=True)
     y = np.array(y, copy=True)
     x, y = x - 0.0065, y - 0.006
-    d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
+    d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
     theta = np.arctan2(y, x) - 3e-6 * np.cos(x * PI)
     return d * np.cos(theta), d * np.sin(theta)
