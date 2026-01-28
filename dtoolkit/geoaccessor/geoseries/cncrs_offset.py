@@ -1,4 +1,5 @@
-from typing import Literal, get_args
+from typing import get_args
+from typing import Literal
 
 import geopandas as gpd
 import numpy as np
