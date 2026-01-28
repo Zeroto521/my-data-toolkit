@@ -107,9 +107,9 @@ def weighted_mean(
     ...         "ab-bc": {"ab": 1, "bc": 1},  # 'ab' and 'bc' are new generated columns
     ...     }
     ... )
-       a   ab  ab-bc  b   bc  c
-    0  1  1.5   2.25  2  3.0  4
-    1  1  1.5   2.25  2  3.0  4
+        ab   bc  ab-bc  a  b  c
+    0  1.5  3.0   2.25  1  2  4
+    1  1.5  3.0   2.25  1  2  4
     """
 
     if isinstance(weights, (list, tuple)):
