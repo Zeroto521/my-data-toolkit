@@ -1,13 +1,11 @@
-from typing import get_args
-from typing import Literal
+from typing import Literal, get_args
 
 import geopandas as gpd
 import numpy as np
-from geopandas.array import transform
+import shapely
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
-
 
 PI = np.pi * 3000 / 180
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
@@ -113,6 +111,24 @@ def cncrs_offset(
         index=s.index,
         name=s.name,
     )
+
+
+# based on geopandas.array.transform, fixed for NumPy 2.0 compatibility
+def transform(data, func: callable) -> np.ndarray:
+    res = np.empty_like(data)
+
+    coords = shapely.get_coordinates(data, include_z=True)
+    new_x, new_y = func(coords[:, 0], coords[:, 1])
+
+    if coords.shape[1] == 3:  # Has z dimension - preserve it
+        new_coords = np.column_stack([new_x, new_y, coords[:, 2]])
+    else:  # Only x, y
+        new_coords = np.column_stack([new_x, new_y])
+
+    # Ensure array is writable and C-contiguous for NumPy 2.0 compatibility
+    new_coords = np.ascontiguousarray(new_coords, dtype=np.float64)
+    res[:] = shapely.set_coordinates(data.copy(), new_coords)
+    return res
 
 
 # based on https://github.com/wandergis/coordTransform_py
