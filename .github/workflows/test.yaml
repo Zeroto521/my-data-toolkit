@@ -28,7 +28,7 @@ jobs:
           - ubuntu-latest
         dev: [false]
         python-version:
-          - "3.13"
+          - "3.14"
         env: [ci/env/latest.yaml]
         include:
           - env: ci/env/310-minimal.yaml
@@ -47,14 +47,18 @@ jobs:
             os: ubuntu-latest
             dev: false
             python-version: "3.13"
+          - env: ci/env/314-minimal.yaml
+            os: ubuntu-latest
+            dev: false
+            python-version: "3.14"
           - env: ci/env/latest-base.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "3.13"
+            python-version: "3.14"
           - env: ci/env/dev.yaml
             os: ubuntu-latest
             dev: false
-            python-version: "3.13"
+            python-version: "3.14"
 
     steps:
       - uses: actions/checkout@v6
@@ -70,7 +74,7 @@ jobs:
         run: make info
 
       - name: Test Docstrings
-        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') && matrix.python-version == '3.13' }}
+        if: ${{ contains(matrix.env, 'latest.yaml') && contains(matrix.os, 'ubuntu') && matrix.python-version == '3.14' }}
         run: make doctest
 
       - name: Test with Pytest
