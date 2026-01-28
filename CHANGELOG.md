@@ -1,6 +1,20 @@
 # Changelog
 
-## Version 0.0.22 (20xx-xx-xx)
+## [Version 0.0.22] (2026-xx-xx)
+
+Support NumPy 2.x, Pandas 2.x, GeoPandas 1.1.x,
+
+New features and improvements:
+
+- {pr}`938`: New method {meth}`~dtoolkit.geoaccessor.dataframe.to_line` to create `LineString` geometries from `DataFrame` .
+
+API changes:
+
+- {pr}`921`: Deprecate {meth}`~dtoolkit.geoaccessor.geoseries.voronoi`, please use {meth}`geopandas.GeoSeries.voronoi_polygons` instead.
+
+Maintenance development:
+
+- {pr}`923`: Use `pyproject.toml` to replace `setup.cfg`.
 
 ## [Version 0.0.21] (2025-07-21)
 
@@ -785,7 +799,8 @@ Maintenance development:
 - Simplify `setup.py` contents ({pr}`185`).
 
 
-[Version 0.0.21]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.20...v0.0.20
+[Version 0.0.22]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.21...v0.0.22
+[Version 0.0.21]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.20...v0.0.21
 [Version 0.0.20]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.19...v0.0.20
 [Version 0.0.19]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.18...v0.0.19
 [Version 0.0.18]: https://github.com/Zeroto521/my-data-toolkit/compare/v0.0.17...v0.0.18
