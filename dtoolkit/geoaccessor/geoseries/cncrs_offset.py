@@ -122,7 +122,7 @@ def transform(data, func: callable) -> np.ndarray:
     coords = shapely.get_coordinates(data_copy, include_z=True)
     new_x, new_y = func(coords[:, 0], coords[:, 1])
 
-    if coords.shape[1] == 3:  # Has z dimension - preserve it
+    if shapely.has_z(data_copy).any():  # Has z dimension - preserve it
         new_coords = np.column_stack([new_x, new_y, coords[:, 2]])
     else:  # Only x, y
         new_coords = np.column_stack([new_x, new_y])
