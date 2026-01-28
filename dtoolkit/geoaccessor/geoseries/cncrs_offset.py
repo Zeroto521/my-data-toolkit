@@ -117,6 +117,8 @@ def cncrs_offset(
 
 # based on https://github.com/wandergis/coordTransform_py
 def wgs84_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
+    x = np.array(x, copy=True)
+    y = np.array(y, copy=True)
     rad_y = y / 180 * np.pi
     magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
 
@@ -131,6 +133,8 @@ def wgs84_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
+    x = np.array(x, copy=True)
+    y = np.array(y, copy=True)
     rad_y = y / 180 * np.pi
     magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
 
@@ -141,7 +145,6 @@ def gcj02_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.ar
 
 # based on https://github.com/wandergis/coordTransform_py
 def transform_x(x: np.array, y: np.array, /) -> np.array:
-    x, y = x.copy(), y.copy()
     x, y = x - 105, y - 35
     x_dot_pi = x * np.pi
 
@@ -160,7 +163,6 @@ def transform_x(x: np.array, y: np.array, /) -> np.array:
 
 # based on https://github.com/wandergis/coordTransform_py
 def transform_y(x: np.array, y: np.array, /) -> np.array:
-    x, y = x.copy(), y.copy()
     x, y = x - 105, y - 35
     x_dot_pi, y_dot_pi = x * np.pi, y * np.pi
 
@@ -192,7 +194,8 @@ def bd09_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 # based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    x, y = x.copy(), y.copy()
+    x = np.array(x, copy=True)
+    y = np.array(y, copy=True)
     x, y = x - 0.0065, y - 0.006
     d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
 
