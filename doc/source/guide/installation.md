@@ -39,7 +39,8 @@ You could check the dependencies list from following.
 - DToolKit 0.0.6 to 0.0.16 require Python 3.7 to 3.10.
 - DToolKit 0.0.17 and 0.0.18 require Python 3.8 to 3.10.
 - DToolKit 0.0.19 and later require Python 3.8 to 3.11.
-- DToolKit 0.0.21 and later require Python 3.10 to newer.
+- DToolKit 0.0.21 and later require Python 3.10 to 3.13.
+- DToolKit 0.0.22 and later require Python 3.10 to newer.
 
 ## Install with Mamba
 
