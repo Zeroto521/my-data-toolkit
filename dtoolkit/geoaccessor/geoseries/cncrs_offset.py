@@ -117,19 +117,15 @@ def cncrs_offset(
 
 # based on geopandas.array.transform, fixed for NumPy 2.0 compatibility
 def transform(data, func: callable) -> np.ndarray:
-    data_copy = np.array(data, copy=True)  # Create a copy to avoid mutation
-
-    coords = shapely.get_coordinates(data_copy, include_z=True)
+    coords = shapely.get_coordinates(data, include_z=True)
     new_x, new_y = func(coords[:, 0], coords[:, 1])
 
-    if shapely.has_z(data_copy).any():  # Has z dimension - preserve it
+    if shapely.has_z(data).any():  # Has z dimension - preserve it
         new_coords = np.column_stack([new_x, new_y, coords[:, 2]])
     else:  # Only x, y
         new_coords = np.column_stack([new_x, new_y])
 
-    # Ensure array is writable and C-contiguous for NumPy 2.0 compatibility
-    new_coords = np.ascontiguousarray(new_coords, dtype=np.float64)
-    return shapely.set_coordinates(data_copy, new_coords)
+    return shapely.set_coordinates(data.copy(), new_coords)
 
 
 # based on https://github.com/wandergis/coordTransform_py
