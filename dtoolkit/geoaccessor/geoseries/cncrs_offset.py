@@ -3,11 +3,12 @@ from typing import Literal
 
 import geopandas as gpd
 import numpy as np
-from geopandas.array import transform
+import shapely
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 
+PI = np.pi * 3000 / 180
 CHINA_CRS = Literal["wgs84", "gcj02", "bd09"]
 a = 6378245  # Semi major axis of the earth.
 ee = 0.00669342162296594323  # Eccentricity\ :sup:`2`.
@@ -106,11 +107,25 @@ def cncrs_offset(
         transformer = bd09_to_gcj02
 
     return gpd.GeoSeries(
-        transform(s, transformer),
+        transform(s.values, transformer),
         crs=s.crs,
         index=s.index,
         name=s.name,
     )
+
+
+# based on geopandas.array.transform, fixed for NumPy 2.0 compatibility
+def transform(data: np.ndarray, func: callable) -> np.ndarray:
+    data_copy = np.array(data, copy=True)  # Create a copy to avoid mutation
+    coords = shapely.get_coordinates(data_copy, include_z=True)
+    new_x, new_y = func(coords[:, 0], coords[:, 1])
+
+    if shapely.has_z(data_copy).any():  # Has z dimension - preserve it
+        new_coords = np.column_stack([new_x, new_y, coords[:, 2]])
+    else:  # Only x, y
+        new_coords = np.column_stack([new_x, new_y])
+
+    return shapely.set_coordinates(data_copy, new_coords)
 
 
 # based on https://github.com/wandergis/coordTransform_py
@@ -139,16 +154,16 @@ def gcj02_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.ar
 
 # based on https://github.com/wandergis/coordTransform_py
 def transform_x(x: np.array, y: np.array, /) -> np.array:
-    x, y = x - 105, y - 35
-    x_dot_pi = x * np.pi
+    x_shifted, y_shifted = x - 105, y - 35
+    x_dot_pi = x_shifted * np.pi
 
     return (
         300
-        + x
-        + 2 * y
-        + 0.1 * x**2
-        + 0.1 * x * y
-        + 0.1 * np.sqrt(np.fabs(x))
+        + x_shifted
+        + 2 * y_shifted
+        + 0.1 * x_shifted**2
+        + 0.1 * x_shifted * y_shifted
+        + 0.1 * np.sqrt(np.fabs(x_shifted))
         + (20 * np.sin(x_dot_pi * 6) + 20 * np.sin(x_dot_pi * 2)) * 2 / 3
         + (20 * np.sin(x_dot_pi) + 40 * np.sin(x_dot_pi / 3)) * 2 / 3
         + (150 * np.sin(x_dot_pi / 12) + 300 * np.sin(x_dot_pi / 30)) * 2 / 3
@@ -157,16 +172,16 @@ def transform_x(x: np.array, y: np.array, /) -> np.array:
 
 # based on https://github.com/wandergis/coordTransform_py
 def transform_y(x: np.array, y: np.array, /) -> np.array:
-    x, y = x - 105, y - 35
-    x_dot_pi, y_dot_pi = x * np.pi, y * np.pi
+    x_shifted, y_shifted = x - 105, y - 35
+    x_dot_pi, y_dot_pi = x_shifted * np.pi, y_shifted * np.pi
 
     return (
         -100
-        + 2 * x
-        + 3 * y
-        + 0.2 * y**2
-        + 0.1 * x * y
-        + 0.2 * np.sqrt(np.fabs(x))
+        + 2 * x_shifted
+        + 3 * y_shifted
+        + 0.2 * y_shifted**2
+        + 0.1 * x_shifted * y_shifted
+        + 0.2 * np.sqrt(np.fabs(x_shifted))
         + (20 * np.sin(x_dot_pi * 6) + 20 * np.sin(x_dot_pi * 2)) * 2 / 3
         + (20 * np.sin(y_dot_pi) + 40 * np.sin(y_dot_pi / 3)) * 2 / 3
         + (160 * np.sin(y_dot_pi / 12) + 320 * np.sin(y_dot_pi / 30)) * 2 / 3
@@ -175,9 +190,7 @@ def transform_y(x: np.array, y: np.array, /) -> np.array:
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    PI = np.pi * 3000 / 180
     d = np.sqrt(x**2 + y**2) + 2e-5 * np.sin(y * PI)
-
     theta = np.arctan2(y, x) + 3e-6 * np.cos(x * PI)
     return d * np.cos(theta) + 0.0065, d * np.sin(theta) + 0.006
 
@@ -188,9 +201,9 @@ def bd09_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 # based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    PI = np.pi * 3000 / 180
-    x, y = x - 0.0065, y - 0.006
-    d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
+    x_shifted = x - 0.0065
+    y_shifted = y - 0.006
 
-    theta = np.arctan2(y, x) - 3e-6 * np.cos(x * PI)
+    d = np.sqrt(x_shifted**2 + y_shifted**2) - 2e-5 * np.sin(y_shifted * PI)
+    theta = np.arctan2(y_shifted, x_shifted) - 3e-6 * np.cos(x_shifted * PI)
     return d * np.cos(theta), d * np.sin(theta)

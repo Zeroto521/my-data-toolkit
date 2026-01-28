@@ -45,14 +45,14 @@ def is_h3(index: pd.Index, /) -> bool:
 
     >>> index = pd.Index(['88143541bdfffff', '886528b2a3fffff'])
     >>> index
-    Index(['88143541bdfffff', '886528b2a3fffff'], dtype='object')
+    Index(['88143541bdfffff', '886528b2a3fffff'], dtype='str')
     >>> index.is_h3()
     True
     >>> s = pd.Series(['a', 'b'], index=['88143541bdfffff', '886528b2a3fffff'])
     >>> s
     88143541bdfffff    a
     886528b2a3fffff    b
-    dtype: object
+    dtype: str
     >>> s.is_h3()
     True
     >>> df = pd.DataFrame(
@@ -77,7 +77,7 @@ def is_h3(index: pd.Index, /) -> bool:
     >>> s
     612845052823076863    a
     614269156845420543    b
-    dtype: object
+    dtype: str
     >>> s.is_h3()
     True
     >>> df = pd.DataFrame(

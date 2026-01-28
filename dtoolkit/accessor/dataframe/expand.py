@@ -29,11 +29,11 @@ from dtoolkit.accessor.series import expand as s_expand
     ...     },
     ... )
     >>> df.expand()
-        A_0  A_1  A_2  B   C_0   C_1   C_2
-    0     0  1.0  2.0  1     a     b     c
-    1   foo  NaN  NaN  1   NaN  None  None
-    2  None  NaN  NaN  1  None  None  None
-    3     3  4.0  NaN  1     d     e  None
+        A_0  A_1  A_2  B  C_0  C_1  C_2
+    0     0  1.0  2.0  1    a    b    c
+    1   foo  NaN  NaN  1  NaN  NaN  NaN
+    2  None  NaN  NaN  1  NaN  NaN  NaN
+    3     3  4.0  NaN  1    d    e  NaN
 
     Expand *sub-element* type is list-like.
 

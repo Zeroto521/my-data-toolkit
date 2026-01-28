@@ -52,17 +52,17 @@ def filter_in(
     3    beetle
     4      llama
     5     hippo
-    Name: animal, dtype: object
+    Name: animal, dtype: str
     >>> s.filter_in(['cow', 'llama'])
     0      llama
     1       cow
     2      llama
     4      llama
-    Name: animal, dtype: object
+    Name: animal, dtype: str
     >>> s.filter_in(['cow', 'llama'], complement=True)
     3    beetle
     5     hippo
-    Name: animal, dtype: object
+    Name: animal, dtype: str
     """
 
     return s[invert_or_not(s.isin(condition), invert=complement)]

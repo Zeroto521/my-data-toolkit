@@ -49,12 +49,12 @@ def drop_not_duplicates(
     2      llama
     3    beetle
     4      llama
-    dtype: object
+    dtype: str
     >>> animals.drop_not_duplicates()
     0      llama
     2      llama
     4      llama
-    dtype: object
+    dtype: str
     """
 
     return s[s.duplicated(keep=keep)]
