@@ -52,7 +52,7 @@ def getattr(s: pd.Series, name: str, /, *args, **kwargs) -> pd.Series:
     >>> s.getattr("whatever")
     0    None
     1    None
-    dtype: str
+    dtype: object
 
     Get a method attribute and call it.
 
