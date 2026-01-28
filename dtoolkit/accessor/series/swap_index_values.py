@@ -39,7 +39,7 @@ def swap_index_values(s: pd.Series, /) -> pd.Series:
     1    a
     2    b
     3    c
-    Name: index, dtype: object
+    Name: index, dtype: str
     """
 
     return pd.Series(s.index, index=s)

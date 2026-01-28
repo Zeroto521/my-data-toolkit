@@ -57,7 +57,7 @@ def bin(s: pd.Series, /, *args, **kwargs) -> pd.Series:
     4    B
     5    E
     dtype: category
-    Categories (5, object): ['E' < 'D' < 'C' < 'B' < 'A']
+    Categories (5, str): ['E' < 'D' < 'C' < 'B' < 'A']
     """
 
     return pd.cut(s, *args, **kwargs)
