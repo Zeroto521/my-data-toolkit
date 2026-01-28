@@ -63,11 +63,11 @@ def to_zh(
     >>> s
     0    漢
     1    字
-    dtype: object
+    dtype: str
     >>> s.to_zh(locale="zh-cn")
     0    汉
     1    字
-    dtype: object
+    dtype: str
     """
 
     from zhconv import convert

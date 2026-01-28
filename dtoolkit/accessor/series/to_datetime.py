@@ -41,12 +41,12 @@ def to_datetime(s: pd.Series, /, **kwargs) -> pd.Series:
     0    20200101
     1    20200202
     2    20200303
-    dtype: object
+    dtype: str
     >>> s.to_datetime(format='%Y%m%d')
     0   2020-01-01
     1   2020-02-02
     2   2020-03-03
-    dtype: datetime64[ns]
+    dtype: datetime64[us]
     """
 
     return pd.to_datetime(s, **kwargs)

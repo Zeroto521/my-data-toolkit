@@ -58,11 +58,11 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         88143541bdfffff    a
         886528b2a3fffff    b
-        dtype: object
+        dtype: str
         >>> s.h3.to_int()
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> df = pd.DataFrame(
         ...     {{'label': ['a', 'b']}},
         ...     index=['88143541bdfffff', '886528b2a3fffff'],
@@ -103,11 +103,11 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.to_str()
         88143541bdfffff    a
         886528b2a3fffff    b
-        dtype: object
+        dtype: str
         >>> df = pd.DataFrame(
         ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
@@ -154,11 +154,11 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.to_center_child()
         617348652448612351    a
         618772756470956031    b
-        dtype: object
+        dtype: str
         >>> df = pd.DataFrame(
         ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
@@ -206,7 +206,7 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.to_children()
         617348652448612351    a
         617348652448874495    a
@@ -222,7 +222,7 @@ class H3Base(NoNewAttributesMixin):
         618772756472004607    b
         618772756472266751    b
         618772756472528895    b
-        dtype: object
+        dtype: str
         >>> df = pd.DataFrame(
         ...     {{'label': ['a', 'b']}},
         ...     index=[612845052823076863, 614269156845420543],
@@ -286,11 +286,11 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        dtype: object
+        dtype: str
         >>> s.h3.to_parent()
         608341453197803519    a
         609765557230632959    b
-        dtype: object
+        dtype: str
 
         DataFrame Example.
 
@@ -338,7 +338,7 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        Name: label, dtype: object
+        Name: label, dtype: str
         >>> s.h3.to_points()
                            label                    geometry
         612845052823076863     a  POINT (121.99637 55.00331)
@@ -393,7 +393,7 @@ class H3Base(NoNewAttributesMixin):
         >>> s
         612845052823076863    a
         614269156845420543    b
-        Name: label, dtype: object
+        Name: label, dtype: str
         >>> s.h3.to_polygons()
                            label                                           geometry
         612845052823076863     a  POLYGON ((121.98797 55.00408, 121.99122 54.999...

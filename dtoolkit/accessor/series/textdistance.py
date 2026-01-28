@@ -72,7 +72,7 @@ def textdistance(
     >>> s
     0    hello
     1    world
-    dtype: object
+    dtype: str
     >>> s.textdistance("python")
     0    36.363636
     1    18.181818

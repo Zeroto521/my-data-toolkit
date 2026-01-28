@@ -71,7 +71,7 @@ def to_geoframe(
     2    POINT (3 3)
     Name: geometry, dtype: geometry
     >>> type(s)
-    <class 'pandas.core.series.Series'>
+    <class 'pandas.Series'>
     >>> gs = s.to_geoframe()
     >>> gs
             geometry
