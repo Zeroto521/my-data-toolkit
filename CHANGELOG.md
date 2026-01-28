@@ -2,7 +2,7 @@
 
 ## [Version 0.0.22] (2026-xx-xx)
 
-Support NumPy 2.x, Pandas 2.x, GeoPandas 1.1.x,
+Support NumPy 2.x, Pandas 3.x, and Python 3.14.
 
 New features and improvements:
 
