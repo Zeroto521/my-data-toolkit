@@ -117,8 +117,6 @@ def cncrs_offset(
 
 # based on https://github.com/wandergis/coordTransform_py
 def wgs84_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    x = np.asarray(x, dtype=np.float64)
-    y = np.asarray(y, dtype=np.float64)
     rad_y = y / 180 * np.pi
     magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
 
@@ -133,8 +131,6 @@ def wgs84_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    x = np.asarray(x, dtype=np.float64)
-    y = np.asarray(y, dtype=np.float64)
     rad_y = y / 180 * np.pi
     magic = np.sqrt(1 - ee * np.sin(rad_y) ** 2)
 
@@ -145,16 +141,16 @@ def gcj02_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.ar
 
 # based on https://github.com/wandergis/coordTransform_py
 def transform_x(x: np.array, y: np.array, /) -> np.array:
-    x, y = x - 105, y - 35
-    x_dot_pi = x * np.pi
+    x_shifted, y_shifted = x - 105, y - 35
+    x_dot_pi = x_shifted * np.pi
 
     return (
         300
-        + x
-        + 2 * y
-        + 0.1 * x**2
-        + 0.1 * x * y
-        + 0.1 * np.sqrt(np.fabs(x))
+        + x_shifted
+        + 2 * y_shifted
+        + 0.1 * x_shifted**2
+        + 0.1 * x_shifted * y_shifted
+        + 0.1 * np.sqrt(np.fabs(x_shifted))
         + (20 * np.sin(x_dot_pi * 6) + 20 * np.sin(x_dot_pi * 2)) * 2 / 3
         + (20 * np.sin(x_dot_pi) + 40 * np.sin(x_dot_pi / 3)) * 2 / 3
         + (150 * np.sin(x_dot_pi / 12) + 300 * np.sin(x_dot_pi / 30)) * 2 / 3
@@ -163,16 +159,16 @@ def transform_x(x: np.array, y: np.array, /) -> np.array:
 
 # based on https://github.com/wandergis/coordTransform_py
 def transform_y(x: np.array, y: np.array, /) -> np.array:
-    x, y = x - 105, y - 35
-    x_dot_pi, y_dot_pi = x * np.pi, y * np.pi
+    x_shifted, y_shifted = x - 105, y - 35
+    x_dot_pi, y_dot_pi = x_shifted * np.pi, y_shifted * np.pi
 
     return (
         -100
-        + 2 * x
-        + 3 * y
-        + 0.2 * y**2
-        + 0.1 * x * y
-        + 0.2 * np.sqrt(np.fabs(x))
+        + 2 * x_shifted
+        + 3 * y_shifted
+        + 0.2 * y_shifted**2
+        + 0.1 * x_shifted * y_shifted
+        + 0.2 * np.sqrt(np.fabs(x_shifted))
         + (20 * np.sin(x_dot_pi * 6) + 20 * np.sin(x_dot_pi * 2)) * 2 / 3
         + (20 * np.sin(y_dot_pi) + 40 * np.sin(y_dot_pi / 3)) * 2 / 3
         + (160 * np.sin(y_dot_pi / 12) + 320 * np.sin(y_dot_pi / 30)) * 2 / 3
@@ -181,9 +177,6 @@ def transform_y(x: np.array, y: np.array, /) -> np.array:
 
 # based on https://github.com/wandergis/coordTransform_py
 def gcj02_to_bd09(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    x = np.asarray(x, dtype=np.float64)
-    y = np.asarray(y, dtype=np.float64)
-
     d = np.sqrt(x**2 + y**2) + 2e-5 * np.sin(y * PI)
     theta = np.arctan2(y, x) + 3e-6 * np.cos(x * PI)
     return d * np.cos(theta) + 0.0065, d * np.sin(theta) + 0.006
@@ -195,10 +188,9 @@ def bd09_to_wgs84(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.arr
 
 # based on https://github.com/wandergis/coordTransform_py
 def bd09_to_gcj02(x: np.array, y: np.array, /, z=None) -> tuple[np.array, np.array]:
-    x = np.asarray(x, dtype=np.float64)
-    y = np.asarray(y, dtype=np.float64)
-    x, y = x - 0.0065, y - 0.006
+    x_shifted = x - 0.0065
+    y_shifted = y - 0.006
 
-    d = np.sqrt(x**2 + y**2) - 2e-5 * np.sin(y * PI)
-    theta = np.arctan2(y, x) - 3e-6 * np.cos(x * PI)
+    d = np.sqrt(x_shifted**2 + y_shifted**2) - 2e-5 * np.sin(y_shifted * PI)
+    theta = np.arctan2(y_shifted, x_shifted) - 3e-6 * np.cos(x_shifted * PI)
     return d * np.cos(theta), d * np.sin(theta)
