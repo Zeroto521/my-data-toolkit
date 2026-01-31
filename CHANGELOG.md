@@ -1,12 +1,12 @@
 # Changelog
 
-## [Version 0.0.22] (2026-xx-xx)
+## [Version 0.0.22] (2026-01-31)
 
 Support NumPy 2.x, Pandas 3.x, and Python 3.14.
 
 New features and improvements:
 
-- {pr}`938`: New method {meth}`~dtoolkit.geoaccessor.dataframe.to_line` to create `LineString` geometries from `DataFrame` .
+- {pr}`938`: New method {meth}`~dtoolkit.geoaccessor.dataframe.to_line` to create `LineString` geometries from `DataFrame`.
 
 API changes:
 
