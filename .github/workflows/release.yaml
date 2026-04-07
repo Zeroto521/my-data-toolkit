@@ -28,7 +28,7 @@ jobs:
       - name: Build sdist
         run: make dist
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: release
           path: dist/
