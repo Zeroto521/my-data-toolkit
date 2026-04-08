@@ -28,7 +28,7 @@ jobs:
       - name: Build sdist
         run: make dist
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: release
           path: dist/
@@ -38,7 +38,7 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           name: release
           path: dist/
@@ -46,7 +46,7 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - uses: pypa/gh-action-pypi-publish@v1.13.0
+      - uses: pypa/gh-action-pypi-publish@v1.14.0
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
@@ -58,7 +58,7 @@ jobs:
     if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           name: release
           path: dist/
@@ -66,7 +66,7 @@ jobs:
       - name: List dist/ Folder
         run: ls dist/ -l
 
-      - uses: pypa/gh-action-pypi-publish@v1.13.0
+      - uses: pypa/gh-action-pypi-publish@v1.14.0
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
@@ -77,7 +77,7 @@ jobs:
     if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           name: release
           path: dist/
