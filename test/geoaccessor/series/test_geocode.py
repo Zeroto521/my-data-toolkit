@@ -1,3 +1,6 @@
+import importlib
+from types import SimpleNamespace
+
 import pandas as pd
 import pytest
 
@@ -25,3 +28,29 @@ pytest.importorskip("geopy")
 def test_error(s, drop, error):
     with pytest.raises(error):
         geocode(s, drop=drop)
+
+
+def test_geocode_stable_output(monkeypatch):
+    module = importlib.import_module("dtoolkit.geoaccessor.series.geocode")
+    queried = []
+
+    def fake_geolocator(*args, **kwargs):
+        def geolocate(address):
+            queried.append(address)
+            return SimpleNamespace(
+                longitude=-71.05783,
+                latitude=42.35883,
+                address=address,
+            )
+
+        return geolocate
+
+    monkeypatch.setattr(module, "geolocator", fake_geolocator)
+
+    result = geocode(pd.Series(["boston, ma"], name="address"))
+
+    assert "address" in result.columns
+    assert "geometry" in result.columns
+    assert result.loc[0, "address"] == "boston, ma"
+    assert result.geometry.iloc[0].geom_type == "Point"
+    assert queried == ["boston, ma"]
