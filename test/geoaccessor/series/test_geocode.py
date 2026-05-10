@@ -32,9 +32,18 @@ def test_error(s, drop, error):
 
 def test_geocode_stable_output(monkeypatch):
     module = importlib.import_module("dtoolkit.geoaccessor.series.geocode")
+    queried = []
 
     def fake_geolocator(*args, **kwargs):
-        return lambda address: SimpleNamespace(longitude=-71.05783, latitude=42.35883)
+        def geolocate(address):
+            queried.append(address)
+            return SimpleNamespace(
+                longitude=-71.05783,
+                latitude=42.35883,
+                address=address,
+            )
+
+        return geolocate
 
     monkeypatch.setattr(module, "geolocator", fake_geolocator)
 
@@ -44,3 +53,4 @@ def test_geocode_stable_output(monkeypatch):
     assert "geometry" in result.columns
     assert result.loc[0, "address"] == "boston, ma"
     assert result.geometry.iloc[0].geom_type == "Point"
+    assert queried == ["boston, ma"]
