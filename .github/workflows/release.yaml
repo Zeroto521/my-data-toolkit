@@ -78,6 +78,8 @@ jobs:
   publish-to-GitHub:
     needs: sdist
     if: ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags/v') }}
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     permissions:
       contents: write
