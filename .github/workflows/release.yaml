@@ -81,8 +81,6 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/download-artifact@v8
         with:
