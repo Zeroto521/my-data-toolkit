@@ -5,7 +5,6 @@ from pandas.testing import assert_index_equal
 
 from dtoolkit.geoaccessor.index import H3
 
-
 pytest.importorskip("h3")
 
 

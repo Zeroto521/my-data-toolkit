@@ -8,9 +8,10 @@ from setuptools import setup
 # https://github.com/python-versioneer/python-versioneer/issues/193
 sys.path.append(os.path.dirname(__file__))
 
-from versioneer import get_cmdclass  # noqa: E402
-from versioneer import get_version  # noqa: E402
-
+from versioneer import (
+    get_cmdclass,
+    get_version,
+)
 
 setup(
     version=get_version(),

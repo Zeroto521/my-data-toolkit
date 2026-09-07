@@ -3,7 +3,6 @@ import pytest
 
 from dtoolkit.geoaccessor.geoseries import reverse_geocode
 
-
 pytest.importorskip("geopy")
 
 

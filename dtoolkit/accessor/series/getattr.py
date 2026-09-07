@@ -2,7 +2,6 @@ import pandas as pd
 
 from dtoolkit.accessor.register import register_series_method
 
-
 get_attr = getattr
 
 
