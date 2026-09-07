@@ -9,7 +9,6 @@ import pandas as pd
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.dataframe.to_geoframe import to_geoframe
 
-
 if TYPE_CHECKING:
     from pyproj import CRS
 

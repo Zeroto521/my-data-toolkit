@@ -5,7 +5,7 @@ import pytest
 from geopandas.testing import assert_geodataframe_equal
 from shapely import Point
 
-from dtoolkit.geoaccessor.series import to_geoframe  # noqa: F401
+from dtoolkit.geoaccessor.series import to_geoframe
 
 
 @pytest.mark.parametrize(

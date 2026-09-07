@@ -1,8 +1,7 @@
 from functools import partial
 
 import pandas as pd
-from pandas.api.types import is_integer_dtype
-from pandas.api.types import is_string_dtype
+from pandas.api.types import is_integer_dtype, is_string_dtype
 from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_index_method

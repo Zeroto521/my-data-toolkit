@@ -4,7 +4,6 @@ from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.dataframe import decompose  # noqa: F401
 
-
 decomposition = pytest.importorskip("sklearn.decomposition")
 
 
