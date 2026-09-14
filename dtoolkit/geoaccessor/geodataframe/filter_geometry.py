@@ -6,10 +6,11 @@ import geopandas as gpd
 from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geoseries import filter_geometry as s_filter_geometry
-from dtoolkit.geoaccessor.geoseries.filter_geometry import _filter_geometry
-from dtoolkit.geoaccessor.geoseries.filter_geometry import BINARY_PREDICATE
+from dtoolkit.geoaccessor.geoseries.filter_geometry import (
+    BINARY_PREDICATE,
+    _filter_geometry,
+)
 from dtoolkit.geoaccessor.register import register_geodataframe_method
-
 
 if TYPE_CHECKING:
     from shapely.geometry.base import BaseGeometry

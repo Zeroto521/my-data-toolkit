@@ -3,8 +3,8 @@ from typing import Literal
 import geopandas as gpd
 import pandas as pd
 
-from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import BINARY_PREDICATE
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import (
+    BINARY_PREDICATE,
     duplicated_geometry_groups,
 )
 from dtoolkit.geoaccessor.register import register_geoseries_method

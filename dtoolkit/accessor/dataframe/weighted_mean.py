@@ -1,11 +1,9 @@
 from collections.abc import Hashable
 
 import pandas as pd
-from pandas.api.types import is_dict_like
-from pandas.api.types import is_number
+from pandas.api.types import is_dict_like, is_number
 
-from dtoolkit._typing import Number
-from dtoolkit._typing import SeriesOrFrame
+from dtoolkit._typing import Number, SeriesOrFrame
 from dtoolkit.accessor.register import register_dataframe_method
 
 

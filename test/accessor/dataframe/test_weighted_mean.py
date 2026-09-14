@@ -1,7 +1,6 @@
 import pandas as pd
 import pytest
-from pandas.testing import assert_frame_equal
-from pandas.testing import assert_series_equal
+from pandas.testing import assert_frame_equal, assert_series_equal
 
 from dtoolkit.accessor.dataframe import weighted_mean
 

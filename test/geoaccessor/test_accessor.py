@@ -1,12 +1,13 @@
 import warnings
-from contextlib import contextmanager
-from contextlib import suppress
+from contextlib import contextmanager, suppress
 
 import geopandas as gpd
 import pytest
 
-from dtoolkit.geoaccessor.accessor import register_geodataframe_accessor
-from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
+from dtoolkit.geoaccessor.accessor import (
+    register_geodataframe_accessor,
+    register_geoseries_accessor,
+)
 
 my_wkts = [
     "POINT (1 1)",

@@ -8,7 +8,6 @@ import pandas as pd
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.geoaccessor.series.to_geoframe import to_geoframe
 
-
 if TYPE_CHECKING:
     from pyproj import CRS
 

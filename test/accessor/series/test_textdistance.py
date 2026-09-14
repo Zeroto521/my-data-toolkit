@@ -4,7 +4,6 @@ from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import textdistance
 
-
 rapidfuzz = pytest.importorskip("rapidfuzz")
 
 
