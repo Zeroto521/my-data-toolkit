@@ -4,7 +4,6 @@ from shapely import Point
 
 from dtoolkit.geoaccessor.series import H3  # noqa: F401
 
-
 pytest.importorskip("h3")
 
 

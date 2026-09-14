@@ -4,7 +4,6 @@ from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.dataframe import filter_in  # noqa: F401
 
-
 df = pd.DataFrame(
     {
         "legs": [2, 4, 2],

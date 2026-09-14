@@ -10,7 +10,6 @@ from pandas.util._decorators import doc
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.series import geocode as s_geocode
 
-
 if TYPE_CHECKING:
     import geopy.geocoders
 

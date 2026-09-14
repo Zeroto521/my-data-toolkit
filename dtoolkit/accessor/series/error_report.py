@@ -1,7 +1,6 @@
 import pandas as pd
 
-from dtoolkit._typing import Number
-from dtoolkit._typing import OneDimArray
+from dtoolkit._typing import Number, OneDimArray
 from dtoolkit.accessor.register import register_series_method
 
 

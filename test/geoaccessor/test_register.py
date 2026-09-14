@@ -3,8 +3,10 @@ import pandas as pd
 import pytest
 from pandas.testing import assert_series_equal
 
-from dtoolkit.geoaccessor.register import register_geodataframe_method
-from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.geoaccessor.register import (
+    register_geodataframe_method,
+    register_geoseries_method,
+)
 
 
 @register_geodataframe_method
