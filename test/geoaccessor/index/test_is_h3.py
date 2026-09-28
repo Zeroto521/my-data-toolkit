@@ -3,7 +3,6 @@ import pytest
 
 from dtoolkit.geoaccessor.index import is_h3
 
-
 pytest.importorskip("h3")
 
 

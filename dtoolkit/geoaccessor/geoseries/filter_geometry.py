@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import get_args
-from typing import Literal
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal, get_args
 
 import geopandas as gpd
 import pandas as pd
@@ -10,7 +8,6 @@ from pandas.util._decorators import doc
 
 from dtoolkit.accessor.series import invert_or_not  # noqa: F401
 from dtoolkit.geoaccessor.register import register_geoseries_method
-
 
 if TYPE_CHECKING:
     from shapely.geometry.base import BaseGeometry

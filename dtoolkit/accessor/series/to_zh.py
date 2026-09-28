@@ -5,7 +5,6 @@ from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
 
-
 LOCALIZATION = Literal[
     "zh-hans",
     "zh-hant",

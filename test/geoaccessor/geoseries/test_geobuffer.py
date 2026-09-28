@@ -5,7 +5,6 @@ import pytest
 
 from dtoolkit.geoaccessor.geoseries import geobuffer  # noqa: F401
 
-
 s = gpd.GeoSeries.from_wkt(
     [
         "Point(120 50)",
