@@ -6,7 +6,6 @@ import pytest
 
 from dtoolkit.geoaccessor.series import geocode
 
-
 pytest.importorskip("geopy")
 
 

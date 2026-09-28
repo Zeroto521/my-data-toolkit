@@ -1,9 +1,11 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.register import register_dataframe_method
-from dtoolkit.accessor.register import register_index_method
-from dtoolkit.accessor.register import register_series_method
+from dtoolkit.accessor.register import (
+    register_dataframe_method,
+    register_index_method,
+    register_series_method,
+)
 
 
 def base_name_or_columns(pd_obj):
