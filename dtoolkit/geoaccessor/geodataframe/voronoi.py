@@ -9,8 +9,7 @@ from dtoolkit.geoaccessor.geoseries import voronoi as s_voronoi
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 
 if TYPE_CHECKING:
-    from shapely import MultiPolygon
-    from shapely import Polygon
+    from shapely import MultiPolygon, Polygon
 
 
 @register_geodataframe_method
