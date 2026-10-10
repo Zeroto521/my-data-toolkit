@@ -79,7 +79,7 @@ def geocode(
     >>> df
                                      address
     0                             boston, ma
-    >>> df.geocode("address")
+    >>> df.geocode("address")  # doctest: +SKIP
           address                    geometry
     0  boston, ma  POINT (-71.10322 42.35042)
     """
