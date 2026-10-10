@@ -1,4 +1,4 @@
-from typing import Callable
+from collections.abc import Callable
 
 import pandas as pd
 
@@ -10,7 +10,7 @@ def textdistance_matrix(
     s: pd.Series,
     /,
     other: None | pd.Series = None,
-    method: Callable = None,
+    method: Callable | None = None,
     **kwargs,
 ) -> pd.DataFrame:
     """

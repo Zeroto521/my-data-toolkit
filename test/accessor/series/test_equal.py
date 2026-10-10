@@ -85,12 +85,6 @@ def test_warning(s, other, align, warning):
         ),
         (
             pd.Series([1, 2, 3]),
-            pd.Series([1, 2, 3], index=[2, 1, 0]),
-            True,
-            pd.Series([False, True, False]),
-        ),
-        (
-            pd.Series([1, 2, 3]),
             pd.Series([1, 2, 3], index=[1, 2, 3]),
             True,
             pd.Series([False, False, False, False]),

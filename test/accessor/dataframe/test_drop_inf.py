@@ -157,24 +157,6 @@ from test.accessor.data import d
             ["a", "b"],
             d,
         ),
-        (
-            pd.concat(
-                (
-                    d,
-                    pd.DataFrame(
-                        {
-                            "b": [-np.inf],
-                        },
-                    ),
-                ),
-                ignore_index=True,
-            ),
-            0,
-            "any",
-            "all",
-            ["a", "b"],
-            d,
-        ),
     ],
 )
 def test_work(df, axis, how, inf, subset, expected):

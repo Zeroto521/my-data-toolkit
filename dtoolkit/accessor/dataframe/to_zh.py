@@ -14,7 +14,7 @@ def to_zh(
     column: Hashable,
     *,
     locale: LOCALIZATION = "zh-cn",
-    dictionary: dict = None,
+    dictionary: dict | None = None,
 ) -> pd.DataFrame:
     """
     Simple conversion and localization between simplified and traditional Chinese.

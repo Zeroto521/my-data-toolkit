@@ -5,7 +5,6 @@ from pandas.api.types import is_string_dtype
 
 from dtoolkit.accessor.register import register_series_method
 
-
 LOCALIZATION = Literal[
     "zh-hans",
     "zh-hant",
@@ -24,7 +23,7 @@ def to_zh(
     /,
     *,
     locale: LOCALIZATION = "zh-cn",
-    dictionary: dict = None,
+    dictionary: dict | None = None,
 ) -> pd.Series:
     """
     Simple conversion and localization between simplified and traditional Chinese.

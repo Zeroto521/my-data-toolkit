@@ -1,6 +1,6 @@
+from collections.abc import Callable
+from collections.abc import Iterable
 from functools import partial
-from typing import Callable
-from typing import Iterable
 from typing import Literal
 
 
@@ -10,10 +10,10 @@ def parallelize(
     *,
     n_jobs: int = -1,
     verbose: int = 0,
-    timeout: float = None,
+    timeout: float | None = None,
     backend: Literal["loky", "multiprocessing", "threading"] = "loky",
-    require: Literal["sharedmem"] = None,
-    mmap_mode: Literal[None, "r+", "r", "w+", "c"] = "r",
+    require: Literal["sharedmem"] | None = None,
+    mmap_mode: Literal["r+", "r", "w+", "c"] | None = "r",
     **kwargs,
 ):
     """

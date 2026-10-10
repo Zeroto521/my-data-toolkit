@@ -96,3 +96,6 @@ ignore-words-list = "ba, filterin"
 [tool.ruff]
 line-length = 88
 fix = true
+
+[tool.ruff.lint]
+ignore = ["I001"]

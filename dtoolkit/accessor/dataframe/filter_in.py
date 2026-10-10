@@ -1,5 +1,5 @@
 from collections.abc import Hashable
-from typing import Iterable
+from collections.abc import Iterable
 from typing import Literal
 
 import pandas as pd

@@ -7,7 +7,6 @@ from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.dataframe import to_series  # noqa: F401
 
-
 gpd = pytest.importorskip("geopandas")
 
 

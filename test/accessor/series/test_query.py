@@ -9,13 +9,13 @@ from dtoolkit.accessor.series import query  # noqa: F401
     [
         (
             pd.Series(),
-            list(),
-            ValueError,
+            [],
+            TypeError,
         ),
         (
             pd.Series(),
-            tuple(),
-            ValueError,
+            (),
+            TypeError,
         ),
     ],
 )

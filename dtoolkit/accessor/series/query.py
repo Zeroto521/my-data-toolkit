@@ -54,7 +54,7 @@ def query(s: pd.Series, /, expr: str, **kwargs) -> pd.Series:
     """
 
     if not isinstance(expr, str):
-        raise ValueError(
+        raise TypeError(
             f"'expr' must be a string to be evaluated, {type(expr)} given",
         )
 

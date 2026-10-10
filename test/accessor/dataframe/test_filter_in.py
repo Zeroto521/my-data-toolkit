@@ -4,7 +4,6 @@ from pandas.testing import assert_frame_equal
 
 from dtoolkit.accessor.dataframe import filter_in  # noqa: F401
 
-
 df = pd.DataFrame(
     {
         "legs": [2, 4, 2],
@@ -19,7 +18,7 @@ df = pd.DataFrame(
     [
         (
             [0, 2],
-            dict(how="all", complement=False),
+            {"how": "all", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [2, 2],
@@ -30,7 +29,7 @@ df = pd.DataFrame(
         ),
         (
             [0, 2],
-            dict(how="any", complement=False),
+            {"how": "any", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [2, 4, 2],
@@ -41,7 +40,7 @@ df = pd.DataFrame(
         ),
         (
             [0, 2],
-            dict(how="any", complement=True),
+            {"how": "any", "complement": True},
             pd.DataFrame(
                 {
                     "legs": [4],
@@ -52,7 +51,7 @@ df = pd.DataFrame(
         ),
         (
             (0, 2),
-            dict(how="all", complement=False),
+            {"how": "all", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [2, 2],
@@ -63,7 +62,7 @@ df = pd.DataFrame(
         ),
         (
             [4],
-            dict(how="any", complement=False),
+            {"how": "any", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [4],
@@ -74,7 +73,7 @@ df = pd.DataFrame(
         ),
         (
             [4],
-            dict(how="all", complement=True),
+            {"how": "all", "complement": True},
             pd.DataFrame(
                 {
                     "legs": [2, 2],
@@ -85,7 +84,7 @@ df = pd.DataFrame(
         ),
         (
             {"legs": [4]},
-            dict(how="all", complement=False),
+            {"how": "all", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [4],
@@ -96,7 +95,7 @@ df = pd.DataFrame(
         ),
         (
             {"legs": [4]},
-            dict(how="all", complement=True),
+            {"how": "all", "complement": True},
             pd.DataFrame(
                 {
                     "legs": [2, 2],
@@ -107,7 +106,7 @@ df = pd.DataFrame(
         ),
         (
             {"legs": [4], "wings": [0]},
-            dict(how="all", complement=False),
+            {"how": "all", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [4],
@@ -118,7 +117,7 @@ df = pd.DataFrame(
         ),
         (
             {"legs": [4], "wings": [0]},
-            dict(how="any", complement=False),
+            {"how": "any", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [4, 2],
@@ -129,7 +128,7 @@ df = pd.DataFrame(
         ),
         (
             pd.Series([0], index=["dog"]),
-            dict(how="any", complement=False),
+            {"how": "any", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [4],
@@ -140,7 +139,7 @@ df = pd.DataFrame(
         ),
         (
             pd.DataFrame({"legs": [2, 4, 2]}, index=["falcon", "dog", "cat"]),
-            dict(how="all", complement=False),
+            {"how": "all", "complement": False},
             pd.DataFrame(
                 {
                     "legs": [2, 4, 2],

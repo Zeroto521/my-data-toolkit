@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from functools import lru_cache
-from typing import Callable
 from warnings import warn
 
 import pandas as pd
@@ -14,7 +14,7 @@ def textdistance(
     s: pd.Series,
     /,
     other: str | pd.Series,
-    method: Callable = None,
+    method: Callable | None = None,
     align: bool = True,
     **kwargs,
 ) -> pd.Series:

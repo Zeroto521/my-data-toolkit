@@ -7,7 +7,7 @@ from dtoolkit.accessor.register import register_index_method
 
 
 @register_index_method
-def len(index: pd.Index, /, number: int = 1, other: int = None) -> pd.Index:
+def len(index: pd.Index, /, number: int = 1, other: int | None = None) -> pd.Index:
     """
     Return the length of each element in the Index.
 

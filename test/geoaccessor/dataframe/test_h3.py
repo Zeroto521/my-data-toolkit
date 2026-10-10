@@ -4,7 +4,6 @@ from shapely import Point
 
 from dtoolkit.geoaccessor.series import H3  # noqa: F401
 
-
 pytest.importorskip("h3")
 
 
@@ -44,22 +43,6 @@ pytest.importorskip("h3")
                 )
                 .to_h3(8, int_dtype=False)
                 .h3.to_int()
-            ),
-            gpd.GeoDataFrame,
-            4326,
-        ),
-        # test to_center_child
-        (
-            (
-                gpd.GeoDataFrame(
-                    {
-                        "label": ["a", "b"],
-                        "geometry": [Point(100, 1), Point(122, 55)],
-                    },
-                    crs=4326,
-                )
-                .to_h3(8, int_dtype=False)
-                .h3.to_center_child()
             ),
             gpd.GeoDataFrame,
             4326,

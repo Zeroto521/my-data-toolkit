@@ -9,8 +9,7 @@ from dtoolkit.geoaccessor.register import register_geodataframe_method
 from dtoolkit.util._decorator import doc
 
 if TYPE_CHECKING:
-    from shapely import MultiPolygon
-    from shapely import Polygon
+    from shapely import MultiPolygon, Polygon
 
 
 @register_geodataframe_method

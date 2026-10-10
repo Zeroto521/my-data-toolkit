@@ -7,7 +7,6 @@ from shapely import Polygon
 
 from dtoolkit.geoaccessor.geoseries import to_h3
 
-
 pytest.importorskip("h3")
 
 

@@ -15,7 +15,7 @@ from dtoolkit.util._decorator import warning
 def test_work(args, kwargs, message, exception):
     @warning(message, exception)
     def func(*args, **kwargs):
-        return dict(args=args, kwargs=kwargs)
+        return {"args": args, "kwargs": kwargs}
 
     result = func(*args, **kwargs)
     assert isinstance(result, dict)
@@ -34,7 +34,7 @@ def test_work(args, kwargs, message, exception):
 def test_warning(args, kwargs, message, exception):
     @warning(message, exception)
     def func(*args, **kwargs):
-        return dict(args=args, kwargs=kwargs)
+        return {"args": args, "kwargs": kwargs}
 
     with pytest.warns(exception):
         result = func(*args, **kwargs)

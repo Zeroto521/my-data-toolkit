@@ -125,7 +125,7 @@ class H3Base(NoNewAttributesMixin):
         return self.data.set_axis(self.data.index.h3.to_str())
 
     @doc(klass="Series or DataFrame")
-    def to_center_child(self, resolution: int = None) -> SeriesOrFrame:
+    def to_center_child(self, resolution: int | None = None) -> SeriesOrFrame:
         """
         Get the center child of cell.
 
@@ -176,7 +176,7 @@ class H3Base(NoNewAttributesMixin):
         return self.data.set_axis(self.data.index.h3.to_center_child(resolution))
 
     @doc(klass="Series or DataFrame")
-    def to_children(self, resolution: int = None) -> SeriesOrFrame:
+    def to_children(self, resolution: int | None = None) -> SeriesOrFrame:
         """
         Get the children of cell.
 
@@ -254,7 +254,7 @@ class H3Base(NoNewAttributesMixin):
         return self.data.repeat(counts).set_axis(index)
 
     @doc(klass="Series or DataFrame")
-    def to_parent(self, resolution: int = None) -> SeriesOrFrame:
+    def to_parent(self, resolution: int | None = None) -> SeriesOrFrame:
         """
         Get the parent of cell.
 
@@ -438,13 +438,13 @@ class H3(H3Base):
         return super().to_str()
 
     @doc(H3Base.to_center_child, klass="Series")
-    def to_center_child(self, resolution: int = None) -> pd.Series:
+    def to_center_child(self, resolution: int | None = None) -> pd.Series:
         return super().to_center_child(resolution)
 
     @doc(H3Base.to_children, klass="Series")
-    def to_children(self, resolution: int = None) -> pd.Series:
+    def to_children(self, resolution: int | None = None) -> pd.Series:
         return super().to_children(resolution)
 
     @doc(H3Base.to_parent, klass="Series")
-    def to_parent(self, resolution: int = None) -> pd.Series:
+    def to_parent(self, resolution: int | None = None) -> pd.Series:
         return super().to_parent(resolution)

@@ -1,6 +1,6 @@
 from collections.abc import Hashable
+from collections.abc import Iterable
 from textwrap import dedent
-from typing import Iterable
 
 import pandas as pd
 from pandas.api.types import is_list_like
@@ -61,7 +61,7 @@ from dtoolkit.util._decorator import doc
 def expand(
     s: pd.Series,
     /,
-    suffix: list[Hashable] = None,
+    suffix: list[Hashable] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:
