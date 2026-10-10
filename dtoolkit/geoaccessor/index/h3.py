@@ -6,8 +6,7 @@ import pandas as pd
 from pandas.api.extensions import register_index_accessor
 from pandas.core.base import NoNewAttributesMixin
 
-from dtoolkit.geoaccessor.index.is_h3 import apply_h3
-from dtoolkit.geoaccessor.index.is_h3 import is_h3
+from dtoolkit.geoaccessor.index.is_h3 import apply_h3, is_h3
 from dtoolkit.util._decorator import doc
 
 

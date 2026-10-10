@@ -1,6 +1,8 @@
 from dtoolkit.accessor.register import register_method_factory
-from dtoolkit.geoaccessor.accessor import register_geodataframe_accessor
-from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
+from dtoolkit.geoaccessor.accessor import (
+    register_geodataframe_accessor,
+    register_geoseries_accessor,
+)
 from dtoolkit.util._decorator import doc
 
 
