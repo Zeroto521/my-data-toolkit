@@ -1,5 +1,3 @@
-import pytest
-
 from dtoolkit.util._decorator import doc
 
 
@@ -141,6 +139,7 @@ def test_original_pandas_style():
 
 def test_examples_param():
     examples = ">>> import pandas as pd"
+
     @doc(examples=examples, klass="Series")
     def func():
         """
