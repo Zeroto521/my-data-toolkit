@@ -64,6 +64,9 @@ include = ["dtoolkit", "dtoolkit.*"]
 
 [tool.setuptools_scm]
 write_to = "dtoolkit/_version.py"
+# Match versioneer's pep440-old numbering (0.0.22.postN) instead of
+# setuptools-scm's default guess-next-dev (0.0.23.devN).
+version_scheme = "post-release"
 
 [tool.coverage.run]
 source = ["dtoolkit"]
