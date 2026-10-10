@@ -44,7 +44,12 @@ import pytest
                     "z": ["1", "2", "3", "3", "4"],
                 },
             ),
-            {"order": ["y", "z", "x"], "ascending": True, "unique": True, "to_list": True},
+            {
+                "order": ["y", "z", "x"],
+                "ascending": True,
+                "unique": True,
+                "to_list": True,
+            },
             {
                 "a": {"1": ["A"]},
                 "b": {"2": ["A"]},
