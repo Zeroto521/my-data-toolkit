@@ -1,11 +1,12 @@
-from collections.abc import Hashable, Iterable
+from collections.abc import Hashable
+from collections.abc import Iterable
 from textwrap import dedent
 
 import pandas as pd
 from pandas.api.types import is_list_like
-from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import doc
 
 
 @register_series_method

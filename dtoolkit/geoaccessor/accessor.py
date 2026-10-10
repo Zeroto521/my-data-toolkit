@@ -1,6 +1,7 @@
 import geopandas as gpd
 from pandas.core.accessor import _register_accessor
-from pandas.util._decorators import doc
+
+from dtoolkit.util._decorator import doc
 
 
 @doc(klass=":class:`~geopandas.GeoSeries`")

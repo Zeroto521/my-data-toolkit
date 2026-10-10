@@ -1,13 +1,20 @@
-from warnings import catch_warnings, simplefilter
+from warnings import catch_warnings
+from warnings import simplefilter
 
 import geopandas as gpd
 import numpy as np
 import pandas as pd
+<<<<<<< HEAD
 from pandas.api.types import is_list_like, is_number
 from pandas.util._decorators import doc
+=======
+from pandas.api.types import is_list_like
+from pandas.api.types import is_number
+>>>>>>> 9317eb5f0df7dc89c717f84f953b148115c39786
 
 from dtoolkit._typing import Number, OneDimArray
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geoseries_method

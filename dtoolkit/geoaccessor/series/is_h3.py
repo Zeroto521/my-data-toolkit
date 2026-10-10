@@ -1,8 +1,8 @@
 import pandas as pd
-from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_series_method
 from dtoolkit.geoaccessor.index import is_h3 as i_is_h3
+from dtoolkit.util._decorator import doc
 
 
 @register_series_method

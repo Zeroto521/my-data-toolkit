@@ -2,10 +2,10 @@ import geopandas as gpd
 import pandas as pd
 from pandas.api.extensions import register_series_accessor
 from pandas.core.base import NoNewAttributesMixin
-from pandas.util._decorators import doc
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.geoaccessor.index import H3 as i_H3
+from dtoolkit.util._decorator import doc
 
 
 class H3Base(NoNewAttributesMixin):

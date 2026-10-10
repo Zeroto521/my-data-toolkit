@@ -1,10 +1,14 @@
-from pandas.util._decorators import doc
-
 from dtoolkit.accessor.register import register_method_factory
+<<<<<<< HEAD
 from dtoolkit.geoaccessor.accessor import (
     register_geodataframe_accessor,
     register_geoseries_accessor,
 )
+=======
+from dtoolkit.geoaccessor.accessor import register_geodataframe_accessor
+from dtoolkit.geoaccessor.accessor import register_geoseries_accessor
+from dtoolkit.util._decorator import doc
+>>>>>>> 9317eb5f0df7dc89c717f84f953b148115c39786
 
 
 @register_method_factory

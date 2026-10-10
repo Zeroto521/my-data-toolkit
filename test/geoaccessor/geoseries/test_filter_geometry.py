@@ -1,7 +1,10 @@
 import geopandas as gpd
 import pytest
 from geopandas.testing import assert_geoseries_equal
-from shapely import LineString, Point, Polygon, box
+from shapely import box
+from shapely import LineString
+from shapely import Point
+from shapely import Polygon
 
 from dtoolkit.geoaccessor.geoseries import filter_geometry
 

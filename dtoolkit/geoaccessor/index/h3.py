@@ -5,9 +5,14 @@ import numpy as np
 import pandas as pd
 from pandas.api.extensions import register_index_accessor
 from pandas.core.base import NoNewAttributesMixin
-from pandas.util._decorators import doc
 
+<<<<<<< HEAD
 from dtoolkit.geoaccessor.index.is_h3 import apply_h3, is_h3
+=======
+from dtoolkit.geoaccessor.index.is_h3 import apply_h3
+from dtoolkit.geoaccessor.index.is_h3 import is_h3
+from dtoolkit.util._decorator import doc
+>>>>>>> 9317eb5f0df7dc89c717f84f953b148115c39786
 
 
 def available_if(func):

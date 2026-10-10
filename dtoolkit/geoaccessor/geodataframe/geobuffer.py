@@ -1,11 +1,12 @@
 from collections.abc import Hashable
 
 import geopandas as gpd
-from pandas.util._decorators import doc
 
-from dtoolkit._typing import Number, OneDimArray
+from dtoolkit._typing import Number
+from dtoolkit._typing import OneDimArray
 from dtoolkit.geoaccessor.geoseries import geobuffer as s_geobuffer
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geodataframe_method
