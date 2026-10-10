@@ -68,7 +68,7 @@ from dtoolkit.accessor.series import expand as s_expand
 def expand(
     df: pd.DataFrame,
     /,
-    suffix: list[Hashable] = None,
+    suffix: list[Hashable] | None = None,
     delimiter: str = "_",
     flatten: bool = False,
 ) -> pd.DataFrame:

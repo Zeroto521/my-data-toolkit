@@ -9,27 +9,27 @@ from dtoolkit.accessor.series import values_to_dict  # noqa: F401
     [
         (
             pd.Series(range(4), index=["a", "b", "a", "c"]),
-            dict(unique=True, to_list=True),
+            {"unique": True, "to_list": True},
             {"a": [0, 2], "b": [1], "c": [3]},
         ),
         (
             pd.Series(range(4), index=["a", "b", "a", "c"]),
-            dict(unique=False, to_list=False),
+            {"unique": False, "to_list": False},
             {"a": [0, 2], "b": 1, "c": 3},
         ),
         (
             pd.Series([0] * 4, index=["a", "b", "a", "c"]),
-            dict(unique=True, to_list=False),
+            {"unique": True, "to_list": False},
             {"a": 0, "b": 0, "c": 0},
         ),
         (
             pd.Series([0] * 4, index=["a", "b", "a", "c"]),
-            dict(unique=False, to_list=False),
+            {"unique": False, "to_list": False},
             {"a": [0, 0], "b": 0, "c": 0},
         ),
         (
             pd.Series([0] * 4, index=["a", "b", "a", "c"]),
-            dict(unique=True, to_list=True),
+            {"unique": True, "to_list": True},
             {"a": [0], "b": [0], "c": [0]},
         ),
     ],

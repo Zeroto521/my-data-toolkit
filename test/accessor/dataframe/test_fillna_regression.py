@@ -207,7 +207,7 @@ tree = pytest.importorskip("sklearn.tree")
             tree.DecisionTreeRegressor,
             {"y": ["x1", "x2"]},
             "na",
-            dict(criterion="friedman_mse", splitter="best"),
+            {"criterion": "friedman_mse", "splitter": "best"},
             pd.DataFrame(
                 [
                     [1, 1, 8],

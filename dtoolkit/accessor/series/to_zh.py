@@ -23,7 +23,7 @@ def to_zh(
     /,
     *,
     locale: LOCALIZATION = "zh-cn",
-    dictionary: dict = None,
+    dictionary: dict | None = None,
 ) -> pd.Series:
     """
     Simple conversion and localization between simplified and traditional Chinese.

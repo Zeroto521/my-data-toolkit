@@ -1,1 +1,1 @@
-from dtoolkit.transformer.GeoKMeans import GeoKMeans  # noqa: F401
+from dtoolkit.transformer.geokmeans import GeoKMeans  # noqa: F401

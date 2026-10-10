@@ -6,10 +6,10 @@ from dtoolkit.util._decorator import deprecated_kwargs
 @pytest.mark.parametrize(
     "arguments, kwargs",
     [
-        (["a"], dict(a=1)),
-        (["b"], dict(b=2)),
-        (["a", "b"], dict(a=1, b=2)),
-        (["b", "a"], dict(a=1, b=2)),
+        (["a"], {"a": 1}),
+        (["b"], {"b": 2}),
+        (["a", "b"], {"a": 1, "b": 2}),
+        (["b", "a"], {"a": 1, "b": 2}),
     ],
 )
 def test_arguments(arguments, kwargs):

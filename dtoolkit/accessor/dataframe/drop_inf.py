@@ -16,7 +16,7 @@ def drop_inf(
     axis: Axis = 0,
     how: Literal["any", "all"] = "any",
     inf: Literal["all", "pos", "neg"] = "all",
-    subset: list[str] = None,
+    subset: list[str] | None = None,
 ) -> pd.DataFrame:
     """
     Remove ``inf`` values.

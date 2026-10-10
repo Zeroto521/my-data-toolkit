@@ -23,13 +23,13 @@ class H3(H3Base):
         return super().to_str()
 
     @doc(H3Base.to_center_child, klass="DataFrame")
-    def to_center_child(self, resolution: int = None) -> pd.DataFrame:
+    def to_center_child(self, resolution: int | None = None) -> pd.DataFrame:
         return super().to_center_child(resolution)
 
     @doc(H3Base.to_children, klass="DataFrame")
-    def to_children(self, resolution: int = None) -> pd.DataFrame:
+    def to_children(self, resolution: int | None = None) -> pd.DataFrame:
         return super().to_children(resolution)
 
     @doc(H3Base.to_parent, klass="DataFrame")
-    def to_parent(self, resolution: int = None) -> pd.DataFrame:
+    def to_parent(self, resolution: int | None = None) -> pd.DataFrame:
         return super().to_parent(resolution)

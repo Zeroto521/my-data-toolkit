@@ -63,22 +63,6 @@ pytest.importorskip("h3")
             gpd.GeoDataFrame,
             4326,
         ),
-        # test to_center_child
-        (
-            (
-                gpd.GeoDataFrame(
-                    {
-                        "label": ["a", "b"],
-                        "geometry": [Point(100, 1), Point(122, 55)],
-                    },
-                    crs=4326,
-                )
-                .to_h3(8, int_dtype=False)
-                .h3.to_center_child()
-            ),
-            gpd.GeoDataFrame,
-            4326,
-        ),
         # test to_children
         (
             (

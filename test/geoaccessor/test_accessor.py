@@ -98,4 +98,4 @@ def test_raises_attribute_error():
                 raise AttributeError("whoops")
 
         with pytest.raises(AttributeError, match="whoops"):
-            gpd.GeoSeries([], dtype=object).bad
+            gpd.GeoSeries([], dtype=object).bad  # noqa: B018

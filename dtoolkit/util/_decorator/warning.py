@@ -6,7 +6,7 @@ from dtoolkit.util._exception import find_stack_level
 
 def warning(
     message: str,
-    category: Exception = None,
+    category: Exception | None = None,
     stacklevel: int = find_stack_level(),
     **kwargs,
 ):

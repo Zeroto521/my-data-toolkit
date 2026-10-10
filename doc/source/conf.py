@@ -13,7 +13,7 @@
 import inspect
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 
 import dtoolkit
 
@@ -27,7 +27,7 @@ version = release = (
 
 project = "My Data Toolkit"
 author = "@Zeroto521"
-copyright = f"2021-{datetime.now().year} {author}"
+copyright = f"2021-{datetime.now(timezone.utc).year} {author}"
 github_url = "https://github.com/Zeroto521/my-data-toolkit"
 
 

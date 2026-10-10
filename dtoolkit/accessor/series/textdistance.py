@@ -14,7 +14,7 @@ def textdistance(
     s: pd.Series,
     /,
     other: str | pd.Series,
-    method: Callable = None,
+    method: Callable | None = None,
     align: bool = True,
     **kwargs,
 ) -> pd.Series:

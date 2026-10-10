@@ -38,14 +38,6 @@ from dtoolkit.accessor.series import getattr  # noqa: F401
             {},
             pd.Series([1, 2, 3]),
         ),
-        # test method
-        (
-            pd.Series(["s", "ss", "sss"]),
-            "count",
-            ("s",),
-            {},
-            pd.Series([1, 2, 3]),
-        ),
         (
             pd.Series(["s", "ss", "sss"]),
             "count",
@@ -72,7 +64,7 @@ from dtoolkit.accessor.series import getattr  # noqa: F401
             pd.Series(["s_{key}", "ss_{key}"]),
             "format",
             (),
-            dict(key="end"),
+            {"key": "end"},
             pd.Series(["s_end", "ss_end"]),
         ),
     ],
