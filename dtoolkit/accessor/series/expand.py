@@ -1,4 +1,5 @@
-from collections.abc import Hashable, Iterable
+from collections.abc import Hashable
+from collections.abc import Iterable
 from textwrap import dedent
 
 import pandas as pd

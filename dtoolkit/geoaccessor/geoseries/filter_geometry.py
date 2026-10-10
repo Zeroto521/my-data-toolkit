@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, get_args
+from typing import get_args
+from typing import Literal
+from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
