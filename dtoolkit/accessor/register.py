@@ -1,18 +1,9 @@
 from collections.abc import Callable
 from functools import wraps
 
-<<<<<<< HEAD
-from pandas.api.extensions import (
-    register_dataframe_accessor,
-    register_index_accessor,
-    register_series_accessor,
-)
-from pandas.util._decorators import doc
-=======
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_index_accessor
 from pandas.api.extensions import register_series_accessor
->>>>>>> 9317eb5f0df7dc89c717f84f953b148115c39786
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.util._decorator import doc
