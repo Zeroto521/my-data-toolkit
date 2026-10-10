@@ -1,3 +1,4 @@
+# ruff: noqa: N999
 from warnings import warn
 
 import numpy as np
