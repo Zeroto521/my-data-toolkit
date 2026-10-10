@@ -6,7 +6,7 @@ from dtoolkit.util._decorator import doc
 
 @register_method_factory
 @doc(klass=":class:`~geopandas.GeoSeries`")
-def register_geoseries_method(name: str = None):
+def register_geoseries_method(name: str | None = None):
     """
     {klass} register accessor for human.
 
@@ -99,5 +99,5 @@ def register_geoseries_method(name: str = None):
 
 @register_method_factory
 @doc(register_geoseries_method, klass=":class:`~geopandas.GeoDataFrame`")
-def register_geodataframe_method(name: str = None):
+def register_geodataframe_method(name: str | None = None):
     return register_geodataframe_accessor(name)

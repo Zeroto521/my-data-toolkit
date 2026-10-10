@@ -367,7 +367,7 @@ class H3(NoNewAttributesMixin):
         return pd.Index(apply_h3(self.index, "int_to_str"))
 
     @available_if
-    def to_center_child(self, resolution: int = None) -> pd.Index:
+    def to_center_child(self, resolution: int | None = None) -> pd.Index:
         """
         Get the center child of cell.
 
@@ -403,7 +403,7 @@ class H3(NoNewAttributesMixin):
         return pd.Index(apply_h3(self.index, "cell_to_center_child", res=resolution))
 
     @available_if
-    def to_children(self, resolution: int = None) -> pd.Index:
+    def to_children(self, resolution: int | None = None) -> pd.Index:
         """
         Get the children of cell.
 
@@ -462,7 +462,7 @@ class H3(NoNewAttributesMixin):
         return pd.Index(apply_h3(self.index, "cell_to_children", res=resolution))
 
     @available_if
-    def to_parent(self, resolution: int = None) -> pd.Index:
+    def to_parent(self, resolution: int | None = None) -> pd.Index:
         """
         Get the parent of cell.
 
