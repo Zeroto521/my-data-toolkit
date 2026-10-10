@@ -1,5 +1,4 @@
-from collections.abc import Hashable
-from collections.abc import Sequence
+from collections.abc import Hashable, Sequence
 from typing import Literal
 
 import pandas as pd

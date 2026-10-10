@@ -4,8 +4,7 @@ import pytest
 from pandas.testing import assert_series_equal
 
 from dtoolkit.accessor.series import drop_inf  # noqa: F401
-from test.accessor.data import s
-from test.accessor.data import s_inf
+from test.accessor.data import s, s_inf
 
 
 @pytest.mark.parametrize(

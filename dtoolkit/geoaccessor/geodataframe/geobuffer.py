@@ -2,8 +2,7 @@ from collections.abc import Hashable
 
 import geopandas as gpd
 
-from dtoolkit._typing import Number
-from dtoolkit._typing import OneDimArray
+from dtoolkit._typing import Number, OneDimArray
 from dtoolkit.geoaccessor.geoseries import geobuffer as s_geobuffer
 from dtoolkit.geoaccessor.register import register_geodataframe_method
 from dtoolkit.util._decorator import doc

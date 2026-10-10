@@ -13,11 +13,6 @@ repos:
     rev: v0.3.1
     hooks:
       - id: absolufy-imports
-  - repo: https://github.com/asottile/reorder-python-imports
-    rev: v3.17.0
-    hooks:
-      - id: reorder-python-imports
-        exclude: doc/
   # syntax
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.21.2
