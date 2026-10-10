@@ -27,7 +27,7 @@ def doc(*docstrings, **params):
     ...     pass
     ...
     >>> method.__doc__
-    ':class:`~pandas.Series` method.\\n'
+    '\\n:class:`~pandas.Series` method.\\n'
     """
 
     def decorator(decorated):
