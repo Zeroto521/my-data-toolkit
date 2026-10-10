@@ -4,9 +4,9 @@ from typing import Iterable
 
 import pandas as pd
 from pandas.api.types import is_list_like
-from dtoolkit.util._decorator import doc
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import doc
 
 
 @register_series_method

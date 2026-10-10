@@ -1,7 +1,6 @@
 from typing import Literal
 
 import geopandas as gpd
-from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geodataframe.duplicated_geometry import duplicated_geometry
 from dtoolkit.geoaccessor.geoseries import (
@@ -9,6 +8,7 @@ from dtoolkit.geoaccessor.geoseries import (
 )
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import BINARY_PREDICATE
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geodataframe_method

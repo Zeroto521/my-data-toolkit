@@ -1,9 +1,9 @@
 from typing import Literal
 
 import pandas as pd
-from dtoolkit.util._decorator import doc
 
 from dtoolkit.accessor.register import register_series_method
+from dtoolkit.util._decorator import doc
 
 
 @register_series_method

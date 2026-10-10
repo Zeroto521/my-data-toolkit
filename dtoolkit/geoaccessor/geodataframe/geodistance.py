@@ -1,10 +1,10 @@
 import geopandas as gpd
 import pandas as pd
-from dtoolkit.util._decorator import doc
 from shapely.geometry.base import BaseGeometry
 
 from dtoolkit.geoaccessor.geoseries import geodistance as s_geodistance
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geodataframe_method
