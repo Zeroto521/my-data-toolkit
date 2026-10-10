@@ -1,5 +1,11 @@
 import dtoolkit.accessor  # noqa: F401
-from dtoolkit._version import get_versions
 
-__version__ = get_versions()["version"]
-del get_versions
+from importlib.metadata import PackageNotFoundError, version
+
+try:
+    from ._version import __version__
+except ImportError:
+    try:
+        __version__ = version("my-data-toolkit")
+    except PackageNotFoundError:
+        __version__ = "unknown"

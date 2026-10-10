@@ -112,6 +112,9 @@ venv.bak/
 .history
 .vscode
 
+# setuptools-scm generated
+dtoolkit/_version.py
+
 # model / pipeline
 *.pipeline
 *.joblib
