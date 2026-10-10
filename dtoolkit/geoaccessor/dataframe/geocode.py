@@ -10,6 +10,7 @@ from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.series import geocode as s_geocode
 from dtoolkit.util._decorator import doc
 
+
 if TYPE_CHECKING:
     import geopy.geocoders
 

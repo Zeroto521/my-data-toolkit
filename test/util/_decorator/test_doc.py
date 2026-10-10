@@ -132,6 +132,7 @@ def test_original_pandas_style():
         """
         {klass} method.
         """
+        pass
 
     assert ":class:`~pandas.Series` method." in method.__doc__
 

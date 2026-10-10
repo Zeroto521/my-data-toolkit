@@ -30,6 +30,8 @@ from sklearn.utils.validation import (
 
 from dtoolkit.util._decorator import doc
 
+from dtoolkit.util._decorator import doc
+
 
 class GeoKMeans(KMeans):
     """

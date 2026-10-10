@@ -1,11 +1,9 @@
-from collections.abc import Callable
 from functools import wraps
+from typing import Callable
 
-from pandas.api.extensions import (
-    register_dataframe_accessor,
-    register_index_accessor,
-    register_series_accessor,
-)
+from pandas.api.extensions import register_dataframe_accessor
+from pandas.api.extensions import register_index_accessor
+from pandas.api.extensions import register_series_accessor
 
 from dtoolkit._typing import SeriesOrFrame
 from dtoolkit.util._decorator import doc
@@ -48,14 +46,14 @@ def register_method_factory(register_accessor, /):
         # Must return method itself, otherwise would get None.
         return method
 
-    def register_accessor_alias(name: str | None = None, /):
+    def register_accessor_alias(name: str = None, /):
         def wrapper(method: Callable, /):
             return register_accessor_method(method, name or method.__name__)
 
         return wrapper
 
     @wraps(register_accessor)
-    def decorator(name: Callable | str | None = None, /):
+    def decorator(name: Callable | str = None, /):
         if callable(name):  # Supports `@register_*_method` using.
             method = name  # This 'name' variable actually is a function.
             return register_accessor_method(method, method.__name__)
@@ -68,7 +66,7 @@ def register_method_factory(register_accessor, /):
 
 @register_method_factory
 @doc(klass=":class:`~pandas.Series`")
-def register_series_method(name: str | None = None):
+def register_series_method(name: str = None):
     """
     {klass} register accessor for human.
 
@@ -163,11 +161,11 @@ def register_series_method(name: str | None = None):
 
 @register_method_factory
 @doc(register_series_method, klass=":class:`~pandas.DataFrame`")
-def register_dataframe_method(name: str | None = None):
+def register_dataframe_method(name: str = None):
     return register_dataframe_accessor(name)
 
 
 @register_method_factory
 @doc(register_series_method, klass=":class:`~pandas.Index`")
-def register_index_method(name: str | None = None):
+def register_index_method(name: str = None):
     return register_index_accessor(name)

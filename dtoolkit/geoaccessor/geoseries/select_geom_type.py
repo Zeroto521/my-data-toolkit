@@ -6,6 +6,7 @@ from dtoolkit.accessor.series import invert_or_not
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.util._decorator import doc
 
+
 GEOM_TYPE = Literal[
     "Point",
     "MultiPoint",
