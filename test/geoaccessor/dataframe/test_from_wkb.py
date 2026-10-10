@@ -2,8 +2,7 @@ import geopandas as gpd
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
-from dtoolkit.geoaccessor.dataframe import from_wkb
-from dtoolkit.geoaccessor.dataframe import from_wkt
+from dtoolkit.geoaccessor.dataframe import from_wkb, from_wkt
 
 
 def test_csv():
