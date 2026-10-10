@@ -1,9 +1,9 @@
 import geopandas as gpd
-from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries import cncrs_offset as s_cncrs_offset
 from dtoolkit.geoaccessor.geoseries.cncrs_offset import CHINA_CRS
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geodataframe_method

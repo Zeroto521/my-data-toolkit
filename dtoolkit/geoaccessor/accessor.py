@@ -1,5 +1,6 @@
 import geopandas as gpd
 from pandas.core.accessor import _register_accessor
+
 from dtoolkit.util._decorator import doc
 
 

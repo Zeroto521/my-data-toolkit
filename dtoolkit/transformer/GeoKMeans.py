@@ -2,7 +2,6 @@ from warnings import warn
 
 import numpy as np
 import scipy.sparse as sp
-from dtoolkit.util._decorator import doc
 from sklearn.cluster import KMeans
 from sklearn.cluster._k_means_common import _inertia_dense
 from sklearn.cluster._k_means_common import _inertia_sparse
@@ -22,6 +21,8 @@ from sklearn.utils.extmath import stable_cumsum
 from sklearn.utils.validation import _check_sample_weight
 from sklearn.utils.validation import _is_arraylike_not_scalar
 from sklearn.utils.validation import validate_data
+
+from dtoolkit.util._decorator import doc
 
 
 class GeoKMeans(KMeans):

@@ -5,11 +5,11 @@ from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
-from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geodataframe import drop_geometry
 from dtoolkit.geoaccessor.geoseries import reverse_geocode as s_reverse_geocode
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 if TYPE_CHECKING:
     import geopy.geocoders

@@ -1,8 +1,8 @@
 import geopandas as gpd
 import pandas as pd
-from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geoseries_method

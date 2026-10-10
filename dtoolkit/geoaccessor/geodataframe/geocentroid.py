@@ -2,11 +2,11 @@ from collections.abc import Hashable
 
 import geopandas as gpd
 import pandas as pd
-from dtoolkit.util._decorator import doc
 from shapely import Point
 
 from dtoolkit.geoaccessor.geoseries import geocentroid as s_geocentroid
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geodataframe_method
