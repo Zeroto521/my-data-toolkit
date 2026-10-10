@@ -1,11 +1,6 @@
 import pandas as pd
 import pytest
 
-from dtoolkit.accessor.dataframe import (
-    repeat,  # noqa: F401
-    values_to_dict,  # noqa: F401
-)
-
 
 @pytest.mark.parametrize(
     "df, kwargs, expected",
