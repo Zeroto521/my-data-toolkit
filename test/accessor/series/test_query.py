@@ -10,12 +10,12 @@ from dtoolkit.accessor.series import query  # noqa: F401
         (
             pd.Series(),
             [],
-            ValueError,
+            TypeError,
         ),
         (
             pd.Series(),
             (),
-            ValueError,
+            TypeError,
         ),
     ],
 )
