@@ -1,5 +1,5 @@
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries.select_geom_type import GEOM_TYPE
 from dtoolkit.geoaccessor.geoseries.select_geom_type import (

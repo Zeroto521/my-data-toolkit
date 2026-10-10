@@ -2,7 +2,7 @@ from collections.abc import Hashable
 from textwrap import dedent
 
 import pandas as pd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import expand as s_expand

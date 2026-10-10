@@ -1,5 +1,5 @@
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries import to_h3 as s_to_h3
 from dtoolkit.geoaccessor.register import register_geodataframe_method

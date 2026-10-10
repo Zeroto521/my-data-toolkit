@@ -1,6 +1,6 @@
 import pandas as pd
 from pandas.api.extensions import register_dataframe_accessor
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.index import H3 as i_H3
 from dtoolkit.geoaccessor.series.h3 import H3Base

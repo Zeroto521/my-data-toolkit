@@ -2,7 +2,7 @@ from warnings import warn
 
 import numpy as np
 import scipy.sparse as sp
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 from sklearn.cluster import KMeans
 from sklearn.cluster._k_means_common import _inertia_dense
 from sklearn.cluster._k_means_common import _inertia_sparse

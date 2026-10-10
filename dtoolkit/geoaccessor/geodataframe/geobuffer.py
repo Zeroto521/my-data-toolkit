@@ -1,7 +1,7 @@
 from collections.abc import Hashable
 
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray

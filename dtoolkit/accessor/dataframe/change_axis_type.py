@@ -1,5 +1,5 @@
 import pandas as pd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method

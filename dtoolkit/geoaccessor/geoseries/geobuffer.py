@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from pandas.api.types import is_list_like
 from pandas.api.types import is_number
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit._typing import Number
 from dtoolkit._typing import OneDimArray

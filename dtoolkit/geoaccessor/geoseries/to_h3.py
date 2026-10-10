@@ -1,6 +1,6 @@
 import geopandas as gpd
 from pandas._libs.reshape import explode
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 

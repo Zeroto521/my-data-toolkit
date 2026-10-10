@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries import filter_geometry as s_filter_geometry
 from dtoolkit.geoaccessor.geoseries.filter_geometry import _filter_geometry

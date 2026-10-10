@@ -1,6 +1,6 @@
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 from shapely.geometry.base import BaseGeometry
 
 from dtoolkit.geoaccessor.geoseries import geodistance as s_geodistance

@@ -2,7 +2,7 @@ from typing import Literal
 
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries import duplicated_geometry as s_duplicated_geometry
 from dtoolkit.geoaccessor.geoseries.duplicated_geometry_groups import BINARY_PREDICATE

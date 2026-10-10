@@ -1,7 +1,7 @@
 from typing import Literal
 
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geodataframe.duplicated_geometry import duplicated_geometry
 from dtoolkit.geoaccessor.geoseries import (

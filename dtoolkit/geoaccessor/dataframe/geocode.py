@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.geoaccessor.series import geocode as s_geocode

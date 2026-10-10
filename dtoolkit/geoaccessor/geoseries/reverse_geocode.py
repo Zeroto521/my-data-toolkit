@@ -4,7 +4,7 @@ from collections.abc import Hashable
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 from dtoolkit.geoaccessor.series.geocode import geolocator

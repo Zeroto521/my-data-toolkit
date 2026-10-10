@@ -4,7 +4,7 @@ from typing import Literal
 import geopandas as gpd
 import numpy as np
 import shapely
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.register import register_geoseries_method
 

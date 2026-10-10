@@ -1,5 +1,5 @@
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries import cncrs_offset as s_cncrs_offset
 from dtoolkit.geoaccessor.geoseries.cncrs_offset import CHINA_CRS

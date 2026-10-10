@@ -1,6 +1,6 @@
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.geoaccessor.geoseries import has_hole as s_has_hole
 from dtoolkit.geoaccessor.register import register_geodataframe_method

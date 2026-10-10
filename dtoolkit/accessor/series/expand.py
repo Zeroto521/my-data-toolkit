@@ -4,7 +4,7 @@ from typing import Iterable
 
 import pandas as pd
 from pandas.api.types import is_list_like
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.accessor.register import register_series_method
 

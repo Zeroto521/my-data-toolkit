@@ -1,7 +1,7 @@
 from typing import Literal
 
 import geopandas as gpd
-from pandas.util._decorators import doc
+from dtoolkit.util._decorator import doc
 
 from dtoolkit.accessor.series import invert_or_not
 from dtoolkit.geoaccessor.register import register_geoseries_method
