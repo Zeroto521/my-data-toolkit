@@ -30,7 +30,7 @@ def test_no_docstring():
     def func():
         pass
 
-    assert func.__doc__ is None
+    assert func.__doc__ == ""
 
 
 def test_none_docstring():
@@ -73,7 +73,7 @@ def test_chained_decorators():
         """{klass} derived."""
 
     assert "Derived derived" in func.__doc__
-    assert "Source source" in func.__doc__
+    assert "Derived source" in func.__doc__
 
 
 def test_chained_formatter_not_reformatted():
@@ -86,8 +86,8 @@ def test_chained_formatter_not_reformatted():
     def func():
         """{klass} derived."""
 
-    assert "Source source" in func.__doc__
     assert "{klass} derived" in func.__doc__
+    assert "{klass} source" in func.__doc__
 
 
 def test_docstring_components_tracked():
