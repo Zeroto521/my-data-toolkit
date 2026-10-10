@@ -1,4 +1,5 @@
-from collections.abc import Callable, Iterable
+from collections.abc import Callable
+from collections.abc import Iterable
 from functools import partial
 from typing import Literal
 

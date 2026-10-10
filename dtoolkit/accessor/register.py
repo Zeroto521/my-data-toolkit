@@ -1,5 +1,5 @@
-from functools import wraps
 from collections.abc import Callable
+from functools import wraps
 
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_index_accessor
