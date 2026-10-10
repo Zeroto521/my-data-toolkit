@@ -3,10 +3,10 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import geopandas as gpd
-from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geoseries import voronoi as s_voronoi
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 if TYPE_CHECKING:
     from shapely import MultiPolygon

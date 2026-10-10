@@ -1,10 +1,10 @@
 from typing import Literal
 
 import pandas as pd
-from pandas.util._decorators import doc
 
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series import dropna_index as s_dropna_index
+from dtoolkit.util._decorator import doc
 
 
 @register_dataframe_method

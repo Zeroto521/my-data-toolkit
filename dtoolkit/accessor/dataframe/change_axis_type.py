@@ -1,11 +1,11 @@
 import pandas as pd
-from pandas.util._decorators import doc
 
 from dtoolkit._typing import Axis
 from dtoolkit.accessor.register import register_dataframe_method
 from dtoolkit.accessor.series.change_axis_type import (
     change_axis_type as s_change_axis_type,
 )
+from dtoolkit.util._decorator import doc
 
 
 @register_dataframe_method

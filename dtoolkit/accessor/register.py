@@ -4,9 +4,9 @@ from typing import Callable
 from pandas.api.extensions import register_dataframe_accessor
 from pandas.api.extensions import register_index_accessor
 from pandas.api.extensions import register_series_accessor
-from pandas.util._decorators import doc
 
 from dtoolkit._typing import SeriesOrFrame
+from dtoolkit.util._decorator import doc
 
 
 def register_method_factory(register_accessor, /):

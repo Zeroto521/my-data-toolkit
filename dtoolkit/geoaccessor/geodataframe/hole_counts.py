@@ -1,9 +1,9 @@
 import geopandas as gpd
 import pandas as pd
-from pandas.util._decorators import doc
 
 from dtoolkit.geoaccessor.geoseries import hole_counts as s_hole_counts
 from dtoolkit.geoaccessor.register import register_geodataframe_method
+from dtoolkit.util._decorator import doc
 
 
 @register_geodataframe_method
