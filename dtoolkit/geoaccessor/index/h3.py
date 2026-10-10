@@ -94,7 +94,7 @@ class H3(NoNewAttributesMixin):
         612845052823076863    a
         614269156845420543    b
         dtype: str
-        >>> s.h3.area
+        >>> s.h3.area  # doctest: +FLOAT_CMP
         612845052823076863    710781.770904
         614269156845420543    852134.191671
         dtype: float64
