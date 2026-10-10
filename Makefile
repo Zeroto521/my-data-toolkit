@@ -55,7 +55,6 @@ dist:
 info:
 	python -V
 	python -c "from dtoolkit import __version__; print(__version__);"
-	python -c "import pprint; from dtoolkit._version import get_versions; pprint.pprint(get_versions());"
 
 html:
 	cd doc && make html
