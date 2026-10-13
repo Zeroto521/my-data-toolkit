@@ -17,9 +17,13 @@ from datetime import datetime, timezone
 
 import dtoolkit
 
+# setuptools-scm adds a local version such as `+g9d488f73b.d20261010` when the
+# build is not on a tag. It is dropped because the full string overflows the
+# theme's navbar.
 # fmt: off
 version = release = (
     dtoolkit.__version__
+    .split("+", 1)[0]
     .replace(".dev0", "")
     .replace(".post0", "")
 )
