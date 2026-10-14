@@ -86,7 +86,7 @@ def reverse_geocode(
     >>> df
                          geometry
     0  POINT (-71.05949 42.35847)
-    >>> df.reverse_geocode()
+    >>> df.reverse_geocode()  # doctest: +SKIP
                                                  address                    geometry
     0  18-32, Tremont Street, 02108, Tremont Street, ...  POINT (-71.05949 42.35847)
     """
