@@ -1,5 +1,5 @@
 ##################
-DToolKit |version|
+DToolKit
 ##################
 
 Face the engineering of data preprocessing.
