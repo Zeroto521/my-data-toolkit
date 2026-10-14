@@ -82,6 +82,9 @@ html_theme_options = {
             "icon": "fas fa-box",
         },
     ],
+    # Fixed navbar text; without this the theme falls back to `docstitle`,
+    # which embeds the full version and overflows the navbar.
+    "logo": {"text": project},
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
