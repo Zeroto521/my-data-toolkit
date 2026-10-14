@@ -17,13 +17,9 @@ from datetime import datetime, timezone
 
 import dtoolkit
 
-# setuptools-scm adds a local version such as `+g9d488f73b.d20261010` when the
-# build is not on a tag. It is dropped because the full string overflows the
-# theme's navbar.
 # fmt: off
 version = release = (
     dtoolkit.__version__
-    .split("+", 1)[0]
     .replace(".dev0", "")
     .replace(".post0", "")
 )
@@ -86,6 +82,9 @@ html_theme_options = {
             "icon": "fas fa-box",
         },
     ],
+    # Fixed navbar text; without this the theme falls back to `docstitle`,
+    # which embeds the full version and overflows the navbar.
+    "logo": {"text": project},
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
