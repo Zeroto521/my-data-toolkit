@@ -11,6 +11,8 @@ General methods and attributes
 
     radius
     geoarea
+    geoazimuth
+    geoazimuth_matrix
     geodistance
     geodistance_matrix
     geobuffer
